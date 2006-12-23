@@ -55,21 +55,21 @@ namespace Paradiso
             InitializeComponent();
 
             MovieScheduleList = new MovieScheduleListModel(movieScheduleListModel);
-            if (movieScheduleListModel.SeatType == 1)
+            if (movieScheduleListModel.SeatType == 1) //reserved
             {
                 IsReservedSeating = true;
                 IsFreeSeating = false;
                 IsLimitedFreeSeating = false;
                 IsUnlimitedFreeSeating = false;
             }
-            else if (movieScheduleListModel.SeatType == 2)
+            else if (movieScheduleListModel.SeatType == 2) //limited free seating
             {
                 IsReservedSeating = false;
                 IsFreeSeating = true;
                 IsLimitedFreeSeating = true;
                 IsUnlimitedFreeSeating = false;
             }
-            else if (movieScheduleListModel.SeatType == 3)
+            else if (movieScheduleListModel.SeatType == 3) //unlimited free seating
             {
                 IsReservedSeating = false;
                 IsFreeSeating = true;

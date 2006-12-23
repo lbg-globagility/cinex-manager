@@ -26,7 +26,7 @@ namespace Paradiso
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
-        private int intMaxRowCount = 4;
+        private int intMaxRowCount = 5;
         DispatcherTimer timer;
 
         public MovieCalendarPage()
@@ -53,6 +53,12 @@ namespace Paradiso
                 TicketPanel.Visibility = Visibility.Visible;
             else
                 TicketPanel.Visibility = Visibility.Hidden;
+
+            if (paradisoObjectManager.HasRights("RESERVE"))
+                Reserved.Visibility = Visibility.Visible;
+            else
+                Reserved.Visibility = Visibility.Hidden;
+            Unreserved.Visibility = Visibility.Hidden;
         }
 
         public int ColumnCount
@@ -261,7 +267,7 @@ namespace Paradiso
                 }
             }
 
-            for (int k = movieScheduleItems.Count; k < 8; k++)
+            for (int k = movieScheduleItems.Count; k < intMaxRowCount*2; k++)
             {
                 movieScheduleItems.Add( new MovieScheduleModel());
             }
@@ -345,7 +351,10 @@ namespace Paradiso
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
                 timer.Stop();
-                NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                if (ParadisoObjectManager.GetInstance().IsReservedMode)
+                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
+                else
+                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
 
                 /*
                 if (msli.SeatType == 1) //reserved seating
@@ -406,6 +415,20 @@ namespace Paradiso
         {
             timer.Stop();
             NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
+        }
+
+        private void Reserved_Click(object sender, RoutedEventArgs e)
+        {
+            ParadisoObjectManager.GetInstance().IsReservedMode = true;
+            Reserved.Visibility = System.Windows.Visibility.Hidden;
+            Unreserved.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Unreserved_Click(object sender, RoutedEventArgs e)
+        {
+            ParadisoObjectManager.GetInstance().IsReservedMode = false;
+            Unreserved.Visibility = System.Windows.Visibility.Hidden;
+            Reserved.Visibility = System.Windows.Visibility.Visible;
         }
 
     }

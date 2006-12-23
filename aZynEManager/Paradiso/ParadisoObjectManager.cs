@@ -16,6 +16,8 @@ namespace Paradiso
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string SessionId { get; set; }
+        private bool _IsReservedMode { get; set; }
+
 
         private static ParadisoObjectManager instance;
 
@@ -27,7 +29,21 @@ namespace Paradiso
             //ScreeningDate = DateTime.Now;
             UserId = 0;
             UserName = string.Empty;
+            _IsReservedMode = false;
         }
+
+        public bool IsReservedMode
+        {
+            get
+            {
+                if (!ParadisoObjectManager.GetInstance().HasRights("RESERVE"))
+                    return false;
+                else
+                    return _IsReservedMode; 
+            }
+            set { _IsReservedMode = value; }
+        }
+
 
         public static ParadisoObjectManager GetInstance()
         {

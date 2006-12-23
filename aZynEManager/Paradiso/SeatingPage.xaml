@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:l="clr-namespace:Paradiso"
-      mc:Ignorable="d" Title="SeatingPage1" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
+      mc:Ignorable="d" Title="SeatingPage" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
