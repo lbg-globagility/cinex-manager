@@ -44,6 +44,7 @@
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
+            <l:SeatColorMultiConverter x:Key="seatColorMulti" />
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
@@ -177,15 +178,25 @@
                                     </DockPanel>
                                 </ContextMenu>
                             </Canvas.ContextMenu>
-                            <Image Name="SeatIcon" Width="{Binding Width}" >
-                                    <Image.Source>
-                                        <MultiBinding Converter="{StaticResource seatImage}">
-                                            <Binding Path="Type"/>
-                                            <Binding Path="SeatType"/>
-                                        </MultiBinding>
-                                    </Image.Source>
-                                </Image>
-                                <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                            <Grid>
+                                <Grid.Background>
+                                    <MultiBinding Converter="{StaticResource seatColorMulti}">
+                                        <Binding Path="Type"/>
+                                        <Binding Path="SeatColor"/>
+                                    </MultiBinding>
+                                </Grid.Background>
+                                <Image Name="SeatIcon" Width="{Binding Width}" >
+                                        <Image.Source>
+                                            <MultiBinding Converter="{StaticResource seatImage}">
+                                                <Binding Path="Type"/>
+                                                <Binding Path="SeatType"/>
+                                            </MultiBinding>
+                                        </Image.Source>
+                                    </Image>
+                            </Grid>
+
+                            <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                            
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

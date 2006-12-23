@@ -417,6 +417,8 @@ namespace Paradiso
                                         intSeatColor
                                     ));
 
+                                    seatModel.SeatColor = intSeatColor;
+
                                     if (IsReservedSeating)
                                         break;
                                 }

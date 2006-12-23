@@ -311,6 +311,10 @@ namespace Paradiso
             if (movieScheduleItems.Count > intMaxRowCount)
                 intColumnCount = 2;
 
+            if (movieScheduleItems.Count > 0)
+                MovieCalendarListBox.Visibility = System.Windows.Visibility.Visible;
+            else
+                MovieCalendarListBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -363,6 +367,7 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            //MovieScheduleListItemsListView
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

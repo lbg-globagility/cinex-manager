@@ -170,6 +170,7 @@
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\SeatColorMultiConverter.cs" />
     <Compile Include="SeatingPage.xaml.cs">
       <DependentUpon>SeatingPage.xaml</DependentUpon>
     </Compile>

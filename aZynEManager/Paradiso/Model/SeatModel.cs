@@ -33,6 +33,7 @@ namespace Paradiso.Model
         private int intSeatType; //1-available, 2-selected, 3-taken
 
         private int intPatronKey = -1;
+        private int intSeatColor = 0;
 
         private bool blnIsSelected = false; //for reserved seating
 
@@ -164,6 +165,20 @@ namespace Paradiso.Model
                 {
                     blnIsSelected = value;
                     NotifyPropertyChanged("IsSelected");
+                }
+            }
+        }
+
+
+        public int SeatColor
+        {
+            get { return intSeatColor; }
+            set
+            {
+                if (value != intSeatColor)
+                {
+                    intSeatColor = value;
+                    NotifyPropertyChanged("SeatColor");
                 }
             }
         }
