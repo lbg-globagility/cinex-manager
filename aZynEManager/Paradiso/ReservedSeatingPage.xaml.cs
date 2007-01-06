@@ -28,6 +28,7 @@ namespace Paradiso
         
         public ObservableCollection<PatronModel> Patrons { get; set; }
         public ObservableCollection<SeatModel> Seats { get; set; }
+        public PatronSeatListModel SelectedPatronSeatList { get; set; }
 
         DispatcherTimer timer;
         private bool blnIsUpdating = false;
@@ -37,8 +38,10 @@ namespace Paradiso
             InitializeComponent();
 
             Key = intKey;
-            Seats = new ObservableCollection<SeatModel>();
             MovieSchedule = new MovieScheduleListModel();
+            Seats = new ObservableCollection<SeatModel>();
+
+            SelectedPatronSeatList = new PatronSeatListModel();
             this.UpdateMovieSchedule();
             
             this.DataContext = this;
@@ -128,7 +131,6 @@ namespace Paradiso
                 }
                 string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
-                //MovieScheduleListModel _movie_schedule_list_item = new MovieScheduleListModel()
                 {
                     MovieSchedule.Key = _movie_schedule_list.mslkey;
                     MovieSchedule.CinemaKey = _movie_schedule_list.cinemakey;
@@ -156,7 +158,8 @@ namespace Paradiso
                 //selected seats 
                 var selectedseats = (from mcths in context.movies_schedule_list_house_seat_view
                                      where mcths.movies_schedule_list_id == this.Key && mcths.session_id == strSessionId
-                                     select new { mcths.cinema_seat_id, mcths.movies_schedule_list_patron_id }).ToList();
+                                     select new { mcths.id, mcths.cinema_seat_id, mcths.movies_schedule_list_patron_id, mcths.reserved_date
+                                     }).ToList();
 
 
                 /*
@@ -236,7 +239,7 @@ namespace Paradiso
 
                 //TODO add scrollbar and set maximum height and width, get maximum width to center 
                 Seats.Clear();
-
+                SelectedPatronSeatList.PatronSeats.Clear();
 
                 var seats = (from s in context.cinema_seat
                                 where s.cinema_id == MovieSchedule.CinemaKey
@@ -281,6 +284,28 @@ namespace Paradiso
                                 {
                                     seatModel.SeatType = 2;
                                     seatModel.PatronKey = ss.movies_schedule_list_patron_id;
+
+                                    string strPatronName = string.Empty;
+                                    decimal decPrice = 0;
+                                    foreach (var p in Patrons)
+                                    {
+                                        if (p != null && p.Key == seatModel.PatronKey)
+                                        {
+                                            strPatronName = p.Name;
+                                            decPrice = p.Price;
+                                            break;
+                                        }
+                                    }
+
+                                    SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()
+                                    {
+                                        Key = ss.id,
+                                        SeatName = seatModel.Name,
+                                        PatronName = strPatronName,
+                                        Price = decPrice,
+                                        ReservedDate = (DateTime)ss.reserved_date
+                                    });
+
                                     break;
                                 }
                             }
@@ -311,41 +336,44 @@ namespace Paradiso
             try
             {
                 SeatModel seatModel = (SeatModel)((Canvas)sender).DataContext;
-                if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
+                //if (seatModel.Type == 1) //only seats
                 {
-                    PatronModel patron = null;
-                    if (seatModel.SeatType == 2) //get patron
+                    if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
                     {
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        PatronModel patron = null;
+                        if (seatModel.SeatType == 2) //get patron
                         {
-                            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
-
-                            var patronid = (from mcths in context.movies_schedule_list_house_seat_view
-                                            where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
-                                            mcths.session_id == strSessionId
-                                            select mcths.movies_schedule_list_patron_id).FirstOrDefault();
-                            if (patronid != null)
+                            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                             {
-                                if (Patrons.Count > 0)
+                                string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                                var patronid = (from mcths in context.movies_schedule_list_house_seat_view
+                                                where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
+                                                mcths.session_id == strSessionId
+                                                select mcths.movies_schedule_list_patron_id).FirstOrDefault();
+                                if (patronid != null)
                                 {
-                                    foreach (var p in Patrons)
+                                    if (Patrons.Count > 0)
                                     {
-                                        if (p != null && p.Key == patronid)
+                                        foreach (var p in Patrons)
                                         {
-                                            patron = p;
-                                            break;
+                                            if (p != null && p.Key == patronid)
+                                            {
+                                                patron = p;
+                                                break;
+                                            }
                                         }
                                     }
                                 }
+
                             }
-
                         }
-                    }
 
-                    PatronWindow patronWindow = new PatronWindow(MovieSchedule, seatModel, Patrons, patron);
-                    patronWindow.Owner = Window.GetWindow(this);
-                    patronWindow.ShowDialog();
-                    blnHasChanges = patronWindow.IsUpdated;
+                        PatronWindow patronWindow = new PatronWindow(MovieSchedule, seatModel, Patrons, patron);
+                        patronWindow.Owner = Window.GetWindow(this);
+                        patronWindow.ShowDialog();
+                        blnHasChanges = patronWindow.IsUpdated;
+                    }
                 }
             }
             catch { }
@@ -359,6 +387,28 @@ namespace Paradiso
         {
             timer.Stop();
             this.ClearSelection();
+            this.UpdateMovieSchedule();
+            timer.Start();
+        }
+
+        private void RemovePatronSeat_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+
+            PatronSeatModel patronSeatModel = (PatronSeatModel)((Button)sender).DataContext;
+
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var ps = (from mslhs in context.movies_schedule_list_house_seat
+                          where mslhs.id == patronSeatModel.Key
+                          select mslhs).FirstOrDefault();
+                if (ps != null)
+                {
+                    context.movies_schedule_list_house_seat.DeleteObject(ps);
+                    context.SaveChanges();
+                }
+            }
+
             this.UpdateMovieSchedule();
             timer.Start();
         }

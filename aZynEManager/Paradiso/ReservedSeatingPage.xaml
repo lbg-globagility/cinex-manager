@@ -3,15 +3,29 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:l="clr-namespace:Paradiso"
       mc:Ignorable="d" Title="SeatingPage1" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded">
     <Page.Resources>
-        <l:FooterLineConverter x:Key="footerLine" />
-        <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
-        <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
-        <l:SeatImageMultiConverter x:Key="seatImage"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <Canvas Name="MainCanvas">
+        <Canvas.Resources>
+            <l:FooterLineConverter x:Key="footerLine" />
+            <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
+            <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
+            <l:SeatImageMultiConverter x:Key="seatImage"/>
+            <l:TotalPatronSeatConverter x:Key="totalPatronSeat"/>
+        </Canvas.Resources>
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
         </Canvas.Background>
@@ -76,6 +90,13 @@
                         </Canvas>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
                 <ItemsControl.ItemContainerStyle>
                     <Style>
                         <Setter Property="Canvas.Left" Value="{Binding X}"/>
@@ -85,7 +106,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown">
-                            <Image Name="SeatIcon" Width="{Binding Width}" Height="{Binding Height}" Stretch="Fill">
+                            <Image Name="SeatIcon" Width="{Binding Width}" >
                                 <Image.Source>
                                     <MultiBinding Converter="{StaticResource seatImage}">
                                         <Binding Path="Type"/>
@@ -111,8 +132,38 @@
                 </Canvas>
             </ScrollViewer-->
         </DockPanel>
+        
+        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White">
+            <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
+            <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="280">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete">
+                                <Rectangle Width="10" Height="10">
+                                    <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Button>
+                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
+                            <TextBlock Text="{Binding PatronName}" Width="120"/>
+                            <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                    <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                </StackPanel>
+            </DockPanel>
 
-        <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Horizontal" Margin="5">
+        </StackPanel>
+
+        <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Horizontal" Margin="20">
             <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
             <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
             <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75"/>

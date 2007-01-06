@@ -133,6 +133,8 @@
     <Compile Include="Model\MovieScheduleModel.cs" />
     <Compile Include="Model\MovieScheduleListModel.cs" />
     <Compile Include="Model\PatronModel.cs" />
+    <Compile Include="Model\PatronSeatListModel.cs" />
+    <Compile Include="Model\PatronSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
     <Compile Include="MovieCalendarPage1.xaml.cs">
       <DependentUpon>MovieCalendarPage1.xaml</DependentUpon>
@@ -167,6 +169,7 @@
     <Compile Include="TicketPatronControl.xaml.cs">
       <DependentUpon>TicketPatronControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TotalPatronSeatConverter.cs" />
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="LoginPage.xaml">
@@ -219,6 +222,10 @@
     <Page Include="PatronWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SeatingPage.xaml">
       <SubType>Designer</SubType>
@@ -282,6 +289,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\film-part.jpg" />
@@ -370,6 +378,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\carpet-bg-2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
