@@ -11,8 +11,8 @@ namespace Paradiso
     /// </summary>
     public class ParadisoObjectManager
     {
-        public DateTime ScreeningDate { get; set; }
-        public DateTime CurrentDate { get; set; }
+        //public DateTime ScreeningDate { get; set; }
+        //public DateTime CurrentDate { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string SessionId { get; set; }
@@ -24,8 +24,7 @@ namespace Paradiso
         /// </summary>
         private ParadisoObjectManager()
         {
-            ScreeningDate = DateTime.Now;
-            CurrentDate = DateTime.Now;
+            //ScreeningDate = DateTime.Now;
             UserId = 0;
             UserName = string.Empty;
         }
@@ -45,6 +44,11 @@ namespace Paradiso
             }
         }
 
+        public void SetNewSessionId()
+        {
+            this.SessionId = this.NewSessionId;
+        }
+
         public string NewSessionId
         {
             get
@@ -53,7 +57,7 @@ namespace Paradiso
             }
         }
 
-        public DateTime DbCurrentDate
+        public DateTime CurrentDate
         {
             get
             {
@@ -68,6 +72,15 @@ namespace Paradiso
             }
         }
 
+        public DateTime ScreeningDate
+        {
+            get
+            {
+                return this.CurrentDate.Date;
+            }
+        }
+
+        /*
         //hack should return dbcurrentdate instead
         public DateTime ActualCurrentDate
         {
@@ -79,6 +92,6 @@ namespace Paradiso
                 return dtNow;
             }
         }
-
+        */
     }
 }

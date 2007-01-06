@@ -18,6 +18,8 @@ namespace Paradiso.Model
 
         private int intSeatType; //1-available, 2-selected, 3-taken
 
+        private int intPatronKey = -1; 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int Key
@@ -123,6 +125,20 @@ namespace Paradiso.Model
                 }
             }
         }
+
+        public int PatronKey
+        {
+            get { return intPatronKey; }
+            set
+            {
+                if (value != intPatronKey)
+                {
+                    intPatronKey = value;
+                    NotifyPropertyChanged("PatronKey");
+                }
+            }
+        }
+
 
         private void NotifyPropertyChanged(String info)
         {

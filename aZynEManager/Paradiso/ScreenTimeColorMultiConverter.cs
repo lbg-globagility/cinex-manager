@@ -13,11 +13,26 @@ namespace Paradiso
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool blnIsEnabled = (bool)values[0];
-            int intKey = (int)values[1];
+            bool blnIsEnabled = false;
+            int intKey = 0;
             int intCurrentKey = 0;
-            int.TryParse(values[2].ToString(), out intCurrentKey);
-            //check if current selection, binding not working properly
+            try
+            {
+                blnIsEnabled = (bool)values[0];
+            }
+            catch { }
+            try
+            {
+                intKey = (int)values[1];
+            }
+            catch { }
+            try
+            {
+                int.TryParse(values[2].ToString(), out intCurrentKey);
+            }
+            catch { }
+            //checks if current selection, binding not working properly
+
             
             if (!blnIsEnabled) //disabled
                 return new SolidColorBrush(Colors.LightGray);

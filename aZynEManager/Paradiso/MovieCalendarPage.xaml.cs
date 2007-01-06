@@ -31,8 +31,8 @@ namespace Paradiso
 
             movieCalendars = new ObservableCollection<MovieCalendarItemControl>();
 
-            DateTime dtScreenDate = new DateTime(2006, 12, 1);
-            ParadisoObjectManager.GetInstance().ScreeningDate = dtScreenDate;
+            //DateTime dtScreenDate = new DateTime(2006, 12, 1);
+            //ParadisoObjectManager.GetInstance().ScreeningDate = dtScreenDate;
 
         }
 

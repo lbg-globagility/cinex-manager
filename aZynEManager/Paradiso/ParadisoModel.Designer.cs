@@ -3100,12 +3100,14 @@ namespace Paradiso
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="movies_schedule_list_id">Initial value of the movies_schedule_list_id property.</param>
         /// <param name="cinema_seat_id">Initial value of the cinema_seat_id property.</param>
-        public static movies_schedule_list_house_seat Createmovies_schedule_list_house_seat(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id)
+        /// <param name="movies_schedule_list_patron_id">Initial value of the movies_schedule_list_patron_id property.</param>
+        public static movies_schedule_list_house_seat Createmovies_schedule_list_house_seat(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id, global::System.Int32 movies_schedule_list_patron_id)
         {
             movies_schedule_list_house_seat movies_schedule_list_house_seat = new movies_schedule_list_house_seat();
             movies_schedule_list_house_seat.id = id;
             movies_schedule_list_house_seat.movies_schedule_list_id = movies_schedule_list_id;
             movies_schedule_list_house_seat.cinema_seat_id = cinema_seat_id;
+            movies_schedule_list_house_seat.movies_schedule_list_patron_id = movies_schedule_list_patron_id;
             return movies_schedule_list_house_seat;
         }
 
@@ -3259,6 +3261,54 @@ namespace Paradiso
         private Nullable<global::System.DateTime> _reserved_date;
         partial void Onreserved_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onreserved_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String session_id
+        {
+            get
+            {
+                return _session_id;
+            }
+            set
+            {
+                Onsession_idChanging(value);
+                ReportPropertyChanging("session_id");
+                _session_id = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("session_id");
+                Onsession_idChanged();
+            }
+        }
+        private global::System.String _session_id;
+        partial void Onsession_idChanging(global::System.String value);
+        partial void Onsession_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 movies_schedule_list_patron_id
+        {
+            get
+            {
+                return _movies_schedule_list_patron_id;
+            }
+            set
+            {
+                Onmovies_schedule_list_patron_idChanging(value);
+                ReportPropertyChanging("movies_schedule_list_patron_id");
+                _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("movies_schedule_list_patron_id");
+                Onmovies_schedule_list_patron_idChanged();
+            }
+        }
+        private global::System.Int32 _movies_schedule_list_patron_id;
+        partial void Onmovies_schedule_list_patron_idChanging(global::System.Int32 value);
+        partial void Onmovies_schedule_list_patron_idChanged();
 
         #endregion
 
@@ -3361,12 +3411,14 @@ namespace Paradiso
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="movies_schedule_list_id">Initial value of the movies_schedule_list_id property.</param>
         /// <param name="cinema_seat_id">Initial value of the cinema_seat_id property.</param>
-        public static movies_schedule_list_house_seat_view Createmovies_schedule_list_house_seat_view(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id)
+        /// <param name="movies_schedule_list_patron_id">Initial value of the movies_schedule_list_patron_id property.</param>
+        public static movies_schedule_list_house_seat_view Createmovies_schedule_list_house_seat_view(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id, global::System.Int32 movies_schedule_list_patron_id)
         {
             movies_schedule_list_house_seat_view movies_schedule_list_house_seat_view = new movies_schedule_list_house_seat_view();
             movies_schedule_list_house_seat_view.id = id;
             movies_schedule_list_house_seat_view.movies_schedule_list_id = movies_schedule_list_id;
             movies_schedule_list_house_seat_view.cinema_seat_id = cinema_seat_id;
+            movies_schedule_list_house_seat_view.movies_schedule_list_patron_id = movies_schedule_list_patron_id;
             return movies_schedule_list_house_seat_view;
         }
 
@@ -3526,6 +3578,57 @@ namespace Paradiso
         private Nullable<global::System.DateTime> _reserved_date;
         partial void Onreserved_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onreserved_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String session_id
+        {
+            get
+            {
+                return _session_id;
+            }
+            set
+            {
+                Onsession_idChanging(value);
+                ReportPropertyChanging("session_id");
+                _session_id = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("session_id");
+                Onsession_idChanged();
+            }
+        }
+        private global::System.String _session_id;
+        partial void Onsession_idChanging(global::System.String value);
+        partial void Onsession_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 movies_schedule_list_patron_id
+        {
+            get
+            {
+                return _movies_schedule_list_patron_id;
+            }
+            set
+            {
+                if (_movies_schedule_list_patron_id != value)
+                {
+                    Onmovies_schedule_list_patron_idChanging(value);
+                    ReportPropertyChanging("movies_schedule_list_patron_id");
+                    _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("movies_schedule_list_patron_id");
+                    Onmovies_schedule_list_patron_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _movies_schedule_list_patron_id;
+        partial void Onmovies_schedule_list_patron_idChanging(global::System.Int32 value);
+        partial void Onmovies_schedule_list_patron_idChanged();
 
         #endregion
 

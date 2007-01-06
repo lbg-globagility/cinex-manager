@@ -368,6 +368,9 @@
     <Resource Include="Images\seat-red-r.png" />
     <Resource Include="Images\seat-yellow-r.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\carpet-bg-2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>

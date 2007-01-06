@@ -16,7 +16,7 @@ namespace Paradiso
         public NotifyingDateTime()
         {
 
-            _now = ParadisoObjectManager.GetInstance().DbCurrentDate;
+            _now = ParadisoObjectManager.GetInstance().CurrentDate;
 
             DispatcherTimer timer = new DispatcherTimer();
 
@@ -48,7 +48,7 @@ namespace Paradiso
 
         void timer_Tick(object sender, EventArgs e)
         {
-            Now = ParadisoObjectManager.GetInstance().DbCurrentDate;
+            Now = ParadisoObjectManager.GetInstance().CurrentDate;
         }
     }
 }

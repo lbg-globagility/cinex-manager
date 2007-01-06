@@ -34,7 +34,39 @@ ALTER TABLE `movies_schedule_list_house_seat`
 ADD COLUMN `session_id` VARCHAR(45) NULL AFTER `reserved_date`;
 
 UPDATE cinema_seat SET y2= 105 WHERE object_type <> 1;
-UPDATE  cinema_seat SET y2 = y2+30 WHERE object_type = 1;
+UPDATE cinema_seat SET y2 = y1+36 WHERE object_type = 1;
 
 --hack
 UPDATE  movies_schedule_list_reserved_seat SET cinema_seat_id = 1058 + (id - 22589) WHERE movies_schedule_list_id = 4349;
+
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `movies_schedule_list_house_seat_view` AS
+    select 
+        `movies_schedule_list_house_seat`.`id` AS `id`,
+        `movies_schedule_list_house_seat`.`movies_schedule_list_id` AS `movies_schedule_list_id`,
+        `movies_schedule_list_house_seat`.`cinema_seat_id` AS `cinema_seat_id`,
+        `movies_schedule_list_house_seat`.`full_name` AS `full_name`,
+        `movies_schedule_list_house_seat`.`notes` AS `notes`,
+        `movies_schedule_list_house_seat`.`reserved_date` AS `reserved_date`,
+        `movies_schedule_list_house_seat`.`session_id` AS `session_id`,
+		`movies_schedule_list_house_seat`.`movies_schedule_list_patron_id` AS `movies_schedule_list_patron_id`
+    from
+        `movies_schedule_list_house_seat`
+    where
+        ((time_to_sec(timediff(now(),
+                        ifnull(`movies_schedule_list_house_seat`.`reserved_date`,
+                                now()))) < 600)
+            and (not ((`movies_schedule_list_house_seat`.`movies_schedule_list_id` , `movies_schedule_list_house_seat`.`cinema_seat_id`) in (select 
+                `movies_schedule_list_reserved_seat`.`movies_schedule_list_id`,
+                    `movies_schedule_list_reserved_seat`.`cinema_seat_id`
+            from
+                `movies_schedule_list_reserved_seat`))));
+		
+		
+ALTER TABLE `movies_schedule_list_house_seat` 
+ADD COLUMN `movies_schedule_list_patron_id` INT NOT NULL DEFAULT 0 AFTER `session_id`;
+		

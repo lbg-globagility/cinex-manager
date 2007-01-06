@@ -36,8 +36,8 @@ namespace Paradiso
             movieScheduleItems = new ObservableCollection<MovieScheduleModel>();
 
             //DateTime dtScreenDate = new DateTime(2006, 12, 1);
-            DateTime dtScreenDate = new DateTime(2007, 1, 6);
-            ParadisoObjectManager.GetInstance().ScreeningDate = dtScreenDate;
+            //DateTime dtScreenDate = new DateTime(2007, 1, 6);
+            //ParadisoObjectManager.GetInstance().ScreeningDate = dtScreenDate;
 
             this.LoadMovieSchedules();
 
@@ -62,7 +62,7 @@ namespace Paradiso
         //will not attempt to clear but update
         private void UpdateMovieSchedules(bool blnIsClear)
         {
-            DateTime dtNow = ParadisoObjectManager.GetInstance().ActualCurrentDate;
+            DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
             DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
 
             List<int> lstKeys = new List<int>();
@@ -268,7 +268,7 @@ namespace Paradiso
         private void SetNextMovieScheduleListItem(MovieScheduleModel movieScheduleItem)
         {
 
-            DateTime dtNow = ParadisoObjectManager.GetInstance().ActualCurrentDate;
+            DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
             if (movieScheduleItem.MovieScheduleListItems.Count > 0)
             {
                 int intMovieScheduleListItemIndex = -1;

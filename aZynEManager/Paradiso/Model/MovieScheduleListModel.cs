@@ -20,6 +20,7 @@ namespace Paradiso.Model
         private string strRunningTime;
         private int intAvailable = 0;
         private int intBooked = 0;
+        private int intSelected = 0;
         private string strRating = string.Empty;
 
         private bool blnIsEnabled = false;
@@ -122,6 +123,20 @@ namespace Paradiso.Model
                 {
                     intAvailable = value;
                     NotifyPropertyChanged("Available");
+                }
+            }
+        }
+
+        public int Selected
+        {
+            get { return intSelected; }
+
+            set
+            {
+                if (value != intSelected)
+                {
+                    intSelected = value;
+                    NotifyPropertyChanged("Selected");
                 }
             }
         }

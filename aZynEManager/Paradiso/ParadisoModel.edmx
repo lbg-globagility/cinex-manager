@@ -36,7 +36,9 @@
       `movies_schedule_list_house_seat_view`.`cinema_seat_id`, 
       `movies_schedule_list_house_seat_view`.`full_name`, 
       `movies_schedule_list_house_seat_view`.`notes`, 
-      `movies_schedule_list_house_seat_view`.`reserved_date`
+      `movies_schedule_list_house_seat_view`.`reserved_date`, 
+      `movies_schedule_list_house_seat_view`.`session_id`, 
+      `movies_schedule_list_house_seat_view`.`movies_schedule_list_patron_id`
       FROM `movies_schedule_list_house_seat_view` AS `movies_schedule_list_house_seat_view`</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fk_cinema_patron_cinema1" Association="paradisoModel.Store.fk_cinema_patron_cinema1">
@@ -249,6 +251,8 @@
           <Property Name="full_name" Type="varchar" MaxLength="100" />
           <Property Name="notes" Type="varchar" MaxLength="200" />
           <Property Name="reserved_date" Type="datetime" />
+          <Property Name="session_id" Type="varchar" MaxLength="45" />
+          <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule_list_patron">
           <Key>
@@ -391,6 +395,7 @@
             <PropertyRef Name="id" />
             <PropertyRef Name="movies_schedule_list_id" />
             <PropertyRef Name="cinema_seat_id" />
+            <PropertyRef Name="movies_schedule_list_patron_id" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
@@ -398,6 +403,8 @@
           <Property Name="full_name" Type="varchar" MaxLength="100" />
           <Property Name="notes" Type="varchar" MaxLength="200" />
           <Property Name="reserved_date" Type="datetime" />
+          <Property Name="session_id" Type="varchar" MaxLength="45" />
+          <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="fk_cinema_patron_cinema1">
           <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
@@ -941,6 +948,8 @@
           <NavigationProperty Name="cinema_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" FromRole="movies_schedule_list_house_seat" ToRole="cinema_seat" />
           <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1" FromRole="movies_schedule_list_house_seat" ToRole="movies_schedule_list" />
           <Property Type="DateTime" Name="reserved_date" />
+          <Property Type="String" Name="session_id" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="movies_schedule_list_patron_id" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule_list_patron">
           <Key>
@@ -1386,6 +1395,7 @@
             <PropertyRef Name="id" />
             <PropertyRef Name="movies_schedule_list_id" />
             <PropertyRef Name="cinema_seat_id" />
+            <PropertyRef Name="movies_schedule_list_patron_id" />
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="movies_schedule_list_id" Nullable="false" />
@@ -1393,6 +1403,8 @@
           <Property Type="String" Name="full_name" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="notes" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="reserved_date" />
+          <Property Type="String" Name="session_id" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="movies_schedule_list_patron_id" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1515,6 +1527,8 @@
           <EntitySetMapping Name="movies_schedule_list_house_seat">
             <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_house_seat">
               <MappingFragment StoreEntitySet="movies_schedule_list_house_seat">
+                <ScalarProperty Name="movies_schedule_list_patron_id" ColumnName="movies_schedule_list_patron_id" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
                 <ScalarProperty Name="reserved_date" ColumnName="reserved_date" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
@@ -1669,6 +1683,8 @@
           <EntitySetMapping Name="movies_schedule_list_house_seat_view">
             <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_house_seat_view">
               <MappingFragment StoreEntitySet="movies_schedule_list_house_seat_view">
+                <ScalarProperty Name="movies_schedule_list_patron_id" ColumnName="movies_schedule_list_patron_id" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
                 <ScalarProperty Name="reserved_date" ColumnName="reserved_date" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
                 <ScalarProperty Name="full_name" ColumnName="full_name" />
