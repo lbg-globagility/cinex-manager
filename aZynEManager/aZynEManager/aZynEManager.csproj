@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F16A2BD2-3593-494F-9FF9-DF09302E7D94}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>aZynEManager</RootNamespace>
+    <AssemblyName>aZynEManager</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.8.5.0, Culture=neutral, PublicKeyToken=65a84d45e882d207, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\library\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="rtaGlassEffectsLib">
+      <HintPath>..\..\library\rtaGlassEffectsLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clscommon.cs" />
+    <Compile Include="clsTransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="frmDistributor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDistributor.Designer.cs">
+      <DependentUpon>frmDistributor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMainMovie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainMovie.Designer.cs">
+      <DependentUpon>frmMainMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMovieList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMovieList.Designer.cs">
+      <DependentUpon>frmMovieList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRating.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRating.Designer.cs">
+      <DependentUpon>frmRating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewSorter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDistributor.resx">
+      <DependentUpon>frmDistributor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainMovie.resx">
+      <DependentUpon>frmMainMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMovieList.resx">
+      <DependentUpon>frmMovieList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRating.resx">
+      <DependentUpon>frmRating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gear1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gear4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonclose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonclose1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonclosered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\purple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-add1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button-add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoominblue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonremove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonadd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonedit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonremove1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movielist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movieshare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moviesched.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movietrailer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grantall2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uncheckall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="class\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plusblue24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\round_ok_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonadd1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttondelete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonedit1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonsave.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
