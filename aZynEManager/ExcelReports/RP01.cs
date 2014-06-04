@@ -49,8 +49,8 @@ namespace ExcelReports
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     connection.Open();
 
-                    command.Parameters.Add("?_username", this.Username);
-                    command.Parameters.Add("?_start_date", this.StartDate);
+                    command.Parameters.AddWithValue("?_username", this.Username);
+                    command.Parameters.AddWithValue("?_start_date", this.StartDate);
                     
                     MySqlDataReader reader = command.ExecuteReader();
 
@@ -158,6 +158,8 @@ namespace ExcelReports
                             dblGrandTotalSales += reader.GetDouble(6);
                         }
 
+                        if (intRowCount == 7)
+                            throw new Exception("No records found.");
 
                         newFile.Worksheets[0].Cells[intRowCount, 0].Value = "SUB-TOTAL:";
                         newFile.Worksheets[0].Cells[intRowCount, 0].Style.Font.Weight = ExcelFont.BoldWeight;
