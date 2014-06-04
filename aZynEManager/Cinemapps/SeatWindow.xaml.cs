@@ -305,7 +305,7 @@ namespace Cinemapps
 
             double dblMaxX = 0.0;
             double dblMaxY = 0.0;
-            double dblSpacing = 40.0;
+            //double dblSpacing = 40.0;
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
             {
