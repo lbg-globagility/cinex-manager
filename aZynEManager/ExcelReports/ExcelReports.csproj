@@ -47,6 +47,7 @@
     <Compile Include="GemBoxUtility.cs" />
     <Compile Include="IPreviewReport.cs" />
     <Compile Include="RP01.cs" />
+    <Compile Include="RP02.cs" />
     <Compile Include="SummaryofReportsandDescriptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

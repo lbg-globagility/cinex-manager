@@ -27,7 +27,6 @@ namespace Cinemapps
 
         private void MoviesTile_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void ReportsTile_Click(object sender, RoutedEventArgs e)
@@ -44,7 +43,10 @@ namespace Cinemapps
 
         private void AdministrationTile_Click(object sender, RoutedEventArgs e)
         {
-
+            SeatWindow seatWindow = new SeatWindow();
+            seatWindow.LoadCinema(2);
+            seatWindow.Owner = this;
+            seatWindow.Show();
         }
     }
 }

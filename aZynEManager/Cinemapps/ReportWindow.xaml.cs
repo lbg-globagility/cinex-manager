@@ -75,5 +75,10 @@ namespace Cinemapps
             RP01StartDate.SelectedDate = new DateTime(2006, 12, 1);
         }
 
+        private void PrintRP02_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

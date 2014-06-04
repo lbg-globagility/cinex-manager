@@ -14,7 +14,7 @@
     <DockPanel>
         <ListView Name="ReportSelector" Margin="20">
             <ListViewItem>
-                <DockPanel>
+                <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
                         Fill="DarkBlue" DockPanel.Dock="Left">
                         <Rectangle.OpacityMask>
@@ -30,7 +30,7 @@
                 </DockPanel>
             </ListViewItem>
             <ListViewItem>
-                <DockPanel>
+                <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
                         Fill="DarkBlue" DockPanel.Dock="Left">
                         <Rectangle.OpacityMask>
@@ -39,7 +39,7 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Teller Daily Summary (RP01)</TextBlock>
+                        <TextBlock FontWeight="Bold">Teller Daily Sales (RP01)</TextBlock>
                         <Label Width="280">
                             <TextBlock TextWrapping="WrapWithOverflow">
                         Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date</TextBlock>
@@ -53,6 +53,32 @@
                         </StackPanel>
                     </StackPanel>
                     <Button Margin="5" Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click">Print
+                    </Button>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Movie Sales (RP02)</TextBlock>
+                        <Label Width="280">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales and Seat Utilization per Movie for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP02StartDate"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP02EndDate"/>
+                        </StackPanel>
+                    </StackPanel>
+                        <Button Margin="5" Name="PrintRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP02_Click">Print
                     </Button>
                 </DockPanel>
             </ListViewItem>

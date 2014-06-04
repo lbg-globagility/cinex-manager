@@ -63,9 +63,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="Adorners\SizeAdorner.cs" />
+    <Compile Include="Adorners\SizeChrome.cs" />
+    <Compile Include="ConnectionUtility.cs" />
+    <Compile Include="DesignerItemDecorator.cs" />
+    <Compile Include="MoveThumb.cs" />
+    <Compile Include="ResizeThumb.cs" />
+    <Compile Include="RotateThumb.cs" />
+    <Compile Include="CinemaSeat.cs" />
+    <Compile Include="SeatControl.xaml.cs">
+      <DependentUpon>SeatControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SeatWindow.xaml.cs">
+      <DependentUpon>SeatWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Resources\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ResizeRotateChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SizeChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SeatControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +117,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SeatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +163,26 @@
       <Project>{AE661A37-F582-4390-9E06-900E276CED26}</Project>
       <Name>ExcelReports</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\seat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\admin-icon-main.png" />
+    <Resource Include="Images\cinema-manager-icon.png" />
+    <Resource Include="Images\cinema-ticketing-icon.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\disabled.png" />
+    <Resource Include="Images\movie-icon-main.png" />
+    <Resource Include="Images\properties.png" />
+    <Resource Include="Images\reports-icon-main.png" />
+    <Resource Include="Images\screen.png" />
+    <Resource Include="Images\seat-old.png" />
+    <Resource Include="Images\seats-available.png" />
+    <Resource Include="Images\seats-reserved.png" />
+    <Resource Include="Images\seats-taken.png" />
+    <Resource Include="Images\select.png" />
+    <Resource Include="Images\setup-icon-main.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
