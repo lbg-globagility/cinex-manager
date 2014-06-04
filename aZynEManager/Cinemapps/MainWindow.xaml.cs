@@ -32,7 +32,9 @@ namespace Cinemapps
 
         private void ReportsTile_Click(object sender, RoutedEventArgs e)
         {
-
+            ReportWindow reportWindow = new ReportWindow();
+            reportWindow.Owner = this;
+            reportWindow.Show();
         }
 
         private void SetupTile_Click(object sender, RoutedEventArgs e)

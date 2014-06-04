@@ -1,0 +1,61 @@
+﻿<controls:MetroWindow  x:Class="Cinemapps.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Reports" Height="298" Width="474" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel>
+        <ListView Name="ReportSelector" Margin="20">
+            <ListViewItem>
+                <DockPanel>
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock FontWeight="Bold">
+                        Summary of Reports and Descriptions
+                    </TextBlock>
+                    <Button Margin="5" Name="PrintSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="PrintSRD_Click">Print
+                    </Button>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel>
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Summary (RP01)</TextBlock>
+                        <Label Width="280">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Teller</Label>
+                            <ComboBox Name="RP01Teller" Width="150">
+                            </ComboBox>
+                            <Label>Date</Label>
+                            <DatePicker Name="RP01StartDate"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Margin="5" Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click">Print
+                    </Button>
+                </DockPanel>
+            </ListViewItem>
+        </ListView>
+    </DockPanel>
+</controls:MetroWindow >
