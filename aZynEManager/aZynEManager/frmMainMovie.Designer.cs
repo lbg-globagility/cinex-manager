@@ -35,6 +35,7 @@
             this.btnSched = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnTrailer = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pnlClose = new System.Windows.Forms.Panel();
+            this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
             // btnTitle
@@ -154,6 +155,7 @@
             this.btnShare.Values.ExtraText = "record of producers\r\nshare per movies";
             this.btnShare.Values.Image = global::aZynEManager.Properties.Resources.movieshare;
             this.btnShare.Values.Text = "Share";
+            this.btnShare.Click += new System.EventHandler(this.btnShare_Click);
             // 
             // btnSched
             // 
@@ -262,14 +264,62 @@
             this.pnlClose.Size = new System.Drawing.Size(25, 25);
             this.pnlClose.TabIndex = 27;
             this.pnlClose.Click += new System.EventHandler(this.pnlClose_Click);
+            this.pnlClose.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlClose_Paint);
             this.pnlClose.MouseLeave += new System.EventHandler(this.pnlClose_MouseLeave);
             this.pnlClose.MouseHover += new System.EventHandler(this.pnlClose_MouseHover);
+            // 
+            // btnselect
+            // 
+            this.btnselect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnselect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnselect.Location = new System.Drawing.Point(5, 227);
+            this.btnselect.Name = "btnselect";
+            this.btnselect.Size = new System.Drawing.Size(96, 60);
+            this.btnselect.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.btnselect.StateCommon.Back.Color2 = System.Drawing.Color.Salmon;
+            this.btnselect.StateCommon.Back.ColorAngle = 20F;
+            this.btnselect.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnselect.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
+            this.btnselect.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnselect.StateCommon.Border.Rounding = 1;
+            this.btnselect.StateCommon.Border.Width = 3;
+            this.btnselect.StateCommon.Content.AdjacentGap = 10;
+            this.btnselect.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnselect.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnselect.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnselect.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnselect.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnselect.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnselect.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnselect.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnselect.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnselect.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, -1, -1);
+            this.btnselect.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.OrangeRed;
+            this.btnselect.StateCommon.Content.ShortText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnselect.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnselect.StateCommon.Content.ShortText.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias;
+            this.btnselect.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnselect.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnselect.StateTracking.Border.Color1 = System.Drawing.Color.Black;
+            this.btnselect.StateTracking.Border.Color2 = System.Drawing.Color.Black;
+            this.btnselect.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnselect.StateTracking.Border.Rounding = 1;
+            this.btnselect.StateTracking.Border.Width = 3;
+            this.btnselect.TabIndex = 38;
+            this.btnselect.Values.Text = "unselect";
+            this.btnselect.Visible = false;
             // 
             // frmMainMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 293);
+            this.Controls.Add(this.btnselect);
             this.Controls.Add(this.btnTrailer);
             this.Controls.Add(this.btnSched);
             this.Controls.Add(this.btnShare);
@@ -292,6 +342,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnShare;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSched;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnTrailer;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
 
 
 

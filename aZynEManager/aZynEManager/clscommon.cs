@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace aZynEManager
 {
-    class clscommon
+    public class clscommon
     {
         public DataTable setDataTable(string sqry, string conn)
         {
@@ -28,6 +28,28 @@ namespace aZynEManager
             {
             }
             return dt;
+        }
+
+        public DataSet getDataSet(string strqry, string conn)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                MySqlConnection myconn = new MySqlConnection();
+                myconn.ConnectionString = conn;
+                myconn.Open();
+
+                if (myconn.State == ConnectionState.Open)
+                {
+                    MySqlDataAdapter da = new MySqlDataAdapter(strqry, myconn);
+                    da.Fill(ds);
+                    myconn.Close();
+                }
+            }
+            catch
+            {
+            }
+            return ds;
         }
     }
 }

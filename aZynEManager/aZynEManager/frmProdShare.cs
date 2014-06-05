@@ -1,0 +1,783 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using ComponentFactory.Krypton.Toolkit;
+using MySql.Data.MySqlClient;
+using System.Globalization;
+
+namespace aZynEManager
+{
+    public partial class frmProdShare : Form
+    {
+        frmMain m_frmM = null;
+        clscommon m_clscom = null;
+        DataTable m_dt = new DataTable();
+        DataTable movie_dt = new DataTable();
+        MySqlConnection myconn = null;
+
+        public frmProdShare()
+        {
+            InitializeComponent();
+        }
+
+        public void frmInit(frmMain frm, clscommon cls)
+        {
+            m_frmM = frm;
+            m_clscom = cls;
+
+            refreshDGV();
+
+            grpcontrol.Visible = true;
+            grpfilter.Visible = false;
+            unselectbutton();
+
+            populatemovies();
+
+            cmbtitle.Enabled = false;
+            dgvResult.ClearSelection();
+
+            setnormal();
+        }
+
+
+        public void setnormal()
+        {
+            txtcode.Text = "";
+            txtcode.ReadOnly = false;
+            cmbtitle.Text = "";
+            cmbtitle.Enabled = true;
+            txtshare.Text = "";
+            txtshare.ReadOnly = true;
+
+            if (cmbtitle.Items.Count > 0)
+                cmbtitle.SelectedIndex = 0;
+
+            dtdate.Value = DateTime.Now;
+
+            btnAdd.Enabled = true;
+            btnAdd.Text = "new";
+            btnAdd.Values.Image = Properties.Resources.buttonadd;
+
+            btnEdit.Enabled = false;
+            btnEdit.Text = "edit";
+            btnEdit.Values.Image = Properties.Resources.buttonapply;
+
+            btnDelete.Enabled = false;
+            btnDelete.Text = "remove";
+            btnDelete.Values.Image = Properties.Resources.buttondelete;
+
+            dgvMovies.Enabled = true;
+            dgvResult.Enabled = true;
+            grpcontrol.Enabled = true;
+
+            txtcnt.Text = String.Format("Count: {0:#,##0}", dgvResult.RowCount);
+        }
+
+        public void unselectbutton()
+        {
+            btnselect.Select();
+        }
+
+        public void populatemovies()
+        {
+            cmbtitle.DataSource = null;
+            DataTable dt = new DataTable();
+            string sqry = "[id] > -1";
+            if (m_frmM.m_dtmovies.Rows.Count == 0)
+                m_frmM.m_dtmovies = m_clscom.setDataTable("select * from movies order by title asc", m_frmM._connection);
+
+            if (m_frmM.m_dtmovies.Rows.Count > 0)
+            {
+                var foundRows = m_frmM.m_dtmovies.Select(sqry);
+                if (foundRows.Count() == 0)
+                {
+                    cmbtitle.Items.Clear();
+                }
+                else
+                    dt = foundRows.CopyToDataTable();
+                if (dt.Rows.Count > 0)
+                {
+                    DataView dv = dt.AsDataView();
+                    dv.Sort = "title asc";
+                    dt = dv.ToTable();
+
+                    DataRow row = dt.NewRow();
+                    row["id"] = "0";
+                    row["title"] = "";
+                    dt.Rows.InsertAt(row, 0);
+
+                    cmbtitle.DataSource = dt;
+                    cmbtitle.ValueMember = "id";
+                    cmbtitle.DisplayMember = "title";
+                }
+            }
+        }
+
+
+        public void refreshDGV()
+        {
+            StringBuilder sbqry = new StringBuilder();
+            sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date ");
+            sbqry.Append("from movies_distributor a ");
+            sbqry.Append("left join movies b on a.movie_id = b.id ");
+            sbqry.Append("inner join distributor c on b.dist_id = c.id");
+            m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            setDataGridView(dgvResult, m_dt);
+
+            sbqry = new StringBuilder();
+            sbqry.Append("SELECT a.id, a.code, a.title ");
+            sbqry.Append("FROM movies a");
+            movie_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            if (movie_dt.Rows.Count > 0)
+                setDataGridViewII(dgvMovies, movie_dt);
+        }
+
+        public void setDataGridView(DataGridView dgv, DataTable dt)
+        {
+            dgv.DataSource = null;
+            if (dt.Rows.Count > 0)
+                dgv.DataSource = dt;
+
+            if (dt.Rows.Count > 0)
+            {
+                int iwidth = dgv.Width / 6;
+                dgv.DataSource = dt;
+                dgv.Columns[0].Width = 0;
+                dgv.Columns[0].HeaderText = "ID";
+                dgv.Columns[1].Width = iwidth - 5;
+                dgv.Columns[1].HeaderText = "Movie Code";
+                dgv.Columns[2].Width = iwidth * 2;
+                dgv.Columns[2].HeaderText = "Movie Title";
+                dgv.Columns[3].Width = (int)(iwidth * 1.5);
+                dgv.Columns[3].HeaderText = "Distributor";
+                dgv.Columns[4].Width = iwidth / 2;
+                dgv.Columns[4].HeaderText = "Share";
+                dgv.Columns[5].Width = iwidth;
+                dgv.Columns[5].HeaderText = "Effective Date";
+            }
+        }
+
+        public void setDataGridViewII(DataGridView dgv, DataTable dt)
+        {
+            dgv.DataSource = null;
+            if (dt.Rows.Count > 0)
+                dgv.DataSource = dt;
+
+            if (dt.Rows.Count > 0)
+            {
+                int iwidth = dgvMovies.Width / 3;
+                dgv.DataSource = dt;
+                dgv.Columns[0].Width = 0;
+                dgv.Columns[0].HeaderText = "ID";
+                dgv.Columns[1].Width = iwidth - 15;
+                dgv.Columns[1].HeaderText = "Movie Code";
+                dgv.Columns[2].Width = iwidth * 2;
+                dgv.Columns[2].HeaderText = "Movie Title";
+            }
+        }
+
+        private void dgvMovies_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+            if (dgv == null)
+                return;
+            if (dgv.CurrentRow.Selected)
+            {
+                txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
+                string strname = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                for (int i = 0; i < cmbtitle.Items.Count; i++)
+                {
+                    DataRowView drv = (DataRowView)cmbtitle.Items[i];
+                    if (drv.Row["title"].ToString().ToUpper() == strname.ToUpper())
+                    {
+                        cmbtitle.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void cmbtitle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbtitle.SelectedValue != null && cmbtitle.Text != "")
+            {
+                var val = cmbtitle.SelectedValue;
+                if (val.ToString() != "System.Data.DataRowView")
+                {
+                    string strid = cmbtitle.SelectedValue.ToString();
+                    StringBuilder sqry = new StringBuilder();
+                    sqry.Append(String.Format("[id] = {0}", strid));
+                    if (cmbtitle.Text.Trim() != "")
+                        sqry.Append(String.Format(" and [title] = '{0}'", cmbtitle.Text.ToString()));
+                    var foundRows = movie_dt.Select(sqry.ToString());
+                    if (foundRows.Count() == 0)
+                    {
+                    }
+                    else
+                    {
+                        DataTable dt = foundRows.CopyToDataTable();
+                        txtcode.Text = dt.Rows[0]["code"].ToString();
+                    }
+                }
+            }
+        }
+
+        private void cmbtitle_Click(object sender, EventArgs e)
+        {
+    
+        }
+
+        private void btnsearch2_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            if (txtcode.Text != "")
+            {
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append(String.Format("[code] like '%{0}%'", txtcode.Text.Trim()));
+                var foundRows = movie_dt.Select(sqry.ToString());
+                if (foundRows.Count() == 0)
+                {
+                    
+                }
+                //else if (foundRows.Count() == 1)
+                //{
+                //    setDataGridViewII(dgvMovies, foundRows.CopyToDataTable());
+                //    txtcode.Text = foundRows.CopyToDataTable().Rows[0]["code"].ToString();
+                //}
+                else
+                {
+                    setDataGridViewII(dgvMovies, foundRows.CopyToDataTable());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please fill the code block.", this.Text);
+                txtcode.SelectAll();
+                txtcode.Focus();
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            if (btnAdd.Text == "new")
+            {
+                dgvResult.Enabled = false;
+
+                txtcode.ReadOnly = false;
+                cmbtitle.Enabled = true;
+                txtshare.Text = "";
+                txtshare.ReadOnly = false;
+                dtdate.Enabled = true;
+
+                unselectbutton();
+                btnAdd.Text = "save";
+                btnAdd.Enabled = true;
+                btnAdd.Values.Image = Properties.Resources.buttonsave;
+
+                btnEdit.Enabled = false;
+
+                btnDelete.Text = "cancel";
+                btnDelete.Enabled = true;
+                btnDelete.Values.Image = Properties.Resources.buttoncancel;
+
+                txtcode.SelectAll();
+                txtcode.Focus();
+            }
+            else
+            {
+                string strstatus = String.Empty;
+                if (txtcode.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    txtcode.SelectAll();
+                    txtcode.Focus();
+                    return;
+                }
+                if (cmbtitle.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    cmbtitle.SelectedIndex = 0;
+                    cmbtitle.Focus();
+                    return;
+                }
+                if (txtshare.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    txtshare.Focus();
+                    return;
+                }
+                else
+                {
+                    //int iloc = txtshare.Text.IndexOf(".");
+                    //if (txtshare.Text.Substring(0, iloc - 1).Length > 2)
+                    //{
+
+                    //}
+
+                }
+                if (dtdate.Text == "" || dtdate.Value == null)
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    dtdate.Focus();
+                    return;
+                }
+
+                myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+
+                //validate for the existance of the record
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
+                sqry.Append(String.Format("and effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+
+                if (rowCount > 0)
+                {
+                    setnormal();
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                //insert value for the movies table
+                sqry.Append(String.Format("insert into movies_distributor value(0,{0},{1},'{2}')",
+                    cmbtitle.SelectedValue, txtshare.Text.Trim(), dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                try
+                {
+                    if(myconn.State== ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd.ExecuteNonQuery();
+
+                    string strid = cmd.LastInsertedId.ToString();
+
+                    cmd.Dispose();
+                   
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+
+                    DialogResult ans = MessageBox.Show("You have successfully added the new record, \n\rDo you want to add again?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (ans == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        StringBuilder sbqry = new StringBuilder();
+                        sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date ");
+                        sbqry.Append("from movies_distributor a ");
+                        sbqry.Append("left join movies b on a.movie_id = b.id ");
+                        sbqry.Append("left join distributor c on b.dist_id = c.id");
+                        m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+                        setDataGridView(dgvResult, m_dt);
+
+                        txtcode.SelectAll();
+                        txtcode.Focus();
+                    }
+                    else if (ans == System.Windows.Forms.DialogResult.No)
+                    {
+                        refreshDGV();
+                        setnormal();
+                    }
+                }
+                catch
+                {
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnclear2_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            StringBuilder sbqry = new StringBuilder();
+            sbqry.Append("SELECT a.id, a.code, a.title ");
+            sbqry.Append("FROM movies a");
+            movie_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            if (movie_dt.Rows.Count > 0)
+                setDataGridViewII(dgvMovies, movie_dt);
+
+            txtcode.Text = "";
+            cmbtitle.SelectedIndex = 0;
+            txtshare.Text = "";
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            if (dgvResult.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a record from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else if (dgvResult.SelectedRows.Count == 1)
+                dgvResult.Enabled = false;
+
+            if (btnEdit.Text == "edit")
+            {
+                btnAdd.Enabled = false;
+                btnAdd.Text = "new";
+
+                btnEdit.Text = "update";
+                btnEdit.Enabled = true;
+
+                btnDelete.Enabled = true;
+                btnDelete.Text = "cancel";
+
+                cmbtitle.Enabled = false;
+                txtcode.ReadOnly = true;
+
+                txtshare.ReadOnly = false;
+                txtshare.SelectAll();
+                txtshare.Focus();
+
+                dtdate.Enabled = true;
+
+                dgvMovies.Enabled = false;
+            }
+            else if (btnEdit.Text == "update")
+            {
+                string strstatus = String.Empty;
+                if (txtcode.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    txtcode.SelectAll();
+                    txtcode.Focus();
+                    return;
+                }
+                if (cmbtitle.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    cmbtitle.Focus();
+                    return;
+                }
+                if (txtshare.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    txtshare.Focus();
+                    return;
+                }
+                if (dtdate.Value == null || dtdate.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    dtdate.Focus();
+                    return;
+                }
+
+                myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+
+                int intid = -1;
+                if (dgvResult.SelectedRows.Count == 1)
+                    intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+
+                //validate for the existance of the record
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
+                sqry.Append(String.Format("and effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+
+                if (rowCount > 0)
+                {
+                    setnormal();
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                StringBuilder strqry = new StringBuilder();
+                strqry.Append("update movies_distributor set");
+                strqry.Append(String.Format(" movie_id = {0},", cmbtitle.SelectedValue));
+                strqry.Append(String.Format(" share_perc = {0},", txtshare.Text.Trim()));
+                strqry.Append(String.Format(" effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                strqry.Append(String.Format(" where id = {0}", intid));
+                try
+                {
+                    //update the movies table
+                    if(myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(strqry.ToString(), myconn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+
+                    refreshDGV();
+                    setnormal();
+
+                    MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't connect to the movies table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            if (btnDelete.Text == "remove")
+            {
+                DialogResult ans = MessageBox.Show("Are you sure you want to remove \n\rthis record, continue?",
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (ans == System.Windows.Forms.DialogResult.Yes)
+                {
+                    myconn = new MySqlConnection();
+                    myconn.ConnectionString = m_frmM._connection;
+
+                    int intid = -1;
+                    if (dgvResult.SelectedRows.Count == 1)
+                        intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+
+                    //delete from the moview table where the status is inactive or = 0
+                    StringBuilder sqry = new StringBuilder();
+                    sqry.Append(String.Format("delete from movies_distributor where id = {0}", intid));
+                    try
+                    {
+                        myconn.Open();
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                    }
+                    catch (MySqlException er)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show(er.Message, this.Text);
+                    }
+                }
+            }
+            refreshDGV();
+            setnormal();
+        }
+
+        private void dgvResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvResult.Columns[e.ColumnIndex].Name == "effective_date")
+                ShortDateFormat(e);
+        }
+
+        private static void ShortDateFormat(DataGridViewCellFormattingEventArgs formatting)
+        {
+            if (formatting.Value != null)
+            {
+                try
+                {
+                    System.Text.StringBuilder dateString = new System.Text.StringBuilder();
+                    DateTime theDate = DateTime.Parse(formatting.Value.ToString());
+
+                    dateString.Append(String.Format("{0:MM/dd/yyyy}", theDate));
+                    formatting.Value = dateString.ToString();
+                    formatting.FormattingApplied = true;
+                }
+                catch
+                {
+                    formatting.FormattingApplied = false;
+                }
+            }
+        }
+
+        private void dgvResult_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+            if (dgv == null)
+                return;
+            if (dgv.CurrentRow.Selected)
+            {
+                if (cbxfilter.Checked == false)
+                {
+                    btnEdit.Enabled = true;
+                    btnEdit.Text = "edit";
+
+                    btnDelete.Enabled = true;
+                    btnDelete.Text = "remove";
+
+                    txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
+                    string strname = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                    for (int i = 0; i < cmbtitle.Items.Count; i++)
+                    {
+                        DataRowView drv = (DataRowView)cmbtitle.Items[i];
+                        if (drv.Row["title"].ToString().ToUpper() == strname.ToUpper())
+                        {
+                            cmbtitle.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    txtshare.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
+                    string sdt = dgv.SelectedRows[0].Cells[5].Value.ToString();
+                    //DateTime date = DateTime.ParseExact(sdt, "MM|dd|yyyy HH:mm:ss",CultureInfo.InvariantCulture);
+
+                    DateTime date = Convert.ToDateTime(sdt);
+                    dtdate.Value = date;
+                }
+            }
+        }
+
+        private void txtshare_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == '.'
+                && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == '.'
+                && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cbxfilter_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshDGV();
+            setnormal();
+            if (cbxfilter.Checked == true)
+            {
+                txtcode.Text = "";
+                txtcode.ReadOnly = false;
+                cmbtitle.Enabled = true;
+                txtshare.Text = "";
+                txtshare.ReadOnly = false;
+                cmbtitle.SelectedIndex = 0;
+
+                //m_frmM.m_dt = m_dt;// m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+
+                grpcontrol.Visible = false;
+                grpfilter.Visible = true;
+
+                cbxdate.Visible = true;
+                cbxdate.Checked = true;
+                cmbDate.Visible = true;
+                cmbDate.SelectedIndex = 4;
+                btnsearch2.Visible = false;
+                btnclear2.Visible = false;
+            }
+            else
+            {
+                grpcontrol.Visible = true;
+                grpfilter.Visible = false;
+                cbxdate.Visible = false;
+                cbxdate.Checked = false;
+                cmbDate.Visible = false;
+                cmbDate.SelectedIndex = 4;
+                dtdate.Enabled = true;
+                btnsearch2.Visible = true;
+                btnclear2.Visible = true;
+            }
+        }
+
+        private void frmProdShare_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnclear_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+
+            refreshDGV();
+            setnormal();
+
+            txtcode.Text = "";
+            txtcode.ReadOnly = false;
+            cmbtitle.Enabled = false;
+            cmbtitle.SelectedIndex = 0;
+            txtshare.Text = "";
+            txtshare.ReadOnly = false;
+        }
+
+        private void btnsearch_Click(object sender, EventArgs e)
+        {
+            unselectbutton();
+            DataTable dt = new DataTable();
+
+            StringBuilder sqry = new StringBuilder();
+            sqry.Append("[id] > -1");
+            if (txtcode.Text.Trim() != "")
+                sqry.Append(String.Format(" and [code] like '%{0}%'", txtcode.Text.Trim()));
+            if (cmbtitle.Text.Trim() != "")
+                sqry.Append(String.Format(" and [title] like '%{0}%'", cmbtitle.Text.Trim()));
+            if (txtshare.Text.Trim() != "")
+                sqry.Append(String.Format(" and [share] = '{0}'", txtshare.Text.Trim()));
+            if (dtdate.Value != null && dtdate.Enabled == true)
+                sqry.Append(String.Format(" and [effective_date] {0} '{1}'",cmbDate.Text , dtdate.Value.Date.ToString()));
+
+            if (m_dt.Rows.Count == 0)
+            {
+                StringBuilder sbqry = new StringBuilder();
+                sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date ");
+                sbqry.Append("from movies_distributor a ");
+                sbqry.Append("left join movies b on a.movie_id = b.id ");
+                sbqry.Append("inner join distributor c on b.dist_id = c.id");
+                m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            }
+
+            if (m_dt.Rows.Count > 0)
+            {
+                var foundRows = m_dt.Select(sqry.ToString());
+                if (foundRows.Count() == 0)
+                {
+                    setDataGridView(dgvResult, m_dt);
+                    txtcnt.Text = "Count: 0";
+                    MessageBox.Show("No records found using the given information.", "Search Movies", MessageBoxButtons.OK);
+                    return;
+                }
+                else
+                    dt = foundRows.CopyToDataTable();
+            }
+
+            if (dt.Rows.Count > 0)
+            {
+                setDataGridView(dgvResult,dt);
+                txtcnt.Text = "Count: " + String.Format("{0:#,##0}", dt.Rows.Count);
+            }
+        }
+
+        private void kryptonGroup1_Panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cbxdate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxdate.Checked == true)
+                dtdate.Enabled = true;
+            else
+                dtdate.Enabled = false;
+        }
+    }
+}

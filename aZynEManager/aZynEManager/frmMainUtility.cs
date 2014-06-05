@@ -10,17 +10,17 @@ using MySql.Data.MySqlClient;
 
 namespace aZynEManager
 {
-    public partial class frmMainMovie : Form
+    public partial class frmMainUtility : Form
     {
+        frmMain m_frmM = null;
+        MySqlConnection myconn;
+        public DataSet m_ds = new DataSet();
+        public clscommon m_clscom = null;
+
         private bool drag = false;
         private System.Drawing.Point start_point = new System.Drawing.Point(0, 0);
         private bool draggable = true;
         private string exclude_list = "";
-
-        frmMain m_frmM = null;
-        MySqlConnection myconn;
-        public DataSet m_ds = new DataSet();
-        clscommon m_clscom = null;
 
         #region MouseDragControl
         protected override void OnControlAdded(ControlEventArgs e)
@@ -94,7 +94,7 @@ namespace aZynEManager
         }
         #endregion
 
-        public frmMainMovie()
+        public frmMainUtility()
         {
             InitializeComponent();
 
@@ -107,82 +107,33 @@ namespace aZynEManager
             setFocus(pnlClose);
             unselectButton();
             pnlClose.Focus();
-            btnTrailer.Select();
+            btnPatrons.Select();
         }
 
         public void frmInit(frmMain frm, clscommon cls)
         {
+            unselectButton();
             m_frmM = frm;
             m_clscom = cls;
         }
 
         public void unselectButton()
         {
-            //ControlCollection coll = (ControlCollection)this.Controls;
-            //foreach (Control con in coll)
-            //{
-            //    if (con is ComponentFactory.Krypton.Toolkit.KryptonButton)
-            //    {
-            //        //((ComponentFactory.Krypton.Toolkit.KryptonButton)con)
-            //    }
-            //}
-            btnselect.Focus();
+            btnselect.Select();
         }
 
         public void setFocus(Control cntrl)
         {
             cntrl.Focus();
+            btnselect.Select();
         }
 
-        
-
-        private void frmMainMovie_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnList_Click(object sender, EventArgs e)
         {
-            e.Cancel = true;
-            this.Hide();
-        }
-
-        private void pnlClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void pnlClose_MouseHover(object sender, EventArgs e)
-        {
-            pnlClose.BackgroundImage = Properties.Resources.buttonclosered;
-        }
-
-        private void pnlClose_MouseLeave(object sender, EventArgs e)
-        {
-            pnlClose.BackgroundImage = Properties.Resources.buttonclose1;
-        }
-
-        
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    StringBuilder sbqry = new StringBuilder();
-            //    sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as description, a.share_perc ");
-            //    sbqry.Append("FROM movies a,  mtrcb b, distributor c WHERE a.rating_id = b.id and a.dist_id = c.id");
-            //    m_ds = m_clscom.getDataSet(sbqry.ToString(), m_frmM._connection);
-            //}
-            //catch(MySqlException err)
-            //{
-            //    MessageBox.Show(err.Message);
-            //}
-            //finally
-            //{
-                //check for the user grant for the module
-                //yes
-                //if (m_ds != null && m_ds.Tables.Count > 0)
-                //{
-                    frmMovieList frmlist = new frmMovieList();
-                    frmlist.frmInit(m_frmM, m_clscom);
-                    frmlist.ShowDialog();
-                //}
-            //}
+            unselectButton();
+            frmRating frmrate = new frmRating();
+            frmrate.frmInit(m_frmM, m_clscom);
+            frmrate.ShowDialog();
         }
 
         public void setSkin(Color backColor, Color lineColor)
@@ -200,16 +151,40 @@ namespace aZynEManager
             pnlClose.BackColor = backColor;
         }
 
-        private void pnlClose_Paint(object sender, PaintEventArgs e)
+        private void pnlClose_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-        private void btnShare_Click(object sender, EventArgs e)
+        private void pnlClose_MouseHover(object sender, EventArgs e)
         {
-            frmProdShare frmprod = new frmProdShare();
-            frmprod.frmInit(m_frmM, m_clscom);
-            frmprod.ShowDialog();
+            pnlClose.BackgroundImage = Properties.Resources.buttonclosered;
         }
+
+        private void btnClass_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmClassification frmcls = new frmClassification();
+            frmcls.frmInit(m_frmM, this);
+            frmcls.ShowDialog();
+        }
+
+        private void btnDistributor_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmDistributor frmdist = new frmDistributor();
+            frmdist.frmInitII(m_frmM, m_clscom);
+            frmdist.ShowDialog();
+        }
+
+        private void btnPatrons_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmPatron frmpat = new frmPatron();
+            frmpat.frmInit(m_frmM, m_clscom);
+            frmpat.ShowDialog();
+        }
+
+
     }
 }

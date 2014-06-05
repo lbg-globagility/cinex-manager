@@ -92,6 +92,7 @@
             this.pnlUtility.Name = "pnlUtility";
             this.pnlUtility.Size = new System.Drawing.Size(76, 74);
             this.pnlUtility.TabIndex = 1;
+            this.pnlUtility.Click += new System.EventHandler(this.pnlUtility_Click);
             // 
             // pnlCinema
             // 

@@ -17,8 +17,8 @@ namespace aZynEManager
         private bool draggable = true;
         private string exclude_list = "";
         private Panel _activePanel = null;
-        //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","localhost", "3306", "azynema", "root", "");
-        public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};", "192.168.0.218", "3306", "cinema", "as-admi_mvie1", "G23ticketV5");
+        public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","localhost", "3306", "azynema", "root", "");
+        //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};", "192.168.0.218", "3306", "cinema", "as-admi_mvie1", "G23ticketV5");
 
         //supporting background and line color
         private Color _linecolor = Color.Salmon;
@@ -32,6 +32,8 @@ namespace aZynEManager
         public DataTable m_dtcontact = new DataTable();
         public DataTable m_dtrating = new DataTable();
         public DataTable m_dtclassification = new DataTable();
+        public DataTable m_dtmovies = new DataTable();
+        public DataTable m_dtpatrons = new DataTable();
 
         public frmMain()
         {
@@ -155,21 +157,7 @@ namespace aZynEManager
 
         private void pnlCinema_Click(object sender, EventArgs e)
         {
-            //login then
-            //if (frmmovie == null)
-            //{
-            //    frmmovie = new frmMainMovie();
-            //    frmmovie.frmInit(this);
-            //}
-            //frmmovie.Show();
-
             _activePanel.Hide();
-            //frmLogin login = new frmLogin();
-            //login.ShowDialog();
-            //if (login.State == frmLogin.LogInState.CancelState)
-            //    _activePanel.Show();
-            //else
-            //{
 
             m_dtcontact = m_clscom.setDataTable("select * from people order by id asc",_connection);
             m_dtdistributor = m_clscom.setDataTable("select * from distributor order by name asc",_connection);
@@ -178,10 +166,10 @@ namespace aZynEManager
 
             frmMainMovie frmmovie = new frmMainMovie();
             frmmovie.setSkin(_backcolor, _linecolor);
-            frmmovie.frmInit(this);
+            frmmovie.frmInit(this,m_clscom);
             frmmovie.ShowDialog();
             frmmovie.Dispose();
-            //}
+
         }
 
         
@@ -283,6 +271,15 @@ namespace aZynEManager
             }
         }
         #endregion
+
+        private void pnlUtility_Click(object sender, EventArgs e)
+        {
+            frmMainUtility frmmu = new frmMainUtility();
+            frmmu.setSkin(_backcolor, _linecolor);
+            frmmu.frmInit(this, m_clscom);
+            frmmu.ShowDialog();
+            frmmu.Dispose();
+        }
 
 
 

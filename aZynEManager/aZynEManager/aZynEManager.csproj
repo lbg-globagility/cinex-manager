@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>aZynEManager</RootNamespace>
     <AssemblyName>aZynEManager</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -79,6 +79,18 @@
     <Compile Include="clsTransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmClassification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmClassification.Designer.cs">
+      <DependentUpon>frmClassification.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDistributor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,11 +109,29 @@
     <Compile Include="frmMainMovie.Designer.cs">
       <DependentUpon>frmMainMovie.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMainUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainUtility.Designer.cs">
+      <DependentUpon>frmMainUtility.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMovieList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMovieList.Designer.cs">
       <DependentUpon>frmMovieList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPatron.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPatron.Designer.cs">
+      <DependentUpon>frmPatron.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProdShare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProdShare.Designer.cs">
+      <DependentUpon>frmProdShare.cs</DependentUpon>
     </Compile>
     <Compile Include="frmRating.cs">
       <SubType>Form</SubType>
@@ -112,6 +142,12 @@
     <Compile Include="ListViewSorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmClassification.resx">
+      <DependentUpon>frmClassification.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDistributor.resx">
       <DependentUpon>frmDistributor.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,8 +157,17 @@
     <EmbeddedResource Include="frmMainMovie.resx">
       <DependentUpon>frmMainMovie.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMainUtility.resx">
+      <DependentUpon>frmMainUtility.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMovieList.resx">
       <DependentUpon>frmMovieList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPatron.resx">
+      <DependentUpon>frmPatron.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProdShare.resx">
+      <DependentUpon>frmProdShare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRating.resx">
       <DependentUpon>frmRating.cs</DependentUpon>
@@ -257,6 +302,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\buttonsave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\simple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\searchblue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colorpicker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colorpicker1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
