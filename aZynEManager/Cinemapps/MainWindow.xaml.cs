@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using aZynEManager;
 
 namespace Cinemapps
 {
@@ -27,6 +28,10 @@ namespace Cinemapps
 
         private void MoviesTile_Click(object sender, RoutedEventArgs e)
         {
+            using (frmMainMovie form = new frmMainMovie())
+            {
+                form.ShowDialog();
+            }
         }
 
         private void ReportsTile_Click(object sender, RoutedEventArgs e)
@@ -38,7 +43,9 @@ namespace Cinemapps
 
         private void SetupTile_Click(object sender, RoutedEventArgs e)
         {
-
+            CinemaTicketWindow cinemaTicketWindow = new CinemaTicketWindow();
+            cinemaTicketWindow.Owner = this;
+            cinemaTicketWindow.Show();
         }
 
         private void AdministrationTile_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F16A2BD2-3593-494F-9FF9-DF09302E7D94}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>aZynEManager</RootNamespace>
     <AssemblyName>aZynEManager</AssemblyName>
@@ -55,6 +55,9 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.8.5.0, Culture=neutral, PublicKeyToken=65a84d45e882d207, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -82,6 +85,7 @@
     <Compile Include="clsTransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ConnectionUtility.cs" />
     <Compile Include="frmDistributor.cs">
       <SubType>Form</SubType>
     </Compile>

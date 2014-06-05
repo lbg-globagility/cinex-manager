@@ -19,33 +19,30 @@ namespace Cinemapps
     /// </summary>
     public partial class SeatControl : UserControl
     {
+        public CinemaSeat Seat { get; set; }
+
         public enum SeatType
         {
             NormalSeat,
             HandicappedSeat
         }
 
-        public SeatControl()
+        public SeatControl(CinemaSeat seat)
         {
             InitializeComponent();
-        }
-
-        public string SeatName
-        {
-            set
-            {
-                SeatNameLabel.Text = value;
-                if (SeatNameLabel.Text.Length == 3)
-                    Canvas.SetLeft(SeatNameLabel, 3);
-                else if (SeatNameLabel.Text.Length == 2)
-                    Canvas.SetLeft(SeatNameLabel, 7);
-                else if (SeatNameLabel.Text.Length == 1)
-                    Canvas.SetLeft(SeatNameLabel, 12);
-            }
+            Seat = new CinemaSeat(seat);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            SeatNameLabel.Text = Seat.Name;
+            if (SeatNameLabel.Text.Length == 3)
+                Canvas.SetLeft(SeatNameLabel, 3);
+            else if (SeatNameLabel.Text.Length == 2)
+                Canvas.SetLeft(SeatNameLabel, 7);
+            else if (SeatNameLabel.Text.Length == 1)
+                Canvas.SetLeft(SeatNameLabel, 12);
+
             SeatIcon.Source = new BitmapImage(new Uri(@"/Cinemapps;component/Images/seat.png", UriKind.Relative));
         }
     }

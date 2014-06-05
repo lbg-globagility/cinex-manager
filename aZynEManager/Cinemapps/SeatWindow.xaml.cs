@@ -31,8 +31,9 @@ namespace Cinemapps
 
         public CinemaButtonMode ButtonMode { get; set; }
 
+        public int SeatCapacity { get; set; }
         public List<CinemaSeat> CinemaSeats { get; set; }
-
+        public List<CinemaScreen> CinemaScreens { get; set; }
 
         double dblHeight = 24.0;
         double dblWidth = 24.0;
@@ -42,12 +43,21 @@ namespace Cinemapps
             InitializeComponent();
 
             ButtonMode = CinemaButtonMode.IdleButtonMode;
+            CinemaScreens = new List<CinemaScreen>();
             CinemaSeats = new List<CinemaSeat>();
         }
 
         private void SeatMode_Click(object sender, RoutedEventArgs e)
         {
             ButtonMode = CinemaButtonMode.SeatButtonMode;
+
+
+            this.XName.Text = string.Empty;
+            this.YName.Text = string.Empty;
+            this.AngleName.Text = string.Empty;
+            this.ColumnName.Text = string.Empty;
+            this.RowName.Text = string.Empty;
+            this.Handicapped.IsChecked = false;
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +67,10 @@ namespace Cinemapps
 
         private void UpdateSeatCanvas()
         {
+            bool blnIsHitTestVisible = false;
+            if (SelectItem.IsChecked == true)
+                blnIsHitTestVisible = true;
+
             SeatCanvas.Children.Clear();
 
             //grid lines
@@ -101,6 +115,36 @@ namespace Cinemapps
                 }
             }
 
+            //screen
+            if (CinemaScreens.Count > 0)
+            {
+                ContentControl contentControl = new ContentControl()
+                {
+                    Width = CinemaScreens[0].Width,
+                    Height = CinemaScreens[0].Height,
+                };
+
+                Style style = this.FindResource("DesignerItemStyle") as Style;
+                contentControl.Style = style;
+
+                Image image = new Image()
+                {
+                    Width = CinemaScreens[0].Width,
+                    Height = CinemaScreens[0].Height,
+                    Source = new BitmapImage(new Uri(@"/Cinemapps;component/Images/screen.png", UriKind.Relative)),
+                    Stretch = Stretch.Fill,
+                    IsHitTestVisible = blnIsHitTestVisible,
+                };
+
+                contentControl.Content = image;
+
+                SeatCanvas.Children.Add(contentControl);
+                Canvas.SetLeft(contentControl, CinemaScreens[0].X1);
+                Canvas.SetTop(contentControl, CinemaScreens[0].Y1);
+            }
+            
+            ScreenButton.IsEnabled = (CinemaScreens.Count == 0);
+
             //seats
             if (CinemaSeats.Count > 0)
             {
@@ -117,16 +161,8 @@ namespace Cinemapps
                     Style style = this.FindResource("DesignerItemStyle") as Style;
                     contentControl.Style = style;
 
-                    /*
-                    Image image = new Image
-                    {
-                        Width = dblWidth,
-                        Height = dblHeight,
-                        Source = new BitmapImage(new Uri(@"/Cinemapps;component/Images/seat.png", UriKind.Relative))
-                    };
-                    */
-                    SeatControl seatControl = new SeatControl();
-                    seatControl.SeatName = cinemaSeat.RowName;
+                    SeatControl seatControl = new SeatControl(cinemaSeat);
+                    seatControl.IsHitTestVisible = blnIsHitTestVisible;
 
                     contentControl.Content = seatControl;
 
@@ -135,6 +171,10 @@ namespace Cinemapps
                     Canvas.SetTop(contentControl, cinemaSeat.Y1);
                 }
             }
+
+            SeatLeft.Text = string.Format("{0:#;0;0}", SeatCapacity - CinemaSeats.Count);
+
+            SeatMode.IsEnabled = (SeatCapacity - CinemaSeats.Count) > 0;
         }
 
         private void GridSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -196,8 +236,6 @@ namespace Cinemapps
                 };
                 */
 
-                SeatControl seatControl = new SeatControl();
-                seatControl.SeatName = cinemaSeat.RowName;
 
                 if (cinemaSeat.A != 0.0)
                 {
@@ -214,6 +252,8 @@ namespace Cinemapps
                 cinemaSeat.X2 = cinemaSeat.X1 + dblWidth;
                 cinemaSeat.Y2 = cinemaSeat.Y1 + dblHeight;
 
+                SeatControl seatControl = new SeatControl(cinemaSeat);
+
                 ContentControl contentControl = new ContentControl()
                 {
                     Width = dblWidth,
@@ -229,17 +269,7 @@ namespace Cinemapps
                 Canvas.SetTop(contentControl, cinemaSeat.Y1);
 
                 //add to list
-                CinemaSeats.Add(new CinemaSeat()
-                {
-                    CX = cinemaSeat.CX,
-                    CY = cinemaSeat.CY,
-                    X1 = cinemaSeat.X1,
-                    Y1 = cinemaSeat.Y1,
-                    X2 = cinemaSeat.X2,
-                    Y2 = cinemaSeat.Y2,
-                    A = cinemaSeat.A
-                });
-
+                CinemaSeats.Add(new CinemaSeat(cinemaSeat));
 
 
             }
@@ -247,6 +277,73 @@ namespace Cinemapps
             {
 
                 //calculate base on
+            }
+            else
+            {
+                /*
+                foreach (UIElement child in SeatCanvas.Children)
+                {
+                    if (child is Control)
+                        Selector.SetIsSelected((Control)child, true);
+                }
+                */
+
+                cinemaSeat.CX = x.X;
+                cinemaSeat.CY = x.Y;
+
+                System.Drawing.Point point = new
+                    System.Drawing.Point((int)cinemaSeat.CX, (int)cinemaSeat.CY);
+                System.Drawing.Point point1 = new
+                    System.Drawing.Point((int)(cinemaSeat.CX - (dblWidth / 2)), (int)(cinemaSeat.CY - (dblHeight / 2)));
+                System.Drawing.Point point2 = new
+                    System.Drawing.Point((int)(cinemaSeat.CX - (dblWidth / 2)), (int)(cinemaSeat.CY + (dblHeight / 2)));
+                System.Drawing.Point point3 = new
+                    System.Drawing.Point((int)(cinemaSeat.CX + (dblWidth / 2)), (int)(cinemaSeat.CY - (dblHeight / 2)));
+                System.Drawing.Point point4 = new
+                    System.Drawing.Point((int)(cinemaSeat.CX + (dblWidth / 2)), (int)(cinemaSeat.CY + (dblHeight / 2)));
+
+                if (CinemaSeats.Count > 0)
+                {
+                    foreach (CinemaSeat _cinemaSeat in CinemaSeats)
+                    {
+                        System.Drawing.Rectangle rect = new System.Drawing.Rectangle((int)_cinemaSeat.X1,
+                            (int)_cinemaSeat.Y1, (int)_cinemaSeat.X2 - (int)_cinemaSeat.X1,
+                            (int)_cinemaSeat.Y2 - (int)_cinemaSeat.Y1);
+
+                        if (rect.Contains(point) || rect.Contains(point1) || rect.Contains(point2)
+                            || rect.Contains(point3) || rect.Contains(point4))
+                        {
+                            foreach (UIElement child in SeatCanvas.Children)
+                            {
+                                if (child is Control)
+                                {
+                                    ContentControl contentControl = (ContentControl)child;
+                                    if (contentControl.Content is SeatControl)
+                                    {
+                                        SeatControl seatControl = (SeatControl)contentControl.Content;
+                                        if (seatControl.Seat.IsEqual(_cinemaSeat))
+                                        {
+                                            
+                                            Selector.SetIsSelected((Control)child, true);
+
+                                            this.XName.Text = string.Format("{0}", _cinemaSeat.CX);
+                                            this.YName.Text = string.Format("{0}", _cinemaSeat.CY);
+                                            this.AngleName.Text = string.Format("{0}", _cinemaSeat.A);
+                                            this.ColumnName.Text = _cinemaSeat.ColumnName;
+                                            this.RowName.Text = _cinemaSeat.RowName;
+                                            this.Handicapped.IsChecked = (cinemaSeat.Type == CinemaSeat.SeatType.HandicappedSeatType);
+                                        }
+                                        else
+                                        {
+                                            Selector.SetIsSelected((Control)child, false);
+                                        }
+                                    }
+                                }
+                            }
+                            return;
+                        }
+                    }
+                }
             }
 
 
@@ -271,6 +368,7 @@ namespace Cinemapps
             SeatCanvas.Cursor = Cursors.Arrow;
         }
 
+        /*
         private void checkBox1_Checked(object sender, RoutedEventArgs e)
         {
             ToggleButton selectionCheckBox = sender as ToggleButton;
@@ -292,6 +390,7 @@ namespace Cinemapps
             }
 
         }
+        */
 
         private void SelectMode_Click(object sender, RoutedEventArgs e)
         {
@@ -301,11 +400,65 @@ namespace Cinemapps
 
         public void LoadCinema(int intKey)
         {
+            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            {
+                string strQuery = "SELECT `name`, capacity FROM cinema.cinemas WHERE `key`= ?key";
+                using (MySqlCommand command = new MySqlCommand(strQuery, connection))
+                {
+                    command.Parameters.AddWithValue("?key", intKey);
+                    connection.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        CinemaName.Text = reader.GetString(0);
+                        SeatCapacity = reader.GetInt32(1);
+                        CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
+                    }
+                }
+            }
+
+            CinemaScreens.Clear();
             CinemaSeats.Clear();
 
             double dblMaxX = 0.0;
             double dblMaxY = 0.0;
             //double dblSpacing = 40.0;
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            {
+                string strQuery = "SELECT `key`, p1x, p1y, p3x, p3y FROM cinema_seats WHERE cinema_key = ?key AND object_type = 2";
+                using (MySqlCommand command = new MySqlCommand(strQuery, connection))
+                {
+                    command.Parameters.AddWithValue("?key", intKey);
+                    connection.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    double dblX1 = 0.0;
+                    double dblY1 = 0.0;
+                    double dblX2 = 0.0;
+                    double dblY2 = 0.0;
+
+                    while (reader.Read())
+                    {
+
+                        dblX1 = reader.GetDouble(1);
+                        dblY1 = reader.GetDouble(2);
+                        dblX2 = reader.GetDouble(3);
+                        dblY2 = reader.GetDouble(4);
+
+                        CinemaScreens.Add(new CinemaScreen()
+                        {
+                            Key = reader.GetInt32(0),
+                            X1 = dblX1,
+                            Y1 = dblY1,
+                            X2 = dblX2,
+                            Y2 = dblY2
+                        });
+                    }
+                }
+            }
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
             {
@@ -328,7 +481,7 @@ namespace Cinemapps
                         CinemaSeats.Add(new CinemaSeat()
                         {
                             Key = reader.GetInt32(0),
-                            RowName = reader.GetString(1),
+                            Name = reader.GetString(1),
                             CX = dblCX,
                             CY = dblCY,
                             X1 = dblCX - (dblWidth/2),
@@ -350,6 +503,40 @@ namespace Cinemapps
             SeatCanvas.Height = dblMaxY + dblSpacing;
             */
 
+            this.UpdateSeatCanvas();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.GridSlider.Value = 50;
+            this.UpdateSeatCanvas();
+        }
+
+        private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.UpdateSeatCanvas();
+            /*
+            if (this.SelectItem.IsChecked == true)
+            {
+            }
+            */
+        }
+
+        private void SelectItem_Checked(object sender, RoutedEventArgs e)
+        {
+            /*
+            bool blnIsHitTestVisible = false;
+            ToggleButton selectionCheckBox = sender as ToggleButton;
+            if (selectionCheckBox != null && selectionCheckBox.IsChecked == true)
+                blnIsHitTestVisible = true;
+            */
+
+
+            this.UpdateSeatCanvas();
+        }
+
+        private void SelectItem_Unchecked(object sender, RoutedEventArgs e)
+        {
             this.UpdateSeatCanvas();
         }
     }

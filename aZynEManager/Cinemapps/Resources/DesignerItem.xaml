@@ -12,8 +12,8 @@
   </ControlTemplate>
 
   <Style x:Key="DesignerItemStyle" TargetType="ContentControl">
-    <Setter Property="MinHeight" Value="50"/>
-    <Setter Property="MinWidth" Value="50"/>
+    <Setter Property="MinHeight" Value="26"/>
+    <Setter Property="MinWidth" Value="26"/>
     <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
     <Setter Property="SnapsToDevicePixels" Value="true"/>
     <Setter Property="Template">

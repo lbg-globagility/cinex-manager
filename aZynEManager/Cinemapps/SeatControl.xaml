@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="26" d:DesignWidth="26" Loaded="UserControl_Loaded">
+             d:DesignHeight="26" d:DesignWidth="26" Loaded="UserControl_Loaded"
+             >
     <Canvas Name="SeatCanvas">
         <Image Name="SeatIcon" Width="26" Height="26" ></Image>
         <TextBlock Canvas.Left="0" Canvas.Top="7" Name="SeatNameLabel"  Foreground="White" FontWeight="Normal" FontFamily="Arial">W99</TextBlock>
