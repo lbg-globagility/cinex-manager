@@ -1,8 +1,0 @@
-﻿<Window x:Class="Cinemapps.CinemaTicketWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CinemaTicketWindow" Height="300" Width="457" xmlns:my="clr-namespace:Cinemapps">
-    <Grid>
-        <my:MovieCalendarItemControl HorizontalAlignment="Left" Margin="12,72,0,0" x:Name="movieCalendarItemControl1" VerticalAlignment="Top" Width="326" />
-    </Grid>
-</Window>

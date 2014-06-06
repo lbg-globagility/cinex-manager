@@ -43,9 +43,6 @@ namespace Cinemapps
 
         private void SetupTile_Click(object sender, RoutedEventArgs e)
         {
-            CinemaTicketWindow cinemaTicketWindow = new CinemaTicketWindow();
-            cinemaTicketWindow.Owner = this;
-            cinemaTicketWindow.Show();
         }
 
         private void AdministrationTile_Click(object sender, RoutedEventArgs e)

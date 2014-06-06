@@ -20,14 +20,8 @@
             <TextBlock Name="CinemaName" FontSize="24" Margin="5,0,0,0">CINEMA NAME</TextBlock>
         </DockPanel>
         <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Margin="5" Background="LightBlue">
-            <ToggleButton Margin="2" Width="50"  Name="SelectItem" ToolTip="Pointer" Checked="SelectItem_Checked" Unchecked="SelectItem_Unchecked">
-                <Rectangle Width="15" Height="20" 
-                        Fill="LightGray" DockPanel.Dock="Left">
-                    <Rectangle.OpacityMask>
-                        <VisualBrush Stretch="Fill"
-                         Visual="{StaticResource appbar_cursor_default}" />
-                    </Rectangle.OpacityMask>
-                </Rectangle>
+            <ToggleButton Margin="2" Width="50"  Name="SelectItem" ToolTip="Select" Checked="SelectItem_Checked" Unchecked="SelectItem_Unchecked">
+                <Image Height="20" Width="20" Source="Images/select.png" Stretch="Fill"/>
             </ToggleButton>
             <Button Width="50" Margin="2" Name="SeatMode" Click="SeatMode_Click" ToolTip="Seat">
                 <Canvas Width="20" Height="20">

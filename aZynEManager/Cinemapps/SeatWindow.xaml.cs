@@ -420,9 +420,8 @@ namespace Cinemapps
                     CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
                 }
 
-                var seats = from c in context.cinemas
-                             from s in context.cinema_seats
-                             where c.key == intKey && s.object_type == 2
+                var seats = from s in context.cinema_seats
+                             where s.cinema_key == intKey && s.object_type == 2
                              select s;
                 foreach (var seat in seats)
                 {
@@ -438,9 +437,8 @@ namespace Cinemapps
                 }
 
 
-                var screens = from c in context.cinemas
-                             from s in context.cinema_seats
-                             where c.key == intKey && s.object_type == 1
+                var screens = from s in context.cinema_seats
+                             where s.cinema_key == intKey && s.object_type == 1
                              select s;
                 foreach (var screen in screens)
                 {

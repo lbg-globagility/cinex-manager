@@ -83,15 +83,9 @@
       <DependentUpon>CinemaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="CinemaScreen.cs" />
-    <Compile Include="CinemaTicketWindow.xaml.cs">
-      <DependentUpon>CinemaTicketWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConnectionUtility.cs" />
     <Compile Include="DesignerItemDecorator.cs" />
     <Compile Include="MoveThumb.cs" />
-    <Compile Include="MovieCalendarItemControl.xaml.cs">
-      <DependentUpon>MovieCalendarItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ResizeThumb.cs" />
     <Compile Include="RotateThumb.cs" />
     <Compile Include="CinemaSeat.cs" />
@@ -104,14 +98,6 @@
     <Compile Include="SeatWindow.xaml.cs">
       <DependentUpon>SeatWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="CinemaTicketWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MovieCalendarItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\DesignerItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
