@@ -400,108 +400,66 @@ namespace Cinemapps
 
         public void LoadCinema(int intKey)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
-            {
-                string strQuery = "SELECT `name`, capacity FROM cinema.cinemas WHERE `key`= ?key";
-                using (MySqlCommand command = new MySqlCommand(strQuery, connection))
-                {
-                    command.Parameters.AddWithValue("?key", intKey);
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        CinemaName.Text = reader.GetString(0);
-                        SeatCapacity = reader.GetInt32(1);
-                        CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
-                    }
-                }
-            }
-
+            CinemaName.Text = string.Empty;
+            SeatCapacity = 0;
+            CinemaCapacity.Text = string.Empty;
             CinemaScreens.Clear();
             CinemaSeats.Clear();
 
-            double dblMaxX = 0.0;
-            double dblMaxY = 0.0;
-            //double dblSpacing = 40.0;
+            double dblCX = 0.0;
+            double dblCY = 0.0;
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            using (var context = new cinemaEntities())
             {
-                string strQuery = "SELECT `key`, p1x, p1y, p3x, p3y FROM cinema_seats WHERE cinema_key = ?key AND object_type = 2";
-                using (MySqlCommand command = new MySqlCommand(strQuery, connection))
+                var cinemas = from c in context.cinemas where c.key == intKey select c;
+
+                foreach (var cinema in cinemas)
                 {
-                    command.Parameters.AddWithValue("?key", intKey);
-                    connection.Open();
+                    CinemaName.Text = cinema.name;
+                    SeatCapacity = cinema.capacity;
+                    CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
+                }
 
-                    MySqlDataReader reader = command.ExecuteReader();
-
-                    double dblX1 = 0.0;
-                    double dblY1 = 0.0;
-                    double dblX2 = 0.0;
-                    double dblY2 = 0.0;
-
-                    while (reader.Read())
+                var seats = from c in context.cinemas
+                             from s in context.cinema_seats
+                             where c.key == intKey && s.object_type == 2
+                             select s;
+                foreach (var seat in seats)
+                {
+                    CinemaScreens.Add(new CinemaScreen()
                     {
+                        Key = seat.key,
+                        X1 = seat.p1x,
+                        Y1 = seat.p1y,
+                        X2 = seat.p3x,
+                        Y2 = seat.p3y
+                    });
 
-                        dblX1 = reader.GetDouble(1);
-                        dblY1 = reader.GetDouble(2);
-                        dblX2 = reader.GetDouble(3);
-                        dblY2 = reader.GetDouble(4);
+                }
 
-                        CinemaScreens.Add(new CinemaScreen()
-                        {
-                            Key = reader.GetInt32(0),
-                            X1 = dblX1,
-                            Y1 = dblY1,
-                            X2 = dblX2,
-                            Y2 = dblY2
-                        });
-                    }
+
+                var screens = from c in context.cinemas
+                             from s in context.cinema_seats
+                             where c.key == intKey && s.object_type == 1
+                             select s;
+                foreach (var screen in screens)
+                {
+                    dblCX = screen.p1x + ((screen.p2x - screen.p1x) / 2);
+                    dblCY = screen.p1y + ((screen.p2y - screen.p1y) / 2);
+
+                    CinemaSeats.Add(new CinemaSeat()
+                    {
+                        Key = screen.key,
+                        Name = string.Format("{0}{1}", screen.row, screen.column),
+                        CX = dblCX,
+                        CY = dblCY,
+                        X1 = dblCX - (dblWidth / 2),
+                        Y1 = dblCY - (dblHeight / 2),
+                        X2 = dblCX + (dblWidth / 2),
+                        Y2 = dblCY + (dblHeight / 2),
+                    });
                 }
             }
-
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
-            {
-                string strQuery = "SELECT `key`, CONCAT(`row`, `column`) `name`,  p1x + ((p2x- p1x)/2), p1y + ((p2y - p1y)/2 ) FROM cinema_seats WHERE cinema_key = ?key AND object_type = 1";
-                using (MySqlCommand command = new MySqlCommand(strQuery, connection))
-                {
-                    command.Parameters.AddWithValue("?key", intKey); 
-                    connection.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    
-                    //get elements
-                    double dblCX = 0.0;
-                    double dblCY = 0.0;
-
-                    while (reader.Read())
-                    {
-                        dblCX = reader.GetDouble(2);
-                        dblCY = reader.GetDouble(3);
-                        CinemaSeats.Add(new CinemaSeat()
-                        {
-                            Key = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            CX = dblCX,
-                            CY = dblCY,
-                            X1 = dblCX - (dblWidth/2),
-                            Y1 = dblCY - (dblHeight/2),
-                            X2 = dblCX + (dblWidth / 2),
-                            Y2 = dblCY + (dblHeight / 2),
-                        });
-
-                        if (dblMaxX > dblCX + (dblWidth / 2))
-                            dblMaxX = dblCX + (dblWidth / 2);
-                        if (dblMaxY > dblCY + (dblHeight / 2))
-                            dblMaxY = dblCY + (dblHeight / 2);
-                    }
-                }
-            }
-
-            /*
-            SeatCanvas.Width = dblMaxX + dblSpacing;
-            SeatCanvas.Height = dblMaxY + dblSpacing;
-            */
 
             this.UpdateSeatCanvas();
         }
