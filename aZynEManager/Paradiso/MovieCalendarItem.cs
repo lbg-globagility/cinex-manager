@@ -12,16 +12,23 @@ namespace Paradiso
         private int intNumber = 0;
         private string strName = string.Empty;
         
-        private string strTime1 = string.Empty;
-        private string strTime2 = string.Empty;
-        private string strTime3 = string.Empty;
-        private string strTime4 = string.Empty;
-        private string strTime5 = string.Empty;
+        private int intTime1 = 0;
+        private DateTime dtTime1;
+        private int intTime2 = 0;
+        private DateTime dtTime2;
+        private int intTime3 = 0;
+        private DateTime dtTime3;
+        private int intTime4 = 0;
+        private DateTime dtTime4;
+        private int intTime5 = 0;
+        private DateTime dtTime5;
 
         private string strRating = string.Empty;
         private string strRunningTime = string.Empty;
         private int intAvailable = 0;
         private int intBooked = 0;
+
+        private DateTime dtCurrent;
 
         public int Key
         {
@@ -37,6 +44,61 @@ namespace Paradiso
             }
         }
 
+        public bool IsVisible
+        {
+            get { return (intKey != 0); }
+        }
+
+        public bool IsTime1Enabled
+        {
+            get
+            {
+                if (Available == 0 || Time1 < dtCurrent)
+                    return false;
+                return true;
+            }
+        }
+
+        public bool IsTime2Enabled
+        {
+            get
+            {
+                if (Available == 0 || Time2 < dtCurrent)
+                    return false;
+                return true;
+            }
+        }
+
+        public bool IsTime3Enabled
+        {
+            get
+            {
+                if (Available == 0 || Time3 < dtCurrent)
+                    return false;
+                return true;
+            }
+        }
+
+        public bool IsTime4Enabled
+        {
+            get
+            {
+                if (Available == 0 || Time4 < dtCurrent)
+                    return false;
+                return true;
+            }
+        }
+
+        public bool IsTime5Enabled
+        {
+            get
+            {
+                if (Available == 0 || Time5 < dtCurrent)
+                    return false;
+                return true;
+            }
+        }
+
         public int Number
         {
             get { return intNumber; }
@@ -47,6 +109,19 @@ namespace Paradiso
                 {
                     intNumber = value;
                     NotifyPropertyChanged("Number");
+                }
+            }
+        }
+
+        public DateTime CurrentDate
+        {
+            get { return dtCurrent; }
+            set
+            {
+                if (value != dtCurrent)
+                {
+                    dtCurrent = value;
+                    NotifyPropertyChanged("Current Date");
                 }
             }
         }
@@ -65,71 +140,141 @@ namespace Paradiso
             }
         }
 
-        public string Time1
+        public int TimeKey1
         {
-            get { return strTime1; }
+            get { return intTime1; }
 
             set
             {
-                if (value != strTime1)
+                if (value != intTime1)
                 {
-                    strTime1 = value;
+                    intTime1 = value;
+                    NotifyPropertyChanged("TimeKey1");
+                }
+            }
+        }
+
+        public int TimeKey2
+        {
+            get { return intTime2; }
+
+            set
+            {
+                if (value != intTime2)
+                {
+                    intTime2 = value;
+                    NotifyPropertyChanged("TimeKey2");
+                }
+            }
+        }
+
+        public int TimeKey3
+        {
+            get { return intTime3; }
+
+            set
+            {
+                if (value != intTime3)
+                {
+                    intTime3 = value;
+                    NotifyPropertyChanged("TimeKey3");
+                }
+            }
+        }
+
+        public int TimeKey4
+        {
+            get { return intTime4; }
+
+            set
+            {
+                if (value != intTime4)
+                {
+                    intTime4 = value;
+                    NotifyPropertyChanged("TimeKey4");
+                }
+            }
+        }
+
+        public int TimeKey5
+        {
+            get { return intTime5; }
+
+            set
+            {
+                if (value != intTime5)
+                {
+                    intTime5 = value;
+                    NotifyPropertyChanged("TimeKey5");
+                }
+            }
+        }
+
+        public DateTime Time1
+        {
+            get { return dtTime1; }
+
+            set
+            {
+                if (value != dtTime1)
+                {
+                    dtTime1 = value;
                     NotifyPropertyChanged("Time1");
                 }
             }
         }
 
-        public string Time2
+        public DateTime Time2
         {
-            get { return strTime2; }
+            get { return dtTime2; }
 
             set
             {
-                if (value != strTime2)
+                if (value != dtTime2)
                 {
-                    strTime1 = value;
+                    dtTime2 = value;
                     NotifyPropertyChanged("Time2");
                 }
             }
         }
 
-        public string Time3
+        public DateTime Time3
         {
-            get { return strTime3; }
+            get { return dtTime3; }
 
             set
             {
-                if (value != strTime3)
+                if (value != dtTime3)
                 {
-                    strTime3 = value;
+                    dtTime3 = value;
                     NotifyPropertyChanged("Time3");
                 }
             }
         }
 
-        public string Time4
+        public DateTime Time4
         {
-            get { return strTime4; }
+            get { return dtTime4; }
 
             set
             {
-                if (value != strTime4)
+                if (value != dtTime4)
                 {
-                    strTime4 = value;
+                    dtTime4 = value;
                     NotifyPropertyChanged("Time4");
                 }
             }
         }
 
-        public string Time5
+        public DateTime Time5
         {
-            get { return strTime5; }
+            get { return dtTime5; }
 
             set
             {
-                if (value != strTime5)
+                if (value != dtTime5)
                 {
-                    strTime5 = value;
+                    dtTime5 = value;
                     NotifyPropertyChanged("Time5");
                 }
             }
@@ -188,6 +333,25 @@ namespace Paradiso
                     intBooked = value;
                     NotifyPropertyChanged("Booked");
                 }
+            }
+        }
+
+        public int LeastTimeKey
+        {
+            get
+            {
+                if (IsTime1Enabled)
+                    return TimeKey1;
+                else if (IsTime2Enabled)
+                    return TimeKey2;
+                else if (IsTime3Enabled)
+                    return TimeKey3;
+                else if (IsTime4Enabled)
+                    return TimeKey4;
+                else if (IsTime5Enabled)
+                    return TimeKey5;
+                else
+                    return TimeKey1; //return 1st entry if all disabled
             }
         }
 

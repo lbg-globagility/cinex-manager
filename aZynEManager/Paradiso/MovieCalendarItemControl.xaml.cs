@@ -20,6 +20,8 @@ namespace Paradiso
     /// </summary>
     public partial class MovieCalendarItemControl : UserControl
     {
+        public event EventHandler MovieCalendarTimeClicked; 
+        
         public MovieCalendarItem MovieCalendar { get; set; }
 
         public MovieCalendarItemControl()
@@ -28,20 +30,66 @@ namespace Paradiso
 
             MovieCalendar = new MovieCalendarItem();
 
+            /*
+            Time1.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            Time2.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            Time3.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            Time4.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            Time5.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            
+            CommandBinding binding = new CommandBinding();
+            binding.Command = MovieCalendarTimeCommand.RetrieveMovieCalendarTime;
+            binding.Executed += RetrieveMovieCalendarTime_Executed;
+            binding.CanExecute += RetrieveMovieCalendarTime_CanExecute;
+            CommandBindings.Add( binding );
+            */
+
             this.DataContext = this;
         }
 
+        /*
+        public ICommand ClickCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(ReloadCommandProperty);
+            }
+
+            set
+            {
+                SetValue(ReloadCommandProperty, value);
+            }
+        }
+        */
+
+/*
+        public void RetrieveMovieCalendarTime_Executed(object sender, ExecutedRoutedEventArgs args)
+        {
+            
+            NavigationService.GetNavigationService(this).Navigate(new SeatingPage(MovieCalendar.Key, MovieCalendar.TimeKey1));
+
+        }
+
+        public void RetrieveMovieCalendarTime_CanExecute(object sender, CanExecuteRoutedEventArgs args)
+        {
+
+            args.CanExecute = true;
+        }
+*/
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if (this.ActualWidth < (MovieName.ActualWidth + MovieCalendarNumber.ActualWidth))
+            {
+                DoubleAnimation doubleAnimation = new DoubleAnimation();
+                doubleAnimation.From = -MovieName.ActualWidth;
+                doubleAnimation.To = MovieCanvas.ActualWidth;
+                doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:10"));
+                MovieName.BeginAnimation(Canvas.RightProperty, doubleAnimation);
+            }
 
             /*
             //use storyboard to add delay on initial run
-            DoubleAnimation doubleAnimation = new DoubleAnimation();
-            doubleAnimation.From = 0;
-            doubleAnimation.To = MovieCanvas.ActualWidth;
-            doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:10"));
-            MovieName.BeginAnimation(Canvas.RightProperty, doubleAnimation);
 
             string Copy = " " + MovieName.Text;
             double TextGraphicalWidth = new FormattedText(Copy, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(MovieName.FontFamily.Source), MovieName.FontSize, MovieName.Foreground).WidthIncludingTrailingWhitespace;
@@ -60,6 +108,46 @@ namespace Paradiso
             ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
             MovieName.BeginAnimation(TextBox.PaddingProperty, ThickAnimation);
             */
+        }
+
+        private void Time1_Click(object sender, RoutedEventArgs e)
+        {
+            if (MovieCalendarTimeClicked != null)
+            {
+                MovieCalendarTimeClicked(this, new MovieCalendarTimeArgs(MovieCalendar.Key, MovieCalendar.TimeKey1));
+            }
+        }
+
+        private void Time2_Click(object sender, RoutedEventArgs e)
+        {
+            if (MovieCalendarTimeClicked != null)
+            {
+                MovieCalendarTimeClicked(this, new MovieCalendarTimeArgs(MovieCalendar.Key, MovieCalendar.TimeKey2));
+            }
+        }
+
+        private void Time3_Click(object sender, RoutedEventArgs e)
+        {
+            if (MovieCalendarTimeClicked != null)
+            {
+                MovieCalendarTimeClicked(this, new MovieCalendarTimeArgs(MovieCalendar.Key, MovieCalendar.TimeKey3));
+            }
+        }
+
+        private void Time4_Click(object sender, RoutedEventArgs e)
+        {
+            if (MovieCalendarTimeClicked != null)
+            {
+                MovieCalendarTimeClicked(this, new MovieCalendarTimeArgs(MovieCalendar.Key, MovieCalendar.TimeKey4));
+            }
+        }
+
+        private void Time5_Click(object sender, RoutedEventArgs e)
+        {
+            if (MovieCalendarTimeClicked != null)
+            {
+                MovieCalendarTimeClicked(this, new MovieCalendarTimeArgs(MovieCalendar.Key, MovieCalendar.TimeKey5));
+            }
         }
     }
 }

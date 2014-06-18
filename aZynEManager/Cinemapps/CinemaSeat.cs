@@ -9,13 +9,19 @@ namespace Cinemapps
     {
         public enum SeatType
         {
-            NormalSeatType,
-            HandicappedSeatType,
+            NormalTakenSeatType,
+            NormalAvailableSeatType,
+            NormalLockedSeatType,
+            NormalReservedSeatType,
+            HandicappedTakenSeatType,
+            HandicappedAvailableSeatType,
+            HandicappedLockedSeatType,
+            HandicappedReservedSeatType,
         }
 
         public enum ActionType
         {
-            OpenActionType,
+            NoActionType,
             TakenActionType,
             ReservedActionType,
         }
@@ -25,8 +31,8 @@ namespace Cinemapps
             this.Key = 0;
             this.Name = string.Empty;
 
-            Type = SeatType.NormalSeatType;
-            Action = ActionType.OpenActionType;
+            Type = SeatType.NormalTakenSeatType;
+            Action = ActionType.NoActionType;
 
             IsResizable = false;
         }

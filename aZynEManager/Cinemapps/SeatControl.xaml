@@ -6,8 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="26" d:DesignWidth="26" Loaded="UserControl_Loaded"
              >
-    <Canvas Name="SeatCanvas">
+    <Canvas Name="SeatCanvas" MouseLeftButtonDown="SeatCanvas_MouseLeftButtonDown">
         <Image Name="SeatIcon" Width="26" Height="26" ></Image>
-        <TextBlock Canvas.Left="0" Canvas.Top="7" Name="SeatNameLabel"  Foreground="White" FontWeight="Normal" FontFamily="Arial">W99</TextBlock>
+        <TextBlock Canvas.Left="0" Canvas.Top="7" Name="SeatNameLabel"  Foreground="Black" FontWeight="Normal" FontFamily="Arial">W99</TextBlock>
     </Canvas>
 </UserControl>

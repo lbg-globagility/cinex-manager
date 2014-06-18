@@ -83,6 +83,7 @@
       <DependentUpon>CinemaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="CinemaScreen.cs" />
+    <Compile Include="CinemaSeatArgs.cs" />
     <Compile Include="ConnectionUtility.cs" />
     <Compile Include="DesignerItemDecorator.cs" />
     <Compile Include="MoveThumb.cs" />
@@ -212,6 +213,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="cinema-manager-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disabledseat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disabled-available.png" />
+    <Resource Include="Images\disabled-selected.png" />
+    <Resource Include="Images\disabled-taken.png" />
+    <Resource Include="Images\film-part-single.jpg" />
+    <Resource Include="Images\seats-selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disabled-reserved.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

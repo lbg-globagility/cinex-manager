@@ -218,8 +218,8 @@ namespace aZynEManager
                         return;
                     }
 
-                    sqry.Append(String.Format("insert into patrons values(0,'{0}','{1}',{2},{3})",
-                        txtcode.Text.Trim(), txtname.Text.Trim(), txtshare.Text.Trim(), strid));
+                    //sqry.Append(String.Format("insert into patrons values(0,'{0}','{1}',{2},{3})",
+                    //    txtcode.Text.Trim(), txtname.Text.Trim(), txtshare.Text.Trim(), strid));
 
                     try
                     {
@@ -234,7 +234,7 @@ namespace aZynEManager
                         }
                         txtcode.Text = "";
                         txtname.Text = "";
-                        txtshare.Text = "";
+                        //txtshare.Text = "";
                         //ClearControls();
 
                         refreshDGV();

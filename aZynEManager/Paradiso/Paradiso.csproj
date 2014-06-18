@@ -11,7 +11,8 @@
     <RootNamespace>Paradiso</RootNamespace>
     <AssemblyName>Paradiso</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -34,6 +35,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cinema-ticketing-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,9 +62,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MovieCalendarTimeArgs.cs" />
+    <Compile Include="MovieCalendarTimeCommand.cs" />
+    <Compile Include="ScreenDateToTimeConverter.cs" />
+    <Compile Include="ScreenTimeColorConverter.cs" />
+    <Compile Include="SeatingPage.xaml.cs">
+      <DependentUpon>SeatingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SessionItem.cs" />
+    <Compile Include="TicketingPage.xaml.cs">
+      <DependentUpon>TicketingPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MovieCalendarPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -68,11 +94,26 @@
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Master.cs" />
+    <Compile Include="MovieCalendarPage.xaml.cs">
+      <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MovieCalendarItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SeatingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TicketingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +126,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParadisoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ParadisoObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,11 +149,36 @@
       <LastGenOutput>ParadisoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="App.Config" />
+    <None Include="Properties\DataSources\paradisoEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\film-part.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app-bg2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cinema-ticketing-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\carpet-bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\carpet-tile.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cinemapps\Cinemapps.csproj">
+      <Project>{3FC01432-826F-4ED5-B6EF-B97887B18B08}</Project>
+      <Name>Cinemapps</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Images\splash-1-terminal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

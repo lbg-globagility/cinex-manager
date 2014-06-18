@@ -331,7 +331,7 @@ namespace Cinemapps
                                             this.AngleName.Text = string.Format("{0}", _cinemaSeat.A);
                                             this.ColumnName.Text = _cinemaSeat.ColumnName;
                                             this.RowName.Text = _cinemaSeat.RowName;
-                                            this.Handicapped.IsChecked = (cinemaSeat.Type == CinemaSeat.SeatType.HandicappedSeatType);
+                                            this.Handicapped.IsChecked = (cinemaSeat.Type == CinemaSeat.SeatType.HandicappedTakenSeatType);
                                         }
                                         else
                                         {
