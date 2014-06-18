@@ -11,8 +11,8 @@
         <m:Master.Content>
             <DockPanel Name="MainDockPanel">
                 <StackPanel DockPanel.Dock="Left" Width="170">
-                    <StackPanel Background="White" Height="175">
-                        <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 30, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60">MOVIE NAME</TextBlock>
+                    <StackPanel Background="White" Height="135">
+                        <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60">MOVIE NAME</TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock TextAlignment="Center" Margin="15,5,0,5" VerticalAlignment="Center" FontSize="10">TIME:</TextBlock>
                             <TextBlock Name="ScreenTime" Margin="10,5,0,5" FontSize="16" FontWeight="Bold">5:00 - 7:00</TextBlock>
@@ -23,11 +23,11 @@
                         <TextBlock HorizontalAlignment="Center">Selected:</TextBlock>
                         <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 65, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0">
                         <TextBlock HorizontalAlignment="Center">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 65, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0">
                         <TextBlock HorizontalAlignment="Center">Booked:</TextBlock>
                         <TextBlock Name="SeatBooked" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>

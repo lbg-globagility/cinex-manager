@@ -11,8 +11,8 @@
         <m:Master.Content>
             <DockPanel Name="MainDockPanel">
                 <StackPanel DockPanel.Dock="Left" Width="170">
-                    <StackPanel Background="White" Height="175">
-                        <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 30, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60">MOVIE NAME</TextBlock>
+                    <StackPanel Background="White" Height="135">
+                        <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60">MOVIE NAME</TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock TextAlignment="Center" Margin="15,5,0,5" VerticalAlignment="Center" FontSize="10">TIME:</TextBlock>
                             <TextBlock Name="ScreenTime" Margin="10,5,0,5" FontSize="16" FontWeight="Bold">5:00 - 7:00</TextBlock>
@@ -23,33 +23,31 @@
                         <TextBlock HorizontalAlignment="Center">Selected:</TextBlock>
                         <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 65, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0">
                         <TextBlock HorizontalAlignment="Center">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 65, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0">
                         <TextBlock HorizontalAlignment="Center">Booked:</TextBlock>
                         <TextBlock Name="SeatBooked" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
                 </StackPanel>
-                <DockPanel Name="SeatDockPanel">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Margin="5" Height="35">
-                        <Button Margin="0, 5, 5, 0" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
-                        <Button Margin="0, 5, 5, 0" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
-                        <Button Margin="0, 5, 5, 0" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />
-                    </StackPanel>
-                    <ScrollViewer Canvas.Left="0" Canvas.Top="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Height="490">
-                        <Canvas Name="SeatCanvas" Width="1000" Height="600">
-                            <Canvas.Background>
-                                <VisualBrush TileMode="Tile" Viewport="0,0,0.1,0.1">
-                                    <VisualBrush.Visual>
-                                        <Image Source="/Paradiso;component/Images/carpet-tile.jpg" />
-                                    </VisualBrush.Visual>
-                                </VisualBrush>
-                            </Canvas.Background>
-                        </Canvas>
-                    </ScrollViewer>
-                </DockPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom" Margin="5">
+                    <Button Margin="0, 5, 5, 0" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
+                    <Button Margin="0, 5, 5, 0" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
+                    <Button Margin="0, 5, 5, 0" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />
+                </StackPanel>
+                <ScrollViewer Canvas.Left="0" Canvas.Top="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Height="500" >
+                    <Canvas Name="SeatCanvas" Width="1000" Height="600">
+                        <Canvas.Background>
+                            <VisualBrush TileMode="Tile" Viewport="0,0,0.1,0.1">
+                                <VisualBrush.Visual>
+                                    <Image Source="/Paradiso;component/Images/carpet-tile.jpg" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Canvas.Background>
+                    </Canvas>
+                </ScrollViewer>
             </DockPanel>
         </m:Master.Content>
     </m:Master>

@@ -204,7 +204,6 @@
     <Resource Include="Images\properties.png" />
     <Resource Include="Images\reports-icon-main.png" />
     <Resource Include="Images\screen.png" />
-    <Resource Include="Images\seat-old.png" />
     <Resource Include="Images\seats-available.png" />
     <Resource Include="Images\seats-reserved.png" />
     <Resource Include="Images\seats-taken.png" />
