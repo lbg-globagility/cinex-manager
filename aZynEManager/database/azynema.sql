@@ -1,115 +1,189 @@
--- phpMyAdmin SQL Dump
--- version 3.5.1
--- http://www.phpmyadmin.net
+CREATE DATABASE  IF NOT EXISTS `azynema` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `azynema`;
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: localhost
--- Generation Time: Jun 02, 2014 at 02:15 AM
--- Server version: 5.5.24-log
--- PHP Version: 5.3.13
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: azynema
+-- ------------------------------------------------------
+-- Server version	5.5.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Database: `azynema`
+-- Table structure for table `a_trail`
 --
 
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `a_trail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `a_trail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` varchar(255) NOT NULL,
+  `tr_date` datetime NOT NULL,
+  `module_code` int(11) NOT NULL,
+  `aff_table_layer` varchar(255) NOT NULL,
+  `computer_name` varchar(255) NOT NULL,
+  `tr_details` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `a_trail`
+--
+
+LOCK TABLES `a_trail` WRITE;
+/*!40000 ALTER TABLE `a_trail` DISABLE KEYS */;
+INSERT INTO `a_trail` VALUES (1,'ADMIN','2014-10-10 10:10:10',1,'USERS, USERS_RIGHTS','ACER-01','ADDED A NEW USER: LILOY'),(2,'ADMIN','2014-10-11 00:00:00',1,'USERS, USERS_RIGHTS','ACER-01','ADDED A NEW USER: LILOY'),(3,'ADMIN','2014-10-10 00:00:00',1,'USERS, USERS_RIGHTS','ACER-01','ADDED A NEW USER: LILOY');
+/*!40000 ALTER TABLE `a_trail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `application`
+--
+
+DROP TABLE IF EXISTS `application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `application` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `system_code` int(1) NOT NULL,
+  `system_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `application`
+--
+
+LOCK TABLES `application` WRITE;
+/*!40000 ALTER TABLE `application` DISABLE KEYS */;
+INSERT INTO `application` VALUES (1,1,'CINEMA MANAGER');
+/*!40000 ALTER TABLE `application` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cinema`
+--
+
+DROP TABLE IF EXISTS `cinema`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cinema` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(225) NOT NULL,
+  `sound_id` int(1) NOT NULL,
+  `capacity` int(11) DEFAULT NULL,
+  `in_order` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cinema`
+--
+
+LOCK TABLES `cinema` WRITE;
+/*!40000 ALTER TABLE `cinema` DISABLE KEYS */;
+INSERT INTO `cinema` VALUES (2,'Cinema 1',1,262,1),(3,'Cinema 2',1,262,2),(4,'Cinema 3',1,259,3),(5,'Cinema 4',1,262,4);
+/*!40000 ALTER TABLE `cinema` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cinema_patron`
+--
+
+DROP TABLE IF EXISTS `cinema_patron`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cinema_patron` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cinema_id` int(11) NOT NULL,
+  `patron_id` int(11) NOT NULL,
+  `price` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cinema_patron`
+--
+
+LOCK TABLES `cinema_patron` WRITE;
+/*!40000 ALTER TABLE `cinema_patron` DISABLE KEYS */;
+INSERT INTO `cinema_patron` VALUES (53,1,7,160),(54,1,8,0),(55,1,9,88),(56,1,10,5),(57,1,11,0),(58,5,27,5),(59,5,4,5),(60,5,12,0),(61,5,5,0),(62,5,28,5),(63,5,41,160),(64,5,13,140),(65,5,34,150),(66,5,42,128),(67,5,30,112),(68,5,14,112),(69,5,35,120),(70,5,2,0),(71,5,32,130),(72,5,33,104),(73,2,27,5),(74,2,4,5),(75,2,8,0),(76,2,12,0),(77,2,5,0),(78,2,43,160),(79,2,39,600),(80,2,28,5),(81,2,41,160),(82,2,13,140),(83,2,34,150),(84,2,42,128),(85,2,14,112),(86,2,35,120),(87,2,2,0),(88,2,22,600),(89,2,23,480),(90,2,32,130),(91,2,33,104),(92,2,40,480),(93,4,27,5),(94,4,4,5),(95,4,12,0),(96,4,5,0),(97,4,39,600),(98,4,28,5),(99,4,29,140),(100,4,41,160),(101,4,13,140),(102,4,34,150),(103,4,42,128),(104,4,14,112),(105,4,35,120),(106,4,2,0),(107,4,32,130),(108,4,33,104),(109,3,27,5),(110,3,4,5),(111,3,8,0),(112,3,12,0),(113,3,5,0),(114,3,39,600),(115,3,28,5),(116,3,41,160),(117,3,13,140),(118,3,34,150),(119,3,42,128),(120,3,14,112),(121,3,35,120),(122,3,2,0),(123,3,22,600),(124,3,23,480),(125,3,32,130),(126,3,33,104),(127,3,40,480);
+/*!40000 ALTER TABLE `cinema_patron` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `classification`
 --
 
-CREATE TABLE IF NOT EXISTS `classification` (
+DROP TABLE IF EXISTS `classification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `classification` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `classification`
 --
 
-INSERT INTO `classification` (`id`, `name`, `description`) VALUES
-(2, 'COM', 'Comedy'),
-(3, 'DRAMA', 'Drama'),
-(4, 'ACT', 'Action'),
-(5, 'ANIM', 'Animation'),
-(6, 'TRL', 'Thriller'),
-(7, 'SUS', 'Suspense'),
-(8, 'ADV', 'Adventure'),
-(9, 'SCIFI', 'Science Fiction'),
-(10, 'FAN', 'Fantasy'),
-(11, 'ROM', 'Romance'),
-(12, 'HOR', 'Horror'),
-(13, 'SPRT', 'Sports'),
-(14, 'FAM', 'Family'),
-(15, 'SUPER', 'Superhero'),
-(16, 'SEXY COM', 'Sexy Comedy'),
-(17, 'MUSIC', 'Musical');
-
--- --------------------------------------------------------
+LOCK TABLES `classification` WRITE;
+/*!40000 ALTER TABLE `classification` DISABLE KEYS */;
+INSERT INTO `classification` VALUES (2,'COM','Comedy'),(3,'DRAMA','Drama'),(4,'ACT','Action'),(5,'ANIM','Animation'),(6,'TRL','Thriller'),(7,'SUS','Suspense'),(8,'ADV','Adventure'),(9,'SCIFI','Science Fiction'),(10,'FAN','Fantasy'),(11,'ROM','Romance'),(12,'HOR','Horror'),(13,'SPRT','Sports'),(14,'FAM','Family'),(15,'SUPER','Superhero'),(16,'SEXY COM','Sexy Comedy'),(17,'MUSIC','Musical');
+/*!40000 ALTER TABLE `classification` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `distributor`
 --
 
-CREATE TABLE IF NOT EXISTS `distributor` (
+DROP TABLE IF EXISTS `distributor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `distributor` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `share_perc` float NOT NULL,
   `contact_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `distributor`
 --
 
-INSERT INTO `distributor` (`id`, `code`, `name`, `share_perc`, `contact_id`) VALUES
-(2, 'WARNER', 'Warner Bros.', 50, NULL),
-(3, 'COLUMBIA', 'Columbia Pictures', 50, NULL),
-(4, 'STAR', 'Star Cinema', 50, NULL),
-(5, 'VIVA', 'Viva Films', 50, NULL),
-(6, 'SOLAR', 'Solar Films', 50, NULL),
-(7, 'CINESTAR', 'Cinestar', 50, NULL),
-(8, 'REGAL', 'Regal Films', 50, NULL),
-(9, 'PIONEER', 'Pioneer Films', 50, NULL),
-(10, 'SKY', 'Sky Films', 50, NULL),
-(11, 'UIP', 'United International Pictures', 50, NULL),
-(12, 'SEIKO', 'Seiko Films', 50, NULL),
-(13, 'APT', 'APT Films', 50, NULL),
-(14, 'KYE', 'Kye Films', 50, NULL),
-(15, 'GMA', 'GMA Films', 50, NULL),
-(16, 'OCTO', 'Octo Arts Films', 50, NULL),
-(17, 'UNITEL', 'Unitel Pictures', 50, NULL),
-(18, 'CM', 'CM FILMS', 50, NULL),
-(19, 'VIOLETT', 'VIOLETT FILMS INC.', 50, NULL),
-(20, 'DAVEN', 'DAVEN Prods.', 50, NULL),
-(21, 'IMUS', 'IMUS PRODUCTION', 50, NULL),
-(22, 'MAVERICK', 'MAVERICK', 50, NULL),
-(23, 'COMGUILD', 'COMGUILD', 50, NULL),
-(24, 'MEGA', 'MEGAVISION', 50, NULL),
-(25, 'CANARY', 'CANARY FILMS', 50, NULL),
-(26, 'WORLD ASIA', 'World Asia', 50, NULL),
-(27, 'SPRING', 'SPRING FILM', 50, NULL),
-(28, 'XXX', 'XXXX PRODCUTION', 50, 3);
-
--- --------------------------------------------------------
+LOCK TABLES `distributor` WRITE;
+/*!40000 ALTER TABLE `distributor` DISABLE KEYS */;
+INSERT INTO `distributor` VALUES (2,'WARNER','Warner Bros.',50,NULL),(3,'COLUMBIA','Columbia Pictures',50,NULL),(4,'STAR','Star Cinema',50,NULL),(5,'VIVA','Viva Films',50,NULL),(6,'SOLAR','Solar Films',50,NULL),(8,'REGAL','Regal Films',50,NULL),(9,'PIONEER','Pioneer Films',50,NULL),(10,'SKY','Sky Films',50,NULL),(11,'UIP','United International Pictures',50,NULL),(12,'SEIKO','Seiko Films',50,NULL),(13,'APT','APT Films',50,NULL),(14,'KYE','Kye Films',50,NULL),(15,'GMA','GMA Films',50,NULL),(16,'OCTO','Octo Arts Films',50,NULL),(17,'UNITEL','Unitel Pictures',50,NULL),(18,'CM','CM FILMS',50,NULL),(19,'VIOLETT','VIOLETT FILMS INC.',50,NULL),(20,'DAVEN','DAVEN Prods.',50,NULL),(21,'IMUS','IMUS PRODUCTION',50,NULL),(22,'MAVERICK','MAVERICK',50,NULL),(23,'COMGUILD','COMGUILD',50,NULL),(24,'MEGA','MEGAVISION',50,NULL),(25,'CANARY','CANARY FILMS',50,NULL),(26,'WORLD ASIA','World Asia',50,3),(27,'SPRING','SPRING FILM',50,NULL),(28,'XXX','XXXX PRODCUTION',50,3),(30,'a','a',20,5);
+/*!40000 ALTER TABLE `distributor` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movies`
 --
 
-CREATE TABLE IF NOT EXISTS `movies` (
+DROP TABLE IF EXISTS `movies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `code` varchar(100) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -119,52 +193,216 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `duration` int(10) NOT NULL,
   `status` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `movies`
+--
+
+LOCK TABLES `movies` WRITE;
+/*!40000 ALTER TABLE `movies` DISABLE KEYS */;
+INSERT INTO `movies` VALUES (1,'A','title cinema 1',2,50,2,125,0),(3,'C','C',27,40,5,180,0),(4,'D','D',23,50,6,120,0),(5,'DFASG','ASGASD',21,46,3,120,0);
+/*!40000 ALTER TABLE `movies` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movies_class`
 --
 
-CREATE TABLE IF NOT EXISTS `movies_class` (
+DROP TABLE IF EXISTS `movies_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies_class` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `movie_id` int(10) NOT NULL,
   `class_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `movies_class`
+--
+
+LOCK TABLES `movies_class` WRITE;
+/*!40000 ALTER TABLE `movies_class` DISABLE KEYS */;
+INSERT INTO `movies_class` VALUES (1,3,15),(2,3,7),(3,3,6),(4,4,15),(5,4,7),(6,1,4),(7,1,8),(8,1,5),(29,5,4);
+/*!40000 ALTER TABLE `movies_class` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movies_distributor`
+--
+
+DROP TABLE IF EXISTS `movies_distributor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies_distributor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movie_id` int(11) NOT NULL,
+  `share_perc` float NOT NULL,
+  `effective_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_distributor`
+--
+
+LOCK TABLES `movies_distributor` WRITE;
+/*!40000 ALTER TABLE `movies_distributor` DISABLE KEYS */;
+INSERT INTO `movies_distributor` VALUES (1,1,92,'2010-05-10'),(2,5,82,'2014-05-01'),(3,5,82,'2014-06-04'),(4,3,20,'2014-06-04'),(6,3,50,'2014-10-30'),(7,5,444,'2014-06-04');
+/*!40000 ALTER TABLE `movies_distributor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movies_schedule`
+--
+
+DROP TABLE IF EXISTS `movies_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies_schedule` (
+  `id` int(11) NOT NULL,
+  `cinema_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `movie_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_schedule`
+--
+
+LOCK TABLES `movies_schedule` WRITE;
+/*!40000 ALTER TABLE `movies_schedule` DISABLE KEYS */;
+INSERT INTO `movies_schedule` VALUES (1,2,1,'2014-06-17 00:00:00'),(2,2,3,'2014-06-17 00:00:00');
+/*!40000 ALTER TABLE `movies_schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movies_schedule_list`
+--
+
+DROP TABLE IF EXISTS `movies_schedule_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies_schedule_list` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movies_schedule_id` int(11) NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `seat_type` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_schedule_list`
+--
+
+LOCK TABLES `movies_schedule_list` WRITE;
+/*!40000 ALTER TABLE `movies_schedule_list` DISABLE KEYS */;
+INSERT INTO `movies_schedule_list` VALUES (1,1,'2014-06-17 10:30:00','2014-06-17 13:45:00',1),(2,1,'2014-06-17 14:00:00','2014-06-17 15:45:00',2),(3,1,'2014-06-17 16:00:00','2014-06-17 17:45:00',3),(4,2,'2014-06-17 18:00:00','2014-06-17 18:45:00',0),(5,2,'2014-06-17 19:00:00','2014-06-17 19:45:00',0);
+/*!40000 ALTER TABLE `movies_schedule_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movies_status`
+--
+
+DROP TABLE IF EXISTS `movies_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movies_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status_id` int(11) NOT NULL,
+  `status_desc` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_status`
+--
+
+LOCK TABLES `movies_status` WRITE;
+/*!40000 ALTER TABLE `movies_status` DISABLE KEYS */;
+INSERT INTO `movies_status` VALUES (1,0,'NEW'),(2,1,'ACTIVE'),(3,2,'CANCELLED');
+/*!40000 ALTER TABLE `movies_status` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `mtrcb`
 --
 
-CREATE TABLE IF NOT EXISTS `mtrcb` (
+DROP TABLE IF EXISTS `mtrcb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mtrcb` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `mtrcb`
 --
 
-INSERT INTO `mtrcb` (`id`, `name`, `description`) VALUES
-(2, 'PG-13', 'Parental Guidance 13+'),
-(3, 'GP', 'General Patronage'),
-(4, 'R-13', 'Restricted 13+'),
-(5, 'R-18', 'Restricted 18+'),
-(6, 'SPG', 'STRICT PARENTAL GUIDANCE');
+LOCK TABLES `mtrcb` WRITE;
+/*!40000 ALTER TABLE `mtrcb` DISABLE KEYS */;
+INSERT INTO `mtrcb` VALUES (2,'PG-13','Parental Guidance 13+'),(3,'GP','General Patronage'),(4,'R-13','Restricted 13+'),(5,'R-18','Restricted 18+'),(6,'SPG','STRICT PARENTAL GUIDANCE'),(10,'X','XXX'),(11,'yy','yyyyyy');
+/*!40000 ALTER TABLE `mtrcb` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- --------------------------------------------------------
+--
+-- Table structure for table `patrons`
+--
+
+DROP TABLE IF EXISTS `patrons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patrons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `unit_price` float NOT NULL,
+  `with_promo` int(1) DEFAULT NULL,
+  `with_amusement` int(1) DEFAULT NULL,
+  `with_cultural` int(1) DEFAULT NULL,
+  `with_citytax` int(1) DEFAULT NULL,
+  `with_gross_margin` int(1) DEFAULT NULL,
+  `with_prod_share` int(1) DEFAULT NULL,
+  `seat_color` int(32) DEFAULT NULL,
+  `seat_position` int(11) DEFAULT NULL,
+  `lgutax` float DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patrons`
+--
+
+LOCK TABLES `patrons` WRITE;
+/*!40000 ALTER TABLE `patrons` DISABLE KEYS */;
+INSERT INTO `patrons` VALUES (7,'REG','Regular - 160',160,0,1,1,0,0,0,65408,1,0),(8,'SC-MKTI','Senior Citizen Makati - 0',0,0,0,0,0,0,0,33023,16,0),(9,'SC-REG','Senior Citizen Regular - 88',88,0,1,1,0,0,0,65535,2,0),(10,'C2K PASS','COMPANY PASS - 5',5,0,0,1,0,0,1,255,12,0),(11,'MTRCB','MTRCB Deputies - 0',0,0,0,0,0,0,0,16711680,14,0),(12,'SP-REG','Special Regular - 500',500,0,1,1,0,0,0,65408,16,0),(13,'SP-SC','Special Senior - 400',400,0,1,1,0,0,0,33023,17,0),(14,'COMPLI','Complimentary Pass - 0',0,0,0,0,0,0,1,16744576,28,0),(15,'MMFF PASS','MMFF PASS  - 10',10,0,0,1,0,0,1,16744576,15,0),(16,'SPE-REG','Spec Regular-122',122,0,1,1,0,0,0,65280,3,0),(17,'SPE-SC REG','Spec Senior Regular-96',96,0,1,1,0,0,0,65535,4,0),(18,'DIS','Disabled- 0',0,0,0,0,0,0,0,4194432,17,0),(19,'REG-FREE','Regular Free Seating - 140',140,0,1,1,0,0,0,65280,7,0),(20,'SC REG-FREE','Senior Regular Free Seats - 112',112,0,1,1,0,0,0,65535,8,0),(21,'TEST','TESTING',0,0,0,0,0,0,0,12632256,18,0),(22,'SPEC-REG','Special Regular-121',121,0,1,1,0,0,0,65280,5,0),(23,'SPEC SC REG','Special SC Regular-97',97,0,0,0,0,0,0,65535,6,0),(24,'REG RES','Regular Reserved-141',141,0,0,0,0,0,0,65280,9,0),(25,'SC REG RES','Senior Regular Reserved-113',113,0,0,0,0,0,0,65535,10,0),(26,'EP- FS REG','Regular (Early Patron)-450',450,0,1,1,0,0,0,8388863,20,0),(27,'EP-FS SR REG','SR Regular (Early Patron)-350',350,0,1,1,0,0,0,16777088,21,0),(28,'SP-RES','Special Reserved - 600',600,0,1,1,0,0,0,65280,22,0),(29,'SP-RES SR','Special Reserved Senior - 480',480,0,1,1,0,0,0,65535,23,0),(30,'EP RES REG','Reserved (Early Patron)-550',550,0,1,1,0,0,0,8388863,24,0),(31,'EP RES SR','Reserved Senior (Early Patron)-430',430,0,1,1,0,0,0,16777088,25,0),(32,'VIP/SPECIAL','VIP/SPECIAL PASS - 0',5,1,0,1,0,0,1,32896,36,0),(33,'AD PASS','COM\'L AD PASS - 5',0,0,0,1,0,0,1,16744703,27,0),(34,'PROD.PASS','PRODUCTION PASS - 5',5,0,0,1,0,0,1,32896,28,0),(35,'REG - MMFF','MMFF REG - 140',140,0,1,1,0,0,0,65280,13,0),(36,'SC REG -MMFF','MMFF SC REG - 112',112,0,1,1,0,0,0,65535,14,0),(37,'PASS','EMERGENCY PASS',0,0,0,0,0,0,0,-16777201,31,0),(38,'SPEC REG','SPEC REG - 130',130,0,1,1,0,0,0,65280,8,0),(39,'SPEC SR REG','SPEC SR REG - 104',104,0,1,1,0,0,0,65535,9,0),(40,'REG-RES','Regular Reserved Seating - 150',150,0,1,1,0,0,0,65280,5,0),(41,'SC REG-RES','SC Regular Reserved - 120',120,0,1,1,0,0,0,65535,6,0),(42,'REG-DIS','Reg Discounted-500',500,1,1,1,0,0,0,4194432,36,0),(43,'PP','PROMO PASS - 0',0,0,0,1,0,0,1,8421440,27,0),(44,'NO SEAT#','SPECIAL RESRVED',600,0,1,1,0,0,0,-16777201,38,0),(45,'SR NO SEAT#','SPECIAL RESRVED SENIOR',480,0,1,1,0,0,0,-16777201,39,0),(46,'REG - RES','Regular Reserved Seating - 160',160,0,1,1,0,0,0,65280,40,0),(47,'SC REG - RES','Senior Regular Reserved - 128',128,0,1,1,0,0,0,65535,41,0),(48,'NO SEAT 160','No Seat Regular - 160',160,0,1,1,0,0,0,65408,43,0);
+/*!40000 ALTER TABLE `patrons` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `people`
 --
 
-CREATE TABLE IF NOT EXISTS `people` (
+DROP TABLE IF EXISTS `people`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `people` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
@@ -177,17 +415,237 @@ CREATE TABLE IF NOT EXISTS `people` (
   `city` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `people`
 --
 
-INSERT INTO `people` (`id`, `name`, `lname`, `fname`, `mname`, `position`, `contact_no`, `email_addr`, `address`, `city`, `country`) VALUES
-(1, 'a a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'),
-(2, 'b b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'),
-(3, 'cac', 'c', 'ca', '', 'cg', 'ce', 'cf', 'cb', 'cc', 'cd');
+LOCK TABLES `people` WRITE;
+/*!40000 ALTER TABLE `people` DISABLE KEYS */;
+INSERT INTO `people` VALUES (1,'aaaa aaaa','aaaa','aaaa','a','','aaaaaa','aaaaaaaa','aaaaa','aaaaa','aaaaa'),(2,'b b','b','b','b','b','b','b','b','b','b'),(3,'ca c','c','ca','','','ce','cf','cb','cc','cd'),(4,'e e','e','e','','e','e','e','e','e','e'),(5,'azzz azz','azz','azzz','','','azzzzz','azzzzzz','azzzz','azzz','azzzzz'),(6,'w w','w','w','','w','w','w','w','w','w');
+/*!40000 ALTER TABLE `people` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `sound_system`
+--
+
+DROP TABLE IF EXISTS `sound_system`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sound_system` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sound_system_type` varchar(225) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sound_system`
+--
+
+LOCK TABLES `sound_system` WRITE;
+/*!40000 ALTER TABLE `sound_system` DISABLE KEYS */;
+INSERT INTO `sound_system` VALUES (1,'Dolby Digital'),(2,'Dolby Atmos'),(3,'Dolby 3D'),(4,'Dolby Surround');
+/*!40000 ALTER TABLE `sound_system` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `system_module`
+--
+
+DROP TABLE IF EXISTS `system_module`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `system_module` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_code` varchar(255) NOT NULL,
+  `module_desc` varchar(225) NOT NULL,
+  `module_group` varchar(255) NOT NULL,
+  `system_code` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `system_module`
+--
+
+LOCK TABLES `system_module` WRITE;
+/*!40000 ALTER TABLE `system_module` DISABLE KEYS */;
+INSERT INTO `system_module` VALUES (1,'USER_ADD','ADD NEW SYSTEM USER','CONFIG',1),(2,'USER_EDIT','EDIT/UPDATE EXISTING SYSTEM USER','CONFIG',1),(3,'USER_DELETE','REMOVE EXISTING SYSTEM USER','CONFIG',1),(4,'USER_ADD','REPORT','REPORT',1),(5,'USER_EDIT','UTILITY','UTILITY',1),(6,'USER_DELETE','CINEMA','CINEMA',1);
+/*!40000 ALTER TABLE `system_module` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_level`
+--
+
+DROP TABLE IF EXISTS `user_level`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_level` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level_desc` varchar(255) NOT NULL,
+  `system_code` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_level`
+--
+
+LOCK TABLES `user_level` WRITE;
+/*!40000 ALTER TABLE `user_level` DISABLE KEYS */;
+INSERT INTO `user_level` VALUES (10,'ADMINISTRATOR',1),(12,'AD',1),(13,'ADS',1);
+/*!40000 ALTER TABLE `user_level` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_level_rights`
+--
+
+DROP TABLE IF EXISTS `user_level_rights`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_level_rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_level` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  `system_code` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_level_rights`
+--
+
+LOCK TABLES `user_level_rights` WRITE;
+/*!40000 ALTER TABLE `user_level_rights` DISABLE KEYS */;
+INSERT INTO `user_level_rights` VALUES (37,10,6,1),(38,10,4,1),(39,10,5,1),(40,10,1,1),(41,10,2,1),(42,10,3,1),(43,12,6,1),(44,12,4,1),(45,12,5,1),(46,12,1,1),(47,12,2,1),(48,12,3,1),(54,13,6,1),(55,13,4,1),(56,13,5,1),(57,13,1,1),(58,13,2,1),(59,13,3,1);
+/*!40000 ALTER TABLE `user_level_rights` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_logs`
+--
+
+DROP TABLE IF EXISTS `user_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `computer_name` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_authority` varchar(255) NOT NULL,
+  `time_in` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_logs`
+--
+
+LOCK TABLES `user_logs` WRITE;
+/*!40000 ALTER TABLE `user_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_logs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_logs_temp`
+--
+
+DROP TABLE IF EXISTS `user_logs_temp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_logs_temp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `computer_name` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_authority` varchar(255) NOT NULL,
+  `time_in` varchar(255) NOT NULL,
+  `time_out` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_logs_temp`
+--
+
+LOCK TABLES `user_logs_temp` WRITE;
+/*!40000 ALTER TABLE `user_logs_temp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_logs_temp` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_rights`
+--
+
+DROP TABLE IF EXISTS `user_rights`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_rights`
+--
+
+LOCK TABLES `user_rights` WRITE;
+/*!40000 ALTER TABLE `user_rights` DISABLE KEYS */;
+INSERT INTO `user_rights` VALUES (25,2,6),(26,2,4),(27,2,5),(28,2,1),(29,2,2),(30,2,3);
+/*!40000 ALTER TABLE `user_rights` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  `designation` varchar(255) NOT NULL,
+  `user_level_id` int(11) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `mname` varchar(45) NOT NULL,
+  `system_code` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (2,'ADMIN','f3997c6f5a299b9b','GIS DEVELOPER',10,'BETITO','ROGELIO','M',1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-06-18  9:46:06

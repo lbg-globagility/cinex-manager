@@ -50,7 +50,11 @@ namespace Paradiso
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to cancel?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+            messageYesNoWindow.MessageText.Text = "Are you sure you want to cancel?";
+            messageYesNoWindow.ShowDialog();
+            if (!messageYesNoWindow.IsYes)
+            //if (  .Show("Are you sure you want to cancel?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -272,7 +276,11 @@ namespace Paradiso
         {
             if (SelectedCinemaSeats.Count > 0)
             {
-                if (MessageBox.Show("Are you sure you want to clear the selection?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+                messageYesNoWindow.MessageText.Text = "Are you sure you want to clear the selection?";
+                messageYesNoWindow.ShowDialog();
+                if (!messageYesNoWindow.IsYes)
+                //if (MessageBox.Show("Are you sure you want to clear the selection?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                     return;
             }
 
@@ -284,7 +292,9 @@ namespace Paradiso
         {
             if (SelectedCinemaSeats.Count == 0)
             {
-                MessageBox.Show("You must select a seat to continue.");
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "You must select a seat to continue.";
+                messageWindow.ShowDialog();
                 return;
             }
             NavigationService.GetNavigationService(this).Navigate(new TicketingPage(this.MovieKey, this.MovieTimeKey, this.SelectedCinemaSeats));

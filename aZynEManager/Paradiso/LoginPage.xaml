@@ -9,7 +9,6 @@
 	Title="LoginPage">
     <m:Master>
         <m:Master.Content>
-            <DockPanel>
                 <Grid Margin="0, 420, 0, 0" Background="#FF373636"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="260" KeyboardNavigation.TabNavigation="Local" FocusManager.FocusedElement="{Binding ElementName=UserName}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -26,7 +25,6 @@
                     <PasswordBox Name="Password"  KeyboardNavigation.TabIndex="1" Width="110" Grid.Row="1" Grid.Column="1" Margin="5"/>
                     <Button Grid.Row="2" Grid.ColumnSpan="2" Background="YellowGreen" Width="100" Margin="5" FontFamily="Arial" Height="25" Click="Button_Click" KeyboardNavigation.TabIndex="2">SUBMIT</Button>
                 </Grid>
-            </DockPanel>
         </m:Master.Content>
     </m:Master>
 </Page>

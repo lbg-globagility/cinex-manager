@@ -11,18 +11,59 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace Paradiso
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class LoginPage : Page //, INotifyPropertyChanged
     {
+
+        private DispatcherTimer dispatcherTimer;
+
+        //private string m_strCurrentDate;
+
         public LoginPage()
         {
             InitializeComponent();
-            
+            this.DataContext = this;
+
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 30);
+            //dispatcherTimer.Start();
+
+        }
+
+        /*
+        public string XCurrentDate
+        {
+            get { return m_strCurrentDate; }
+            set
+            {
+                m_strCurrentDate = value;
+                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("XCurrentDate"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        */
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Hello");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -32,12 +73,16 @@ namespace Paradiso
 
             if (strUserName == string.Empty)
             {
-                MessageBox.Show("Missing User Name.");
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "Missing User Name.";
+                messageWindow.ShowDialog();
                 return;
             }
             else if (strPassword == string.Empty)
             {
-                MessageBox.Show("Missing Password.");
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "Missing Password.";
+                messageWindow.ShowDialog();
                 return;
             }
 
@@ -52,7 +97,9 @@ namespace Paradiso
                 }
                 else
                 {
-                    MessageBox.Show("Invalid username/password.");
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Invalid username/password.";
+                    messageWindow.ShowDialog();
                 }
             }
 

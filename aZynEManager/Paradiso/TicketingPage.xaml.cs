@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using Xceed.Wpf.Toolkit;
 
 namespace Paradiso
 {
@@ -23,16 +25,43 @@ namespace Paradiso
         public int MovieTimeKey { get; set; }
         public List<int> SelectedCinemaSeats { get; set; }
 
+        public List<CinemaPatron> cinemaPatrons;
+        public ObservableCollection<CinemaTicket> cinemaTickets;
+
         public TicketingPage(int intMovieKey, int intMovieTimeKey, List<int> selectedCinemaSeats)
         {
+            cinemaTickets = new ObservableCollection<CinemaTicket>();
+
             InitializeComponent();
 
             MovieKey = intMovieKey;
             MovieTimeKey = intMovieTimeKey;
             SelectedCinemaSeats = new List<int>();
-
             for (int i = 0; i < selectedCinemaSeats.Count; i++)
                 SelectedCinemaSeats.Add(selectedCinemaSeats[i]);
+            cinemaPatrons = new List<CinemaPatron>();
+
+            using (var context = new paradisoEntities())
+            {
+                var patrons = (from mctp in context.movie_calendar_time_patrons
+                               where mctp.movie_calendar_time_key == this.MovieTimeKey
+                               select new { mctp.key, mctp.patron_key, mctp.patron.name, mctp.price }).ToList();
+                if (patrons.Count > 0)
+                {
+                    foreach (var patron in patrons)
+                    {
+                        cinemaPatrons.Add(new CinemaPatron() { Key = patron.key, PatronKey = patron.patron_key, PatronName = patron.name, Price = patron.price});
+                    }
+                }
+            }
+
+            this.DataContext = this;
+        }
+
+        public ObservableCollection<CinemaTicket> CinemaTickets
+        {
+            get { return cinemaTickets; }
+            set { cinemaTickets = value; }
         }
 
 
@@ -42,8 +71,10 @@ namespace Paradiso
             SeatSelected.Text = "0";
             SeatBooked.Text = "0";
             SeatAvailable.Text = "0";
-            TicketGrid.Items.Clear();
-            
+            //TicketGrid.Items.Clear();
+
+            CinemaTickets.Clear();
+
             //load values
             using (var context = new paradisoEntities())
             {
@@ -94,7 +125,7 @@ namespace Paradiso
 
             if (this.SelectedCinemaSeats.Count > 0)
             {
-
+                CinemaTickets.Add(new CinemaTicket(0, this.MovieTimeKey, 0, 0, 0.0M, cinemaPatrons));
                 //TicketGrid.Items.Add(
             }
         }
@@ -106,7 +137,11 @@ namespace Paradiso
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to cancel?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+            MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+            messageYesNoWindow.MessageText.Text = "Are you sure you want to cancel?";
+            messageYesNoWindow.ShowDialog();
+            if (!messageYesNoWindow.IsYes)
+            //if (Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to cancel?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -118,11 +153,16 @@ namespace Paradiso
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Insert saving and printing option here");
-
-
-
-            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+            //Xceed.Wpf.Toolkit.MessageBox.Show("Insert saving and printing option here");
+            MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+            messageYesNoWindow.MessageText.Text = "Click PRINT to continue";
+            messageYesNoWindow.YesButton.Content = "CANCEL";
+            messageYesNoWindow.NoButton.Content = "PRINT";
+            messageYesNoWindow.ShowDialog();
+            if (!messageYesNoWindow.IsYes)
+            {
+                NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+            }
         }
     }
 }
