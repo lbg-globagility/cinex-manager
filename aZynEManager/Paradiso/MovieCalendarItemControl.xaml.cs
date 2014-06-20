@@ -87,27 +87,6 @@ namespace Paradiso
                 doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:10"));
                 MovieName.BeginAnimation(Canvas.RightProperty, doubleAnimation);
             }
-
-            /*
-            //use storyboard to add delay on initial run
-
-            string Copy = " " + MovieName.Text;
-            double TextGraphicalWidth = new FormattedText(Copy, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(MovieName.FontFamily.Source), MovieName.FontSize, MovieName.Foreground).WidthIncludingTrailingWhitespace;
-            double TextLenghtGraphicalWidth = 0;
-            //BorderMovieName.Width = TextGraphicalWidth + 5;
-            while (TextLenghtGraphicalWidth < MovieName.ActualWidth)
-            {
-                MovieName.Text += Copy;
-                TextLenghtGraphicalWidth = new FormattedText(MovieName.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(MovieName.FontFamily.Source), MovieName.FontSize, MovieName.Foreground).WidthIncludingTrailingWhitespace;
-            }
-            MovieName.Text += " " + MovieName.Text;
-            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
-            ThickAnimation.From = new Thickness(0, 0, 0, 0);
-            ThickAnimation.To = new Thickness(-TextGraphicalWidth, 0, 0, 0);
-            ThickAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
-            MovieName.BeginAnimation(TextBox.PaddingProperty, ThickAnimation);
-            */
         }
 
         private void Time1_Click(object sender, RoutedEventArgs e)

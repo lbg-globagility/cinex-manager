@@ -31,6 +31,9 @@ namespace Paradiso
 
             //load page
             NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
+            
+            //2,3, 1214,1215,1216
+            //NavigationService.Navigate(new TicketingPage(2, 3, new List<int>() {1214, 1215, 1216}),  UriKind.Relative);  
         }
 
         private void NavigationWindow_Navigated(object sender, NavigationEventArgs e)

@@ -102,6 +102,10 @@
     <Compile Include="TicketingPage.xaml.cs">
       <DependentUpon>TicketingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TicketPatronArgs.cs" />
+    <Compile Include="TicketPatronControl.xaml.cs">
+      <DependentUpon>TicketPatronControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -146,6 +150,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TicketingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TicketPatronControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

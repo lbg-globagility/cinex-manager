@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Paradiso.Master
 {
@@ -50,12 +51,18 @@ namespace Paradiso.Master
     {
 
         public static readonly DependencyProperty UserNameProperty;
+        public static readonly DependencyProperty CurrentDateProperty;
+        public static readonly DependencyProperty ScreeningDateProperty;
 
         static Master()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Master), new FrameworkPropertyMetadata(typeof(Master)));
 
-            UserNameProperty = DependencyProperty.Register("UserName",
+            UserNameProperty = DependencyProperty.Register("PART_UserName",
+                           typeof(string), typeof(TextBlock), new UIPropertyMetadata(null));
+            CurrentDateProperty = DependencyProperty.Register("PART_CurrentDate",
+                           typeof(string), typeof(TextBlock), new UIPropertyMetadata(null));
+            ScreeningDateProperty = DependencyProperty.Register("PART_ScreeningDate",
                            typeof(string), typeof(TextBlock), new UIPropertyMetadata(null));
         }
 
@@ -64,6 +71,7 @@ namespace Paradiso.Master
             get { return (object)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
         }
+
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register("Content", typeof(object),
             typeof(Master), new UIPropertyMetadata());
@@ -86,10 +94,24 @@ namespace Paradiso.Master
             set { SetValue(UserNameProperty, value); }
         }
 
+        public string CurrentDate
+        {
+            get { return (string)GetValue(CurrentDateProperty); }
+            set { SetValue(CurrentDateProperty, value); }
+        }
+
+        public string ScreeningDate
+        {
+            get { return (string)GetValue(ScreeningDateProperty); }
+            set { SetValue(ScreeningDateProperty, value); }
+        }
+
         public override void OnApplyTemplate()
         {
 
             base.OnApplyTemplate();
+
+
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 

@@ -25,7 +25,7 @@ namespace Paradiso
         public int MovieTimeKey { get; set; }
         public List<int> SelectedCinemaSeats { get; set; }
 
-        public List<CinemaPatron> cinemaPatrons;
+        public ObservableCollection<CinemaPatron> cinemaPatrons;
         public ObservableCollection<CinemaTicket> cinemaTickets;
 
         public TicketingPage(int intMovieKey, int intMovieTimeKey, List<int> selectedCinemaSeats)
@@ -39,7 +39,7 @@ namespace Paradiso
             SelectedCinemaSeats = new List<int>();
             for (int i = 0; i < selectedCinemaSeats.Count; i++)
                 SelectedCinemaSeats.Add(selectedCinemaSeats[i]);
-            cinemaPatrons = new List<CinemaPatron>();
+            cinemaPatrons = new ObservableCollection<CinemaPatron>();
 
             using (var context = new paradisoEntities())
             {
@@ -74,6 +74,7 @@ namespace Paradiso
             //TicketGrid.Items.Clear();
 
             CinemaTickets.Clear();
+            TicketPanel.Children.Clear();
 
             //load values
             using (var context = new paradisoEntities())
@@ -125,9 +126,206 @@ namespace Paradiso
 
             if (this.SelectedCinemaSeats.Count > 0)
             {
-                CinemaTickets.Add(new CinemaTicket(0, this.MovieTimeKey, 0, 0, 0.0M, cinemaPatrons));
-                //TicketGrid.Items.Add(
+                CinemaTickets.Add(new CinemaTicket(0, this.MovieTimeKey, 0, 0, 1, SelectedCinemaSeats.Count, 0.0M, cinemaPatrons));
+
+                TicketPatronControl ticketPatronControl = new TicketPatronControl(cinemaTickets[cinemaTickets.Count - 1]);
+                ticketPatronControl.TicketPatronClicked += new EventHandler(ticketPatronControl_TicketPatronClicked);
+                TicketPanel.Children.Add(ticketPatronControl);
             }
+        }
+
+        private void ticketPatronControl_TicketPatronClicked(object sender, EventArgs e)
+        {
+            TicketPatronArgs tpa = (TicketPatronArgs)e;
+            int intIndex = -1;
+            int intControlCount = TicketPanel.Children.Count;
+
+            //disable all event handlers to prevent error
+            for (int x = 0; x < intControlCount; x++)
+            {
+                TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[x];
+                ticketPatronControl.TicketPatronClicked -= new EventHandler(ticketPatronControl_TicketPatronClicked);
+            }
+
+            int intTicketCount = CinemaTickets.Count;
+            if (tpa.Ticket.PatronKey == 0) //no selection
+            {
+
+            }
+            else if (tpa.Ticket.Quantity == 0) //remove
+            {
+                if (intTicketCount > 1) //applicable to more than one entry only
+                {
+                    //remove collection
+                    for (int i = 0; i < intTicketCount; i++)
+                    {
+                        if (CinemaTickets[i].PatronKey == tpa.Ticket.PatronKey)
+                        {
+                            CinemaTickets.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    //remove control
+                    for (int j = 0; j < intControlCount; j++)
+                    {
+                        TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[j];
+                        if (ticketPatronControl.Ticket.PatronKey == tpa.Ticket.PatronKey)
+                        {
+                            TicketPanel.Children.RemoveAt(j);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (intTicketCount > 0)
+                {
+                    for (int i = 0; i < intTicketCount; i++)
+                    {
+                        if ((CinemaTickets[i].PatronKey == tpa.Ticket.PatronKey && tpa.PrevPatronKey == -1) ||
+                             (CinemaTickets[i].PatronKey == tpa.PrevPatronKey && tpa.PrevPatronKey != -1))
+                        {
+                            intIndex = i;
+                            break;
+                        }
+                    }
+                }
+
+                if (intIndex == -1) //add to collection
+                {
+                }
+                else
+                {
+                    CinemaTickets[intIndex] = new CinemaTicket(tpa.Ticket);
+                }
+
+            }
+
+            intTicketCount = CinemaTickets.Count;
+            intControlCount = TicketPanel.Children.Count;
+
+            int intTotalQty = 0;
+            int intAdditionalQty = 0;
+            decimal decTotalAmount = 0.0M;
+            if (intTicketCount > 0)
+            {
+                foreach (CinemaTicket cinemaTicket in CinemaTickets)
+                {
+                    if (cinemaTicket.Quantity == 0) //usually last element
+                        intAdditionalQty++;
+
+                    intTotalQty += cinemaTicket.Quantity;
+                    decTotalAmount += cinemaTicket.Price;
+                }
+            }
+            TotalQty.Text = string.Format("{0}", intTotalQty);
+            TotalAmount.Text = string.Format("{0:#,##0.00}", decTotalAmount);
+
+
+            int intRemainQty = SelectedCinemaSeats.Count - intTotalQty;
+            List<int> patronKeys = new List<int>();
+
+            //update listing
+            if (intTicketCount > 0)
+            {
+                foreach (CinemaTicket cinemaTicket in CinemaTickets)
+                {
+                    if (intTicketCount == 1 || cinemaTicket.PatronKey == 0)
+                        cinemaTicket.MinQuantity = 1;
+                    else
+                        cinemaTicket.MinQuantity = 0;
+
+                    if (cinemaTicket.PatronKey == 0)
+                        cinemaTicket.MaxQuantity = intRemainQty;
+                    else
+                        cinemaTicket.MaxQuantity = intRemainQty + cinemaTicket.Quantity;
+                }
+            }
+
+            bool blnHasEmptyPatron = false;
+            if (intControlCount > 0)
+            {
+                for (int j = 0; j < intControlCount; j++)
+                {
+                    TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[j];
+                    if (ticketPatronControl.Ticket.PatronKey == 0)
+                        blnHasEmptyPatron = true;
+                }
+
+                for (int j = 0; j < intControlCount; j++)
+                {
+                    TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[j];
+                    if (ticketPatronControl.Ticket.PatronKey != 0)
+                        patronKeys.Add(ticketPatronControl.Ticket.PatronKey);
+
+                    if (intControlCount == 0 || ticketPatronControl.Ticket.PatronKey == 0 )
+                        ticketPatronControl.Ticket.MinQuantity = 1;
+                    else
+                        ticketPatronControl.Ticket.MinQuantity = 0;
+
+                    if (ticketPatronControl.Ticket.PatronKey == 0)
+                        ticketPatronControl.Ticket.MaxQuantity = intRemainQty;
+                    else
+                        ticketPatronControl.Ticket.MaxQuantity = intRemainQty + ticketPatronControl.Ticket.Quantity;
+                }
+            }
+
+            //update patrons for other controls
+            if (intControlCount > 0)
+            {
+                for (int j = 0; j < intControlCount; j++)
+                {
+                    TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[j];
+                    int intPatronKey = ticketPatronControl.Ticket.PatronKey;
+                    ObservableCollection<CinemaPatron> remainPatrons = new ObservableCollection<CinemaPatron>();
+                    if (cinemaPatrons.Count > 0)
+                    {
+                        foreach (CinemaPatron _cinemaPatron in cinemaPatrons)
+                        {
+                            if (patronKeys.IndexOf(_cinemaPatron.Key) == -1 ||
+                                _cinemaPatron.Key == ticketPatronControl.Ticket.PatronKey)
+                                remainPatrons.Add(new CinemaPatron(_cinemaPatron));
+                        }
+                        ticketPatronControl.Ticket.Patrons = remainPatrons;
+                        ticketPatronControl.Ticket.PatronKey = intPatronKey;
+                    }
+                }
+            }
+
+            
+            if (!blnHasEmptyPatron && intRemainQty > 0 && patronKeys.Count < cinemaPatrons.Count) //add an empty patron if tickets are still available
+            {
+                ObservableCollection<CinemaPatron> remainPatrons = new ObservableCollection<CinemaPatron>();
+                if (cinemaPatrons.Count > 0)
+                {
+                    foreach (CinemaPatron _cinemaPatron in cinemaPatrons)
+                    {
+                        if (patronKeys.IndexOf(_cinemaPatron.Key) == -1)
+                            remainPatrons.Add(new CinemaPatron(_cinemaPatron));
+                    }
+                }
+
+                CinemaTickets.Add(new CinemaTicket(0, this.MovieTimeKey, 0, 0, 1, intRemainQty, 0.0M, remainPatrons));
+                TicketPatronControl ticketPatronControl = new TicketPatronControl(cinemaTickets[cinemaTickets.Count - 1]);
+                ticketPatronControl.TicketPatronClicked += new EventHandler(ticketPatronControl_TicketPatronClicked);
+                TicketPanel.Children.Add(ticketPatronControl);
+            }
+            else if (blnHasEmptyPatron && intRemainQty == 0) //remove empty patron if remaining quantity is zero
+            {
+                CinemaTickets.RemoveAt(intTicketCount-1);
+                TicketPanel.Children.RemoveAt(intControlCount - 1);
+                intControlCount = TicketPanel.Children.Count;
+            }
+
+            //enable all event handlers to prevent error
+            for (int x = 0; x < intControlCount; x++)
+            {
+                TicketPatronControl ticketPatronControl = (TicketPatronControl)TicketPanel.Children[x];
+                ticketPatronControl.TicketPatronClicked += new EventHandler(ticketPatronControl_TicketPatronClicked);
+            }
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -141,7 +339,6 @@ namespace Paradiso
             messageYesNoWindow.MessageText.Text = "Are you sure you want to cancel?";
             messageYesNoWindow.ShowDialog();
             if (!messageYesNoWindow.IsYes)
-            //if (Xceed.Wpf.Toolkit.MessageBox.Show("Are you sure you want to cancel?", string.Empty, MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -153,7 +350,43 @@ namespace Paradiso
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            //Xceed.Wpf.Toolkit.MessageBox.Show("Insert saving and printing option here");
+            //validate if all selected
+            //get total count
+            int intTicketCount = CinemaTickets.Count;
+            int intControlCount = TicketPanel.Children.Count;
+            int intTicketQty = 0;
+            int intControlQty = 0;
+            if (TicketPanel.Children.Count > 0)
+            {
+                foreach (TicketPatronControl ticketPatronControl in TicketPanel.Children)
+                {
+                    if (ticketPatronControl.Ticket.PatronKey != 0 &&
+                        ticketPatronControl.Ticket.Quantity > 0)
+                        intControlQty += ticketPatronControl.Ticket.Quantity;
+                }
+            }
+            if (CinemaTickets.Count > 0)
+            {
+                foreach (CinemaTicket cinemaTicket in CinemaTickets)
+                {
+                    if (cinemaTicket.PatronKey != 0 &&
+                        cinemaTicket.Quantity > 0)
+                        intTicketQty += cinemaTicket.Quantity;
+                }
+            }
+
+            int intRemainQty = SelectedCinemaSeats.Count - intTicketQty;
+            if (intRemainQty != 0)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                if (intRemainQty == 1)
+                    messageWindow.MessageText.Text = string.Format("You have {0} remaining seat.", intRemainQty);
+                else
+                    messageWindow.MessageText.Text = string.Format("You have {0} remaining seats.", intRemainQty);
+                messageWindow.ShowDialog();
+                return;
+            }
+
             MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
             messageYesNoWindow.MessageText.Text = "Click PRINT to continue";
             messageYesNoWindow.YesButton.Content = "CANCEL";
@@ -161,6 +394,9 @@ namespace Paradiso
             messageYesNoWindow.ShowDialog();
             if (!messageYesNoWindow.IsYes)
             {
+                //save
+
+
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
             }
         }
