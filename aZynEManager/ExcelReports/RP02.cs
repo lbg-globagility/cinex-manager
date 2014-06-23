@@ -7,6 +7,7 @@ using System.IO;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Collections;
+using CommonLibrary;
 
 namespace ExcelReports
 {
@@ -36,6 +37,18 @@ namespace ExcelReports
             string strFileName = string.Format("{0}.xlsx", Path.GetTempFileName());
             
             //int intRowCount = 0;
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand("reports_teller_daily_sales", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("?_start_date", this.StartDate);
+                    command.Parameters.AddWithValue("?_end_date", this.EndDate);
+
+                }
+            }
             
             newFile.SaveXlsx(strFileName);
             try

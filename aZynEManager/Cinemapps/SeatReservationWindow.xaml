@@ -1,0 +1,19 @@
+﻿<controls:MetroWindow x:Class="Cinemapps.SeatReservationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                      
+        Title="SeatReservationWindow" Height="300" Width="514">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Name="ReservedSeatTitle" DockPanel.Dock="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold">Title Name</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0, 5, 0">Screening Time:</TextBlock>
+                <ComboBox Margin="0,0, 5, 0" Name="ScreeningTimes"/>
+                <TextBlock Margin="0,0, 5, 0">Total Reserved Seats</TextBlock>
+                <TextBlock Name="TotalReservedSeats">0</TextBlock>
+            </StackPanel>
+        </DockPanel>
+        <StackPanel>
+        </StackPanel>
+    </DockPanel>
+</controls:MetroWindow>

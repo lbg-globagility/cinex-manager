@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:m="clr-namespace:Paradiso.Master"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:con="http://schemas.kent.boogaart.com/converters"
       mc:Ignorable="d" 
       d:DesignHeight="630" d:DesignWidth="850"
 	Title="Ticketing Page" Loaded="Page_Loaded">
@@ -20,15 +21,15 @@
                         </StackPanel>
                         <TextBlock Name="Price" Margin="35,0,0,0" FontSize="16" FontWeight="Bold">Php 0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 35, 16, 0">
+                    <StackPanel Margin="0, 35, 16, 0" Height="52">
                         <TextBlock HorizontalAlignment="Center">Selected:</TextBlock>
                         <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 45, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0" Height="52">
                         <TextBlock HorizontalAlignment="Center">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0, 45, 16, 0">
+                    <StackPanel Margin="0, 45, 16, 0" Height="52">
                         <TextBlock HorizontalAlignment="Center">Booked:</TextBlock>
                         <TextBlock Name="SeatBooked" HorizontalAlignment="Center" FontSize="32" FontFamily="Arial" FontWeight="Bold">0</TextBlock>
                     </StackPanel>
@@ -69,15 +70,15 @@
 
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel VerticalAlignment="Stretch">
-                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal"  HorizontalAlignment="Center">
                                 <TextBlock TextAlignment="Center" Width="450" FontFamily="Arial" FontWeight="Bold" FontSize="14" >PATRONS</TextBlock>
                                 <TextBlock Width="60" TextAlignment="Center" FontFamily="Arial" FontWeight="Bold" FontSize="14" >QTY</TextBlock>
                                 <TextBlock Width="120" TextAlignment="Center" FontFamily="Arial" FontWeight="Bold" FontSize="14" >AMOUNT</TextBlock>
                             </StackPanel>
                             <StackPanel Name="TicketPanel" HorizontalAlignment="Center">
                             </StackPanel>
-                        </StackPanel>
+                        </DockPanel>
                     </DockPanel>
                 </Border>
             </DockPanel>

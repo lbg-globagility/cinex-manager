@@ -6,6 +6,7 @@ using GemBox.Spreadsheet;
 using System.IO;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using CommonLibrary;
 
 namespace ExcelReports
 {
@@ -39,7 +40,7 @@ namespace ExcelReports
             int intRowCount = 1;
 
             //rough mysql routines (would be replaced later)
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
                 using (MySqlCommand command = new MySqlCommand("reports_summary_reports_descriptions", connection))
                 {

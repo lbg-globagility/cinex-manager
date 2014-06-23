@@ -12,7 +12,7 @@
     </Window.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="settings" />
+            <!--Button Content="settings" /-->
             <!--Button>
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using CommonLibrary;
 
 namespace aZynEManager
 {
@@ -17,17 +18,17 @@ namespace aZynEManager
         private bool draggable = true;
         private string exclude_list = "";
         private Panel _activePanel = null;
-        public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","localhost", "3306", "azynema", "root", "");
+        //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","localhost", "3306", "azynema", "root", "");
         //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};", "192.168.0.218", "3306", "cinema", "as-admi_mvie1", "G23ticketV5");
 
         //supporting background and line color
-        private Color _linecolor = Color.Salmon;
-        private Color _backcolor = Color.Salmon;
+        public Color _linecolor = Color.Salmon;
+        public Color _backcolor = Color.Salmon;
 
         //form of the main modules
         //frmMainMovie frmmovie = null;
 
-        clscommon m_clscom = new clscommon();
+        public clscommon m_clscom = new clscommon();
         public DataTable m_dtdistributor = new DataTable();
         public DataTable m_dtcontact = new DataTable();
         public DataTable m_dtrating = new DataTable();
@@ -155,11 +156,19 @@ namespace aZynEManager
             pnlClose.BackgroundImage = Properties.Resources.buttonclose1;
         }
 
+        public string _connection
+        {
+            get
+            {
+                return CommonUtility.ConnectionString;
+            }
+        }
+
         private void pnlCinema_Click(object sender, EventArgs e)
         {
             _activePanel.Hide();
 
-            m_dtcontact = m_clscom.setDataTable("select * from people order by id asc",_connection);
+            m_dtcontact = m_clscom.setDataTable("select * from people order by id asc", _connection);
             m_dtdistributor = m_clscom.setDataTable("select * from distributor order by name asc",_connection);
             m_dtrating = m_clscom.setDataTable("select * from mtrcb order by id asc", _connection);
             m_dtclassification = m_clscom.setDataTable("select * from classification order by description asc",_connection);

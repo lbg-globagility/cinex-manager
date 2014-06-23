@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="CinemaScreen.cs" />
     <Compile Include="CinemaSeatArgs.cs" />
-    <Compile Include="ConnectionUtility.cs" />
     <Compile Include="DesignerItemDecorator.cs" />
     <Compile Include="MoveThumb.cs" />
     <Compile Include="ResizeThumb.cs" />
@@ -95,6 +94,9 @@
     </Compile>
     <Compile Include="ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SeatReservationWindow.xaml.cs">
+      <DependentUpon>SeatReservationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SeatWindow.xaml.cs">
       <DependentUpon>SeatWindow.xaml</DependentUpon>
@@ -134,6 +136,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SeatReservationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SeatWindow.xaml">
       <SubType>Designer</SubType>
@@ -186,6 +192,10 @@
       <Project>{F16A2BD2-3593-494F-9FF9-DF09302E7D94}</Project>
       <Name>aZynEManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
+      <Project>{3AFCB573-4B60-40BB-9876-9BB69573E6E5}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExcelReports\ExcelReports.csproj">
       <Project>{AE661A37-F582-4390-9E06-900E276CED26}</Project>
       <Name>ExcelReports</Name>
@@ -227,6 +237,9 @@
     <Resource Include="Images\disabled-reserved.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

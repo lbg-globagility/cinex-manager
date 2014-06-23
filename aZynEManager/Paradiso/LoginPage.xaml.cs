@@ -86,6 +86,7 @@ namespace Paradiso
                 return;
             }
 
+            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             using (var context = new paradisoEntities())
             {
                 var username = (from u in context.users where u.username == strUserName && u.activated == true select u.full_name).FirstOrDefault();

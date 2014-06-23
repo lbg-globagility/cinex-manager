@@ -14,6 +14,7 @@ using MahApps.Metro.Controls;
 using ExcelReports;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using CommonLibrary;
 
 namespace Cinemapps
 {
@@ -53,7 +54,7 @@ namespace Cinemapps
         {
             RP01Teller.Items.Clear();
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
                 using (MySqlCommand command = new MySqlCommand("retrieve_tellers", connection))
                 {
@@ -77,7 +78,15 @@ namespace Cinemapps
 
         private void PrintRP02_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                RP02 report = new RP02(RP02StartDate.SelectedDate, RP02EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
     }

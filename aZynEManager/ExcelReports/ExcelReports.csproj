@@ -43,13 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectionUtility.cs" />
     <Compile Include="GemBoxUtility.cs" />
     <Compile Include="IPreviewReport.cs" />
     <Compile Include="RP01.cs" />
     <Compile Include="RP02.cs" />
     <Compile Include="SummaryofReportsandDescriptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
+      <Project>{3AFCB573-4B60-40BB-9876-9BB69573E6E5}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

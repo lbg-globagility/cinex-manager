@@ -22,7 +22,7 @@ namespace Paradiso
     {
         public MainWindow()
         {
-            Thread.Sleep(500);
+            Thread.Sleep(500); //delays display of splash screen
 
             InitializeComponent();
 

@@ -409,7 +409,7 @@ namespace Cinemapps
             double dblCX = 0.0;
             double dblCY = 0.0;
 
-            using (var context = new cinemaEntities())
+            using (var context = new cinemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("CinemaModel")))
             {
                 var cinemas = from c in context.cinemas where c.key == intKey select c;
 

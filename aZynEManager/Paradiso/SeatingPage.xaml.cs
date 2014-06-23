@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cinemapps;
+using CommonLibrary;
 
 namespace Paradiso
 {
@@ -68,6 +69,7 @@ namespace Paradiso
             SeatCanvas.Children.Clear();
 
             //load values
+            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
             using (var context = new paradisoEntities())
             {
                 var movietimes = (from mct in context.movie_calendar_times
@@ -320,8 +322,8 @@ namespace Paradiso
                     SelectedCinemaSeats.Remove(csa.SeatKey);
             }
 
-            
-            using (var context = new paradisoEntities())
+
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
             {
                 var cinemaKey = (from mct in context.movie_calendar_times
                                  where mct.key == this.MovieTimeKey

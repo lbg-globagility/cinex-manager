@@ -42,7 +42,7 @@ namespace ExcelReports
             double dblGrandTotalSales = 0.0;
 
             //call stored procedure
-            using (MySqlConnection connection = new MySqlConnection(ConnectionUtility.GetConnectionString()))
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
                 using (MySqlCommand command = new MySqlCommand("reports_teller_daily_sales", connection))
                 {
