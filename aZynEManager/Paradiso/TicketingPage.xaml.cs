@@ -41,7 +41,8 @@ namespace Paradiso
                 SelectedCinemaSeats.Add(selectedCinemaSeats[i]);
             cinemaPatrons = new ObservableCollection<CinemaPatron>();
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
+            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
+            using (var context = new paradisoEntities())
             {
                 var patrons = (from mctp in context.movie_calendar_time_patrons
                                where mctp.movie_calendar_time_key == this.MovieTimeKey

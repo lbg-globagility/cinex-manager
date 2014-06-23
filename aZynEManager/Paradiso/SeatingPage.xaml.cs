@@ -323,7 +323,8 @@ namespace Paradiso
             }
 
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
+            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
+            using (var context = new paradisoEntities())
             {
                 var cinemaKey = (from mct in context.movie_calendar_times
                                  where mct.key == this.MovieTimeKey
