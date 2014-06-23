@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aZynEManager", "aZynEManager\aZynEManager.csproj", "{F16A2BD2-3593-494F-9FF9-DF09302E7D94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReports", "ExcelReports\ExcelReports.csproj", "{AE661A37-F582-4390-9E06-900E276CED26}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemapps", "Cinemapps\Cinemapps.csproj", "{3FC01432-826F-4ED5-B6EF-B97887B18B08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradiso", "Paradiso\Paradiso.csproj", "{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aZynEManager", "aZynEManager\aZynEManager.csproj", "{F16A2BD2-3593-494F-9FF9-DF09302E7D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReports", "ExcelReports\ExcelReports.csproj", "{AE661A37-F582-4390-9E06-900E276CED26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaCustomControlLibrary", "CinemaCustomControlLibrary\CinemaCustomControlLibrary.csproj", "{7A000095-41BC-41A4-8268-34A5D1ACEA28}"
 EndProject
