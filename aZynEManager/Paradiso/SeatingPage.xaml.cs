@@ -69,8 +69,7 @@ namespace Paradiso
             SeatCanvas.Children.Clear();
 
             //load values
-            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
-            using (var context = new paradisoEntities())
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var movietimes = (from mct in context.movie_calendar_times
                                   where mct.key == this.MovieTimeKey
@@ -323,8 +322,7 @@ namespace Paradiso
             }
 
 
-            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
-            using (var context = new paradisoEntities())
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var cinemaKey = (from mct in context.movie_calendar_times
                                  where mct.key == this.MovieTimeKey

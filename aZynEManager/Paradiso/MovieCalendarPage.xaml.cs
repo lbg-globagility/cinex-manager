@@ -139,8 +139,7 @@ namespace Paradiso
             MovieCalendar.Children.Clear();
             movieCalendars.Clear();
 
-            //using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParidisoModel")))
-            using (var context = new paradisoEntities())
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var moviecalendars = (from mc in context.movie_calendar
                                       where mc.screening_start_date >= dtScreenDate && mc.screening_end_date <= dtScreenDate
