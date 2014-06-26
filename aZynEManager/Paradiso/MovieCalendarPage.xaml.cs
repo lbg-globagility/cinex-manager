@@ -41,88 +41,6 @@ namespace Paradiso
             get { return movieCalendars; }
         }
 
-        /*
-        private void UpdateMovieCalendar()
-        {
-            DateTime dtNow = DateTime.Now;
-
-            DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
-            
-            int i = 0;
-
-            using (var context = new paradisoEntities())
-            {
-                var moviecalendars = (from mc in context.movie_calendar
-                                      where mc.screening_start_date >= dtScreenDate && mc.screening_end_date <= dtScreenDate
-                                      orderby mc.cinema.code
-                                      select new
-                                      {
-                                          mc.key,
-                                          mc.cinema.code,
-                                          mc.movie_database.name,
-                                          mtrcb_name = mc.movie_database.mtrcb_ratings.code,
-                                          mc.movie_database.running_time
-                                      }).ToList();
-                foreach (var moviecalendar in moviecalendars)
-                {
-
-                    Dispatcher.Invoke(new ThreadStart(() =>
-                        {
-                            MovieCalendarItemControl control = (MovieCalendarItemControl)MovieCalendar.Children[i];
-
-                            //movieCalendars.Add(new MovieCalendarItemControl());
-
-                            TimeSpan ts = new TimeSpan(0, 0, moviecalendar.running_time);
-                            control.MovieCalendar.Key = moviecalendar.key;
-                            control.MovieCalendar.Number = Convert.ToInt32(moviecalendar.code);
-                            control.MovieCalendar.Name = moviecalendar.name;
-                            control.MovieCalendar.Rating = string.Format("({0})", moviecalendar.mtrcb_name);
-                            control.MovieCalendar.RunningTime = string.Format("{0}:{1:00}", (int)ts.TotalMinutes, ts.Seconds);
-
-                            //get screening time
-                            var movietimes = (from mct in context.movie_calendar_times
-                                              where mct.movie_calendar_key == moviecalendar.key
-                                              orderby mct.start_time, mct.end_time
-                                              select new { mct.key, mct.start_time, mct.end_time }).ToList();
-                            int intIndex = 0;
-                            foreach (var movietime in movietimes)
-                            {
-                                if (intIndex == 0)
-                                {
-                                    control.MovieCalendar.TimeKey1 = movietime.key;
-                                    control.MovieCalendar.Time1 = string.Format("{0:HH:mm}", movietime.start_time);
-                                }
-                                else if (intIndex == 1)
-                                {
-                                    control.MovieCalendar.TimeKey2 = movietime.key;
-                                    control.MovieCalendar.Time2 = string.Format("{0:HH:mm}", movietime.start_time);
-                                }
-                                else if (intIndex == 2)
-                                {
-                                    control.MovieCalendar.TimeKey3 = movietime.key;
-                                    control.MovieCalendar.Time3 = string.Format("{0:HH:mm}", movietime.start_time);
-                                }
-                                else if (intIndex == 3)
-                                {
-                                    control.MovieCalendar.TimeKey4 = movietime.key;
-                                    control.MovieCalendar.Time4 = string.Format("{0:HH:mm}", movietime.start_time);
-                                }
-                                else if (intIndex == 4)
-                                {
-                                    control.MovieCalendar.TimeKey5 = movietime.key;
-                                    control.MovieCalendar.Time5 = string.Format("{0:HH:mm}", movietime.start_time);
-                                }
-                                intIndex++;
-
-                            }
-                        }));
-
-                    i++;
-                }
-            }
-        }
-        */
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             DateTime dtNow = DateTime.Now;
@@ -141,18 +59,18 @@ namespace Paradiso
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var moviecalendars = (from mc in context.movie_calendar
-                                      where mc.screening_start_date >= dtScreenDate && mc.screening_end_date <= dtScreenDate
-                                      orderby mc.cinema.code
+                var moviecalendars = (from mc in context.movies_schedule
+                                      where mc.movie_date == dtScreenDate 
+                                      orderby mc.cinema.in_order
                                       select new
                                       {
-                                          mc.key,
-                                          mc.cinema.code,
-                                          mc.movie_database.name,
-                                          mtrcb_name = mc.movie_database.mtrcb_ratings.code,
-                                          mc.movie_database.running_time,
-                                          cinema_key = mc.cinema_key,
-                                          mc.cinema.capacity,
+                                          key = mc.id,
+                                          code = mc.cinema.in_order,
+                                          name = mc.movie.title,
+                                          mtrcb_name = mc.movie.mtrcb.name,
+                                          running_time = mc.movie.duration,
+                                          cinema_key = mc.cinema_id,
+                                          capacity = mc.cinema.capacity,
 
                                       }).ToList();
                 foreach (var moviecalendar in moviecalendars)
@@ -171,13 +89,13 @@ namespace Paradiso
                     movieCalendars[i].MovieCalendar.RunningTime = string.Format("{0}:{1:00}", (int)ts.TotalMinutes, ts.Seconds);
                     movieCalendars[i].MovieCalendar.CurrentDate = dtNow;
                     intCinemaKey = moviecalendar.cinema_key;
-                    intCinemaCapacity = moviecalendar.capacity;
+                    intCinemaCapacity = (int) moviecalendar.capacity;
 
                     //get screening time
-                    var movietimes = (from mct in context.movie_calendar_times
-                                      where mct.movie_calendar_key == moviecalendar.key
+                    var movietimes = (from mct in context.movies_schedule_list
+                                      where mct.movies_schedule_id == moviecalendar.key
                                       orderby mct.start_time, mct.end_time
-                                      select new { mct.key, mct.start_time, mct.end_time }).ToList();
+                                      select new { key = mct.id, mct.start_time, mct.end_time }).ToList();
                     int intIndex = 0;
                     int intTimeKey = 0;
                     foreach (var movietime in movietimes)
@@ -213,14 +131,14 @@ namespace Paradiso
                     intTimeKey = movieCalendars[i].MovieCalendar.LeastTimeKey;
 
                     //get paid
-                    var patrons = (from mctp in context.movie_calendar_time_patrons
-                                    where mctp.movie_calendar_time_key == intTimeKey
-                                    select mctp.key).Count();
+                    var patrons = (from mctp in context.movies_schedule_list_patron
+                                    where mctp.movies_schedule_list_id == intTimeKey
+                                    select mctp.id).Count();
                     
                     //get booked
-                    var bookings = (from mcths in context.movie_calendar_time_house_seats
-                                    where mcths.movie_calendar_time_key == intTimeKey
-                                    select mcths.cinema_seat_key).Count();
+                    var bookings = (from mcths in context.movies_schedule_list_house_seat
+                                    where mcths.movies_schedule_list_id == intTimeKey
+                                    select mcths.cinema_seat_id).Count();
 
                     movieCalendars[i].MovieCalendar.Booked = (int)bookings;
                     

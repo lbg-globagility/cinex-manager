@@ -120,6 +120,11 @@
     </Compile>
     <Compile Include="MovieCalendarTimeArgs.cs" />
     <Compile Include="MovieCalendarTimeCommand.cs" />
+    <Compile Include="ParadisoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParadisoModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ScreenDateToTimeConverter.cs" />
     <Compile Include="ScreenTimeColorConverter.cs" />
     <Compile Include="SeatingPage.xaml.cs">
@@ -190,11 +195,6 @@
     <Compile Include="MovieCalendarItemControl.xaml.cs">
       <DependentUpon>MovieCalendarItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ParadisoModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParadisoModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ParadisoObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -213,12 +213,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="ParadisoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ParadisoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="Properties\DataSources\paradisoEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -249,6 +249,10 @@
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{3AFCB573-4B60-40BB-9876-9BB69573E6E5}</Project>
       <Name>CommonLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EncryptUtilities\EncryptUtilities.csproj">
+      <Project>{EB833D79-9D87-48EC-B396-79AACE685253}</Project>
+      <Name>EncryptUtilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

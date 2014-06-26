@@ -43,14 +43,14 @@ namespace Paradiso
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var patrons = (from mctp in context.movie_calendar_time_patrons
-                               where mctp.movie_calendar_time_key == this.MovieTimeKey
-                               select new { mctp.key, mctp.patron_key, mctp.patron.name, mctp.price }).ToList();
+                var patrons = (from mctp in context.movies_schedule_list_patron
+                               where mctp.movies_schedule_list_id == this.MovieTimeKey
+                               select new { mctp.id, mctp.patron_id, mctp.patron.name, mctp.price }).ToList();
                 if (patrons.Count > 0)
                 {
                     foreach (var patron in patrons)
                     {
-                        cinemaPatrons.Add(new CinemaPatron() { Key = patron.key, PatronKey = patron.patron_key, PatronName = patron.name, Price = patron.price});
+                        cinemaPatrons.Add(new CinemaPatron() { Key = patron.id, PatronKey = patron.patron_id, PatronName = patron.name, Price = (decimal) patron.price});
                     }
                 }
             }
@@ -79,15 +79,15 @@ namespace Paradiso
             //load values
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var movietimes = (from mct in context.movie_calendar_times
-                                  where mct.key == this.MovieTimeKey
+                var movietimes = (from mct in context.movies_schedule_list
+                                  where mct.id == this.MovieTimeKey
                                   select new
                                   {
-                                      mct.key,
-                                      movie_key = mct.movie_calendar.movie_database.key,
-                                      movie_name = mct.movie_calendar.movie_database.name,
-                                      cinema_key = mct.movie_calendar.cinema_key,
-                                      cinema_name = mct.movie_calendar.cinema.name,
+                                      mct.id,
+                                      movie_key = mct.movies_schedule.movie.id,
+                                      movie_name = mct.movies_schedule.movie.title,
+                                      cinema_key = mct.movies_schedule.cinema_id,
+                                      cinema_name = mct.movies_schedule.cinema.name,
                                       mct.start_time,
                                       mct.end_time
                                   }).ToList();
@@ -97,24 +97,24 @@ namespace Paradiso
                     CinemaName.Text = movietimes[0].cinema_name;
                     ScreenDate.Text = string.Format("{0:MMMM dd, yyy}", movietimes[0].start_time);
                     ScreenTime.Text = string.Format("{0:HH:mm} - {1:HH:mm}", movietimes[0].start_time, movietimes[0].end_time);
-                    var maxprice = (from mctp in context.movie_calendar_time_patrons
-                                    where mctp.movie_calendar_time_key == this.MovieTimeKey
+                    var maxprice = (from mctp in context.movies_schedule_list_patron
+                                    where mctp.movies_schedule_list_id == this.MovieTimeKey
                                     select mctp.price).Max();
                     Price.Text = string.Format("Php {0:#,##0}", maxprice);
 
                     var CinemaKey = movietimes[0].cinema_key;
 
                     var capacity = (from c in context.cinemas
-                                    where c.key == CinemaKey
+                                    where c.id == CinemaKey
                                     select c.capacity).First();
                     //get paid
-                    var patrons = (from mctp in context.movie_calendar_time_patrons
-                                   where mctp.movie_calendar_time_key == MovieTimeKey
-                                   select mctp.key).Count();
+                    var patrons = (from mctp in context.movies_schedule_list_patron
+                                   where mctp.movies_schedule_list_id == MovieTimeKey
+                                   select mctp.id).Count();
                     //get booked
-                    var bookings = (from mcths in context.movie_calendar_time_house_seats
-                                    where mcths.movie_calendar_time_key == MovieTimeKey
-                                    select mcths.cinema_seat_key).Count();
+                    var bookings = (from mcths in context.movies_schedule_list_house_seat
+                                    where mcths.movies_schedule_list_id == MovieTimeKey
+                                    select mcths.cinema_seat_id).Count();
 
                     SeatSelected.Text = string.Format("{0}", this.SelectedCinemaSeats.Count);
                     SeatBooked.Text = string.Format("{0}", (int)bookings);

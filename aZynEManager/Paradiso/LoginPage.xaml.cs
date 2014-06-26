@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.ComponentModel;
+using Amellar.Common.EncryptUtilities;
 
 namespace Paradiso
 {
@@ -86,13 +87,16 @@ namespace Paradiso
                 return;
             }
 
+            Encryption encryption = new Encryption();
+            strPassword = encryption.EncryptString(strPassword);
+
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var username = (from u in context.users where u.username == strUserName && u.activated == true select u.full_name).FirstOrDefault();
+                var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 select new { u.lname, u.fname, u.mname }).FirstOrDefault();
                 if (username != null)
                 {
                     ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
-                    paradisoObjectManager.UserName = username;
+                    paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                 }
                 else

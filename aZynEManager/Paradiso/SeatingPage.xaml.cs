@@ -71,14 +71,14 @@ namespace Paradiso
             //load values
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var movietimes = (from mct in context.movie_calendar_times
-                                  where mct.key == this.MovieTimeKey
+                var movietimes = (from mct in context.movies_schedule_list
+                                  where mct.id == this.MovieTimeKey
                                   select new
                                   {
-                                      mct.key,
-                                      movie_key = mct.movie_calendar.movie_database.key,
-                                      movie_name = mct.movie_calendar.movie_database.name,
-                                      cinema_key = mct.movie_calendar.cinema_key,
+                                      key = mct.id,
+                                      movie_key = mct.movies_schedule.movie.id,
+                                      movie_name = mct.movies_schedule.movie.title,
+                                      cinema_key = mct.movies_schedule.cinema_id,
                                       mct.start_time,
                                       mct.end_time
                                   }).ToList();
@@ -86,25 +86,25 @@ namespace Paradiso
                 {
                     MovieName.Text = movietimes[0].movie_name;
                     ScreenTime.Text = string.Format("{0:HH:mm} - {1:HH:mm}", movietimes[0].start_time, movietimes[0].end_time);
-                    var maxprice = (from mctp in context.movie_calendar_time_patrons
-                                    where mctp.movie_calendar_time_key == this.MovieTimeKey
+                    var maxprice = (from mctp in context.movies_schedule_list_patron
+                                    where mctp.movies_schedule_list_id == this.MovieTimeKey
                                     select mctp.price).Max();
                     Price.Text = string.Format("Php {0:#,##0}", maxprice);
 
                     var CinemaKey = movietimes[0].cinema_key;
 
                     var capacity = (from c in context.cinemas
-                                    where c.key == CinemaKey
+                                    where c.id == CinemaKey
                                     select c.capacity).FirstOrDefault();
 
                     //get paid
-                    var patrons = (from mctp in context.movie_calendar_time_patrons
-                                   where mctp.movie_calendar_time_key == MovieTimeKey
-                                   select mctp.key).Count();
+                    var patrons = (from mctp in context.movies_schedule_list_patron
+                                   where mctp.movies_schedule_list_id == MovieTimeKey
+                                   select mctp.id).Count();
                     //get booked
-                    var bookings = (from mcths in context.movie_calendar_time_house_seats
-                                    where mcths.movie_calendar_time_key == MovieTimeKey
-                                    select mcths.cinema_seat_key).Count();
+                    var bookings = (from mcths in context.movies_schedule_list_house_seat
+                                    where mcths.movies_schedule_list_id == MovieTimeKey
+                                    select mcths.cinema_seat_id).Count();
 
                     SeatSelected.Text = string.Format("{0}", SelectedCinemaSeats.Count);
 
@@ -115,18 +115,18 @@ namespace Paradiso
 
                     //load cinema seating and resize to fit
 
-                    var seats = (from s in context.cinema_seats
-                                 where s.cinema_key == CinemaKey && s.object_type == 2
+                    var seats = (from s in context.cinema_seat
+                                 where s.cinema_id == CinemaKey && s.object_type == 2
                                  select s).ToList();
                     foreach (var seat in seats)
                     {
                         CinemaScreens.Add(new CinemaScreen()
                         {
-                            Key = seat.key,
-                            X1 = seat.p1x,
-                            Y1 = seat.p1y,
-                            X2 = seat.p3x,
-                            Y2 = seat.p3y
+                            Key = seat.id,
+                            X1 = (int) seat.x1,
+                            Y1 = (int) seat.y1,
+                            X2 = (int) seat.x2,
+                            Y2 = (int) seat.y2
                         });
 
                     }
@@ -137,28 +137,28 @@ namespace Paradiso
                     double dblWidth = 24;
                     double dblHeight = 24;
 
-                    var screens = (from s in context.cinema_seats
-                                   where s.cinema_key == CinemaKey && s.object_type == 1
+                    var screens = (from s in context.cinema_seat
+                                   where s.cinema_id == CinemaKey && s.object_type == 1
                                    select s).ToList();
                     foreach (var screen in screens)
                     {
-                        dblCX = screen.p1x + ((screen.p2x - screen.p1x) / 2);
-                        dblCY = screen.p1y + ((screen.p2y - screen.p1y) / 2);
+                        dblCX = (int) screen.x1 + (( (int) screen.x2 - (int) screen.x1) / 2);
+                        dblCY = (int) screen.y1 + (( (int) screen.y2 - (int) screen.y1) / 2);
 
                         //is handicapped
-                        var isdisabled = screen.handicapped;
+                        var isdisabled = (sbyte) screen.is_handicapped;
 
                         CinemaSeat.SeatType _seatType = CinemaSeat.SeatType.NormalAvailableSeatType;
-                        if (isdisabled)
+                        if (isdisabled == 1)
                             _seatType = CinemaSeat.SeatType.HandicappedAvailableSeatType;
 
                         //checks if taken
-                        var houseseats = (from mcths in context.movie_calendar_time_house_seats
-                                          where mcths.movie_calendar_time_key == MovieTimeKey && mcths.cinema_seat_key == screen.key
-                                          select mcths.cinema_seat_key).ToList();
+                        var houseseats = (from mcths in context.movies_schedule_list_house_seat
+                                          where mcths.movies_schedule_list_id == MovieTimeKey && mcths.cinema_seat_id == screen.id
+                                          select mcths.cinema_seat_id).ToList();
                         if (houseseats.Count > 0)
                         {
-                            if (isdisabled)
+                            if (isdisabled == 1)
                                 _seatType = CinemaSeat.SeatType.HandicappedTakenSeatType;
                             else
                                 _seatType = CinemaSeat.SeatType.NormalTakenSeatType;
@@ -166,21 +166,21 @@ namespace Paradiso
                         else
                         {
                             //get booked
-                            var reservedseats = (from mcths in context.movie_calendar_time_house_seats
-                                                 where mcths.movie_calendar_time_key == MovieTimeKey && mcths.cinema_seat_key == screen.key
-                                                 select mcths.cinema_seat_key).ToList();
+                            var reservedseats = (from mcths in context.movies_schedule_list_reserved_seat
+                                                 where mcths.movies_schedule_list_id == MovieTimeKey && mcths.cinema_seat_id == screen.id
+                                                 select mcths.cinema_seat_id).ToList();
                             if (reservedseats.Count > 0)
                             {
-                                if (isdisabled)
+                                if (isdisabled == 1)
                                     _seatType = CinemaSeat.SeatType.HandicappedReservedSeatType;
                                 else
                                     _seatType = CinemaSeat.SeatType.NormalReservedSeatType;
                             }
                         }
 
-                        if (SelectedCinemaSeats.IndexOf(screen.key) != -1)
+                        if (SelectedCinemaSeats.IndexOf(screen.id) != -1)
                         {
-                            if (isdisabled)
+                            if (isdisabled == 1)
                                 _seatType = CinemaSeat.SeatType.HandicappedLockedSeatType;
                             else
                                 _seatType = CinemaSeat.SeatType.NormalLockedSeatType;
@@ -188,8 +188,8 @@ namespace Paradiso
 
                         CinemaSeats.Add(new CinemaSeat()
                         {
-                            Key = screen.key,
-                            Name = string.Format("{0}{1}", screen.row, screen.column),
+                            Key = screen.id,
+                            Name = string.Format("{0}{1}", screen.row_name, screen.col_name),
                             CX = dblCX,
                             CY = dblCY,
                             X1 = dblCX - (dblWidth / 2),
@@ -324,22 +324,22 @@ namespace Paradiso
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var cinemaKey = (from mct in context.movie_calendar_times
-                                 where mct.key == this.MovieTimeKey
-                                 select mct.movie_calendar.cinema_key
+                var cinemaKey = (from mct in context.movies_schedule_list
+                                 where mct.id == this.MovieTimeKey
+                                 select mct.movies_schedule.cinema_id
                                  ).First();
 
                 var capacity = (from c in context.cinemas
-                                where c.key == cinemaKey
+                                where c.id == cinemaKey
                                 select c.capacity).First();
                 //get paid
-                var patrons = (from mctp in context.movie_calendar_time_patrons
-                               where mctp.movie_calendar_time_key == MovieTimeKey
-                               select mctp.key).Count();
+                var patrons = (from mctp in context.movies_schedule_list_patron
+                               where mctp.movies_schedule_list_id == MovieTimeKey
+                               select mctp.id).Count();
                 //get booked
-                var bookings = (from mcths in context.movie_calendar_time_house_seats
-                                where mcths.movie_calendar_time_key == MovieTimeKey
-                                select mcths.cinema_seat_key).Count();
+                var bookings = (from mcths in context.movies_schedule_list_house_seat
+                                where mcths.movies_schedule_list_id == MovieTimeKey
+                                select mcths.cinema_seat_id).Count();
 
                 SeatSelected.Text = string.Format("{0}", SelectedCinemaSeats.Count);
                 

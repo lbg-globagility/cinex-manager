@@ -6,451 +6,659 @@
     <edmx:StorageModels>
       <Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="paradisoModelStoreContainer">
-          <EntitySet Name="cinema_seats" EntityType="paradisoModel.Store.cinema_seats" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="cinemas" EntityType="paradisoModel.Store.cinemas" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="merchant_merchant_classifications" EntityType="paradisoModel.Store.merchant_merchant_classifications" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_calendar" EntityType="paradisoModel.Store.movie_calendar" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_calendar_time_house_seats" EntityType="paradisoModel.Store.movie_calendar_time_house_seats" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_calendar_time_patrons" EntityType="paradisoModel.Store.movie_calendar_time_patrons" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_calendar_time_reserved_seats" EntityType="paradisoModel.Store.movie_calendar_time_reserved_seats" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_calendar_times" EntityType="paradisoModel.Store.movie_calendar_times" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="movie_database" EntityType="paradisoModel.Store.movie_database" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="mtrcb_ratings" EntityType="paradisoModel.Store.mtrcb_ratings" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="patrons" EntityType="paradisoModel.Store.patrons" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="ticket_transactions" EntityType="paradisoModel.Store.ticket_transactions" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="users" EntityType="paradisoModel.Store.users" store:Type="Tables" Schema="cinema" />
-          <AssociationSet Name="FK_cinema_seats_cinemas" Association="paradisoModel.Store.FK_cinema_seats_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
+          <EntitySet Name="application" EntityType="paradisoModel.Store.application" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="cinema" EntityType="paradisoModel.Store.cinema" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="cinema_patron" EntityType="paradisoModel.Store.cinema_patron" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="cinema_seat" EntityType="paradisoModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="classification" EntityType="paradisoModel.Store.classification" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies" EntityType="paradisoModel.Store.movies" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_class" EntityType="paradisoModel.Store.movies_class" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_distributor" EntityType="paradisoModel.Store.movies_distributor" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_schedule" EntityType="paradisoModel.Store.movies_schedule" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_schedule_list" EntityType="paradisoModel.Store.movies_schedule_list" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_schedule_list_house_seat" EntityType="paradisoModel.Store.movies_schedule_list_house_seat" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_schedule_list_patron" EntityType="paradisoModel.Store.movies_schedule_list_patron" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_schedule_list_reserved_seat" EntityType="paradisoModel.Store.movies_schedule_list_reserved_seat" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="movies_status" EntityType="paradisoModel.Store.movies_status" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="mtrcb" EntityType="paradisoModel.Store.mtrcb" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="patrons" EntityType="paradisoModel.Store.patrons" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="sound_system" EntityType="paradisoModel.Store.sound_system" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="system_module" EntityType="paradisoModel.Store.system_module" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="ticket" EntityType="paradisoModel.Store.ticket" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="user_level" EntityType="paradisoModel.Store.user_level" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="user_level_rights" EntityType="paradisoModel.Store.user_level_rights" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="user_rights" EntityType="paradisoModel.Store.user_rights" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="users" EntityType="paradisoModel.Store.users" store:Type="Tables" Schema="azynema" />
+          <AssociationSet Name="fk_cinema_patron_cinema1" Association="paradisoModel.Store.fk_cinema_patron_cinema1">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="cinema_patron" EntitySet="cinema_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_cinemas" Association="paradisoModel.Store.FK_movie_calendar_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_movie_database" Association="paradisoModel.Store.FK_movie_calendar_movie_database">
-            <End Role="movie_database" EntitySet="movie_database" />
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_house_seats_cinema_seats" Association="paradisoModel.Store.FK_movie_calendar_time_house_seats_cinema_seats">
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
-            <End Role="movie_calendar_time_house_seats" EntitySet="movie_calendar_time_house_seats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_house_seats_movie_calendar_times" Association="paradisoModel.Store.FK_movie_calendar_time_house_seats_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_house_seats" EntitySet="movie_calendar_time_house_seats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_patrons_movie_calendar_times" Association="paradisoModel.Store.FK_movie_calendar_time_patrons_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_patrons" EntitySet="movie_calendar_time_patrons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_patrons_patrons" Association="paradisoModel.Store.FK_movie_calendar_time_patrons_patrons">
+          <AssociationSet Name="fk_cinema_patron_patrons1" Association="paradisoModel.Store.fk_cinema_patron_patrons1">
             <End Role="patrons" EntitySet="patrons" />
-            <End Role="movie_calendar_time_patrons" EntitySet="movie_calendar_time_patrons" />
+            <End Role="cinema_patron" EntitySet="cinema_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_cinema_seats" Association="paradisoModel.Store.FK_movie_calendar_time_reserved_seats_cinema_seats">
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="paradisoModel.Store.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_movie_calendar_times" Association="paradisoModel.Store.FK_movie_calendar_time_reserved_seats_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_cinema_sound_system1" Association="paradisoModel.Store.fk_cinema_sound_system1">
+            <End Role="sound_system" EntitySet="sound_system" />
+            <End Role="cinema" EntitySet="cinema" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_patrons" Association="paradisoModel.Store.FK_movie_calendar_time_reserved_seats_patrons">
+          <AssociationSet Name="fk_movies_class_classification1" Association="paradisoModel.Store.fk_movies_class_classification1">
+            <End Role="classification" EntitySet="classification" />
+            <End Role="movies_class" EntitySet="movies_class" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_class_movies1" Association="paradisoModel.Store.fk_movies_class_movies1">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_class" EntitySet="movies_class" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_distributor_movies1" Association="paradisoModel.Store.fk_movies_distributor_movies1">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_distributor" EntitySet="movies_distributor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_mtrcb1" Association="paradisoModel.Store.fk_movies_mtrcb1">
+            <End Role="mtrcb" EntitySet="mtrcb" />
+            <End Role="movies" EntitySet="movies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_cinema1" Association="paradisoModel.Store.fk_movies_schedule_cinema1">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_cinema_seat1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_cinema_seat1">
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_movies_schedule_list1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_movies_schedule1" Association="paradisoModel.Store.fk_movies_schedule_list_movies_schedule1">
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_patron_movies_schedule1" Association="paradisoModel.Store.fk_movies_schedule_list_patron_movies_schedule1">
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_patron_patrons1" Association="paradisoModel.Store.fk_movies_schedule_list_patron_patrons1">
             <End Role="patrons" EntitySet="patrons" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_ticket_transactions" Association="paradisoModel.Store.FK_movie_calendar_time_reserved_seats_ticket_transactions">
-            <End Role="ticket_transactions" EntitySet="ticket_transactions" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_cinema_seat1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_cinema_seat1">
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_times_movie_calendar" Association="paradisoModel.Store.FK_movie_calendar_times_movie_calendar">
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_database_mtrcb_ratings" Association="paradisoModel.Store.FK_movie_database_mtrcb_ratings">
-            <End Role="mtrcb_ratings" EntitySet="mtrcb_ratings" />
-            <End Role="movie_database" EntitySet="movie_database" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_patrons1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_patrons1">
+            <End Role="patrons" EntitySet="patrons" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_ticket_transactions_movie_calendar_times" Association="paradisoModel.Store.FK_ticket_transactions_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="ticket_transactions" EntitySet="ticket_transactions" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_ticket1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_ticket1">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_users1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_movies" Association="paradisoModel.Store.fk_movies_schedule_movies">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ticket_movies_schedule_list1" Association="paradisoModel.Store.fk_ticket_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ticket_users1" Association="paradisoModel.Store.fk_ticket_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_rights_system_module1" Association="paradisoModel.Store.fk_user_rights_system_module1">
+            <End Role="system_module" EntitySet="system_module" />
+            <End Role="user_rights" EntitySet="user_rights" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_rights_users1" Association="paradisoModel.Store.fk_user_rights_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_rights" EntitySet="user_rights" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="cinema_seats">
+        <!--Errors Found During Generation:
+      warning 6035: The relationship 'fk_system_module_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      warning 6035: The relationship 'fk_user_level_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      warning 6035: The relationship 'fk_user_level_rights_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
+        <EntityType Name="application">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="int" Nullable="false" />
-          <Property Name="p1x" Type="smallint" Nullable="false" />
-          <Property Name="p1y" Type="smallint" Nullable="false" />
-          <Property Name="p2x" Type="smallint" Nullable="false" />
-          <Property Name="p2y" Type="smallint" Nullable="false" />
-          <Property Name="p3x" Type="smallint" Nullable="false" />
-          <Property Name="p3y" Type="smallint" Nullable="false" />
-          <Property Name="p4x" Type="smallint" Nullable="false" />
-          <Property Name="p4y" Type="smallint" Nullable="false" />
-          <Property Name="p1xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p1ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p2xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p2ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p3xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p3ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p4xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p4ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="originx" Type="smallint" Nullable="false" />
-          <Property Name="originy" Type="smallint" Nullable="false" />
-          <Property Name="originxdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="originydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="angle" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="row" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="column" Type="varchar" MaxLength="100" />
-          <Property Name="object_type" Type="utinyint" Nullable="false" />
-          <Property Name="color" Type="decimal" Precision="20" />
-          <Property Name="text_color" Type="decimal" Precision="20" />
-          <Property Name="handicapped" Type="bool" Nullable="false" />
-          <Property Name="text_size" Type="smallint" />
-          <Property Name="cinema_section_key" Type="int" />
-          <Property Name="web_column" Type="int" />
-          <Property Name="web_row" Type="int" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="system_code" Type="int" Nullable="false" />
+          <Property Name="system_name" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
-        <EntityType Name="cinemas">
+        <EntityType Name="cinema">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="12" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="sound_system" Type="varchar" MaxLength="60" />
-          <Property Name="capacity" Type="smallint" Nullable="false" />
-          <Property Name="built_in" Type="bool" Nullable="false" />
-          <Property Name="display_order" Type="smallint" />
-          <Property Name="festival_cinema_type" Type="varchar" MaxLength="1" />
-          <Property Name="aisles" Type="varchar" MaxLength="12" />
-          <Property Name="seats_locked" Type="bool" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="sound_id" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" />
+          <Property Name="in_order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="merchant_merchant_classifications">
+        <EntityType Name="cinema_patron">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="merchant_key" Type="int" Nullable="false" />
-          <Property Name="merchant_classification_key" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+          <Property Name="patron_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
         </EntityType>
-        <EntityType Name="movie_calendar">
+        <EntityType Name="cinema_seat">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="int" Nullable="false" />
-          <Property Name="movie_key" Type="int" Nullable="false" />
-          <Property Name="screening_start_date" Type="datetime" Nullable="false" />
-          <Property Name="screening_end_date" Type="datetime" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+          <Property Name="x1" Type="int" />
+          <Property Name="y1" Type="int" />
+          <Property Name="x2" Type="int" />
+          <Property Name="y2" Type="int" />
+          <Property Name="origin_x" Type="int" />
+          <Property Name="origin_y" Type="int" />
+          <Property Name="row_name" Type="varchar" MaxLength="100" />
+          <Property Name="col_name" Type="varchar" MaxLength="100" />
+          <Property Name="object_type" Type="int" />
+          <Property Name="is_handicapped" Type="tinyint" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_house_seats">
+        <EntityType Name="classification">
           <Key>
-            <PropertyRef Name="movie_calendar_time_key" />
-            <PropertyRef Name="cinema_seat_key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="movie_calendar_time_key" Type="int" Nullable="false" />
-          <Property Name="cinema_seat_key" Type="int" Nullable="false" />
-          <Property Name="full_name" Type="varchar" MaxLength="60" />
-          <Property Name="notes" Type="varchar" MaxLength="200" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_patrons">
+        <EntityType Name="movies">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_time_key" Type="int" Nullable="false" />
-          <Property Name="patron_key" Type="int" Nullable="false" />
-          <Property Name="price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="title" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="dist_id" Type="int" Nullable="false" />
+          <Property Name="share_perc" Type="float" Nullable="false" />
+          <Property Name="rating_id" Type="int" Nullable="false" />
+          <Property Name="duration" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_reserved_seats">
+        <EntityType Name="movies_class">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_time_key" Type="int" Nullable="false" />
-          <Property Name="cinema_seat_key" Type="int" Nullable="false" />
-          <Property Name="ticket_transaction_key" Type="int" Nullable="false" />
-          <Property Name="patron_key" Type="int" Nullable="false" />
-          <Property Name="price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="status" Type="smallint" Nullable="false" />
-          <Property Name="cultural_tax_amount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="amusement_tax_amount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="VAT_amount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="or_number" Type="varchar" MaxLength="20" />
-          <Property Name="void_user" Type="varchar" MaxLength="20" />
-          <Property Name="void_datetime" Type="datetime" />
-          <Property Name="reprinted" Type="bool" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="class_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="movie_calendar_times">
+        <EntityType Name="movies_distributor">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_key" Type="int" Nullable="false" />
-          <Property Name="use_screening_no" Type="bool" Nullable="false" />
-          <Property Name="screening_no" Type="smallint" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="share_perc" Type="float" Nullable="false" />
+          <Property Name="effective_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="movies_schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+          <Property Name="movie_id" Type="int" Nullable="false" />
+          <Property Name="movie_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="movies_schedule_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_id" Type="int" Nullable="false" />
           <Property Name="start_time" Type="datetime" Nullable="false" />
           <Property Name="end_time" Type="datetime" Nullable="false" />
-          <Property Name="screening_type" Type="utinyint" Nullable="false" />
-          <Property Name="start_next_day" Type="smallint" Nullable="false" />
-          <Property Name="end_next_day" Type="smallint" Nullable="false" />
-          <Property Name="enable_house_seats" Type="bool" Nullable="false" />
-          <Property Name="ticket_purchase_cutoff" Type="smallint" />
-          <Property Name="publish" Type="bool" Nullable="false" />
-          <Property Name="web_ticket_purchase_cutoff" Type="smallint" />
-          <Property Name="publish_to_web" Type="bool" Nullable="false" />
-          <Property Name="web_ticket_cancellation_cutoff" Type="smallint" />
+          <Property Name="seat_type" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="movie_database">
+        <EntityType Name="movies_schedule_list_house_seat">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="12" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="distributor_key" Type="int" Nullable="false" />
-          <Property Name="distributor_share_rate" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="mtrcb_rating_key" Type="int" Nullable="false" />
-          <Property Name="running_time" Type="int" Nullable="false" />
-          <Property Name="active" Type="bool" Nullable="false" />
-          <Property Name="picture" Type="tinyblob" />
-          <Property Name="video_filename" Type="varchar" />
-          <Property Name="video" Type="tinyblob" />
-          <Property Name="synopsis" Type="varchar" MaxLength="2000" />
-          <Property Name="local" Type="bool" Nullable="false" />
-          <Property Name="movie_showing_type" Type="utinyint" Nullable="false" />
-          <Property Name="cast" Type="varchar" />
-          <Property Name="official_website" Type="varchar" MaxLength="200" />
-          <Property Name="trailer_url" Type="varchar" MaxLength="200" />
-          <Property Name="movie_image_1" Type="varchar" MaxLength="200" />
-          <Property Name="movie_image_2" Type="varchar" MaxLength="200" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+          <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="100" />
+          <Property Name="notes" Type="varchar" MaxLength="200" />
         </EntityType>
-        <EntityType Name="mtrcb_ratings">
+        <EntityType Name="movies_schedule_list_patron">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="12" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+          <Property Name="patron_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" />
+        </EntityType>
+        <EntityType Name="movies_schedule_list_reserved_seat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+          <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+          <Property Name="ticket_id" Type="int" Nullable="false" />
+          <Property Name="patron_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="float" />
+          <Property Name="status" Type="int" />
+          <Property Name="amusement_tax_amount" Type="float" />
+          <Property Name="cultural_tax_amount" Type="float" />
+          <Property Name="vat_amount" Type="float" />
+          <Property Name="or_number" Type="varchar" MaxLength="45" />
+          <Property Name="void_user_id" Type="int" />
+          <Property Name="void_datetime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6035: The relationship 'fk_movies_movies_status1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
+        <EntityType Name="movies_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="status_desc" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mtrcb">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="patrons">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="12" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="price" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="promo" Type="bool" Nullable="false" />
-          <Property Name="color" Type="decimal" Precision="20" />
-          <Property Name="position" Type="smallint" Nullable="false" />
-          <Property Name="taxable" Type="bool" Nullable="false" />
-          <Property Name="apply_cultural_tax" Type="bool" Nullable="false" />
-          <Property Name="disregard_gross_margin" Type="bool" Nullable="false" />
-          <Property Name="disregard_producer_share" Type="bool" Nullable="false" />
-          <Property Name="display_in_reports" Type="bool" Nullable="false" />
-          <Property Name="web_ticket" Type="bool" Nullable="false" />
-          <Property Name="internet_booking_fee" Type="decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="apply_lgu_tax" Type="bool" Nullable="false" />
-          <Property Name="lgu_tax_amount" Type="decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="unit_price" Type="float" Nullable="false" />
+          <Property Name="with_promo" Type="int" />
+          <Property Name="with_amusement" Type="int" />
+          <Property Name="with_cultural" Type="int" />
+          <Property Name="with_citytax" Type="int" />
+          <Property Name="with_gross_margin" Type="int" />
+          <Property Name="with_prod_share" Type="int" />
+          <Property Name="seat_color" Type="int" />
+          <Property Name="seat_position" Type="int" />
+          <Property Name="lgutax" Type="float" />
         </EntityType>
-        <EntityType Name="ticket_transactions">
+        <EntityType Name="sound_system">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_times_key" Type="int" Nullable="false" />
-          <Property Name="username" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="terminal" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="datetime" Type="datetime" Nullable="false" />
-          <Property Name="sessionid" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="transrefnum" Type="varchar" Nullable="false" MaxLength="18" />
-          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="sound_system_type" Type="varchar" Nullable="false" MaxLength="225" />
+        </EntityType>
+        <EntityType Name="system_module">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="module_code" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="module_desc" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="module_group" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="system_code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ticket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="terminal" Type="varchar" MaxLength="100" />
+          <Property Name="ticket_datetime" Type="datetime" />
+          <Property Name="session_id" Type="varchar" MaxLength="100" />
+          <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="user_level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="level_desc" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="system_code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_level_rights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_level" Type="int" Nullable="false" />
+          <Property Name="module_id" Type="int" Nullable="false" />
+          <Property Name="system_code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_rights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="module_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="users">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="password" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="full_name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="access_group_key" Type="int" Nullable="false" />
-          <Property Name="activated" Type="bool" Nullable="false" />
-          <Property Name="built_in" Type="bool" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="user_password" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="designation" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="user_level_id" Type="int" Nullable="false" />
+          <Property Name="lname" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="fname" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="mname" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="system_code" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_cinema_seats_cinemas">
-          <End Role="cinemas" Type="paradisoModel.Store.cinemas" Multiplicity="1" />
-          <End Role="cinema_seats" Type="paradisoModel.Store.cinema_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_patron_cinema1">
+          <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+          <End Role="cinema_patron" Type="paradisoModel.Store.cinema_patron" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="cinema_seats">
-              <PropertyRef Name="cinema_key" />
+            <Dependent Role="cinema_patron">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_cinemas">
-          <End Role="cinemas" Type="paradisoModel.Store.cinemas" Multiplicity="1" />
-          <End Role="movie_calendar" Type="paradisoModel.Store.movie_calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar">
-              <PropertyRef Name="cinema_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_movie_database">
-          <End Role="movie_database" Type="paradisoModel.Store.movie_database" Multiplicity="1" />
-          <End Role="movie_calendar" Type="paradisoModel.Store.movie_calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_database">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar">
-              <PropertyRef Name="movie_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_house_seats_cinema_seats">
-          <End Role="cinema_seats" Type="paradisoModel.Store.cinema_seats" Multiplicity="1" />
-          <End Role="movie_calendar_time_house_seats" Type="paradisoModel.Store.movie_calendar_time_house_seats" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cinema_seats">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_time_house_seats">
-              <PropertyRef Name="cinema_seat_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_house_seats_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.Store.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_house_seats" Type="paradisoModel.Store.movie_calendar_time_house_seats" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_time_house_seats">
-              <PropertyRef Name="movie_calendar_time_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_patrons_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.Store.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_patrons" Type="paradisoModel.Store.movie_calendar_time_patrons" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_time_patrons">
-              <PropertyRef Name="movie_calendar_time_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_patrons_patrons">
+        <Association Name="fk_cinema_patron_patrons1">
           <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1" />
-          <End Role="movie_calendar_time_patrons" Type="paradisoModel.Store.movie_calendar_time_patrons" Multiplicity="*" />
+          <End Role="cinema_patron" Type="paradisoModel.Store.cinema_patron" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patrons">
-              <PropertyRef Name="key" />
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_patrons">
-              <PropertyRef Name="patron_key" />
+            <Dependent Role="cinema_patron">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_cinema_seats">
-          <End Role="cinema_seats" Type="paradisoModel.Store.cinema_seats" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.Store.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinema_seats">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="cinema_seat_key" />
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.Store.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.Store.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_sound_system1">
+          <End Role="sound_system" Type="paradisoModel.Store.sound_system" Multiplicity="1" />
+          <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
+            <Principal Role="sound_system">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="movie_calendar_time_key" />
+            <Dependent Role="cinema">
+              <PropertyRef Name="sound_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_patrons">
+        <Association Name="fk_movies_class_classification1">
+          <End Role="classification" Type="paradisoModel.Store.classification" Multiplicity="1" />
+          <End Role="movies_class" Type="paradisoModel.Store.movies_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classification">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_class">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_class_movies1">
+          <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+          <End Role="movies_class" Type="paradisoModel.Store.movies_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_class">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_distributor_movies1">
+          <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+          <End Role="movies_distributor" Type="paradisoModel.Store.movies_distributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_distributor">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_mtrcb1">
+          <End Role="mtrcb" Type="paradisoModel.Store.mtrcb" Multiplicity="1" />
+          <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtrcb">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies">
+              <PropertyRef Name="rating_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_cinema1">
+          <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+          <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule">
+              <PropertyRef Name="cinema_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_house_seat_cinema_seat1">
+          <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="1" />
+          <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema_seat">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="cinema_seat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_house_seat_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+          <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_movies_schedule1">
+          <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="1" />
+          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list">
+              <PropertyRef Name="movies_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_patron_movies_schedule1">
+          <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="1" />
+          <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_patron">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_patron_patrons1">
           <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.Store.movie_calendar_time_reserved_seats" Multiplicity="*" />
+          <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patrons">
-              <PropertyRef Name="key" />
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="patron_key" />
+            <Dependent Role="movies_schedule_list_patron">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_ticket_transactions">
-          <End Role="ticket_transactions" Type="paradisoModel.Store.ticket_transactions" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.Store.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_cinema_seat1">
+          <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ticket_transactions">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema_seat">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="ticket_transaction_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="cinema_seat_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_times_movie_calendar">
-          <End Role="movie_calendar" Type="paradisoModel.Store.movie_calendar" Multiplicity="1" />
-          <End Role="movie_calendar_times" Type="paradisoModel.Store.movie_calendar_times" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="movie_calendar">
-              <PropertyRef Name="key" />
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_times">
-              <PropertyRef Name="movie_calendar_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="movies_schedule_list_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_database_mtrcb_ratings">
-          <End Role="mtrcb_ratings" Type="paradisoModel.Store.mtrcb_ratings" Multiplicity="1" />
-          <End Role="movie_database" Type="paradisoModel.Store.movie_database" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_patrons1">
+          <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="mtrcb_ratings">
-              <PropertyRef Name="key" />
+            <Principal Role="patrons">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_database">
-              <PropertyRef Name="mtrcb_rating_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ticket_transactions_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.Store.movie_calendar_times" Multiplicity="1" />
-          <End Role="ticket_transactions" Type="paradisoModel.Store.ticket_transactions" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_ticket1">
+          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
+            <Principal Role="ticket">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="ticket_transactions">
-              <PropertyRef Name="movie_calendar_times_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_reserved_seat_users1">
+          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="0..1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="void_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_movies">
+          <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+          <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ticket_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ticket_users1">
+          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_rights_system_module1">
+          <End Role="system_module" Type="paradisoModel.Store.system_module" Multiplicity="1" />
+          <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="system_module">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_rights">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_rights_users1">
+          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+          <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_rights">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -460,479 +668,699 @@
     <edmx:ConceptualModels>
       <Schema Namespace="paradisoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="paradisoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cinema_seats" EntityType="paradisoModel.cinema_seats" />
+          <EntitySet Name="applications" EntityType="paradisoModel.application" />
           <EntitySet Name="cinemas" EntityType="paradisoModel.cinema" />
-          <EntitySet Name="merchant_merchant_classifications" EntityType="paradisoModel.merchant_merchant_classifications" />
-          <EntitySet Name="movie_calendar" EntityType="paradisoModel.movie_calendar" />
-          <EntitySet Name="movie_calendar_time_house_seats" EntityType="paradisoModel.movie_calendar_time_house_seats" />
-          <EntitySet Name="movie_calendar_time_patrons" EntityType="paradisoModel.movie_calendar_time_patrons" />
-          <EntitySet Name="movie_calendar_time_reserved_seats" EntityType="paradisoModel.movie_calendar_time_reserved_seats" />
-          <EntitySet Name="movie_calendar_times" EntityType="paradisoModel.movie_calendar_times" />
-          <EntitySet Name="movie_database" EntityType="paradisoModel.movie_database" />
-          <EntitySet Name="mtrcb_ratings" EntityType="paradisoModel.mtrcb_ratings" />
+          <EntitySet Name="cinema_patron" EntityType="paradisoModel.cinema_patron" />
+          <EntitySet Name="cinema_seat" EntityType="paradisoModel.cinema_seat" />
+          <EntitySet Name="classifications" EntityType="paradisoModel.classification" />
+          <EntitySet Name="movies" EntityType="paradisoModel.movie" />
+          <EntitySet Name="movies_class" EntityType="paradisoModel.movies_class" />
+          <EntitySet Name="movies_distributor" EntityType="paradisoModel.movies_distributor" />
+          <EntitySet Name="movies_schedule" EntityType="paradisoModel.movies_schedule" />
+          <EntitySet Name="movies_schedule_list" EntityType="paradisoModel.movies_schedule_list" />
+          <EntitySet Name="movies_schedule_list_house_seat" EntityType="paradisoModel.movies_schedule_list_house_seat" />
+          <EntitySet Name="movies_schedule_list_patron" EntityType="paradisoModel.movies_schedule_list_patron" />
+          <EntitySet Name="movies_schedule_list_reserved_seat" EntityType="paradisoModel.movies_schedule_list_reserved_seat" />
+          <EntitySet Name="movies_status" EntityType="paradisoModel.movies_status" />
+          <EntitySet Name="mtrcbs" EntityType="paradisoModel.mtrcb" />
           <EntitySet Name="patrons" EntityType="paradisoModel.patron" />
-          <EntitySet Name="ticket_transactions" EntityType="paradisoModel.ticket_transactions" />
+          <EntitySet Name="sound_system" EntityType="paradisoModel.sound_system" />
+          <EntitySet Name="system_module" EntityType="paradisoModel.system_module" />
+          <EntitySet Name="tickets" EntityType="paradisoModel.ticket" />
+          <EntitySet Name="user_level" EntityType="paradisoModel.user_level" />
+          <EntitySet Name="user_level_rights" EntityType="paradisoModel.user_level_rights" />
+          <EntitySet Name="user_rights" EntityType="paradisoModel.user_rights" />
           <EntitySet Name="users" EntityType="paradisoModel.user" />
-          <AssociationSet Name="FK_cinema_seats_cinemas" Association="paradisoModel.FK_cinema_seats_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
+          <AssociationSet Name="fk_cinema_patron_cinema1" Association="paradisoModel.fk_cinema_patron_cinema1">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="cinema_patron" EntitySet="cinema_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_house_seats_cinema_seats" Association="paradisoModel.FK_movie_calendar_time_house_seats_cinema_seats">
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
-            <End Role="movie_calendar_time_house_seats" EntitySet="movie_calendar_time_house_seats" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="paradisoModel.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_cinema_seats" Association="paradisoModel.FK_movie_calendar_time_reserved_seats_cinema_seats">
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_cinema_sound_system1" Association="paradisoModel.fk_cinema_sound_system1">
+            <End Role="sound_system" EntitySet="sound_system" />
+            <End Role="cinema" EntitySet="cinemas" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_cinemas" Association="paradisoModel.FK_movie_calendar_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
+          <AssociationSet Name="fk_movies_schedule_cinema1" Association="paradisoModel.fk_movies_schedule_cinema1">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_movie_database" Association="paradisoModel.FK_movie_calendar_movie_database">
-            <End Role="movie_database" EntitySet="movie_database" />
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_times_movie_calendar" Association="paradisoModel.FK_movie_calendar_times_movie_calendar">
-            <End Role="movie_calendar" EntitySet="movie_calendar" />
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_house_seats_movie_calendar_times" Association="paradisoModel.FK_movie_calendar_time_house_seats_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_house_seats" EntitySet="movie_calendar_time_house_seats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_patrons_movie_calendar_times" Association="paradisoModel.FK_movie_calendar_time_patrons_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_patrons" EntitySet="movie_calendar_time_patrons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_patrons_patrons" Association="paradisoModel.FK_movie_calendar_time_patrons_patrons">
+          <AssociationSet Name="fk_cinema_patron_patrons1" Association="paradisoModel.fk_cinema_patron_patrons1">
             <End Role="patrons" EntitySet="patrons" />
-            <End Role="movie_calendar_time_patrons" EntitySet="movie_calendar_time_patrons" />
+            <End Role="cinema_patron" EntitySet="cinema_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_movie_calendar_times" Association="paradisoModel.FK_movie_calendar_time_reserved_seats_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_cinema_seat1" Association="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1">
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_patrons" Association="paradisoModel.FK_movie_calendar_time_reserved_seats_patrons">
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_cinema_seat1" Association="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1">
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_class_classification1" Association="paradisoModel.fk_movies_class_classification1">
+            <End Role="classification" EntitySet="classifications" />
+            <End Role="movies_class" EntitySet="movies_class" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_class_movies1" Association="paradisoModel.fk_movies_class_movies1">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_class" EntitySet="movies_class" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_distributor_movies1" Association="paradisoModel.fk_movies_distributor_movies1">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_distributor" EntitySet="movies_distributor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_mtrcb1" Association="paradisoModel.fk_movies_mtrcb1">
+            <End Role="mtrcb" EntitySet="mtrcbs" />
+            <End Role="movies" EntitySet="movies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_movies" Association="paradisoModel.fk_movies_schedule_movies">
+            <End Role="movies" EntitySet="movies" />
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_movies_schedule1" Association="paradisoModel.fk_movies_schedule_list_movies_schedule1">
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_patron_movies_schedule1" Association="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1">
+            <End Role="movies_schedule" EntitySet="movies_schedule" />
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_movies_schedule_list1" Association="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1" Association="paradisoModel.fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ticket_movies_schedule_list1" Association="paradisoModel.fk_ticket_movies_schedule_list1">
+            <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+            <End Role="ticket" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_patron_patrons1" Association="paradisoModel.fk_movies_schedule_list_patron_patrons1">
             <End Role="patrons" EntitySet="patrons" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_calendar_time_reserved_seats_ticket_transactions" Association="paradisoModel.FK_movie_calendar_time_reserved_seats_ticket_transactions">
-            <End Role="ticket_transactions" EntitySet="ticket_transactions" />
-            <End Role="movie_calendar_time_reserved_seats" EntitySet="movie_calendar_time_reserved_seats" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_patrons1" Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1">
+            <End Role="patrons" EntitySet="patrons" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_ticket_transactions_movie_calendar_times" Association="paradisoModel.FK_ticket_transactions_movie_calendar_times">
-            <End Role="movie_calendar_times" EntitySet="movie_calendar_times" />
-            <End Role="ticket_transactions" EntitySet="ticket_transactions" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_ticket1" Association="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1">
+            <End Role="ticket" EntitySet="tickets" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="FK_movie_database_mtrcb_ratings" Association="paradisoModel.FK_movie_database_mtrcb_ratings">
-            <End Role="mtrcb_ratings" EntitySet="mtrcb_ratings" />
-            <End Role="movie_database" EntitySet="movie_database" />
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_users1" Association="paradisoModel.fk_movies_schedule_list_reserved_seat_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_rights_system_module1" Association="paradisoModel.fk_user_rights_system_module1">
+            <End Role="system_module" EntitySet="system_module" />
+            <End Role="user_rights" EntitySet="user_rights" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ticket_users1" Association="paradisoModel.fk_ticket_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="ticket" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_rights_users1" Association="paradisoModel.fk_user_rights_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_rights" EntitySet="user_rights" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="cinema_seats">
+        <EntityType Name="application">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="Int32" Nullable="false" />
-          <Property Name="p1x" Type="Int16" Nullable="false" />
-          <Property Name="p1y" Type="Int16" Nullable="false" />
-          <Property Name="p2x" Type="Int16" Nullable="false" />
-          <Property Name="p2y" Type="Int16" Nullable="false" />
-          <Property Name="p3x" Type="Int16" Nullable="false" />
-          <Property Name="p3y" Type="Int16" Nullable="false" />
-          <Property Name="p4x" Type="Int16" Nullable="false" />
-          <Property Name="p4y" Type="Int16" Nullable="false" />
-          <Property Name="p1xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p1ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p2xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p2ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p3xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p3ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p4xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p4ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="originx" Type="Int16" Nullable="false" />
-          <Property Name="originy" Type="Int16" Nullable="false" />
-          <Property Name="originxdouble" Type="Decimal" Nullable="false" />
-          <Property Name="originydouble" Type="Decimal" Nullable="false" />
-          <Property Name="angle" Type="Decimal" Nullable="false" />
-          <Property Name="row" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="column" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="object_type" Type="Byte" Nullable="false" />
-          <Property Name="color" Type="Decimal" />
-          <Property Name="text_color" Type="Decimal" />
-          <Property Name="handicapped" Type="Boolean" Nullable="false" />
-          <Property Name="text_size" Type="Int16" />
-          <Property Name="cinema_section_key" Type="Int32" />
-          <Property Name="web_column" Type="Int32" />
-          <Property Name="web_row" Type="Int32" />
-          <NavigationProperty Name="cinema" Relationship="paradisoModel.FK_cinema_seats_cinemas" FromRole="cinema_seats" ToRole="cinemas" />
-          <NavigationProperty Name="movie_calendar_time_house_seats" Relationship="paradisoModel.FK_movie_calendar_time_house_seats_cinema_seats" FromRole="cinema_seats" ToRole="movie_calendar_time_house_seats" />
-          <NavigationProperty Name="movie_calendar_time_reserved_seats" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_cinema_seats" FromRole="cinema_seats" ToRole="movie_calendar_time_reserved_seats" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="system_code" Type="Int32" Nullable="false" />
+          <Property Name="system_name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="cinema">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="sound_system" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="capacity" Type="Int16" Nullable="false" />
-          <Property Name="built_in" Type="Boolean" Nullable="false" />
-          <Property Name="display_order" Type="Int16" />
-          <Property Name="festival_cinema_type" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
-          <Property Name="aisles" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="seats_locked" Type="Boolean" />
-          <NavigationProperty Name="cinema_seats" Relationship="paradisoModel.FK_cinema_seats_cinemas" FromRole="cinemas" ToRole="cinema_seats" />
-          <NavigationProperty Name="movie_calendar" Relationship="paradisoModel.FK_movie_calendar_cinemas" FromRole="cinemas" ToRole="movie_calendar" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+          <Property Name="sound_id" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" />
+          <Property Name="in_order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cinema_patron" Relationship="paradisoModel.fk_cinema_patron_cinema1" FromRole="cinema" ToRole="cinema_patron" />
+          <NavigationProperty Name="cinema_seat" Relationship="paradisoModel.fk_cinema_seat_cinema1" FromRole="cinema" ToRole="cinema_seat" />
+          <NavigationProperty Name="sound_system" Relationship="paradisoModel.fk_cinema_sound_system1" FromRole="cinema" ToRole="sound_system" />
+          <NavigationProperty Name="movies_schedule" Relationship="paradisoModel.fk_movies_schedule_cinema1" FromRole="cinema" ToRole="movies_schedule" />
         </EntityType>
-        <EntityType Name="merchant_merchant_classifications">
+        <EntityType Name="cinema_patron">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="merchant_key" Type="Int32" Nullable="false" />
-          <Property Name="merchant_classification_key" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <Property Name="patron_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" Nullable="false" />
+          <NavigationProperty Name="cinema" Relationship="paradisoModel.fk_cinema_patron_cinema1" FromRole="cinema_patron" ToRole="cinema" />
+          <NavigationProperty Name="patron" Relationship="paradisoModel.fk_cinema_patron_patrons1" FromRole="cinema_patron" ToRole="patrons" />
         </EntityType>
-        <EntityType Name="movie_calendar">
+        <EntityType Name="cinema_seat">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="Int32" Nullable="false" />
-          <Property Name="movie_key" Type="Int32" Nullable="false" />
-          <Property Name="screening_start_date" Type="DateTime" Nullable="false" />
-          <Property Name="screening_end_date" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="cinema" Relationship="paradisoModel.FK_movie_calendar_cinemas" FromRole="movie_calendar" ToRole="cinemas" />
-          <NavigationProperty Name="movie_database" Relationship="paradisoModel.FK_movie_calendar_movie_database" FromRole="movie_calendar" ToRole="movie_database" />
-          <NavigationProperty Name="movie_calendar_times" Relationship="paradisoModel.FK_movie_calendar_times_movie_calendar" FromRole="movie_calendar" ToRole="movie_calendar_times" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <Property Name="x1" Type="Int32" />
+          <Property Name="y1" Type="Int32" />
+          <Property Name="x2" Type="Int32" />
+          <Property Name="y2" Type="Int32" />
+          <Property Name="origin_x" Type="Int32" />
+          <Property Name="origin_y" Type="Int32" />
+          <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="object_type" Type="Int32" />
+          <Property Name="is_handicapped" Type="SByte" />
+          <NavigationProperty Name="cinema" Relationship="paradisoModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
+          <NavigationProperty Name="movies_schedule_list_house_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_house_seat" />
+          <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_reserved_seat" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_house_seats">
+        <EntityType Name="classification">
           <Key>
-            <PropertyRef Name="movie_calendar_time_key" />
-            <PropertyRef Name="cinema_seat_key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="movie_calendar_time_key" Type="Int32" Nullable="false" />
-          <Property Name="cinema_seat_key" Type="Int32" Nullable="false" />
-          <Property Name="full_name" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="notes" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="cinema_seats" Relationship="paradisoModel.FK_movie_calendar_time_house_seats_cinema_seats" FromRole="movie_calendar_time_house_seats" ToRole="cinema_seats" />
-          <NavigationProperty Name="movie_calendar_times" Relationship="paradisoModel.FK_movie_calendar_time_house_seats_movie_calendar_times" FromRole="movie_calendar_time_house_seats" ToRole="movie_calendar_times" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="movies_class" Relationship="paradisoModel.fk_movies_class_classification1" FromRole="classification" ToRole="movies_class" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_patrons">
+        <EntityType Name="movie">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_time_key" Type="Int32" Nullable="false" />
-          <Property Name="patron_key" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" />
-          <NavigationProperty Name="movie_calendar_times" Relationship="paradisoModel.FK_movie_calendar_time_patrons_movie_calendar_times" FromRole="movie_calendar_time_patrons" ToRole="movie_calendar_times" />
-          <NavigationProperty Name="patron" Relationship="paradisoModel.FK_movie_calendar_time_patrons_patrons" FromRole="movie_calendar_time_patrons" ToRole="patrons" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="dist_id" Type="Int32" Nullable="false" />
+          <Property Name="share_perc" Type="Single" Nullable="false" />
+          <Property Name="rating_id" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="movies_class" Relationship="paradisoModel.fk_movies_class_movies1" FromRole="movies" ToRole="movies_class" />
+          <NavigationProperty Name="movies_distributor" Relationship="paradisoModel.fk_movies_distributor_movies1" FromRole="movies" ToRole="movies_distributor" />
+          <NavigationProperty Name="mtrcb" Relationship="paradisoModel.fk_movies_mtrcb1" FromRole="movies" ToRole="mtrcb" />
+          <NavigationProperty Name="movies_schedule" Relationship="paradisoModel.fk_movies_schedule_movies" FromRole="movies" ToRole="movies_schedule" />
         </EntityType>
-        <EntityType Name="movie_calendar_time_reserved_seats">
+        <EntityType Name="movies_class">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_time_key" Type="Int32" Nullable="false" />
-          <Property Name="cinema_seat_key" Type="Int32" Nullable="false" />
-          <Property Name="ticket_transaction_key" Type="Int32" Nullable="false" />
-          <Property Name="patron_key" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" />
-          <Property Name="status" Type="Int16" Nullable="false" />
-          <Property Name="cultural_tax_amount" Type="Decimal" Nullable="false" />
-          <Property Name="amusement_tax_amount" Type="Decimal" Nullable="false" />
-          <Property Name="VAT_amount" Type="Decimal" Nullable="false" />
-          <Property Name="or_number" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="void_user" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="void_datetime" Type="DateTime" />
-          <Property Name="reprinted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="cinema_seats" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_cinema_seats" FromRole="movie_calendar_time_reserved_seats" ToRole="cinema_seats" />
-          <NavigationProperty Name="movie_calendar_times" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_movie_calendar_times" FromRole="movie_calendar_time_reserved_seats" ToRole="movie_calendar_times" />
-          <NavigationProperty Name="patron" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_patrons" FromRole="movie_calendar_time_reserved_seats" ToRole="patrons" />
-          <NavigationProperty Name="ticket_transactions" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_ticket_transactions" FromRole="movie_calendar_time_reserved_seats" ToRole="ticket_transactions" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="Int32" Nullable="false" />
+          <Property Name="class_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="classification" Relationship="paradisoModel.fk_movies_class_classification1" FromRole="movies_class" ToRole="classification" />
+          <NavigationProperty Name="movie" Relationship="paradisoModel.fk_movies_class_movies1" FromRole="movies_class" ToRole="movies" />
         </EntityType>
-        <EntityType Name="movie_calendar_times">
+        <EntityType Name="movies_distributor">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_key" Type="Int32" Nullable="false" />
-          <Property Name="use_screening_no" Type="Boolean" Nullable="false" />
-          <Property Name="screening_no" Type="Int16" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movie_id" Type="Int32" Nullable="false" />
+          <Property Name="share_perc" Type="Single" Nullable="false" />
+          <Property Name="effective_date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="movie" Relationship="paradisoModel.fk_movies_distributor_movies1" FromRole="movies_distributor" ToRole="movies" />
+        </EntityType>
+        <EntityType Name="movies_schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <Property Name="movie_id" Type="Int32" Nullable="false" />
+          <Property Name="movie_date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="cinema" Relationship="paradisoModel.fk_movies_schedule_cinema1" FromRole="movies_schedule" ToRole="cinema" />
+          <NavigationProperty Name="movie" Relationship="paradisoModel.fk_movies_schedule_movies" FromRole="movies_schedule" ToRole="movies" />
+          <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_movies_schedule1" FromRole="movies_schedule" ToRole="movies_schedule_list" />
+          <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1" FromRole="movies_schedule" ToRole="movies_schedule_list_patron" />
+        </EntityType>
+        <EntityType Name="movies_schedule_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_id" Type="Int32" Nullable="false" />
           <Property Name="start_time" Type="DateTime" Nullable="false" />
           <Property Name="end_time" Type="DateTime" Nullable="false" />
-          <Property Name="screening_type" Type="Byte" Nullable="false" />
-          <Property Name="start_next_day" Type="Int16" Nullable="false" />
-          <Property Name="end_next_day" Type="Int16" Nullable="false" />
-          <Property Name="enable_house_seats" Type="Boolean" Nullable="false" />
-          <Property Name="ticket_purchase_cutoff" Type="Int16" />
-          <Property Name="publish" Type="Boolean" Nullable="false" />
-          <Property Name="web_ticket_purchase_cutoff" Type="Int16" />
-          <Property Name="publish_to_web" Type="Boolean" Nullable="false" />
-          <Property Name="web_ticket_cancellation_cutoff" Type="Int16" />
-          <NavigationProperty Name="movie_calendar" Relationship="paradisoModel.FK_movie_calendar_times_movie_calendar" FromRole="movie_calendar_times" ToRole="movie_calendar" />
-          <NavigationProperty Name="movie_calendar_time_house_seats" Relationship="paradisoModel.FK_movie_calendar_time_house_seats_movie_calendar_times" FromRole="movie_calendar_times" ToRole="movie_calendar_time_house_seats" />
-          <NavigationProperty Name="movie_calendar_time_patrons" Relationship="paradisoModel.FK_movie_calendar_time_patrons_movie_calendar_times" FromRole="movie_calendar_times" ToRole="movie_calendar_time_patrons" />
-          <NavigationProperty Name="movie_calendar_time_reserved_seats" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_movie_calendar_times" FromRole="movie_calendar_times" ToRole="movie_calendar_time_reserved_seats" />
-          <NavigationProperty Name="ticket_transactions" Relationship="paradisoModel.FK_ticket_transactions_movie_calendar_times" FromRole="movie_calendar_times" ToRole="ticket_transactions" />
+          <Property Name="seat_type" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="movies_schedule" Relationship="paradisoModel.fk_movies_schedule_list_movies_schedule1" FromRole="movies_schedule_list" ToRole="movies_schedule" />
+          <NavigationProperty Name="movies_schedule_list_house_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1" FromRole="movies_schedule_list" ToRole="movies_schedule_list_house_seat" />
+          <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_movies_schedule_list1" FromRole="movies_schedule_list" ToRole="movies_schedule_list_reserved_seat" />
+          <NavigationProperty Name="tickets" Relationship="paradisoModel.fk_ticket_movies_schedule_list1" FromRole="movies_schedule_list" ToRole="ticket" />
         </EntityType>
-        <EntityType Name="movie_database">
+        <EntityType Name="movies_schedule_list_house_seat">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="distributor_key" Type="Int32" Nullable="false" />
-          <Property Name="distributor_share_rate" Type="Decimal" Nullable="false" />
-          <Property Name="mtrcb_rating_key" Type="Int32" Nullable="false" />
-          <Property Name="running_time" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="video_filename" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
-          <Property Name="video" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="synopsis" Type="String" MaxLength="2000" Unicode="false" FixedLength="false" />
-          <Property Name="local" Type="Boolean" Nullable="false" />
-          <Property Name="movie_showing_type" Type="Byte" Nullable="false" />
-          <Property Name="cast" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
-          <Property Name="official_website" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="trailer_url" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="movie_image_1" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="movie_image_2" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="movie_calendar" Relationship="paradisoModel.FK_movie_calendar_movie_database" FromRole="movie_database" ToRole="movie_calendar" />
-          <NavigationProperty Name="mtrcb_ratings" Relationship="paradisoModel.FK_movie_database_mtrcb_ratings" FromRole="movie_database" ToRole="mtrcb_ratings" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="Int32" Nullable="false" />
+          <Property Name="cinema_seat_id" Type="Int32" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="notes" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="cinema_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" FromRole="movies_schedule_list_house_seat" ToRole="cinema_seat" />
+          <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1" FromRole="movies_schedule_list_house_seat" ToRole="movies_schedule_list" />
         </EntityType>
-        <EntityType Name="mtrcb_ratings">
+        <EntityType Name="movies_schedule_list_patron">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="movie_database" Relationship="paradisoModel.FK_movie_database_mtrcb_ratings" FromRole="mtrcb_ratings" ToRole="movie_database" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="Int32" Nullable="false" />
+          <Property Name="patron_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" />
+          <NavigationProperty Name="movies_schedule" Relationship="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1" FromRole="movies_schedule_list_patron" ToRole="movies_schedule" />
+          <NavigationProperty Name="patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_patrons1" FromRole="movies_schedule_list_patron" ToRole="patrons" />
+        </EntityType>
+        <EntityType Name="movies_schedule_list_reserved_seat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="Int32" Nullable="false" />
+          <Property Name="cinema_seat_id" Type="Int32" Nullable="false" />
+          <Property Name="ticket_id" Type="Int32" Nullable="false" />
+          <Property Name="patron_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Single" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="amusement_tax_amount" Type="Single" />
+          <Property Name="cultural_tax_amount" Type="Single" />
+          <Property Name="vat_amount" Type="Single" />
+          <Property Name="or_number" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="void_user_id" Type="Int32" />
+          <Property Name="void_datetime" Type="DateTime" />
+          <NavigationProperty Name="cinema_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" FromRole="movies_schedule_list_reserved_seat" ToRole="cinema_seat" />
+          <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_movies_schedule_list1" FromRole="movies_schedule_list_reserved_seat" ToRole="movies_schedule_list" />
+          <NavigationProperty Name="patron" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1" FromRole="movies_schedule_list_reserved_seat" ToRole="patrons" />
+          <NavigationProperty Name="ticket" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" FromRole="movies_schedule_list_reserved_seat" ToRole="ticket" />
+          <NavigationProperty Name="user" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_users1" FromRole="movies_schedule_list_reserved_seat" ToRole="users" />
+        </EntityType>
+        <EntityType Name="movies_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="status_desc" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="mtrcb">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="movies" Relationship="paradisoModel.fk_movies_mtrcb1" FromRole="mtrcb" ToRole="movies" />
         </EntityType>
         <EntityType Name="patron">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" />
-          <Property Name="promo" Type="Boolean" Nullable="false" />
-          <Property Name="color" Type="Decimal" />
-          <Property Name="position" Type="Int16" Nullable="false" />
-          <Property Name="taxable" Type="Boolean" Nullable="false" />
-          <Property Name="apply_cultural_tax" Type="Boolean" Nullable="false" />
-          <Property Name="disregard_gross_margin" Type="Boolean" Nullable="false" />
-          <Property Name="disregard_producer_share" Type="Boolean" Nullable="false" />
-          <Property Name="display_in_reports" Type="Boolean" Nullable="false" />
-          <Property Name="web_ticket" Type="Boolean" Nullable="false" />
-          <Property Name="internet_booking_fee" Type="Decimal" Nullable="false" />
-          <Property Name="apply_lgu_tax" Type="Boolean" Nullable="false" />
-          <Property Name="lgu_tax_amount" Type="Decimal" Nullable="false" />
-          <NavigationProperty Name="movie_calendar_time_patrons" Relationship="paradisoModel.FK_movie_calendar_time_patrons_patrons" FromRole="patrons" ToRole="movie_calendar_time_patrons" />
-          <NavigationProperty Name="movie_calendar_time_reserved_seats" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_patrons" FromRole="patrons" ToRole="movie_calendar_time_reserved_seats" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="unit_price" Type="Single" Nullable="false" />
+          <Property Name="with_promo" Type="Int32" />
+          <Property Name="with_amusement" Type="Int32" />
+          <Property Name="with_cultural" Type="Int32" />
+          <Property Name="with_citytax" Type="Int32" />
+          <Property Name="with_gross_margin" Type="Int32" />
+          <Property Name="with_prod_share" Type="Int32" />
+          <Property Name="seat_color" Type="Int32" />
+          <Property Name="seat_position" Type="Int32" />
+          <Property Name="lgutax" Type="Single" />
+          <NavigationProperty Name="cinema_patron" Relationship="paradisoModel.fk_cinema_patron_patrons1" FromRole="patrons" ToRole="cinema_patron" />
+          <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_patrons1" FromRole="patrons" ToRole="movies_schedule_list_patron" />
+          <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1" FromRole="patrons" ToRole="movies_schedule_list_reserved_seat" />
         </EntityType>
-        <EntityType Name="ticket_transactions">
+        <EntityType Name="sound_system">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="movie_calendar_times_key" Type="Int32" Nullable="false" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="terminal" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="datetime" Type="DateTime" Nullable="false" />
-          <Property Name="sessionid" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="transrefnum" Type="String" Nullable="false" MaxLength="18" Unicode="false" FixedLength="false" />
-          <Property Name="status" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="movie_calendar_time_reserved_seats" Relationship="paradisoModel.FK_movie_calendar_time_reserved_seats_ticket_transactions" FromRole="ticket_transactions" ToRole="movie_calendar_time_reserved_seats" />
-          <NavigationProperty Name="movie_calendar_times" Relationship="paradisoModel.FK_ticket_transactions_movie_calendar_times" FromRole="ticket_transactions" ToRole="movie_calendar_times" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sound_system_type" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="cinemas" Relationship="paradisoModel.fk_cinema_sound_system1" FromRole="sound_system" ToRole="cinema" />
+        </EntityType>
+        <EntityType Name="system_module">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_code" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="module_desc" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+          <Property Name="module_group" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="system_code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_rights" Relationship="paradisoModel.fk_user_rights_system_module1" FromRole="system_module" ToRole="user_rights" />
+        </EntityType>
+        <EntityType Name="ticket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movies_schedule_list_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="terminal" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ticket_datetime" Type="DateTime" />
+          <Property Name="session_id" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_ticket_movies_schedule_list1" FromRole="ticket" ToRole="movies_schedule_list" />
+          <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" FromRole="ticket" ToRole="movies_schedule_list_reserved_seat" />
+          <NavigationProperty Name="user" Relationship="paradisoModel.fk_ticket_users1" FromRole="ticket" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user_level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="level_desc" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="system_code" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_level_rights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_level" Type="Int32" Nullable="false" />
+          <Property Name="module_id" Type="Int32" Nullable="false" />
+          <Property Name="system_code" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_rights">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="module_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="system_module" Relationship="paradisoModel.fk_user_rights_system_module1" FromRole="user_rights" ToRole="system_module" />
+          <NavigationProperty Name="user" Relationship="paradisoModel.fk_user_rights_users1" FromRole="user_rights" ToRole="users" />
         </EntityType>
         <EntityType Name="user">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="password" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="full_name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="access_group_key" Type="Int32" Nullable="false" />
-          <Property Name="activated" Type="Boolean" Nullable="false" />
-          <Property Name="built_in" Type="Boolean" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_password" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="designation" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="user_level_id" Type="Int32" Nullable="false" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="fname" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="mname" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="system_code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_users1" FromRole="users" ToRole="movies_schedule_list_reserved_seat" />
+          <NavigationProperty Name="tickets" Relationship="paradisoModel.fk_ticket_users1" FromRole="users" ToRole="ticket" />
+          <NavigationProperty Name="user_rights" Relationship="paradisoModel.fk_user_rights_users1" FromRole="users" ToRole="user_rights" />
         </EntityType>
-        <Association Name="FK_cinema_seats_cinemas">
-          <End Role="cinemas" Type="paradisoModel.cinema" Multiplicity="1" />
-          <End Role="cinema_seats" Type="paradisoModel.cinema_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_patron_cinema1">
+          <End Role="cinema" Type="paradisoModel.cinema" Multiplicity="1" />
+          <End Role="cinema_patron" Type="paradisoModel.cinema_patron" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="cinema_seats">
-              <PropertyRef Name="cinema_key" />
+            <Dependent Role="cinema_patron">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_house_seats_cinema_seats">
-          <End Role="cinema_seats" Type="paradisoModel.cinema_seats" Multiplicity="1" />
-          <End Role="movie_calendar_time_house_seats" Type="paradisoModel.movie_calendar_time_house_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="paradisoModel.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="paradisoModel.cinema_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinema_seats">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_house_seats">
-              <PropertyRef Name="cinema_seat_key" />
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_cinema_seats">
-          <End Role="cinema_seats" Type="paradisoModel.cinema_seats" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_sound_system1">
+          <End Role="sound_system" Type="paradisoModel.sound_system" Multiplicity="1" />
+          <End Role="cinema" Type="paradisoModel.cinema" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinema_seats">
-              <PropertyRef Name="key" />
+            <Principal Role="sound_system">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="cinema_seat_key" />
+            <Dependent Role="cinema">
+              <PropertyRef Name="sound_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_cinemas">
-          <End Role="cinemas" Type="paradisoModel.cinema" Multiplicity="1" />
-          <End Role="movie_calendar" Type="paradisoModel.movie_calendar" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_cinema1">
+          <End Role="cinema" Type="paradisoModel.cinema" Multiplicity="1" />
+          <End Role="movies_schedule" Type="paradisoModel.movies_schedule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar">
-              <PropertyRef Name="cinema_key" />
+            <Dependent Role="movies_schedule">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_movie_database">
-          <End Role="movie_database" Type="paradisoModel.movie_database" Multiplicity="1" />
-          <End Role="movie_calendar" Type="paradisoModel.movie_calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_database">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar">
-              <PropertyRef Name="movie_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_times_movie_calendar">
-          <End Role="movie_calendar" Type="paradisoModel.movie_calendar" Multiplicity="1" />
-          <End Role="movie_calendar_times" Type="paradisoModel.movie_calendar_times" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_calendar">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_times">
-              <PropertyRef Name="movie_calendar_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_house_seats_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_house_seats" Type="paradisoModel.movie_calendar_time_house_seats" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_time_house_seats">
-              <PropertyRef Name="movie_calendar_time_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_patrons_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_patrons" Type="paradisoModel.movie_calendar_time_patrons" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
-            </Principal>
-            <Dependent Role="movie_calendar_time_patrons">
-              <PropertyRef Name="movie_calendar_time_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_movie_calendar_time_patrons_patrons">
+        <Association Name="fk_cinema_patron_patrons1">
           <End Role="patrons" Type="paradisoModel.patron" Multiplicity="1" />
-          <End Role="movie_calendar_time_patrons" Type="paradisoModel.movie_calendar_time_patrons" Multiplicity="*" />
+          <End Role="cinema_patron" Type="paradisoModel.cinema_patron" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patrons">
-              <PropertyRef Name="key" />
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_patrons">
-              <PropertyRef Name="patron_key" />
+            <Dependent Role="cinema_patron">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.movie_calendar_times" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_house_seat_cinema_seat1">
+          <End Role="cinema_seat" Type="paradisoModel.cinema_seat" Multiplicity="1" />
+          <End Role="movies_schedule_list_house_seat" Type="paradisoModel.movies_schedule_list_house_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema_seat">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="movie_calendar_time_key" />
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="cinema_seat_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_patrons">
+        <Association Name="fk_movies_schedule_list_reserved_seat_cinema_seat1">
+          <End Role="cinema_seat" Type="paradisoModel.cinema_seat" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.movies_schedule_list_reserved_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema_seat">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="cinema_seat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_class_classification1">
+          <End Role="classification" Type="paradisoModel.classification" Multiplicity="1" />
+          <End Role="movies_class" Type="paradisoModel.movies_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classification">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_class">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_class_movies1">
+          <End Role="movies" Type="paradisoModel.movie" Multiplicity="1" />
+          <End Role="movies_class" Type="paradisoModel.movies_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_class">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_distributor_movies1">
+          <End Role="movies" Type="paradisoModel.movie" Multiplicity="1" />
+          <End Role="movies_distributor" Type="paradisoModel.movies_distributor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_distributor">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_mtrcb1">
+          <End Role="mtrcb" Type="paradisoModel.mtrcb" Multiplicity="1" />
+          <End Role="movies" Type="paradisoModel.movie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mtrcb">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies">
+              <PropertyRef Name="rating_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_movies">
+          <End Role="movies" Type="paradisoModel.movie" Multiplicity="1" />
+          <End Role="movies_schedule" Type="paradisoModel.movies_schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule">
+              <PropertyRef Name="movie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_movies_schedule1">
+          <End Role="movies_schedule" Type="paradisoModel.movies_schedule" Multiplicity="1" />
+          <End Role="movies_schedule_list" Type="paradisoModel.movies_schedule_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list">
+              <PropertyRef Name="movies_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_patron_movies_schedule1">
+          <End Role="movies_schedule" Type="paradisoModel.movies_schedule" Multiplicity="1" />
+          <End Role="movies_schedule_list_patron" Type="paradisoModel.movies_schedule_list_patron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_patron">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_house_seat_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.movies_schedule_list" Multiplicity="1" />
+          <End Role="movies_schedule_list_house_seat" Type="paradisoModel.movies_schedule_list_house_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.movies_schedule_list" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.movies_schedule_list_reserved_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ticket_movies_schedule_list1">
+          <End Role="movies_schedule_list" Type="paradisoModel.movies_schedule_list" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="movies_schedule_list_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_movies_schedule_list_patron_patrons1">
           <End Role="patrons" Type="paradisoModel.patron" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.movie_calendar_time_reserved_seats" Multiplicity="*" />
+          <End Role="movies_schedule_list_patron" Type="paradisoModel.movies_schedule_list_patron" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="patrons">
-              <PropertyRef Name="key" />
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="patron_key" />
+            <Dependent Role="movies_schedule_list_patron">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_calendar_time_reserved_seats_ticket_transactions">
-          <End Role="ticket_transactions" Type="paradisoModel.ticket_transactions" Multiplicity="1" />
-          <End Role="movie_calendar_time_reserved_seats" Type="paradisoModel.movie_calendar_time_reserved_seats" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_patrons1">
+          <End Role="patrons" Type="paradisoModel.patron" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ticket_transactions">
-              <PropertyRef Name="key" />
+            <Principal Role="patrons">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_calendar_time_reserved_seats">
-              <PropertyRef Name="ticket_transaction_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="patron_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ticket_transactions_movie_calendar_times">
-          <End Role="movie_calendar_times" Type="paradisoModel.movie_calendar_times" Multiplicity="1" />
-          <End Role="ticket_transactions" Type="paradisoModel.ticket_transactions" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_ticket1">
+          <End Role="ticket" Type="paradisoModel.ticket" Multiplicity="1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="movie_calendar_times">
-              <PropertyRef Name="key" />
+            <Principal Role="ticket">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="ticket_transactions">
-              <PropertyRef Name="movie_calendar_times_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="ticket_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_movie_database_mtrcb_ratings">
-          <End Role="mtrcb_ratings" Type="paradisoModel.mtrcb_ratings" Multiplicity="1" />
-          <End Role="movie_database" Type="paradisoModel.movie_database" Multiplicity="*" />
+        <Association Name="fk_movies_schedule_list_reserved_seat_users1">
+          <End Role="users" Type="paradisoModel.user" Multiplicity="0..1" />
+          <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="mtrcb_ratings">
-              <PropertyRef Name="key" />
+            <Principal Role="users">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="movie_database">
-              <PropertyRef Name="mtrcb_rating_key" />
+            <Dependent Role="movies_schedule_list_reserved_seat">
+              <PropertyRef Name="void_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_rights_system_module1">
+          <End Role="system_module" Type="paradisoModel.system_module" Multiplicity="1" />
+          <End Role="user_rights" Type="paradisoModel.user_rights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="system_module">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_rights">
+              <PropertyRef Name="module_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ticket_users1">
+          <End Role="users" Type="paradisoModel.user" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_rights_users1">
+          <End Role="users" Type="paradisoModel.user" Multiplicity="1" />
+          <End Role="user_rights" Type="paradisoModel.user_rights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user_rights">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -942,173 +1370,170 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="paradisoModelStoreContainer" CdmEntityContainer="paradisoEntities">
-          <EntitySetMapping Name="cinema_seats">
-            <EntityTypeMapping TypeName="paradisoModel.cinema_seats">
-              <MappingFragment StoreEntitySet="cinema_seats">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="cinema_key" ColumnName="cinema_key" />
-                <ScalarProperty Name="p1x" ColumnName="p1x" />
-                <ScalarProperty Name="p1y" ColumnName="p1y" />
-                <ScalarProperty Name="p2x" ColumnName="p2x" />
-                <ScalarProperty Name="p2y" ColumnName="p2y" />
-                <ScalarProperty Name="p3x" ColumnName="p3x" />
-                <ScalarProperty Name="p3y" ColumnName="p3y" />
-                <ScalarProperty Name="p4x" ColumnName="p4x" />
-                <ScalarProperty Name="p4y" ColumnName="p4y" />
-                <ScalarProperty Name="p1xdouble" ColumnName="p1xdouble" />
-                <ScalarProperty Name="p1ydouble" ColumnName="p1ydouble" />
-                <ScalarProperty Name="p2xdouble" ColumnName="p2xdouble" />
-                <ScalarProperty Name="p2ydouble" ColumnName="p2ydouble" />
-                <ScalarProperty Name="p3xdouble" ColumnName="p3xdouble" />
-                <ScalarProperty Name="p3ydouble" ColumnName="p3ydouble" />
-                <ScalarProperty Name="p4xdouble" ColumnName="p4xdouble" />
-                <ScalarProperty Name="p4ydouble" ColumnName="p4ydouble" />
-                <ScalarProperty Name="originx" ColumnName="originx" />
-                <ScalarProperty Name="originy" ColumnName="originy" />
-                <ScalarProperty Name="originxdouble" ColumnName="originxdouble" />
-                <ScalarProperty Name="originydouble" ColumnName="originydouble" />
-                <ScalarProperty Name="angle" ColumnName="angle" />
-                <ScalarProperty Name="row" ColumnName="row" />
-                <ScalarProperty Name="column" ColumnName="column" />
-                <ScalarProperty Name="object_type" ColumnName="object_type" />
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="text_color" ColumnName="text_color" />
-                <ScalarProperty Name="handicapped" ColumnName="handicapped" />
-                <ScalarProperty Name="text_size" ColumnName="text_size" />
-                <ScalarProperty Name="cinema_section_key" ColumnName="cinema_section_key" />
-                <ScalarProperty Name="web_column" ColumnName="web_column" />
-                <ScalarProperty Name="web_row" ColumnName="web_row" />
+          <EntitySetMapping Name="applications">
+            <EntityTypeMapping TypeName="paradisoModel.application">
+              <MappingFragment StoreEntitySet="application">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+                <ScalarProperty Name="system_name" ColumnName="system_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cinemas">
             <EntityTypeMapping TypeName="paradisoModel.cinema">
-              <MappingFragment StoreEntitySet="cinemas">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="code" ColumnName="code" />
+              <MappingFragment StoreEntitySet="cinema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sound_id" ColumnName="sound_id" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="in_order" ColumnName="in_order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cinema_patron">
+            <EntityTypeMapping TypeName="paradisoModel.cinema_patron">
+              <MappingFragment StoreEntitySet="cinema_patron">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+                <ScalarProperty Name="patron_id" ColumnName="patron_id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cinema_seat">
+            <EntityTypeMapping TypeName="paradisoModel.cinema_seat">
+              <MappingFragment StoreEntitySet="cinema_seat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+                <ScalarProperty Name="x1" ColumnName="x1" />
+                <ScalarProperty Name="y1" ColumnName="y1" />
+                <ScalarProperty Name="x2" ColumnName="x2" />
+                <ScalarProperty Name="y2" ColumnName="y2" />
+                <ScalarProperty Name="origin_x" ColumnName="origin_x" />
+                <ScalarProperty Name="origin_y" ColumnName="origin_y" />
+                <ScalarProperty Name="row_name" ColumnName="row_name" />
+                <ScalarProperty Name="col_name" ColumnName="col_name" />
+                <ScalarProperty Name="object_type" ColumnName="object_type" />
+                <ScalarProperty Name="is_handicapped" ColumnName="is_handicapped" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="classifications">
+            <EntityTypeMapping TypeName="paradisoModel.classification">
+              <MappingFragment StoreEntitySet="classification">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sound_system" ColumnName="sound_system" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
-                <ScalarProperty Name="built_in" ColumnName="built_in" />
-                <ScalarProperty Name="display_order" ColumnName="display_order" />
-                <ScalarProperty Name="festival_cinema_type" ColumnName="festival_cinema_type" />
-                <ScalarProperty Name="aisles" ColumnName="aisles" />
-                <ScalarProperty Name="seats_locked" ColumnName="seats_locked" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="merchant_merchant_classifications">
-            <EntityTypeMapping TypeName="paradisoModel.merchant_merchant_classifications">
-              <MappingFragment StoreEntitySet="merchant_merchant_classifications">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="merchant_key" ColumnName="merchant_key" />
-                <ScalarProperty Name="merchant_classification_key" ColumnName="merchant_classification_key" />
+          <EntitySetMapping Name="movies">
+            <EntityTypeMapping TypeName="paradisoModel.movie">
+              <MappingFragment StoreEntitySet="movies">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="dist_id" ColumnName="dist_id" />
+                <ScalarProperty Name="share_perc" ColumnName="share_perc" />
+                <ScalarProperty Name="rating_id" ColumnName="rating_id" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_calendar">
-            <EntityTypeMapping TypeName="paradisoModel.movie_calendar">
-              <MappingFragment StoreEntitySet="movie_calendar">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="cinema_key" ColumnName="cinema_key" />
-                <ScalarProperty Name="movie_key" ColumnName="movie_key" />
-                <ScalarProperty Name="screening_start_date" ColumnName="screening_start_date" />
-                <ScalarProperty Name="screening_end_date" ColumnName="screening_end_date" />
+          <EntitySetMapping Name="movies_class">
+            <EntityTypeMapping TypeName="paradisoModel.movies_class">
+              <MappingFragment StoreEntitySet="movies_class">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movie_id" ColumnName="movie_id" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_calendar_time_house_seats">
-            <EntityTypeMapping TypeName="paradisoModel.movie_calendar_time_house_seats">
-              <MappingFragment StoreEntitySet="movie_calendar_time_house_seats">
-                <ScalarProperty Name="movie_calendar_time_key" ColumnName="movie_calendar_time_key" />
-                <ScalarProperty Name="cinema_seat_key" ColumnName="cinema_seat_key" />
+          <EntitySetMapping Name="movies_distributor">
+            <EntityTypeMapping TypeName="paradisoModel.movies_distributor">
+              <MappingFragment StoreEntitySet="movies_distributor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movie_id" ColumnName="movie_id" />
+                <ScalarProperty Name="share_perc" ColumnName="share_perc" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movies_schedule">
+            <EntityTypeMapping TypeName="paradisoModel.movies_schedule">
+              <MappingFragment StoreEntitySet="movies_schedule">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+                <ScalarProperty Name="movie_id" ColumnName="movie_id" />
+                <ScalarProperty Name="movie_date" ColumnName="movie_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movies_schedule_list">
+            <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list">
+              <MappingFragment StoreEntitySet="movies_schedule_list">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movies_schedule_id" ColumnName="movies_schedule_id" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="seat_type" ColumnName="seat_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movies_schedule_list_house_seat">
+            <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_house_seat">
+              <MappingFragment StoreEntitySet="movies_schedule_list_house_seat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
+                <ScalarProperty Name="cinema_seat_id" ColumnName="cinema_seat_id" />
                 <ScalarProperty Name="full_name" ColumnName="full_name" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_calendar_time_patrons">
-            <EntityTypeMapping TypeName="paradisoModel.movie_calendar_time_patrons">
-              <MappingFragment StoreEntitySet="movie_calendar_time_patrons">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="movie_calendar_time_key" ColumnName="movie_calendar_time_key" />
-                <ScalarProperty Name="patron_key" ColumnName="patron_key" />
+          <EntitySetMapping Name="movies_schedule_list_patron">
+            <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_patron">
+              <MappingFragment StoreEntitySet="movies_schedule_list_patron">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
+                <ScalarProperty Name="patron_id" ColumnName="patron_id" />
                 <ScalarProperty Name="price" ColumnName="price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_calendar_time_reserved_seats">
-            <EntityTypeMapping TypeName="paradisoModel.movie_calendar_time_reserved_seats">
-              <MappingFragment StoreEntitySet="movie_calendar_time_reserved_seats">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="movie_calendar_time_key" ColumnName="movie_calendar_time_key" />
-                <ScalarProperty Name="cinema_seat_key" ColumnName="cinema_seat_key" />
-                <ScalarProperty Name="ticket_transaction_key" ColumnName="ticket_transaction_key" />
-                <ScalarProperty Name="patron_key" ColumnName="patron_key" />
+          <EntitySetMapping Name="movies_schedule_list_reserved_seat">
+            <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_reserved_seat">
+              <MappingFragment StoreEntitySet="movies_schedule_list_reserved_seat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
+                <ScalarProperty Name="cinema_seat_id" ColumnName="cinema_seat_id" />
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="patron_id" ColumnName="patron_id" />
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="cultural_tax_amount" ColumnName="cultural_tax_amount" />
                 <ScalarProperty Name="amusement_tax_amount" ColumnName="amusement_tax_amount" />
-                <ScalarProperty Name="VAT_amount" ColumnName="VAT_amount" />
+                <ScalarProperty Name="cultural_tax_amount" ColumnName="cultural_tax_amount" />
+                <ScalarProperty Name="vat_amount" ColumnName="vat_amount" />
                 <ScalarProperty Name="or_number" ColumnName="or_number" />
-                <ScalarProperty Name="void_user" ColumnName="void_user" />
+                <ScalarProperty Name="void_user_id" ColumnName="void_user_id" />
                 <ScalarProperty Name="void_datetime" ColumnName="void_datetime" />
-                <ScalarProperty Name="reprinted" ColumnName="reprinted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_calendar_times">
-            <EntityTypeMapping TypeName="paradisoModel.movie_calendar_times">
-              <MappingFragment StoreEntitySet="movie_calendar_times">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="movie_calendar_key" ColumnName="movie_calendar_key" />
-                <ScalarProperty Name="use_screening_no" ColumnName="use_screening_no" />
-                <ScalarProperty Name="screening_no" ColumnName="screening_no" />
-                <ScalarProperty Name="start_time" ColumnName="start_time" />
-                <ScalarProperty Name="end_time" ColumnName="end_time" />
-                <ScalarProperty Name="screening_type" ColumnName="screening_type" />
-                <ScalarProperty Name="start_next_day" ColumnName="start_next_day" />
-                <ScalarProperty Name="end_next_day" ColumnName="end_next_day" />
-                <ScalarProperty Name="enable_house_seats" ColumnName="enable_house_seats" />
-                <ScalarProperty Name="ticket_purchase_cutoff" ColumnName="ticket_purchase_cutoff" />
-                <ScalarProperty Name="publish" ColumnName="publish" />
-                <ScalarProperty Name="web_ticket_purchase_cutoff" ColumnName="web_ticket_purchase_cutoff" />
-                <ScalarProperty Name="publish_to_web" ColumnName="publish_to_web" />
-                <ScalarProperty Name="web_ticket_cancellation_cutoff" ColumnName="web_ticket_cancellation_cutoff" />
+          <EntitySetMapping Name="movies_status">
+            <EntityTypeMapping TypeName="paradisoModel.movies_status">
+              <MappingFragment StoreEntitySet="movies_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status_desc" ColumnName="status_desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="movie_database">
-            <EntityTypeMapping TypeName="paradisoModel.movie_database">
-              <MappingFragment StoreEntitySet="movie_database">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="distributor_key" ColumnName="distributor_key" />
-                <ScalarProperty Name="distributor_share_rate" ColumnName="distributor_share_rate" />
-                <ScalarProperty Name="mtrcb_rating_key" ColumnName="mtrcb_rating_key" />
-                <ScalarProperty Name="running_time" ColumnName="running_time" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="picture" ColumnName="picture" />
-                <ScalarProperty Name="video_filename" ColumnName="video_filename" />
-                <ScalarProperty Name="video" ColumnName="video" />
-                <ScalarProperty Name="synopsis" ColumnName="synopsis" />
-                <ScalarProperty Name="local" ColumnName="local" />
-                <ScalarProperty Name="movie_showing_type" ColumnName="movie_showing_type" />
-                <ScalarProperty Name="cast" ColumnName="cast" />
-                <ScalarProperty Name="official_website" ColumnName="official_website" />
-                <ScalarProperty Name="trailer_url" ColumnName="trailer_url" />
-                <ScalarProperty Name="movie_image_1" ColumnName="movie_image_1" />
-                <ScalarProperty Name="movie_image_2" ColumnName="movie_image_2" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="mtrcb_ratings">
-            <EntityTypeMapping TypeName="paradisoModel.mtrcb_ratings">
-              <MappingFragment StoreEntitySet="mtrcb_ratings">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="code" ColumnName="code" />
+          <EntitySetMapping Name="mtrcbs">
+            <EntityTypeMapping TypeName="paradisoModel.mtrcb">
+              <MappingFragment StoreEntitySet="mtrcb">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
               </MappingFragment>
@@ -1117,50 +1542,94 @@
           <EntitySetMapping Name="patrons">
             <EntityTypeMapping TypeName="paradisoModel.patron">
               <MappingFragment StoreEntitySet="patrons">
-                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="promo" ColumnName="promo" />
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="position" ColumnName="position" />
-                <ScalarProperty Name="taxable" ColumnName="taxable" />
-                <ScalarProperty Name="apply_cultural_tax" ColumnName="apply_cultural_tax" />
-                <ScalarProperty Name="disregard_gross_margin" ColumnName="disregard_gross_margin" />
-                <ScalarProperty Name="disregard_producer_share" ColumnName="disregard_producer_share" />
-                <ScalarProperty Name="display_in_reports" ColumnName="display_in_reports" />
-                <ScalarProperty Name="web_ticket" ColumnName="web_ticket" />
-                <ScalarProperty Name="internet_booking_fee" ColumnName="internet_booking_fee" />
-                <ScalarProperty Name="apply_lgu_tax" ColumnName="apply_lgu_tax" />
-                <ScalarProperty Name="lgu_tax_amount" ColumnName="lgu_tax_amount" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="with_promo" ColumnName="with_promo" />
+                <ScalarProperty Name="with_amusement" ColumnName="with_amusement" />
+                <ScalarProperty Name="with_cultural" ColumnName="with_cultural" />
+                <ScalarProperty Name="with_citytax" ColumnName="with_citytax" />
+                <ScalarProperty Name="with_gross_margin" ColumnName="with_gross_margin" />
+                <ScalarProperty Name="with_prod_share" ColumnName="with_prod_share" />
+                <ScalarProperty Name="seat_color" ColumnName="seat_color" />
+                <ScalarProperty Name="seat_position" ColumnName="seat_position" />
+                <ScalarProperty Name="lgutax" ColumnName="lgutax" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ticket_transactions">
-            <EntityTypeMapping TypeName="paradisoModel.ticket_transactions">
-              <MappingFragment StoreEntitySet="ticket_transactions">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="movie_calendar_times_key" ColumnName="movie_calendar_times_key" />
-                <ScalarProperty Name="username" ColumnName="username" />
+          <EntitySetMapping Name="sound_system">
+            <EntityTypeMapping TypeName="paradisoModel.sound_system">
+              <MappingFragment StoreEntitySet="sound_system">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sound_system_type" ColumnName="sound_system_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="system_module">
+            <EntityTypeMapping TypeName="paradisoModel.system_module">
+              <MappingFragment StoreEntitySet="system_module">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_code" ColumnName="module_code" />
+                <ScalarProperty Name="module_desc" ColumnName="module_desc" />
+                <ScalarProperty Name="module_group" ColumnName="module_group" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="paradisoModel.ticket">
+              <MappingFragment StoreEntitySet="ticket">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="terminal" ColumnName="terminal" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
-                <ScalarProperty Name="sessionid" ColumnName="sessionid" />
-                <ScalarProperty Name="transrefnum" ColumnName="transrefnum" />
+                <ScalarProperty Name="ticket_datetime" ColumnName="ticket_datetime" />
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_level">
+            <EntityTypeMapping TypeName="paradisoModel.user_level">
+              <MappingFragment StoreEntitySet="user_level">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="level_desc" ColumnName="level_desc" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_level_rights">
+            <EntityTypeMapping TypeName="paradisoModel.user_level_rights">
+              <MappingFragment StoreEntitySet="user_level_rights">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_level" ColumnName="user_level" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_rights">
+            <EntityTypeMapping TypeName="paradisoModel.user_rights">
+              <MappingFragment StoreEntitySet="user_rights">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="paradisoModel.user">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="full_name" ColumnName="full_name" />
-                <ScalarProperty Name="access_group_key" ColumnName="access_group_key" />
-                <ScalarProperty Name="activated" ColumnName="activated" />
-                <ScalarProperty Name="built_in" ColumnName="built_in" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="user_level_id" ColumnName="user_level_id" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="mname" ColumnName="mname" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1184,90 +1653,194 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ParadisoModel" ZoomLevel="78">
-        <EntityTypeShape EntityType="paradisoModel.cinema_seats" Width="1.5" PointX="3" PointY="7.25" Height="7.941630859375" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.cinema" Width="1.5" PointX="0.75" PointY="9.5" Height="3.5186979166666656" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.merchant_merchant_classifications" Width="1.5" PointX="10.75" PointY="11.25" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_calendar" Width="1.5" PointX="6" PointY="6" Height="2.5571907552083344" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_calendar_time_house_seats" Width="1.5" PointX="5.25" PointY="10.25" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_calendar_time_patrons" Width="1.5" PointX="10.5" PointY="3.25" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_calendar_time_reserved_seats" Width="1.5" PointX="8.25" PointY="9" Height="4.4802050781250031" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_calendar_times" Width="1.5" PointX="8.25" PointY="2.875" Height="4.8648079427083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.movie_database" Width="1.5" PointX="3.75" PointY="0.75" Height="5.057109375" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.mtrcb_ratings" Width="1.5" PointX="1.5" PointY="4" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.patron" Width="1.5" PointX="8.25" PointY="14.75" Height="4.6725065104166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.ticket_transactions" Width="1.5" PointX="10.5" PointY="6.75" Height="2.9417936197916674" IsExpanded="true" />
-        <EntityTypeShape EntityType="paradisoModel.user" Width="1.5" PointX="10.75" PointY="14.25" Height="2.3648893229166692" IsExpanded="true" />
-        <AssociationConnector Association="paradisoModel.FK_cinema_seats_cinemas" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="11.259348958333334" />
-          <ConnectorPoint PointX="3" PointY="11.259348958333334" />
+      <Diagram Name="ParadisoModel">
+        <EntityTypeShape EntityType="paradisoModel.application" Width="1.5" PointX="5.75" PointY="0.75" Height="1.5956835937499998" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.cinema" Width="1.5" PointX="1.5" PointY="17" Height="2.749492187499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.cinema_patron" Width="1.5" PointX="3.75" PointY="29.125" Height="2.1725878906250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.cinema_seat" Width="1.5" PointX="0.75" PointY="11.5" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.classification" Width="1.5" PointX="4.5" PointY="25.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movie" Width="1.5" PointX="1.5" PointY="31.125" Height="3.326396484374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_class" Width="1.5" PointX="6.75" PointY="31.75" Height="1.9802864583333282" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_distributor" Width="1.5" PointX="3.75" PointY="37.5" Height="1.9802864583333246" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_schedule" Width="1.5" PointX="1.5" PointY="27.5" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_schedule_list" Width="1.5" PointX="0.75" PointY="23.375" Height="2.7494921875000031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_schedule_list_house_seat" Width="1.5" PointX="4" PointY="17.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_schedule_list_patron" Width="1.5" PointX="3.75" PointY="34.375" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_schedule_list_reserved_seat" Width="1.5" PointX="3" PointY="4.625" Height="4.4802050781250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.movies_status" Width="1.5" PointX="7.75" PointY="0.75" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.mtrcb" Width="1.5" PointX="1.5" PointY="35.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.patron" Width="1.5" PointX="0.75" PointY="39.25" Height="4.0956022135416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.sound_system" Width="1.5" PointX="1.5" PointY="20.625" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.system_module" Width="1.5" PointX="0.75" PointY="1.75" Height="2.1725878906250031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.ticket" Width="1.5" PointX="6" PointY="5.375" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.user_level" Width="1.5" PointX="8.75" PointY="3.75" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.user_level_rights" Width="1.5" PointX="8.75" PointY="6.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.user_rights" Width="1.5" PointX="3" PointY="1.875" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="paradisoModel.user" Width="1.5" PointX="0.75" PointY="5.125" Height="3.3263964843750102" IsExpanded="true" />
+        <AssociationConnector Association="paradisoModel.fk_cinema_patron_cinema1" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="17.28125" />
+          <ConnectorPoint PointX="3.1354166666666665" PointY="17.28125" />
+          <ConnectorPoint PointX="3.3020833333333335" PointY="17.28125" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="17.28125" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="17.28125" />
+          <ConnectorPoint PointX="3.84375" PointY="17.28125" />
+          <ConnectorPoint PointX="3.84375" PointY="29.125" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_house_seats_cinema_seats" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="11.3362939453125" />
-          <ConnectorPoint PointX="5.25" PointY="11.3362939453125" />
+        <AssociationConnector Association="paradisoModel.fk_cinema_seat_cinema1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.875" PointY="17" />
+          <ConnectorPoint PointX="1.875" PointY="15.40330078125" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_reserved_seats_cinema_seats" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="9.59375" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="9.59375" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="9.59375" />
-          <ConnectorPoint PointX="8.25" PointY="9.59375" />
+        <AssociationConnector Association="paradisoModel.fk_cinema_sound_system1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="20.625" />
+          <ConnectorPoint PointX="2.25" PointY="19.749492187499996" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_cinemas" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="9.5" />
-          <ConnectorPoint PointX="1.5" PointY="6.59375" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="6.5937499999999991" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="6.59375" />
-          <ConnectorPoint PointX="6" PointY="6.59375" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_cinema1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.9999999999999996" PointY="19.749492187499996" />
+          <ConnectorPoint PointX="3.1598244349011213" PointY="19.909316622401118" />
+          <ConnectorPoint PointX="3.2776755650988791" PointY="20.027167752598874" />
+          <ConnectorPoint PointX="3.375" PointY="20.124492187499996" />
+          <ConnectorPoint PointX="3.375" PointY="27.126152846153843" />
+          <ConnectorPoint PointX="3" PointY="27.501152846153843" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_movie_database" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="3.2785546875" />
-          <ConnectorPoint PointX="6.75" PointY="3.2785546875" />
-          <ConnectorPoint PointX="6.75" PointY="6" />
+        <AssociationConnector Association="paradisoModel.fk_cinema_patron_patrons1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.09375" PointY="39.25" />
+          <ConnectorPoint PointX="1.09375" PointY="30.591095377604166" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="30.591095377604166" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="30.591095377604166" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="30.591095377604166" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="30.591095377604166" />
+          <ConnectorPoint PointX="3.75" PointY="30.591095377604166" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_times_movie_calendar" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="6.8699039713541659" />
-          <ConnectorPoint PointX="8.25" PointY="6.8699039713541659" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.09375" PointY="15.40330078125" />
+          <ConnectorPoint PointX="1.09375" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.0681152343750027" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.302083333333333" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.7604166666666665" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="19.900940755208332" />
+          <ConnectorPoint PointX="4" PointY="19.900940755208332" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_house_seats_movie_calendar_times" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="4.6392798437499936" />
-          <ConnectorPoint PointX="6.833333333333333" PointY="4.6392798437499927" />
-          <ConnectorPoint PointX="6.666666666666667" PointY="4.6392798437499936" />
-          <ConnectorPoint PointX="5.625" PointY="4.6392798437499936" />
-          <ConnectorPoint PointX="5.625" PointY="10.25" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.1354166666666665" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.3020833333333335" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.75" PointY="13.451650390625" />
+          <ConnectorPoint PointX="3.75" PointY="9.1052050781250031" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_patrons_movie_calendar_times" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="4.3362939453125" />
-          <ConnectorPoint PointX="10.5" PointY="4.3362939453125" />
+        <AssociationConnector Association="paradisoModel.fk_movies_class_classification1" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.65625" PointY="27.662985026041667" />
+          <ConnectorPoint PointX="5.65625" PointY="32.740143229166662" />
+          <ConnectorPoint PointX="6.75" PointY="32.740143229166662" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_patrons_patrons" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="14.75" />
-          <ConnectorPoint PointX="10.125" PointY="14.375" />
-          <ConnectorPoint PointX="10.125" PointY="4.9106929179687508" />
-          <ConnectorPoint PointX="10.5" PointY="4.9106929179687508" />
+        <AssociationConnector Association="paradisoModel.fk_movies_class_movies1" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="3.6458333333333335" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="5.572916666666667" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="5.739583333333333" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="6.75" PointY="32.182571614583331" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_reserved_seats_movie_calendar_times" ManuallyRouted="false">
-          <ConnectorPoint PointX="9" PointY="7.7398079427083317" />
-          <ConnectorPoint PointX="9" PointY="9" />
+        <AssociationConnector Association="paradisoModel.fk_movies_distributor_movies1" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="34.450241638221151" />
+          <ConnectorPoint PointX="3.375" PointY="34.825241638221151" />
+          <ConnectorPoint PointX="3.375" PointY="38.490143229166662" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="38.490143229166662" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="38.490143229166662" />
+          <ConnectorPoint PointX="3.75" PointY="38.490143229166662" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_reserved_seats_patrons" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.9687475" PointY="14.75" />
-          <ConnectorPoint PointX="8.9687475" PointY="13.480205078125003" />
+        <AssociationConnector Association="paradisoModel.fk_movies_mtrcb1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="35.875" />
+          <ConnectorPoint PointX="2.25" PointY="34.451396484374996" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_calendar_time_reserved_seats_ticket_transactions" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.5" PointY="9.3458968098958337" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="9.3458968098958337" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="9.3458968098958337" />
-          <ConnectorPoint PointX="9.75" PointY="9.3458968098958337" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_movies" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="31.125" />
+          <ConnectorPoint PointX="2.25" PointY="30.057190755208332" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_ticket_transactions_movie_calendar_times" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="7.2449039713541659" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="7.244903971354165" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="7.2449039713541659" />
-          <ConnectorPoint PointX="10.5" PointY="7.2449039713541659" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_movies_schedule1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.875" PointY="27.5" />
+          <ConnectorPoint PointX="1.875" PointY="26.124492187500003" />
         </AssociationConnector>
-        <AssociationConnector Association="paradisoModel.FK_movie_database_mtrcb_ratings" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="4.9035546875" />
-          <ConnectorPoint PointX="3.75" PointY="4.9035546875" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="29.99488206290064" />
+          <ConnectorPoint PointX="3.4098244349011213" PointY="30.404706497801762" />
+          <ConnectorPoint PointX="3.5276755650988791" PointY="30.522557627999518" />
+          <ConnectorPoint PointX="3.5625" PointY="30.55738206290064" />
+          <ConnectorPoint PointX="3.5625" PointY="35.461293945312505" />
+          <ConnectorPoint PointX="3.75" PointY="35.461293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.265625" PointY="23.375" />
+          <ConnectorPoint PointX="1.265625" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.0993677343750035" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.302083333333333" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.3854166666666665" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.7604166666666665" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="19.932193255208333" />
+          <ConnectorPoint PointX="4" PointY="19.932193255208333" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_movies_schedule_list1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="24.74974609375" />
+          <ConnectorPoint PointX="3.21875" PointY="24.74974609375" />
+          <ConnectorPoint PointX="3.21875" PointY="9.1052050781250031" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_ticket_movies_schedule_list1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="24.031120546875" />
+          <ConnectorPoint PointX="3.1354166666666665" PointY="24.031120546875" />
+          <ConnectorPoint PointX="3.5520833333333335" PointY="24.031120546875" />
+          <ConnectorPoint PointX="3.7604166666666665" PointY="24.031120546875" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="24.031120546875" />
+          <ConnectorPoint PointX="6.78125" PointY="24.031120546875" />
+          <ConnectorPoint PointX="6.78125" PointY="8.3167936197916674" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_patrons1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2968775" PointY="39.25" />
+          <ConnectorPoint PointX="1.2968775" PointY="34.95634271484375" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="34.95634271484375" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="34.95634271484375" />
+          <ConnectorPoint PointX="3.2916666666666665" PointY="34.95634271484375" />
+          <ConnectorPoint PointX="3.6458333333333335" PointY="34.95634271484375" />
+          <ConnectorPoint PointX="3.75" PointY="34.95634271484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="41.444194335937496" />
+          <ConnectorPoint PointX="3.46875" PointY="41.444194335937496" />
+          <ConnectorPoint PointX="3.46875" PointY="9.1052050781250031" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="6.8458968098958337" />
+          <ConnectorPoint PointX="4.5" PointY="6.8458968098958337" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_users1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.7881982421875051" />
+          <ConnectorPoint PointX="3" PointY="6.7881982421875051" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_user_rights_system_module1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.8651432291666694" />
+          <ConnectorPoint PointX="3" PointY="2.8651432291666694" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_ticket_users1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="5.125" />
+          <ConnectorPoint PointX="1.5" PointY="4.375" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="4.3749999999999991" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="4.375" />
+          <ConnectorPoint PointX="5.625" PointY="4.375" />
+          <ConnectorPoint PointX="5.625" PointY="6.0791964049479237" />
+          <ConnectorPoint PointX="6" PointY="6.0791964049479237" />
+        </AssociationConnector>
+        <AssociationConnector Association="paradisoModel.fk_user_rights_users1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.125" />
+          <ConnectorPoint PointX="2.625" PointY="4.75" />
+          <ConnectorPoint PointX="2.625" PointY="3.3914668437499977" />
+          <ConnectorPoint PointX="3" PointY="3.3914668437499977" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
