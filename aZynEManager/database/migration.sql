@@ -4,7 +4,7 @@ INSERT INTO azynema.sound_system SELECT 0, sound_system FROM cinema.cinemas GROU
 /*cinema*/
 INSERT INTO azynema.cinema SELECT `key`, name, azynema.sound_system.id, capacity, display_order FROM cinema.cinemas, azynema.sound_system WHERE sound_system.sound_system_type = cinema.cinemas.sound_system;
 
-/*patron*/
+/*patrons*/
 INSERT INTO azynema.patrons SELECT `key`, code, `name`, price, promo, taxable, apply_cultural_tax, apply_lgu_tax, !disregard_gross_margin, !disregard_producer_share, color, position, lgu_tax_amount  FROM cinema.patrons;
 
 /*cinema_patron*/
@@ -37,4 +37,15 @@ INSERT INTO azynema.movies_schedule SELECT `key`, cinema_key, movie_key, screeni
 
 /*movies_schedule_list*/
 INSERT INTO azynema.movies_schedule_list SELECT `key`, movie_calendar_key, start_time, end_time, screening_type  FROM cinema.movie_calendar_times;
+
+/*movies_schedule_list_patrons*/
+SET foreign_key_checks = 0;
+INSERT INTO azynema.movies_schedule_list_patron SELECT `key`, movie_calendar_time_key, patron_key, price FROM cinema.movie_calendar_time_patrons;*/
+SET foreign_key_checks = 1;
+
+/*movies_schedule_list_house_seat*/
+
+/*movies_schedule_list_reserved_seat*/
+
+/*ticket*/
 
