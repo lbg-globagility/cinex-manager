@@ -92,5 +92,31 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP03_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP03 report = new RP03(RP03StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void PrintRP04_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP04 report = new RP04(RP04StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }

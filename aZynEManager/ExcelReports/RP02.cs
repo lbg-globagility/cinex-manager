@@ -126,7 +126,7 @@ namespace ExcelReports
                             intSeatsAvailableCount = reader.GetInt32(5);
                             intTotalSeatsAvailableCount += intSeatsAvailableCount;
                             dblSales = reader.GetDouble(6);
-                            dblTotalSales += dblTotalSales;
+                            dblTotalSales += dblSales;
 
                             newFile.Worksheets[0].Cells[intRowCount, 3].Value = string.Format("{0:#,##0}", intScreenCount);
                             newFile.Worksheets[0].Cells[intRowCount, 3].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
@@ -161,7 +161,7 @@ namespace ExcelReports
             newFile.Worksheets[0].Cells[intRowCount, 6].Value = string.Format("{0:#,##0.00}", dblTotalSales);
             newFile.Worksheets[0].Cells[intRowCount, 6].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
             newFile.Worksheets[0].Cells[intRowCount, 6].Style.Font.Weight = ExcelFont.BoldWeight;
-            newFile.Worksheets[0].Cells[intRowCount, 7].Value = string.Format("{0:#,##0.00}", (intTotalSeatsTakenCount / intTotalSeatsAvailableCount) * 100.0);
+            newFile.Worksheets[0].Cells[intRowCount, 7].Value = string.Format("{0:#,##0.00}", ((intTotalSeatsTakenCount * 100.0) / intTotalSeatsAvailableCount));
             newFile.Worksheets[0].Cells[intRowCount, 7].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
             newFile.Worksheets[0].Cells[intRowCount, 7].Style.Font.Weight = ExcelFont.BoldWeight;
 
