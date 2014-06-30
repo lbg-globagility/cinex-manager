@@ -40,7 +40,7 @@ INSERT INTO azynema.movies_schedule_list SELECT `key`, movie_calendar_key, start
 
 /*movies_schedule_list_patrons*/
 SET foreign_key_checks = 0;
-INSERT INTO azynema.movies_schedule_list_patron SELECT `key`, movie_calendar_time_key, patron_key, price FROM cinema.movie_calendar_time_patrons;*/
+INSERT INTO azynema.movies_schedule_list_patron SELECT `key`, movie_calendar_time_key, patron_key, price FROM cinema.movie_calendar_time_patrons;
 
 /*movies_schedule_list_house_seat*/
 INSERT INTO  azynema.movies_schedule_list_house_seat SELECT 0, movie_calendar_time_key, cinema_seat_key, full_name, notes FROM cinema.movie_calendar_time_house_seats;
@@ -55,3 +55,6 @@ SET foreign_key_checks = 1;
 /*cinema_seat*/
 INSERT INTO azynema.cinema_seat SELECT `key`, cinema_key, p1x, p1y, p3x, p3y, originx, originy, '', '', object_type,  handicapped from cinema.cinema_seats WHERE object_type = 2;
 INSERT INTO azynema.cinema_seat SELECT `key`, cinema_key, p1x, p1y, p2x, p2y, originx, originy, `row`, `column`, object_type,  handicapped from cinema.cinema_seats WHERE object_type = 1;
+
+/*report*/
+INSERT INTO azynema.report SELECT `key`, code, name, description FROM cinema.reports ORDER BY code;

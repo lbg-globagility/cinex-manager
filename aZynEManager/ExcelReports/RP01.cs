@@ -12,15 +12,15 @@ namespace ExcelReports
 {
     public class RP01:IPreviewReport
     {
-        public string Username { get; set; }
+        public int UserId { get; set; }
         public DateTime? StartDate { get; set; }
 
-        public RP01(string strUserName, DateTime? dtStartDate)
+        public RP01(int intUserId, DateTime? dtStartDate)
         {
-            Username = strUserName;
+            UserId = intUserId;
             StartDate = dtStartDate;
 
-            if (Username == string.Empty)
+            if (UserId == 0)
                 throw new Exception("Username is invalid.");
             else if (dtStartDate == null)
                 throw new Exception("Starting Date is invalid.");
@@ -49,7 +49,7 @@ namespace ExcelReports
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     connection.Open();
 
-                    command.Parameters.AddWithValue("?_username", this.Username);
+                    command.Parameters.AddWithValue("?_userid", this.UserId);
                     command.Parameters.AddWithValue("?_start_date", this.StartDate);
                     
                     MySqlDataReader reader = command.ExecuteReader();
@@ -150,9 +150,9 @@ namespace ExcelReports
                             newFile.Worksheets[0].Cells[intRowCount, 3].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                             intSubTotalQuantity += reader.GetInt32(4);
                             intGrandTotalQuantity += reader.GetInt32(4);
-                            newFile.Worksheets[0].Cells[intRowCount, 4].Value = string.Format("{0:#,##0}", reader.GetInt32(5));
+                            newFile.Worksheets[0].Cells[intRowCount, 4].Value = string.Format("{0:#,##0;0;0}", reader.GetInt32(5));
                             newFile.Worksheets[0].Cells[intRowCount, 4].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-                            newFile.Worksheets[0].Cells[intRowCount, 5].Value = string.Format("{0:#,##0.00}", reader.GetDouble(6));
+                            newFile.Worksheets[0].Cells[intRowCount, 5].Value = string.Format("{0:#,##0.00;0;0}", reader.GetDouble(6));
                             newFile.Worksheets[0].Cells[intRowCount, 5].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                             dblSubTotalSales += reader.GetDouble(6);
                             dblGrandTotalSales += reader.GetDouble(6);
@@ -160,6 +160,7 @@ namespace ExcelReports
 
                         if (intRowCount == 7)
                             throw new Exception("No records found.");
+                        intRowCount++;
 
                         newFile.Worksheets[0].Cells[intRowCount, 0].Value = "SUB-TOTAL:";
                         newFile.Worksheets[0].Cells[intRowCount, 0].Style.Font.Weight = ExcelFont.BoldWeight;

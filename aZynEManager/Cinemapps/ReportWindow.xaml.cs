@@ -38,10 +38,13 @@ namespace Cinemapps
         {
             try
             {
-                string strUsername = string.Empty;
+                int intUserId = 0;
                 if (RP01Teller.SelectedValue != null)
-                    strUsername = RP01Teller.SelectedValue.ToString();
-                RP01 report = new RP01(strUsername, RP01StartDate.SelectedDate);
+                {
+                    Teller teller = (Teller) RP01Teller.SelectedValue;
+                    intUserId = teller.UserId;
+                }
+                RP01 report = new RP01(intUserId, RP01StartDate.SelectedDate);
                 report.PreviewReport();
             }
             catch (Exception ex)
@@ -66,7 +69,7 @@ namespace Cinemapps
                     //get elements
                     while (reader.Read())
                     {
-                        RP01Teller.Items.Add(reader.GetString(0));
+                        RP01Teller.Items.Add(new Teller(reader.GetInt16(0), reader.GetString(1), reader.GetString(2), reader.GetBoolean(3)));
                     }
                 }
             }

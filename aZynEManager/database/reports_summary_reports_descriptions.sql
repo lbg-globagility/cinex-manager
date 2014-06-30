@@ -6,5 +6,5 @@ DELIMITER $$
 
 CREATE PROCEDURE `reports_summary_reports_descriptions`()
 BEGIN
-	SELECT `key`, code, name, description FROM cinema.reports ORDER BY code;
+	SELECT id, code, name, description FROM report ORDER BY code;
 END

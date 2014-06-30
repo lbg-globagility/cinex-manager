@@ -19,7 +19,7 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("cinemaModel", "FK_cinema_seats_cinemas", "cinemas", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Cinemapps.cinema), "cinema_seats", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Cinemapps.cinema_seats), true)]
+[assembly: EdmRelationshipAttribute("cinemaModel", "fk_cinema_seat_cinema1", "cinema", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Cinemapps.cinema), "cinema_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Cinemapps.cinema_seat), true)]
 
 #endregion
 
@@ -74,22 +74,6 @@ namespace Cinemapps
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<cinema_seats> cinema_seats
-        {
-            get
-            {
-                if ((_cinema_seats == null))
-                {
-                    _cinema_seats = base.CreateObjectSet<cinema_seats>("cinema_seats");
-                }
-                return _cinema_seats;
-            }
-        }
-        private ObjectSet<cinema_seats> _cinema_seats;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<cinema> cinemas
         {
             get
@@ -102,18 +86,26 @@ namespace Cinemapps
             }
         }
         private ObjectSet<cinema> _cinemas;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<cinema_seat> cinema_seat
+        {
+            get
+            {
+                if ((_cinema_seat == null))
+                {
+                    _cinema_seat = base.CreateObjectSet<cinema_seat>("cinema_seat");
+                }
+                return _cinema_seat;
+            }
+        }
+        private ObjectSet<cinema_seat> _cinema_seat;
 
         #endregion
 
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the cinema_seats EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTocinema_seats(cinema_seats cinema_seats)
-        {
-            base.AddObject("cinema_seats", cinema_seats);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the cinemas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -121,6 +113,14 @@ namespace Cinemapps
         public void AddTocinemas(cinema cinema)
         {
             base.AddObject("cinemas", cinema);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the cinema_seat EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocinema_seat(cinema_seat cinema_seat)
+        {
+            base.AddObject("cinema_seat", cinema_seat);
         }
 
         #endregion
@@ -144,19 +144,17 @@ namespace Cinemapps
         /// <summary>
         /// Create a new cinema object.
         /// </summary>
-        /// <param name="key">Initial value of the key property.</param>
-        /// <param name="code">Initial value of the code property.</param>
+        /// <param name="id">Initial value of the id property.</param>
         /// <param name="name">Initial value of the name property.</param>
-        /// <param name="capacity">Initial value of the capacity property.</param>
-        /// <param name="built_in">Initial value of the built_in property.</param>
-        public static cinema Createcinema(global::System.Int32 key, global::System.String code, global::System.String name, global::System.Int16 capacity, global::System.Boolean built_in)
+        /// <param name="sound_id">Initial value of the sound_id property.</param>
+        /// <param name="in_order">Initial value of the in_order property.</param>
+        public static cinema Createcinema(global::System.Int32 id, global::System.String name, global::System.Int32 sound_id, global::System.Int32 in_order)
         {
             cinema cinema = new cinema();
-            cinema.key = key;
-            cinema.code = code;
+            cinema.id = id;
             cinema.name = name;
-            cinema.capacity = capacity;
-            cinema.built_in = built_in;
+            cinema.sound_id = sound_id;
+            cinema.in_order = in_order;
             return cinema;
         }
 
@@ -169,51 +167,27 @@ namespace Cinemapps
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 key
+        public global::System.Int32 id
         {
             get
             {
-                return _key;
+                return _id;
             }
             set
             {
-                if (_key != value)
+                if (_id != value)
                 {
-                    OnkeyChanging(value);
-                    ReportPropertyChanging("key");
-                    _key = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("key");
-                    OnkeyChanged();
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
                 }
             }
         }
-        private global::System.Int32 _key;
-        partial void OnkeyChanging(global::System.Int32 value);
-        partial void OnkeyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String code
-        {
-            get
-            {
-                return _code;
-            }
-            set
-            {
-                OncodeChanging(value);
-                ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("code");
-                OncodeChanged();
-            }
-        }
-        private global::System.String _code;
-        partial void OncodeChanging(global::System.String value);
-        partial void OncodeChanged();
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -242,57 +216,33 @@ namespace Cinemapps
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String description
-        {
-            get
-            {
-                return _description;
-            }
-            set
-            {
-                OndescriptionChanging(value);
-                ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("description");
-                OndescriptionChanged();
-            }
-        }
-        private global::System.String _description;
-        partial void OndescriptionChanging(global::System.String value);
-        partial void OndescriptionChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String sound_system
-        {
-            get
-            {
-                return _sound_system;
-            }
-            set
-            {
-                Onsound_systemChanging(value);
-                ReportPropertyChanging("sound_system");
-                _sound_system = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("sound_system");
-                Onsound_systemChanged();
-            }
-        }
-        private global::System.String _sound_system;
-        partial void Onsound_systemChanging(global::System.String value);
-        partial void Onsound_systemChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 capacity
+        public global::System.Int32 sound_id
+        {
+            get
+            {
+                return _sound_id;
+            }
+            set
+            {
+                Onsound_idChanging(value);
+                ReportPropertyChanging("sound_id");
+                _sound_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("sound_id");
+                Onsound_idChanged();
+            }
+        }
+        private global::System.Int32 _sound_id;
+        partial void Onsound_idChanging(global::System.Int32 value);
+        partial void Onsound_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> capacity
         {
             get
             {
@@ -307,8 +257,8 @@ namespace Cinemapps
                 OncapacityChanged();
             }
         }
-        private global::System.Int16 _capacity;
-        partial void OncapacityChanging(global::System.Int16 value);
+        private Nullable<global::System.Int32> _capacity;
+        partial void OncapacityChanging(Nullable<global::System.Int32> value);
         partial void OncapacityChanged();
     
         /// <summary>
@@ -316,120 +266,24 @@ namespace Cinemapps
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Boolean built_in
+        public global::System.Int32 in_order
         {
             get
             {
-                return _built_in;
+                return _in_order;
             }
             set
             {
-                Onbuilt_inChanging(value);
-                ReportPropertyChanging("built_in");
-                _built_in = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("built_in");
-                Onbuilt_inChanged();
+                Onin_orderChanging(value);
+                ReportPropertyChanging("in_order");
+                _in_order = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("in_order");
+                Onin_orderChanged();
             }
         }
-        private global::System.Boolean _built_in;
-        partial void Onbuilt_inChanging(global::System.Boolean value);
-        partial void Onbuilt_inChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> display_order
-        {
-            get
-            {
-                return _display_order;
-            }
-            set
-            {
-                Ondisplay_orderChanging(value);
-                ReportPropertyChanging("display_order");
-                _display_order = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("display_order");
-                Ondisplay_orderChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _display_order;
-        partial void Ondisplay_orderChanging(Nullable<global::System.Int16> value);
-        partial void Ondisplay_orderChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String festival_cinema_type
-        {
-            get
-            {
-                return _festival_cinema_type;
-            }
-            set
-            {
-                Onfestival_cinema_typeChanging(value);
-                ReportPropertyChanging("festival_cinema_type");
-                _festival_cinema_type = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("festival_cinema_type");
-                Onfestival_cinema_typeChanged();
-            }
-        }
-        private global::System.String _festival_cinema_type;
-        partial void Onfestival_cinema_typeChanging(global::System.String value);
-        partial void Onfestival_cinema_typeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String aisles
-        {
-            get
-            {
-                return _aisles;
-            }
-            set
-            {
-                OnaislesChanging(value);
-                ReportPropertyChanging("aisles");
-                _aisles = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("aisles");
-                OnaislesChanged();
-            }
-        }
-        private global::System.String _aisles;
-        partial void OnaislesChanging(global::System.String value);
-        partial void OnaislesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> seats_locked
-        {
-            get
-            {
-                return _seats_locked;
-            }
-            set
-            {
-                Onseats_lockedChanging(value);
-                ReportPropertyChanging("seats_locked");
-                _seats_locked = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("seats_locked");
-                Onseats_lockedChanged();
-            }
-        }
-        private Nullable<global::System.Boolean> _seats_locked;
-        partial void Onseats_lockedChanging(Nullable<global::System.Boolean> value);
-        partial void Onseats_lockedChanged();
+        private global::System.Int32 _in_order;
+        partial void Onin_orderChanging(global::System.Int32 value);
+        partial void Onin_orderChanged();
 
         #endregion
 
@@ -442,18 +296,18 @@ namespace Cinemapps
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("cinemaModel", "FK_cinema_seats_cinemas", "cinema_seats")]
-        public EntityCollection<cinema_seats> cinema_seats
+        [EdmRelationshipNavigationPropertyAttribute("cinemaModel", "fk_cinema_seat_cinema1", "cinema_seat")]
+        public EntityCollection<cinema_seat> cinema_seat
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<cinema_seats>("cinemaModel.FK_cinema_seats_cinemas", "cinema_seats");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<cinema_seat>("cinemaModel.fk_cinema_seat_cinema1", "cinema_seat");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<cinema_seats>("cinemaModel.FK_cinema_seats_cinemas", "cinema_seats", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<cinema_seat>("cinemaModel.fk_cinema_seat_cinema1", "cinema_seat", value);
                 }
             }
         }
@@ -465,72 +319,24 @@ namespace Cinemapps
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="cinemaModel", Name="cinema_seats")]
+    [EdmEntityTypeAttribute(NamespaceName="cinemaModel", Name="cinema_seat")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class cinema_seats : EntityObject
+    public partial class cinema_seat : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new cinema_seats object.
+        /// Create a new cinema_seat object.
         /// </summary>
-        /// <param name="key">Initial value of the key property.</param>
-        /// <param name="cinema_key">Initial value of the cinema_key property.</param>
-        /// <param name="p1x">Initial value of the p1x property.</param>
-        /// <param name="p1y">Initial value of the p1y property.</param>
-        /// <param name="p2x">Initial value of the p2x property.</param>
-        /// <param name="p2y">Initial value of the p2y property.</param>
-        /// <param name="p3x">Initial value of the p3x property.</param>
-        /// <param name="p3y">Initial value of the p3y property.</param>
-        /// <param name="p4x">Initial value of the p4x property.</param>
-        /// <param name="p4y">Initial value of the p4y property.</param>
-        /// <param name="p1xdouble">Initial value of the p1xdouble property.</param>
-        /// <param name="p1ydouble">Initial value of the p1ydouble property.</param>
-        /// <param name="p2xdouble">Initial value of the p2xdouble property.</param>
-        /// <param name="p2ydouble">Initial value of the p2ydouble property.</param>
-        /// <param name="p3xdouble">Initial value of the p3xdouble property.</param>
-        /// <param name="p3ydouble">Initial value of the p3ydouble property.</param>
-        /// <param name="p4xdouble">Initial value of the p4xdouble property.</param>
-        /// <param name="p4ydouble">Initial value of the p4ydouble property.</param>
-        /// <param name="originx">Initial value of the originx property.</param>
-        /// <param name="originy">Initial value of the originy property.</param>
-        /// <param name="originxdouble">Initial value of the originxdouble property.</param>
-        /// <param name="originydouble">Initial value of the originydouble property.</param>
-        /// <param name="angle">Initial value of the angle property.</param>
-        /// <param name="row">Initial value of the row property.</param>
-        /// <param name="object_type">Initial value of the object_type property.</param>
-        /// <param name="handicapped">Initial value of the handicapped property.</param>
-        public static cinema_seats Createcinema_seats(global::System.Int32 key, global::System.Int32 cinema_key, global::System.Int16 p1x, global::System.Int16 p1y, global::System.Int16 p2x, global::System.Int16 p2y, global::System.Int16 p3x, global::System.Int16 p3y, global::System.Int16 p4x, global::System.Int16 p4y, global::System.Decimal p1xdouble, global::System.Decimal p1ydouble, global::System.Decimal p2xdouble, global::System.Decimal p2ydouble, global::System.Decimal p3xdouble, global::System.Decimal p3ydouble, global::System.Decimal p4xdouble, global::System.Decimal p4ydouble, global::System.Int16 originx, global::System.Int16 originy, global::System.Decimal originxdouble, global::System.Decimal originydouble, global::System.Decimal angle, global::System.String row, global::System.Byte object_type, global::System.Boolean handicapped)
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="cinema_id">Initial value of the cinema_id property.</param>
+        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id)
         {
-            cinema_seats cinema_seats = new cinema_seats();
-            cinema_seats.key = key;
-            cinema_seats.cinema_key = cinema_key;
-            cinema_seats.p1x = p1x;
-            cinema_seats.p1y = p1y;
-            cinema_seats.p2x = p2x;
-            cinema_seats.p2y = p2y;
-            cinema_seats.p3x = p3x;
-            cinema_seats.p3y = p3y;
-            cinema_seats.p4x = p4x;
-            cinema_seats.p4y = p4y;
-            cinema_seats.p1xdouble = p1xdouble;
-            cinema_seats.p1ydouble = p1ydouble;
-            cinema_seats.p2xdouble = p2xdouble;
-            cinema_seats.p2ydouble = p2ydouble;
-            cinema_seats.p3xdouble = p3xdouble;
-            cinema_seats.p3ydouble = p3ydouble;
-            cinema_seats.p4xdouble = p4xdouble;
-            cinema_seats.p4ydouble = p4ydouble;
-            cinema_seats.originx = originx;
-            cinema_seats.originy = originy;
-            cinema_seats.originxdouble = originxdouble;
-            cinema_seats.originydouble = originydouble;
-            cinema_seats.angle = angle;
-            cinema_seats.row = row;
-            cinema_seats.object_type = object_type;
-            cinema_seats.handicapped = handicapped;
-            return cinema_seats;
+            cinema_seat cinema_seat = new cinema_seat();
+            cinema_seat.id = id;
+            cinema_seat.cinema_id = cinema_id;
+            return cinema_seat;
         }
 
         #endregion
@@ -542,610 +348,250 @@ namespace Cinemapps
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 key
+        public global::System.Int32 id
         {
             get
             {
-                return _key;
+                return _id;
             }
             set
             {
-                if (_key != value)
+                if (_id != value)
                 {
-                    OnkeyChanging(value);
-                    ReportPropertyChanging("key");
-                    _key = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("key");
-                    OnkeyChanged();
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
                 }
             }
         }
-        private global::System.Int32 _key;
-        partial void OnkeyChanging(global::System.Int32 value);
-        partial void OnkeyChanged();
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 cinema_key
+        public global::System.Int32 cinema_id
         {
             get
             {
-                return _cinema_key;
+                return _cinema_id;
             }
             set
             {
-                Oncinema_keyChanging(value);
-                ReportPropertyChanging("cinema_key");
-                _cinema_key = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("cinema_key");
-                Oncinema_keyChanged();
+                Oncinema_idChanging(value);
+                ReportPropertyChanging("cinema_id");
+                _cinema_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cinema_id");
+                Oncinema_idChanged();
             }
         }
-        private global::System.Int32 _cinema_key;
-        partial void Oncinema_keyChanging(global::System.Int32 value);
-        partial void Oncinema_keyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p1x
-        {
-            get
-            {
-                return _p1x;
-            }
-            set
-            {
-                Onp1xChanging(value);
-                ReportPropertyChanging("p1x");
-                _p1x = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p1x");
-                Onp1xChanged();
-            }
-        }
-        private global::System.Int16 _p1x;
-        partial void Onp1xChanging(global::System.Int16 value);
-        partial void Onp1xChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p1y
-        {
-            get
-            {
-                return _p1y;
-            }
-            set
-            {
-                Onp1yChanging(value);
-                ReportPropertyChanging("p1y");
-                _p1y = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p1y");
-                Onp1yChanged();
-            }
-        }
-        private global::System.Int16 _p1y;
-        partial void Onp1yChanging(global::System.Int16 value);
-        partial void Onp1yChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p2x
-        {
-            get
-            {
-                return _p2x;
-            }
-            set
-            {
-                Onp2xChanging(value);
-                ReportPropertyChanging("p2x");
-                _p2x = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p2x");
-                Onp2xChanged();
-            }
-        }
-        private global::System.Int16 _p2x;
-        partial void Onp2xChanging(global::System.Int16 value);
-        partial void Onp2xChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p2y
-        {
-            get
-            {
-                return _p2y;
-            }
-            set
-            {
-                Onp2yChanging(value);
-                ReportPropertyChanging("p2y");
-                _p2y = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p2y");
-                Onp2yChanged();
-            }
-        }
-        private global::System.Int16 _p2y;
-        partial void Onp2yChanging(global::System.Int16 value);
-        partial void Onp2yChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p3x
-        {
-            get
-            {
-                return _p3x;
-            }
-            set
-            {
-                Onp3xChanging(value);
-                ReportPropertyChanging("p3x");
-                _p3x = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p3x");
-                Onp3xChanged();
-            }
-        }
-        private global::System.Int16 _p3x;
-        partial void Onp3xChanging(global::System.Int16 value);
-        partial void Onp3xChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p3y
-        {
-            get
-            {
-                return _p3y;
-            }
-            set
-            {
-                Onp3yChanging(value);
-                ReportPropertyChanging("p3y");
-                _p3y = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p3y");
-                Onp3yChanged();
-            }
-        }
-        private global::System.Int16 _p3y;
-        partial void Onp3yChanging(global::System.Int16 value);
-        partial void Onp3yChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p4x
-        {
-            get
-            {
-                return _p4x;
-            }
-            set
-            {
-                Onp4xChanging(value);
-                ReportPropertyChanging("p4x");
-                _p4x = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p4x");
-                Onp4xChanged();
-            }
-        }
-        private global::System.Int16 _p4x;
-        partial void Onp4xChanging(global::System.Int16 value);
-        partial void Onp4xChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 p4y
-        {
-            get
-            {
-                return _p4y;
-            }
-            set
-            {
-                Onp4yChanging(value);
-                ReportPropertyChanging("p4y");
-                _p4y = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p4y");
-                Onp4yChanged();
-            }
-        }
-        private global::System.Int16 _p4y;
-        partial void Onp4yChanging(global::System.Int16 value);
-        partial void Onp4yChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p1xdouble
-        {
-            get
-            {
-                return _p1xdouble;
-            }
-            set
-            {
-                Onp1xdoubleChanging(value);
-                ReportPropertyChanging("p1xdouble");
-                _p1xdouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p1xdouble");
-                Onp1xdoubleChanged();
-            }
-        }
-        private global::System.Decimal _p1xdouble;
-        partial void Onp1xdoubleChanging(global::System.Decimal value);
-        partial void Onp1xdoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p1ydouble
-        {
-            get
-            {
-                return _p1ydouble;
-            }
-            set
-            {
-                Onp1ydoubleChanging(value);
-                ReportPropertyChanging("p1ydouble");
-                _p1ydouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p1ydouble");
-                Onp1ydoubleChanged();
-            }
-        }
-        private global::System.Decimal _p1ydouble;
-        partial void Onp1ydoubleChanging(global::System.Decimal value);
-        partial void Onp1ydoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p2xdouble
-        {
-            get
-            {
-                return _p2xdouble;
-            }
-            set
-            {
-                Onp2xdoubleChanging(value);
-                ReportPropertyChanging("p2xdouble");
-                _p2xdouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p2xdouble");
-                Onp2xdoubleChanged();
-            }
-        }
-        private global::System.Decimal _p2xdouble;
-        partial void Onp2xdoubleChanging(global::System.Decimal value);
-        partial void Onp2xdoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p2ydouble
-        {
-            get
-            {
-                return _p2ydouble;
-            }
-            set
-            {
-                Onp2ydoubleChanging(value);
-                ReportPropertyChanging("p2ydouble");
-                _p2ydouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p2ydouble");
-                Onp2ydoubleChanged();
-            }
-        }
-        private global::System.Decimal _p2ydouble;
-        partial void Onp2ydoubleChanging(global::System.Decimal value);
-        partial void Onp2ydoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p3xdouble
-        {
-            get
-            {
-                return _p3xdouble;
-            }
-            set
-            {
-                Onp3xdoubleChanging(value);
-                ReportPropertyChanging("p3xdouble");
-                _p3xdouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p3xdouble");
-                Onp3xdoubleChanged();
-            }
-        }
-        private global::System.Decimal _p3xdouble;
-        partial void Onp3xdoubleChanging(global::System.Decimal value);
-        partial void Onp3xdoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p3ydouble
-        {
-            get
-            {
-                return _p3ydouble;
-            }
-            set
-            {
-                Onp3ydoubleChanging(value);
-                ReportPropertyChanging("p3ydouble");
-                _p3ydouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p3ydouble");
-                Onp3ydoubleChanged();
-            }
-        }
-        private global::System.Decimal _p3ydouble;
-        partial void Onp3ydoubleChanging(global::System.Decimal value);
-        partial void Onp3ydoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p4xdouble
-        {
-            get
-            {
-                return _p4xdouble;
-            }
-            set
-            {
-                Onp4xdoubleChanging(value);
-                ReportPropertyChanging("p4xdouble");
-                _p4xdouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p4xdouble");
-                Onp4xdoubleChanged();
-            }
-        }
-        private global::System.Decimal _p4xdouble;
-        partial void Onp4xdoubleChanging(global::System.Decimal value);
-        partial void Onp4xdoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal p4ydouble
-        {
-            get
-            {
-                return _p4ydouble;
-            }
-            set
-            {
-                Onp4ydoubleChanging(value);
-                ReportPropertyChanging("p4ydouble");
-                _p4ydouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("p4ydouble");
-                Onp4ydoubleChanged();
-            }
-        }
-        private global::System.Decimal _p4ydouble;
-        partial void Onp4ydoubleChanging(global::System.Decimal value);
-        partial void Onp4ydoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 originx
-        {
-            get
-            {
-                return _originx;
-            }
-            set
-            {
-                OnoriginxChanging(value);
-                ReportPropertyChanging("originx");
-                _originx = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("originx");
-                OnoriginxChanged();
-            }
-        }
-        private global::System.Int16 _originx;
-        partial void OnoriginxChanging(global::System.Int16 value);
-        partial void OnoriginxChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int16 originy
-        {
-            get
-            {
-                return _originy;
-            }
-            set
-            {
-                OnoriginyChanging(value);
-                ReportPropertyChanging("originy");
-                _originy = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("originy");
-                OnoriginyChanged();
-            }
-        }
-        private global::System.Int16 _originy;
-        partial void OnoriginyChanging(global::System.Int16 value);
-        partial void OnoriginyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal originxdouble
-        {
-            get
-            {
-                return _originxdouble;
-            }
-            set
-            {
-                OnoriginxdoubleChanging(value);
-                ReportPropertyChanging("originxdouble");
-                _originxdouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("originxdouble");
-                OnoriginxdoubleChanged();
-            }
-        }
-        private global::System.Decimal _originxdouble;
-        partial void OnoriginxdoubleChanging(global::System.Decimal value);
-        partial void OnoriginxdoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal originydouble
-        {
-            get
-            {
-                return _originydouble;
-            }
-            set
-            {
-                OnoriginydoubleChanging(value);
-                ReportPropertyChanging("originydouble");
-                _originydouble = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("originydouble");
-                OnoriginydoubleChanged();
-            }
-        }
-        private global::System.Decimal _originydouble;
-        partial void OnoriginydoubleChanging(global::System.Decimal value);
-        partial void OnoriginydoubleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Decimal angle
-        {
-            get
-            {
-                return _angle;
-            }
-            set
-            {
-                OnangleChanging(value);
-                ReportPropertyChanging("angle");
-                _angle = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("angle");
-                OnangleChanged();
-            }
-        }
-        private global::System.Decimal _angle;
-        partial void OnangleChanging(global::System.Decimal value);
-        partial void OnangleChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String row
-        {
-            get
-            {
-                return _row;
-            }
-            set
-            {
-                OnrowChanging(value);
-                ReportPropertyChanging("row");
-                _row = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("row");
-                OnrowChanged();
-            }
-        }
-        private global::System.String _row;
-        partial void OnrowChanging(global::System.String value);
-        partial void OnrowChanged();
+        private global::System.Int32 _cinema_id;
+        partial void Oncinema_idChanging(global::System.Int32 value);
+        partial void Oncinema_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String column
+        public Nullable<global::System.Int32> x1
         {
             get
             {
-                return _column;
+                return _x1;
             }
             set
             {
-                OncolumnChanging(value);
-                ReportPropertyChanging("column");
-                _column = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("column");
-                OncolumnChanged();
+                Onx1Changing(value);
+                ReportPropertyChanging("x1");
+                _x1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("x1");
+                Onx1Changed();
             }
         }
-        private global::System.String _column;
-        partial void OncolumnChanging(global::System.String value);
-        partial void OncolumnChanged();
+        private Nullable<global::System.Int32> _x1;
+        partial void Onx1Changing(Nullable<global::System.Int32> value);
+        partial void Onx1Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Byte object_type
+        public Nullable<global::System.Int32> y1
+        {
+            get
+            {
+                return _y1;
+            }
+            set
+            {
+                Ony1Changing(value);
+                ReportPropertyChanging("y1");
+                _y1 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("y1");
+                Ony1Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _y1;
+        partial void Ony1Changing(Nullable<global::System.Int32> value);
+        partial void Ony1Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> x2
+        {
+            get
+            {
+                return _x2;
+            }
+            set
+            {
+                Onx2Changing(value);
+                ReportPropertyChanging("x2");
+                _x2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("x2");
+                Onx2Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _x2;
+        partial void Onx2Changing(Nullable<global::System.Int32> value);
+        partial void Onx2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> y2
+        {
+            get
+            {
+                return _y2;
+            }
+            set
+            {
+                Ony2Changing(value);
+                ReportPropertyChanging("y2");
+                _y2 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("y2");
+                Ony2Changed();
+            }
+        }
+        private Nullable<global::System.Int32> _y2;
+        partial void Ony2Changing(Nullable<global::System.Int32> value);
+        partial void Ony2Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> origin_x
+        {
+            get
+            {
+                return _origin_x;
+            }
+            set
+            {
+                Onorigin_xChanging(value);
+                ReportPropertyChanging("origin_x");
+                _origin_x = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("origin_x");
+                Onorigin_xChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _origin_x;
+        partial void Onorigin_xChanging(Nullable<global::System.Int32> value);
+        partial void Onorigin_xChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> origin_y
+        {
+            get
+            {
+                return _origin_y;
+            }
+            set
+            {
+                Onorigin_yChanging(value);
+                ReportPropertyChanging("origin_y");
+                _origin_y = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("origin_y");
+                Onorigin_yChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _origin_y;
+        partial void Onorigin_yChanging(Nullable<global::System.Int32> value);
+        partial void Onorigin_yChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String row_name
+        {
+            get
+            {
+                return _row_name;
+            }
+            set
+            {
+                Onrow_nameChanging(value);
+                ReportPropertyChanging("row_name");
+                _row_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("row_name");
+                Onrow_nameChanged();
+            }
+        }
+        private global::System.String _row_name;
+        partial void Onrow_nameChanging(global::System.String value);
+        partial void Onrow_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String col_name
+        {
+            get
+            {
+                return _col_name;
+            }
+            set
+            {
+                Oncol_nameChanging(value);
+                ReportPropertyChanging("col_name");
+                _col_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("col_name");
+                Oncol_nameChanged();
+            }
+        }
+        private global::System.String _col_name;
+        partial void Oncol_nameChanging(global::System.String value);
+        partial void Oncol_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> object_type
         {
             get
             {
@@ -1160,8 +606,8 @@ namespace Cinemapps
                 Onobject_typeChanged();
             }
         }
-        private global::System.Byte _object_type;
-        partial void Onobject_typeChanging(global::System.Byte value);
+        private Nullable<global::System.Int32> _object_type;
+        partial void Onobject_typeChanging(Nullable<global::System.Int32> value);
         partial void Onobject_typeChanged();
     
         /// <summary>
@@ -1169,168 +615,24 @@ namespace Cinemapps
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> color
+        public Nullable<global::System.SByte> is_handicapped
         {
             get
             {
-                return _color;
+                return _is_handicapped;
             }
             set
             {
-                OncolorChanging(value);
-                ReportPropertyChanging("color");
-                _color = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("color");
-                OncolorChanged();
+                Onis_handicappedChanging(value);
+                ReportPropertyChanging("is_handicapped");
+                _is_handicapped = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_handicapped");
+                Onis_handicappedChanged();
             }
         }
-        private Nullable<global::System.Decimal> _color;
-        partial void OncolorChanging(Nullable<global::System.Decimal> value);
-        partial void OncolorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Decimal> text_color
-        {
-            get
-            {
-                return _text_color;
-            }
-            set
-            {
-                Ontext_colorChanging(value);
-                ReportPropertyChanging("text_color");
-                _text_color = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("text_color");
-                Ontext_colorChanged();
-            }
-        }
-        private Nullable<global::System.Decimal> _text_color;
-        partial void Ontext_colorChanging(Nullable<global::System.Decimal> value);
-        partial void Ontext_colorChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean handicapped
-        {
-            get
-            {
-                return _handicapped;
-            }
-            set
-            {
-                OnhandicappedChanging(value);
-                ReportPropertyChanging("handicapped");
-                _handicapped = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("handicapped");
-                OnhandicappedChanged();
-            }
-        }
-        private global::System.Boolean _handicapped;
-        partial void OnhandicappedChanging(global::System.Boolean value);
-        partial void OnhandicappedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> text_size
-        {
-            get
-            {
-                return _text_size;
-            }
-            set
-            {
-                Ontext_sizeChanging(value);
-                ReportPropertyChanging("text_size");
-                _text_size = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("text_size");
-                Ontext_sizeChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _text_size;
-        partial void Ontext_sizeChanging(Nullable<global::System.Int16> value);
-        partial void Ontext_sizeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> cinema_section_key
-        {
-            get
-            {
-                return _cinema_section_key;
-            }
-            set
-            {
-                Oncinema_section_keyChanging(value);
-                ReportPropertyChanging("cinema_section_key");
-                _cinema_section_key = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("cinema_section_key");
-                Oncinema_section_keyChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _cinema_section_key;
-        partial void Oncinema_section_keyChanging(Nullable<global::System.Int32> value);
-        partial void Oncinema_section_keyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> web_column
-        {
-            get
-            {
-                return _web_column;
-            }
-            set
-            {
-                Onweb_columnChanging(value);
-                ReportPropertyChanging("web_column");
-                _web_column = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("web_column");
-                Onweb_columnChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _web_column;
-        partial void Onweb_columnChanging(Nullable<global::System.Int32> value);
-        partial void Onweb_columnChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> web_row
-        {
-            get
-            {
-                return _web_row;
-            }
-            set
-            {
-                Onweb_rowChanging(value);
-                ReportPropertyChanging("web_row");
-                _web_row = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("web_row");
-                Onweb_rowChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _web_row;
-        partial void Onweb_rowChanging(Nullable<global::System.Int32> value);
-        partial void Onweb_rowChanged();
+        private Nullable<global::System.SByte> _is_handicapped;
+        partial void Onis_handicappedChanging(Nullable<global::System.SByte> value);
+        partial void Onis_handicappedChanged();
 
         #endregion
 
@@ -1343,16 +645,16 @@ namespace Cinemapps
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("cinemaModel", "FK_cinema_seats_cinemas", "cinemas")]
+        [EdmRelationshipNavigationPropertyAttribute("cinemaModel", "fk_cinema_seat_cinema1", "cinema")]
         public cinema cinema
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.FK_cinema_seats_cinemas", "cinemas").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.fk_cinema_seat_cinema1", "cinema").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.FK_cinema_seats_cinemas", "cinemas").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.fk_cinema_seat_cinema1", "cinema").Value = value;
             }
         }
         /// <summary>
@@ -1364,13 +666,13 @@ namespace Cinemapps
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.FK_cinema_seats_cinemas", "cinemas");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<cinema>("cinemaModel.fk_cinema_seat_cinema1", "cinema");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<cinema>("cinemaModel.FK_cinema_seats_cinemas", "cinemas", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<cinema>("cinemaModel.fk_cinema_seat_cinema1", "cinema", value);
                 }
             }
         }

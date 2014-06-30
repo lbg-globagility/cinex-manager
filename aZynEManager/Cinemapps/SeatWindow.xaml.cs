@@ -411,44 +411,44 @@ namespace Cinemapps
 
             using (var context = new cinemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("CinemaModel")))
             {
-                var cinemas = from c in context.cinemas where c.key == intKey select c;
+                var cinemas = from c in context.cinemas where c.id == intKey select c;
 
                 foreach (var cinema in cinemas)
                 {
                     CinemaName.Text = cinema.name;
-                    SeatCapacity = cinema.capacity;
+                    SeatCapacity = (int) cinema.capacity;
                     CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
                 }
 
-                var seats = from s in context.cinema_seats
-                             where s.cinema_key == intKey && s.object_type == 2
+                var seats = from s in context.cinema_seat
+                             where s.cinema_id == intKey && s.object_type == 2
                              select s;
                 foreach (var seat in seats)
                 {
                     CinemaScreens.Add(new CinemaScreen()
                     {
-                        Key = seat.key,
-                        X1 = seat.p1x,
-                        Y1 = seat.p1y,
-                        X2 = seat.p3x,
-                        Y2 = seat.p3y
+                        Key = seat.id,
+                        X1 = (int) seat.x1,
+                        Y1 = (int) seat.y1,
+                        X2 = (int) seat.x2,
+                        Y2 = (int) seat.y2
                     });
 
                 }
 
 
-                var screens = from s in context.cinema_seats
-                             where s.cinema_key == intKey && s.object_type == 1
+                var screens = from s in context.cinema_seat
+                             where s.cinema_id == intKey && s.object_type == 1
                              select s;
                 foreach (var screen in screens)
                 {
-                    dblCX = screen.p1x + ((screen.p2x - screen.p1x) / 2);
-                    dblCY = screen.p1y + ((screen.p2y - screen.p1y) / 2);
+                    dblCX = (int) screen.x1 + (( (int) screen.x2 - (int) screen.x1) / 2);
+                    dblCY = (int) screen.y1 + (( (int) screen.y2 - (int) screen.y1) / 2);
 
                     CinemaSeats.Add(new CinemaSeat()
                     {
-                        Key = screen.key,
-                        Name = string.Format("{0}{1}", screen.row, screen.column),
+                        Key = screen.id,
+                        Name = string.Format("{0}{1}", screen.row_name, screen.col_name),
                         CX = dblCX,
                         CY = dblCY,
                         X1 = dblCX - (dblWidth / 2),

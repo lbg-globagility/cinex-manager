@@ -6,76 +6,49 @@
     <edmx:StorageModels>
       <Schema Namespace="cinemaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="cinemaModelStoreContainer">
-          <EntitySet Name="cinema_seats" EntityType="cinemaModel.Store.cinema_seats" store:Type="Tables" Schema="cinema" />
-          <EntitySet Name="cinemas" EntityType="cinemaModel.Store.cinemas" store:Type="Tables" Schema="cinema" />
-          <AssociationSet Name="FK_cinema_seats_cinemas" Association="cinemaModel.Store.FK_cinema_seats_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
+          <EntitySet Name="cinema" EntityType="cinemaModel.Store.cinema" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="cinema_seat" EntityType="cinemaModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.Store.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="cinema_seats">
+        <EntityType Name="cinema">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="int" Nullable="false" />
-          <Property Name="p1x" Type="smallint" Nullable="false" />
-          <Property Name="p1y" Type="smallint" Nullable="false" />
-          <Property Name="p2x" Type="smallint" Nullable="false" />
-          <Property Name="p2y" Type="smallint" Nullable="false" />
-          <Property Name="p3x" Type="smallint" Nullable="false" />
-          <Property Name="p3y" Type="smallint" Nullable="false" />
-          <Property Name="p4x" Type="smallint" Nullable="false" />
-          <Property Name="p4y" Type="smallint" Nullable="false" />
-          <Property Name="p1xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p1ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p2xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p2ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p3xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p3ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p4xdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="p4ydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="originx" Type="smallint" Nullable="false" />
-          <Property Name="originy" Type="smallint" Nullable="false" />
-          <Property Name="originxdouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="originydouble" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="angle" Type="decimal" Nullable="false" Precision="15" Scale="5" />
-          <Property Name="row" Type="varchar" Nullable="false" MaxLength="100" />
-          <Property Name="column" Type="varchar" MaxLength="100" />
-          <Property Name="object_type" Type="utinyint" Nullable="false" />
-          <Property Name="color" Type="decimal" Precision="20" />
-          <Property Name="text_color" Type="decimal" Precision="20" />
-          <Property Name="handicapped" Type="bool" Nullable="false" />
-          <Property Name="text_size" Type="smallint" />
-          <Property Name="cinema_section_key" Type="int" />
-          <Property Name="web_column" Type="int" />
-          <Property Name="web_row" Type="int" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="sound_id" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" />
+          <Property Name="in_order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="cinemas">
+        <EntityType Name="cinema_seat">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="12" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="sound_system" Type="varchar" MaxLength="60" />
-          <Property Name="capacity" Type="smallint" Nullable="false" />
-          <Property Name="built_in" Type="bool" Nullable="false" />
-          <Property Name="display_order" Type="smallint" />
-          <Property Name="festival_cinema_type" Type="varchar" MaxLength="1" />
-          <Property Name="aisles" Type="varchar" MaxLength="12" />
-          <Property Name="seats_locked" Type="bool" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+          <Property Name="x1" Type="int" />
+          <Property Name="y1" Type="int" />
+          <Property Name="x2" Type="int" />
+          <Property Name="y2" Type="int" />
+          <Property Name="origin_x" Type="int" />
+          <Property Name="origin_y" Type="int" />
+          <Property Name="row_name" Type="varchar" MaxLength="100" />
+          <Property Name="col_name" Type="varchar" MaxLength="100" />
+          <Property Name="object_type" Type="int" />
+          <Property Name="is_handicapped" Type="tinyint" />
         </EntityType>
-        <Association Name="FK_cinema_seats_cinemas">
-          <End Role="cinemas" Type="cinemaModel.Store.cinemas" Multiplicity="1" />
-          <End Role="cinema_seats" Type="cinemaModel.Store.cinema_seats" Multiplicity="*" />
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="cinemaModel.Store.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="cinemaModel.Store.cinema_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="cinema_seats">
-              <PropertyRef Name="cinema_key" />
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -85,78 +58,51 @@
     <edmx:ConceptualModels>
       <Schema Namespace="cinemaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="cinemaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cinema_seats" EntityType="cinemaModel.cinema_seats" />
           <EntitySet Name="cinemas" EntityType="cinemaModel.cinema" />
-          <AssociationSet Name="FK_cinema_seats_cinemas" Association="cinemaModel.FK_cinema_seats_cinemas">
-            <End Role="cinemas" EntitySet="cinemas" />
-            <End Role="cinema_seats" EntitySet="cinema_seats" />
+          <EntitySet Name="cinema_seat" EntityType="cinemaModel.cinema_seat" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="cinema_seats">
-          <Key>
-            <PropertyRef Name="key" />
-          </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cinema_key" Type="Int32" Nullable="false" />
-          <Property Name="p1x" Type="Int16" Nullable="false" />
-          <Property Name="p1y" Type="Int16" Nullable="false" />
-          <Property Name="p2x" Type="Int16" Nullable="false" />
-          <Property Name="p2y" Type="Int16" Nullable="false" />
-          <Property Name="p3x" Type="Int16" Nullable="false" />
-          <Property Name="p3y" Type="Int16" Nullable="false" />
-          <Property Name="p4x" Type="Int16" Nullable="false" />
-          <Property Name="p4y" Type="Int16" Nullable="false" />
-          <Property Name="p1xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p1ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p2xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p2ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p3xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p3ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="p4xdouble" Type="Decimal" Nullable="false" />
-          <Property Name="p4ydouble" Type="Decimal" Nullable="false" />
-          <Property Name="originx" Type="Int16" Nullable="false" />
-          <Property Name="originy" Type="Int16" Nullable="false" />
-          <Property Name="originxdouble" Type="Decimal" Nullable="false" />
-          <Property Name="originydouble" Type="Decimal" Nullable="false" />
-          <Property Name="angle" Type="Decimal" Nullable="false" />
-          <Property Name="row" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="column" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="object_type" Type="Byte" Nullable="false" />
-          <Property Name="color" Type="Decimal" />
-          <Property Name="text_color" Type="Decimal" />
-          <Property Name="handicapped" Type="Boolean" Nullable="false" />
-          <Property Name="text_size" Type="Int16" />
-          <Property Name="cinema_section_key" Type="Int32" />
-          <Property Name="web_column" Type="Int32" />
-          <Property Name="web_row" Type="Int32" />
-          <NavigationProperty Name="cinema" Relationship="cinemaModel.FK_cinema_seats_cinemas" FromRole="cinema_seats" ToRole="cinemas" />
-        </EntityType>
         <EntityType Name="cinema">
           <Key>
-            <PropertyRef Name="key" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="description" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="sound_system" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
-          <Property Name="capacity" Type="Int16" Nullable="false" />
-          <Property Name="built_in" Type="Boolean" Nullable="false" />
-          <Property Name="display_order" Type="Int16" />
-          <Property Name="festival_cinema_type" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
-          <Property Name="aisles" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
-          <Property Name="seats_locked" Type="Boolean" />
-          <NavigationProperty Name="cinema_seats" Relationship="cinemaModel.FK_cinema_seats_cinemas" FromRole="cinemas" ToRole="cinema_seats" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+          <Property Name="sound_id" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" />
+          <Property Name="in_order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cinema_seat" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema" ToRole="cinema_seat" />
         </EntityType>
-        <Association Name="FK_cinema_seats_cinemas">
-          <End Role="cinemas" Type="cinemaModel.cinema" Multiplicity="1" />
-          <End Role="cinema_seats" Type="cinemaModel.cinema_seats" Multiplicity="*" />
+        <EntityType Name="cinema_seat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <Property Name="x1" Type="Int32" />
+          <Property Name="y1" Type="Int32" />
+          <Property Name="x2" Type="Int32" />
+          <Property Name="y2" Type="Int32" />
+          <Property Name="origin_x" Type="Int32" />
+          <Property Name="origin_y" Type="Int32" />
+          <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="object_type" Type="Int32" />
+          <Property Name="is_handicapped" Type="SByte" />
+          <NavigationProperty Name="cinema" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
+        </EntityType>
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="cinemaModel.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="cinemaModel.cinema_seat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="cinemas">
-              <PropertyRef Name="key" />
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="cinema_seats">
-              <PropertyRef Name="cinema_key" />
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -166,59 +112,32 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="cinemaModelStoreContainer" CdmEntityContainer="cinemaEntities">
-          <EntitySetMapping Name="cinema_seats">
-            <EntityTypeMapping TypeName="cinemaModel.cinema_seats">
-              <MappingFragment StoreEntitySet="cinema_seats">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="cinema_key" ColumnName="cinema_key" />
-                <ScalarProperty Name="p1x" ColumnName="p1x" />
-                <ScalarProperty Name="p1y" ColumnName="p1y" />
-                <ScalarProperty Name="p2x" ColumnName="p2x" />
-                <ScalarProperty Name="p2y" ColumnName="p2y" />
-                <ScalarProperty Name="p3x" ColumnName="p3x" />
-                <ScalarProperty Name="p3y" ColumnName="p3y" />
-                <ScalarProperty Name="p4x" ColumnName="p4x" />
-                <ScalarProperty Name="p4y" ColumnName="p4y" />
-                <ScalarProperty Name="p1xdouble" ColumnName="p1xdouble" />
-                <ScalarProperty Name="p1ydouble" ColumnName="p1ydouble" />
-                <ScalarProperty Name="p2xdouble" ColumnName="p2xdouble" />
-                <ScalarProperty Name="p2ydouble" ColumnName="p2ydouble" />
-                <ScalarProperty Name="p3xdouble" ColumnName="p3xdouble" />
-                <ScalarProperty Name="p3ydouble" ColumnName="p3ydouble" />
-                <ScalarProperty Name="p4xdouble" ColumnName="p4xdouble" />
-                <ScalarProperty Name="p4ydouble" ColumnName="p4ydouble" />
-                <ScalarProperty Name="originx" ColumnName="originx" />
-                <ScalarProperty Name="originy" ColumnName="originy" />
-                <ScalarProperty Name="originxdouble" ColumnName="originxdouble" />
-                <ScalarProperty Name="originydouble" ColumnName="originydouble" />
-                <ScalarProperty Name="angle" ColumnName="angle" />
-                <ScalarProperty Name="row" ColumnName="row" />
-                <ScalarProperty Name="column" ColumnName="column" />
-                <ScalarProperty Name="object_type" ColumnName="object_type" />
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="text_color" ColumnName="text_color" />
-                <ScalarProperty Name="handicapped" ColumnName="handicapped" />
-                <ScalarProperty Name="text_size" ColumnName="text_size" />
-                <ScalarProperty Name="cinema_section_key" ColumnName="cinema_section_key" />
-                <ScalarProperty Name="web_column" ColumnName="web_column" />
-                <ScalarProperty Name="web_row" ColumnName="web_row" />
+          <EntitySetMapping Name="cinemas">
+            <EntityTypeMapping TypeName="cinemaModel.cinema">
+              <MappingFragment StoreEntitySet="cinema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sound_id" ColumnName="sound_id" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="in_order" ColumnName="in_order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cinemas">
-            <EntityTypeMapping TypeName="cinemaModel.cinema">
-              <MappingFragment StoreEntitySet="cinemas">
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="sound_system" ColumnName="sound_system" />
-                <ScalarProperty Name="capacity" ColumnName="capacity" />
-                <ScalarProperty Name="built_in" ColumnName="built_in" />
-                <ScalarProperty Name="display_order" ColumnName="display_order" />
-                <ScalarProperty Name="festival_cinema_type" ColumnName="festival_cinema_type" />
-                <ScalarProperty Name="aisles" ColumnName="aisles" />
-                <ScalarProperty Name="seats_locked" ColumnName="seats_locked" />
+          <EntitySetMapping Name="cinema_seat">
+            <EntityTypeMapping TypeName="cinemaModel.cinema_seat">
+              <MappingFragment StoreEntitySet="cinema_seat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+                <ScalarProperty Name="x1" ColumnName="x1" />
+                <ScalarProperty Name="y1" ColumnName="y1" />
+                <ScalarProperty Name="x2" ColumnName="x2" />
+                <ScalarProperty Name="y2" ColumnName="y2" />
+                <ScalarProperty Name="origin_x" ColumnName="origin_x" />
+                <ScalarProperty Name="origin_y" ColumnName="origin_y" />
+                <ScalarProperty Name="row_name" ColumnName="row_name" />
+                <ScalarProperty Name="col_name" ColumnName="col_name" />
+                <ScalarProperty Name="object_type" ColumnName="object_type" />
+                <ScalarProperty Name="is_handicapped" ColumnName="is_handicapped" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -242,12 +161,12 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="CinemaModel" ZoomLevel="52">
-        <EntityTypeShape EntityType="cinemaModel.cinema_seats" Width="1.5" PointX="4.125" PointY="0.75" Height="7.5570279947916665" IsExpanded="true" />
-        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="0.75" PointY="3.375" Height="3.3263964843749996" IsExpanded="true" />
-        <AssociationConnector Association="cinemaModel.FK_cinema_seats_cinemas" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.0381982421875" />
-          <ConnectorPoint PointX="4.125" PointY="5.0381982421875" />
+      <Diagram Name="CinemaModel">
+        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="0.75" PointY="1.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3" PointY="1" Height="3.5186979166666656" IsExpanded="true" />
+        <AssociationConnector Association="cinemaModel.fk_cinema_seat_cinema1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.7112939453125" />
+          <ConnectorPoint PointX="3" PointY="2.7112939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

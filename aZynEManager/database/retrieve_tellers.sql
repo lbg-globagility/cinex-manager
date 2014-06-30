@@ -6,13 +6,10 @@ DELIMITER $$
 
 CREATE PROCEDURE `retrieve_tellers`()
 BEGIN
-	SELECT uname, IFNULL(full_name,  CONCAT(uname, ' (Inactive)')) FROM 
-	(select username uname from ticket_transactions 
-	GROUP BY username) d
+SELECT id, userid, full_name, user_id IS NOT NULL FROM 
+	(SELECT a.id, userid, CONCAT(fname, ' ', mname, '. ',  lname) full_name FROM users a, user_level b WHERE  
+	a.user_level_id = b.id AND a.system_code = 2 AND b.system_code) c 
 	LEFT OUTER JOIN
-	( 
-	SELECT username, full_name FROM users a, access_groups b WHERE a.access_group_key = b.key
-	AND code = 'TELLER') c
-	ON uname = username
-	ORDER BY uname;
+	(SELECT user_id FROM azynema.ticket GROUP BY user_id) d 
+	ON c.id = user_id ORDER BY userid;
 END
