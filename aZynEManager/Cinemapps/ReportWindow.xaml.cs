@@ -261,5 +261,28 @@ namespace Cinemapps
             this.UpdateRP08Movie();
         }
 
+        private void RP02StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void RP09StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void PrintRP09_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP09 report = new RP09(RP09StartDate.SelectedDate, RP09EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }
