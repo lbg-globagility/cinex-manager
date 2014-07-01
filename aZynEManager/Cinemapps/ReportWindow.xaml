@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Reports" Height="298" Width="474" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+        Title="Reports" Height="290" Width="720" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -42,16 +42,16 @@
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Teller Daily Sales (RP01)</TextBlock>
-                        <Label Width="280">
+                        <Label Width="Auto">
                             <TextBlock TextWrapping="WrapWithOverflow">
                         Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date</TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
+                            <Label>Date</Label>
+                            <DatePicker Name="RP01StartDate" SelectedDateChanged="RP01StartDate_SelectedDateChanged" />
                             <Label>Teller</Label>
                             <ComboBox Name="RP01Teller" Width="150">
                             </ComboBox>
-                            <Label>Date</Label>
-                            <DatePicker Name="RP01StartDate"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -69,7 +69,7 @@
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Movie Sales (RP02)</TextBlock>
-                        <Label Width="280">
+                        <Label Width="Auto">
                             <TextBlock TextWrapping="WrapWithOverflow">
                         Displays Total Ticket Sales and Seat Utilization per Movie for a specified date</TextBlock>
                         </Label>
@@ -95,7 +95,7 @@
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Summary of Daily Cinema Sales (RP03)</TextBlock>
-                        <Label Width="280">
+                        <Label Width="Auto">
                             <TextBlock TextWrapping="WrapWithOverflow">
                             Displays Total Ticket Sales per Cinema for a specified date</TextBlock>
                         </Label>
@@ -119,13 +119,70 @@
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Teller Daily Summary Sales (RP04)</TextBlock>
-                        <Label Width="280">
+                        <Label Width="Auto">
                             <TextBlock TextWrapping="WrapWithOverflow">
                             Displays Total Teller Ticket Sale for a specified date</TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
                             <Label>Start Date</Label>
                             <DatePicker Name="RP04StartDate"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP05_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Daily Sales by Distributor (RP05)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales for a specified Distributor and date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP05StartDate"/>
+                            <Label>Distributor</Label>
+                            <ComboBox Name="RP05Distributor" Width="150">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP08_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Daily Box Office (RP08)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales per Patron Type for a specified Cinema and date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP08StartDate" SelectedDateChanged="RP08StartDate_SelectedDateChanged" />
+                            <Label>Cinema</Label>
+                            <ComboBox Name="RP08Cinema" Width="150" SelectionChanged="RP08Cinema_SelectionChanged">
+                            </ComboBox>
+                            <Label>Movie</Label>
+                            <ComboBox Name="RP08Movie" Width="150" IsEnabled="False">
+                            </ComboBox>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>

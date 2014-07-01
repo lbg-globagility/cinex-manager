@@ -165,7 +165,7 @@ namespace ExcelReports
             newFile.Worksheets[0].Cells[intRowCount, 2].Value = string.Format("{0:#,##0.00}", dblTotalSales);
             newFile.Worksheets[0].Cells[intRowCount, 2].Style.Font.Weight = ExcelFont.BoldWeight;
             newFile.Worksheets[0].Cells[intRowCount, 2].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-            intRowCount++;
+            intRowCount+= 4;
 
             newFile.Worksheets[0].Cells[intRowCount, 3].Value = hshParameters["manager"];
             newFile.Worksheets[0].Cells[intRowCount, 3].Style.Font.Weight = ExcelFont.BoldWeight;
