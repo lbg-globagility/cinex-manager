@@ -284,5 +284,23 @@ namespace Cinemapps
             }
         }
 
+        private void RP10StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void PrintRP10_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP10 report = new RP10(RP10StartDate.SelectedDate, RP10EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }
