@@ -58,6 +58,7 @@
     <Compile Include="RP08.cs" />
     <Compile Include="RP09.cs" />
     <Compile Include="RP10.cs" />
+    <Compile Include="RP12.cs" />
     <Compile Include="SummaryofReportsandDescriptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teller.cs" />

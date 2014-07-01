@@ -302,5 +302,18 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP12_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP12 report = new RP12(RP12StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }

@@ -239,6 +239,30 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Sales All (RP12)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Teller Ticket Sales per Patron Type and Cinema for all Tellers for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP12StartDate" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
         </ListView>
     </DockPanel>
 </controls:MetroWindow >
