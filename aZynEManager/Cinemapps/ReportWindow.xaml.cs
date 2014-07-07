@@ -359,6 +359,25 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP17_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP17 report = new RP17(RP17StartDate.SelectedDate, RP17EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+
+        }
+
+        private void RP17StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
 
     }
 }
