@@ -315,5 +315,31 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP13_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP13 report = new RP13(RP13StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void PrintRP19_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP19 report = new RP19(RP19StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }
