@@ -22,7 +22,9 @@ SET _time = DATE_FORMAT(_dt, '%h:%i %p');
 SELECT CONCAT('Date:  ', _date) as currentdate, CONCAT('Time:  ',_time) as currenttime, 
 '' AS establishmentname,
 IFNULL(_report_name, '') AS reportname, 
-DATE_FORMAT(_start_date, '%m/%d/%Y') AS fordate
+DATE_FORMAT(_start_date, '%m/%d/%Y') AS fordate,
+'Manager :      ___________________' as manager,  
+'Checked By : ___________________' as checkedby 
 FROM dual;
 
 SELECT f.name, i.title, h.userid, CONCAT(h.fname, ' ', h.mname, '.' , h.lname), d.code, d.name,  f.in_order, a.price,  COUNT(a.cinema_seat_id), SUM(a.price) FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, 

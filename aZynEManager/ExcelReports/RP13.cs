@@ -48,6 +48,7 @@ namespace ExcelReports
             double dblSubSales1 = 0.0;
             double dblSubSales2 = 0.0;
             double dblTotalSales = 0.0;
+            Hashtable hshParameters = new Hashtable();
 
             using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
@@ -60,7 +61,6 @@ namespace ExcelReports
 
                     MySqlDataReader reader = command.ExecuteReader();
 
-                    Hashtable hshParameters = new Hashtable();
 
                     //get elements
                     if (reader.Read())
@@ -324,6 +324,14 @@ namespace ExcelReports
             newFile.Worksheets[0].Columns[2].AutoFit();
             newFile.Worksheets[0].Columns[3].AutoFit();
             newFile.Worksheets[0].Columns[4].AutoFit();
+
+            intRowCount += 2;
+            newFile.Worksheets[0].Cells[intRowCount, 2].Value = hshParameters["manager"].ToString(); ;
+            newFile.Worksheets[0].Cells[intRowCount, 2].Style.Font.Weight = ExcelFont.BoldWeight;
+
+            intRowCount++;
+            newFile.Worksheets[0].Cells[intRowCount, 2].Value = hshParameters["checkedby"].ToString(); ;
+            newFile.Worksheets[0].Cells[intRowCount, 2].Style.Font.Weight = ExcelFont.BoldWeight;
 
             newFile.SaveXlsx(strFileName);
             try

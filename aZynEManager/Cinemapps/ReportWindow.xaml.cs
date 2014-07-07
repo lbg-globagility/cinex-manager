@@ -328,6 +328,24 @@ namespace Cinemapps
             }
         }
 
+        private void RP15StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void PrintRP15_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP15 report = new RP15(RP15StartDate.SelectedDate, RP15EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void PrintRP19_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -340,6 +358,7 @@ namespace Cinemapps
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
 
     }
 }
