@@ -378,6 +378,19 @@ namespace Cinemapps
 
         }
 
+        private void PrintRP16_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP16 report = new RP16(RP16StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
 
     }
 }
