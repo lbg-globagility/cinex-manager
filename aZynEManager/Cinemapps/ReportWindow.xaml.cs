@@ -391,6 +391,24 @@ namespace Cinemapps
             }
         }
 
+        private void RP18StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void PrintRP18_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP18 report = new RP18(RP18StartDate.SelectedDate, RP18EndDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
 
     }
 }
