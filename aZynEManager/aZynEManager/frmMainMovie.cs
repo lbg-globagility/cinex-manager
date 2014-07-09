@@ -122,15 +122,7 @@ namespace aZynEManager
 
         public void unselectButton()
         {
-            //ControlCollection coll = (ControlCollection)this.Controls;
-            //foreach (Control con in coll)
-            //{
-            //    if (con is ComponentFactory.Krypton.Toolkit.KryptonButton)
-            //    {
-            //        //((ComponentFactory.Krypton.Toolkit.KryptonButton)con)
-            //    }
-            //}
-            btnselect.Focus();
+            btnselect.Select();
         }
 
         public void setFocus(Control cntrl)
@@ -165,28 +157,11 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    StringBuilder sbqry = new StringBuilder();
-            //    sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as description, a.share_perc ");
-            //    sbqry.Append("FROM movies a,  mtrcb b, distributor c WHERE a.rating_id = b.id and a.dist_id = c.id");
-            //    m_ds = m_clscom.getDataSet(sbqry.ToString(), m_frmM._connection);
-            //}
-            //catch(MySqlException err)
-            //{
-            //    MessageBox.Show(err.Message);
-            //}
-            //finally
-            //{
-                //check for the user grant for the module
-                //yes
-                //if (m_ds != null && m_ds.Tables.Count > 0)
-                //{
-                    frmMovieList frmlist = new frmMovieList();
-                    frmlist.frmInit(m_frmM, m_clscom);
-                    frmlist.ShowDialog();
-                //}
-            //}
+            unselectButton();
+            frmMovieList frmlist = new frmMovieList();
+            frmlist.frmInit(m_frmM, m_clscom);
+            frmlist.ShowDialog();
+            frmlist.Dispose();
         }
 
         public void setSkin(Color backColor, Color lineColor)
@@ -210,17 +185,31 @@ namespace aZynEManager
 
         private void btnShare_Click(object sender, EventArgs e)
         {
+            unselectButton();
             frmProdShare frmprod = new frmProdShare();
             frmprod.frmInit(m_frmM, m_clscom);
             frmprod.ShowDialog();
+            frmprod.Dispose();
         }
 
         private void btnSched_Click(object sender, EventArgs e)
         {
-            //sample call for wpf
-            var window = new CinemaCustomControlLibrary.DemoWindow();
-            ElementHost.EnableModelessKeyboardInterop(window);
-            window.Show();
+            ////sample call for wpf
+            //var window = new CinemaCustomControlLibrary.DemoWindow();
+            //ElementHost.EnableModelessKeyboardInterop(window);
+            //window.Show();
+
+            //unselectButton();
+            //frmMovieSched frmsked = new frmMovieSched();
+            //frmsked.frmInit(m_frmM, m_clscom);
+            //frmsked.ShowDialog();
+            //frmsked.Dispose();
+
+            unselectButton();
+            frmSked frmskd = new frmSked();
+            frmskd.frmInit(m_frmM, m_clscom);
+            frmskd.ShowDialog();
+            frmskd.Dispose();
         }
 
         [DllImport("user32.dll")]
@@ -236,6 +225,13 @@ namespace aZynEManager
         {
             WindowInteropHelper helper = new WindowInteropHelper(owner);
             SetWindowLong(new HandleRef(form, form.Handle), -8, helper.Handle.ToInt32());
+        }
+
+        private void btnTrailer_Click(object sender, EventArgs e)
+        {
+            frmample sample = new frmample();
+            sample.ShowDialog();
+            sample.Dispose();
         }
     }
 }

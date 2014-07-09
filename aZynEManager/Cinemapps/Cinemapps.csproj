@@ -238,6 +238,22 @@
   <ItemGroup>
     <Resource Include="Images\disabled-reserved.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\blue.png" />
+    <Resource Include="Resources\green.png" />
+    <Resource Include="Resources\purple.png" />
+    <Resource Include="Resources\red.png" />
+    <Resource Include="Resources\white.png" />
+    <Resource Include="Resources\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\blue.png" />
+    <Resource Include="Images\green.png" />
+    <Resource Include="Images\purple.png" />
+    <Resource Include="Images\red.png" />
+    <Resource Include="Images\white.png" />
+    <Resource Include="Images\yellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>

@@ -34,10 +34,10 @@
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.txtname = new System.Windows.Forms.TextBox();
+            this.txtname = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.txtposition = new System.Windows.Forms.TextBox();
+            this.txtposition = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.cbxnew = new System.Windows.Forms.CheckBox();
             this.cmbcontacts = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -45,25 +45,25 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtcontactno = new System.Windows.Forms.TextBox();
+            this.txtcontactno = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtcountry = new System.Windows.Forms.TextBox();
-            this.txtcity = new System.Windows.Forms.TextBox();
-            this.txtaddr = new System.Windows.Forms.TextBox();
-            this.txtfn = new System.Windows.Forms.TextBox();
+            this.txtcountry = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtcity = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtaddr = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtfn = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtln = new System.Windows.Forms.TextBox();
+            this.txtln = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtshare = new System.Windows.Forms.TextBox();
-            this.txtemail = new System.Windows.Forms.TextBox();
-            this.txtcode = new System.Windows.Forms.TextBox();
+            this.txtshare = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtemail = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtcode = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Label8 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -371,11 +371,11 @@
             // 
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(67, 55);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(102, 13);
+            this.label13.Size = new System.Drawing.Size(100, 15);
             this.label13.TabIndex = 280;
             this.label13.Text = "Distributor Share";
             // 
@@ -383,7 +383,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox3.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox3.Location = new System.Drawing.Point(192, 62);
             this.pictureBox3.Name = "pictureBox3";
@@ -395,7 +395,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox4.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox4.Location = new System.Drawing.Point(10, 62);
             this.pictureBox4.Name = "pictureBox4";
@@ -429,11 +429,11 @@
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(67, 105);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(118, 13);
+            this.label11.Size = new System.Drawing.Size(114, 15);
             this.label11.TabIndex = 275;
             this.label11.Text = "Contact Information";
             // 
@@ -441,7 +441,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox1.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(192, 112);
             this.pictureBox1.Name = "pictureBox1";
@@ -564,7 +564,7 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox2.Location = new System.Drawing.Point(10, 112);
             this.pictureBox2.Name = "pictureBox2";
@@ -706,7 +706,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(415, 355);
+            this.label17.Location = new System.Drawing.Point(0, 455);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 282;
@@ -716,11 +716,11 @@
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(429, 359);
+            this.label18.Location = new System.Drawing.Point(11, 455);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 9);
+            this.label18.Size = new System.Drawing.Size(99, 13);
             this.label18.TabIndex = 283;
             this.label18.Text = "required information";
             // 
@@ -1140,17 +1140,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 470);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.grpcontrol);
             this.Controls.Add(this.kryptonGroup1);
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.kryptonButton1);
-            this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnselect);
             this.Controls.Add(this.grpfilter);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDistributor";
@@ -1186,34 +1187,34 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCancel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
-        internal System.Windows.Forms.TextBox txtname;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtname;
         internal System.Windows.Forms.Label label1;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
-        internal System.Windows.Forms.TextBox txtcode;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcode;
         internal System.Windows.Forms.Label Label8;
         internal System.Windows.Forms.Label label13;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
         internal System.Windows.Forms.Label label12;
-        internal System.Windows.Forms.TextBox txtcontactno;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcontactno;
         internal System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox1;
         internal System.Windows.Forms.Label label5;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label7;
-        internal System.Windows.Forms.TextBox txtcountry;
-        internal System.Windows.Forms.TextBox txtcity;
-        internal System.Windows.Forms.TextBox txtaddr;
-        internal System.Windows.Forms.TextBox txtfn;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcountry;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcity;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtaddr;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtfn;
         internal System.Windows.Forms.Label label9;
-        internal System.Windows.Forms.TextBox txtln;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtln;
         internal System.Windows.Forms.Label label10;
         private System.Windows.Forms.PictureBox pictureBox2;
         internal System.Windows.Forms.Label label4;
         internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.TextBox txtshare;
-        internal System.Windows.Forms.TextBox txtemail;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtshare;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtemail;
         internal System.Windows.Forms.Label label16;
         internal System.Windows.Forms.Label label15;
         internal System.Windows.Forms.Label label14;
@@ -1222,7 +1223,7 @@
         internal System.Windows.Forms.ComboBox cmbcontacts;
         internal System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox cbxnew;
-        internal System.Windows.Forms.TextBox txtposition;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtposition;
         internal System.Windows.Forms.Label label20;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
         private System.Windows.Forms.GroupBox groupBox1;

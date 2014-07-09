@@ -33,22 +33,24 @@
             this.dgvResult = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.grpValues = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.cmbDate = new System.Windows.Forms.ComboBox();
+            this.cbxdate = new System.Windows.Forms.CheckBox();
             this.cbxfilter = new System.Windows.Forms.CheckBox();
             this.btnclear2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnsearch2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.cmbtitle = new System.Windows.Forms.ComboBox();
             this.dtdate = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtshare = new System.Windows.Forms.TextBox();
+            this.txtshare = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtcode = new System.Windows.Forms.TextBox();
+            this.txtcode = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtcnt = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -58,8 +60,6 @@
             this.dgvMovies = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.cbxdate = new System.Windows.Forms.CheckBox();
-            this.cmbDate = new System.Windows.Forms.ComboBox();
             this.btnAdd = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -89,7 +89,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgvResult);
             this.groupBox1.Controls.Add(this.btnselect);
-            this.groupBox1.Location = new System.Drawing.Point(359, -3);
+            this.groupBox1.Location = new System.Drawing.Point(361, -3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(614, 330);
             this.groupBox1.TabIndex = 32;
@@ -200,6 +200,36 @@
             this.grpValues.StateCommon.Border.Rounding = 5;
             this.grpValues.StateCommon.Border.Width = 2;
             this.grpValues.TabIndex = 0;
+            // 
+            // cmbDate
+            // 
+            this.cmbDate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDate.FormattingEnabled = true;
+            this.cmbDate.Items.AddRange(new object[] {
+            "<",
+            "<=",
+            ">",
+            ">=",
+            "="});
+            this.cmbDate.Location = new System.Drawing.Point(282, 88);
+            this.cmbDate.Name = "cmbDate";
+            this.cmbDate.Size = new System.Drawing.Size(46, 21);
+            this.cmbDate.TabIndex = 314;
+            // 
+            // cbxdate
+            // 
+            this.cbxdate.AutoSize = true;
+            this.cbxdate.BackColor = System.Drawing.Color.Transparent;
+            this.cbxdate.ForeColor = System.Drawing.Color.White;
+            this.cbxdate.Location = new System.Drawing.Point(211, 91);
+            this.cbxdate.Name = "cbxdate";
+            this.cbxdate.Size = new System.Drawing.Size(67, 17);
+            this.cbxdate.TabIndex = 313;
+            this.cbxdate.Text = "use date";
+            this.cbxdate.UseVisualStyleBackColor = false;
+            this.cbxdate.CheckedChanged += new System.EventHandler(this.cbxdate_CheckedChanged);
             // 
             // cbxfilter
             // 
@@ -326,18 +356,6 @@
             this.dtdate.TabIndex = 3;
             this.dtdate.Value = new System.DateTime(2014, 6, 4, 0, 0, 0, 0);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(141, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(15, 13);
-            this.label6.TabIndex = 295;
-            this.label6.Text = "%";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -459,6 +477,18 @@
             this.label4.TabIndex = 298;
             this.label4.Text = "*";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(141, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(15, 13);
+            this.label6.TabIndex = 295;
+            this.label6.Text = "%";
+            // 
             // txtcnt
             // 
             this.txtcnt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -503,7 +533,7 @@
             this.btnsearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnsearch.Location = new System.Drawing.Point(88, 11);
             this.btnsearch.Name = "btnsearch";
-            this.btnsearch.Size = new System.Drawing.Size(65, 83);
+            this.btnsearch.Size = new System.Drawing.Size(65, 97);
             this.btnsearch.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnsearch.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnsearch.StateCommon.Back.ColorAngle = 50F;
@@ -548,7 +578,7 @@
             this.btnclear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnclear.Location = new System.Drawing.Point(10, 11);
             this.btnclear.Name = "btnclear";
-            this.btnclear.Size = new System.Drawing.Size(65, 83);
+            this.btnclear.Size = new System.Drawing.Size(65, 97);
             this.btnclear.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnclear.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnclear.StateCommon.Back.ColorAngle = 50F;
@@ -594,7 +624,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox2.Controls.Add(this.dgvMovies);
             this.groupBox2.Controls.Add(this.kryptonButton1);
-            this.groupBox2.Location = new System.Drawing.Point(3, -3);
+            this.groupBox2.Location = new System.Drawing.Point(2, -3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(357, 330);
             this.groupBox2.TabIndex = 311;
@@ -668,7 +698,7 @@
             // 
             // grpfilter
             // 
-            this.grpfilter.Location = new System.Drawing.Point(360, 347);
+            this.grpfilter.Location = new System.Drawing.Point(609, 333);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -678,7 +708,7 @@
             this.grpfilter.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpfilter.Panel.Padding = new System.Windows.Forms.Padding(3);
             this.grpfilter.Panel.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroup1_Panel_Paint);
-            this.grpfilter.Size = new System.Drawing.Size(174, 113);
+            this.grpfilter.Size = new System.Drawing.Size(174, 127);
             this.grpfilter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpfilter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpfilter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -689,42 +719,12 @@
             this.grpfilter.StateCommon.Border.Width = 2;
             this.grpfilter.TabIndex = 312;
             // 
-            // cbxdate
-            // 
-            this.cbxdate.AutoSize = true;
-            this.cbxdate.BackColor = System.Drawing.Color.Transparent;
-            this.cbxdate.ForeColor = System.Drawing.Color.White;
-            this.cbxdate.Location = new System.Drawing.Point(211, 91);
-            this.cbxdate.Name = "cbxdate";
-            this.cbxdate.Size = new System.Drawing.Size(67, 17);
-            this.cbxdate.TabIndex = 313;
-            this.cbxdate.Text = "use date";
-            this.cbxdate.UseVisualStyleBackColor = false;
-            this.cbxdate.CheckedChanged += new System.EventHandler(this.cbxdate_CheckedChanged);
-            // 
-            // cmbDate
-            // 
-            this.cmbDate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbDate.FormattingEnabled = true;
-            this.cmbDate.Items.AddRange(new object[] {
-            "<",
-            "<=",
-            ">",
-            ">=",
-            "="});
-            this.cmbDate.Location = new System.Drawing.Point(282, 88);
-            this.cmbDate.Name = "cmbDate";
-            this.cmbDate.Size = new System.Drawing.Size(46, 21);
-            this.cmbDate.TabIndex = 314;
-            // 
             // btnAdd
             // 
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.Location = new System.Drawing.Point(10, 11);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(65, 83);
+            this.btnAdd.Size = new System.Drawing.Size(65, 97);
             this.btnAdd.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnAdd.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnAdd.StateCommon.Back.ColorAngle = 50F;
@@ -769,7 +769,7 @@
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.Location = new System.Drawing.Point(164, 11);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(65, 83);
+            this.btnDelete.Size = new System.Drawing.Size(65, 97);
             this.btnDelete.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnDelete.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnDelete.StateCommon.Back.ColorAngle = 50F;
@@ -814,7 +814,7 @@
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.Location = new System.Drawing.Point(87, 11);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(65, 83);
+            this.btnEdit.Size = new System.Drawing.Size(65, 97);
             this.btnEdit.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnEdit.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnEdit.StateCommon.Back.ColorAngle = 50F;
@@ -856,7 +856,7 @@
             // 
             // grpcontrol
             // 
-            this.grpcontrol.Location = new System.Drawing.Point(360, 347);
+            this.grpcontrol.Location = new System.Drawing.Point(360, 333);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -866,7 +866,7 @@
             this.grpcontrol.Panel.Controls.Add(this.btnDelete);
             this.grpcontrol.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpcontrol.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.grpcontrol.Size = new System.Drawing.Size(248, 113);
+            this.grpcontrol.Size = new System.Drawing.Size(248, 127);
             this.grpcontrol.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpcontrol.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpcontrol.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -882,7 +882,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(979, 465);
-            this.Controls.Add(this.grpcontrol);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.label18);
@@ -890,7 +889,9 @@
             this.Controls.Add(this.grpValues);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpfilter);
+            this.Controls.Add(this.grpcontrol);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProdShare";
             this.Opacity = 0.98D;
             this.Text = "Film Sharing";
@@ -923,13 +924,13 @@
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvResult;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup grpValues;
         internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.TextBox txtcode;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcode;
         internal System.Windows.Forms.Label Label8;
         internal System.Windows.Forms.Label txtcnt;
         internal System.Windows.Forms.Label label18;
         internal System.Windows.Forms.Label label17;
         internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.TextBox txtshare;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtshare;
         internal System.Windows.Forms.Label label3;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnsearch;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnclear;

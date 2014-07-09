@@ -47,10 +47,11 @@
             this.btnclear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.label6 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.txtposition = new System.Windows.Forms.TextBox();
-            this.txtlgu = new System.Windows.Forms.TextBox();
+            this.txtposition = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtlgu = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.label2 = new System.Windows.Forms.Label();
+            this.cbxpromo = new System.Windows.Forms.CheckBox();
+            this.lbllgu = new System.Windows.Forms.Label();
             this.cbxproducer = new System.Windows.Forms.CheckBox();
             this.cbxgross = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -63,15 +64,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtprice = new System.Windows.Forms.TextBox();
-            this.txtname = new System.Windows.Forms.TextBox();
+            this.txtprice = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.txtname = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtcode = new System.Windows.Forms.TextBox();
+            this.txtcode = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Label8 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.cbxpromo = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
@@ -103,6 +103,7 @@
             this.cbxlgu.TabIndex = 7;
             this.cbxlgu.Text = "With LGU Tax";
             this.cbxlgu.UseVisualStyleBackColor = false;
+            this.cbxlgu.CheckedChanged += new System.EventHandler(this.cbxlgu_CheckedChanged);
             // 
             // btnselect
             // 
@@ -181,6 +182,7 @@
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvResult.TabIndex = 31;
+            this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
             // 
             // txtcnt
             // 
@@ -202,7 +204,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(550, 297);
+            this.label18.Location = new System.Drawing.Point(550, 300);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(73, 9);
             this.label18.TabIndex = 310;
@@ -212,11 +214,11 @@
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(103, 111);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.Size = new System.Drawing.Size(39, 15);
             this.label11.TabIndex = 275;
             this.label11.Text = "Taxes";
             // 
@@ -332,6 +334,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Values.Image = global::aZynEManager.Properties.Resources.buttonedit1;
             this.btnEdit.Values.Text = "edit";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -376,6 +379,7 @@
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Values.Image = global::aZynEManager.Properties.Resources.buttondelete;
             this.btnDelete.Values.Text = "remove";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
@@ -509,7 +513,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(536, 293);
+            this.label17.Location = new System.Drawing.Point(536, 296);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 309;
@@ -535,6 +539,7 @@
             this.txtlgu.Name = "txtlgu";
             this.txtlgu.Size = new System.Drawing.Size(72, 20);
             this.txtlgu.TabIndex = 8;
+            this.txtlgu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlgu_KeyPress);
             // 
             // kryptonGroup1
             // 
@@ -545,7 +550,7 @@
             // kryptonGroup1.Panel
             // 
             this.kryptonGroup1.Panel.Controls.Add(this.cbxpromo);
-            this.kryptonGroup1.Panel.Controls.Add(this.label2);
+            this.kryptonGroup1.Panel.Controls.Add(this.lbllgu);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxproducer);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxgross);
             this.kryptonGroup1.Panel.Controls.Add(this.label7);
@@ -584,17 +589,29 @@
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 0;
             // 
-            // label2
+            // cbxpromo
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(177, 181);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
-            this.label2.TabIndex = 299;
-            this.label2.Text = "Value";
+            this.cbxpromo.AutoSize = true;
+            this.cbxpromo.BackColor = System.Drawing.Color.Transparent;
+            this.cbxpromo.ForeColor = System.Drawing.Color.White;
+            this.cbxpromo.Location = new System.Drawing.Point(180, 57);
+            this.cbxpromo.Name = "cbxpromo";
+            this.cbxpromo.Size = new System.Drawing.Size(93, 17);
+            this.cbxpromo.TabIndex = 300;
+            this.cbxpromo.Text = "Is a Promotion";
+            this.cbxpromo.UseVisualStyleBackColor = false;
+            // 
+            // lbllgu
+            // 
+            this.lbllgu.AutoSize = true;
+            this.lbllgu.BackColor = System.Drawing.Color.Transparent;
+            this.lbllgu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbllgu.ForeColor = System.Drawing.Color.White;
+            this.lbllgu.Location = new System.Drawing.Point(177, 181);
+            this.lbllgu.Name = "lbllgu";
+            this.lbllgu.Size = new System.Drawing.Size(34, 13);
+            this.lbllgu.TabIndex = 299;
+            this.lbllgu.Text = "Value";
             // 
             // cbxproducer
             // 
@@ -624,11 +641,11 @@
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(103, 208);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.Size = new System.Drawing.Size(42, 15);
             this.label7.TabIndex = 295;
             this.label7.Text = "Notice";
             // 
@@ -636,7 +653,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox3.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox3.Location = new System.Drawing.Point(165, 215);
             this.pictureBox3.Name = "pictureBox3";
@@ -648,7 +665,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox4.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox4.Location = new System.Drawing.Point(10, 215);
             this.pictureBox4.Name = "pictureBox4";
@@ -707,7 +724,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox1.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(165, 118);
             this.pictureBox1.Name = "pictureBox1";
@@ -719,7 +736,7 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox2.Location = new System.Drawing.Point(10, 118);
             this.pictureBox2.Name = "pictureBox2";
@@ -830,18 +847,6 @@
             this.label15.TabIndex = 282;
             this.label15.Text = "*";
             // 
-            // cbxpromo
-            // 
-            this.cbxpromo.AutoSize = true;
-            this.cbxpromo.BackColor = System.Drawing.Color.Transparent;
-            this.cbxpromo.ForeColor = System.Drawing.Color.White;
-            this.cbxpromo.Location = new System.Drawing.Point(180, 57);
-            this.cbxpromo.Name = "cbxpromo";
-            this.cbxpromo.Size = new System.Drawing.Size(93, 17);
-            this.cbxpromo.TabIndex = 300;
-            this.cbxpromo.Text = "Is a Promotion";
-            this.cbxpromo.UseVisualStyleBackColor = false;
-            // 
             // frmPatron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -856,6 +861,7 @@
             this.Controls.Add(this.kryptonGroup1);
             this.Controls.Add(this.btnselect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPatron";
             this.Opacity = 0.98D;
             this.Text = "Patron Information";
@@ -903,15 +909,15 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label17;
-        internal System.Windows.Forms.TextBox txtposition;
-        internal System.Windows.Forms.TextBox txtlgu;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtposition;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtlgu;
         private System.Windows.Forms.PictureBox pictureBox2;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
         internal System.Windows.Forms.Label label3;
-        internal System.Windows.Forms.TextBox txtprice;
-        internal System.Windows.Forms.TextBox txtname;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtprice;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtname;
         internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.TextBox txtcode;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcode;
         internal System.Windows.Forms.Label Label8;
         internal System.Windows.Forms.Label label14;
         internal System.Windows.Forms.Label label16;
@@ -925,7 +931,7 @@
         private System.Windows.Forms.CheckBox cbxamusement;
         private System.Windows.Forms.CheckBox cbxproducer;
         private System.Windows.Forms.CheckBox cbxgross;
-        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label lbllgu;
         private System.Windows.Forms.CheckBox cbxpromo;
     }
 }

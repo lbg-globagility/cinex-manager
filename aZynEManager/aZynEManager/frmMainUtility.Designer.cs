@@ -35,6 +35,7 @@
             this.btnRating = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnTitle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnCinema = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pnlClose = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             this.btnPatrons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPatrons.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPatrons.Location = new System.Drawing.Point(10, 228);
+            this.btnPatrons.Location = new System.Drawing.Point(10, 105);
             this.btnPatrons.Name = "btnPatrons";
             this.btnPatrons.Size = new System.Drawing.Size(283, 60);
             this.btnPatrons.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -81,8 +82,8 @@
             this.btnPatrons.StateTracking.Border.Rounding = 1;
             this.btnPatrons.StateTracking.Border.Width = 3;
             this.btnPatrons.TabIndex = 36;
-            this.btnPatrons.Values.ExtraText = "movie trailers";
-            this.btnPatrons.Values.Image = global::aZynEManager.Properties.Resources.movietrailer;
+            this.btnPatrons.Values.ExtraText = "group of \r\npatronizers";
+            this.btnPatrons.Values.Image = global::aZynEManager.Properties.Resources.icon_patron;
             this.btnPatrons.Values.Text = "Patrons";
             this.btnPatrons.Click += new System.EventHandler(this.btnPatrons_Click);
             // 
@@ -91,7 +92,7 @@
             this.btnClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClass.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClass.Location = new System.Drawing.Point(10, 165);
+            this.btnClass.Location = new System.Drawing.Point(10, 291);
             this.btnClass.Name = "btnClass";
             this.btnClass.Size = new System.Drawing.Size(283, 60);
             this.btnClass.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -129,8 +130,8 @@
             this.btnClass.StateTracking.Border.Rounding = 1;
             this.btnClass.StateTracking.Border.Width = 3;
             this.btnClass.TabIndex = 35;
-            this.btnClass.Values.ExtraText = "movie showing \r\nschedules\r\n";
-            this.btnClass.Values.Image = global::aZynEManager.Properties.Resources.moviesched;
+            this.btnClass.Values.ExtraText = "original film\r\nclassification";
+            this.btnClass.Values.Image = global::aZynEManager.Properties.Resources.icon_movie_class;
             this.btnClass.Values.Text = "Classification";
             this.btnClass.Click += new System.EventHandler(this.btnClass_Click);
             // 
@@ -139,7 +140,7 @@
             this.btnDistributor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDistributor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDistributor.Location = new System.Drawing.Point(10, 102);
+            this.btnDistributor.Location = new System.Drawing.Point(10, 229);
             this.btnDistributor.Name = "btnDistributor";
             this.btnDistributor.Size = new System.Drawing.Size(283, 60);
             this.btnDistributor.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -177,8 +178,8 @@
             this.btnDistributor.StateTracking.Border.Rounding = 1;
             this.btnDistributor.StateTracking.Border.Width = 3;
             this.btnDistributor.TabIndex = 34;
-            this.btnDistributor.Values.ExtraText = "record of producers\r\nshare per movies";
-            this.btnDistributor.Values.Image = global::aZynEManager.Properties.Resources.movieshare;
+            this.btnDistributor.Values.ExtraText = "list of \r\nproducers";
+            this.btnDistributor.Values.Image = global::aZynEManager.Properties.Resources.icon_distributors;
             this.btnDistributor.Values.Text = "Distributor";
             this.btnDistributor.Click += new System.EventHandler(this.btnDistributor_Click);
             // 
@@ -187,7 +188,7 @@
             this.btnRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRating.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRating.Location = new System.Drawing.Point(10, 39);
+            this.btnRating.Location = new System.Drawing.Point(10, 167);
             this.btnRating.Name = "btnRating";
             this.btnRating.Size = new System.Drawing.Size(283, 60);
             this.btnRating.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -225,8 +226,9 @@
             this.btnRating.StateTracking.Border.Rounding = 1;
             this.btnRating.StateTracking.Border.Width = 3;
             this.btnRating.TabIndex = 32;
-            this.btnRating.Values.Image = global::aZynEManager.Properties.Resources.movielist;
-            this.btnRating.Values.Text = "Movie Rating";
+            this.btnRating.Values.ExtraText = "MTRCB \r\nclassification rating";
+            this.btnRating.Values.Image = global::aZynEManager.Properties.Resources.icon_mtrcb_ratings;
+            this.btnRating.Values.Text = "Rating";
             this.btnRating.Click += new System.EventHandler(this.btnList_Click);
             // 
             // btnTitle
@@ -298,6 +300,54 @@
             this.btnselect.Values.Text = "unselect";
             this.btnselect.Visible = false;
             // 
+            // btnCinema
+            // 
+            this.btnCinema.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCinema.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCinema.Location = new System.Drawing.Point(10, 43);
+            this.btnCinema.Name = "btnCinema";
+            this.btnCinema.Size = new System.Drawing.Size(283, 60);
+            this.btnCinema.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.btnCinema.StateCommon.Back.Color2 = System.Drawing.Color.Salmon;
+            this.btnCinema.StateCommon.Back.ColorAngle = 20F;
+            this.btnCinema.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnCinema.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
+            this.btnCinema.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCinema.StateCommon.Border.Rounding = 1;
+            this.btnCinema.StateCommon.Border.Width = 3;
+            this.btnCinema.StateCommon.Content.AdjacentGap = 10;
+            this.btnCinema.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnCinema.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnCinema.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnCinema.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnCinema.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCinema.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnCinema.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnCinema.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnCinema.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnCinema.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, -1, -1);
+            this.btnCinema.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.OrangeRed;
+            this.btnCinema.StateCommon.Content.ShortText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnCinema.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCinema.StateCommon.Content.ShortText.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias;
+            this.btnCinema.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnCinema.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnCinema.StateTracking.Border.Color1 = System.Drawing.Color.Black;
+            this.btnCinema.StateTracking.Border.Color2 = System.Drawing.Color.Black;
+            this.btnCinema.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCinema.StateTracking.Border.Rounding = 1;
+            this.btnCinema.StateTracking.Border.Width = 3;
+            this.btnCinema.TabIndex = 39;
+            this.btnCinema.Values.ExtraText = "records of cinema";
+            this.btnCinema.Values.Image = global::aZynEManager.Properties.Resources.icon_cinema;
+            this.btnCinema.Values.Text = "Cinema";
+            this.btnCinema.Click += new System.EventHandler(this.btnCinema_Click);
+            // 
             // pnlClose
             // 
             this.pnlClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -317,14 +367,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 358);
-            this.Controls.Add(this.btnselect);
+            this.Controls.Add(this.btnCinema);
             this.Controls.Add(this.btnPatrons);
             this.Controls.Add(this.btnClass);
             this.Controls.Add(this.btnDistributor);
             this.Controls.Add(this.pnlClose);
             this.Controls.Add(this.btnRating);
             this.Controls.Add(this.btnTitle);
+            this.Controls.Add(this.btnselect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainUtility";
             this.Text = "frmMainUtility";
             this.ResumeLayout(false);
@@ -340,5 +392,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnRating;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnTitle;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCinema;
     }
 }

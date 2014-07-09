@@ -41,9 +41,9 @@
             this.btnDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.txtcnt = new System.Windows.Forms.Label();
             this.grpValues = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.txtdesc = new System.Windows.Forms.TextBox();
+            this.txtdesc = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtname = new System.Windows.Forms.TextBox();
+            this.txtname = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -508,6 +508,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpfilter);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(375, 600);
             this.Name = "frmClassification";
             this.Opacity = 0.98D;
@@ -548,9 +549,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
         internal System.Windows.Forms.Label txtcnt;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup grpValues;
-        internal System.Windows.Forms.TextBox txtdesc;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtdesc;
         internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.TextBox txtname;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtname;
         internal System.Windows.Forms.Label Label8;
     }
 }

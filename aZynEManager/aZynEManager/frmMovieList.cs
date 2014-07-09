@@ -37,6 +37,12 @@ namespace aZynEManager
             sbqry.Append("FROM movies a, mtrcb b, distributor c, movies_status d WHERE a.rating_id = b.id and a.dist_id = c.id and a.status = d.status_id");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
+
+            //sbqry = new StringBuilder();
+            //sbqry.Append("SELECT b.description, b.name, b.id FROM classification b ");
+            //sbqry.Append("order by b.description asc");
+            //DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            //setDataGridViewII(dgvClass, dt);
         }
 
         public void frmInit(frmMain frm, clscommon cls)
@@ -52,13 +58,26 @@ namespace aZynEManager
 
             populatedistributor();
             populateratings();
-            populateclassification();
+            //populateclassification();
 
             cmbdistributor.Enabled = false;
             cmbrating.Enabled = false;
             dgvResult.ClearSelection();
 
             setnormal();
+            if(dgvClass.DataSource != null)
+                setCheck(dgvClass, false);
+        }
+
+        public void setCheck(DataGridView dgv, bool boolchk)
+        {
+            int cnt = 0;
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                dgv[0, i].Value = (object)boolchk;
+                if (boolchk)
+                    cnt += 1;
+            }
         }
 
         public void setDataGridView(DataTable dt)
@@ -77,7 +96,7 @@ namespace aZynEManager
                 dgvResult.Columns[1].HeaderText = "Movie Code";
                 dgvResult.Columns[2].Width = iwidth * 2;
                 dgvResult.Columns[2].HeaderText = "Movie Title";
-                dgvResult.Columns[3].Width = iwidth - 5;
+                dgvResult.Columns[3].Width = iwidth - 15;
                 dgvResult.Columns[3].HeaderText = "Film Length";
                 dgvResult.Columns[4].Width = iwidth - 5;
                 dgvResult.Columns[4].HeaderText = "Movie Rating";
@@ -87,6 +106,28 @@ namespace aZynEManager
                 dgvResult.Columns[6].HeaderText = "Share Percentage";
                 dgvResult.Columns[7].Width = 0;
                 dgvResult.Columns[7].HeaderText = "Status";
+            }
+        }
+
+        public void setDataGridViewII(DataGridView dgv,DataTable dt)
+        {
+            if (dt.Rows.Count > 0)
+            {
+                DataGridViewCheckBoxColumn cbx = new DataGridViewCheckBoxColumn();
+                cbx.Width = 30;
+
+                int iwidth = dgv.Width / 3;
+                dgv.DataSource = dt;
+                dgv.Columns[0].Width = (iwidth * 2) + 5;
+                dgv.Columns[0].HeaderText = "Description";
+                dgv.Columns[0].ReadOnly = true;
+                dgv.Columns[1].Width = 0;
+                dgv.Columns[1].HeaderText = "Name";
+                dgv.Columns[1].ReadOnly = true;
+                dgv.Columns[2].Width = 0;
+                dgv.Columns[2].HeaderText = "ID";
+                dgv.Columns[2].ReadOnly = true;
+                dgv.Columns.Insert(0, cbx);
             }
         }
 
@@ -107,8 +148,8 @@ namespace aZynEManager
             if (cmbrating.Items.Count > 0)
                 cmbrating.SelectedIndex = 0;
 
-            for (int i = 0; i < this.lstcls.Items.Count; i++)
-                this.lstcls.Items[i].Checked = false;
+            //for (int i = 0; i < this.lstcls.Items.Count; i++)
+            //    this.lstcls.Items[i].Checked = false;
 
 
             btnAdd.Enabled = true;
@@ -132,7 +173,7 @@ namespace aZynEManager
         private void populateclassification()
         {
             DataTable dt = new DataTable();
-            lstcls.Items.Clear();
+            //lstcls.Items.Clear();
             ListViewItem lvitem = new ListViewItem();
             string sqry = "[id] > -1";
 
@@ -306,13 +347,13 @@ namespace aZynEManager
                 cmbrating.Enabled = true;
 
                 //for further study classification for search
-                for (int i = 0; i < this.lstcls.Items.Count; i++)
-                    this.lstcls.Items[i].Checked = false;
-                lstcls.Enabled = false;
+                //for (int i = 0; i < this.lstcls.Items.Count; i++)
+                //    this.lstcls.Items[i].Checked = false;
+                //lstcls.Enabled = false;
 
                 m_frmM.m_dtmovies = m_dt;// m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
 
-                grpcontrol.Visible = false;
+                grpcontrol.Visible = true;
                 grpfilter.Visible = true;
             }
             else
@@ -339,6 +380,18 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "MOVIE_ADD", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+
             unselectbutton();
             if (btnAdd.Text  == "new")
             {
@@ -367,6 +420,17 @@ namespace aZynEManager
 
                 cmbdistributor.Enabled = true;
                 cmbrating.Enabled = true;
+
+                StringBuilder sbqry = new StringBuilder();
+                sbqry.Append("SELECT b.description, b.name, b.id FROM classification b ");
+                sbqry.Append("order by b.description asc");
+                DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+                if (dt.Rows.Count > 0)
+                {
+                    dgvClass.DataSource = null;
+                    dgvClass.Columns.Clear();
+                    setDataGridViewII(dgvClass, dt);
+                }
             }
             else
             {
@@ -391,15 +455,35 @@ namespace aZynEManager
                     dttime.Focus();
                     return;
                 }
-                if(lstcls.CheckedItems.Count == 0)
-                {
+                //if(lstcls.CheckedItems.Count == 0)
+                //{
 
-                    DialogResult ans = MessageBox.Show("You have forgotten to specify \n\rthe movie classification, continue?","Information",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                    if(ans== System.Windows.Forms.DialogResult.No)
+                //    DialogResult ans = MessageBox.Show("You have forgotten to specify \n\rthe movie classification, continue?","Information",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                //    if(ans== System.Windows.Forms.DialogResult.No)
+                //    {
+                //        lstcls.Focus();
+                //        return;
+                //    }
+                //}
+
+                int chkcnt = 0;
+                for (int i = 0; i < dgvClass.Rows.Count; i++)
+                {
+                    if (dgvClass[0, i].Value != null)
                     {
-                        lstcls.Focus();
-                        return;
+                        if ((bool)dgvClass[0, i].Value)
+                        {
+                            chkcnt += 1;
+                        }
                     }
+                }
+                if (chkcnt == 0)
+                {
+                    MessageBox.Show("Please check the classification \n\r for the movie.",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (dgvClass.DataSource != null)
+                        dgvClass.Focus();
+                    return;
                 }
 
                 myconn = new MySqlConnection();
@@ -430,6 +514,7 @@ namespace aZynEManager
                     return;
                 }
 
+                sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into movies value(0,'{0}','{1}',{2},{3},{4},{5},0)",
                     txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
                     cmbrating.SelectedValue,inttime));
@@ -439,35 +524,42 @@ namespace aZynEManager
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
                     cmd.ExecuteNonQuery();
 
                     string strid = cmd.LastInsertedId.ToString();
 
                     cmd.Dispose();
-                    foreach (int i in lstcls.CheckedIndices)
-                    {
-                        ListViewItem lvitem = lstcls.Items[i];
-                        int intval = Convert.ToInt32(lvitem.SubItems[1].Text.ToString());
-                        string strqry = String.Format("insert into movies_class value(0,{0},{1})", strid, intval);
-                        try
-                        {
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd2 = new MySqlCommand(strqry, myconn);
-                            cmd2.ExecuteNonQuery();
-                            cmd2.Dispose();
-                        }
-                        catch
-                        {
-                            if (myconn.State == ConnectionState.Open)
-                                myconn.Close();
-                            setnormal();
-                            return;
-                        }
-                    }
+                    //foreach (int i in lstcls.CheckedIndices)
+                    //{
+                    //    ListViewItem lvitem = lstcls.Items[i];
+                    //    int intval = Convert.ToInt32(lvitem.SubItems[1].Text.ToString());
+                    //    string strqry = String.Format("insert into movies_class value(0,{0},{1})", strid, intval);
+                    //    try
+                    //    {
+                    //        if (myconn.State == ConnectionState.Closed)
+                    //            myconn.Open();
+                    //        MySqlCommand cmd2 = new MySqlCommand(strqry, myconn);
+
+                    //        cmd2.ExecuteNonQuery();
+                    //        cmd2.Dispose();
+                    //    }
+                    //    catch
+                    //    {
+                    //        if (myconn.State == ConnectionState.Open)
+                    //            myconn.Close();
+                    //        setnormal();
+                    //        return;
+                    //    }
+                    //}
+                    tabinsertcheck(myconn, dgvClass, Convert.ToInt32(strid));
 
                     if(myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_ADD", "MOVIES|MOVIES_CLASS",
+                        Environment.MachineName.ToString(), "ADD NEW MOVIE INFO: NAME=" + this.txtcode.Text
+                        + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV();
                     setnormal();
@@ -479,6 +571,28 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
                     MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void tabinsertcheck(MySqlConnection myconn, DataGridView dgv, int intid)
+        {
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                if (dgv[0, i].Value != null)
+                {
+                    if ((bool)dgv[0, i].Value)
+                    {
+                        StringBuilder sqry = new StringBuilder();
+                        sqry.Append(String.Format("insert into movies_class values(0,{0},{1})",
+                            intid, dgv[3, i].Value.ToString()));
+
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
                 }
             }
         }
@@ -509,6 +623,17 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "MOVIE_DELETE", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (btnDelete.Text == "remove")
             {
@@ -541,11 +666,21 @@ namespace aZynEManager
                         return;
                     }
 
-                    //delete from the moview table where the status is inactive or = 0
-                    sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from movies where id = {0} and status = 0", intid));
                     try
                     {
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from movies_class where movie_id = {0}", intid));
+                        MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd2.ExecuteNonQuery();
+                        cmd2.Dispose();
+
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+
+                        //delete from the moview table where the status is inactive or = 0
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from movies where id = {0} and status = 0", intid));
+                
                         if(myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -555,14 +690,10 @@ namespace aZynEManager
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
 
-                        sqry = new StringBuilder();
-                        sqry.Append(String.Format("delete from movies_class where movie_id = {0}", intid));
-                        MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd2.ExecuteNonQuery();
-                        cmd2.Dispose();
-
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
+ 
+                        m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_DELETE", "MOVIES|MOVIES_CLASS",
+                            Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
+                            + " | ID=" + intid.ToString(), m_frmM._connection);
                     }
                     catch (MySqlException er)
                     {
@@ -636,8 +767,8 @@ namespace aZynEManager
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                if (cbxfilter.Checked == false)
-                {
+                //if (cbxfilter.Checked == false)
+                //{
                     btnEdit.Enabled = true;
                     btnEdit.Text = "edit";
 
@@ -655,8 +786,24 @@ namespace aZynEManager
                     cmbdistributor.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
                     txtshare.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
 
-                    checkList(dgv.SelectedRows[0].Cells[0].Value.ToString());
-                }
+                    StringBuilder sbqry = new StringBuilder();
+                    sbqry.Append("SELECT b.description, b.name, a.class_id as id FROM movies_class a, classification b ");
+                    sbqry.Append(String.Format("where a.movie_id = {0} and a.class_id = b.id order by b.description asc", dgv.SelectedRows[0].Cells[0].Value.ToString()));
+                    DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        dgvClass.DataSource = null;
+                        dgvClass.Columns.Clear();
+                        setDataGridViewII(dgvClass, dt);
+                    }
+
+                    setCheck(dgvClass, true);
+
+                    //checkList(dgv.SelectedRows[0].Cells[0].Value.ToString());
+                    //for (int i = 0; i < this.lstcls.Items.Count; i++)
+                    //    this.lstcls.Items[i].Checked = true;
+                //}
             }
         }
 
@@ -669,7 +816,8 @@ namespace aZynEManager
             string sqry = String.Format("select class_id from movies_class where movie_id = {0}", strid);
             MySqlConnection myconn = new MySqlConnection();
             myconn.ConnectionString = m_frmM._connection;
-            myconn.Open();
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
 
             if (myconn.State == ConnectionState.Open)
             {
@@ -690,6 +838,17 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "MOVIE_EDIT", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -716,6 +875,51 @@ namespace aZynEManager
                 txtcode.ReadOnly = false;
                 txttitle.ReadOnly = false;
                 txtshare.ReadOnly = false;
+
+                MySqlConnection myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+ 
+                int movieid = -1;
+                if (dgvResult.SelectedRows.Count == 1)
+                    movieid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+
+                StringBuilder sbqry = new StringBuilder();
+                sbqry.Append("select a.description, a.name, a.id FROM classification a ");
+                sbqry.Append(String.Format("where a.id not in(select b.class_id from movies_class b where b.movie_id = {0}) ", movieid));
+                sbqry.Append("order by a.id asc");
+                DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+                DataTable dgvdt = (DataTable)dgvClass.DataSource;
+                dgvdt.Merge(dt);
+                dgvClass.DataSource = dgvdt;
+
+                setCheck(dgvClass, false);
+                int rowCount = 0;
+                StringBuilder sqry2 = new StringBuilder();
+                for (int i = 0; i < dgvClass.Rows.Count; i++)
+                {
+                    int intmid = 0;
+                    int intout = -1;
+                    if (int.TryParse(dgvClass[3, i].Value.ToString(), out intout))
+                        intmid = intout;
+
+                    if (intmid > 0)
+                    {
+                        sqry2 = new StringBuilder();
+                        sqry2.Append(String.Format("select count(*) from movies_class a where a.movie_id = {0}", movieid));
+                        sqry2.Append(String.Format(" and a.class_id = {0}", intmid));
+                        if (myconn != null)
+                        {
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd = new MySqlCommand(sqry2.ToString(), myconn);
+                            rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                            cmd.Dispose();
+                        }
+
+                        if (rowCount > 0)
+                            dgvClass[0, i].Value = (object)true;
+                    }
+                }
             }
             else if (btnEdit.Text == "update")
             {
@@ -740,16 +944,37 @@ namespace aZynEManager
                     dttime.Focus();
                     return;
                 }
-                if(lstcls.CheckedItems.Count == 0)
-                {
+                //if(lstcls.CheckedItems.Count == 0)
+                //{
 
-                    DialogResult ans = MessageBox.Show("You have forgotten to specify \n\rthe movie classification, continue?","Information",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                    if(ans== System.Windows.Forms.DialogResult.No)
+                //    DialogResult ans = MessageBox.Show("You have forgotten to specify \n\rthe movie classification, continue?","Information",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                //    if(ans== System.Windows.Forms.DialogResult.No)
+                //    {
+                //        lstcls.Focus();
+                //        return;
+                //    }
+                //}
+
+                int chkcnt = 0;
+                for (int i = 0; i < dgvClass.Rows.Count; i++)
+                {
+                    if (dgvClass[0, i].Value != null)
                     {
-                        lstcls.Focus();
-                        return;
+                        if ((bool)dgvClass[0, i].Value)
+                        {
+                            chkcnt += 1;
+                        }
                     }
                 }
+                if (chkcnt == 0)
+                {
+                    MessageBox.Show("Please check the classification \n\r for the movie.",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (dgvClass.DataSource != null)
+                        dgvClass.Focus();
+                    return;
+                }
+
                 int totaltime = calculatetime();
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
@@ -766,7 +991,8 @@ namespace aZynEManager
                 sqry.Append(String.Format("and dist_id = {0} ", cmbdistributor.SelectedValue));
                 sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
                 sqry.Append(String.Format("and rating_id = {0} ", cmbrating.SelectedValue));
-                sqry.Append(String.Format("and duration = {0}", totaltime));
+                sqry.Append(String.Format("and duration = {0} ", totaltime));
+                sqry.Append(String.Format("and id = {0}",intid));
 
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
@@ -811,37 +1037,43 @@ namespace aZynEManager
                         MySqlCommand cmd3 = new MySqlCommand(strqry.ToString(), myconn);
                         cmd3.ExecuteNonQuery();
                         cmd3.Dispose();
+
+                        tabinsertcheck(myconn, dgvClass, intid);
                     }
                     catch
                     {
                         MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     
-                    //insert the movie_class update
-                    foreach (int i in lstcls.CheckedIndices)
-                    {
-                        ListViewItem lvitem = lstcls.Items[i];
-                        int intval = Convert.ToInt32(lvitem.SubItems[1].Text.ToString());
-                        strqry = new StringBuilder();
-                        strqry.Append(String.Format("insert into movies_class value(0,{0},{1})", intid, intval));
-                        try
-                        {
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd2 = new MySqlCommand(strqry.ToString(), myconn);
-                            cmd2.ExecuteNonQuery();
-                            cmd2.Dispose();
-                        }
-                        catch
-                        {
-                            if (myconn.State == ConnectionState.Open)
-                                myconn.Close();
-                            setnormal();
-                            return;
-                        }
-                    }
+                    ////insert the movie_class update
+                    //foreach (int i in lstcls.CheckedIndices)
+                    //{
+                    //    ListViewItem lvitem = lstcls.Items[i];
+                    //    int intval = Convert.ToInt32(lvitem.SubItems[1].Text.ToString());
+                    //    strqry = new StringBuilder();
+                    //    strqry.Append(String.Format("insert into movies_class value(0,{0},{1})", intid, intval));
+                    //    try
+                    //    {
+                    //        if (myconn.State == ConnectionState.Closed)
+                    //            myconn.Open();
+                    //        MySqlCommand cmd2 = new MySqlCommand(strqry.ToString(), myconn);
+                    //        cmd2.ExecuteNonQuery();
+                    //        cmd2.Dispose();
+                    //    }
+                    //    catch
+                    //    {
+                    //        if (myconn.State == ConnectionState.Open)
+                    //            myconn.Close();
+                    //        setnormal();
+                    //        return;
+                    //    }
+                    //}
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_EDIT", "MOVIES|MOVIES_CLASS",
+                        Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
+                        + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV();
                     setnormal();
@@ -887,27 +1119,27 @@ namespace aZynEManager
                 m_frmM.m_dtmovies = m_dt;
             }
 
-            if (lstcls.CheckedItems.Count > 0)
-            {
-                StringBuilder newsb = new StringBuilder();
-                newsb.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, a.share_perc as share, d.status_desc as status ");
-                newsb.Append("FROM movies a,  mtrcb b, distributor c, movie_status d ");
-                newsb.Append(sqry.ToString());
+            //if (lstcls.CheckedItems.Count > 0)
+            //{
+            //    StringBuilder newsb = new StringBuilder();
+            //    newsb.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, a.share_perc as share, d.status_desc as status ");
+            //    newsb.Append("FROM movies a,  mtrcb b, distributor c, movie_status d ");
+            //    newsb.Append(sqry.ToString());
 
-            }
-            else if (lstcls.CheckedItems.Count == 0)
+            //}
+            //else if (lstcls.CheckedItems.Count == 0)
+            //{
+            var foundRows = m_dt.Select(sqry.ToString());
+            if (foundRows.Count() == 0)
             {
-                var foundRows = m_dt.Select(sqry.ToString());
-                if (foundRows.Count() == 0)
-                {
-                    setDataGridView(m_dt);
-                    txtcnt.Text = "Count: 0";
-                    MessageBox.Show("No records found using the given information.", "Search Movies", MessageBoxButtons.OK);
-                    return;
-                }
-                else
-                    dt = foundRows.CopyToDataTable();
+                setDataGridView(m_dt);
+                txtcnt.Text = "Count: 0";
+                MessageBox.Show("No records found using the given information.", "Search Movies", MessageBoxButtons.OK);
+                return;
             }
+            else
+                dt = foundRows.CopyToDataTable();
+            //}
              
             if (dt.Rows.Count > 0)
             {

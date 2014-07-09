@@ -146,7 +146,8 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
                 try
                 {
-                    myconn.Open();
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
                     MySqlCommand cmd = new MySqlCommand(strqry, myconn);
                     cmd.ExecuteNonQuery();
 
@@ -247,6 +248,17 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "RATING_ADD", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (btnAdd.Text == "new")
             {
@@ -319,7 +331,8 @@ namespace aZynEManager
                 
                 try
                 {
-                    myconn.Open();
+                    if(myconn.State == ConnectionState.Closed)
+                        myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
                     cmd.ExecuteNonQuery();
 
@@ -328,6 +341,10 @@ namespace aZynEManager
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "RATING_ADD", "MTRCB",
+                            Environment.MachineName.ToString(), "ADD NEW MTRCB RATING INFO: NAME=" + txtname.Text
+                            + " | ID=" + strid, m_frmM._connection);
 
                     refreshDGV();
                     setnormal();
@@ -344,8 +361,18 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            unselectbutton();
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "RATING_DELETE", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
 
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+            unselectbutton();
             if (btnDelete.Text == "remove")
             {
                 DialogResult ans = MessageBox.Show("Are you sure you want to remove \n\rthis record, continue?",
@@ -377,26 +404,41 @@ namespace aZynEManager
                         return;
                     }
 
-                    //delete from the moview table where the status is inactive or = 0
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from mtrcb where id = {0}", intid));
-                    try
-                    {
-                        //delete value for the movies table
-                        if (myconn.State == ConnectionState.Closed)
-                            myconn.Open();
-                        cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                    sqry.Append(String.Format("select count(*) from mtrcb where id = {0}", intid));
+                    if(myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
 
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                    }
-                    catch (MySqlException er)
+                    if (rowCount > 0)
                     {
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                        MessageBox.Show(er.Message, this.Text);
+                        //delete from the moview table where the status is inactive or = 0
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from mtrcb where id = {0}", intid));
+                        try
+                        {
+                            //delete value for the movies table
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+
+                            m_clscom.AddATrail(m_frmM.m_userid, "RATING_DELETE", "MTRCB",
+                                Environment.MachineName.ToString(), "REMOVED MTRCB RATING INFO: NAME=" + txtname.Text
+                                + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                        }
+                        catch (MySqlException er)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show(er.Message, this.Text);
+                        }
                     }
                 }
             }
@@ -406,6 +448,17 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "RATING_EDIT", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -457,7 +510,8 @@ namespace aZynEManager
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from mtrcb ");
                 sqry.Append(String.Format("where name = '{0}' ", txtname.Text.Trim()));
-                sqry.Append(String.Format("and description = '{0}'", txtdesc.Text.Trim()));
+                sqry.Append(String.Format("and description = '{0}' ", txtdesc.Text.Trim()));
+                sqry.Append(String.Format("and id = {0}",intid.ToString()));
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -482,13 +536,18 @@ namespace aZynEManager
                 try
                 {
                     //update the movies table
-                    myconn.Open();
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
                     cmd = new MySqlCommand(strqry.ToString(), myconn);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "RATING_EDIT", "MTRCB",
+                            Environment.MachineName.ToString(), "UPDATED MTRCB RATING INFO: NAME=" + txtname.Text
+                            + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV();
                     setnormal();

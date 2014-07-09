@@ -58,7 +58,15 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cinema-manager-icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Navigator, Version=2.8.5.0, Culture=neutral, PublicKeyToken=09b1fd14b47a78e6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\aZynE\library\ComponentFactory.Krypton.Navigator.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Ribbon, Version=2.8.5.0, Culture=neutral, PublicKeyToken=ca7912ff32f9150d, processorArchitecture=MSIL" />
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.8.5.0, Culture=neutral, PublicKeyToken=65a84d45e882d207, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,6 +79,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,6 +95,21 @@
     <Compile Include="clscommon.cs" />
     <Compile Include="clsTransparentPanel.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ContextMenuCalendarItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmample.Designer.cs">
+      <DependentUpon>frmample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCinema.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCinema.designer.cs">
+      <DependentUpon>frmCinema.cs</DependentUpon>
     </Compile>
     <Compile Include="frmClassification.cs">
       <SubType>Form</SubType>
@@ -105,6 +129,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMainConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainConfig.designer.cs">
+      <DependentUpon>frmMainConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMainMovie.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +152,12 @@
     </Compile>
     <Compile Include="frmMovieList.Designer.cs">
       <DependentUpon>frmMovieList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMovieSched.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMovieSched.designer.cs">
+      <DependentUpon>frmMovieSched.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPatron.cs">
       <SubType>Form</SubType>
@@ -141,9 +177,66 @@
     <Compile Include="frmRating.Designer.cs">
       <DependentUpon>frmRating.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSked.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSked.Designer.cs">
+      <DependentUpon>frmSked.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSoundSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSoundSystem.designer.cs">
+      <DependentUpon>frmSoundSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaskManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaskManager.designer.cs">
+      <DependentUpon>frmTaskManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTrail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTrail.designer.cs">
+      <DependentUpon>frmTrail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUser.designer.cs">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserLevel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserLevel.designer.cs">
+      <DependentUpon>frmUserLevel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListViewSorter.cs" />
+    <Compile Include="PopedCotainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PopedCotainer.designer.cs">
+      <DependentUpon>PopedCotainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PoperContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PoperContainer.designer.cs">
+      <DependentUpon>PoperContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ContextMenuCalendarItem.resx">
+      <DependentUpon>ContextMenuCalendarItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmample.resx">
+      <DependentUpon>frmample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCinema.resx">
+      <DependentUpon>frmCinema.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmClassification.resx">
       <DependentUpon>frmClassification.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainConfig.resx">
+      <DependentUpon>frmMainConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMainMovie.resx">
       <DependentUpon>frmMainMovie.cs</DependentUpon>
@@ -162,6 +258,9 @@
     <EmbeddedResource Include="frmMovieList.resx">
       <DependentUpon>frmMovieList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMovieSched.resx">
+      <DependentUpon>frmMovieSched.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPatron.resx">
       <DependentUpon>frmPatron.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +270,28 @@
     <EmbeddedResource Include="frmRating.resx">
       <DependentUpon>frmRating.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSked.resx">
+      <DependentUpon>frmSked.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSoundSystem.resx">
+      <DependentUpon>frmSoundSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaskManager.resx">
+      <DependentUpon>frmTaskManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTrail.resx">
+      <DependentUpon>frmTrail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUser.resx">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserLevel.resx">
+      <DependentUpon>frmUserLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopedCotainer.resx">
+      <DependentUpon>PopedCotainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -184,6 +305,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -323,6 +445,77 @@
       <Project>{3AFCB573-4B60-40BB-9876-9BB69573E6E5}</Project>
       <Name>CommonLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EncryptUtilities\EncryptUtilities.csproj">
+      <Project>{EB833D79-9D87-48EC-B396-79AACE685253}</Project>
+      <Name>EncryptUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+      <Project>{25649F08-3046-4891-ADB8-7EA787B57063}</Project>
+      <Name>System.Windows.Forms.Calendar</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\seats.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-cinema.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-patron.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-mtrcb-ratings.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-distributors.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-movie-class.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-database.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-producer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-calendar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-restore.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-users.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-syslogs.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-sys-param.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-grants.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-audit-trail.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-audit-trail1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cinema-manager-icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

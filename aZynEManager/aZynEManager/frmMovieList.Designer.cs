@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMovieList));
             this.lvwResults = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -37,23 +38,23 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvResult = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.lstcls = new System.Windows.Forms.ListView();
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cbxfilter = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbdistributor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.lstcls = new System.Windows.Forms.ListView();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txttitle = new System.Windows.Forms.TextBox();
+            this.txttitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtcode = new System.Windows.Forms.TextBox();
+            this.txtcode = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Label8 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.cmbrating = new System.Windows.Forms.ComboBox();
             this.grpparameter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.txtshare = new System.Windows.Forms.TextBox();
+            this.txtshare = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.dttime = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -74,6 +75,9 @@
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.btnsearch = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnclear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.dgvClass = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter)).BeginInit();
@@ -88,6 +92,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
+            this.kryptonGroup1.Panel.SuspendLayout();
+            this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
             this.SuspendLayout();
             // 
             // lvwResults
@@ -146,6 +155,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dgvResult);
             this.groupBox1.Controls.Add(this.lvwResults);
+            this.groupBox1.Controls.Add(this.lstcls);
             this.groupBox1.Location = new System.Drawing.Point(5, -1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(697, 307);
@@ -173,6 +183,37 @@
             this.dgvResult.TabIndex = 31;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
             this.dgvResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvResult_CellFormatting);
+            // 
+            // lstcls
+            // 
+            this.lstcls.BackColor = System.Drawing.Color.White;
+            this.lstcls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstcls.CheckBoxes = true;
+            this.lstcls.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader6,
+            this.columnHeader7});
+            this.lstcls.FullRowSelect = true;
+            this.lstcls.GridLines = true;
+            this.lstcls.Location = new System.Drawing.Point(26, 204);
+            this.lstcls.MultiSelect = false;
+            this.lstcls.Name = "lstcls";
+            this.lstcls.Size = new System.Drawing.Size(186, 70);
+            this.lstcls.TabIndex = 81;
+            this.lstcls.UseCompatibleStateImageBehavior = false;
+            this.lstcls.View = System.Windows.Forms.View.Details;
+            this.lstcls.Visible = false;
+            this.lstcls.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstcls_ColumnClick);
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Classification";
+            this.columnHeader6.Width = 175;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "ID";
+            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader7.Width = 0;
             // 
             // cbxfilter
             // 
@@ -246,36 +287,6 @@
             this.label2.TabIndex = 82;
             this.label2.Text = "Running Time";
             // 
-            // lstcls
-            // 
-            this.lstcls.BackColor = System.Drawing.Color.White;
-            this.lstcls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstcls.CheckBoxes = true;
-            this.lstcls.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader6,
-            this.columnHeader7});
-            this.lstcls.FullRowSelect = true;
-            this.lstcls.GridLines = true;
-            this.lstcls.Location = new System.Drawing.Point(500, 5);
-            this.lstcls.MultiSelect = false;
-            this.lstcls.Name = "lstcls";
-            this.lstcls.Size = new System.Drawing.Size(186, 96);
-            this.lstcls.TabIndex = 81;
-            this.lstcls.UseCompatibleStateImageBehavior = false;
-            this.lstcls.View = System.Windows.Forms.View.Details;
-            this.lstcls.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstcls_ColumnClick);
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Classification";
-            this.columnHeader6.Width = 175;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "ID";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader7.Width = 0;
-            // 
             // txttitle
             // 
             this.txttitle.BackColor = System.Drawing.Color.White;
@@ -284,7 +295,7 @@
             this.txttitle.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txttitle.Location = new System.Drawing.Point(192, 7);
             this.txttitle.Name = "txttitle";
-            this.txttitle.Size = new System.Drawing.Size(293, 20);
+            this.txttitle.Size = new System.Drawing.Size(273, 20);
             this.txttitle.TabIndex = 79;
             this.txttitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -351,7 +362,6 @@
             // 
             this.grpparameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.grpparameter.Location = new System.Drawing.Point(5, 308);
-            this.grpparameter.MinimumSize = new System.Drawing.Size(699, 116);
             this.grpparameter.Name = "grpparameter";
             // 
             // grpparameter.Panel
@@ -361,7 +371,6 @@
             this.grpparameter.Panel.Controls.Add(this.label13);
             this.grpparameter.Panel.Controls.Add(this.cbxfilter);
             this.grpparameter.Panel.Controls.Add(this.label12);
-            this.grpparameter.Panel.Controls.Add(this.lstcls);
             this.grpparameter.Panel.Controls.Add(this.cmbrating);
             this.grpparameter.Panel.Controls.Add(this.btnadddistributor);
             this.grpparameter.Panel.Controls.Add(this.Label5);
@@ -379,7 +388,7 @@
             this.grpparameter.Panel.Controls.Add(this.label10);
             this.grpparameter.Panel.Controls.Add(this.label9);
             this.grpparameter.Panel.Controls.Add(this.label11);
-            this.grpparameter.Size = new System.Drawing.Size(699, 116);
+            this.grpparameter.Size = new System.Drawing.Size(484, 116);
             this.grpparameter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpparameter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpparameter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -453,6 +462,7 @@
             this.btnadddistributor.TabIndex = 274;
             this.btnadddistributor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnadddistributor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnadddistributor, "add new distributor information");
             this.btnadddistributor.UseVisualStyleBackColor = false;
             this.btnadddistributor.Click += new System.EventHandler(this.btnadddistributor_Click);
             // 
@@ -471,6 +481,7 @@
             this.btnaddrating.TabIndex = 273;
             this.btnaddrating.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnaddrating.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnaddrating, "add new MTRCB rating");
             this.btnaddrating.UseVisualStyleBackColor = false;
             this.btnaddrating.Click += new System.EventHandler(this.btnaddrating_Click);
             // 
@@ -516,7 +527,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(485, 9);
+            this.label11.Location = new System.Drawing.Point(461, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 24);
             this.label11.TabIndex = 288;
@@ -572,11 +583,11 @@
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(20, 514);
+            this.label18.Location = new System.Drawing.Point(10, 514);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 9);
+            this.label18.Size = new System.Drawing.Size(99, 13);
             this.label18.TabIndex = 285;
             this.label18.Text = "required information";
             // 
@@ -587,7 +598,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(6, 510);
+            this.label17.Location = new System.Drawing.Point(-2, 513);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 284;
@@ -596,7 +607,7 @@
             // grpcontrol
             // 
             this.grpcontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpcontrol.Location = new System.Drawing.Point(477, 423);
+            this.grpcontrol.Location = new System.Drawing.Point(263, 423);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -769,7 +780,7 @@
             // grpfilter
             // 
             this.grpfilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpfilter.Location = new System.Drawing.Point(554, 423);
+            this.grpfilter.Location = new System.Drawing.Point(113, 423);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -880,12 +891,55 @@
             this.btnclear.Values.Text = "clear";
             this.btnclear.Click += new System.EventHandler(this.btnclear_Click);
             // 
+            // kryptonGroup1
+            // 
+            this.kryptonGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonGroup1.Location = new System.Drawing.Point(495, 308);
+            this.kryptonGroup1.Name = "kryptonGroup1";
+            // 
+            // kryptonGroup1.Panel
+            // 
+            this.kryptonGroup1.Panel.Controls.Add(this.dgvClass);
+            this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
+            this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
+            this.kryptonGroup1.Size = new System.Drawing.Size(207, 221);
+            this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
+            this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
+            this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
+            this.kryptonGroup1.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
+            this.kryptonGroup1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroup1.StateCommon.Border.Rounding = 5;
+            this.kryptonGroup1.StateCommon.Border.Width = 2;
+            this.kryptonGroup1.TabIndex = 296;
+            // 
+            // dgvClass
+            // 
+            this.dgvClass.AllowUserToAddRows = false;
+            this.dgvClass.AllowUserToDeleteRows = false;
+            this.dgvClass.AllowUserToResizeRows = false;
+            this.dgvClass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvClass.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvClass.ColumnHeadersVisible = false;
+            this.dgvClass.Location = new System.Drawing.Point(5, 4);
+            this.dgvClass.Name = "dgvClass";
+            this.dgvClass.RowHeadersVisible = false;
+            this.dgvClass.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvClass.Size = new System.Drawing.Size(190, 204);
+            this.dgvClass.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvClass.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
+            this.dgvClass.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dgvClass.TabIndex = 32;
+            // 
             // frmMovieList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(708, 529);
-            this.Controls.Add(this.grpcontrol);
+            this.Controls.Add(this.kryptonGroup1);
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
@@ -893,7 +947,9 @@
             this.Controls.Add(this.grpparameter);
             this.Controls.Add(this.btnselect);
             this.Controls.Add(this.grpfilter);
+            this.Controls.Add(this.grpcontrol);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMovieList";
             this.Text = "Movie Information";
             this.Load += new System.EventHandler(this.frmMovieList_Load);
@@ -912,6 +968,11 @@
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
+            this.kryptonGroup1.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
+            this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -935,9 +996,9 @@
         internal System.Windows.Forms.ListView lstcls;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
-        internal System.Windows.Forms.TextBox txttitle;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txttitle;
         internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.TextBox txtcode;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtcode;
         internal System.Windows.Forms.Label Label8;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.ComboBox cmbrating;
@@ -959,10 +1020,13 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnDelete;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEdit;
         private System.Windows.Forms.DateTimePicker dttime;
-        internal System.Windows.Forms.TextBox txtshare;
+        internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtshare;
         internal System.Windows.Forms.Label txtcnt;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup grpfilter;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnsearch;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnclear;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvClass;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

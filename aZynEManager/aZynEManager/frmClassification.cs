@@ -58,8 +58,8 @@ namespace aZynEManager
         public void setDataGridView(DataTable dt)
         {
             this.dgvResult.DataSource = null;
-            if (dt.Rows.Count > 0)
-                this.dgvResult.DataSource = dt;
+            //if (dt.Rows.Count > 0)
+            //    this.dgvResult.DataSource = dt;
 
             if (dt.Rows.Count > 0)
             {
@@ -106,6 +106,18 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "CLASSIFICATION_ADD", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+
             unselectbutton();
             if (btnAdd.Text == "new")
             {
@@ -172,6 +184,7 @@ namespace aZynEManager
                     return;
                 }
 
+                sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into classification value(0,'{0}','{1}')",
                     txtname.Text.Trim(), txtdesc.Text.Trim()));
                 try
@@ -186,6 +199,10 @@ namespace aZynEManager
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "CLASSIFICATION_ADD", "CLASSIFICATION",
+                        Environment.MachineName.ToString(), "ADD NEW MOVIE CLASSIFICATION INFO: NAME=" + txtname.Text
+                        + " | ID=" + strid, m_frmM._connection);
 
                     refreshDGV();
                     setnormal();
@@ -202,8 +219,18 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            unselectbutton();
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "CLASSIFICATION_DELETE", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
 
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+            unselectbutton();
             if (btnDelete.Text == "remove")
             {
                 DialogResult ans = MessageBox.Show("Are you sure you want to remove \n\rthis record, continue?",
@@ -234,25 +261,44 @@ namespace aZynEManager
                         return;
                     }
 
-                    //delete from the moview table where the status is inactive or = 0
+                    ////validate for the existance of the record
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from classification where id = {0}", intid));
-                    try
-                    {
-                        //delete value for the movies table
-                        myconn.Open();
-                        cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                    sqry.Append("select count(*) from classification ");
+                    sqry.Append(String.Format("where id = {0} ", intid));
 
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                    }
-                    catch (MySqlException er)
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
+
+                    if (rowCount > 0)
                     {
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                        MessageBox.Show(er.Message, this.Text);
+                        //delete from the moview table where the status is inactive or = 0
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from classification where id = {0}", intid));
+                        try
+                        {
+                            //delete value for the movies table
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+
+                            m_clscom.AddATrail(m_frmM.m_userid, "CLASSIFICATION_DELETE", "CLASSIFICATION",
+                        Environment.MachineName.ToString(), "REMOVED MOVIE CLASSIFICATION INFO: NAME=" + txtname.Text
+                        + " | ID=" + intid, m_frmM._connection);
+
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                        }
+                        catch (MySqlException er)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show(er.Message, this.Text);
+                        }
                     }
                 }
             }
@@ -262,6 +308,17 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "CLASSIFICATION_EDIT", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -314,6 +371,7 @@ namespace aZynEManager
                 sqry.Append("select count(*) from classification ");
                 sqry.Append(String.Format("where name = '{0}' ", txtname.Text.Trim()));
                 sqry.Append(String.Format("and description = '{0}' ", txtdesc.Text.Trim()));
+                sqry.Append(String.Format("and id = {0} ", intid));
 
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
@@ -361,6 +419,10 @@ namespace aZynEManager
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "CLASSIFICATION_EDIT", "CLASSIFICATION",
+                        Environment.MachineName.ToString(), "UPDATED MOVIE CLASSIFICATION INFO: NAME=" + txtname.Text
+                        + " | ID=" + intid, m_frmM._connection);
 
                     refreshDGV();
                     setnormal();

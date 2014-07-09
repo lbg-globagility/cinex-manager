@@ -29,12 +29,53 @@ namespace Cinemapps
         public MainWindow()
         {
             InitializeComponent();
-
+            this.Left = (SystemParameters.WorkArea.Width - this.Width) / 2;
             main = new frmMain();
         }
 
+        public void menuItem_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem mitem = ((System.Windows.Controls.MenuItem)sender).Parent as System.Windows.Controls.MenuItem;
+            foreach (System.Windows.Controls.MenuItem smitem in mitem.Items)
+            {
+                if (smitem.Header != ((System.Windows.Controls.MenuItem)sender).Header)
+                    smitem.IsChecked = false;
+                else
+                {
+                    System.Drawing.Color bgcolor = System.Drawing.Color.Transparent;
+                    switch (smitem.Header.ToString())
+                    {
+                        case "Green":
+                            bgcolor = System.Drawing.Color.LawnGreen;
+                            break;
+                        case "Blue":
+                            bgcolor = System.Drawing.Color.SkyBlue;
+                            break;
+                        case "Red":
+                            bgcolor = System.Drawing.Color.Salmon;
+                            break;
+                        case "Purple":
+                            bgcolor = System.Drawing.Color.Purple;
+                            break;
+                        case "White":
+                            bgcolor = System.Drawing.Color.LightSlateGray;
+                            break;
+                        case "Yellow":
+                            bgcolor = System.Drawing.Color.Gold;
+                            break;
+                    }
+                    main.SkinLineColor = bgcolor;
+                    main.SkinBackColor = bgcolor;
+                }
+            }
+
+        }
+
+        
+
         private void MoviesTile_Click(object sender, RoutedEventArgs e)
         {
+ 
 
             main.m_dtcontact = main.m_clscom.setDataTable("select * from people order by id asc", main._connection);
             main.m_dtdistributor = main.m_clscom.setDataTable("select * from distributor order by name asc", main._connection);
@@ -70,10 +111,17 @@ namespace Cinemapps
 
         private void AdministrationTile_Click(object sender, RoutedEventArgs e)
         {
-            SeatWindow seatWindow = new SeatWindow();
-            seatWindow.LoadCinema(2);
-            seatWindow.Owner = this;
-            seatWindow.Show();
+            //SeatWindow seatWindow = new SeatWindow();
+            //seatWindow.LoadCinema(2);
+            //seatWindow.Owner = this;
+            //seatWindow.Show();
+            using (frmMainConfig frmcon = new frmMainConfig())
+            {
+                frmcon.setSkin(main._backcolor, main._linecolor);
+                frmcon.frmInit(main, main.m_clscom);
+                frmMainMovie.SetOwner(frmcon, this);
+                frmcon.ShowDialog();
+            }
         }
     }
 }

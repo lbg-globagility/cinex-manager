@@ -70,6 +70,7 @@
             this.pnlReport.Name = "pnlReport";
             this.pnlReport.Size = new System.Drawing.Size(76, 74);
             this.pnlReport.TabIndex = 1;
+            this.pnlReport.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlReport_Paint);
             // 
             // pnlUser
             // 

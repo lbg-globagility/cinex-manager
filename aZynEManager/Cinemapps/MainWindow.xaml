@@ -2,7 +2,45 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Cinema Manager" Height="174" Width="507" TitleCaps="False" Icon="/Cinemapps;component/cinema-manager-icon.ico" WindowStartupLocation="CenterScreen">
+        Title="Cinema Manager" Height="174" Width="507" TitleCaps="False" Icon="/Cinemapps;component/cinema-manager-icon.ico" WindowStartupLocation="Manual" Top="10">
+
+    <Window.ContextMenu>
+        <ContextMenu >
+            <MenuItem Header="Change System Color">
+                <MenuItem Header="Blue" IsCheckable="True" Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/blue.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Green" IsCheckable="True"  Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/green.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Purple" IsCheckable="True" Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/purple.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Red" IsCheckable="True" IsChecked="True" Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/red.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="White" IsCheckable="True" Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/white.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Yellow" IsCheckable="True" Click="menuItem_CheckedChanged">
+                    <MenuItem.Icon>
+                        <Image Source="/Cinemapps;component/Images/yellow.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

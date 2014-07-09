@@ -25,6 +25,8 @@ namespace aZynEManager
         public Color _linecolor = Color.Salmon;
         public Color _backcolor = Color.Salmon;
 
+        
+
         //form of the main modules
         //frmMainMovie frmmovie = null;
 
@@ -35,6 +37,11 @@ namespace aZynEManager
         public DataTable m_dtclassification = new DataTable();
         public DataTable m_dtmovies = new DataTable();
         public DataTable m_dtpatrons = new DataTable();
+
+        public int m_userid = 999;
+        public bool boolAppAtTest = true;
+
+        
 
         public frmMain()
         {
@@ -288,6 +295,11 @@ namespace aZynEManager
             frmmu.frmInit(this, m_clscom);
             frmmu.ShowDialog();
             frmmu.Dispose();
+        }
+
+        private void pnlReport_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
 

@@ -204,26 +204,32 @@ namespace aZynEManager
 
         private void cmbtitle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbtitle.SelectedValue != null && cmbtitle.Text != "")
+            try
             {
-                var val = cmbtitle.SelectedValue;
-                if (val.ToString() != "System.Data.DataRowView")
+                if (cmbtitle.SelectedValue != null && cmbtitle.Text != "")
                 {
-                    string strid = cmbtitle.SelectedValue.ToString();
-                    StringBuilder sqry = new StringBuilder();
-                    sqry.Append(String.Format("[id] = {0}", strid));
-                    if (cmbtitle.Text.Trim() != "")
-                        sqry.Append(String.Format(" and [title] = '{0}'", cmbtitle.Text.ToString()));
-                    var foundRows = movie_dt.Select(sqry.ToString());
-                    if (foundRows.Count() == 0)
+                    var val = cmbtitle.SelectedValue;
+                    if (val.ToString() != "System.Data.DataRowView")
                     {
-                    }
-                    else
-                    {
-                        DataTable dt = foundRows.CopyToDataTable();
-                        txtcode.Text = dt.Rows[0]["code"].ToString();
+                        string strid = cmbtitle.SelectedValue.ToString();
+                        StringBuilder sqry = new StringBuilder();
+                        sqry.Append(String.Format("[id] = {0}", strid));
+                        if (cmbtitle.Text.Trim() != "")
+                            sqry.Append(String.Format(" and [title] = '{0}'", cmbtitle.Text.ToString()));
+                        var foundRows = movie_dt.Select(sqry.ToString());
+                        if (foundRows.Count() == 0)
+                        {
+                        }
+                        else
+                        {
+                            DataTable dt = foundRows.CopyToDataTable();
+                            txtcode.Text = dt.Rows[0]["code"].ToString();
+                        }
                     }
                 }
+            }
+            catch
+            {
             }
         }
 
@@ -264,6 +270,18 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "PRODSHARE_ADD", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+
             unselectbutton();
             if (btnAdd.Text == "new")
             {
@@ -353,6 +371,7 @@ namespace aZynEManager
                 }
 
                 //insert value for the movies table
+                sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into movies_distributor value(0,{0},{1},'{2}')",
                     cmbtitle.SelectedValue, txtshare.Text.Trim(), dtdate.Value.Date.ToString("yyyy-MM-dd")));
                 try
@@ -368,6 +387,9 @@ namespace aZynEManager
                    
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
+
+                    m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_ADD", "MOVIES|DISTRIBUTOR|MOVIES_DISTRIBUTOR",
+                            Environment.MachineName.ToString(), "ADD NEW DISTRIBUTOR SHARE INFO: MOVIEID=" + cmbtitle.SelectedValue.ToString() + " | ID=" + strid, m_frmM._connection);
 
                     DialogResult ans = MessageBox.Show("You have successfully added the new record, \n\rDo you want to add again?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (ans == System.Windows.Forms.DialogResult.Yes)
@@ -415,6 +437,17 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "PRODSHARE_EDIT", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -521,6 +554,10 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
+                    m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_EDIT", "MOVIES|DISTRIBUTOR|MOVIES_DISTRIBUTOR",
+                            Environment.MachineName.ToString(), "UPDATED DISTRIBUTOR SHARE INFO: MOVIE ID=" + cmbtitle.SelectedValue.ToString()
+                            + " | ID=" + intid, m_frmM._connection);
+
                     refreshDGV();
                     setnormal();
 
@@ -537,6 +574,17 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "PRODSHARE_DELETE", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (btnDelete.Text == "remove")
             {
@@ -551,24 +599,39 @@ namespace aZynEManager
                     if (dgvResult.SelectedRows.Count == 1)
                         intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
 
-                    //delete from the moview table where the status is inactive or = 0
+                    //validate the database for records being used
                     StringBuilder sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from movies_distributor where id = {0}", intid));
-                    try
-                    {
+                    sqry.Append(String.Format("select count(*) from movies_distributor where id = {0}", intid));
+                    if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                    MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
 
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                    }
-                    catch (MySqlException er)
+                    if (rowCount > 0)
                     {
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                        MessageBox.Show(er.Message, this.Text);
+                        //delete from the moview table where the status is inactive or = 0
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from movies_distributor where id = {0}", intid));
+                        try
+                        {
+                            myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+
+                            m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_DELETE", "MOVIES_DISTRIBUTOR",
+                            Environment.MachineName.ToString(), "REMOVED DISTRIBUTOR SHARE INFO: MOVIEID=" + cmbtitle.SelectedValue.ToString() + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                        }
+                        catch (MySqlException er)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show(er.Message, this.Text);
+                        }
                     }
                 }
             }
@@ -609,8 +672,8 @@ namespace aZynEManager
                 return;
             if (dgv.CurrentRow.Selected)
             {
-                if (cbxfilter.Checked == false)
-                {
+                //if (cbxfilter.Checked == false)
+                //{
                     btnEdit.Enabled = true;
                     btnEdit.Text = "edit";
 
@@ -634,7 +697,7 @@ namespace aZynEManager
 
                     DateTime date = Convert.ToDateTime(sdt);
                     dtdate.Value = date;
-                }
+                //}
             }
         }
 
@@ -676,7 +739,7 @@ namespace aZynEManager
 
                 //m_frmM.m_dt = m_dt;// m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
 
-                grpcontrol.Visible = false;
+                grpcontrol.Visible = true;
                 grpfilter.Visible = true;
 
                 cbxdate.Visible = true;

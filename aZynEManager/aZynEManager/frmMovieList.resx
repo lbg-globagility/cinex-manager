@@ -125,6 +125,9 @@
         j3G9lY2mAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="btnselect.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -202,6 +205,25 @@
         FcOEL6xBuOp0sDwCNpr4jCrBj5UnjvQK8rn8HikVj0wkloT8Dnc7rldZtKdbAJiGj6mq4E/UCx8q11uj
         yu0Hs9W49rdD922FAHgywIS7Rrx3bu9UM/HDcmZD9B6AWIUsdlw/JpjPmVI3I6sxsZS3t+FHx/pluzsX
         qyf/qbxVoLw26nHVwfgtRan/AmGRX6Xbw/39AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAAAAEgAAABIAAAAAAAAAAAA
+        AACAgICAgICAgIB+fn6Xl5e0tLTGxsbOzs7Ozs7ExMSysrKUlJR+fn6AgICAgICAgICAgIB9fX2qqqru
+        7u7+/v7////////////+/v7////+/v7+/v7o6OiioqJ+fn6AgIB/f3+zs7P+/v7////9/f3q6urb29vN
+        zc3Ozs7c3Nzs7Oz+/v7+/v7+/v6mpqaAgIB7e3vf39/s7OyoqKiRkZGkpKS1tbW/v7++vr60tLShoaGQ
+        kJCsrKzx8fHDw8OAgIB7e3vBwcGcnJzi4uL+/v7+/v7////////////////////9/f3c3NyYmJiysrKA
+        gIB+fn6tra3////////+/v709PTk5OTe3t7e3t7m5ub19fX+/v7////9/f2enp6AgIB7e3ve3t7z8/O1
+        tbWSkpKYmJipqamxsbGwsLCoqKiXl5eSkpK7u7v39/fDw8OAgIB7e3vHx8eYmJjW1tb6+vr+/v7////+
+        /v7////////+/v75+fnQ0NCWlpa4uLiAgIB/f3+oqKj9/f3////+/v77+/vv7+/p6enp6enw8PD8/Pz+
+        /v7////5+fmYmJiAgIB7e3vd3d35+fnDw8OYmJiQkJCcnJympqalpaWbm5uQkJCamprKysr6+vrExMSB
+        gYF7e3vOzs6WlpbIyMjz8/P////////////////////////x8fHCwsKYmJi9vb1/f39+fn6ioqL5+fn+
+        /v7////////////////////////////+/v7+/v719fWTk5OAgIB8fHzc3Nz/////////////////////
+        ///////////////+/v7+/v7+/v7ExMSAgICAgICsrKz+/v7////+/v7////////////////////////+
+        /v7////+/v6hoaGAgICAgIB+fn6hoaHm5ub+/v7+/v7+/v7////////+/v7////9/f3i4uKampp+fn6A
+        gICAgICAgICAgIB9fX2Pj4+tra28vLzGxsbGxsa7u7uqqqqNjY18fHyAgICAgIB/f38AAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 </value>
   </data>
 </root>

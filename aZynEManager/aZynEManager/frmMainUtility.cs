@@ -185,6 +185,15 @@ namespace aZynEManager
             frmpat.ShowDialog();
         }
 
+        private void btnCinema_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmCinema frmcinema = new frmCinema();
+            frmcinema.frmInit(m_frmM, m_clscom);
+            frmcinema.ShowDialog();
+            frmcinema.Dispose();
+        }
+
 
     }
 }

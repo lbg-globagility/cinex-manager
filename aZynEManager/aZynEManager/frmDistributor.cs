@@ -146,8 +146,8 @@ namespace aZynEManager
             cmbcontacts.DataSource = null;
             DataTable dt = new DataTable();
             string sqry = "[id] > -1";
-            if (m_frmM.m_dtcontact.Rows.Count == 0)
-                m_frmM.m_dtcontact = m_clscom.setDataTable("select * from people order by id asc", m_frmM._connection);
+            //if (m_frmM.m_dtcontact.Rows.Count == 0)
+            m_frmM.m_dtcontact = m_clscom.setDataTable("select * from people order by id asc", m_frmM._connection);
 
             if (m_frmM.m_dtcontact.Rows.Count > 0)
             {
@@ -235,7 +235,8 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
                 try
                 {
-                    myconn.Open();
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
                     MySqlCommand cmd = new MySqlCommand(strqry, myconn);
                     cmd.ExecuteNonQuery();
 
@@ -259,7 +260,8 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
                 try
                 {
-                    myconn.Open();
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
                     if (myconn.State == ConnectionState.Open)
                     {
                         MySqlCommand cmd = new MySqlCommand(sqry, myconn);
@@ -353,6 +355,7 @@ namespace aZynEManager
                             txtcountry.Text = "";
                             txtemail.Text = "";
                             txtcontactno.Text = "";
+                            txtposition.Text = "";
                         }
                         else
                             dt = foundRows.CopyToDataTable();
@@ -366,6 +369,7 @@ namespace aZynEManager
                             txtcountry.Text = dt.Rows[0]["country"].ToString();
                             txtemail.Text = dt.Rows[0]["email_addr"].ToString();
                             txtcontactno.Text = dt.Rows[0]["contact_no"].ToString();
+                            txtposition.Text = dt.Rows[0]["position"].ToString();
                         }
                     }
                 }
@@ -397,6 +401,17 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "DISTRIBUTOR_ADD", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (btnAdd.Text == "new")
             {
@@ -556,20 +571,28 @@ namespace aZynEManager
                         return;
                     }
 
+                    sqry = new StringBuilder();
                     sqry.Append(String.Format("insert into distributor values(0,'{0}','{1}',{2},{3})",
                         txtcode.Text.Trim(), txtname.Text.Trim(), txtshare.Text.Trim(), strid));
                     
                     try
                     {
+                        int intid = -1;
                         if(myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         if (myconn.State == ConnectionState.Open)
                         {
                             cmd = new MySqlCommand(sqry.ToString(), myconn);
                             cmd.ExecuteNonQuery();
+                            intid = Convert.ToInt32(cmd.LastInsertedId);
                             cmd.Dispose();
                             myconn.Close();
                         }
+
+                        m_clscom.AddATrail(m_frmM.m_userid, "DISTRIBUTOR_ADD", "DISTRIBUTOR|PEOPLE",
+                        Environment.MachineName.ToString(), "ADD NEW DISTRIBUTOR INFO: NAME=" + txtname.Text
+                        + " | ID=" + intid.ToString(), m_frmM._connection);
+
                         txtcode.Text = "";
                         txtname.Text = "";
                         txtshare.Text = "";
@@ -633,6 +656,17 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "DISTRIBUTOR_EDIT", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
+
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
@@ -814,9 +848,10 @@ namespace aZynEManager
                 sqry.Append(String.Format("and name = '{0}' ", txtname.Text.Trim()));
                 sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
                 if(strid == "0")
-                    sqry.Append("and contact_id is null");
+                    sqry.Append("and contact_id is null ");
                 else
-                    sqry.Append(String.Format("and contact_id = {0}", intid));
+                    sqry.Append(String.Format("and contact_id = {0} ", strid));
+                sqry.Append(String.Format("and id = {0}",intid));
 
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
@@ -855,6 +890,10 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
+                    m_clscom.AddATrail(m_frmM.m_userid, "DISTRIBUTOR_EDIT", "DISTRIBUTOR|PEOPLE",
+                        Environment.MachineName.ToString(), "UPDATED DISTRIBUTOR INFO: NAME=" + txtname.Text
+                        + " | ID=" + intid.ToString(), m_frmM._connection);
+
                     refreshDGV();
                     setnormal();
 
@@ -869,8 +908,19 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            unselectbutton();
+            //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "DISTRIBUTOR_DELETE", m_frmM._connection);
+            if (m_frmM.boolAppAtTest == true)
+                isEnabled = m_frmM.boolAppAtTest;
 
+            if (isEnabled == false)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show("You have no access rights for this module.", this.Text);
+                return;
+            }
+
+            unselectbutton();
             if (btnDelete.Text == "remove")
             {
                 DialogResult ans = MessageBox.Show("Are you sure you want to remove \n\rthis record, continue?",
@@ -901,25 +951,40 @@ namespace aZynEManager
                         return;
                     }
 
-                    //delete from the moview table where the status is inactive or = 0
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from distributor where id = {0}", intid));
-                    try
-                    {
-                        if(myconn.State == ConnectionState.Closed)
-                            myconn.Open();
-                        cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                    sqry.Append(String.Format("select count(*) from distributor where id = {0}", intid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
 
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                    }
-                    catch (MySqlException er)
+                    if (rowCount > 0)
                     {
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                        MessageBox.Show(er.Message, this.Text);
+                        //delete from the moview table where the status is inactive or = 0
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from distributor where id = {0}", intid));
+                        try
+                        {
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+
+                            m_clscom.AddATrail(m_frmM.m_userid, "DISTRIBUTOR_DELETE", "DISTRIBUTOR",
+                            Environment.MachineName.ToString(), "REMOVED DISTRIBUTOR INFO: NAME=" + txtname.Text
+                            + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                        }
+                        catch (MySqlException er)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show(er.Message, this.Text);
+                        }
                     }
                 }
             }
