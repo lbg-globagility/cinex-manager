@@ -6,9 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
 using MySql.Data.MySqlClient;
 using ComponentFactory.Krypton.Toolkit;
+using CinemaCustomControlLibrary;
+using System.Windows.Forms.Integration;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace aZynEManager
 {
@@ -903,11 +906,15 @@ namespace aZynEManager
 
         private void btnseats_Click(object sender, EventArgs e)
         {
-            
-            //System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop();
-            //var wpfwindow = new Cinema    Window1();
-            //ElementHost.EnableModelessKeyboardInterop(wpfwindow);
-            //wpfwindow.Show();
+            var window = new CinemaCustomControlLibrary.SeatWindow();
+            int intCinemaId = 0;
+            if (dgvResult.SelectedRows.Count == 1 && btnEdit.Text == "update" )
+                int.TryParse(dgvResult.SelectedRows[0].Cells[0].Value.ToString(), out intCinemaId);
+
+            window.LoadCinema(intCinemaId);
+            ElementHost.EnableModelessKeyboardInterop(window);
+            window.Show();
         }
+
     }
 }

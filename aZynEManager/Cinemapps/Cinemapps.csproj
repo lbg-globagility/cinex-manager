@@ -72,51 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Adorners\ResizeRotateAdorner.cs" />
-    <Compile Include="Adorners\ResizeRotateChrome.cs" />
-    <Compile Include="Adorners\SizeAdorner.cs" />
-    <Compile Include="Adorners\SizeChrome.cs" />
-    <Compile Include="CinemaItem.cs" />
-    <Compile Include="CinemaModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CinemaModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="CinemaScreen.cs" />
-    <Compile Include="CinemaSeatArgs.cs" />
-    <Compile Include="DesignerItemDecorator.cs" />
-    <Compile Include="MoveThumb.cs" />
-    <Compile Include="ResizeThumb.cs" />
-    <Compile Include="RotateThumb.cs" />
-    <Compile Include="CinemaSeat.cs" />
-    <Compile Include="SeatControl.xaml.cs">
-      <DependentUpon>SeatControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SeatReservationWindow.xaml.cs">
-      <DependentUpon>SeatReservationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SeatWindow.xaml.cs">
-      <DependentUpon>SeatWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Resources\DesignerItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\ResizeRotateChrome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\SizeChrome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SeatControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -136,14 +94,6 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SeatReservationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SeatWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +117,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="CinemaModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CinemaModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\cinemaEntities.datasource" />
     <None Include="Properties\Settings.settings">

@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Cinemapps;
+using CinemaCustomControlLibrary;
 using CommonLibrary;
 
 namespace Paradiso
@@ -223,7 +223,7 @@ namespace Paradiso
                         {
                             Width = CinemaScreens[0].Width,
                             Height = CinemaScreens[0].Height,
-                            Source = new BitmapImage(new Uri(@"/Cinemapps;component/Images/screen.png", UriKind.Relative)),
+                            Source = new BitmapImage(new Uri(@"/CinemaCustomControlLibrary;component/Images/screen.png", UriKind.Relative)),
                             Stretch = Stretch.Fill,
                             IsHitTestVisible = true,
                         };

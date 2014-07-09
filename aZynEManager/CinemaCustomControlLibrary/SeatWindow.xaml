@@ -1,0 +1,62 @@
+﻿<Window x:Class="CinemaCustomControlLibrary.SeatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Cinema Seat" Height="600" Width="800" xmlns:my="clr-namespace:CinemaCustomControlLibrary" Loaded="MetroWindow_Loaded" SizeChanged="MetroWindow_SizeChanged" Icon="/CinemaCustomControlLibrary;component/Images/seats-taken.png">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/DesignerItem.xaml"/>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,0" >
+            <StackPanel DockPanel.Dock="Right" Margin="0,8,10,0" Orientation="Horizontal">
+                <TextBlock FontWeight="Bold" Margin="0,0,5, 0">Capacity:</TextBlock>
+                <TextBlock Name="CinemaCapacity" FontWeight="Bold" >999</TextBlock>
+            </StackPanel>
+            <TextBlock Name="CinemaName" FontSize="24" Margin="5,0,0,0">CINEMA NAME</TextBlock>
+        </DockPanel>
+        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Margin="5" Background="LightBlue">
+            <ToggleButton Margin="2" Width="50"  Name="SelectItem" ToolTip="Select" Checked="SelectItem_Checked" Unchecked="SelectItem_Unchecked">
+                <Image Height="20" Width="20" Source="Images/select.png" Stretch="Fill"/>
+            </ToggleButton>
+            <Button Width="50" Margin="2" Name="SeatMode" Click="SeatMode_Click" ToolTip="Seat">
+                <Canvas Width="20" Height="20">
+                    <Image Canvas.Left="0" Canvas.Top="0" 
+                        Width="20" Height="20" Source="Images/seat.png" Stretch="Fill"/>
+                    <TextBlock Canvas.Bottom="0" Canvas.Right="0" Name="SeatLeft">999</TextBlock>
+                </Canvas>
+            </Button>
+            <Button Width="50" Margin="2" Name="ScreenButton" Click="ScreenButton_Click" ToolTip="Screen">
+                <Image Height="20" Width="40" Source="Images/screen.png" Stretch="Fill"/>
+            </Button>
+            <Slider Height="60" Margin="5, 5, 0, 0" Name="GridSlider" Orientation="Vertical" Width="24" SnapsToDevicePixels="False" IsSnapToTickEnabled="False" SmallChange="10" TickFrequency="10" TickPlacement="TopLeft" ValueChanged="GridSlider_ValueChanged" ToolTip="Grid Lines" />
+            <Border BorderThickness="1" Margin="2" BorderBrush="White">
+                <StackPanel Margin="5">
+                    <TextBlock HorizontalAlignment="Center">X</TextBlock>
+                    <TextBox Name="XName" Width="50"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Y</TextBlock>
+                    <TextBox Name="YName" Width="50"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Angle</TextBlock>
+                    <TextBox Name="AngleName" Width="50"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Column</TextBlock>
+                    <TextBox Name="ColumnName"  Width="50"></TextBox>
+                    <TextBlock HorizontalAlignment="Center">Row</TextBlock>
+                    <TextBox Name="RowName"  Width="50"></TextBox>
+                    <CheckBox Name="Handicapped" HorizontalAlignment="Center" Margin="0, 5, 0, 5">
+                        <Image Width="20" Height="20" Source="Images/disabled.png" Stretch="Fill" ToolTip="Handicapped"/>
+                    </CheckBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="2">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Canvas Width="1000" Height="600" Name="SeatCanvas" Background="White" MouseLeftButtonDown="SeatCanvas_MouseLeftButtonDown" MouseEnter="SeatCanvas_MouseEnter" MouseLeave="SeatCanvas_MouseLeave">
+                </Canvas>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</Window>
