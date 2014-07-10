@@ -53,34 +53,38 @@ namespace CinemaCustomControlLibrary
                 Canvas.SetLeft(this.designerItem, Canvas.GetLeft(this.designerItem) + dragDelta.X);
                 Canvas.SetTop(this.designerItem, Canvas.GetTop(this.designerItem) + dragDelta.Y);
 
-                CinemaSeat cinemaSeat = ((SeatControl)this.designerItem.Content).Seat;
-
-                int intWidth = 0;
-                int intHeight = 0;
-                if (!cinemaSeat.IsResizable)
+                if (this.designerItem.Content is SeatControl)
                 {
-                    //get width and height
-                    intWidth = (int)cinemaSeat.X2 - (int) cinemaSeat.X1;
-                    intHeight = (int)cinemaSeat.Y2 - (int) cinemaSeat.Y1;
-                }
 
-                cinemaSeat.X1 = Canvas.GetLeft(this.designerItem);
-                cinemaSeat.Y1 = Canvas.GetTop(this.designerItem);
-                if (!cinemaSeat.IsResizable)
-                {
-                    cinemaSeat.X2 = cinemaSeat.X1 + intWidth;
-                    cinemaSeat.Y2 = cinemaSeat.Y1 + intHeight;
-                }
-                else
-                {
-                    intWidth = (int)cinemaSeat.X2 - (int)cinemaSeat.X1;
-                    intHeight = (int)cinemaSeat.Y2 - (int)cinemaSeat.Y1;
-                }
+                    CinemaSeat cinemaSeat = ((SeatControl)this.designerItem.Content).Seat;
 
-                //adjust origin
-                cinemaSeat.CX = (int) cinemaSeat.X1 + (intWidth / 2);
-                cinemaSeat.CY = (int) cinemaSeat.Y1 + (intWidth / 2);
+                    int intWidth = 0;
+                    int intHeight = 0;
+                    if (!cinemaSeat.IsResizable)
+                    {
+                        //get width and height
+                        intWidth = (int)cinemaSeat.X2 - (int)cinemaSeat.X1;
+                        intHeight = (int)cinemaSeat.Y2 - (int)cinemaSeat.Y1;
+                    }
 
+                    cinemaSeat.X1 = Canvas.GetLeft(this.designerItem);
+                    cinemaSeat.Y1 = Canvas.GetTop(this.designerItem);
+                    if (!cinemaSeat.IsResizable)
+                    {
+                        cinemaSeat.X2 = cinemaSeat.X1 + intWidth;
+                        cinemaSeat.Y2 = cinemaSeat.Y1 + intHeight;
+                    }
+                    else
+                    {
+                        intWidth = (int)cinemaSeat.X2 - (int)cinemaSeat.X1;
+                        intHeight = (int)cinemaSeat.Y2 - (int)cinemaSeat.Y1;
+                    }
+
+                    //adjust origin
+                    cinemaSeat.CX = (int)cinemaSeat.X1 + (intWidth / 2);
+                    cinemaSeat.CY = (int)cinemaSeat.Y1 + (intWidth / 2);
+
+                }
 
                 //RaiseEvent(new RoutedEventArgs(MoveThumb.MovedEvent, cinemaSeat));
             }

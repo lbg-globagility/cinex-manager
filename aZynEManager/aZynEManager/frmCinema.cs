@@ -908,10 +908,13 @@ namespace aZynEManager
         {
             var window = new CinemaCustomControlLibrary.SeatWindow();
             int intCinemaId = 0;
+            string strCinemaName = txtname.Text.Trim();
+            int intCapacity = 0;
             if (dgvResult.SelectedRows.Count == 1 && btnEdit.Text == "update" )
                 int.TryParse(dgvResult.SelectedRows[0].Cells[0].Value.ToString(), out intCinemaId);
+            int.TryParse(txtcapacity.Text.Trim(), out intCapacity);
 
-            window.LoadCinema(intCinemaId);
+            window.LoadCinema(intCinemaId, strCinemaName, intCapacity);
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
         }

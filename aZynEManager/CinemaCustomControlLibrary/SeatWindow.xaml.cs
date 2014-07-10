@@ -223,7 +223,7 @@ namespace CinemaCustomControlLibrary
                     }
                 }
 
-                cinemaSeat.A = -45.0; //test
+                cinemaSeat.A = 0.0; //test
 
 
                 //double dblX1 = Math.Cos(cinemaSeat.A) * (dblWidth/2);
@@ -248,7 +248,7 @@ namespace CinemaCustomControlLibrary
                 }
 
                 cinemaSeat.X1 = cinemaSeat.CX - (dblWidth / 2);
-                cinemaSeat.Y1 = cinemaSeat.CY - (dblHeight / 2);
+                cinemaSeat.Y1 = (int) ( cinemaSeat.CY - (dblHeight / 2));
                 cinemaSeat.X2 = cinemaSeat.X1 + dblWidth;
                 cinemaSeat.Y2 = cinemaSeat.Y1 + dblHeight;
 
@@ -271,12 +271,14 @@ namespace CinemaCustomControlLibrary
                 //add to list
                 CinemaSeats.Add(new CinemaSeat(cinemaSeat));
 
+                this.UpdateSeatCanvas();
 
             }
             else if (this.ButtonMode == CinemaButtonMode.ScreenButtonMode)
             {
 
-                //calculate base on
+                CinemaScreen screen = new CinemaScreen();
+                //calculate base on drag
             }
             else
             {
@@ -398,10 +400,10 @@ namespace CinemaCustomControlLibrary
         }
 
 
-        public void LoadCinema(int intKey)
+        public void LoadCinema(int intKey, string strCinemaName, int intCapacity)
         {
-            CinemaName.Text = string.Empty;
-            SeatCapacity = 0;
+            CinemaName.Text = strCinemaName;
+            SeatCapacity = intCapacity;
             CinemaCapacity.Text = string.Empty;
             CinemaScreens.Clear();
             CinemaSeats.Clear();
@@ -415,7 +417,9 @@ namespace CinemaCustomControlLibrary
 
                 foreach (var cinema in cinemas)
                 {
-                    CinemaName.Text = cinema.name;
+                    if (strCinemaName == string.Empty)
+                        CinemaName.Text = cinema.name;
+                    
                     SeatCapacity = (int) cinema.capacity;
                     CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
                 }
@@ -458,6 +462,10 @@ namespace CinemaCustomControlLibrary
                     });
                 }
             }
+
+            if (SeatCapacity > intCapacity)
+                SeatCapacity = intCapacity;
+            CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
 
             this.UpdateSeatCanvas();
         }
