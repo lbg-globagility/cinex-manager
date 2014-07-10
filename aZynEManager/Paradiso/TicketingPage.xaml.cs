@@ -108,9 +108,9 @@ namespace Paradiso
                                     where c.id == CinemaKey
                                     select c.capacity).First();
                     //get paid
-                    var patrons = (from mctp in context.movies_schedule_list_patron
-                                   where mctp.movies_schedule_list_id == MovieTimeKey
-                                   select mctp.id).Count();
+                    var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
+                                   where mslrs.movies_schedule_list_id == MovieTimeKey
+                                   select mslrs.cinema_seat_id).Count();
                     //get booked
                     var bookings = (from mcths in context.movies_schedule_list_house_seat
                                     where mcths.movies_schedule_list_id == MovieTimeKey

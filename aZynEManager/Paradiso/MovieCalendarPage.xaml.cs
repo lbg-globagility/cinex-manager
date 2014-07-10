@@ -131,9 +131,9 @@ namespace Paradiso
                     intTimeKey = movieCalendars[i].MovieCalendar.LeastTimeKey;
 
                     //get paid
-                    var patrons = (from mctp in context.movies_schedule_list_patron
-                                    where mctp.movies_schedule_list_id == intTimeKey
-                                    select mctp.id).Count();
+                   var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
+                                   where mslrs.movies_schedule_list_id == intTimeKey
+                                   select mslrs.cinema_seat_id).Count();
                     
                     //get booked
                     var bookings = (from mcths in context.movies_schedule_list_house_seat
