@@ -395,7 +395,61 @@ namespace Paradiso
             if (!messageYesNoWindow.IsYes)
             {
                 //save
+                //attempt to save
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 
+                    if (CinemaTickets.Count > 0)
+                    {
+                        //generate ticket
+                        ticket t = new ticket();
+                        t.movies_schedule_list_id = MovieTimeKey;
+                        t.user_id = paradisoObjectManager.UserId;
+                        t.terminal = System.Environment.MachineName;
+                        t.ticket_datetime = paradisoObjectManager.CurrentDate;
+                        t.session_id = paradisoObjectManager.SessionId;
+                        t.status = 1;
+
+                        context.tickets.AddObject(t);
+                        context.SaveChanges();
+
+                        int j = 0;
+                        foreach (CinemaTicket cinemaTicket in CinemaTickets)
+                        {
+                            //temporarily get patrons key (will have to adjust foreign keys)
+                            int intPatronKey = 0;
+                            var patron = (from u in context.movies_schedule_list_patron where u.id == cinemaTicket.PatronKey select new { u.patron_id }).FirstOrDefault();
+                            if (patron != null)
+                                intPatronKey = patron.patron_id;
+
+
+                            for (int i = 0; i < cinemaTicket.Quantity; i++)
+                            {
+                                movies_schedule_list_reserved_seat mslrs = new movies_schedule_list_reserved_seat();
+                                mslrs.movies_schedule_list_id = MovieTimeKey;
+                                mslrs.cinema_seat_id = SelectedCinemaSeats[j];
+                                mslrs.ticket_id = t.id;
+                                
+                                //mslrs.patron_id = cinemaTicket.PatronKey;
+                                mslrs.patron_id = intPatronKey;
+                                mslrs.price = (float?)(cinemaTicket.Price / cinemaTicket.Quantity);
+                                //no computation yet for tax and vat 
+
+                                //or number not yet finalized 
+                                //mslrs.or_number = string.Format("C{0}{1:0000000}", , );
+
+                                mslrs.status = 1;
+
+                                context.movies_schedule_list_reserved_seat.AddObject(mslrs);
+                                context.SaveChanges();
+
+                                j++;
+                            }
+                        }
+                    }
+                    
+                }
 
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
             }

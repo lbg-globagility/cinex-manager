@@ -13,6 +13,7 @@ namespace Paradiso
     {
         public DateTime ScreeningDate { get; set; }
         public DateTime CurrentDate { get; set; }
+        public int UserId { get; set; }
         public string UserName { get; set; }
 
         private static ParadisoObjectManager instance;
@@ -24,6 +25,7 @@ namespace Paradiso
         {
             ScreeningDate = DateTime.Now;
             CurrentDate = DateTime.Now;
+            UserId = 0;
             UserName = string.Empty;
         }
 
@@ -34,6 +36,13 @@ namespace Paradiso
             return instance;
         }
 
+        public string SessionId
+        {
+            get
+            {
+                return string.Format("{0:yyyyMMdd-HHmmss}-{1}", CurrentDate, UserId);
+            }
+        }
 
     }
 }
