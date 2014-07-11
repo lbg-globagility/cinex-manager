@@ -1,4 +1,4 @@
-﻿<Window x:Class="CinemaCustomControlLibrary.SeatWindow"
+﻿<controls:MetroWindow x:Class="CinemaCustomControlLibrary.SeatWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -59,4 +59,4 @@
             </ScrollViewer>
         </Border>
     </DockPanel>
-</Window>
+</controls:MetroWindow>

@@ -20,7 +20,7 @@ namespace CinemaCustomControlLibrary
     /// <summary>
     /// Interaction logic for SeatWindow.xaml
     /// </summary>
-    public partial class SeatWindow : Window
+    public partial class SeatWindow : MetroWindow
     {
         public enum CinemaButtonMode
         {
@@ -37,6 +37,9 @@ namespace CinemaCustomControlLibrary
 
         double dblHeight = 24.0;
         double dblWidth = 24.0;
+
+        double dblScreenHeight = 35.0;
+        double dblScreenWidth = 900.0;
 
         public SeatWindow()
         {
@@ -276,9 +279,53 @@ namespace CinemaCustomControlLibrary
             }
             else if (this.ButtonMode == CinemaButtonMode.ScreenButtonMode)
             {
+                if (CinemaScreens.Count == 0)
+                {
+                    CinemaScreen cinemaScreen = new CinemaScreen();
 
-                CinemaScreen screen = new CinemaScreen();
-                //calculate base on drag
+                    cinemaScreen.CX = x.X;
+                    cinemaScreen.CY = x.Y;
+
+
+
+                    System.Drawing.Point point = new
+                        System.Drawing.Point((int)cinemaScreen.CX, (int)cinemaScreen.CY);
+                    System.Drawing.Point point1 = new
+                        System.Drawing.Point((int)(cinemaScreen.CX - (dblScreenWidth / 2)), (int)(cinemaScreen.CY - (dblScreenWidth / 2)));
+                    System.Drawing.Point point2 = new
+                        System.Drawing.Point((int)(cinemaScreen.CX - (dblScreenWidth / 2)), (int)(cinemaScreen.CY + (dblScreenHeight / 2)));
+                    System.Drawing.Point point3 = new
+                        System.Drawing.Point((int)(cinemaScreen.CX + (dblScreenWidth / 2)), (int)(cinemaScreen.CY - (dblScreenHeight / 2)));
+                    System.Drawing.Point point4 = new
+                        System.Drawing.Point((int)(cinemaScreen.CX + (dblScreenWidth / 2)), (int)(cinemaScreen.CY + (dblScreenHeight / 2)));
+
+                    if (CinemaSeats.Count > 0)
+                    {
+                        foreach (CinemaSeat _cinemaSeat in CinemaSeats)
+                        {
+                            System.Drawing.Rectangle rect = new System.Drawing.Rectangle((int)_cinemaSeat.X1,
+                                (int)_cinemaSeat.Y1, (int)_cinemaSeat.X2 - (int)_cinemaSeat.X1,
+                                (int)_cinemaSeat.Y2 - (int)_cinemaSeat.Y1);
+
+                            if (rect.Contains(point) || rect.Contains(point1) || rect.Contains(point2)
+                                || rect.Contains(point3) || rect.Contains(point4))
+                            {
+                                return;
+                            }
+                        }
+                    }
+
+                    cinemaScreen.A = 0.0; //test
+                    cinemaScreen.X1 = cinemaScreen.CX - (dblScreenWidth / 2);
+                    cinemaScreen.Y1 = (int)(cinemaScreen.CY - (dblScreenHeight / 2));
+                    cinemaScreen.X2 = cinemaScreen.X1 + dblScreenWidth;
+                    cinemaScreen.Y2 = cinemaScreen.Y1 + dblScreenHeight;
+                    cinemaScreen.IsResizable = true;
+                    
+                    CinemaScreens.Add(new CinemaScreen(cinemaScreen));
+
+                    this.UpdateSeatCanvas();
+                }
             }
             else
             {

@@ -68,6 +68,9 @@
     </Reference>
     <Reference Include="ComponentFactory.Krypton.Ribbon, Version=2.8.5.0, Culture=neutral, PublicKeyToken=ca7912ff32f9150d, processorArchitecture=MSIL" />
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.8.5.0, Culture=neutral, PublicKeyToken=65a84d45e882d207, processorArchitecture=MSIL" />
+    <Reference Include="MahApps.Metro, Version=0.13.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net40\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\library\MySql.Data.dll</HintPath>
@@ -80,6 +83,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -305,6 +311,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -12,6 +12,7 @@ using CinemaCustomControlLibrary;
 using System.Windows.Forms.Integration;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using MahApps.Metro;
 
 namespace aZynEManager
 {
