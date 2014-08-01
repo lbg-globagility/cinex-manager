@@ -8,8 +8,9 @@ namespace Paradiso.Model
 {
     public class MovieScheduleListItem : INotifyPropertyChanged
     {
-        
+
         private int intKey; //to be passed 
+        private int intCinemaKey; //to be referenced
         private DateTime dtStartTime;
         private DateTime dtEndTime;
 
@@ -20,6 +21,22 @@ namespace Paradiso.Model
         private int intAvailable = 0;
         private int intBooked = 0;
         private string strRating = string.Empty;
+
+        private bool blnIsEnabled = false;
+
+        public int CinemaKey
+        {
+            get { return intCinemaKey; }
+
+            set
+            {
+                if (value != intCinemaKey)
+                {
+                    intCinemaKey = value;
+                    NotifyPropertyChanged("CinemaKey");
+                }
+            }
+        }
 
         public int Key
         {
@@ -153,6 +170,19 @@ namespace Paradiso.Model
                 {
                     strRunningTime = value;
                     NotifyPropertyChanged("RunningTime");
+                }
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get { return blnIsEnabled; }
+            set
+            {
+                if (value != blnIsEnabled)
+                {
+                    blnIsEnabled = value;
+                    NotifyPropertyChanged("IsEnabled");
                 }
             }
         }

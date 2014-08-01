@@ -13,14 +13,12 @@ namespace Paradiso
         public object Convert(object value, Type targetType,
                object parameter, CultureInfo culture)
         {
-            /*
             if (value is bool)
             {
                 bool blnIsEnabled = (bool)value;
                 if (blnIsEnabled)
                     return new SolidColorBrush(Colors.YellowGreen);
             }
-            */
 
             return new SolidColorBrush(Colors.Red);
         }
