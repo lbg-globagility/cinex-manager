@@ -31,6 +31,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -55,10 +57,11 @@
     <ApplicationIcon>cinema-ticketing-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Kent.Boogaart.Converters">
+    <Reference Include="Kent.Boogaart.Converters, Version=1.3.1.0, Culture=neutral, PublicKeyToken=cc96fa93a217f7a1, processorArchitecture=MSIL">
       <HintPath>..\packages\Kent.Boogaart.Converters.1.3.1\lib\net40\Kent.Boogaart.Converters.dll</HintPath>
     </Reference>
-    <Reference Include="Kent.Boogaart.HelperTrinity">
+    <Reference Include="Kent.Boogaart.HelperTrinity, Version=1.5.2.0, Culture=neutral, PublicKeyToken=cc96fa93a217f7a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kent.Boogaart.HelperTrinity.1.5.2\lib\net40\Kent.Boogaart.HelperTrinity.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=0.13.1.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
@@ -109,14 +112,27 @@
     </ApplicationDefinition>
     <Compile Include="CinemaPatron.cs" />
     <Compile Include="CinemaTicket.cs" />
+    <Compile Include="FooterLineConverter.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage1.xaml.cs">
+      <DependentUpon>LoginPage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow1.xaml.cs">
+      <DependentUpon>MainWindow1.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageYesNoWindow.xaml.cs">
       <DependentUpon>MessageYesNoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MovieScheduleItem.cs" />
+    <Compile Include="Model\MovieScheduleListItem.cs" />
+    <Compile Include="MovieCalendarPage1.xaml.cs">
+      <DependentUpon>MovieCalendarPage1.xaml</DependentUpon>
     </Compile>
     <Compile Include="MovieCalendarTimeArgs.cs" />
     <Compile Include="MovieCalendarTimeCommand.cs" />
@@ -130,6 +146,9 @@
     <Compile Include="SeatingPage.xaml.cs">
       <DependentUpon>SeatingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SeatingPage1.xaml.cs">
+      <DependentUpon>SeatingPage1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SessionItem.cs" />
     <Compile Include="TicketingPage.xaml.cs">
       <DependentUpon>TicketingPage.xaml</DependentUpon>
@@ -138,11 +157,21 @@
     <Compile Include="TicketPatronControl.xaml.cs">
       <DependentUpon>TicketPatronControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UniformGridWithOrientation.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,7 +202,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MovieCalendarPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SeatingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SeatingPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Black.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,7 +299,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Images\splash-1-terminal.png" />
+    <None Include="Images\splash-1-terminal.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\film-part-single.jpg" />
@@ -285,10 +326,34 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon-ticketingterminal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg-cinema-no.png" />
+    <Resource Include="Images\bg-login.jpg" />
+    <Resource Include="Images\bg-transactions.jpg" />
+    <Resource Include="Images\icon-user.png" />
+    <Resource Include="Images\img-logoholder.jpg" />
+    <Resource Include="Images\img-popcorn.png" />
+    <Resource Include="Images\seat-green.png" />
+    <Resource Include="Images\seat-red.png" />
+    <Resource Include="Images\seat-yellow.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

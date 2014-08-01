@@ -73,8 +73,8 @@ namespace Paradiso
                                           capacity = mc.cinema.capacity,
 
                                       }).ToList();
-                foreach (var moviecalendar in moviecalendars)
-                {
+                    foreach (var moviecalendar in moviecalendars)
+                    {
 
                     intColumn = i / (m_intCalendarCount / 2);
                     intRow = i % (m_intCalendarCount / 2);

@@ -36,6 +36,14 @@ namespace Paradiso
             return instance;
         }
 
+        public string Title
+        {
+            get
+            {
+                return "aZyne Cinema Ticketing Terminal";
+            }
+        }
+
         public string SessionId
         {
             get

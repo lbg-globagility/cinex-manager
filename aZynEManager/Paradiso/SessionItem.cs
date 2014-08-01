@@ -6,10 +6,12 @@ using System.ComponentModel;
 
 namespace Paradiso
 {
+    //not used for now
     public class SessionItem: INotifyPropertyChanged
     {
         private DateTime dtScreeningDate;
         private DateTime dtCurrentDate;
+        private int intUserId = 0;
         private string strUserName = string.Empty;
 
         public DateTime CurrentDate
@@ -36,6 +38,19 @@ namespace Paradiso
                 {
                     dtScreeningDate = value;
                     NotifyPropertyChanged("ScreeningDate");
+                }
+            }
+        }
+
+        public int UserId
+        {
+            get { return intUserId; }
+            set
+            {
+                if (value != intUserId)
+                {
+                    intUserId = value;
+                    NotifyPropertyChanged("UserId");
                 }
             }
         }
