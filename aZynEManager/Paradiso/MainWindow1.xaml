@@ -2,21 +2,31 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="TICKETING TERMINAL" Height="600" Width="800" Icon="/Paradiso;component/Images/icon-ticketingterminal.png" Loaded="MetroWindow_Loaded">
+        xmlns:local="clr-namespace:Paradiso"
+        xmlns:con="http://schemas.kent.boogaart.com/converters"
+        Title="TICKETING TERMINAL" MinHeight="768" MinWidth="1024" Icon="/Paradiso;component/Images/icon-ticketingterminal.png" Loaded="MetroWindow_Loaded">
     <DockPanel>
+        <DockPanel.Resources>
+            <local:NotifyingDateTime x:Key="notifyingDate"/>
+        </DockPanel.Resources>
         <DockPanel DockPanel.Dock="Top" Background="#780001">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                 <Image Source="Images/img-logoholder.jpg" Width="80" Margin="10, 5"/>
                 <TextBlock FontSize="16" Foreground="Yellow" VerticalAlignment="Center" Name="TicketingTerminalTitle"></TextBlock>
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <StackPanel Orientation="Horizontal" Name="Dashboard">
-                    <Image Source="Images/icon-user.png" Width="19"/>
-                    <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8, 0">User:</TextBlock>
-                    <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Name="UserName"></TextBlock>
-                </StackPanel>
+                <DockPanel Name="Dashboard" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="Images/icon-user.png" Width="19"/>
+                        <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8, 0">User:</TextBlock>
+                        <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Name="UserName"/>
+                    </StackPanel>
+                </DockPanel>
+                <Popup Name="myPopup" IsOpen="False" PlacementTarget="{Binding ElementName=Dashboard}" Placement="Center">
+                    <Label Name="myLabel" Content="This is a popup!" Foreground="Blue"/>
+                </Popup>
                 <Line X1="10" Y1="14" X2="10" Y2="35" Stroke="White" StrokeThickness="2"></Line>
-                <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime"></TextBlock>
+                <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
             </StackPanel>
             <TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock>
         </DockPanel>

@@ -6,7 +6,6 @@ using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media;
 
-
 namespace Paradiso
 {
     public class ScreenTimeColorMultiConverter: IMultiValueConverter
@@ -20,11 +19,11 @@ namespace Paradiso
             int.TryParse(values[2].ToString(), out intCurrentKey);
             //check if current selection, binding not working properly
             
-            if (!blnIsEnabled)
+            if (!blnIsEnabled) //disabled
                 return new SolidColorBrush(Colors.LightGray);
-            else if (intKey == intCurrentKey)
+            else if (intKey == intCurrentKey) //selected
                 return new SolidColorBrush(Colors.Green);
-            else
+            else //enabled
                 return new SolidColorBrush(Colors.DarkGray);
         }
 

@@ -56,7 +56,7 @@ namespace Paradiso
                     ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
                     paradisoObjectManager.UserId = username.id;
                     paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
-
+                    paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
                     //trail
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
                 }

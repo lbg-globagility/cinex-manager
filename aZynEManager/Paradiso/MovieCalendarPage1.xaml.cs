@@ -13,7 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Paradiso.Model;
-using System.Threading;
+using System.ComponentModel;
+using System.Windows.Threading;
+using System.Collections;
 
 namespace Paradiso
 {
@@ -22,15 +24,16 @@ namespace Paradiso
     /// </summary>
     public partial class MovieCalendarPage1 : Page
     {
-        private ObservableCollection<MovieScheduleItem> movieScheduleItems;
+        private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
         private int intMaxRowCount = 4;
+        DispatcherTimer timer;
 
         public MovieCalendarPage1()
         {
             InitializeComponent();
 
-            movieScheduleItems = new ObservableCollection<MovieScheduleItem>();
+            movieScheduleItems = new ObservableCollection<MovieScheduleModel>();
 
             //DateTime dtScreenDate = new DateTime(2006, 12, 1);
             DateTime dtScreenDate = new DateTime(2007, 1, 6);
@@ -39,6 +42,11 @@ namespace Paradiso
             this.LoadMovieSchedules();
 
             this.DataContext = this;
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.MovieScheduleUiInterval);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
         }
 
         public int ColumnCount
@@ -46,17 +54,22 @@ namespace Paradiso
             get { return intColumnCount; }
         }
 
-        public ObservableCollection<MovieScheduleItem> MovieSchedules
+        public ObservableCollection<MovieScheduleModel> MovieSchedules
         {
             get { return movieScheduleItems; }
         }
 
-        private void LoadMovieSchedules()
+        //will not attempt to clear but update
+        private void UpdateMovieSchedules(bool blnIsClear)
         {
-            DateTime dtNow = this.CurrentDate;
-            DateTime dtScreenDate = this.ScreenDate;
+            DateTime dtNow = ParadisoObjectManager.GetInstance().ActualCurrentDate;
+            DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
 
-            movieScheduleItems.Clear();
+            List<int> lstKeys = new List<int>();
+
+            if (blnIsClear)
+                movieScheduleItems.Clear();
+
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
@@ -66,43 +79,50 @@ namespace Paradiso
                                 orderby ms.cinema.in_order
                                 select new
                                 {
+                                    key = ms.id, //comment
                                     cinema_key = ms.cinema_id,
                                     number = ms.cinema.in_order,
                                     capacity = ms.cinema.capacity
                                 }).Distinct().ToList();
                 foreach (var _cinema in _cinemas)
                 {
-                    var movieScheduleItem = new MovieScheduleItem()
+                    var movieScheduleItem = new MovieScheduleModel()
                     {
-                        Key = _cinema.cinema_key,
+                        //Key = _cinema.cinema_key,
+                        Key = _cinema.key,
                         CurrentDate = dtNow,
                         Number = Convert.ToInt32(_cinema.number),
                     };
 
                     int capacity = (int)_cinema.capacity;
 
-                    var _movie_schedule_lists = (from msl in context.movies_schedule_list 
-                                                 join ms in context.movies_schedule on msl.movies_schedule_id equals ms.id
-                                                    where ms.cinema_id == _cinema.cinema_key && ms.movie_date == dtScreenDate 
-                                                    orderby msl.start_time
-                                                    select new 
-                                                    {
-                                                        mslkey = msl.id,
-                                                        moviekey = msl.movies_schedule.movie_id,
-                                                        moviename = msl.movies_schedule.movie.title,
-                                                        duration = msl.movies_schedule.movie.duration,
-                                                        rating = msl.movies_schedule.movie.mtrcb.name,
-                                                        starttime = msl.start_time,
-                                                        endtime = msl.end_time
-                                                    }).ToList();
+                    var _movie_schedule_lists = (from msl in context.movies_schedule_list
+                                                 where msl.movies_schedule_id == _cinema.key
+                                                 //join ms in context.movies_schedule on msl.movies_schedule_id equals ms.id
+                                                 //   where ms.cinema_id == _cinema.cinema_key && ms.movie_date == dtScreenDate 
+                                                 orderby msl.start_time
+                                                 select new
+                                                 {
+                                                     mslkey = msl.id,
+                                                     moviekey = msl.movies_schedule.movie_id,
+                                                     moviename = msl.movies_schedule.movie.title,
+                                                     duration = msl.movies_schedule.movie.duration,
+                                                     rating = msl.movies_schedule.movie.mtrcb.name,
+                                                     starttime = msl.start_time,
+                                                     endtime = msl.end_time,
+                                                     seattype = msl.seat_type,
+                                                     laytime = msl.laytime
+                                                 }).ToList();
 
                     movieScheduleItem.MovieScheduleListItems.Clear();
                     movieScheduleItem.SelectedMovieScheduleListItem = null;
                     foreach (var _movie_schedule_list in _movie_schedule_lists)
                     {
-                        movieScheduleItem.MovieScheduleListItems.Add(new MovieScheduleListItem()
+
+                        var _movie_schedule_list_item = new MovieScheduleListModel()
                         {
-                            CinemaKey = _cinema.cinema_key,
+                            //CinemaKey = _cinema.cinema_key,
+                            CinemaKey = _cinema.key,
                             Key = _movie_schedule_list.mslkey,
                             MovieKey = _movie_schedule_list.moviekey,
                             MovieName = _movie_schedule_list.moviename.ToUpper(),
@@ -110,49 +130,121 @@ namespace Paradiso
                             StartTime = _movie_schedule_list.starttime,
                             EndTime = _movie_schedule_list.endtime,
                             RunningTimeInSeconds = _movie_schedule_list.duration
-                        });
+                        };
 
-                        //set remaining and booked
+                        /**
+                         reserved 
+                         -can be set either by web or teller selection
+                         -add timer on seat
+                         -update periodically
+                         */
 
                         var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
                                        where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey
                                        select mslrs.cinema_seat_id).Count();
 
-                        //get booked
-                        var bookings = (from mcths in context.movies_schedule_list_house_seat
+                        //reserved
+                        var reserved = (from mcths in context.movies_schedule_list_house_seat_view
                                         where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey
                                         select mcths.cinema_seat_id).Count();
 
-                        movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count-1].Booked = (int)bookings;
-                        movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].Available = 
-                         (int) (capacity - patrons - bookings);
 
-                        if (movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].Available == 0)
+                        _movie_schedule_list_item.Booked = (int)reserved;
+                        _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
+
+
+                        var price = (from mslp in context.movies_schedule_list_patron
+                                     where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
+                                     select mslp.price).FirstOrDefault();
+                        if (price != null)
+                            _movie_schedule_list_item.Price =  (decimal) price;
+
+
+                        if (_movie_schedule_list_item.Available == 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
                         {
-                            movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].IsEnabled = false;
+                            _movie_schedule_list_item.IsEnabled = false;
                         }
                         else
                         {
                             if (dtNow < _movie_schedule_list.starttime)
                             {
-                                movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].IsEnabled = true;
+                                _movie_schedule_list_item.IsEnabled = true;
                                 if (movieScheduleItem.SelectedMovieScheduleListItem == null)
-                                    movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1];
+                                    movieScheduleItem.SelectedMovieScheduleListItem = _movie_schedule_list_item;
                             }
-                            else if (dtNow < _movie_schedule_list.endtime) //allow already running
+                            else if (dtNow < _movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime)) //_movie_schedule_list.endtime ) //allow already running
                             {
-                                movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].IsEnabled = true;
+                                _movie_schedule_list_item.IsEnabled = true;
                             }
                             else
                             {
-                                movieScheduleItem.MovieScheduleListItems[movieScheduleItem.MovieScheduleListItems.Count - 1].IsEnabled = false;
+                                _movie_schedule_list_item.IsEnabled = false;
                             }
+                        }
+
+                        movieScheduleItem.MovieScheduleListItems.Add(_movie_schedule_list_item);
+
+                    }
+
+                    if (blnIsClear)
+                    {
+                        movieScheduleItems.Add(movieScheduleItem);
+                    }
+                    else
+                    {
+
+                        int intCount = movieScheduleItems.Count;
+                        int intIndex = -1;
+                        for (int i = 0; i < intCount; i++)
+                        {
+                            if (movieScheduleItems[i].Key == movieScheduleItem.Key)
+                            {
+                                intIndex = i;
+                                break;
+                            }
+                        }
+
+                        if (intIndex == -1)
+                            movieScheduleItems.Add(movieScheduleItem);
+                        else
+                        {
+                            //determines if currently selected item is valid
+                            if (movieScheduleItems[intIndex].SelectedMovieScheduleListItem != null)
+                            {
+                                if (movieScheduleItem.MovieScheduleListItems.Count > 0)
+                                {
+                                    foreach (MovieScheduleListModel _msli in movieScheduleItem.MovieScheduleListItems)
+                                    {
+                                        if (_msli.Key == movieScheduleItems[intIndex].SelectedMovieScheduleListItem.Key)
+                                        {
+                                            if (_msli.IsEnabled)
+                                                movieScheduleItem.SelectedMovieScheduleListItem = _msli;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            movieScheduleItems[intIndex] = movieScheduleItem;
+                            lstKeys.Add(movieScheduleItem.Key);
                         }
                     }
 
-                    movieScheduleItems.Add(movieScheduleItem);
                 }
 
+            }
+
+            if (!blnIsClear)
+            {
+                //remove unwanted 
+                int intCount1 = movieScheduleItems.Count - 1;
+                for (int i = intCount1; i >= 0; i--)
+                {
+                    if (lstKeys.IndexOf(movieScheduleItems[i].Key) == -1)
+                    {
+                        movieScheduleItems.RemoveAt(i);
+                    }
+                }
             }
 
             intColumnCount = 1;
@@ -162,37 +254,28 @@ namespace Paradiso
 
         }
 
-        public DateTime CurrentDate
+        void timer_Tick(object sender, EventArgs e)
         {
-            get
-            {
-                DateTime dtNow = DateTime.Now;
-                DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
-                dtNow = new DateTime(dtScreenDate.Year, dtScreenDate.Month, dtScreenDate.Day, dtNow.Hour, dtNow.Minute, dtNow.Second);
-                return dtNow;
-            }
+            this.UpdateMovieSchedules(false);
         }
 
-        public DateTime ScreenDate
+        private void LoadMovieSchedules()
         {
-            get
-            {
-                DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
-                return dtScreenDate;
-            }
+            this.UpdateMovieSchedules(true);
         }
 
-        private void SetNextMovieScheduleListItem(MovieScheduleItem movieScheduleItem)
+
+        private void SetNextMovieScheduleListItem(MovieScheduleModel movieScheduleItem)
         {
 
-            DateTime dtNow = this.CurrentDate;
+            DateTime dtNow = ParadisoObjectManager.GetInstance().ActualCurrentDate;
             if (movieScheduleItem.MovieScheduleListItems.Count > 0)
             {
                 int intMovieScheduleListItemIndex = -1;
                 int intCount = movieScheduleItem.MovieScheduleListItems.Count;
                 for (int i = 0; i <  intCount; i++)
                 {
-                    MovieScheduleListItem msli = movieScheduleItem.MovieScheduleListItems[i];
+                    MovieScheduleListModel msli = movieScheduleItem.MovieScheduleListItems[i];
                     if (dtNow < msli.StartTime)
                     {
                         intMovieScheduleListItemIndex = i;
@@ -233,10 +316,12 @@ namespace Paradiso
         {
             Button button = sender as Button;
             var dataContext = button.DataContext;
-            if (dataContext != null && dataContext is MovieScheduleListItem)
+            if (dataContext != null && dataContext is MovieScheduleListModel)
             {
-                MovieScheduleListItem msli = (MovieScheduleListItem)dataContext;
-                NavigationService.GetNavigationService(this).Navigate(new SeatingPage1(msli, new List<int>()));
+                MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
+                
+                timer.Stop();
+                NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli.Key));
             }
         }
 
@@ -244,11 +329,12 @@ namespace Paradiso
         {
             Button button = sender as Button;
             var dataContext = button.DataContext;
-            if (dataContext != null && dataContext is MovieScheduleListItem)
+            if (dataContext != null && dataContext is MovieScheduleListModel)
             {
-                MovieScheduleListItem msli = (MovieScheduleListItem)dataContext;
+                MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
+
                 //lookup cinemakey
-                foreach (MovieScheduleItem msi in movieScheduleItems)
+                foreach (MovieScheduleModel msi in movieScheduleItems)
                 {
                     if (msli.CinemaKey == msi.Key)
                     {
@@ -263,11 +349,11 @@ namespace Paradiso
         {
             Button button = sender as Button;
             var dataContext = button.DataContext;
-            if (dataContext != null && dataContext is MovieScheduleListItem)
+            if (dataContext != null && dataContext is MovieScheduleListModel)
             {
-                MovieScheduleListItem msli = (MovieScheduleListItem)dataContext;
+                MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
                 //lookup cinemakey
-                foreach (MovieScheduleItem msi in movieScheduleItems)
+                foreach (MovieScheduleModel msi in movieScheduleItems)
                 {
                     if (msli.CinemaKey == msi.Key)
                     {

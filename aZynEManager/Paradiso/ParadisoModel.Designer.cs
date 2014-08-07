@@ -461,6 +461,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<user> _users;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<movies_schedule_list_house_seat_view> movies_schedule_list_house_seat_view
+        {
+            get
+            {
+                if ((_movies_schedule_list_house_seat_view == null))
+                {
+                    _movies_schedule_list_house_seat_view = base.CreateObjectSet<movies_schedule_list_house_seat_view>("movies_schedule_list_house_seat_view");
+                }
+                return _movies_schedule_list_house_seat_view;
+            }
+        }
+        private ObjectSet<movies_schedule_list_house_seat_view> _movies_schedule_list_house_seat_view;
 
         #endregion
 
@@ -648,6 +664,14 @@ namespace Paradiso
         public void AddTousers(user user)
         {
             base.AddObject("users", user);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the movies_schedule_list_house_seat_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomovies_schedule_list_house_seat_view(movies_schedule_list_house_seat_view movies_schedule_list_house_seat_view)
+        {
+            base.AddObject("movies_schedule_list_house_seat_view", movies_schedule_list_house_seat_view);
         }
 
         #endregion
@@ -2783,7 +2807,8 @@ namespace Paradiso
         /// <param name="start_time">Initial value of the start_time property.</param>
         /// <param name="end_time">Initial value of the end_time property.</param>
         /// <param name="seat_type">Initial value of the seat_type property.</param>
-        public static movies_schedule_list Createmovies_schedule_list(global::System.Int32 id, global::System.Int32 movies_schedule_id, global::System.DateTime start_time, global::System.DateTime end_time, global::System.Int32 seat_type)
+        /// <param name="laytime">Initial value of the laytime property.</param>
+        public static movies_schedule_list Createmovies_schedule_list(global::System.Int32 id, global::System.Int32 movies_schedule_id, global::System.DateTime start_time, global::System.DateTime end_time, global::System.Int32 seat_type, global::System.Int32 laytime)
         {
             movies_schedule_list movies_schedule_list = new movies_schedule_list();
             movies_schedule_list.id = id;
@@ -2791,6 +2816,7 @@ namespace Paradiso
             movies_schedule_list.start_time = start_time;
             movies_schedule_list.end_time = end_time;
             movies_schedule_list.seat_type = seat_type;
+            movies_schedule_list.laytime = laytime;
             return movies_schedule_list;
         }
 
@@ -2920,6 +2946,30 @@ namespace Paradiso
         private global::System.Int32 _seat_type;
         partial void Onseat_typeChanging(global::System.Int32 value);
         partial void Onseat_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 laytime
+        {
+            get
+            {
+                return _laytime;
+            }
+            set
+            {
+                OnlaytimeChanging(value);
+                ReportPropertyChanging("laytime");
+                _laytime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("laytime");
+                OnlaytimeChanged();
+            }
+        }
+        private global::System.Int32 _laytime;
+        partial void OnlaytimeChanging(global::System.Int32 value);
+        partial void OnlaytimeChanged();
 
         #endregion
 
@@ -3185,6 +3235,30 @@ namespace Paradiso
         private global::System.String _notes;
         partial void OnnotesChanging(global::System.String value);
         partial void OnnotesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> reserved_date
+        {
+            get
+            {
+                return _reserved_date;
+            }
+            set
+            {
+                Onreserved_dateChanging(value);
+                ReportPropertyChanging("reserved_date");
+                _reserved_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("reserved_date");
+                Onreserved_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _reserved_date;
+        partial void Onreserved_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onreserved_dateChanged();
 
         #endregion
 
@@ -3269,6 +3343,193 @@ namespace Paradiso
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="movies_schedule_list_house_seat_view")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class movies_schedule_list_house_seat_view : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new movies_schedule_list_house_seat_view object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="movies_schedule_list_id">Initial value of the movies_schedule_list_id property.</param>
+        /// <param name="cinema_seat_id">Initial value of the cinema_seat_id property.</param>
+        public static movies_schedule_list_house_seat_view Createmovies_schedule_list_house_seat_view(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id)
+        {
+            movies_schedule_list_house_seat_view movies_schedule_list_house_seat_view = new movies_schedule_list_house_seat_view();
+            movies_schedule_list_house_seat_view.id = id;
+            movies_schedule_list_house_seat_view.movies_schedule_list_id = movies_schedule_list_id;
+            movies_schedule_list_house_seat_view.cinema_seat_id = cinema_seat_id;
+            return movies_schedule_list_house_seat_view;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 movies_schedule_list_id
+        {
+            get
+            {
+                return _movies_schedule_list_id;
+            }
+            set
+            {
+                if (_movies_schedule_list_id != value)
+                {
+                    Onmovies_schedule_list_idChanging(value);
+                    ReportPropertyChanging("movies_schedule_list_id");
+                    _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("movies_schedule_list_id");
+                    Onmovies_schedule_list_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _movies_schedule_list_id;
+        partial void Onmovies_schedule_list_idChanging(global::System.Int32 value);
+        partial void Onmovies_schedule_list_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 cinema_seat_id
+        {
+            get
+            {
+                return _cinema_seat_id;
+            }
+            set
+            {
+                if (_cinema_seat_id != value)
+                {
+                    Oncinema_seat_idChanging(value);
+                    ReportPropertyChanging("cinema_seat_id");
+                    _cinema_seat_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("cinema_seat_id");
+                    Oncinema_seat_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _cinema_seat_id;
+        partial void Oncinema_seat_idChanging(global::System.Int32 value);
+        partial void Oncinema_seat_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String full_name
+        {
+            get
+            {
+                return _full_name;
+            }
+            set
+            {
+                Onfull_nameChanging(value);
+                ReportPropertyChanging("full_name");
+                _full_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("full_name");
+                Onfull_nameChanged();
+            }
+        }
+        private global::System.String _full_name;
+        partial void Onfull_nameChanging(global::System.String value);
+        partial void Onfull_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String notes
+        {
+            get
+            {
+                return _notes;
+            }
+            set
+            {
+                OnnotesChanging(value);
+                ReportPropertyChanging("notes");
+                _notes = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("notes");
+                OnnotesChanged();
+            }
+        }
+        private global::System.String _notes;
+        partial void OnnotesChanging(global::System.String value);
+        partial void OnnotesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> reserved_date
+        {
+            get
+            {
+                return _reserved_date;
+            }
+            set
+            {
+                Onreserved_dateChanging(value);
+                ReportPropertyChanging("reserved_date");
+                _reserved_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("reserved_date");
+                Onreserved_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _reserved_date;
+        partial void Onreserved_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onreserved_dateChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
@@ -3398,6 +3659,30 @@ namespace Paradiso
         private Nullable<global::System.Single> _price;
         partial void OnpriceChanging(Nullable<global::System.Single> value);
         partial void OnpriceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> is_default
+        {
+            get
+            {
+                return _is_default;
+            }
+            set
+            {
+                Onis_defaultChanging(value);
+                ReportPropertyChanging("is_default");
+                _is_default = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_default");
+                Onis_defaultChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _is_default;
+        partial void Onis_defaultChanging(Nullable<global::System.Int32> value);
+        partial void Onis_defaultChanged();
 
         #endregion
 

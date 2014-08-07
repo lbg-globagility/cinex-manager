@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Threading;
 
 namespace Paradiso
 {
@@ -44,7 +45,7 @@ namespace Paradiso
                 Dashboard.Visibility = System.Windows.Visibility.Visible;
             }
 
-            CurrentDateTime.Text = string.Format("{0:MMMM dd, yyyy, ddd hh:mmtt}", paradisoObjectManager.CurrentDate).ToUpper();
+            //CurrentDateTime.Text = string.Format("{0:MMMM dd, yyyy, ddd hh:mmtt}", paradisoObjectManager.CurrentDate).ToUpper();
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -54,6 +55,19 @@ namespace Paradiso
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             this.UpdateDashboard();
+        }
+
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        {
+            /*
+            if (!myPopup.IsOpen)
+                myPopup.IsOpen = true;
+            */
+        }
+
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+           // myPopup.IsOpen = false;
         }
     }
 }

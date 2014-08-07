@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Paradiso.Model
 {
-    public class MovieScheduleListItem : INotifyPropertyChanged
+    public class MovieScheduleListModel : INotifyPropertyChanged
     {
 
         private int intKey; //to be passed 
@@ -23,6 +23,10 @@ namespace Paradiso.Model
         private string strRating = string.Empty;
 
         private bool blnIsEnabled = false;
+
+        private decimal decPrice = 0;
+        private int intLayTime = 0; //in minutes
+        private int intSeatType = 3; //1=reserved , 2=free seating (limited), 3=free seating (unlimited)
 
         public int CinemaKey
         {
@@ -157,6 +161,45 @@ namespace Paradiso.Model
                 int intSeconds = value;
                 TimeSpan ts = new TimeSpan(0, 0, intSeconds);
                 RunningTime = string.Format("{0}:{1:00}", (int) ts.TotalMinutes, ts.Seconds);
+            }
+        }
+
+        public decimal Price
+        {
+            get { return decPrice; }
+            set
+            {
+                if (value != decPrice)
+                {
+                    decPrice = value;
+                    NotifyPropertyChanged("Price");
+                }
+            }
+        }
+
+        public int LayTime
+        {
+            get { return intLayTime; }
+            set
+            {
+                if (value != intLayTime)
+                {
+                    intLayTime = value;
+                    NotifyPropertyChanged("LayTime");
+                }
+            }
+        }
+
+        public int SeatType
+        {
+            get { return intSeatType; }
+            set
+            {
+                if (value != intSeatType)
+                {
+                    intSeatType = value;
+                    NotifyPropertyChanged("SeatType");
+                }
             }
         }
 

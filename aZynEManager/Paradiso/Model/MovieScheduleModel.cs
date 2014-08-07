@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
 
 namespace Paradiso.Model
 {
-    public class MovieScheduleItem : INotifyPropertyChanged
+    public class MovieScheduleModel : INotifyPropertyChanged
     {
         private int intKey;
         private int intNumber;
         private DateTime dtCurrent;
 
-        private ObservableCollection<MovieScheduleListItem> movieScheduleListItems = new ObservableCollection<MovieScheduleListItem>();
-        private MovieScheduleListItem selectedMovieScheduleListItem;
+        private ObservableCollection<MovieScheduleListModel> movieScheduleListItems = new ObservableCollection<MovieScheduleListModel>();
+        private MovieScheduleListModel selectedMovieScheduleListItem;
 
         public int Key
         {
@@ -30,7 +30,7 @@ namespace Paradiso.Model
             }
         }
 
-        public MovieScheduleListItem SelectedMovieScheduleListItem
+        public MovieScheduleListModel SelectedMovieScheduleListItem
         {
             get { return selectedMovieScheduleListItem; }
             set
@@ -43,7 +43,7 @@ namespace Paradiso.Model
             }
         }
 
-        public ObservableCollection<MovieScheduleListItem> MovieScheduleListItems
+        public ObservableCollection<MovieScheduleListModel> MovieScheduleListItems
         {
             get { return movieScheduleListItems; }
             set
