@@ -319,9 +319,11 @@ namespace Paradiso
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
-                
                 timer.Stop();
-                NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli.Key));
+                if (msli.SeatType == 1) //reserved seating
+                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli.Key));
+                else
+                    NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli.Key));
             }
         }
 

@@ -114,6 +114,10 @@
     <Compile Include="CinemaTicket.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FooterLineConverter.cs" />
+    <Compile Include="FreeSeatingPage.xaml.cs">
+      <DependentUpon>FreeSeatingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -133,6 +137,8 @@
     <Compile Include="Model\MovieScheduleModel.cs" />
     <Compile Include="Model\MovieScheduleListModel.cs" />
     <Compile Include="Model\PatronModel.cs" />
+    <Compile Include="Model\PatronQuantityListModel.cs" />
+    <Compile Include="Model\PatronQuantityModel.cs" />
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
@@ -169,9 +175,15 @@
     <Compile Include="TicketPatronControl.xaml.cs">
       <DependentUpon>TicketPatronControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TotalPatronSeatConverter.cs" />
+    <Compile Include="TotalPatronSeatConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="FreeSeatingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

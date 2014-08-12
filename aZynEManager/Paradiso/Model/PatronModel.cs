@@ -81,7 +81,7 @@ namespace Paradiso.Model
             }
         }
 
-        private void NotifyPropertyChanged(String info)
+        protected void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
             {

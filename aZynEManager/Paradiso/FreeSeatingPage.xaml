@@ -1,0 +1,83 @@
+﻿<Page x:Class="Paradiso.FreeSeatingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:l="clr-namespace:Paradiso"
+      mc:Ignorable="d" 
+       d:DesignHeight="768" d:DesignWidth="1024"
+	Title="FreeSeatingPage" SizeChanged="Page_SizeChanged">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Canvas Name="MainCanvas">
+        <Canvas.Resources>
+            <l:FooterLineConverter x:Key="footerLine" />
+            <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
+        </Canvas.Resources>
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
+        </Canvas.Background>
+        <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
+            <StackPanel Background="#ffffff" Width="600" Margin="40">
+                <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="30" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
+                <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
+                    <TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}"/>
+                    <TextBlock xml:space="preserve"> -</TextBlock>
+                    <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding PatronQuantities.Patrons}" SelectionMode="Single" Name="PatronsListView">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Width="250" Text="{Binding Name}" FontSize="14"/>
+                                    <TextBlock Width="150" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                                    <xctk:IntegerUpDown Name="QtyIntegerUpDown" Width="60" Minimum="0" Maximum="99" Text="{Binding Quantity, Mode=TwoWay}" TextAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding TotalAmount, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <DockPanel>
+                    <TextBlock Width="120" DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Name="PatronQuantityTotal" Text="{Binding PatronQuantities.Total, StringFormat='PHP #,##0.00'}" TextAlignment="Right"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                        <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Name="PatronQuantityCount" Text="{Binding PatronQuantities.Count}"/>
+                    </StackPanel>
+                </DockPanel>
+                <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
+                    <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75"  Click="clearButton_Click" />
+                    <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
+                    <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+        </DockPanel>
+        <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+            <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
+            <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
+        </StackPanel>
+        <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
+    </Canvas>
+</Page>

@@ -102,6 +102,7 @@ namespace Paradiso
             blnIsUpdating = true;
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
+                //checks if movie schedule exists
                 var _movie_schedule_list = (from msl in context.movies_schedule_list
                                                 where msl.id == this.Key
                                                 select new
@@ -129,6 +130,20 @@ namespace Paradiso
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
                     return;
                 }
+
+                //checks if movie already expired
+                DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
+                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                {
+                    blnIsUpdating = false;
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Movie Schedule is already expired.";
+                    messageWindow.ShowDialog();
+
+                    NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                    return;
+                }
+
                 string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
                 {
@@ -161,7 +176,6 @@ namespace Paradiso
                                      select new { mcths.id, mcths.cinema_seat_id, mcths.movies_schedule_list_patron_id, mcths.reserved_date
                                      }).ToList();
 
-
                 /*
                 //load 
                 var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
@@ -191,7 +205,6 @@ namespace Paradiso
                 }
                 else
                 {
-                    DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
 
                     if (dtNow < _movie_schedule_list.starttime)
                     {
@@ -411,6 +424,18 @@ namespace Paradiso
 
             this.UpdateMovieSchedule();
             timer.Start();
+        }
+
+        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedPatronSeatList.PatronSeats.Count == 0)
+            {
+                //TODO display error message
+                return;
+            }
+            else
+            {
+            }
         }
     }
 }
