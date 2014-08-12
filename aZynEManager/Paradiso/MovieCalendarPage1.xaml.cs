@@ -144,10 +144,19 @@ namespace Paradiso
                                        select mslrs.cinema_seat_id).Count();
 
                         //reserved
-                        var reserved = (from mcths in context.movies_schedule_list_house_seat_view
+                        var reserved = 0;
+                        if (_movie_schedule_list_item.SeatType == 1) //reserved
+                        {
+                            reserved = (from mcths in context.movies_schedule_list_house_seat_view
                                         where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey
                                         select mcths.cinema_seat_id).Count();
-
+                        }
+                        else
+                        {
+                            reserved = (from mcths in context.movies_schedule_list_house_seat_free_view
+                                        where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey
+                                        select mcths.cinema_seat_id).Count();
+                        }
 
                         _movie_schedule_list_item.Booked = (int)reserved;
                         _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
@@ -324,6 +333,8 @@ namespace Paradiso
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli.Key));
                 else
                     NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli.Key));
+                //NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli.Key));
+
             }
         }
 

@@ -313,6 +313,7 @@ namespace Paradiso
                                     SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()
                                     {
                                         Key = ss.id,
+                                        SeatKey = seatModel.Key,
                                         SeatName = seatModel.Name,
                                         PatronName = strPatronName,
                                         Price = decPrice,
@@ -428,13 +429,19 @@ namespace Paradiso
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             if (SelectedPatronSeatList.PatronSeats.Count == 0)
             {
-                //TODO display error message
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "No seat has been selected.";
+                messageWindow.ShowDialog();
+                timer.Start();
                 return;
             }
             else
             {
+                //call payment
+                NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
         }
     }

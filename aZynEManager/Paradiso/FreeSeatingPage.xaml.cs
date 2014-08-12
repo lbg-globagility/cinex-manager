@@ -129,12 +129,12 @@ namespace Paradiso
 
 
                 //reserved seats from other sessions
-                var reservedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                var reservedseats = (from mcths in context.movies_schedule_list_house_seat_free_view
                                      where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId
                                      select mcths.cinema_seat_id).Count();
 
                 //selected seats 
-                var selectedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                var selectedseats = (from mcths in context.movies_schedule_list_house_seat_free_view
                                      where mcths.movies_schedule_list_id == this.Key && mcths.session_id == strSessionId
                                      select new
                                      {
@@ -211,7 +211,9 @@ namespace Paradiso
                             Code = _patron.patroncode,
                             Name = _patron.patronname,
                             Price = (decimal)_patron.price,
-                            Quantity = 0
+                            Quantity = 0,
+                            MaxQuantity = MovieSchedule.Available
+                            //MaxQuantity = capacity
                         });
                     }
                 }
@@ -225,13 +227,43 @@ namespace Paradiso
 
         }
 
+        private void ClearSelection()
+        {
+            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var selectedseats = (from mslhsv in context.movies_schedule_list_house_seat_free_view
+                                     where mslhsv.movies_schedule_list_id == MovieSchedule.Key && mslhsv.session_id == strSessionId
+                                     select mslhsv.id).ToList();
+                if (selectedseats != null)
+                {
+                    foreach (var sid in selectedseats)
+                    {
+                        var selectedseat = (from mslhs in context.movies_schedule_list_house_seat
+                                            where mslhs.id == sid
+                                            select mslhs).FirstOrDefault();
+                        if (selectedseat != null)
+                        {
+                            context.movies_schedule_list_house_seat.DeleteObject(selectedseat);
+                        }
+                    }
+
+                    context.SaveChanges();
+                }
+
+            }
+        }
+
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
+            this.ClearSelection();
             this.LoadPatronQuantities();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            this.ClearSelection();
             ParadisoObjectManager.GetInstance().SetNewSessionId();
             NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
         }
@@ -239,6 +271,62 @@ namespace Paradiso
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
 
+            timer.Stop();
+            
+            if (PatronQuantities.Count == 0)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "No patron has been selected.";
+                messageWindow.ShowDialog();
+                timer.Start();
+                return;
+            }
+
+            this.UpdateMovieSchedule();
+
+            if (MovieSchedule.SeatType == 2) //limited 
+            {
+                if (PatronQuantities.Count > MovieSchedule.Available)
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Selected patron(s) exceeds available.";
+                    messageWindow.ShowDialog();
+                    timer.Start();
+                    return;
+                }
+            }
+
+            this.ClearSelection();
+
+            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var screenKey = (from cs in context.cinema_seat where cs.cinema_id == MovieSchedule.CinemaKey && cs.object_type == 2 select cs.id).SingleOrDefault();
+                if (screenKey == null)
+                    screenKey = 0;
+
+                foreach (var patronQuantity in PatronQuantities.Patrons)
+                {
+                    for (int i = 0; i < patronQuantity.Quantity; i++)
+                    {
+
+                        movies_schedule_list_house_seat mslhs = new movies_schedule_list_house_seat()
+                        {
+                            movies_schedule_list_id = MovieSchedule.Key,
+                            cinema_seat_id = screenKey,
+                            reserved_date = ParadisoObjectManager.GetInstance().CurrentDate,
+                            session_id = strSessionId,
+                            movies_schedule_list_patron_id = patronQuantity.Key
+                        };
+                        context.movies_schedule_list_house_seat.AddObject(mslhs);
+                    }
+                }
+                context.SaveChanges();
+            }
+
+            //call payment
+            NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
         }
 
     }

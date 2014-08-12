@@ -32,11 +32,15 @@
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40">
                 <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="30" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
-                <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
+                    <TextBlock VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
                     <TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}"/>
                     <TextBlock xml:space="preserve"> -</TextBlock>
                     <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
+                    <TextBlock Margin="0, 0, 5, 0" VerticalAlignment="Center" FontSize="12" FontWeight="Bold">Available:</TextBlock>
+                    <TextBlock Text="{Binding Path=MovieSchedule.Available}"/>
                 </StackPanel>
                 <ListView ItemsSource="{Binding PatronQuantities.Patrons}" SelectionMode="Single" Name="PatronsListView">
                     <ListView.ItemContainerStyle>
@@ -50,7 +54,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="250" Text="{Binding Name}" FontSize="14"/>
                                     <TextBlock Width="150" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
-                                    <xctk:IntegerUpDown Name="QtyIntegerUpDown" Width="60" Minimum="0" Maximum="99" Text="{Binding Quantity, Mode=TwoWay}" TextAlignment="Center"/>
+                                    <xctk:IntegerUpDown Name="QtyIntegerUpDown" Width="60" Minimum="0" Maximum="{Binding MaxQuantity}" Text="{Binding Quantity, Mode=TwoWay}" TextAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel DockPanel.Dock="Right">
                                     <TextBlock HorizontalAlignment="Right" Text="{Binding TotalAmount, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>

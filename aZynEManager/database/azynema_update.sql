@@ -39,6 +39,11 @@ UPDATE cinema_seat SET y2 = y1+36 WHERE object_type = 1;
 --hack
 UPDATE  movies_schedule_list_reserved_seat SET cinema_seat_id = 1058 + (id - 22589) WHERE movies_schedule_list_id = 4349;
 
+		
+		
+ALTER TABLE `movies_schedule_list_house_seat` 
+ADD COLUMN `movies_schedule_list_patron_id` INT NOT NULL DEFAULT 0 AFTER `session_id`;
+
 
 CREATE 
     ALGORITHM = UNDEFINED 
@@ -65,8 +70,7 @@ VIEW `movies_schedule_list_house_seat_view` AS
                     `movies_schedule_list_reserved_seat`.`cinema_seat_id`
             from
                 `movies_schedule_list_reserved_seat`))));
+
+INSERT INTO cinema_seat SELECT 0, cinema_id, 0, 0, 0, 0, 0, 0, '', '', 3, 0 FROM cinema_seat GROUP BY cinema_id;
 		
-		
-ALTER TABLE `movies_schedule_list_house_seat` 
-ADD COLUMN `movies_schedule_list_patron_id` INT NOT NULL DEFAULT 0 AFTER `session_id`;
 		

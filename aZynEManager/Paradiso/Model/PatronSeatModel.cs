@@ -9,8 +9,9 @@ namespace Paradiso.Model
     public class PatronSeatModel : INotifyPropertyChanged
     {
         private int intKey;
-        private string strSeatName;
         private string strPatronName;
+        private int intSeatKey;
+        private string strSeatName;
         private decimal decPrice;
         private DateTime dtReservedDate;
 
@@ -26,6 +27,20 @@ namespace Paradiso.Model
                 }
             }
         }
+
+        public int SeatKey
+        {
+            get { return intSeatKey; }
+            set
+            {
+                if (value != intSeatKey)
+                {
+                    intSeatKey = value;
+                    NotifyPropertyChanged("SeatKey");
+                }
+            }
+        }
+
 
         public string SeatName
         {

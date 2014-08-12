@@ -9,6 +9,7 @@ namespace Paradiso.Model
     {
         private int intQuantity = 0;
         private decimal decTotalAmount = 0;
+        private int intMaxQuantity = 999;
 
         public int Quantity
         {
@@ -20,6 +21,19 @@ namespace Paradiso.Model
                     intQuantity = value;
                     TotalAmount = Quantity * Price;
                     NotifyPropertyChanged("Quantity");
+                }
+            }
+        }
+
+        public int MaxQuantity
+        {
+            get { return intMaxQuantity; }
+            set
+            {
+                if (value != intMaxQuantity)
+                {
+                    intMaxQuantity = value;
+                    NotifyPropertyChanged("MaxQuantity");
                 }
             }
         }
