@@ -1,0 +1,174 @@
+﻿<Page x:Class="Paradiso.TicketPrintPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:l="clr-namespace:Paradiso"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+	Title="TicketPrintPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Canvas Name="MainCanvas">
+        <Canvas.Resources>
+            <l:FooterLineConverter x:Key="footerLine" />
+        </Canvas.Resources>
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
+        </Canvas.Background>
+
+        <DockPanel Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350">
+            <StackPanel DockPanel.Dock="Bottom" Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <TextBlock VerticalAlignment="Center">OR Number:</TextBlock>
+                    <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper"></TextBox>
+                    <Button Width="100" Name="Search" Click="Search_Click">Search</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="100" Name="Void" Click="Void_Click">Void</Button>
+                    <Button Width="100"  Margin="5,0,0,0" Name="Print" Click="Print_Click">Print</Button>
+                    <Button Width="100" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click">Cancel</Button>
+                </StackPanel>
+            </StackPanel>
+            <Border>
+                
+            <Canvas Name="TicketCanvas" Width="144" Height="192">
+                <StackPanel Margin="0">
+                    <TextBlock FontSize="10" TextAlignment="Center" Width="144" Height="12" Text="{Binding Ticket.Header1}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="6" Text="{Binding Ticket.Header2}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="6" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="6" Text="{Binding Ticket.TIN, StringFormat='TIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="8" Text="{Binding Ticket.PN, StringFormat='PN:{0}'}"/>
+                    <TextBlock FontSize="12" TextAlignment="Center" Width="144" Height="14" Text="{Binding Ticket.MovieCode}"/>
+                    <TextBlock FontSize="6" Width="144" Height="8" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="110" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" FontSize="16" Text="{Binding Ticket.CinemaNumber}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" FontSize="6" Height="6" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MM/dd/yy ddd}'}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="6" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" FontSize="6" Height="6" Text="{Binding Ticket.PatronCodePrice, StringFormat='Peso  {0}'}"/>
+                        </Grid>
+                    </Border>
+                    <TextBlock FontSize="6" Height="8" Margin="0,2,0,-2" Text="{Binding Ticket.SeatTypeName}" />
+                    <TextBlock FontSize="10" Height="12">ADMIT ONE</TextBlock>
+                    <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="106" />
+                                <ColumnDefinition Width="38" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="6" Grid.Column="0" Grid.Row="0" Height="8" Text="{Binding Ticket.Code}" />
+                            <TextBlock FontSize="6" Grid.Column="0" Grid.Row="1" Height="8" Text="{Binding Ticket.ORNumber, StringFormat='OR#{0}'}"/>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="0" Height="8" Text="{Binding Ticket.CulturalTax, StringFormat='ct:{0:00.00}'}"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+                                <TextBlock FontSize="6" Height="8">T:</TextBlock>
+                            <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.TerminalName}"/>
+                            <TextBlock FontSize="6" Height="8" xml:space="preserve"> </TextBlock>
+                            <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.TellerCode}"/>
+                            <TextBlock FontSize="6" Height="8" xml:space="preserve"></TextBlock>
+                            <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.CurrentTime, StringFormat='HH:mm'}"/>
+                        </StackPanel>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="1" Height="8" Text="{Binding Ticket.AmusementTax, StringFormat='at:{0:00.00}'}"/>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="2" Height="8" Text="{Binding Ticket.VatTax, StringFormat='vt:{0:00.00}'}"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
+                            <TextBlock FontSize="6" Height="8" Grid.ColumnSpan="2" Text="{Binding Ticket.SessionName}"/>
+                            <TextBlock FontSize="6" Height="8" xml:space="preserve">    </TextBlock>
+                            <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.SerialNumber, StringFormat='SN:{0}'}"/>
+                        </StackPanel>
+                    </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="72" />
+                                <ColumnDefinition Width="72" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="6" Height="8" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.Header1}"/>
+                            <TextBlock FontSize="6" Height="8" Grid.Row="0" Grid.Column="1" Text="{Binding Ticket.Code}"/>
+                            <TextBlock FontSize="6" Height="8" Grid.Row="1" Grid.Column="1" Text="{Binding Ticket.ORNumber, StringFormat='OR#{0}'}"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="48" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="7" Height="10" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.MovieCode}"/>
+                            <TextBlock xml:space="preserve" VerticalAlignment="Center" FontSize="6" Height="8" Grid.Row="0" Grid.Column="1" Text="{Binding Ticket.SerialNumber, StringFormat=' SN:{0}'}"/>
+                            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="24" />
+                                    <ColumnDefinition Width="72" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="7" Height="10" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Ticket.CinemaNumber}"/>
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" >
+                                    <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='MM/dd/yy ddd'}"/>
+                                    <TextBlock xml:space="preserve"> </TextBlock>
+                                    <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='hh:mm tt'}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="8" Text="{Binding Ticket.PatronCodePrice, StringFormat='Peso  {0}'}"/>
+                            </Grid>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="1" Height="8" Text="{Binding Ticket.CulturalTax, StringFormat='ct:{0:00.00}'}"/>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="2" Height="8" Text="{Binding Ticket.AmusementTax, StringFormat='at:{0:00.00}'}"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3">
+                                <TextBlock FontSize="6" Height="8">T:</TextBlock>
+                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.TerminalName}"/>
+                                <TextBlock FontSize="6" Height="8" xml:space="preserve"></TextBlock>
+                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.TellerCode}"/>
+                                <TextBlock FontSize="6" Height="8" xml:space="preserve"></TextBlock>
+                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.CurrentTime, StringFormat='HH:mm'}"/>
+                            </StackPanel>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="3" Height="8" Text="{Binding Ticket.VatTax, StringFormat='vt:{0:00.00}'}"/>
+                            <TextBlock FontSize="6" Height="8" Grid.Column="0" Grid.Row="4" Text="{Binding Ticket.SessionName}"/>
+                            <TextBlock FontSize="6" Grid.Column="1" Grid.Row="4" Height="8" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
+                        </Grid>
+
+                    </StackPanel>
+            </Canvas>
+            </Border>
+        </DockPanel>
+        
+        <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+            <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
+            <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
+ 
+        </StackPanel>
+        <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
+    </Canvas>        
+</Page>

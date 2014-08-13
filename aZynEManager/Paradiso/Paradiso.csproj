@@ -122,9 +122,6 @@
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LoginPage1.xaml.cs">
       <DependentUpon>LoginPage1.xaml</DependentUpon>
     </Compile>
@@ -145,6 +142,7 @@
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
+    <Compile Include="Model\TicketModel.cs" />
     <Compile Include="MovieCalendarPage1.xaml.cs">
       <DependentUpon>MovieCalendarPage1.xaml</DependentUpon>
     </Compile>
@@ -163,9 +161,6 @@
     <Compile Include="ScreenTimeColorConverter.cs" />
     <Compile Include="ScreenTimeColorMultiConverter.cs" />
     <Compile Include="SeatImageMultiConverter.cs" />
-    <Compile Include="SeatingPage.xaml.cs">
-      <DependentUpon>SeatingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
@@ -174,12 +169,8 @@
     <Compile Include="TenderAmountPage.xaml.cs">
       <DependentUpon>TenderAmountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TicketingPage.xaml.cs">
-      <DependentUpon>TicketingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TicketPatronArgs.cs" />
-    <Compile Include="TicketPatronControl.xaml.cs">
-      <DependentUpon>TicketPatronControl.xaml</DependentUpon>
+    <Compile Include="TicketPrintPage.xaml.cs">
+      <DependentUpon>TicketPrintPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TotalPatronSeatConverter.cs">
       <SubType>Code</SubType>
@@ -190,15 +181,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LoginPage1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,20 +197,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MovieCalendarPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Master.cs" />
-    <Compile Include="MovieCalendarPage.xaml.cs">
-      <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MovieCalendarItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -245,10 +217,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SeatingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ReservedSeatingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,15 +229,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TicketingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TicketPatronControl.xaml">
+    <Page Include="TicketPrintPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

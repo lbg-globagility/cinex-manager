@@ -92,3 +92,7 @@ CREATE VIEW `movies_schedule_list_house_seat_free_view` AS
                                 now()))) < 600)
 AND movies_schedule_list_id IN (SELECT id FROM movies_schedule_list WHERE seat_type <> 1)
 		);
+
+--foreign keys
+check movie_schedule_list_patron table
+foreign key for movie_schedule_list_id		

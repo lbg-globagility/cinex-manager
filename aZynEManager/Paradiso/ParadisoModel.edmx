@@ -133,10 +133,6 @@
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="fk_ticket_users1" Association="paradisoModel.Store.fk_ticket_users1">
-            <End Role="users" EntitySet="users" />
-            <End Role="ticket" EntitySet="ticket" />
-          </AssociationSet>
           <AssociationSet Name="fk_user_rights_system_module1" Association="paradisoModel.Store.fk_user_rights_system_module1">
             <End Role="system_module" EntitySet="system_module" />
             <End Role="user_rights" EntitySet="user_rights" />
@@ -144,6 +140,10 @@
           <AssociationSet Name="fk_user_rights_users1" Association="paradisoModel.Store.fk_user_rights_users1">
             <End Role="users" EntitySet="users" />
             <End Role="user_rights" EntitySet="user_rights" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user1" Association="paradisoModel.Store.fk_user1">
+            <End Role="users" EntitySet="users" />
+            <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
         </EntityContainer>
         <!--Errors Found During Generation:
@@ -677,18 +677,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ticket_users1">
-          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
-          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_user_rights_system_module1">
           <End Role="system_module" Type="paradisoModel.Store.system_module" Multiplicity="1" />
           <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
@@ -709,6 +697,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="user_rights">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user1">
+          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>

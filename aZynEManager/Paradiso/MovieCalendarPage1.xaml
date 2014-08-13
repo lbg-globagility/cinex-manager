@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/Black.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -93,6 +94,16 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
+        
+        <StackPanel Canvas.Right="10" Canvas.Top="10" Orientation="Horizontal">
+            <Button Click="Button_Click_1" ToolTip="Ticket" Style="{DynamicResource MetroCircleButtonStyle}" Width="35" Height="35">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_ticket}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+        </StackPanel>
 
         <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
             <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>

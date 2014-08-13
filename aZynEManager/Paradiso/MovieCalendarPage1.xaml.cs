@@ -70,7 +70,6 @@ namespace Paradiso
             if (blnIsClear)
                 movieScheduleItems.Clear();
 
-
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 //get all cinemas
@@ -374,6 +373,12 @@ namespace Paradiso
                     }
                 }
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
         }
     }
 }
