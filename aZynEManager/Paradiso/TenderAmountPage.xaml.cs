@@ -85,6 +85,7 @@ namespace Paradiso
                         {
                             Key = ss.id,
                             SeatKey = ss.cinema_seat_id,
+                            PatronKey = ss.movies_schedule_list_patron_id,
                             PatronName = patron.patron.name,
                             Price = (decimal) patron.price
                         });
@@ -197,8 +198,52 @@ namespace Paradiso
                     context.tickets.AddObject(t);
                     context.SaveChanges();
 
+
+
                     foreach (PatronSeatModel patronSeatModel in SelectedPatronSeatList.PatronSeats)
                     {
+                        //get cinema number
+                        var cinemanumber = (from cs in context.cinema_seat
+                                            where cs.id == patronSeatModel.SeatKey
+                                            select cs.cinema.in_order).SingleOrDefault();
+                        string header = string.Format("C{0}", cinemanumber);
+
+                        //get maximum ornumber
+                        var maxornumber = (from _mslrs in context.movies_schedule_list_reserved_seat
+                                           where _mslrs.or_number.Substring(0, 2) == header
+                                           orderby _mslrs.or_number descending
+                                           select _mslrs.or_number.Substring(2)).FirstOrDefault();
+                        
+                        //get new ornumber
+                        int newornumber = 0;
+                        int.TryParse(maxornumber, out newornumber);
+                        newornumber++;
+
+                        string ornumber = string.Format("{0}{1:00000000}", header, newornumber);
+
+                        //get taxes based on patron
+                        var taxes = (from mslp in context.movies_schedule_list_patron
+                                     where mslp.id == patronSeatModel.PatronKey
+                                     select new { mslp.patron.with_amusement, mslp.patron.with_cultural, mslp.patron.with_citytax }).SingleOrDefault();
+
+                        decimal amusementtax = 0;
+                        if (taxes.with_amusement == 1)
+                        {
+                            amusementtax = patronSeatModel.Price * 0.2302m;
+                        }
+
+                        decimal culturaltax = 0;
+                        if (taxes.with_cultural == 1)
+                        {
+                            culturaltax = 0.25m;
+                        }   
+                        
+                        decimal vattax = 0;
+                        if (taxes.with_citytax == 1)
+                        {
+                            //no sample
+                        }
+
                         movies_schedule_list_reserved_seat mslrs = new movies_schedule_list_reserved_seat();
                         //{
                         mslrs.movies_schedule_list_id = t.movies_schedule_list_id;
@@ -206,18 +251,33 @@ namespace Paradiso
                         mslrs.ticket_id = t.id;
                         mslrs.patron_id = patronSeatModel.Key;
                         mslrs.price = (float)patronSeatModel.Price;
-                        //amusement_tax_amount
-                        //cultural_tax_amount
-                        //vat_amount
-                        //or_number
+                        mslrs.amusement_tax_amount = (float) amusementtax;
+                        mslrs.cultural_tax_amount = (float) culturaltax;
+                        mslrs.vat_amount = (float)vattax;
+                        mslrs.or_number = ornumber;
                         mslrs.status = 1;
 
                         //};
 
                         context.movies_schedule_list_reserved_seat.AddObject(mslrs);
+
+
                         context.SaveChanges();
                     }
 
+                    string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                    //remove entry from movies_sc
+                    var m = (from mslsh in context.movies_schedule_list_house_seat
+                             where mslsh.session_id == strSessionId
+                             select mslsh).ToList();
+                    foreach (var _mslsh in m)
+                    {
+                        context.movies_schedule_list_house_seat.DeleteObject(_mslsh);
+                        context.SaveChanges();
+                    }
+
+                    ParadisoObjectManager.GetInstance().SetNewSessionId();
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
 
                 }

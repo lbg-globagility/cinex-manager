@@ -74,3 +74,21 @@ VIEW `movies_schedule_list_house_seat_view` AS
 INSERT INTO cinema_seat SELECT 0, cinema_id, 0, 0, 0, 0, 0, 0, '', '', 3, 0 FROM cinema_seat GROUP BY cinema_id;
 		
 		
+CREATE VIEW `movies_schedule_list_house_seat_free_view` AS
+ select 
+        `movies_schedule_list_house_seat`.`id` AS `id`,
+        `movies_schedule_list_house_seat`.`movies_schedule_list_id` AS `movies_schedule_list_id`,
+        `movies_schedule_list_house_seat`.`cinema_seat_id` AS `cinema_seat_id`,
+        `movies_schedule_list_house_seat`.`full_name` AS `full_name`,
+        `movies_schedule_list_house_seat`.`notes` AS `notes`,
+        `movies_schedule_list_house_seat`.`reserved_date` AS `reserved_date`,
+        `movies_schedule_list_house_seat`.`session_id` AS `session_id`,
+        `movies_schedule_list_house_seat`.`movies_schedule_list_patron_id` AS `movies_schedule_list_patron_id`
+    from
+        `movies_schedule_list_house_seat`
+    where
+        ((time_to_sec(timediff(now(),
+                        ifnull(`movies_schedule_list_house_seat`.`reserved_date`,
+                                now()))) < 600)
+AND movies_schedule_list_id IN (SELECT id FROM movies_schedule_list WHERE seat_type <> 1)
+		);
