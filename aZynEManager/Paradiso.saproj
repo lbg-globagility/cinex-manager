@@ -1,4 +1,4 @@
-<SmartAssemblyProject ProjectId="{26a40f96-1bb1-48b4-81f2-2dad535a0514}" Version="2.0">
+<SmartAssemblyProject ProjectId="{d951310e-b0b0-47ca-a9f6-d88a43cb9406}" Version="2.0">
     <MainAssemblyFileName>.\Paradiso\bin\Debug\Paradiso.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>
@@ -19,95 +19,90 @@
                     <ResourcesCompression />
                     <MemberRefsProxy />
                     <Pruning />
-                    <Obfuscation />
+                    <Obfuscation Obfuscate="0">
+                        <Exclusion />
+                    </Obfuscation>
                     <ControlFlow />
                 </Merging>
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="MahApps.Metro, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f">
-                <Merging Merge="0">
-                    <Pruning />
-                    <Obfuscation />
-                    <ControlFlow />
-                    <MemberRefsProxy />
-                    <ResourcesCompression />
-                </Merging>
-                <Embedding Embed="0" />
-            </Assembly>
-            <Assembly AssemblyName="CinemaCustomControlLibrary, Culture=neutral, PublicKeyToken=null">
-                <Merging Merge="1">
-                    <Pruning />
-                    <Obfuscation />
-                    <ControlFlow />
-                    <MemberRefsProxy />
-                    <ResourcesCompression />
-                </Merging>
+                <Merging />
                 <Embedding Embed="0" />
             </Assembly>
             <Assembly AssemblyName="CommonLibrary, Culture=neutral, PublicKeyToken=null">
                 <Merging Merge="1">
                     <Pruning />
-                    <Obfuscation />
+                    <Obfuscation Obfuscate="0">
+                        <Exclusion />
+                    </Obfuscation>
                     <ControlFlow />
                     <MemberRefsProxy />
                     <ResourcesCompression />
                 </Merging>
-                <Embedding Embed="0" />
+                <Embedding />
             </Assembly>
             <Assembly AssemblyName="EncryptUtilities, Culture=neutral, PublicKeyToken=null">
                 <Merging Merge="1">
                     <Pruning />
-                    <Obfuscation />
+                    <Obfuscation Obfuscate="0">
+                        <Exclusion />
+                    </Obfuscation>
                     <ControlFlow />
                     <MemberRefsProxy />
                     <ResourcesCompression />
                 </Merging>
-                <Embedding Embed="0" />
-            </Assembly>
-            <Assembly AssemblyName="Xceed.Wpf.Toolkit, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
-                <Merging Merge="0">
-                    <Pruning />
-                    <Obfuscation />
-                    <ControlFlow />
-                    <MemberRefsProxy />
-                    <ResourcesCompression />
-                </Merging>
-                <Embedding Embed="0" />
+                <Embedding />
             </Assembly>
             <Assembly AssemblyName="mscorlib, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="PresentationCore, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="Microsoft.VisualC, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+            <Assembly AssemblyName="PresentationFramework, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="WindowsBase, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+            <Assembly AssemblyName="System.Xml, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="UIAutomationProvider, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+            <Assembly AssemblyName="PresentationCore, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Xaml, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="UIAutomationTypes, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+            <Assembly AssemblyName="WindowsBase, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="System.Xml, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <Assembly AssemblyName="System.Core, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="System.Windows.Input.Manipulations, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <Assembly AssemblyName="UIAutomationProvider, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Deployment, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="System.Drawing, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+            <Assembly AssemblyName="PresentationUI, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="System.Printing, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="ReachFramework, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="UIAutomationTypes, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="System.Data, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="Accessibility, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Configuration, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -119,16 +114,13 @@
             <Assembly AssemblyName="System.Data.SqlXml, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="Accessibility, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+            <Assembly AssemblyName="Microsoft.VisualC, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+                <Merging />
+            </Assembly>
+            <Assembly AssemblyName="System.Windows.Input.Manipulations, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Xml.Linq, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="System.Data, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="System.Core, Culture=neutral, PublicKeyToken=b77a5c561934e089">
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Runtime.Serialization, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -206,18 +198,6 @@
             <Assembly AssemblyName="System.Configuration.Install, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging />
             </Assembly>
-            <Assembly AssemblyName="PresentationFramework, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="PresentationUI, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="System.Printing, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-                <Merging />
-            </Assembly>
-            <Assembly AssemblyName="ReachFramework, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-                <Merging />
-            </Assembly>
             <Assembly AssemblyName="System.Windows.Interactivity, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
                 <Merging />
             </Assembly>
@@ -225,10 +205,18 @@
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="SmartAssembly.AssemblyResolver, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
-                <Merging />
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
             </Assembly>
             <Assembly AssemblyName="SmartAssembly.Zip, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
-                <Merging />
+                <Merging>
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                </Merging>
             </Assembly>
         </Assemblies>
     </Configuration>

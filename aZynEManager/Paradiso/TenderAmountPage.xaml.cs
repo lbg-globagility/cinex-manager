@@ -198,7 +198,7 @@ namespace Paradiso
                     context.tickets.AddObject(t);
                     context.SaveChanges();
 
-
+                    List<string> ornumbers = new List<string>();
 
                     foreach (PatronSeatModel patronSeatModel in SelectedPatronSeatList.PatronSeats)
                     {
@@ -249,7 +249,7 @@ namespace Paradiso
                         mslrs.movies_schedule_list_id = t.movies_schedule_list_id;
                         mslrs.cinema_seat_id = patronSeatModel.SeatKey;
                         mslrs.ticket_id = t.id;
-                        mslrs.patron_id = patronSeatModel.Key;
+                        mslrs.patron_id = patronSeatModel.PatronKey;
                         mslrs.price = (float)patronSeatModel.Price;
                         mslrs.amusement_tax_amount = (float) amusementtax;
                         mslrs.cultural_tax_amount = (float) culturaltax;
@@ -258,6 +258,8 @@ namespace Paradiso
                         mslrs.status = 1;
 
                         //};
+
+                        ornumbers.Add(ornumber);
 
                         context.movies_schedule_list_reserved_seat.AddObject(mslrs);
 
@@ -277,7 +279,14 @@ namespace Paradiso
                         context.SaveChanges();
                     }
 
+                    
                     ParadisoObjectManager.GetInstance().SetNewSessionId();
+
+                    TicketPrintPage ticketPrintPage = new TicketPrintPage();
+                    ticketPrintPage.PrintTickets(ornumbers);
+
+
+
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
 
                 }

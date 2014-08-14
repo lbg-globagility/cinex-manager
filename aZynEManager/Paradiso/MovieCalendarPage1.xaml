@@ -58,7 +58,7 @@
                                     <ListView ItemsSource="{Binding MovieScheduleListItems}" Background="LightGoldenrodYellow">
                                         <ListView.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" Background="LightGoldenrodYellow"></StackPanel>
+                                                <StackPanel Orientation="Horizontal"></StackPanel>
                                             </ItemsPanelTemplate>
                                         </ListView.ItemsPanel>
                                         <ListView.ItemTemplate>

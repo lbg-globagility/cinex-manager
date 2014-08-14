@@ -71,8 +71,6 @@ VIEW `movies_schedule_list_house_seat_view` AS
             from
                 `movies_schedule_list_reserved_seat`))));
 
-INSERT INTO cinema_seat SELECT 0, cinema_id, 0, 0, 0, 0, 0, 0, '', '', 3, 0 FROM cinema_seat GROUP BY cinema_id;
-		
 		
 CREATE VIEW `movies_schedule_list_house_seat_free_view` AS
  select 
@@ -94,5 +92,21 @@ AND movies_schedule_list_id IN (SELECT id FROM movies_schedule_list WHERE seat_t
 		);
 
 --foreign keys
-check movie_schedule_list_patron table
-foreign key for movie_schedule_list_id		
+check movie_schedule_list_patron table foreign key for movie_schedule_list_id
+
+--create column movies_schedule_list_patron_id in movies_schedule_list_reserved_seat
+UPDATE movies_schedule_list_reserved_seat a, movies_schedule_list_patron b SET a.movies_schedule_list_patron_id = b.id 
+WHERE a.movies_schedule_list_id = b.movies_schedule_list_id  AND a.patron_id = b.patron_id;
+
+--delete foreign key and update patron_id with movies_schedule_list_patron_id
+--delete movies_schedule_list_patron_id column
+--add foreign key
+--disable foreign key check for errors
+SET foreign_key_checks = 0;
+ALTER TABLE `movies_schedule_list_reserved_seat` 
+ADD CONSTRAINT `fk_movies_schedule_list_reserved_seat_mslp1`
+  FOREIGN KEY (`patron_id`)
+  REFERENCES `movies_schedule_list_patron` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+SET foreign_key_checks = 1;  

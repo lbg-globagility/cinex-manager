@@ -350,7 +350,7 @@ namespace Paradiso
             try
             {
                 SeatModel seatModel = (SeatModel)((Canvas)sender).DataContext;
-                //if (seatModel.Type == 1) //only seats
+                if (seatModel.Type == 1) //only seats
                 {
                     if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
                     {

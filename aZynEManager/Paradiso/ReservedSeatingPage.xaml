@@ -166,7 +166,7 @@
         <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Horizontal" Margin="20">
             <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
             <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
-            <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75"/>
+            <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />
         </StackPanel>
 
         <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">

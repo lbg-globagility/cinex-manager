@@ -23,7 +23,6 @@ namespace Paradiso.Model
         private DateTime dtStartTime;
         private string strPatronCode = string.Empty;
         private decimal decPatronPrice = 0m;
-        private string strPatronCodePrice = string.Empty;
 
         private int intSeatType = 0;
         private string strSeatType = string.Empty;
@@ -222,8 +221,6 @@ namespace Paradiso.Model
                 {
                     decPatronPrice = value;
                     NotifyPropertyChanged("PatronPrice");
-                    
-                    PatronCodePrice = string.Format("{0} {1:#}", PatronCode, PatronPrice);
                 }
             }
         }
@@ -236,22 +233,8 @@ namespace Paradiso.Model
                 if (strPatronCode != value)
                 {
                     strPatronCode = value;
-                    NotifyPropertyChanged(strPatronCode);
+                    NotifyPropertyChanged("PatronCode");
 
-                    PatronCodePrice = string.Format("{0} {1:#}", PatronCode, PatronPrice);
-                }
-            }
-        }
-
-        public string PatronCodePrice
-        {
-            get { return strPatronCodePrice; }
-            set
-            {
-                if (strPatronCodePrice != value)
-                {
-                    strPatronCodePrice = value;
-                    NotifyPropertyChanged(strPatronCodePrice);
                 }
             }
         }

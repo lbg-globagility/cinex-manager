@@ -30,11 +30,11 @@
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontFamily="Arial" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
                 <TextBlock Margin="5" TextBlock.FontSize="16">Cash Tender</TextBlock>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Background="LightGray">
                     <TextBlock Width="300" TextAlignment="Center">Total Amount Due</TextBlock>
                     <TextBlock Width="300" TextAlignment="Center">Total Amount Paid</TextBlock>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Background="LightGray">
                     <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
                     <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
                 </StackPanel>
@@ -64,9 +64,9 @@
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Click="Button_Click">0</Button>
                     <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click">.</Button>
                 </Grid>
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock TextAlignment="Right">Change</TextBlock>
-                    <TextBlock TextAlignment="Right" FontSize="32" Name="Change"/>
+                <StackPanel Background="LightGray">
+                    <TextBlock Margin="0,0,10,0"  TextAlignment="Right">Change</TextBlock>
+                    <TextBlock Margin="0,0,10,0" TextAlignment="Right" FontSize="32" Name="Change"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
                     <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />

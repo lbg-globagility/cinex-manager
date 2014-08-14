@@ -128,7 +128,8 @@ namespace Paradiso
                             Rating = _movie_schedule_list.rating,
                             StartTime = _movie_schedule_list.starttime,
                             EndTime = _movie_schedule_list.endtime,
-                            RunningTimeInSeconds = _movie_schedule_list.duration
+                            RunningTimeInSeconds = _movie_schedule_list.duration,
+                            SeatType = _movie_schedule_list.seattype
                         };
 
                         /**

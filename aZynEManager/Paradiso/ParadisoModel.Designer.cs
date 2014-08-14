@@ -43,6 +43,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_system_module1", "system_module", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.system_module), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_ticket_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "ticket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.ticket), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_a_trail_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "a_trail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.a_trail), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list), "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_patron), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_patron), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
 
 #endregion
 
@@ -493,6 +496,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<movies_schedule_list_house_seat_free_view> _movies_schedule_list_house_seat_free_view;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<a_trail> a_trail
+        {
+            get
+            {
+                if ((_a_trail == null))
+                {
+                    _a_trail = base.CreateObjectSet<a_trail>("a_trail");
+                }
+                return _a_trail;
+            }
+        }
+        private ObjectSet<a_trail> _a_trail;
 
         #endregion
 
@@ -697,6 +716,14 @@ namespace Paradiso
         {
             base.AddObject("movies_schedule_list_house_seat_free_view", movies_schedule_list_house_seat_free_view);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the a_trail EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToa_trail(a_trail a_trail)
+        {
+            base.AddObject("a_trail", a_trail);
+        }
 
         #endregion
 
@@ -705,6 +732,261 @@ namespace Paradiso
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="a_trail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class a_trail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new a_trail object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="tr_date">Initial value of the tr_date property.</param>
+        /// <param name="module_code">Initial value of the module_code property.</param>
+        /// <param name="aff_table_layer">Initial value of the aff_table_layer property.</param>
+        /// <param name="computer_name">Initial value of the computer_name property.</param>
+        /// <param name="tr_details">Initial value of the tr_details property.</param>
+        public static a_trail Createa_trail(global::System.Int32 id, global::System.Int32 user_id, global::System.DateTime tr_date, global::System.Int32 module_code, global::System.String aff_table_layer, global::System.String computer_name, global::System.String tr_details)
+        {
+            a_trail a_trail = new a_trail();
+            a_trail.id = id;
+            a_trail.user_id = user_id;
+            a_trail.tr_date = tr_date;
+            a_trail.module_code = module_code;
+            a_trail.aff_table_layer = aff_table_layer;
+            a_trail.computer_name = computer_name;
+            a_trail.tr_details = tr_details;
+            return a_trail;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private global::System.Int32 _user_id;
+        partial void Onuser_idChanging(global::System.Int32 value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime tr_date
+        {
+            get
+            {
+                return _tr_date;
+            }
+            set
+            {
+                Ontr_dateChanging(value);
+                ReportPropertyChanging("tr_date");
+                _tr_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("tr_date");
+                Ontr_dateChanged();
+            }
+        }
+        private global::System.DateTime _tr_date;
+        partial void Ontr_dateChanging(global::System.DateTime value);
+        partial void Ontr_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 module_code
+        {
+            get
+            {
+                return _module_code;
+            }
+            set
+            {
+                Onmodule_codeChanging(value);
+                ReportPropertyChanging("module_code");
+                _module_code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("module_code");
+                Onmodule_codeChanged();
+            }
+        }
+        private global::System.Int32 _module_code;
+        partial void Onmodule_codeChanging(global::System.Int32 value);
+        partial void Onmodule_codeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String aff_table_layer
+        {
+            get
+            {
+                return _aff_table_layer;
+            }
+            set
+            {
+                Onaff_table_layerChanging(value);
+                ReportPropertyChanging("aff_table_layer");
+                _aff_table_layer = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("aff_table_layer");
+                Onaff_table_layerChanged();
+            }
+        }
+        private global::System.String _aff_table_layer;
+        partial void Onaff_table_layerChanging(global::System.String value);
+        partial void Onaff_table_layerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String computer_name
+        {
+            get
+            {
+                return _computer_name;
+            }
+            set
+            {
+                Oncomputer_nameChanging(value);
+                ReportPropertyChanging("computer_name");
+                _computer_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("computer_name");
+                Oncomputer_nameChanged();
+            }
+        }
+        private global::System.String _computer_name;
+        partial void Oncomputer_nameChanging(global::System.String value);
+        partial void Oncomputer_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String tr_details
+        {
+            get
+            {
+                return _tr_details;
+            }
+            set
+            {
+                Ontr_detailsChanging(value);
+                ReportPropertyChanging("tr_details");
+                _tr_details = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("tr_details");
+                Ontr_detailsChanged();
+            }
+        }
+        private global::System.String _tr_details;
+        partial void Ontr_detailsChanging(global::System.String value);
+        partial void Ontr_detailsChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_a_trail_users1", "user")]
+        public user user
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<user> userReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -3103,6 +3385,28 @@ namespace Paradiso
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list_patron")]
+        public EntityCollection<movies_schedule_list_patron> movies_schedule_list_patron
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list_patron");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list_patron", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4131,6 +4435,66 @@ namespace Paradiso
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list")]
+        public movies_schedule_list movies_schedule_list
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<movies_schedule_list> movies_schedule_listReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<movies_schedule_list>("paradisoModel.fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_reserved_seat")]
+        public EntityCollection<movies_schedule_list_reserved_seat> movies_schedule_list_reserved_seat
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<movies_schedule_list_reserved_seat>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_reserved_seat");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<movies_schedule_list_reserved_seat>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_reserved_seat", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4675,6 +5039,44 @@ namespace Paradiso
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron")]
+        public movies_schedule_list_patron movies_schedule_list_patron
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<movies_schedule_list_patron> movies_schedule_list_patronReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron", value);
                 }
             }
         }
@@ -6278,6 +6680,28 @@ namespace Paradiso
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<user_rights>("paradisoModel.fk_user_rights_users1", "user_rights", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_a_trail_users1", "a_trail")]
+        public EntityCollection<a_trail> a_trail
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<a_trail>("paradisoModel.fk_a_trail_users1", "a_trail");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<a_trail>("paradisoModel.fk_a_trail_users1", "a_trail", value);
                 }
             }
         }
