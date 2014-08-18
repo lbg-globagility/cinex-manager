@@ -23,11 +23,13 @@ namespace aZynEManager
         DataTable m_dt = new DataTable();
         DataTable m_dtsounds = new DataTable();
         MySqlConnection myconn = new MySqlConnection();
-        
+        CinemaCustomControlLibrary.SeatWindow window;
 
         public frmCinema()
         {
             InitializeComponent();
+            
+            window = new CinemaCustomControlLibrary.SeatWindow();
         }
 
         public void frmInit(frmMain frm, clscommon cls)
@@ -347,6 +349,18 @@ namespace aZynEManager
                     return;
                 }
 
+                int intCapacity = 0;
+                int.TryParse(txtcapacity.Text.Trim(), out intCapacity);
+                try
+                {
+                    window.ValidateCinemaSeats(intCapacity);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
 
@@ -406,6 +420,20 @@ namespace aZynEManager
                     }
 
                     tabinsertcheck(myconn, dgvpatrons, Convert.ToInt32(strid));
+
+                    int intCinemaId = 0;
+                    int.TryParse(strid, out intCinemaId);
+                    try
+                    {
+                        window.SaveCinemaSeats(intCinemaId);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show(ex.Message.ToString() , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -600,6 +628,18 @@ namespace aZynEManager
                     return;
                 }
 
+                int intCapacity = 0;
+                int.TryParse(txtcapacity.Text.Trim(), out intCapacity);
+                try
+                {
+                    window.ValidateCinemaSeats(intCapacity);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 //update the selected record
                 StringBuilder strqry = new StringBuilder();
                 strqry.Append(String.Format("update cinema set name = '{0}',", txtname.Text.Trim()));
@@ -639,6 +679,18 @@ namespace aZynEManager
                     }
 
                     tabinsertcheck(myconn, dgvpatrons, intid);
+
+                    try
+                    {
+                        window.SaveCinemaSeats(intid);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show(ex.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -907,14 +959,25 @@ namespace aZynEManager
 
         private void btnseats_Click(object sender, EventArgs e)
         {
-            var window = new CinemaCustomControlLibrary.SeatWindow();
             int intCinemaId = 0;
             string strCinemaName = txtname.Text.Trim();
             int intCapacity = 0;
             if (dgvResult.SelectedRows.Count == 1 && btnEdit.Text == "update" )
                 int.TryParse(dgvResult.SelectedRows[0].Cells[0].Value.ToString(), out intCinemaId);
             int.TryParse(txtcapacity.Text.Trim(), out intCapacity);
+            if (strCinemaName == string.Empty)
+            {
+                MessageBox.Show("Cinema name is required.", this.Text);
+                return;
+            }
+            else if (intCapacity <= 0)
+            {
+                MessageBox.Show("Cinema capacity is required.", this.Text);
+                return;
+            }
 
+            //resets all 
+            window = new CinemaCustomControlLibrary.SeatWindow();
             window.LoadCinema(intCinemaId, strCinemaName, intCapacity);
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
