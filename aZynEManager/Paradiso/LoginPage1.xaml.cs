@@ -25,7 +25,14 @@ namespace Paradiso
             InitializeComponent();
         }
 
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Login();
+        }
+
+        private void Login()
         {
             string strUserName = UserName.Text;
             string strPassword = Password.Password;
@@ -47,22 +54,24 @@ namespace Paradiso
 
             Encryption encryption = new Encryption();
             strPassword = encryption.EncryptString(strPassword);
+            
+            ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();
                 if (username != null)
                 {
-                    ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
                     paradisoObjectManager.UserId = username.id;
                     paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
                     paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
-                    //trail
+                    
+                    //paradisoObjectManager.Log("LOGIN", "LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
+
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
                 }
                 else
                 {
-                    //trail
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.MessageText.Text = "Invalid username/password.";
                     messageWindow.ShowDialog();
@@ -78,6 +87,23 @@ namespace Paradiso
                 top = 0;
             Canvas.SetTop(LoginBorder, top);
             Canvas.SetTop(PopcornImage, top + 85);
+        }
+
+        private void UserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Password.Focusable = true;
+                Keyboard.Focus(Password);
+            }
+        }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Login();
+            }
         }
     }
 }

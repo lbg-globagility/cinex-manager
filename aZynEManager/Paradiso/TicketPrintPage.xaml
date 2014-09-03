@@ -33,11 +33,19 @@
                     <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper"></TextBox>
                     <Button Width="100" Name="Search" Click="Search_Click">Search</Button>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Width="100" Name="Void" Click="Void_Click">Void</Button>
-                    <Button Width="100"  Margin="5,0,0,0" Name="Print" Click="Print_Click">Print</Button>
-                    <Button Width="100" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click">Cancel</Button>
-                </StackPanel>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Width="100" Grid.Column="0" Name="Void" Click="Void_Click">Void</Button>
+                    <Button Width="100" Grid.Column="1" Margin="5,0,0,0" Name="Print" Click="Print_Click">Print</Button>
+                    <Button Width="100" Grid.Column="2" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click">Cancel</Button>
+                </Grid>
             </StackPanel>
             <Border>
                 

@@ -80,18 +80,56 @@ namespace Paradiso
             }
         }
 
-        /*
-        //hack should return dbcurrentdate instead
-        public DateTime ActualCurrentDate
+        public bool HasRights(string strModuleCode)
         {
-            get
+            bool blnHasRights = false;
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                DateTime dtNow = ParadisoObjectManager.GetInstance().DbCurrentDate;
-                DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
-                dtNow = new DateTime(dtScreenDate.Year, dtScreenDate.Month, dtScreenDate.Day, dtNow.Hour, dtNow.Minute, dtNow.Second);
-                return dtNow;
+                var has_rights = (from u in context.user_rights where u.user_id == this.UserId && u.system_module.module_code == strModuleCode && u.system_module.module_group == "TICKET" select u).SingleOrDefault();
+                if (has_rights != null)
+                    blnHasRights = true;
+            }
+
+            return blnHasRights;
+        }
+
+        public void Log(string strModuleCode, string strAffectTables, string strDetails)
+        {
+            DateTime dtCurrentDate = this.CurrentDate;
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var module_id = (from s in context.system_module where s.module_code == strModuleCode && s.module_group == "TICKET" select s.id).SingleOrDefault();
+                /*
+                if (module_id == 0)
+                {
+                    //add module if it does not exists
+                    system_module module = new system_module()
+                    {
+                        module_code = strModuleCode,
+                        module_desc = strModuleCode,
+                        module_group = "TICKET",
+                    };
+                    context.system_module.AddObject(module);
+                    context.SaveChanges();
+
+                    module_id = module.id;
+                }
+                */
+                
+                if (module_id != 0)
+                {
+                    a_trail trail = new a_trail()
+                    {
+                        user_id = this.UserId,
+                        tr_date = this.CurrentDate,
+                        aff_table_layer = strAffectTables,
+                        computer_name = Environment.MachineName.ToString(),
+                        tr_details = strDetails,
+                    };
+                    context.a_trail.AddObject(trail);
+                    context.SaveChanges();
+                }
             }
         }
-        */
     }
 }

@@ -18,9 +18,9 @@
         <Border Name="LoginBorder" Canvas.Right="45" Canvas.Top="125" CornerRadius="5,5,5,5" BorderThickness="2,2,2,2" Padding="20, 10, 20, 20" Background="#ce8076" Width="322" Opacity="0.6" Height="211">        
             <StackPanel Orientation="Vertical" Margin="10">
                 <TextBlock FontSize="14">Username</TextBlock>
-                <TextBox Name="UserName" Background="#ecd9cb" Foreground="Black"  Margin="0, 0, 0, 5" CharacterCasing="Upper" Height="33" TextAlignment="Left" VerticalContentAlignment="Center" />
+                <TextBox Name="UserName" Background="#ecd9cb" Foreground="Black"  Margin="0, 0, 0, 5" CharacterCasing="Upper" Height="33" TextAlignment="Left" VerticalContentAlignment="Center" KeyDown="UserName_KeyDown" />
                 <TextBlock FontSize="14">Password</TextBlock>
-                <PasswordBox Name="Password" Background="#ecd9cb" Foreground="Black" Margin="0, 0, 0, 5" Height="32" VerticalContentAlignment="Center" />
+                <PasswordBox Name="Password" Background="#ecd9cb" Foreground="Black" Margin="0, 0, 0, 5" Height="32" VerticalContentAlignment="Center" KeyDown="Password_KeyDown"/>
                 <Button Background="#003470"  FontFamily="Arial" Click="Button_Click" Height="34" Width="259">Submit</Button>
         </StackPanel>
         </Border>

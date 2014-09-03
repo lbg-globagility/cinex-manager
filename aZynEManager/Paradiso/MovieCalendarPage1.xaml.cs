@@ -47,6 +47,12 @@ namespace Paradiso
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.MovieScheduleUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
+
+            ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+            if (paradisoObjectManager.HasRights("REPRINT") || paradisoObjectManager.HasRights("VOID"))
+                TicketPanel.Visibility = Visibility.Visible;
+            else
+                TicketPanel.Visibility = Visibility.Hidden;
         }
 
         public int ColumnCount

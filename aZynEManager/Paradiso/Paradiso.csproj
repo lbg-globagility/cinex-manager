@@ -115,7 +115,7 @@
     <Compile Include="CinemaPatron.cs" />
     <Compile Include="CinemaTicket.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="FooterLineConverter.cs" />
+    <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="FreeSeatingPage.xaml.cs">
       <DependentUpon>FreeSeatingPage.xaml</DependentUpon>
     </Compile>
@@ -157,14 +157,14 @@
     <Compile Include="PatronWindow.xaml.cs">
       <DependentUpon>PatronWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScreenDateToTimeConverter.cs" />
-    <Compile Include="ScreenTimeColorConverter.cs" />
-    <Compile Include="ScreenTimeColorMultiConverter.cs" />
-    <Compile Include="SeatImageMultiConverter.cs" />
+    <Compile Include="Converters\ScreenDateToTimeConverter.cs" />
+    <Compile Include="Converters\ScreenTimeColorConverter.cs" />
+    <Compile Include="Converters\ScreenTimeColorMultiConverter.cs" />
+    <Compile Include="Converters\SeatImageMultiConverter.cs" />
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SeatLabelLeftCanvasConverter.cs" />
+    <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
     <Compile Include="SessionItem.cs" />
     <Compile Include="TenderAmountPage.xaml.cs">
       <DependentUpon>TenderAmountPage.xaml</DependentUpon>
@@ -172,7 +172,7 @@
     <Compile Include="TicketPrintPage.xaml.cs">
       <DependentUpon>TicketPrintPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TotalPatronSeatConverter.cs">
+    <Compile Include="Converters\TotalPatronSeatConverter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
@@ -331,8 +331,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
     <Folder Include="Data\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\icon-ticketingterminal.png" />

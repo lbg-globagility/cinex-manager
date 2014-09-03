@@ -29,6 +29,25 @@ namespace Paradiso
             Ticket = new TicketModel();
 
             this.DataContext = this;
+
+            ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+            bool blnHasVoid = paradisoObjectManager.HasRights("VOID");
+            bool blnHasReprint = paradisoObjectManager.HasRights("REPRINT");
+
+            if (blnHasVoid && !blnHasReprint)
+            {
+                Grid.SetColumn(Void, 1);
+            }
+            if (blnHasVoid)
+                Void.Visibility = Visibility.Visible;
+            else
+                Void.Visibility = Visibility.Hidden;
+                
+            if (blnHasReprint)
+                Print.Visibility = Visibility.Visible;
+            else
+                Print.Visibility = Visibility.Hidden;
+
         }
 
         /*
