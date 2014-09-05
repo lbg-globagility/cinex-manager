@@ -7,7 +7,7 @@
       xmlns:l="clr-namespace:Paradiso"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
-	Title="TenderAmountPage">
+	Title="TenderAmountPage" SizeChanged="Page_SizeChanged">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,7 +27,7 @@
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
         </Canvas.Background>
-        <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
+        <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontFamily="Arial" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
                 <TextBlock Margin="5" TextBlock.FontSize="16">Cash Tender</TextBlock>
                 <StackPanel Orientation="Horizontal" Background="LightGray">
@@ -68,7 +68,7 @@
                     <TextBlock Margin="0,0,10,0"  TextAlignment="Right">Change</TextBlock>
                     <TextBlock Margin="0,0,10,0" TextAlignment="Right" FontSize="32" Name="Change"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
                     <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
                     <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click"/>
                     <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click"  />

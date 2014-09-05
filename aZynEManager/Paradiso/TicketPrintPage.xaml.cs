@@ -63,7 +63,56 @@ namespace Paradiso
 
         private void Void_Click(object sender, RoutedEventArgs e)
         {
+            string strORNumber = ORNumberInput.Text.Trim();
 
+            this.PrintTicket(strORNumber);
+            if (Ticket.ORNumber == string.Empty)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "OR Number is invalid.";
+                messageWindow.ShowDialog();
+            }
+
+            MessageYesNoWindow window = new MessageYesNoWindow();
+            window.MessageText.Text = string.Format("Are you sure you want to void OR Number {0}?", strORNumber);
+            window.ShowDialog();
+            if (window.IsYes)
+            {
+
+                try
+                {
+                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    {
+
+                        var _mslrs = (from mslrs in context.movies_schedule_list_reserved_seat
+                                      where mslrs.status == 1 && mslrs.or_number == Ticket.ORNumber
+                                      select mslrs).SingleOrDefault();
+                        if (_mslrs != null)
+                        {
+                            _mslrs.status = 2;
+                            _mslrs.void_user_id = ParadisoObjectManager.GetInstance().UserId;
+                            _mslrs.void_datetime = ParadisoObjectManager.GetInstance().CurrentDate;
+                        }
+                        context.SaveChanges();
+
+
+                    }
+                }
+                catch
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = string.Format("Failed to void OR Number {0}.", strORNumber);
+                    messageWindow.ShowDialog();
+                    return;
+                }
+                
+                ORNumberInput.Text = string.Empty;
+                Ticket.Clear();
+
+                MessageWindow _messageWindow = new MessageWindow();
+                _messageWindow.MessageText.Text = string.Format("Successfully voided OR Number {0}.", strORNumber);
+                _messageWindow.ShowDialog();
+            }
         }
 
         private void PrintTicket(string strORNumber)

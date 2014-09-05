@@ -305,8 +305,6 @@ namespace Paradiso
             }
         }
 
-
-
         private void TotalAmountPaid_TextChanged(object sender, TextChangedEventArgs e)
         {
             //forget about data binding
@@ -314,6 +312,15 @@ namespace Paradiso
             if (decChange < 0)
                 decChange = 0;
             Change.Text = string.Format("{0:#,##0.00}", decChange);
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double top = (MainCanvas.ActualHeight - MainDockPanel.ActualHeight) * 0.5;
+            if (top < 0)
+                top = 0;
+            Canvas.SetTop(MainDockPanel, top);
+
         }
     }
 }
