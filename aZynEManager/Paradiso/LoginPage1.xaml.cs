@@ -66,12 +66,13 @@ namespace Paradiso
                     paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
                     paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
                     
-                    //paradisoObjectManager.Log("LOGIN", "LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
+                    paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
                 }
                 else
                 {
+
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.MessageText.Text = "Invalid username/password.";
                     messageWindow.ShowDialog();

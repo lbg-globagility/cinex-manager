@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace Paradiso
 {
@@ -63,6 +65,16 @@ namespace Paradiso
 
         private void Void_Click(object sender, RoutedEventArgs e)
         {
+            if (ParadisoObjectManager.GetInstance().HasRights("VOID"))
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "You don't have access for this page.";
+                messageWindow.ShowDialog();
+
+                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage1());
+                return;
+            }
+
             string strORNumber = ORNumberInput.Text.Trim();
 
             this.PrintTicket(strORNumber);
@@ -71,6 +83,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "OR Number is invalid.";
                 messageWindow.ShowDialog();
+                return;
             }
 
             MessageYesNoWindow window = new MessageYesNoWindow();
@@ -100,12 +113,17 @@ namespace Paradiso
                 }
                 catch
                 {
+                    ParadisoObjectManager.GetInstance().Log("VOID", "TICKET|VOID",
+                        string.Format("VOID {0} - FAIL.", Ticket.ORNumber));
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.MessageText.Text = string.Format("Failed to void OR Number {0}.", strORNumber);
                     messageWindow.ShowDialog();
                     return;
                 }
-                
+
+                ParadisoObjectManager.GetInstance().Log("VOID", "TICKET|VOID",
+                    string.Format("VOID {0} - OK.", Ticket.ORNumber));
+
                 ORNumberInput.Text = string.Empty;
                 Ticket.Clear();
 
@@ -123,7 +141,7 @@ namespace Paradiso
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var t = (from mslrs in context.movies_schedule_list_reserved_seat
-                         where mslrs.or_number == strORNumber
+                         where mslrs.or_number == strORNumber && mslrs.status == 1 
                          select new
                          {
                              cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
@@ -141,10 +159,7 @@ namespace Paradiso
                              tellercode = mslrs.ticket.user.userid,
                              session = mslrs.ticket.session_id
                          }).FirstOrDefault();
-                if (t == null)
-                {
-                }
-                else
+                if (t != null)
                 {
                     Ticket.CinemaNumber = t.cinemanumber;
                     Ticket.MovieCode = t.moviecode;
@@ -167,6 +182,16 @@ namespace Paradiso
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
+            if (ParadisoObjectManager.GetInstance().HasRights("PRINT"))
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "You don't have access for this page.";
+                messageWindow.ShowDialog();
+
+                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage1());
+                return;
+            }
+
             if (Ticket.ORNumber == string.Empty)
             {
                 MessageWindow messageWindow = new MessageWindow();
@@ -177,21 +202,35 @@ namespace Paradiso
             PrintDialog dialog = new PrintDialog();
             if (dialog.ShowDialog() == true)
             { 
-                dialog.PrintVisual(TicketCanvas, Ticket.ORNumber); 
+                dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|REPRINT", string.Format("REPRINT {0}.", Ticket.ORNumber));
             }
         }
 
+        //put this into thread or create progress so it will not appear to hang
         public void PrintTickets(List<string> tickets)
         {
             PrintDialog dialog = new PrintDialog();
             if (dialog.ShowDialog() == true)
             {
-                foreach (string ticket in tickets)
+
+                ThreadStart job = new ThreadStart(() =>
                 {
-                    this.PrintTicket(ticket);
-                    dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
-                    //System.Threading.Thread.Sleep(100);
-                }
+                    foreach (string ticket in tickets)
+                    {
+
+                        this.PrintTicket(ticket);
+                        Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                        }));
+                        //System.Threading.Thread.Sleep(100);
+                        ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|PRINT", string.Format("PRINT {0}.", Ticket.ORNumber));
+                    }
+                });
+
+                Thread thread = new Thread(job);
+                thread.Start();
             }
         }
 

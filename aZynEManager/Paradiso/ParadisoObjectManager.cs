@@ -99,36 +99,20 @@ namespace Paradiso
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var module_id = (from s in context.system_module where s.module_code == strModuleCode && s.module_group == "TICKET" select s.id).SingleOrDefault();
-                /*
                 if (module_id == 0)
-                {
-                    //add module if it does not exists
-                    system_module module = new system_module()
-                    {
-                        module_code = strModuleCode,
-                        module_desc = strModuleCode,
-                        module_group = "TICKET",
-                    };
-                    context.system_module.AddObject(module);
-                    context.SaveChanges();
+                    module_id = -1; //just negate
 
-                    module_id = module.id;
-                }
-                */
-                
-                if (module_id != 0)
+                a_trail trail = new a_trail()
                 {
-                    a_trail trail = new a_trail()
-                    {
-                        user_id = this.UserId,
-                        tr_date = this.CurrentDate,
-                        aff_table_layer = strAffectTables,
-                        computer_name = Environment.MachineName.ToString(),
-                        tr_details = strDetails,
-                    };
-                    context.a_trail.AddObject(trail);
-                    context.SaveChanges();
-                }
+                    user_id = this.UserId,
+                    module_code = module_id,
+                    tr_date = this.CurrentDate,
+                    aff_table_layer = strAffectTables,
+                    computer_name = Environment.MachineName.ToString(),
+                    tr_details = strDetails,
+                };
+                context.a_trail.AddObject(trail);
+                context.SaveChanges();
             }
         }
     }
