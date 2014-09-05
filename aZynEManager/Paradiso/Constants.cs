@@ -13,5 +13,6 @@ namespace Paradiso
         public const int DateTimeUiInterval = 3;
         public const int MovieScheduleUiInterval = 10;
         public const int ReservedSeatingUiInterval = 5; //disable timer when creating transaction
+        public const int PatronSeatUiInterval = 1;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Paradiso.Model
 {
@@ -15,6 +16,64 @@ namespace Paradiso.Model
         private string strSeatName;
         private decimal decPrice;
         private DateTime dtReservedDate;
+        
+        private string strRemainingTime;
+        DispatcherTimer timer = new DispatcherTimer();
+
+        public PatronSeatModel()
+        {
+        }
+
+        public PatronSeatModel(int key, int seatKey, string seatName, string patronName, decimal price, DateTime reservedDate)
+        {
+            Key = key;
+            SeatKey = seatKey;
+            SeatName = seatName;
+            PatronName = patronName;
+            Price = price;
+            ReservedDate = reservedDate;
+            RemainingTime = RemainingTimeValue;
+
+            timer.Interval = TimeSpan.FromMilliseconds(1000 * Paradiso.Constants.PatronSeatUiInterval);
+
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+
+        public string RemainingTime
+        {
+            get { return strRemainingTime; }
+
+            private set
+            {
+                strRemainingTime = value;
+                NotifyPropertyChanged("RemainingTime");
+            }
+        }
+
+        private string RemainingTimeValue
+        {
+            get
+            {
+                DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
+
+                TimeSpan span = dtReservedDate.AddMinutes(10) - dtNow;
+                if (span.TotalMinutes > 10 || span.Seconds < 0 || span.Minutes < 0)
+                    return RemainingTime;
+
+                return string.Format("{0:00}:{1:00}", span.Minutes, span.Seconds);
+            }
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                RemainingTime = RemainingTimeValue;
+            }
+            catch { }
+        }
 
         public int Key
         {

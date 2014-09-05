@@ -29,6 +29,30 @@ namespace Paradiso.Model
         private int intLayTime = 0; //in minutes
         private int intSeatType = 3; //1=reserved , 2=free seating (limited), 3=free seating (unlimited)
 
+
+        public MovieScheduleListModel()
+        {
+        }
+
+        public MovieScheduleListModel(MovieScheduleListModel movieScheduleListModel)
+        {
+            Key = movieScheduleListModel.Key;
+            CinemaKey = movieScheduleListModel.CinemaKey;
+            StartTime = movieScheduleListModel.StartTime;
+            EndTime = movieScheduleListModel.EndTime;
+            MovieKey = movieScheduleListModel.MovieKey;
+            MovieName = movieScheduleListModel.MovieName;
+            RunningTime = movieScheduleListModel.RunningTime;
+            Available = movieScheduleListModel.Available;
+            Booked = movieScheduleListModel.Booked;
+            Selected = movieScheduleListModel.Selected;
+            Rating = movieScheduleListModel.Rating;
+            IsEnabled = movieScheduleListModel.IsEnabled;
+            Price = movieScheduleListModel.Price;
+            LayTime = movieScheduleListModel.LayTime;
+            SeatType = movieScheduleListModel.SeatType;
+        }
+
         public int CinemaKey
         {
             get { return intCinemaKey; }
