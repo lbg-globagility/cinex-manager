@@ -105,16 +105,41 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown">
+                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp">
+                            <Canvas.ContextMenu>
+                                <ContextMenu>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+            <TextBlock FontSize="16">Seat Selected:</TextBlock>
+            <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Name}"/>
+        </StackPanel>
+                                        <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Margin="10">
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Name}" FontSize="14"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+                                </ContextMenu>
+                            </Canvas.ContextMenu>
                             <Image Name="SeatIcon" Width="{Binding Width}" >
-                                <Image.Source>
-                                    <MultiBinding Converter="{StaticResource seatImage}">
-                                        <Binding Path="Type"/>
-                                        <Binding Path="SeatType"/>
-                                    </MultiBinding>
-                                </Image.Source>
-                            </Image>
-                            <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource seatImage}">
+                                            <Binding Path="Type"/>
+                                            <Binding Path="SeatType"/>
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

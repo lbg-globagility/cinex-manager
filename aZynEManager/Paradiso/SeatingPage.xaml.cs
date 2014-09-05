@@ -30,9 +30,12 @@ namespace Paradiso
         public ObservableCollection<PatronModel> Patrons { get; set; }
         public ObservableCollection<SeatModel> Seats { get; set; }
         public PatronSeatListModel SelectedPatronSeatList { get; set; }
+        public PatronModel SelectedPatron { get; set; }
 
         DispatcherTimer timer;
         private bool blnIsUpdating = false;
+
+        private SeatModel Seat { get; set; }
 
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
@@ -363,14 +366,64 @@ namespace Paradiso
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            /*
             if (blnIsUpdating)
                 return;
             timer.Stop();
+            */
+            Canvas seatCanvas = (Canvas)sender;
+            Seat = null;
+            SelectedPatron = null;
 
+            try
+            {
+                SeatModel seatModel = (SeatModel)(seatCanvas).DataContext;
+                if (seatModel.Type == 1)
+                {
+                    if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
+                    {
+                        Seat = seatModel;
+                        //get selected patron
+                        if (seatModel.SeatType == 2)
+                        {
+                            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                            {
+                                string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                                var patronid = (from mcths in context.movies_schedule_list_house_seat_view
+                                                where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
+                                                mcths.session_id == strSessionId
+                                                select mcths.movies_schedule_list_patron_id).FirstOrDefault();
+                                if (patronid != null)
+                                {
+                                    if (Patrons.Count > 0)
+                                    {
+                                        foreach (var p in Patrons)
+                                        {
+                                            if (p != null && p.Key == patronid)
+                                            {
+                                                SelectedPatron = p;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        seatCanvas.ContextMenu.PlacementTarget = this;
+                        seatCanvas.ContextMenu.IsOpen = true;
+                        
+                    }
+                }
+                e.Handled = true;
+            }
+            catch { }
+ 
+            /*
             bool blnHasChanges = false;
             try
             {
-                SeatModel seatModel = (SeatModel)((Canvas)sender).DataContext;
                 if (seatModel.Type == 1) //only seats
                 {
                     if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
@@ -400,7 +453,6 @@ namespace Paradiso
                                         }
                                     }
                                 }
-
                             }
                         }
 
@@ -416,6 +468,7 @@ namespace Paradiso
             if (blnHasChanges)
                 this.UpdateMovieSchedule();
             timer.Start();
+            */
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
@@ -464,6 +517,104 @@ namespace Paradiso
                 //call payment
                 NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
+        }
+
+        private void SeatCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void PatronsListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            timer.Stop();
+            bool IsUpdated = false;
+
+            var item = ItemsControl.ContainerFromElement( (ListView) sender, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                PatronModel _SelectedPatron = (PatronModel)item.Content;
+                {
+                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    {
+                        //selected seats 
+                        string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                        //taken seats
+                        var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
+                                          where mslrs.movies_schedule_list_id == MovieSchedule.Key && mslrs.cinema_seat_id == Seat.Key
+                                          select mslrs.cinema_seat_id).Count();
+
+                        //reserved seats from other sessions
+                        var reservedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                                             where mcths.movies_schedule_list_id == MovieSchedule.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == Seat.Key
+                                             select mcths.cinema_seat_id).Count();
+
+                        //selected seats 
+                        var selectedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                                             where mcths.movies_schedule_list_id == MovieSchedule.Key && mcths.session_id == strSessionId && mcths.cinema_seat_id == Seat.Key
+                                             select new { mcths.cinema_seat_id }).Count();
+
+                        if (takenseats > 0 || reservedseats > 0) //seat already taken?
+                        {
+
+                        }
+                        else if (Seat.SeatType == 1 && selectedseats > 0) //available but already selected?
+                        {
+
+                        }
+                        else if (Seat.SeatType == 2 && selectedseats == 0) //selected but already expired?
+                        {
+
+                        }
+                        else
+                        {
+                            //TODO do saving or updating here
+                            if (Seat.SeatType == 1 && _SelectedPatron != null) //add
+                            {
+                                movies_schedule_list_house_seat mslhs = new movies_schedule_list_house_seat()
+                                {
+                                    movies_schedule_list_id = MovieSchedule.Key,
+                                    cinema_seat_id = Seat.Key,
+                                    reserved_date = ParadisoObjectManager.GetInstance().CurrentDate,
+                                    session_id = strSessionId,
+                                    movies_schedule_list_patron_id = _SelectedPatron.Key
+                                };
+                                context.movies_schedule_list_house_seat.AddObject(mslhs);
+                                context.SaveChanges();
+
+                                IsUpdated = true;
+                            }
+                            else if (Seat.SeatType == 2) //update
+                            {
+                                //remove reservation
+                                var r = (from mslsh in context.movies_schedule_list_house_seat
+                                         where mslsh.movies_schedule_list_id == MovieSchedule.Key && mslsh.session_id == strSessionId && mslsh.cinema_seat_id == Seat.Key
+                                         select mslsh).FirstOrDefault();
+                                if (r != null)
+                                {
+                                    if (_SelectedPatron == null)
+                                    {
+                                        context.movies_schedule_list_house_seat.DeleteObject(r);
+                                    }
+                                    else //update reservation
+                                    {
+                                        r.movies_schedule_list_patron_id = _SelectedPatron.Key;
+                                    }
+
+                                    context.SaveChanges();
+                                    IsUpdated = true;
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+
+            if (IsUpdated)
+                this.UpdateMovieSchedule();
+            timer.Start();
         }
     }
 }
