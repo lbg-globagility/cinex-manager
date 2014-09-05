@@ -315,7 +315,7 @@ namespace Paradiso
 
 
 
-                        NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     }
                     else
                     {

@@ -18,9 +18,9 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for LoginPage1.xaml
     /// </summary>
-    public partial class LoginPage1 : Page
+    public partial class LoginPage : Page
     {
-        public LoginPage1()
+        public LoginPage()
         {
             InitializeComponent();
         }
@@ -68,7 +68,7 @@ namespace Paradiso
                     
                     paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                 }
                 else
                 {

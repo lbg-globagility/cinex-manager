@@ -113,8 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CinemaPatron.cs" />
-    <Compile Include="CinemaTicket.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="FreeSeatingPage.xaml.cs">
@@ -123,11 +121,11 @@
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="LoginPage1.xaml.cs">
-      <DependentUpon>LoginPage1.xaml</DependentUpon>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow1.xaml.cs">
-      <DependentUpon>MainWindow1.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
@@ -144,11 +142,9 @@
     <Compile Include="Model\PatronSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
-    <Compile Include="MovieCalendarPage1.xaml.cs">
-      <DependentUpon>MovieCalendarPage1.xaml</DependentUpon>
+    <Compile Include="MovieCalendarPage.xaml.cs">
+      <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieCalendarTimeArgs.cs" />
-    <Compile Include="MovieCalendarTimeCommand.cs" />
     <Compile Include="NotifyingDateTime.cs" />
     <Compile Include="ParadisoModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -182,11 +178,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginPage1.xaml">
+    <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow1.xaml">
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,11 +198,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MovieCalendarItemControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MovieCalendarPage1.xaml">
+    <Page Include="MovieCalendarPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,10 +228,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MovieCalendarItem.cs" />
-    <Compile Include="MovieCalendarItemControl.xaml.cs">
-      <DependentUpon>MovieCalendarItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ParadisoObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

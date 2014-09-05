@@ -71,7 +71,7 @@ namespace Paradiso
                 messageWindow.MessageText.Text = "You don't have access for this page.";
                 messageWindow.ShowDialog();
 
-                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage1());
+                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
             }
 
@@ -188,7 +188,7 @@ namespace Paradiso
                 messageWindow.MessageText.Text = "You don't have access for this page.";
                 messageWindow.ShowDialog();
 
-                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage1());
+                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
             }
 
@@ -236,7 +236,7 @@ namespace Paradiso
 
         private void CancelPrint_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage1());
+            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)

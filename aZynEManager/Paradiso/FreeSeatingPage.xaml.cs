@@ -90,7 +90,7 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is invalid.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -103,7 +103,7 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is already expired.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -165,7 +165,7 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "No more available seats.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -265,7 +265,7 @@ namespace Paradiso
         {
             this.ClearSelection();
             ParadisoObjectManager.GetInstance().SetNewSessionId();
-            NavigationService.Navigate(new Uri("MovieCalendarPage1.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)

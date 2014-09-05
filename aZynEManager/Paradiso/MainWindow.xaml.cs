@@ -18,9 +18,9 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for MainWindow1.xaml
     /// </summary>
-    public partial class MainWindow1 : MetroWindow
+    public partial class MainWindow : MetroWindow
     {
-        public MainWindow1()
+        public MainWindow()
         {
             InitializeComponent();
         }

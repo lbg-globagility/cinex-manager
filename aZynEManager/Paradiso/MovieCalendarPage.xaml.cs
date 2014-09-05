@@ -22,14 +22,14 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for MovieCalendarPage1.xaml
     /// </summary>
-    public partial class MovieCalendarPage1 : Page
+    public partial class MovieCalendarPage : Page
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
         private int intMaxRowCount = 4;
         DispatcherTimer timer;
 
-        public MovieCalendarPage1()
+        public MovieCalendarPage()
         {
             InitializeComponent();
 
