@@ -335,10 +335,14 @@ namespace Paradiso
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
                 timer.Stop();
+                NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+
+                /*
                 if (msli.SeatType == 1) //reserved seating
                     NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 else
                     NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli.Key));
+                */
 
                 /*
                 if (msli.SeatType == 1) //reserved seating
