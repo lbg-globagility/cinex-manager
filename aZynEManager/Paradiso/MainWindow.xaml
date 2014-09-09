@@ -15,21 +15,28 @@
                 <TextBlock FontSize="16" Foreground="Yellow" VerticalAlignment="Center" Name="TicketingTerminalTitle"></TextBlock>
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <DockPanel Name="Dashboard" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave">
-                    <StackPanel Orientation="Horizontal">
+                <DockPanel Name="Dashboard"  MouseLeftButtonDown="UserPanel_MouseLeftButtonDown"  MouseRightButtonUp="UserPanel_MouseRightButtonUp">
+                    <DockPanel.ContextMenu>
+                        <ContextMenu>
+                            <DockPanel>
+                                <Button Name="Logout" Click="Logout_Click">Logout</Button>
+                            </DockPanel>
+                        </ContextMenu>
+                    </DockPanel.ContextMenu>
+                    <StackPanel Name="UserPanel" Orientation="Horizontal" >
                         <Image Source="Images/icon-user.png" Width="19"/>
                         <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8, 0">User:</TextBlock>
                         <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Name="UserName"/>
                     </StackPanel>
                 </DockPanel>
-                <Popup Name="myPopup" IsOpen="False" PlacementTarget="{Binding ElementName=Dashboard}" Placement="Center">
+                <!--Popup Name="myPopup" IsOpen="False" PlacementTarget="{Binding ElementName=Dashboard}" Placement="Center">
                     <Label Name="myLabel" Content="This is a popup!" Foreground="Blue"/>
-                </Popup>
+                </Popup-->
                 <Line X1="10" Y1="14" X2="10" Y2="35" Stroke="White" StrokeThickness="2"></Line>
                 <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
             </StackPanel>
             <TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock>
         </DockPanel>
-        <Frame Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
+        <Frame Name="MainFrame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
     </DockPanel>    
 </controls:MetroWindow>

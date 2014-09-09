@@ -57,17 +57,26 @@ namespace Paradiso
             this.UpdateDashboard();
         }
 
-        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        private void UserPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            /*
-            if (!myPopup.IsOpen)
-                myPopup.IsOpen = true;
-            */
+            ((DockPanel)sender).ContextMenu.PlacementTarget = this;
+            ((DockPanel)sender).ContextMenu.IsOpen = true;
+            e.Handled = true;
         }
 
-        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        private void UserPanel_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-           // myPopup.IsOpen = false;
+            e.Handled = true;
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            Dashboard.ContextMenu.IsOpen = false;
+            ParadisoObjectManager.GetInstance().UserId = 0;
+            ParadisoObjectManager.GetInstance().UserName = string.Empty;
+            ParadisoObjectManager.GetInstance().SetNewSessionId();
+            MainFrame.Source = new Uri("LoginPage.xaml", UriKind.Relative);
+           
         }
     }
 }
