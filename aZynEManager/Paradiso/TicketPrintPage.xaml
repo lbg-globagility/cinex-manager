@@ -48,16 +48,16 @@
                 </Grid>
             </StackPanel>
             <Border>
-                
-            <Canvas Name="TicketCanvas"  Width="144" Height="192">
-                <StackPanel Margin="0">
-                    <TextBlock FontSize="10" TextAlignment="Center" Width="144" Height="12" Text="{Binding Ticket.Header1}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="8" Text="{Binding Ticket.Header2}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="8" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="8" Text="{Binding Ticket.TIN, StringFormat='TIN:{0}'}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="144" Height="8" Text="{Binding Ticket.PN, StringFormat='PN:{0}'}"/>
-                    <TextBlock FontSize="12" TextAlignment="Center" Width="144" Height="14" Text="{Binding Ticket.MovieCode}"/>
-                    <TextBlock FontSize="6" Width="144" Height="8" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
+                <Canvas>
+                    <Canvas Name="TicketCanvas" Canvas.Left="100" Canvas.Top="40" >
+                <StackPanel Margin="5,10,5,0">
+                    <TextBlock FontSize="12" TextAlignment="Center" Width="174" Height="14" Text="{Binding Ticket.Header1}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.Header2}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.TIN, StringFormat='TIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.PN, StringFormat='PN:{0}'}"/>
+                    <TextBlock FontSize="14" TextAlignment="Center" Width="174" Height="16" Text="{Binding Ticket.MovieCode}"/>
+                    <TextBlock FontSize="8" Width="174" Height="10" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
                     <Border BorderThickness="1" BorderBrush="Black">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -67,19 +67,19 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="124" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" FontSize="16" Text="{Binding Ticket.CinemaNumber}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MM/dd/yy ddd}'}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" FontSize="8" Height="10" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MM/dd/yy ddd}'}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="8" Height="10" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
                             <StackPanel Grid.Column="1" Grid.Row="2"  Orientation="Horizontal">
-                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.PatronCode, StringFormat='Peso  {0}'}"/>
-                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#}'}" xml:space="preserve"/>
+                                <TextBlock FontSize="8" Height="10" Text="{Binding Ticket.PatronCode, StringFormat='Peso  {0}'}"/>
+                                <TextBlock FontSize="8" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#}'}" xml:space="preserve"/>
                             </StackPanel>
                         </Grid>
                     </Border>
-                    <TextBlock FontSize="6" Height="8" Margin="0,2,0,-2" Text="{Binding Ticket.SeatTypeName}" />
-                    <TextBlock FontSize="10" Height="12">ADMIT ONE</TextBlock>
+                    <TextBlock FontSize="8" Height="10" Margin="0,2,0,-2" Text="{Binding Ticket.SeatTypeName}" />
+                    <TextBlock FontSize="12" Height="14">ADMIT ONE</TextBlock>
                     <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -88,7 +88,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="106" />
+                                <ColumnDefinition Width="116" />
                                 <ColumnDefinition Width="38" />
                             </Grid.ColumnDefinitions>
                             <TextBlock FontSize="6" Grid.Column="0" Grid.Row="0" Height="8" Text="{Binding Ticket.Code}" />
@@ -116,7 +116,7 @@
                                 <RowDefinition Height="8" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="72" />
+                                <ColumnDefinition Width="82" />
                                 <ColumnDefinition Width="72" />
                             </Grid.ColumnDefinitions>
                             <TextBlock FontSize="6" Height="8" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.Header1}"/>
@@ -133,7 +133,7 @@
                                 <RowDefinition Height="8" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="96" />
+                                <ColumnDefinition Width="106" />
                                 <ColumnDefinition Width="48" />
                             </Grid.ColumnDefinitions>
                             <TextBlock FontSize="7" Height="10" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.MovieCode}"/>
@@ -175,6 +175,8 @@
 
                     </StackPanel>
             </Canvas>
+                </Canvas>
+
             </Border>
         </DockPanel>
         

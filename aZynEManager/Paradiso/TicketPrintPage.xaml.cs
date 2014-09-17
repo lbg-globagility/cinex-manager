@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Threading;
 using System.Windows.Threading;
+using System.Printing;
 
 namespace Paradiso
 {
