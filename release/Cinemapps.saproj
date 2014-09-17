@@ -1,5 +1,5 @@
 <SmartAssemblyProject ProjectId="{7e0521ee-6b33-45a1-b296-ae173a230ea7}" Version="2.0">
-    <MainAssemblyFileName>..\Dropbox\azyne\aZynEManager\Cinemapps\bin\Debug\Cinemapps.exe</MainAssemblyFileName>
+    <MainAssemblyFileName>..\aZynEManager\Cinemapps\bin\Debug\Cinemapps.exe</MainAssemblyFileName>
     <Configuration Name="Release">
         <Options>
             <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
@@ -27,7 +27,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="MahApps.Metro, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation>
                         <Exclusion />
@@ -51,7 +51,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="ComponentFactory.Krypton.Toolkit, Culture=neutral, PublicKeyToken=65a84d45e882d207">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation>
                         <Exclusion />
@@ -75,7 +75,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="MySql.Data, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation>
                         <Exclusion />
@@ -87,7 +87,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="ComponentFactory.Krypton.Navigator, Culture=neutral, PublicKeyToken=09b1fd14b47a78e6">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation>
                         <Exclusion />
@@ -147,7 +147,7 @@
                 <Embedding />
             </Assembly>
             <Assembly AssemblyName="GemBox.Spreadsheet, Culture=neutral, PublicKeyToken=b1b72c69714d4847">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation>
                         <Exclusion />
@@ -363,6 +363,33 @@
                         <Exclusion />
                     </Obfuscation>
                 </Merging>
+            </Assembly>
+            <Assembly AssemblyName="RdlViewer, Culture=neutral, PublicKeyToken=98d963a3ed6bf418">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+            <Assembly AssemblyName="RdlEngine, Culture=neutral, PublicKeyToken=98d963a3ed6bf418">
+                <Merging Merge="0">
+                    <Pruning />
+                    <Obfuscation>
+                        <Exclusion />
+                    </Obfuscation>
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
+                <Embedding Embed="0" />
+            </Assembly>
+            <Assembly AssemblyName="System.Runtime.DurableInstancing, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+                <Merging />
             </Assembly>
         </Assemblies>
     </Configuration>

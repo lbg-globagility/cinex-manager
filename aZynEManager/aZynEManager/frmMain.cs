@@ -40,8 +40,8 @@ namespace aZynEManager
 
         public string m_usernm;
         public string m_usercode;
-        public int m_userid = 99;//-1;//
-        public bool boolAppAtTest = true;//false;//
+        public int m_userid = -1; //
+        public bool boolAppAtTest = false;//
 
         
 

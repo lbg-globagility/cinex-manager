@@ -183,7 +183,7 @@ namespace Paradiso
 
         private void Print_Click(object sender, RoutedEventArgs e)
         {
-            if (ParadisoObjectManager.GetInstance().HasRights("PRINT"))
+            if (!ParadisoObjectManager.GetInstance().HasRights("REPRINT"))
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "You don't have access for this page.";
