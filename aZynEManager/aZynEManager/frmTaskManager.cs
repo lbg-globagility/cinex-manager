@@ -38,8 +38,8 @@ namespace aZynEManager
         public void refreshDGV()
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("select a.id, a.user_name, a.computer_name, a.user_authority, a.time_in ");
-            sbqry.Append("from user_logs a order by a.user_name asc");
+            sbqry.Append("select a.user_id, b.userid, a.computer_name, a.user_authority, a.time_in ");
+            sbqry.Append("from user_logs a, users b where a.user_id = b.id order by b.userid asc");
             dtmodule = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtmodule);
 
@@ -180,7 +180,7 @@ namespace aZynEManager
 
                     //validate the database for records being used
                     StringBuilder sqry = new StringBuilder();
-                    sqry.Append(String.Format("select count(*) from user_logs where id = {0}", intid));
+                    sqry.Append(String.Format("select count(*) from user_logs where user_id = {0}", intid));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -190,7 +190,7 @@ namespace aZynEManager
                     if (rowCount == 1)
                     {
                         sqry = new StringBuilder();
-                        sqry.Append(String.Format("delete from user_logs where id = {0}", intid));
+                        sqry.Append(String.Format("delete from user_logs where user_id = {0}", intid));
                         try
                         {
                             if (myconn.State == ConnectionState.Closed)

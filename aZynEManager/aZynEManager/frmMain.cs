@@ -22,8 +22,8 @@ namespace aZynEManager
         //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};", "192.168.0.218", "3306", "cinema", "as-admi_mvie1", "G23ticketV5");
 
         //supporting background and line color
-        public Color _linecolor = Color.Salmon;
-        public Color _backcolor = Color.Salmon;
+        public Color _linecolor = Color.CornflowerBlue;
+        public Color _backcolor = Color.CornflowerBlue;
 
         
 
@@ -38,8 +38,10 @@ namespace aZynEManager
         public DataTable m_dtmovies = new DataTable();
         public DataTable m_dtpatrons = new DataTable();
 
-        public int m_userid = 999;
-        public bool boolAppAtTest = true;
+        public string m_usernm;
+        public string m_usercode;
+        public int m_userid = 99;//-1;//
+        public bool boolAppAtTest = true;//false;//
 
         
 
@@ -58,7 +60,11 @@ namespace aZynEManager
 
             if(m_clscom == null)
                 m_clscom = new clscommon();
+
+            m_clscom.initConfig(this);
         }
+
+        
 
         #region MouseDragControl
         protected override void OnControlAdded(ControlEventArgs e)
@@ -163,11 +169,37 @@ namespace aZynEManager
             pnlClose.BackgroundImage = Properties.Resources.buttonclose1;
         }
 
+        public int UserID
+        {
+            get { return m_userid; }
+            set { m_userid = value; }
+        }
+
+        public string UserName
+        {
+            get { return m_usernm; }
+            set { m_usernm = value; }
+        }
+
+        public string UserCode
+        {
+            get { return m_usercode; }
+            set { m_usercode = value; }
+        }
+
         public string _connection
         {
             get
             {
                 return CommonUtility.ConnectionString;
+            }
+        }
+
+        public string _odbcconnection
+        {
+            get
+            {
+                return CommonUtility.ODBCConnectionString;
             }
         }
 
@@ -208,8 +240,8 @@ namespace aZynEManager
         #region the skinColors
         private void blueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SkinLineColor = Color.SkyBlue;
-            SkinBackColor = Color.SkyBlue;
+            SkinLineColor = Color.CornflowerBlue;
+            SkinBackColor = Color.CornflowerBlue;
             blueToolStripMenuItem.Checked = true;
         }
 

@@ -360,6 +360,7 @@
             this.pnlClose.Size = new System.Drawing.Size(25, 25);
             this.pnlClose.TabIndex = 33;
             this.pnlClose.Click += new System.EventHandler(this.pnlClose_Click);
+            this.pnlClose.MouseLeave += new System.EventHandler(this.pnlClose_MouseLeave);
             this.pnlClose.MouseHover += new System.EventHandler(this.pnlClose_MouseHover);
             // 
             // frmMainUtility
@@ -378,7 +379,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainUtility";
-            this.Text = "frmMainUtility";
+            this.Text = "System Utility";
             this.ResumeLayout(false);
 
         }

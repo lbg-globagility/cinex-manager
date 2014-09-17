@@ -90,7 +90,7 @@
             this.btnConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfig.Location = new System.Drawing.Point(5, 293);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(286, 60);
+            this.btnConfig.Size = new System.Drawing.Size(286, 59);
             this.btnConfig.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
             this.btnConfig.StateCommon.Back.Color2 = System.Drawing.Color.Salmon;
             this.btnConfig.StateCommon.Back.ColorAngle = 20F;
@@ -354,7 +354,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(298, 362);
+            this.ClientSize = new System.Drawing.Size(298, 359);
             this.Controls.Add(this.btnUsers);
             this.Controls.Add(this.btnConfig);
             this.Controls.Add(this.btnATrail);
@@ -366,7 +366,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainConfig";
-            this.Text = "frmMainConfig";
+            this.Text = "System Configuration";
             this.ResumeLayout(false);
 
         }

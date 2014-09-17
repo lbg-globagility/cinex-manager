@@ -113,7 +113,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.GridLines = true;
             this.lvwResults.HideSelection = false;
-            this.lvwResults.Location = new System.Drawing.Point(6, 14);
+            this.lvwResults.Location = new System.Drawing.Point(6, 9);
             this.lvwResults.MultiSelect = false;
             this.lvwResults.Name = "lvwResults";
             this.lvwResults.ShowItemToolTips = true;
@@ -158,7 +158,7 @@
             this.groupBox1.Controls.Add(this.lstcls);
             this.groupBox1.Location = new System.Drawing.Point(5, -1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(697, 307);
+            this.groupBox1.Size = new System.Drawing.Size(697, 297);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             // 
@@ -176,11 +176,11 @@
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(685, 289);
+            this.dgvResult.Size = new System.Drawing.Size(685, 279);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvResult.TabIndex = 31;
+            this.dgvResult.TabIndex = 0;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
             this.dgvResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvResult_CellFormatting);
             // 
@@ -220,10 +220,10 @@
             this.cbxfilter.AutoSize = true;
             this.cbxfilter.BackColor = System.Drawing.Color.Transparent;
             this.cbxfilter.ForeColor = System.Drawing.Color.White;
-            this.cbxfilter.Location = new System.Drawing.Point(8, 84);
+            this.cbxfilter.Location = new System.Drawing.Point(284, 105);
             this.cbxfilter.Name = "cbxfilter";
             this.cbxfilter.Size = new System.Drawing.Size(179, 17);
-            this.cbxfilter.TabIndex = 90;
+            this.cbxfilter.TabIndex = 8;
             this.cbxfilter.Text = "use the information for searching";
             this.cbxfilter.UseVisualStyleBackColor = false;
             this.cbxfilter.CheckedChanged += new System.EventHandler(this.cbxfilter_CheckedChanged);
@@ -234,7 +234,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(422, 60);
+            this.label6.Location = new System.Drawing.Point(191, 108);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(15, 13);
             this.label6.TabIndex = 89;
@@ -246,7 +246,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(292, 60);
+            this.label4.Location = new System.Drawing.Point(61, 108);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 87;
@@ -272,8 +272,8 @@
             this.cmbdistributor.FormattingEnabled = true;
             this.cmbdistributor.Location = new System.Drawing.Point(64, 56);
             this.cmbdistributor.Name = "cmbdistributor";
-            this.cmbdistributor.Size = new System.Drawing.Size(180, 21);
-            this.cmbdistributor.TabIndex = 84;
+            this.cmbdistributor.Size = new System.Drawing.Size(160, 21);
+            this.cmbdistributor.TabIndex = 4;
             // 
             // label2
             // 
@@ -281,7 +281,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(292, 36);
+            this.label2.Location = new System.Drawing.Point(61, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 82;
@@ -293,10 +293,11 @@
             this.txttitle.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txttitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txttitle.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txttitle.Location = new System.Drawing.Point(192, 7);
+            this.txttitle.Location = new System.Drawing.Point(284, 23);
+            this.txttitle.Multiline = true;
             this.txttitle.Name = "txttitle";
-            this.txttitle.Size = new System.Drawing.Size(273, 20);
-            this.txttitle.TabIndex = 79;
+            this.txttitle.Size = new System.Drawing.Size(177, 74);
+            this.txttitle.TabIndex = 1;
             this.txttitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
@@ -305,7 +306,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(163, 11);
+            this.label1.Location = new System.Drawing.Point(284, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 80;
@@ -319,8 +320,8 @@
             this.txtcode.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtcode.Location = new System.Drawing.Point(64, 7);
             this.txtcode.Name = "txtcode";
-            this.txtcode.Size = new System.Drawing.Size(79, 20);
-            this.txtcode.TabIndex = 76;
+            this.txtcode.Size = new System.Drawing.Size(112, 20);
+            this.txtcode.TabIndex = 0;
             this.txtcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Label8
@@ -356,12 +357,12 @@
             this.cmbrating.Location = new System.Drawing.Point(64, 31);
             this.cmbrating.Name = "cmbrating";
             this.cmbrating.Size = new System.Drawing.Size(112, 21);
-            this.cmbrating.TabIndex = 75;
+            this.cmbrating.TabIndex = 2;
             // 
             // grpparameter
             // 
             this.grpparameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpparameter.Location = new System.Drawing.Point(5, 308);
+            this.grpparameter.Location = new System.Drawing.Point(5, 302);
             this.grpparameter.Name = "grpparameter";
             // 
             // grpparameter.Panel
@@ -388,7 +389,7 @@
             this.grpparameter.Panel.Controls.Add(this.label10);
             this.grpparameter.Panel.Controls.Add(this.label9);
             this.grpparameter.Panel.Controls.Add(this.label11);
-            this.grpparameter.Size = new System.Drawing.Size(484, 116);
+            this.grpparameter.Size = new System.Drawing.Size(484, 138);
             this.grpparameter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpparameter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpparameter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -405,10 +406,11 @@
             this.txtshare.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtshare.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtshare.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtshare.Location = new System.Drawing.Point(371, 57);
+            this.txtshare.Location = new System.Drawing.Point(140, 105);
+            this.txtshare.MaxLength = 5;
             this.txtshare.Name = "txtshare";
             this.txtshare.Size = new System.Drawing.Size(49, 20);
-            this.txtshare.TabIndex = 295;
+            this.txtshare.TabIndex = 7;
             this.txtshare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtshare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtshare_KeyPress);
             // 
@@ -416,11 +418,11 @@
             // 
             this.dttime.CustomFormat = "h:mm";
             this.dttime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dttime.Location = new System.Drawing.Point(371, 33);
+            this.dttime.Location = new System.Drawing.Point(140, 81);
             this.dttime.Name = "dttime";
             this.dttime.ShowUpDown = true;
             this.dttime.Size = new System.Drawing.Size(64, 20);
-            this.dttime.TabIndex = 294;
+            this.dttime.TabIndex = 6;
             this.dttime.Value = new System.DateTime(2014, 5, 30, 2, 0, 0, 0);
             // 
             // label13
@@ -429,7 +431,7 @@
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(434, 60);
+            this.label13.Location = new System.Drawing.Point(203, 108);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(17, 24);
             this.label13.TabIndex = 290;
@@ -441,7 +443,7 @@
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(434, 34);
+            this.label12.Location = new System.Drawing.Point(203, 82);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(17, 24);
             this.label12.TabIndex = 289;
@@ -456,10 +458,10 @@
             this.btnadddistributor.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnadddistributor.ForeColor = System.Drawing.Color.White;
             this.btnadddistributor.Image = ((System.Drawing.Image)(resources.GetObject("btnadddistributor.Image")));
-            this.btnadddistributor.Location = new System.Drawing.Point(268, 58);
+            this.btnadddistributor.Location = new System.Drawing.Point(244, 58);
             this.btnadddistributor.Name = "btnadddistributor";
             this.btnadddistributor.Size = new System.Drawing.Size(18, 18);
-            this.btnadddistributor.TabIndex = 274;
+            this.btnadddistributor.TabIndex = 5;
             this.btnadddistributor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnadddistributor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.btnadddistributor, "add new distributor information");
@@ -475,10 +477,10 @@
             this.btnaddrating.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnaddrating.ForeColor = System.Drawing.Color.White;
             this.btnaddrating.Image = global::aZynEManager.Properties.Resources.add1;
-            this.btnaddrating.Location = new System.Drawing.Point(268, 32);
+            this.btnaddrating.Location = new System.Drawing.Point(244, 32);
             this.btnaddrating.Name = "btnaddrating";
             this.btnaddrating.Size = new System.Drawing.Size(18, 18);
-            this.btnaddrating.TabIndex = 273;
+            this.btnaddrating.TabIndex = 3;
             this.btnaddrating.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnaddrating.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.btnaddrating, "add new MTRCB rating");
@@ -491,7 +493,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(142, 10);
+            this.label7.Location = new System.Drawing.Point(174, 11);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(17, 24);
             this.label7.TabIndex = 285;
@@ -503,7 +505,7 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(243, 60);
+            this.label10.Location = new System.Drawing.Point(223, 60);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(17, 24);
             this.label10.TabIndex = 287;
@@ -527,7 +529,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(461, 9);
+            this.label11.Location = new System.Drawing.Point(460, 81);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 24);
             this.label11.TabIndex = 288;
@@ -585,7 +587,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(10, 514);
+            this.label18.Location = new System.Drawing.Point(10, 531);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(99, 13);
             this.label18.TabIndex = 285;
@@ -598,7 +600,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(-2, 513);
+            this.label17.Location = new System.Drawing.Point(-2, 530);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 284;
@@ -607,7 +609,7 @@
             // grpcontrol
             // 
             this.grpcontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpcontrol.Location = new System.Drawing.Point(263, 423);
+            this.grpcontrol.Location = new System.Drawing.Point(263, 442);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -669,7 +671,7 @@
                         | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnEdit.StateTracking.Border.Rounding = 2;
             this.btnEdit.StateTracking.Border.Width = 2;
-            this.btnEdit.TabIndex = 32;
+            this.btnEdit.TabIndex = 1;
             this.btnEdit.Values.Image = global::aZynEManager.Properties.Resources.buttonedit1;
             this.btnEdit.Values.Text = "edit";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -714,7 +716,7 @@
                         | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnAdd.StateTracking.Border.Rounding = 2;
             this.btnAdd.StateTracking.Border.Width = 2;
-            this.btnAdd.TabIndex = 30;
+            this.btnAdd.TabIndex = 0;
             this.btnAdd.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Values.Image")));
             this.btnAdd.Values.Text = "new";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -759,7 +761,7 @@
                         | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnDelete.StateTracking.Border.Rounding = 2;
             this.btnDelete.StateTracking.Border.Width = 2;
-            this.btnDelete.TabIndex = 31;
+            this.btnDelete.TabIndex = 2;
             this.btnDelete.Values.Image = global::aZynEManager.Properties.Resources.buttondelete;
             this.btnDelete.Values.Text = "remove";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -771,7 +773,7 @@
             this.txtcnt.BackColor = System.Drawing.Color.Transparent;
             this.txtcnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcnt.ForeColor = System.Drawing.Color.Black;
-            this.txtcnt.Location = new System.Drawing.Point(11, 427);
+            this.txtcnt.Location = new System.Drawing.Point(11, 449);
             this.txtcnt.Name = "txtcnt";
             this.txtcnt.Size = new System.Drawing.Size(38, 13);
             this.txtcnt.TabIndex = 294;
@@ -780,7 +782,7 @@
             // grpfilter
             // 
             this.grpfilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpfilter.Location = new System.Drawing.Point(113, 423);
+            this.grpfilter.Location = new System.Drawing.Point(113, 442);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -841,7 +843,7 @@
                         | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnsearch.StateTracking.Border.Rounding = 2;
             this.btnsearch.StateTracking.Border.Width = 2;
-            this.btnsearch.TabIndex = 32;
+            this.btnsearch.TabIndex = 1;
             this.btnsearch.Values.Image = global::aZynEManager.Properties.Resources.searchblue;
             this.btnsearch.Values.Text = "search";
             this.btnsearch.Click += new System.EventHandler(this.btnsearch_Click);
@@ -886,7 +888,7 @@
                         | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnclear.StateTracking.Border.Rounding = 2;
             this.btnclear.StateTracking.Border.Width = 2;
-            this.btnclear.TabIndex = 30;
+            this.btnclear.TabIndex = 0;
             this.btnclear.Values.Image = global::aZynEManager.Properties.Resources.simple;
             this.btnclear.Values.Text = "clear";
             this.btnclear.Click += new System.EventHandler(this.btnclear_Click);
@@ -894,7 +896,7 @@
             // kryptonGroup1
             // 
             this.kryptonGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroup1.Location = new System.Drawing.Point(495, 308);
+            this.kryptonGroup1.Location = new System.Drawing.Point(495, 302);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
             // kryptonGroup1.Panel
@@ -902,7 +904,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.dgvClass);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.kryptonGroup1.Size = new System.Drawing.Size(207, 221);
+            this.kryptonGroup1.Size = new System.Drawing.Size(207, 247);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -928,17 +930,17 @@
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.RowHeadersVisible = false;
             this.dgvClass.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClass.Size = new System.Drawing.Size(190, 204);
+            this.dgvClass.Size = new System.Drawing.Size(190, 230);
             this.dgvClass.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvClass.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvClass.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvClass.TabIndex = 32;
+            this.dgvClass.TabIndex = 0;
             // 
             // frmMovieList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 529);
+            this.ClientSize = new System.Drawing.Size(708, 551);
             this.Controls.Add(this.kryptonGroup1);
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.label18);

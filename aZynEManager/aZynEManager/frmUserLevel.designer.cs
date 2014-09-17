@@ -55,7 +55,11 @@
             this.dgvModuleUtility = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.pageConfig = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.dgvModuleConfig = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.pageTicket = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.dgvModuleTicket = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbSystem = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleCinema)).BeginInit();
@@ -88,6 +92,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pageConfig)).BeginInit();
             this.pageConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleConfig)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageTicket)).BeginInit();
+            this.pageTicket.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvModuleTicket)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,16 +196,18 @@
             // 
             // kryptonGroup1
             // 
-            this.kryptonGroup1.Location = new System.Drawing.Point(1, 235);
+            this.kryptonGroup1.Location = new System.Drawing.Point(1, 236);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.cmbSystem);
+            this.kryptonGroup1.Panel.Controls.Add(this.label13);
             this.kryptonGroup1.Panel.Controls.Add(this.txtuserlevel);
             this.kryptonGroup1.Panel.Controls.Add(this.label1);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.kryptonGroup1.Size = new System.Drawing.Size(299, 40);
+            this.kryptonGroup1.Size = new System.Drawing.Size(299, 69);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -215,7 +224,7 @@
             this.txtuserlevel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtuserlevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtuserlevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtuserlevel.Location = new System.Drawing.Point(71, 6);
+            this.txtuserlevel.Location = new System.Drawing.Point(71, 35);
             this.txtuserlevel.Name = "txtuserlevel";
             this.txtuserlevel.Size = new System.Drawing.Size(214, 20);
             this.txtuserlevel.TabIndex = 81;
@@ -227,7 +236,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(6, 10);
+            this.label1.Location = new System.Drawing.Point(6, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 82;
@@ -235,7 +244,7 @@
             // 
             // grpgrant
             // 
-            this.grpgrant.Location = new System.Drawing.Point(229, 277);
+            this.grpgrant.Location = new System.Drawing.Point(229, 306);
             this.grpgrant.Name = "grpgrant";
             // 
             // grpgrant.Panel
@@ -347,7 +356,7 @@
             // 
             // grpcontrol
             // 
-            this.grpcontrol.Location = new System.Drawing.Point(1, 277);
+            this.grpcontrol.Location = new System.Drawing.Point(1, 306);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -506,7 +515,7 @@
             // 
             // grpfilter
             // 
-            this.grpfilter.Location = new System.Drawing.Point(58, 278);
+            this.grpfilter.Location = new System.Drawing.Point(58, 307);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -622,7 +631,7 @@
             this.txtcnt.BackColor = System.Drawing.Color.Transparent;
             this.txtcnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcnt.ForeColor = System.Drawing.Color.Black;
-            this.txtcnt.Location = new System.Drawing.Point(447, 239);
+            this.txtcnt.Location = new System.Drawing.Point(447, 241);
             this.txtcnt.Name = "txtcnt";
             this.txtcnt.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtcnt.Size = new System.Drawing.Size(38, 13);
@@ -639,8 +648,9 @@
             this.pageCinema,
             this.pageReport,
             this.pageUtility,
-            this.pageConfig});
-            this.tabModule.SelectedIndex = 3;
+            this.pageConfig,
+            this.pageTicket});
+            this.tabModule.SelectedIndex = 4;
             this.tabModule.Size = new System.Drawing.Size(350, 222);
             this.tabModule.StateCommon.Panel.Color1 = System.Drawing.Color.Transparent;
             this.tabModule.TabIndex = 328;
@@ -751,6 +761,36 @@
             this.dgvModuleConfig.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvModuleConfig.TabIndex = 79;
             // 
+            // pageTicket
+            // 
+            this.pageTicket.Controls.Add(this.dgvModuleTicket);
+            this.pageTicket.MinimumSize = new System.Drawing.Size(50, 50);
+            this.pageTicket.Name = "pageTicket";
+            this.pageTicket.Size = new System.Drawing.Size(348, 195);
+            this.pageTicket.Text = "Ticketing";
+            this.pageTicket.ToolTipTitle = "Page ToolTip";
+            this.pageTicket.UniqueName = "E41AE78FA85D489FE41AE78FA85D489F";
+            // 
+            // dgvModuleTicket
+            // 
+            this.dgvModuleTicket.AllowUserToAddRows = false;
+            this.dgvModuleTicket.AllowUserToDeleteRows = false;
+            this.dgvModuleTicket.AllowUserToResizeColumns = false;
+            this.dgvModuleTicket.AllowUserToResizeRows = false;
+            this.dgvModuleTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvModuleTicket.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvModuleTicket.Location = new System.Drawing.Point(4, 3);
+            this.dgvModuleTicket.Name = "dgvModuleTicket";
+            this.dgvModuleTicket.RowHeadersVisible = false;
+            this.dgvModuleTicket.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvModuleTicket.Size = new System.Drawing.Size(340, 189);
+            this.dgvModuleTicket.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvModuleTicket.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
+            this.dgvModuleTicket.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dgvModuleTicket.TabIndex = 80;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tabModule);
@@ -760,11 +800,34 @@
             this.groupBox2.TabIndex = 329;
             this.groupBox2.TabStop = false;
             // 
+            // cmbSystem
+            // 
+            this.cmbSystem.BackColor = System.Drawing.Color.White;
+            this.cmbSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSystem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSystem.FormattingEnabled = true;
+            this.cmbSystem.Location = new System.Drawing.Point(71, 8);
+            this.cmbSystem.Name = "cmbSystem";
+            this.cmbSystem.Size = new System.Drawing.Size(214, 21);
+            this.cmbSystem.TabIndex = 332;
+            this.cmbSystem.SelectedIndexChanged += new System.EventHandler(this.cmbSystem_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(6, 11);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 13);
+            this.label13.TabIndex = 331;
+            this.label13.Text = "System";
+            // 
             // frmUserLevel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 387);
+            this.ClientSize = new System.Drawing.Size(533, 415);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.grpgrant);
@@ -779,6 +842,7 @@
             this.Name = "frmUserLevel";
             this.Opacity = 0.98D;
             this.Text = "User Grant Configuration";
+            this.Load += new System.EventHandler(this.frmUserLevel_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleCinema)).EndInit();
@@ -812,6 +876,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pageConfig)).EndInit();
             this.pageConfig.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleConfig)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageTicket)).EndInit();
+            this.pageTicket.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvModuleTicket)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -847,5 +914,9 @@
         private ComponentFactory.Krypton.Navigator.KryptonPage pageConfig;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvModuleConfig;
         private System.Windows.Forms.GroupBox groupBox2;
+        private ComponentFactory.Krypton.Navigator.KryptonPage pageTicket;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvModuleTicket;
+        internal System.Windows.Forms.ComboBox cmbSystem;
+        internal System.Windows.Forms.Label label13;
     }
 }

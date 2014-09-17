@@ -194,6 +194,11 @@ namespace aZynEManager
             frmcinema.Dispose();
         }
 
+        private void pnlClose_MouseLeave(object sender, EventArgs e)
+        {
+            pnlClose.BackgroundImage = Properties.Resources.buttonclose1;
+        }
+
 
     }
 }

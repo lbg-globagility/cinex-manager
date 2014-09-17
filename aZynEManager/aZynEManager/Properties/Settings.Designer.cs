@@ -22,5 +22,15 @@ namespace aZynEManager.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;database=azynema2")]
+        public string azynema2ConnectionString {
+            get {
+                return ((string)(this["azynema2ConnectionString"]));
+            }
+        }
     }
 }

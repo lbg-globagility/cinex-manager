@@ -233,6 +233,11 @@ namespace aZynEManager
             }
 
             unselectbutton();
+            frmConfig frmcon = new frmConfig();
+            frmcon.frmInit(m_frmM, m_clscom);
+            frmcon.ShowDialog();
+            frmcon.Dispose();
+            unselectbutton();
         }
     }
 }

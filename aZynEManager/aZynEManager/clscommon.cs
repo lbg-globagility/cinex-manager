@@ -11,6 +11,8 @@ namespace aZynEManager
 {
     public class clscommon
     {
+        public clsConfig m_clscon = new clsConfig();
+
         public DataTable setDataTable(string sqry, string conn)
         {
             DataTable dt = new DataTable();
@@ -65,9 +67,11 @@ namespace aZynEManager
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
                 MySqlConnection myconn = new MySqlConnection(sConnString);
                 StringBuilder sQuery = new StringBuilder();
-                sQuery.Append("select count(a.*) from user_rights a, system_module b where ");
+                sQuery.Append("select count(*) from user_rights a, system_module b where ");
                 sQuery.Append(String.Format("a.user_id = {0} and a.module_id = b.id ", intUserID));
                 sQuery.Append(String.Format("and b.module_code = '{0}'", sModuleCode));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
                 intCnt = Convert.ToInt32(cmd.ExecuteScalar());
                 if (intCnt > 0)
@@ -181,5 +185,120 @@ namespace aZynEManager
             // Return the color from the byte array
             return Color.FromArgb(bytes[0], bytes[1], bytes[2]);
         }
+
+        public void initConfig(frmMain frmM)
+        {
+            ////setup for the system configuration
+            StringBuilder sbqry = new StringBuilder();
+            sbqry.Append("select * from config_table ");
+            sbqry.Append("order by system_code asc");
+
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                DataTable dt = setDataTable(sbqry.ToString(), frmM._connection);
+
+                if (dt.Rows.Count > 0)
+                {
+                    //cinema name
+                    DataTable newdt = new DataTable();
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '001'");
+                    var foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.CinemaName = newdt.Rows[0]["system_value"].ToString();
+                    }
+                    //cinema address
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '002'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.CinemaAddress = newdt.Rows[0]["system_value"].ToString();
+                    }
+                    //report subheader 1
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '003'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.ReportSubHeader1 = newdt.Rows[0]["system_value"].ToString();
+                    }
+                    //report subheader 2
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '004'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.ReportSubHeader2 = newdt.Rows[0]["system_value"].ToString();
+                    }
+                    //report subheader 3
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '005'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.ReportSubHeader3 = newdt.Rows[0]["system_value"].ToString();
+                    }
+                    //default movie share
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '006'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        int intshare = 0;
+                        newdt = foundRows.CopyToDataTable();
+                        int intout = -1;
+                        if (int.TryParse(newdt.Rows[0]["system_value"].ToString(), out intout))
+                            intshare = intout;
+
+                        m_clscon.MovieDefaultShare = intshare;
+                    }
+                    //default movie share
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '007'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        DateTime datein = new DateTime();
+                        newdt = foundRows.CopyToDataTable();
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(newdt.Rows[0]["system_value"].ToString(), out dateout))
+                            datein = dateout;
+
+                        m_clscon.MovieListCutOffDate = datein;
+                    }
+                    //intermissiontime before movie
+                    sbqry = new StringBuilder();
+                    sbqry.Append("[system_code] = '008'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        int inttime = 0;
+                        newdt = foundRows.CopyToDataTable();
+                        int intout = -1;
+                        if (int.TryParse(newdt.Rows[0]["system_value"].ToString(), out intout))
+                            inttime = intout;
+
+                        m_clscon.MovieIntermissionTime = inttime;
+                    }
+                }
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch (Exception err)
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                MessageBox.Show(err.Message);
+            }
+        }
+
     }
+
+
 }

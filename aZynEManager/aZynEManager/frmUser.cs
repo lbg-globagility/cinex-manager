@@ -19,6 +19,7 @@ namespace aZynEManager
         DataTable dtmodule = new DataTable();
         DataTable dtuserlevel = new DataTable();
         DataTable dtusers = new DataTable();
+        DataTable dtsystems = new DataTable();
         MySqlConnection myconn = null;
 
         public frmUser()
@@ -37,17 +38,32 @@ namespace aZynEManager
             grpgrant.Visible = false;
             grpfilter.Visible = false;
 
-            populateuserlevel();
+            //populateuserlevel();
+            populatesystem();
             unselectbutton();
             setnormal();
         }
 
+        public void populatesystem()
+        {
+            StringBuilder sbqry = new StringBuilder();
+            sbqry.Append("select * ");
+            sbqry.Append("from application");
+            dtsystems = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            DataRow row = dtsystems.NewRow();
+            row["system_code"] = "0";
+            row["system_name"] = "";
+            dtsystems.Rows.InsertAt(row, 0);
+            cmbSystem.DataSource = dtsystems;
+            cmbSystem.DisplayMember = "system_name";
+            cmbSystem.ValueMember = "system_code";
+        }
 
-        public void populateuserlevel()
+        public void populateuserlevel(int intsystemcode)
         {
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.level_desc, a.id ");
-            sbqry.Append("from user_level a where a.system_code = 1 order by a.level_desc asc");
+            sbqry.Append(String.Format("from user_level a where a.system_code = {0} order by a.level_desc asc", intsystemcode));
             dtuserlevel = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             DataRow row = dtuserlevel.NewRow();
             row["id"] = "0";
@@ -100,7 +116,7 @@ namespace aZynEManager
             sbqry.Append("select a.id, a.userid, a.lname, a.fname, a.designation, b.level_desc, a.mname, a.user_password, c.system_name ");
             sbqry.Append("from users a left join user_level b on a.user_level_id = b.id ");
             sbqry.Append("left join application c on a.system_code = c.system_code ");
-            sbqry.Append("where a.system_code = 1 order by a.userid asc");
+            sbqry.Append("order by a.userid asc");//where a.system_code = 1 
             dtusers = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtusers);
             txtFound.Text = "Count: " +  dtusers.Rows.Count.ToString();
@@ -170,6 +186,8 @@ namespace aZynEManager
                 setCheck(dgvModuleUtility, true);
             else if (tabModule.SelectedPage == pageConfig)
                 setCheck(dgvModuleConfig, true);
+            else if (tabModule.SelectedPage == pageTicket)
+                setCheck(dgvModuleTicket, true);
         }
 
         public void setCheck(DataGridView dgv, bool boolchk)
@@ -195,6 +213,8 @@ namespace aZynEManager
                 setCheck(dgvModuleUtility, false);
             else if (tabModule.SelectedPage == pageConfig)
                 setCheck(dgvModuleConfig, false);
+            else if (tabModule.SelectedPage == pageTicket)
+                setCheck(dgvModuleTicket, false);
         }
 
         private void cmbAuth_SelectedIndexChanged(object sender, EventArgs e)
@@ -219,7 +239,7 @@ namespace aZynEManager
                 sbqry.Append("from user_level_rights a left join system_module b ");
                 sbqry.Append("on a.module_id = b.id ");
                 sbqry.Append(String.Format("where a.user_level = {0} ", intid));
-                sbqry.Append(String.Format("and a.system_code = {0}", "1"));
+                sbqry.Append(String.Format("and a.system_code = {0}", cmbSystem.SelectedValue.ToString()));
                 dtmodule = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             }
             if (dtmodule.Rows.Count > 0)
@@ -257,7 +277,7 @@ namespace aZynEManager
                 if (dtmoduleutility.Rows.Count > 0)
                     setDataGridViewII(dgvModuleUtility, dtmoduleutility);
 
-                //for coinfig
+                //for config
                 sqry = "[module_group] = 'CONFIG'";
                 foundRows = null;
                 foundRows = dtmodule.Select(sqry);
@@ -267,12 +287,23 @@ namespace aZynEManager
                 if (dtmoduleuconfig.Rows.Count > 0)
                     setDataGridViewII(dgvModuleConfig, dtmoduleuconfig);
 
+                //for ticket
+                sqry = "[module_group] = 'TICKET'";
+                foundRows = null;
+                foundRows = dtmodule.Select(sqry);
+                DataTable dtmoduleuticket = new DataTable();
+                if (foundRows.Count() > 0)
+                    dtmoduleuticket = foundRows.CopyToDataTable();
+                if (dtmoduleuticket.Rows.Count > 0)
+                    setDataGridViewII(dgvModuleTicket, dtmoduleuticket);
+
                 if (dgvResult.SelectedRows.Count != 1)
                 {
                     setCheck(dgvModuleCinema, false);
                     setCheck(dgvModuleReport, false);
                     setCheck(dgvModuleUtility, false);
                     setCheck(dgvModuleConfig, false);
+                    setCheck(dgvModuleTicket, false);
                     return;
                 }
                 else
@@ -354,7 +385,7 @@ namespace aZynEManager
                             chklst += 1;
                         }
                     }
-                    // check report
+                    // check config
                     for (int i = 0; i < dgvModuleConfig.Rows.Count; i++)
                     {
                         int intmid = Convert.ToInt32(dgvModuleConfig[4, i].Value.ToString());
@@ -374,6 +405,30 @@ namespace aZynEManager
                         if (rowCount > 0)
                         {
                             dgvModuleConfig[0, i].Value = (object)true;
+                            chklst += 1;
+                        }
+                    }
+
+                    // check ticket
+                    for (int i = 0; i < dgvModuleTicket.Rows.Count; i++)
+                    {
+                        int intmid = Convert.ToInt32(dgvModuleTicket[4, i].Value.ToString());
+                        sqry2 = new StringBuilder();
+                        sqry2.Append(String.Format("select count(*) from user_rights a where a.user_id = {0}", intuserid));
+                        sqry2.Append(String.Format(" and a.module_id = {0}", intmid));
+                        sqry2.Append(String.Format(" and a.module_id in(select b.id from system_module b where b.module_group = '{0}')", "TICKET"));
+                        if (myconn != null)
+                        {
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd = new MySqlCommand(sqry2.ToString(), myconn);
+                            rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                            cmd.Dispose();
+                        }
+
+                        if (rowCount > 0)
+                        {
+                            dgvModuleTicket[0, i].Value = (object)true;
                             chklst += 1;
                         }
                     }
@@ -479,6 +534,9 @@ namespace aZynEManager
                 setCheck(dgvModuleReport, false);
                 setCheck(dgvModuleUtility, false);
                 setCheck(dgvModuleConfig, false);
+                setCheck(dgvModuleTicket,false);
+
+                cmbSystem.SelectedIndex = 0;
             }
             else
             {
@@ -534,13 +592,29 @@ namespace aZynEManager
                 }
 
                 int chkcnt = 0;
-                for (int i = 0; i < dgvModuleCinema.Rows.Count; i++)
+                if (cmbSystem.SelectedValue.ToString() == "1")
                 {
-                    if (dgvModuleCinema[0, i].Value != null)
+                    for (int i = 0; i < dgvModuleCinema.Rows.Count; i++)
                     {
-                        if ((bool)dgvModuleCinema[0, i].Value)
+                        if (dgvModuleCinema[0, i].Value != null)
                         {
-                            chkcnt += 1;
+                            if ((bool)dgvModuleCinema[0, i].Value)
+                            {
+                                chkcnt += 1;
+                            }
+                        }
+                    }
+                }
+                else if (cmbSystem.SelectedValue.ToString() == "2")
+                {
+                    for (int i = 0; i < dgvModuleTicket.Rows.Count; i++)
+                    {
+                        if (dgvModuleTicket[0, i].Value != null)
+                        {
+                            if ((bool)dgvModuleTicket[0, i].Value)
+                            {
+                                chkcnt += 1;
+                            }
                         }
                     }
                 }
@@ -579,7 +653,7 @@ namespace aZynEManager
                 sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7})",
                     this.txtUID.Text.ToUpper().Trim(), encrypt.EncryptString(txtPW.Text.Trim()).ToString(), txtDes.Text.ToUpper().Trim(),cmbAuth.SelectedValue.ToString(),
-                    txtLName.Text.ToUpper().Trim(),txtFName.Text.ToUpper().Trim(),txtMName.Text.ToUpper().Trim(),"1"));
+                    txtLName.Text.ToUpper().Trim(),txtFName.Text.ToUpper().Trim(),txtMName.Text.ToUpper().Trim(),cmbSystem.SelectedValue.ToString()));
                 try
                 {
                     int idout = -1;
@@ -602,6 +676,8 @@ namespace aZynEManager
                         tabinsertcheck(myconn, dgvModuleUtility, idout);
                         //for config
                         tabinsertcheck(myconn, dgvModuleConfig, idout);
+                        //for ticketing
+                        tabinsertcheck(myconn, dgvModuleTicket, idout);
                     }
 
                     if (myconn.State == ConnectionState.Open)
@@ -610,6 +686,7 @@ namespace aZynEManager
                     m_clscom.AddATrail(m_frmM.m_userid, "USER_ADD", "USERS|USER_RIGHTS",
                                Environment.MachineName.ToString(), "ADD NEW SYSTEM USER: USERNAME=" + this.txtUID.Text
                                + " | ID=" + idout.ToString(), m_frmM._connection);
+
 
                     refreshDGV();
                     setnormal();
@@ -770,6 +847,7 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            unselectbutton();
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
             bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "USER_EDIT", m_frmM._connection);
             if (m_frmM.boolAppAtTest == true)
@@ -781,7 +859,7 @@ namespace aZynEManager
                 MessageBox.Show("You have no access rights for this module.", this.Text);
                 return;
             }
-            unselectbutton();
+            
             if (dgvResult.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a record from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -905,7 +983,7 @@ namespace aZynEManager
                 sqry = new StringBuilder();
                 sqry.Append("select count(*) from users ");
                 sqry.Append(String.Format("where userid = '{0}' ", this.txtUID.Text.Trim()));
-                sqry.Append(String.Format("and system_code = {0} ", "1"));
+                sqry.Append(String.Format("and system_code = {0} ", cmbSystem.SelectedValue.ToString()));
                 sqry.Append(String.Format("and id != {0}", intid));
 
                 if (myconn.State == ConnectionState.Closed)
@@ -1003,6 +1081,8 @@ namespace aZynEManager
             tabinsertcheck(myconn, dgvModuleUtility, intid);
             //for config
             tabinsertcheck(myconn, dgvModuleConfig, intid);
+            //for ticket
+            tabinsertcheck(myconn, dgvModuleTicket, intid);
             //for (int i = 0; i < dgvModuleCinema.Rows.Count; i++)
             //{
             //    if (dgvModuleCinema[0, i].Value != null)
@@ -1036,6 +1116,7 @@ namespace aZynEManager
             setCheck(dgvModuleReport, false);
             setCheck(dgvModuleUtility, false);
             setCheck(dgvModuleConfig, false);
+            setCheck(dgvModuleTicket, false);
 
             myconn = new MySqlConnection();
             myconn.ConnectionString = m_frmM._connection;
@@ -1060,6 +1141,21 @@ namespace aZynEManager
                 txtDes.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                 txtPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
                 txtCPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
+                
+                //txtSystem.Text = dgv.SelectedRows[0].Cells[8].Value.ToString();
+                string systemname = dgv.SelectedRows[0].Cells[8].Value.ToString();
+                for (int i = 0; i < cmbSystem.Items.Count; i++)
+                {
+                    DataRowView drv = (DataRowView)cmbSystem.Items[i];
+                    if (drv.Row["system_name"].ToString().ToUpper() == systemname.ToUpper())
+                    {
+                        cmbSystem.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+                populateuserlevel(cmbSystem.SelectedIndex);
+
                 string strname = dgv.SelectedRows[0].Cells[5].Value.ToString();
                 for (int i = 0; i < cmbAuth.Items.Count; i++)
                 {
@@ -1070,7 +1166,44 @@ namespace aZynEManager
                         break;
                     }
                 }
-                txtSystem.Text = dgv.SelectedRows[0].Cells[8].Value.ToString();
+            }
+        }
+
+        private void cmbSystem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            populateuserlevel(cmbSystem.SelectedIndex);
+            if (btnAdd.Text == "save")
+            {
+                if (cmbSystem.SelectedValue.ToString() == "1")
+                {
+                    dgvModuleCinema.Enabled = true;
+                    dgvModuleConfig.Enabled = true;
+                    dgvModuleReport.Enabled = true;
+                    dgvModuleUtility.Enabled = true;
+                    dgvModuleTicket.Enabled = false;
+
+                    tabModule.SelectedPage = pageCinema;
+                    
+                    ///
+                }
+                else if (cmbSystem.SelectedValue.ToString() == "2")
+                {
+                    dgvModuleCinema.Enabled = false;
+                    dgvModuleConfig.Enabled = false;
+                    dgvModuleReport.Enabled = false;
+                    dgvModuleUtility.Enabled = false;
+                    dgvModuleTicket.Enabled = true;
+
+                    if (tabModule.SelectedPage == pageCinema)
+                        setCheck(dgvModuleCinema, false);
+                    else if (tabModule.SelectedPage == pageReport)
+                        setCheck(dgvModuleReport, false);
+                    else if (tabModule.SelectedPage == pageUtility)
+                        setCheck(dgvModuleUtility, false);
+                    else if (tabModule.SelectedPage == pageConfig)
+                        setCheck(dgvModuleConfig, false);
+                    tabModule.SelectedPage = pageTicket;
+                }
             }
         }
     }

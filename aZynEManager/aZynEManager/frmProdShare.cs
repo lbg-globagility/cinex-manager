@@ -19,6 +19,7 @@ namespace aZynEManager
         DataTable m_dt = new DataTable();
         DataTable movie_dt = new DataTable();
         MySqlConnection myconn = null;
+        bool allowSpace = false;
 
         public frmProdShare()
         {
@@ -30,7 +31,7 @@ namespace aZynEManager
             m_frmM = frm;
             m_clscom = cls;
 
-            refreshDGV();
+            refreshDGV(true);
 
             grpcontrol.Visible = true;
             grpfilter.Visible = false;
@@ -51,7 +52,7 @@ namespace aZynEManager
             txtcode.ReadOnly = false;
             cmbtitle.Text = "";
             cmbtitle.Enabled = true;
-            txtshare.Text = "";
+            txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
             txtshare.ReadOnly = true;
 
             if (cmbtitle.Items.Count > 0)
@@ -119,19 +120,28 @@ namespace aZynEManager
         }
 
 
-        public void refreshDGV()
+        public void refreshDGV(bool withCutOff)
         {
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date ");
             sbqry.Append("from movies_distributor a ");
             sbqry.Append("left join movies b on a.movie_id = b.id ");
-            sbqry.Append("inner join distributor c on b.dist_id = c.id");
+            sbqry.Append("inner join distributor c on b.dist_id = c.id ");
+            if (withCutOff)
+                sbqry.Append(String.Format("where b.encoded_date >= '{0:yyyy-MM-dd}' order by a.id asc", m_clscom.m_clscon.MovieListCutOffDate));
+            else
+                sbqry.Append("order by a.id asc");
+
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, m_dt);
 
             sbqry = new StringBuilder();
             sbqry.Append("SELECT a.id, a.code, a.title ");
-            sbqry.Append("FROM movies a");
+            sbqry.Append("FROM movies a ");
+            if (withCutOff)
+                sbqry.Append(String.Format("where a.encoded_date >= '{0:yyyy-MM-dd}' order by a.encoded_date desc", m_clscom.m_clscon.MovieListCutOffDate));
+            else
+                sbqry.Append("order by a.encoded_date desc");
             movie_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             if (movie_dt.Rows.Count > 0)
                 setDataGridViewII(dgvMovies, movie_dt);
@@ -154,7 +164,7 @@ namespace aZynEManager
                 dgv.Columns[2].Width = iwidth * 2;
                 dgv.Columns[2].HeaderText = "Movie Title";
                 dgv.Columns[3].Width = (int)(iwidth * 1.5);
-                dgv.Columns[3].HeaderText = "Distributor";
+                dgv.Columns[3].HeaderText = "Distributor / Producer";
                 dgv.Columns[4].Width = iwidth / 2;
                 dgv.Columns[4].HeaderText = "Share";
                 dgv.Columns[5].Width = iwidth;
@@ -289,7 +299,7 @@ namespace aZynEManager
 
                 txtcode.ReadOnly = false;
                 cmbtitle.Enabled = true;
-                txtshare.Text = "";
+                txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
                 txtshare.ReadOnly = false;
                 dtdate.Enabled = true;
 
@@ -306,9 +316,12 @@ namespace aZynEManager
 
                 txtcode.SelectAll();
                 txtcode.Focus();
+
+                dtdate.Value = DateTime.Today;
             }
             else
             {
+                int intday = 0;
                 string strstatus = String.Empty;
                 if (txtcode.Text == "")
                 {
@@ -332,18 +345,38 @@ namespace aZynEManager
                 }
                 else
                 {
-                    //int iloc = txtshare.Text.IndexOf(".");
-                    //if (txtshare.Text.Substring(0, iloc - 1).Length > 2)
-                    //{
-
-                    //}
-
+                    double outdblshare = 0;
+                    if (double.TryParse(txtshare.Text, out outdblshare))
+                    {
+                        if (outdblshare > 100 || outdblshare < 0)
+                        {
+                            txtshare.SelectAll();
+                            MessageBox.Show("Please check your movie share info.");
+                            txtshare.Focus();
+                            return;
+                        }
+                    }
                 }
+
                 if (dtdate.Text == "" || dtdate.Value == null)
                 {
                     MessageBox.Show("Please fill the required information.");
                     dtdate.Focus();
                     return;
+                }
+
+                if (txtdaycnt.Text.Trim() != "")
+                {
+                    
+                    int intout = -1;
+                    if (int.TryParse(txtdaycnt.Text.Trim(), out intout))
+                        intday = intout;
+                    else
+                    {
+                        MessageBox.Show("Please fill the box with a valid value.");
+                        txtdaycnt.Focus();
+                        return;
+                    }
                 }
 
                 myconn = new MySqlConnection();
@@ -353,7 +386,7 @@ namespace aZynEManager
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies_distributor ");
                 sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
-                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
+                //sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
                 sqry.Append(String.Format("and effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
@@ -372,8 +405,8 @@ namespace aZynEManager
 
                 //insert value for the movies table
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into movies_distributor value(0,{0},{1},'{2}')",
-                    cmbtitle.SelectedValue, txtshare.Text.Trim(), dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append(String.Format("insert into movies_distributor value(0,{0},{1},'{2}',{3})",
+                    cmbtitle.SelectedValue, txtshare.Text.Trim(), dtdate.Value.Date.ToString("yyyy-MM-dd"),intday));
                 try
                 {
                     if(myconn.State== ConnectionState.Closed)
@@ -388,6 +421,25 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
+                    //update the moviestatus to active if new
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("select count(*) from movies where id = {0} and status = 0", cmbtitle.SelectedValue));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
+                    if (rowCount > 0)
+                    {
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("update movies set status = 1 where id = {0}", cmbtitle.SelectedValue));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+
                     m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_ADD", "MOVIES|DISTRIBUTOR|MOVIES_DISTRIBUTOR",
                             Environment.MachineName.ToString(), "ADD NEW DISTRIBUTOR SHARE INFO: MOVIEID=" + cmbtitle.SelectedValue.ToString() + " | ID=" + strid, m_frmM._connection);
 
@@ -398,16 +450,18 @@ namespace aZynEManager
                         sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date ");
                         sbqry.Append("from movies_distributor a ");
                         sbqry.Append("left join movies b on a.movie_id = b.id ");
-                        sbqry.Append("left join distributor c on b.dist_id = c.id");
+                        sbqry.Append("left join distributor c on b.dist_id = c.id ");
+                        sbqry.Append(String.Format("where b.encoded_date >= '{0:yyyy-MM-dd}' order by a.id asc", m_clscom.m_clscon.MovieListCutOffDate));
                         m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                         setDataGridView(dgvResult, m_dt);
 
+                        dtdate.Value = dtdate.Value.AddDays(intday);
                         txtcode.SelectAll();
                         txtcode.Focus();
                     }
                     else if (ans == System.Windows.Forms.DialogResult.No)
                     {
-                        refreshDGV();
+                        refreshDGV(true);
                         setnormal();
                     }
                 }
@@ -425,14 +479,15 @@ namespace aZynEManager
             unselectbutton();
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("SELECT a.id, a.code, a.title ");
-            sbqry.Append("FROM movies a");
+            sbqry.Append("FROM movies a ");
+            sbqry.Append(String.Format("where a.encoded_date >= '{0:yyyy-MM-dd}' order by a.encoded_date desc", m_clscom.m_clscon.MovieListCutOffDate));
             movie_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             if (movie_dt.Rows.Count > 0)
                 setDataGridViewII(dgvMovies, movie_dt);
 
             txtcode.Text = "";
             cmbtitle.SelectedIndex = 0;
-            txtshare.Text = "";
+            txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -558,7 +613,7 @@ namespace aZynEManager
                             Environment.MachineName.ToString(), "UPDATED DISTRIBUTOR SHARE INFO: MOVIE ID=" + cmbtitle.SelectedValue.ToString()
                             + " | ID=" + intid, m_frmM._connection);
 
-                    refreshDGV();
+                    refreshDGV(true);
                     setnormal();
 
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -615,13 +670,49 @@ namespace aZynEManager
                         sqry.Append(String.Format("delete from movies_distributor where id = {0}", intid));
                         try
                         {
-                            myconn.Open();
+                            if(myconn.State == ConnectionState.Closed)
+                                myconn.Open();
                             cmd = new MySqlCommand(sqry.ToString(), myconn);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
 
                             m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_DELETE", "MOVIES_DISTRIBUTOR",
                             Environment.MachineName.ToString(), "REMOVED DISTRIBUTOR SHARE INFO: MOVIEID=" + cmbtitle.SelectedValue.ToString() + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                            //update the moviestatus to new if all records will be deleted
+                            sqry = new StringBuilder();
+                            sqry.Append(String.Format("select count(*) from movies_distributor where movie_id = {0}", cmbtitle.SelectedValue.ToString()));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                            cmd.Dispose();
+                            if (rowCount > 0)
+                            {
+                            }
+                            else
+                            {
+                                sqry = new StringBuilder();
+                                sqry.Append(String.Format("select count(*) from movies_schedule where movie_id = {0}", cmbtitle.SelectedValue.ToString()));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                                cmd.Dispose();
+                                if (rowCount > 0)
+                                {
+                                }
+                                else
+                                {
+                                    sqry = new StringBuilder();
+                                    sqry.Append(String.Format("update movies set status = 0 where id = {0}", cmbtitle.SelectedValue.ToString()));
+                                    if (myconn.State == ConnectionState.Closed)
+                                        myconn.Open();
+                                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                    cmd.ExecuteNonQuery();
+                                    cmd.Dispose();
+                                }
+                            }
 
                             if (myconn.State == ConnectionState.Open)
                                 myconn.Close();
@@ -635,7 +726,7 @@ namespace aZynEManager
                     }
                 }
             }
-            refreshDGV();
+            refreshDGV(true);
             setnormal();
         }
 
@@ -703,33 +794,100 @@ namespace aZynEManager
 
         private void txtshare_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-                && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != '.')
+            //if (!char.IsControl(e.KeyChar)
+            //    && !char.IsDigit(e.KeyChar)
+            //    && e.KeyChar != '.')
+            //{
+            //    e.Handled = true;
+            //}
+
+            ////// only allow one decimal point
+            ////if (e.KeyChar == '.'
+            ////    && (sender as TextBox).Text.IndexOf('.') > -1)
+            ////{
+            ////    e.Handled = true;
+            ////}
+
+            //if (e.KeyChar == '.'
+            //    && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
+            //{
+            //    e.Handled = true;
+            //}
+
+            base.OnKeyPress(e);
+
+            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
+            string negativeSign = numberFormatInfo.NegativeSign;
+
+            string keyInput = e.KeyChar.ToString();
+
+            if (Char.IsDigit(e.KeyChar))
             {
+                // Digits are OK
+            }
+            else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) ||
+             keyInput.Equals(negativeSign))
+            {
+                // Decimal separator is OK
+            }
+            else if (e.KeyChar == '\b')
+            {
+                // Backspace key is OK
+            }
+            //    else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0)
+            //    {
+            //     // Let the edit control handle control and alt key combinations
+            //    }
+            else if (this.allowSpace && e.KeyChar == ' ')
+            {
+
+            }
+            else
+            {
+                // Swallow this invalid key and beep
                 e.Handled = true;
+                //    MessageBeep();
+            }
+        }
+
+        public int IntValue
+        {
+            get
+            {
+                return Int32.Parse(this.Text);
+            }
+        }
+
+        public decimal DecimalValue
+        {
+            get
+            {
+                return Decimal.Parse(this.Text);
+            }
+        }
+
+        public bool AllowSpace
+        {
+            set
+            {
+                this.allowSpace = value;
             }
 
-            // only allow one decimal point
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
+            get
             {
-                e.Handled = true;
-            }
-
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
-            {
-                e.Handled = true;
+                return this.allowSpace;
             }
         }
 
         private void cbxfilter_CheckedChanged(object sender, EventArgs e)
         {
-            refreshDGV();
-            setnormal();
+            
             if (cbxfilter.Checked == true)
             {
+                refreshDGV(false);
+                setnormal();
                 txtcode.Text = "";
                 txtcode.ReadOnly = false;
                 cmbtitle.Enabled = true;
@@ -751,6 +909,8 @@ namespace aZynEManager
             }
             else
             {
+                refreshDGV(true);
+                setnormal();
                 grpcontrol.Visible = true;
                 grpfilter.Visible = false;
                 cbxdate.Visible = false;
@@ -772,7 +932,7 @@ namespace aZynEManager
         {
             unselectbutton();
 
-            refreshDGV();
+            refreshDGV(false);
             setnormal();
 
             txtcode.Text = "";

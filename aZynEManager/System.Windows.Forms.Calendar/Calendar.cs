@@ -1415,7 +1415,9 @@ namespace System.Windows.Forms.Calendar
         {
             base.OnDoubleClick(e);
 
-            CreateItemOnSelection(string.Empty, true);
+            //remarked on 8/18/2014
+            //this automatically added new item in the calendar on click and doubleclick
+            //CreateItemOnSelection(string.Empty, true);
         }
 
         protected virtual void OnDayHeaderClick(CalendarDayEventArgs e)

@@ -152,9 +152,9 @@
             this.btnShare.StateTracking.Border.Rounding = 1;
             this.btnShare.StateTracking.Border.Width = 3;
             this.btnShare.TabIndex = 28;
-            this.btnShare.Values.ExtraText = "record of producers\r\nshare per movies";
+            this.btnShare.Values.ExtraText = "producers share \r\nper movies";
             this.btnShare.Values.Image = global::aZynEManager.Properties.Resources.icon_producer;
-            this.btnShare.Values.Text = "Share";
+            this.btnShare.Values.Text = "Film Share";
             this.btnShare.Click += new System.EventHandler(this.btnShare_Click);
             // 
             // btnSched
@@ -320,7 +320,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 293);
+            this.ClientSize = new System.Drawing.Size(294, 230);
             this.Controls.Add(this.btnTrailer);
             this.Controls.Add(this.btnSched);
             this.Controls.Add(this.btnShare);
@@ -331,7 +331,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMainMovie";
-            this.Text = "frmMainMovie";
+            this.Text = "Movie Information";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainMovie_FormClosing);
             this.ResumeLayout(false);
 

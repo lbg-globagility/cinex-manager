@@ -15,6 +15,7 @@ using ExcelReports;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using CommonLibrary;
+using aZynEManager;
 
 namespace Cinemapps
 {
@@ -23,9 +24,12 @@ namespace Cinemapps
     /// </summary>
     public partial class ReportWindow : MetroWindow
     {
+        private frmMain main;
+
         public ReportWindow()
         {
             InitializeComponent();
+            main = new frmMain();
         }
 
         private void PrintSRD_Click(object sender, RoutedEventArgs e)
@@ -92,6 +96,24 @@ namespace Cinemapps
                 }
             }
 
+            RP06Cinema.Items.Clear();
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand("retrieve_cinemas", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    //get elements
+                    while (reader.Read())
+                    {
+                        RP06Cinema.Items.Add(new ExcelReports.Cinema(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+            }
+
             RP08Cinema.Items.Clear();
             using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
@@ -127,6 +149,18 @@ namespace Cinemapps
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void PreviewRP03_Click(object sender, RoutedEventArgs e)
+        {
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport._dtStart = (DateTime)RP03StartDate.SelectedDate;
+                frmreport.frmInit(main, main.m_clscom,"RP03");
+                frmreport.ShowDialog();
+                frmreport.Dispose();
+            }
+    
         }
 
         private void PrintRP03_Click(object sender, RoutedEventArgs e)
@@ -174,6 +208,33 @@ namespace Cinemapps
             }
         }
 
+        private void PreviewRP06_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    int intCinemaId = 0;
+                    if (RP06Cinema.SelectedValue != null)
+                    {
+                        if (RP06Cinema.SelectedValue is Cinema)
+                        {
+                            Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
+                            intCinemaId = cinema.Id;
+                        }
+                    }
+
+                    frmreport._dtStart = (DateTime)RP06StartDate.SelectedDate;
+                    frmreport._intCinemaID = intCinemaId;
+                    frmreport.frmInit(main, main.m_clscom, "RP06");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch(Exception ex){
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
         private void RP01StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -214,6 +275,9 @@ namespace Cinemapps
 
         private void UpdateRP08Movie()
         {
+            if (RP08Movie == null || RP08Movie == null)
+                return;
+
             RP08Movie.Items.Clear();
             if (RP08StartDate.SelectedDate == null || RP08Cinema.SelectedValue == null)
             {
@@ -259,6 +323,11 @@ namespace Cinemapps
         private void RP08Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.UpdateRP08Movie();
+        }
+
+        private void RP06Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //this.UpdateRP08Movie();
         }
 
         private void RP02StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

@@ -271,7 +271,7 @@ namespace aZynEManager
                     }
                     txtcode.Text = "";
                     txtname.Text = "";
-                    txtshare.Text = "";
+                    txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
                     ClearControls();
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -421,7 +421,7 @@ namespace aZynEManager
                 txtcode.ReadOnly = false;
                 txtname.Text = "";
                 txtname.ReadOnly = false;
-                txtshare.Text = "";
+                txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
                 txtshare.ReadOnly = false;
                 txtln.Text = "";
                 txtln.ReadOnly = false;

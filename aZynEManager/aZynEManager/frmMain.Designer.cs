@@ -50,7 +50,7 @@
             // 
             // pnlControl
             // 
-            this.pnlControl.BackColor = System.Drawing.Color.Black;
+            this.pnlControl.BackColor = System.Drawing.Color.LightBlue;
             this.pnlControl.Controls.Add(this.pnlReport);
             this.pnlControl.Controls.Add(this.pnlUser);
             this.pnlControl.Controls.Add(this.pnlUtility);

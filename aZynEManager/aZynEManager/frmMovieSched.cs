@@ -93,6 +93,8 @@ namespace aZynEManager
 
             calsked.Enabled = true;
             dateend.Enabled = true;
+
+            txtintermision.Text = m_frmM.m_clscom.m_clscon.MovieIntermissionTime.ToString();
         }
 
         private void addScreeningSched(string strcinemaid, DateTime dtstart)
@@ -327,6 +329,8 @@ namespace aZynEManager
 
         private void calsked_DoubleClick(object sender, EventArgs e)
         {
+            //calsked.AllowNew = true;
+            
             //MessageBox.Show("double click");
             //return;
         }
@@ -492,7 +496,9 @@ namespace aZynEManager
                 StringBuilder sbqry = new StringBuilder();
                 sbqry.Append("select a.id, a.code, a.title,a.duration ");
                 sbqry.Append("from movies a ");
-                sbqry.Append("order by a.title asc");
+                sbqry.Append(String.Format(" where a.encoded_date >= '{0:yyyy-MM-dd}' order by a.title asc", m_clscom.m_clscon.MovieListCutOffDate));
+                //sbqry.Append("order by a.title asc");
+
                 m_dtmovies = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 setDataGridView(dgvMovies,m_dtmovies);
 
@@ -523,6 +529,7 @@ namespace aZynEManager
             else
             {
                 string strstatus = String.Empty;
+
                 if (txtMC.Text == "")
                 {
                     MessageBox.Show("Please fill the required information.");
@@ -612,6 +619,17 @@ namespace aZynEManager
                     return;
                 }
 
+                if (cbxintermision.Checked == true)
+                {
+                    if (txtintermision.Text.Trim() == "")
+                    {
+                        MessageBox.Show("Please provide a value\n\r for the itermission minutes.",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtintermision.Focus();
+                        return;
+                    }
+                }
+
 
                 chkcnt = 0;
                 //validate for the existance of the record
@@ -645,135 +663,39 @@ namespace aZynEManager
 
                         if (movieschedid == "")
                         {
-                            sqry = new StringBuilder();
-                            sqry.Append("select count(*) from movies_schedule ");
-                            sqry.Append(String.Format("where movie_date = '{0}' ", currentdate.Date.ToString("yyyy-MM-dd")));
-                            sqry.Append(String.Format("and cinema_id = {0} ", cinemaid));
-                            sqry.Append(String.Format("and movie_id = {0}", movieid));
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                            rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
-                            cmd2.Dispose();
+                            TimeSpan timestartspan = timestart.Value.TimeOfDay;
+                            TimeSpan timeendspan = timeend.Value.TimeOfDay;
 
-                            if (rowCount > 0)
+                            ////added july 21 2014 
+                            ////for the auto generate of sked per day with intermission time
+                            DateTime movieenddate = currentdate.Date;
+                            if(cbxintermision.Checked == true || txtintermision.Text.Trim() != "")
                             {
-                                sqry = new StringBuilder();
-                                sqry.Append("select a.id from movies_schedule a ");
-                                sqry.Append(String.Format("where a.movie_date = '{0}' ", currentdate.Date.ToString("yyyy-MM-dd")));
-                                sqry.Append(String.Format("and a.cinema_id = {0} ", cinemaid));
-                                sqry.Append(String.Format("and a.movie_id = {0}", movieid));
-                                if (myconn.State == ConnectionState.Closed)
-                                    myconn.Open();
-                                MySqlCommand cmd3 = new MySqlCommand(sqry.ToString(), myconn);
-                                MySqlDataReader reader = cmd3.ExecuteReader();
-                                while (reader.Read())
+                                movieenddate = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                                int showcntr = 0;
+                                while(currentdate.ToShortDateString() == movieenddate.ToShortDateString())
                                 {
-                                    movieschedid = reader["id"].ToString();
-                                }
-                                reader.Close();
-                                cmd3.Dispose();
-                            }
+                                    if (showcntr > 0)
+                                    {
+                                        TimeSpan movielengthspan = dtduration.Value.TimeOfDay;
+                                        TimeSpan lengthintermission = movielengthspan.Add(TimeSpan.FromMinutes(Convert.ToDouble(txtintermision.Text)));
+                                        timestartspan = timestartspan.Add(lengthintermission);
+                                        timeendspan = timestartspan.Add(movielengthspan);
+                                    }
+                                    addsked(currentdate, cinemaid, movieid, movieschedid, moviescheslistid, timestartspan, timeendspan);
 
-                            if (movieschedid == "")
-                            {
-                                sqry = new StringBuilder();
-                                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
-                                    cinemaid, movieid, currentdate.Date.ToString("yyyy-MM-dd")));
-                                try
-                                {
-                                    if (myconn.State == ConnectionState.Closed)
-                                        myconn.Open();
-                                    cmd = new MySqlCommand(sqry.ToString(), myconn);
-                                    cmd.ExecuteNonQuery();
-
-                                    movieschedid = cmd.LastInsertedId.ToString();
-                                    cmd.Dispose();
-                                }
-                                catch
-                                {
+                                    if (timeendspan.TotalDays >= 1)
+                                    {
+                                        DateTime dtnew = currentdate.Add(timeendspan);
+                                        movieenddate = dtnew;//new DateTime(datestart.Value.Year, datestart.Value.Month, datestart.Value.AddDays(timeendspan.TotalDays).Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                                    }
+                                    else
+                                        movieenddate = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                                    showcntr += 1;
                                 }
                             }
-
-                            try
-                            {
-                                //validate movies_schedule_list
-                                sqry = new StringBuilder();
-                                sqry.Append("select a.start_time, a.end_time, c.code, a.id from movies_schedule_list a ");
-                                sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
-                                sqry.Append("left join movies c on b.movie_id = c.id ");
-                                sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
-                                sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", currentdate.Date)));
-                                sqry.Append("order by a.start_time desc");
-                                DataTable movieschedlist = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
-
-                                if (movieschedlist.Rows.Count > 0)
-                                {
-                                    StringBuilder strqry = new StringBuilder();
-                                    strqry.Append(String.Format("[id] > 0 ", timestart.Value));
-                                    strqry.Append(String.Format("and [start_time] <= '{0}' ", timestart.Value));
-                                    strqry.Append(String.Format("and [end_time] >= '{0}' ", timestart.Value));
-                                    var foundRows = movieschedlist.Select(strqry.ToString());
-                                    if (foundRows.Count() > 0)
-                                    {
-                                        if (myconn.State == ConnectionState.Open)
-                                            myconn.Close();
-                                        //setnormal();
-                                        MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
-                                    }
-
-                                    strqry = new StringBuilder();
-                                    strqry.Append(String.Format("[id] > 0 ", timestart.Value));
-                                    strqry.Append(String.Format("and [start_time] >= '{0}' ", timeend.Value));
-                                    strqry.Append(String.Format("and [end_time] <= '{0}' ", timeend.Value));
-                                    foundRows = movieschedlist.Select(strqry.ToString());
-                                    if (foundRows.Count() > 0)
-                                    {
-                                        if (myconn.State == ConnectionState.Open)
-                                            myconn.Close();
-                                        setnormal();
-                                        MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
-                                    }
-                                }
-
-                                int intval = 0;
-                                if(rbtnReserved.Checked == true)
-                                    intval = 1;
-                                else if(this.rbtnGuarateed.Checked == true)
-                                    intval = 2;
-                                else if(this.rbtnUnlimited.Checked == true)
-                                    intval = 3;
-
-                                
-                                TimeSpan timestartspan = timestart.Value.TimeOfDay;
-                                TimeSpan timeendspan = timeend.Value.TimeOfDay;
-                                DateTime curtimestart = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timestartspan.TotalHours, timestartspan.Minutes, 0);
-                                DateTime curtimeend = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
-                                sqry = new StringBuilder();
-                                sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3})", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}",curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}",curtimeend), intval));
-                                if (myconn.State == ConnectionState.Closed)
-                                    myconn.Open();
-                                cmd = new MySqlCommand(sqry.ToString(), myconn);
-                                cmd.ExecuteNonQuery();
-                                moviescheslistid = cmd.LastInsertedId.ToString();
-                                cmd.Dispose();
-
-                                if (moviescheslistid != "")
-                                {
-                                    try
-                                    {
-                                        tabinsertcheck(myconn, dgvpatrons, Convert.ToInt32(moviescheslistid));
-                                    }
-                                    catch
-                                    {
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                            }
+                            else
+                                addsked(currentdate, cinemaid, movieid, movieschedid, moviescheslistid, timestartspan, timeendspan);
                         }
                         currentdate = currentdate.AddDays((double)1);
                         movieschedid = "";
@@ -782,34 +704,224 @@ namespace aZynEManager
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIESKED_ADD", "MOVIES_SCHEDULE|MOVIES_SCHEDULE_LIST|MOVIES_SCHEDULE_LIST_PATRON",
                             Environment.MachineName.ToString(), "ADD NEW MOVIE SKED INFO: ID=" + movieschedid.ToString(), m_frmM._connection);
 
+                    //update the moviestatus to active if new
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("select count(*) from movies where id = {0} and status = 0", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
+                    if (rowCount > 0)
+                    {
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("update movies set status = 1 where id = {0}", movieid));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+
+                    //update movies startdate and enddate
+                    sqry = new StringBuilder();
+                    sqry.Append("update movies a set a.start_date = (select min(b.movie_date) ");
+                    sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                    sqry.Append(String.Format("where a.id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd4.ExecuteNonQuery();
+                    cmd4.Dispose();
+
+                    sqry = new StringBuilder();
+                    sqry.Append("update movies a set a.end_date = (select max(b.movie_date) ");
+                    sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                    sqry.Append(String.Format("where a.id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd5.ExecuteNonQuery();
+                    cmd5.Dispose();
+
                     setnormal();
                     cmbCinema.SelectedValue = cinemaid;
                     dtcalview.Value = currentdate.AddDays(-1).Date;
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
         }
 
-        public void tabinsertcheck(MySqlConnection myconn, DataGridView dgv, int intid)
+        public void addsked(DateTime currentdate, int cinemaid, int movieid, string movieschedid, string moviescheslistid, TimeSpan timestartspan, TimeSpan timeendspan)
         {
-            for (int i = 0; i < dgv.Rows.Count; i++)
-            {
-                if (dgv[0, i].Value != null)
-                {
-                    if ((bool)dgv[0, i].Value)
-                    {
-                        StringBuilder sqry = new StringBuilder();
-                        sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2})",
-                            intid, dgv[3, i].Value.ToString(),dgv[2,i].Value.ToString()));
+            StringBuilder sqry = new StringBuilder();
+            sqry.Append("select count(*) from movies_schedule ");
+            sqry.Append(String.Format("where movie_date = '{0}' ", currentdate.Date.ToString("yyyy-MM-dd")));
+            sqry.Append(String.Format("and cinema_id = {0} ", cinemaid));
+            sqry.Append(String.Format("and movie_id = {0}", movieid));
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
+            MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+            int rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
+            cmd2.Dispose();
 
-                        if (myconn.State == ConnectionState.Closed)
-                            myconn.Open();
-                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+            if (rowCount > 0)
+            {
+                sqry = new StringBuilder();
+                sqry.Append("select a.id from movies_schedule a ");
+                sqry.Append(String.Format("where a.movie_date = '{0}' ", currentdate.Date.ToString("yyyy-MM-dd")));
+                sqry.Append(String.Format("and a.cinema_id = {0} ", cinemaid));
+                sqry.Append(String.Format("and a.movie_id = {0}", movieid));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlCommand cmd3 = new MySqlCommand(sqry.ToString(), myconn);
+                MySqlDataReader reader = cmd3.ExecuteReader();
+                while (reader.Read())
+                {
+                    movieschedid = reader["id"].ToString();
+                }
+                reader.Close();
+                cmd3.Dispose();
+            }
+
+            if (movieschedid == "")
+            {
+                sqry = new StringBuilder();
+                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
+                    cinemaid, movieid, currentdate.Date.ToString("yyyy-MM-dd")));
+                try
+                {
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd.ExecuteNonQuery();
+
+                    movieschedid = cmd.LastInsertedId.ToString();
+                    cmd.Dispose();
+                }
+                catch
+                {
+                }
+            }
+
+            
+            try
+            {
+                //validate movies_schedule_list
+                sqry = new StringBuilder();
+                sqry.Append("select a.start_time, a.end_time, c.code, a.id from movies_schedule_list a ");
+                sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
+                sqry.Append("left join movies c on b.movie_id = c.id ");
+                sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
+                sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", currentdate.Date)));
+                sqry.Append("order by a.start_time desc");
+                DataTable movieschedlist = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
+
+                if (timestartspan.Days < 1 && timeendspan.TotalDays < 1)
+                {
+                    DateTime curtimestart = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timestartspan.TotalHours, timestartspan.Minutes, 0);
+                    DateTime curtimeend = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+
+                    if (movieschedlist.Rows.Count > 0)
+                    {
+                        ////timestart.Value replaces by curtimestart(7/21/2014)
+                        ////timeend.Value replaces by curtimeend(7/21/2014)
+                        StringBuilder strqry = new StringBuilder();
+                        strqry.Append(String.Format("[id] > 0 ", curtimestart));
+                        strqry.Append(String.Format("and [start_time] <= '{0}' ", curtimestart));
+                        strqry.Append(String.Format("and [end_time] >= '{0}' ", curtimestart));
+                        var foundRows = movieschedlist.Select(strqry.ToString());
+                        if (foundRows.Count() > 0)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            //setnormal();
+                            MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        strqry = new StringBuilder();
+                        strqry.Append(String.Format("[id] > 0 ", curtimestart));
+                        strqry.Append(String.Format("and [start_time] >= '{0}' ", curtimeend));
+                        strqry.Append(String.Format("and [end_time] <= '{0}' ", curtimeend));
+                        foundRows = movieschedlist.Select(strqry.ToString());
+                        if (foundRows.Count() > 0)
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            setnormal();
+                            MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    int intval = 0;
+                    if (rbtnReserved.Checked == true)
+                        intval = 1;
+                    else if (this.rbtnGuarateed.Checked == true)
+                        intval = 2;
+                    else if (this.rbtnUnlimited.Checked == true)
+                        intval = 3;
+
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3})", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd1.ExecuteNonQuery();
+                    moviescheslistid = cmd1.LastInsertedId.ToString();
+                    cmd1.Dispose();
+
+                    if (moviescheslistid != "")
+                    {
+                        try
+                        {
+                            tabinsertcheck(myconn, dgvpatrons, Convert.ToInt32(moviescheslistid));
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message, "tabinsertcheck");
+                        }
                     }
                 }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message, "addsked");
+            }
+        }
+
+
+        //insert into movies_schedule_list_patron values(0,25336,27,5)	
+        //Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails 
+        //    (`azynema2`.`movies_schedule_list_patron`, CONSTRAINT `fk_movies_schedule_list_patron_movies_schedule1` FOREIGN KEY
+        //        (`movies_schedule_list_id`) REFERENCES `movies_schedule` (`id`) ON DELETE NO )	0.062 sec
+        public void tabinsertcheck(MySqlConnection myconn, DataGridView dgv, int intid)
+        {
+            try
+            {
+                for (int i = 0; i < dgv.Rows.Count; i++)
+                {
+                    if (dgv[0, i].Value != null)
+                    {
+                        if ((bool)dgv[0, i].Value)
+                        {
+                            StringBuilder sqry = new StringBuilder();
+                            sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2})",
+                                intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -841,7 +953,11 @@ namespace aZynEManager
             //{
                 DateTime date = Convert.ToDateTime(datestart.Value.Date.ToString());
                 dateend.Value = date;
-                timestart.Value = dt;//DateTime.Now;
+                if (dgvResult.RowCount == 0)
+                    timestart.Value = dt.Add(new TimeSpan(10, 0, 0));//DateTime.Now; to add a new @ 10 am
+                else
+                    timestart.Value = Convert.ToDateTime(dgvResult.Rows[dgvResult.RowCount - 1].Cells[2].Value.ToString()).Add(new TimeSpan(0,m_frmM.m_clscom.m_clscon.MovieIntermissionTime,0));
+                    ////added august 13 2014 for the adjustment of time for new sched
             //}
         }
 
@@ -865,27 +981,35 @@ namespace aZynEManager
 
         public void setendtime()
         {
-            TimeSpan timestartspan = timestart.Value.TimeOfDay;
-            TimeSpan movielengthspan = dtduration.Value.TimeOfDay;
-            TimeSpan timeendspan = timestartspan.Add(movielengthspan);
-            if (timeendspan != null)
+            try
             {
-                string hours = ((int)timeendspan.TotalHours).ToString();
-                string minutes = String.Format("{0:00}", timeendspan.Minutes);
-                try
+                TimeSpan timestartspan = timestart.Value.TimeOfDay;
+                TimeSpan movielengthspan = dtduration.Value.TimeOfDay;
+                TimeSpan timeendspan = timestartspan.Add(movielengthspan);
+                
+                if (timeendspan != null)
                 {
-                    if (timeendspan.TotalDays > 0)
+                    string hours = ((int)timeendspan.TotalHours).ToString();
+                    string minutes = String.Format("{0:00}", timeendspan.Minutes);
+                    try
                     {
-                        DateTime dtnew = datestart.Value.Add(timeendspan);
-                        timeend.Value = dtnew;//new DateTime(datestart.Value.Year, datestart.Value.Month, datestart.Value.AddDays(timeendspan.TotalDays).Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                        if (timeendspan.TotalDays >= 1)
+                        {
+                            DateTime dtnew = datestart.Value.Add(timeendspan);
+                            timeend.Value = dtnew;//new DateTime(datestart.Value.Year, datestart.Value.Month, datestart.Value.AddDays(timeendspan.TotalDays).Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                        }
+                        else
+                            timeend.Value = new DateTime(datestart.Value.Year, datestart.Value.Month, datestart.Value.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
                     }
-                    else
-                        timeend.Value = new DateTime(datestart.Value.Year, datestart.Value.Month, datestart.Value.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                    catch
+                    {
+                        timeend.Value = timestart.Value;
+                    }
                 }
-                catch
-                {
-                    timeend.Value = timestart.Value;
-                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
         }
 
@@ -1253,6 +1377,8 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            int intidx = cmbCinema.SelectedIndex;
+
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
             bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "MOVIESKED_DELETE", m_frmM._connection);
             if (m_frmM.boolAppAtTest == true)
@@ -1274,8 +1400,12 @@ namespace aZynEManager
                     myconn = new MySqlConnection();
                     myconn.ConnectionString = m_frmM._connection;
                     int intid = -1;
+                    int movieid = -1;
                     if (dgvResult.SelectedRows.Count == 1)
+                    {
                         intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+                        movieid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[5].Value.ToString());
+                    }
 
                     //validate the database for records being used
                     StringBuilder sqry = new StringBuilder();
@@ -1286,6 +1416,7 @@ namespace aZynEManager
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
+                    
                     if (rowCount > 0)
                     {
 
@@ -1322,6 +1453,65 @@ namespace aZynEManager
                             if (myconn.State == ConnectionState.Open)
                                 myconn.Close();
 
+                            //update the moviestatus to new if all records will be deleted
+                            sqry = new StringBuilder();
+                            sqry.Append(String.Format("select count(*) from movies_distributor where movie_id = {0}", movieid));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                            cmd.Dispose();
+                            if (rowCount > 0)
+                            {
+                            }
+                            else
+                            {
+                                sqry = new StringBuilder();
+                                sqry.Append(String.Format("select count(*) from movies_schedule where movie_id = {0}", movieid));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                                cmd.Dispose();
+                                if (rowCount > 0)
+                                {
+                                }
+                                else
+                                {
+                                    sqry = new StringBuilder();
+                                    sqry.Append(String.Format("update movies set status = 0 where id = {0}", movieid));
+                                    if (myconn.State == ConnectionState.Closed)
+                                        myconn.Open();
+                                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                    cmd.ExecuteNonQuery();
+                                    cmd.Dispose();
+                                }
+                            }
+
+                            //update movies startdate and enddate
+                            sqry = new StringBuilder();
+                            sqry.Append("update movies a set a.start_date = (select min(b.movie_date) ");
+                            sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                            sqry.Append(String.Format("where a.id = {0}", movieid));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd4.ExecuteNonQuery();
+                            cmd4.Dispose();
+
+                            sqry = new StringBuilder();
+                            sqry.Append("update movies a set a.end_date = (select max(b.movie_date) ");
+                            sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                            sqry.Append(String.Format("where a.id = {0}", movieid));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd5.ExecuteNonQuery();
+                            cmd5.Dispose();
+
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+
                             m_clscom.AddATrail(m_frmM.m_userid, "MOVIESKED_REMOVE", "MOVIES_SCHEDULE|MOVIES_SCHEDULE_LIST|MOVIES_SCHEDULE_LIST_PATRON",
                             Environment.MachineName.ToString(), "REMOVE MOVIE SKED INFO: ID=" + intid.ToString(), m_frmM._connection);
 
@@ -1339,6 +1529,7 @@ namespace aZynEManager
 
             setnormal();
             dtcalview.Value = datestart.Value;
+            cmbCinema.SelectedIndex = intidx;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -1735,6 +1926,30 @@ namespace aZynEManager
                         movieschedid = "";
                     }while(currentdate <= dateend.Value);
 
+                    //update movies startdate and enddate
+                    sqry = new StringBuilder();
+                    sqry.Append("update movies a set a.start_date = (select min(b.movie_date) ");
+                    sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                    sqry.Append(String.Format("where a.id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd4.ExecuteNonQuery();
+                    cmd4.Dispose();
+
+                    sqry = new StringBuilder();
+                    sqry.Append("update movies a set a.end_date = (select max(b.movie_date) ");
+                    sqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", movieid));
+                    sqry.Append(String.Format("where a.id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd5.ExecuteNonQuery();
+                    cmd5.Dispose();
+
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIESKED_EDIT", "MOVIES_SCHEDULE|MOVIES_SCHEDULE_LIST|MOVIES_SCHEDULE_LIST_PATRON",
                             Environment.MachineName.ToString(), "UPDATED MOVIE SKED INFO: ID=" + movieschedid.ToString(), m_frmM._connection);
 
@@ -1821,6 +2036,34 @@ namespace aZynEManager
         private void calsked_ItemMouseHover(object sender, CalendarItemEventArgs e)
         {
 
+        }
+
+        private void txtmin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void cbxintermision_CheckedChanged(object sender, EventArgs e)
+        {
+            txtintermision.Text = m_frmM.m_clscom.m_clscon.MovieIntermissionTime.ToString();
+            if (cbxintermision.Checked == true)
+            {
+                txtintermision.SelectAll();
+                txtintermision.ReadOnly = false;
+                txtintermision.Focus();
+            }
+            else
+                txtintermision.ReadOnly = true;
+        }
+
+        private void txtintermision_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Globalization;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms.Calendar;
 using System.Threading;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace aZynEManager
 {
@@ -64,7 +65,7 @@ namespace aZynEManager
                 calendar.AllowItemEdit = false;
                 calendar.AllowItemResize = false;
                 calendar.AllowNew = false;
-                calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
                 calendar.Font = new System.Drawing.Font("Segoe UI", 9F);
                 calendar.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[0];
                 calendar.MaximumFullDays = 6;
@@ -103,6 +104,13 @@ namespace aZynEManager
                 label.Values.Text = cinemaname;
 
                 this.grpfilter.Panel.Controls.Add(label);
+            }
+
+            ////for the anchoring of the calendar august 13 2014
+            List<System.Windows.Forms.Calendar.Calendar> calList3 = this.grpfilter.Panel.Controls.OfType<System.Windows.Forms.Calendar.Calendar>().ToList();
+            for (int ii = 0; ii < calList3.Count; ii++)
+            {
+                calList3[ii].Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right))); 
             }
 
             dtcalview.Value = DateTime.Now.Date;
