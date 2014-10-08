@@ -20,7 +20,7 @@ namespace Paradiso
             }
 
             byte[] bytes = BitConverter.GetBytes(intColor);
-            return new SolidColorBrush(Color.FromArgb(bytes[0], bytes[1], bytes[2], bytes[3]));
+            return new SolidColorBrush(Color.FromRgb(bytes[2], bytes[1], bytes[0]));
             
         }
 

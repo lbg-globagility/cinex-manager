@@ -183,7 +183,7 @@
         
         <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White">
             <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
-            <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310">
+            <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -196,7 +196,7 @@
                                 </Rectangle-->
                             </Button>
                             <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
-                            <TextBlock Text="{Binding PatronName}" Width="120"/>
+                            <TextBlock Text="{Binding PatronName}" Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
                             <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
                             <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
                         </StackPanel>

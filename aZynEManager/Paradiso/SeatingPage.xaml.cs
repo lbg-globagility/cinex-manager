@@ -380,6 +380,7 @@ namespace Paradiso
                                     seatModel.PatronKey = ss.movies_schedule_list_patron_id;
 
                                     string strPatronName = string.Empty;
+                                    int intSeatColor = 0;
                                     decimal decPrice = 0;
                                     foreach (var p in Patrons)
                                     {
@@ -387,6 +388,7 @@ namespace Paradiso
                                         {
                                             strPatronName = p.Name;
                                             decPrice = p.Price;
+                                            intSeatColor = p.SeatColor;
                                             break;
                                         }
                                     }
@@ -397,7 +399,8 @@ namespace Paradiso
                                         seatModel.Name,
                                         strPatronName,
                                         decPrice,
-                                        (DateTime)ss.reserved_date
+                                        (DateTime)ss.reserved_date,
+                                        intSeatColor
                                     ));
 
                                     if (IsReservedSeating)

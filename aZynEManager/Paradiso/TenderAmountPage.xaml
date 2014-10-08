@@ -23,6 +23,7 @@
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:FooterLineConverter x:Key="footerLine" />
+            <l:SeatColorConverter x:Key="seatColor" />
         </Canvas.Resources>
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
@@ -33,12 +34,12 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Width="300" Background="White">
                         <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
-                        <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="300">
+                        <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="300" MaxHeight="400">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
-                                        <TextBlock Text="{Binding PatronName}" Width="120"/>
+                                        <TextBlock Text="{Binding PatronName}" Width="180" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
                                         <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
                                         <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
                                     </StackPanel>
@@ -102,10 +103,10 @@
                 </StackPanel>
             </StackPanel>
         </DockPanel>
-        <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+        <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
             <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
             <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
-        </StackPanel>
+        </StackPanel-->
         <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
     </Canvas>
 

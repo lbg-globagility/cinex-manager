@@ -13,6 +13,7 @@ namespace Paradiso.Model
         private int intPatronKey;
         private string strPatronName;
         private int intSeatKey;
+        private int intSeatColor;
         private string strSeatName;
         private decimal decPrice;
         private DateTime dtReservedDate;
@@ -24,7 +25,7 @@ namespace Paradiso.Model
         {
         }
 
-        public PatronSeatModel(int key, int seatKey, string seatName, string patronName, decimal price, DateTime reservedDate)
+        public PatronSeatModel(int key, int seatKey, string seatName, string patronName, decimal price, DateTime reservedDate, int seatColor)
         {
             Key = key;
             SeatKey = seatKey;
@@ -33,6 +34,7 @@ namespace Paradiso.Model
             Price = price;
             ReservedDate = reservedDate;
             RemainingTime = RemainingTimeValue;
+            SeatColor = seatColor;
 
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Paradiso.Constants.PatronSeatUiInterval);
 
@@ -114,6 +116,18 @@ namespace Paradiso.Model
             }
         }
 
+        public int SeatColor
+        {
+            get { return intSeatColor; }
+            set
+            {
+                if (value != intSeatColor)
+                {
+                    intSeatColor = value;
+                    NotifyPropertyChanged("SeatColor");
+                }
+            }
+        }
 
         public string SeatName
         {

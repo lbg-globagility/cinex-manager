@@ -93,6 +93,7 @@ namespace Paradiso
                             SeatName = seatname.sn.ToString(),
                             PatronKey = ss.movies_schedule_list_patron_id,
                             PatronName = patron.patron.name,
+                            SeatColor = (int) patron.patron.seat_color,
                             Price = (decimal) patron.price
                         });
                     }
