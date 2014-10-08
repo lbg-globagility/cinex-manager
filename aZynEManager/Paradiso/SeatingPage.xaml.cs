@@ -140,6 +140,7 @@ namespace Paradiso
         void timer_Tick(object sender, EventArgs e)
         {
             this.UpdateMovieSchedule();
+            this.setFocus();
         }
 
         private void UpdateMovieSchedule()
@@ -406,6 +407,8 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            var window = Window.GetWindow(this);
+            window.KeyDown += Page_PreviewKeyDown;
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -475,6 +478,7 @@ namespace Paradiso
                 e.Handled = true;
             }
             catch { }
+            this.setFocus();
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
@@ -483,6 +487,7 @@ namespace Paradiso
             this.ClearSelection();
             this.UpdateMovieSchedule();
             timer.Start();
+            this.setFocus();
         }
 
         private void RemovePatronSeat_Click(object sender, RoutedEventArgs e)
@@ -505,6 +510,8 @@ namespace Paradiso
 
             this.UpdateMovieSchedule();
             timer.Start();
+            this.setFocus();
+
         }
 
         private void confirmPatrons()
@@ -516,6 +523,7 @@ namespace Paradiso
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
                 timer.Start();
+                this.setFocus();
                 return;
             }
             else
@@ -528,6 +536,11 @@ namespace Paradiso
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
             this.confirmPatrons();
+        }
+
+        private void setFocus()
+        {
+            this.Focus();
         }
 
         private void SeatCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -636,6 +649,8 @@ namespace Paradiso
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
                         timer.Start();
+                        this.setFocus();
+
                         return;
 
                     }
@@ -669,11 +684,15 @@ namespace Paradiso
             if (IsUpdated)
                 this.UpdateMovieSchedule();
             timer.Start();
+            this.setFocus();
+
         }
 
         private void BlankCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
+            this.setFocus();
+
         }
 
         private void BlankCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -689,6 +708,8 @@ namespace Paradiso
             seatCanvas.ContextMenu.IsOpen = true;
             
             e.Handled = true;
+            this.setFocus();
+
         }
 
         private void Page_PreviewKeyDown(object sender, KeyEventArgs e)

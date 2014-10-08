@@ -126,7 +126,7 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp">
+                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown">
                             <Canvas.ContextMenu>
                                 <ContextMenu>
                                     <DockPanel>
@@ -187,7 +187,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete">
+                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
                                 <Image Source="/Paradiso;component/Images/delete-icon.png" Width="10" Height="10" />
                                 <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
