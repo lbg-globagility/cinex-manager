@@ -187,18 +187,18 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
-                                <Image Source="/Paradiso;component/Images/delete-icon.png" Width="10" Height="10" />
+                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
+                                <Image Source="/Paradiso;component/Images/delete-icon.png" Width="20" Height="20" />
                                 <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
                                     </Rectangle.Fill>
                                 </Rectangle-->
                             </Button>
-                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
-                            <TextBlock Text="{Binding PatronName}" Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
+                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding PatronName}" VerticalAlignment="Stretch" Width="150" Height="25" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
                             <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
-                            <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
+                            <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
