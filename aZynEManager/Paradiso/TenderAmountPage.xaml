@@ -7,7 +7,7 @@
       xmlns:l="clr-namespace:Paradiso"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
-	Title="TenderAmountPage" SizeChanged="Page_SizeChanged">
+	Title="TenderAmountPage" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,43 +30,70 @@
         <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontFamily="Arial" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
                 <TextBlock Margin="5" TextBlock.FontSize="16">Cash Tender</TextBlock>
-                <StackPanel Orientation="Horizontal" Background="LightGray">
-                    <TextBlock Width="300" TextAlignment="Center">Total Amount Due</TextBlock>
-                    <TextBlock Width="300" TextAlignment="Center">Total Amount Paid</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Width="300" Background="White">
+                        <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
+                        <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="300">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
+                                        <TextBlock Text="{Binding PatronName}" Width="120"/>
+                                        <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
+                                        <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                                <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Background="White" Width="300" >
+                        <TextBlock TextAlignment="Center" Background="LightGray">Total Amount Paid</TextBlock>
+                        <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
+                        <Grid Background="White" Height="200" Width="200" Margin="0,25,35,25" HorizontalAlignment="Right">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">7</Button>
+                            <Button Grid.Row="0" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">8</Button>
+                            <Button Grid.Row="0" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">9</Button>
+                            <Button Grid.Row="0" Grid.Column="3" Margin="2" Click="Button_Click">Back</Button>
+                            <Button Grid.Row="1" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">4</Button>
+                            <Button Grid.Row="1" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">5</Button>
+                            <Button Grid.Row="1" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">6</Button>
+                            <Button Grid.Row="2" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">1</Button>
+                            <Button Grid.Row="2" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">2</Button>
+                            <Button Grid.Row="2" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">3</Button>
+                            <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Click="Button_Click" FontSize="20">0</Button>
+                            <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">.</Button>
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Background="LightGray">
-                    <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
-                    <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
-                </StackPanel>
-                <Grid Height="200" Width="200" Margin="0,25,10,25" HorizontalAlignment="Right">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">7</Button>
-                    <Button Grid.Row="0" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">8</Button>
-                    <Button Grid.Row="0" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">9</Button>
-                    <Button Grid.Row="0" Grid.Column="3" Margin="2" Click="Button_Click">Back</Button>
-                    <Button Grid.Row="1" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">4</Button>
-                    <Button Grid.Row="1" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">5</Button>
-                    <Button Grid.Row="1" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">6</Button>
-                    <Button Grid.Row="2" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">1</Button>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">2</Button>
-                    <Button Grid.Row="2" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">3</Button>
-                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Click="Button_Click" FontSize="20">0</Button>
-                    <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">.</Button>
-                </Grid>
                 <StackPanel Background="LightGray">
-                    <TextBlock Margin="0,0,10,0"  TextAlignment="Right">Change</TextBlock>
-                    <TextBlock Margin="0,0,10,0" TextAlignment="Right" FontSize="32" Name="Change"/>
+                    <StackPanel Orientation="Horizontal" Background="LightGray">
+                        <TextBlock Width="300" TextAlignment="Center">Total Amount Due</TextBlock>
+                        <TextBlock Width="300" Margin="0,0,10,0" TextAlignment="Right">Change</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Background="LightGray">
+                        <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                        <TextBlock Width="300" Margin="0,0,0,0" TextAlignment="Right" FontSize="32" Name="Change"/>
+                    </StackPanel>                        
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
                     <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />

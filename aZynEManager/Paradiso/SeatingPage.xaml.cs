@@ -133,6 +133,10 @@ namespace Paradiso
         {
             this.ClearSelection();
             ParadisoObjectManager.GetInstance().SetNewSessionId();
+
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Page_PreviewKeyDown;
+
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
 
@@ -173,6 +177,9 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is invalid.";
                     messageWindow.ShowDialog();
 
+                    var window = Window.GetWindow(this);
+                    window.KeyDown -= Page_PreviewKeyDown;
+
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
@@ -185,6 +192,9 @@ namespace Paradiso
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.MessageText.Text = "Movie Schedule is already expired.";
                     messageWindow.ShowDialog();
+
+                    var window = Window.GetWindow(this);
+                    window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -529,6 +539,9 @@ namespace Paradiso
             else
             {
                 //call payment
+                var window = Window.GetWindow(this);
+                window.KeyDown -= Page_PreviewKeyDown;
+
                 NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
         }

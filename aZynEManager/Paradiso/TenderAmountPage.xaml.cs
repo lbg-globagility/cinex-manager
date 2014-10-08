@@ -81,11 +81,16 @@ namespace Paradiso
                     {
                         if (MovieTimeKey == 0)
                             MovieTimeKey = ss.movies_schedule_list_id;
+                        var seatname = (from cs in context.cinema_seat
+                                        where cs.id == ss.cinema_seat_id
+                                        select new { sn = cs.row_name + cs.col_name }).SingleOrDefault();
+                        
 
                         SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()
                         {
                             Key = ss.id,
                             SeatKey = ss.cinema_seat_id,
+                            SeatName = seatname.sn.ToString(),
                             PatronKey = ss.movies_schedule_list_patron_id,
                             PatronName = patron.patron.name,
                             Price = (decimal) patron.price
@@ -146,7 +151,13 @@ namespace Paradiso
             NavigationService.GoBack();
         }
 
+
         private void confirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Confirm();
+        }
+
+        private void Confirm()
         {
             //checks if change is valid
             decimal decChange = AmountChange;
@@ -355,6 +366,20 @@ namespace Paradiso
                 top = 0;
             Canvas.SetTop(MainDockPanel, top);
 
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (TotalAmountPaid.Focusable)
+                Keyboard.Focus(TotalAmountPaid);
+        }
+
+        private void Page_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.Confirm();
+            }
         }
     }
 }
