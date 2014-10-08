@@ -83,11 +83,19 @@ namespace Paradiso
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double top = (MainCanvas.ActualHeight - LoginBorder.ActualHeight) * 0.5;
+            double top = (MainCanvas.ActualHeight - PopcornImage.ActualHeight) * 0.3;
             if (top < 0)
                 top = 0;
-            Canvas.SetTop(LoginBorder, top);
-            Canvas.SetTop(PopcornImage, top + 85);
+
+            double left = (MainCanvas.ActualWidth - PopcornImage.ActualWidth - LoginBorder.ActualWidth) * 0.5;
+            if (left < 0)
+                left = 0;
+
+            Canvas.SetTop(PopcornImage, top);
+            Canvas.SetTop(LoginBorder, top + (PopcornImage.ActualHeight - LoginBorder.ActualHeight) + 20);
+            Canvas.SetLeft(PopcornImage, left);
+            Canvas.SetLeft(LoginBorder, left + PopcornImage.ActualWidth);
+
         }
 
         private void UserName_KeyDown(object sender, KeyEventArgs e)
@@ -105,6 +113,12 @@ namespace Paradiso
             {
                 this.Login();
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserName.Focusable)
+                Keyboard.Focus(UserName);
         }
     }
 }

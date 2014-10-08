@@ -13,6 +13,7 @@ namespace Paradiso.Model
         private string strCode;
         private string strName;
         private decimal decPrice;
+        private int intSeatColor;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -77,6 +78,19 @@ namespace Paradiso.Model
                 {
                     decPrice = value;
                     NotifyPropertyChanged("Price");
+                }
+            }
+        }
+
+        public int SeatColor
+        {
+            get { return intSeatColor; }
+            set
+            {
+                if (value != intSeatColor)
+                {
+                    intSeatColor = value;
+                    NotifyPropertyChanged("SeatColor");
                 }
             }
         }

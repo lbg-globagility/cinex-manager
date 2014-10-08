@@ -21,6 +21,12 @@ namespace Paradiso
                 if (!blnIsVisible)
                     visibility = Visibility.Hidden;
             }
+            else if (value is int)
+            {
+                int intValue = (int)value;
+                if (intValue == 0)
+                    visibility = Visibility.Hidden;
+            }
 
             return visibility;
         }

@@ -40,7 +40,7 @@ namespace Paradiso
         {
             get
             {
-                return "aZyne Cinema Ticketing Terminal";
+                return "CINEX Ticketing System";
             }
         }
 
@@ -77,6 +77,36 @@ namespace Paradiso
             get
             {
                 return this.CurrentDate.Date;
+            }
+        }
+
+        public string Header
+        {
+            get
+            {
+                string strHeader = "COMMERCENTER";
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var header = (from h in context.config_table where h.system_desc == "CINEMA NAME" select h.system_value).SingleOrDefault();
+                    if (header != null && header != string.Empty)
+                        strHeader = header.ToString();
+                }
+                return strHeader;
+            }
+        }
+
+        public string Subheader
+        {
+            get
+            {
+                string strSubheader = "MUNTINLUPA CITY";
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var subheader = (from h in context.config_table where h.system_desc == "CINEMA ADDRESS" select h.system_value).SingleOrDefault();
+                    if (subheader != null && subheader != string.Empty)
+                        strSubheader = subheader.ToString();
+                }
+                return strSubheader;
             }
         }
 

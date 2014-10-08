@@ -20,6 +20,7 @@
     </Page.Resources>
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
+            <l:SeatColorConverter x:Key="seatColor" />
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
@@ -28,7 +29,7 @@
             <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
         </Canvas.Resources>
         <Canvas.Background>
-            <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
+            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
@@ -80,14 +81,9 @@
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas IsItemsHost="True" Name="BlankCanvas" MouseLeftButtonDown="BlankCanvas_MouseLeftButtonDown"  MouseRightButtonUp="BlankCanvas_MouseRightButtonUp">
-                            <Canvas.Background>
-                                <!--VisualBrush TileMode="Tile" Viewport="0,0,0.1,0.1">
-                                    <VisualBrush.Visual>
-                                        <Image Source="/Paradiso;component/Images/tile.png" />
-                                    </VisualBrush.Visual>
-                                </VisualBrush-->
+                            <!--Canvas.Background>
                                 <ImageBrush ImageSource="/Paradiso;component/Images/carpet-bg-2.jpg" />
-                            </Canvas.Background>
+                            </Canvas.Background-->
                             <Canvas.ContextMenu>
                                 <ContextMenu Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}" >
                                     <DockPanel>
@@ -101,9 +97,10 @@
                                             </ListView.ItemContainerStyle>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <DockPanel Margin="10">
+                                                    <DockPanel Margin="10" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
                                                         <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
                                                         <TextBlock Text="{Binding Name}" FontSize="14"/>
+                                                        <TextBlock>B</TextBlock>
                                                     </DockPanel>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
@@ -140,21 +137,21 @@
                                         <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Patrons</TextBlock>
 
                                         <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Margin="10">
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Name}" FontSize="14"/>
-                    </DockPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </DockPanel>
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate >
+                                                    <DockPanel Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold" Padding="5"/>
+                                                        <TextBlock Text="{Binding Name}" FontSize="14" Padding="5"/>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </DockPanel>
                                 </ContextMenu>
                             </Canvas.ContextMenu>
                             <Image Name="SeatIcon" Width="{Binding Width}" >
@@ -191,15 +188,16 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete">
-                                <Rectangle Width="10" Height="10">
+                                <Image Source="/Paradiso;component/Images/seat-red.png" Width="10" />
+                                <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
                                     </Rectangle.Fill>
-                                </Rectangle>
+                                </Rectangle-->
                             </Button>
                             <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40"/>
                             <TextBlock Text="{Binding PatronName}" Width="120"/>
-                            <TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock>
+                            <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
                             <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" TextAlignment="Right" />
                         </StackPanel>
                     </DataTemplate>
@@ -221,11 +219,11 @@
             <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />
         </StackPanel>
 
-        <StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+        <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
             <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
             <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
 
-        </StackPanel>
+        </StackPanel-->
         <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
     </Canvas>
 </Page>

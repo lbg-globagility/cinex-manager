@@ -512,6 +512,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<a_trail> _a_trail;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<config_table> config_table
+        {
+            get
+            {
+                if ((_config_table == null))
+                {
+                    _config_table = base.CreateObjectSet<config_table>("config_table");
+                }
+                return _config_table;
+            }
+        }
+        private ObjectSet<config_table> _config_table;
 
         #endregion
 
@@ -723,6 +739,14 @@ namespace Paradiso
         public void AddToa_trail(a_trail a_trail)
         {
             base.AddObject("a_trail", a_trail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the config_table EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToconfig_table(config_table config_table)
+        {
+            base.AddObject("config_table", config_table);
         }
 
         #endregion
@@ -2126,6 +2150,141 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="config_table")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class config_table : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new config_table object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="system_code">Initial value of the system_code property.</param>
+        /// <param name="system_desc">Initial value of the system_desc property.</param>
+        /// <param name="system_value">Initial value of the system_value property.</param>
+        public static config_table Createconfig_table(global::System.Int32 id, global::System.String system_code, global::System.String system_desc, global::System.String system_value)
+        {
+            config_table config_table = new config_table();
+            config_table.id = id;
+            config_table.system_code = system_code;
+            config_table.system_desc = system_desc;
+            config_table.system_value = system_value;
+            return config_table;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String system_code
+        {
+            get
+            {
+                return _system_code;
+            }
+            set
+            {
+                Onsystem_codeChanging(value);
+                ReportPropertyChanging("system_code");
+                _system_code = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("system_code");
+                Onsystem_codeChanged();
+            }
+        }
+        private global::System.String _system_code;
+        partial void Onsystem_codeChanging(global::System.String value);
+        partial void Onsystem_codeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String system_desc
+        {
+            get
+            {
+                return _system_desc;
+            }
+            set
+            {
+                Onsystem_descChanging(value);
+                ReportPropertyChanging("system_desc");
+                _system_desc = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("system_desc");
+                Onsystem_descChanged();
+            }
+        }
+        private global::System.String _system_desc;
+        partial void Onsystem_descChanging(global::System.String value);
+        partial void Onsystem_descChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String system_value
+        {
+            get
+            {
+                return _system_value;
+            }
+            set
+            {
+                Onsystem_valueChanging(value);
+                ReportPropertyChanging("system_value");
+                _system_value = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("system_value");
+                Onsystem_valueChanged();
+            }
+        }
+        private global::System.String _system_value;
+        partial void Onsystem_valueChanging(global::System.String value);
+        partial void Onsystem_valueChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="movie")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2144,7 +2303,10 @@ namespace Paradiso
         /// <param name="rating_id">Initial value of the rating_id property.</param>
         /// <param name="duration">Initial value of the duration property.</param>
         /// <param name="status">Initial value of the status property.</param>
-        public static movie Createmovie(global::System.Int32 id, global::System.String code, global::System.String title, global::System.Int32 dist_id, global::System.Single share_perc, global::System.Int32 rating_id, global::System.Int32 duration, global::System.Int32 status)
+        /// <param name="encoded_date">Initial value of the encoded_date property.</param>
+        /// <param name="start_date">Initial value of the start_date property.</param>
+        /// <param name="end_date">Initial value of the end_date property.</param>
+        public static movie Createmovie(global::System.Int32 id, global::System.String code, global::System.String title, global::System.Int32 dist_id, global::System.Single share_perc, global::System.Int32 rating_id, global::System.Int32 duration, global::System.Int32 status, global::System.DateTime encoded_date, global::System.DateTime start_date, global::System.DateTime end_date)
         {
             movie movie = new movie();
             movie.id = id;
@@ -2155,6 +2317,9 @@ namespace Paradiso
             movie.rating_id = rating_id;
             movie.duration = duration;
             movie.status = status;
+            movie.encoded_date = encoded_date;
+            movie.start_date = start_date;
+            movie.end_date = end_date;
             return movie;
         }
 
@@ -2356,6 +2521,78 @@ namespace Paradiso
         private global::System.Int32 _status;
         partial void OnstatusChanging(global::System.Int32 value);
         partial void OnstatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime encoded_date
+        {
+            get
+            {
+                return _encoded_date;
+            }
+            set
+            {
+                Onencoded_dateChanging(value);
+                ReportPropertyChanging("encoded_date");
+                _encoded_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("encoded_date");
+                Onencoded_dateChanged();
+            }
+        }
+        private global::System.DateTime _encoded_date;
+        partial void Onencoded_dateChanging(global::System.DateTime value);
+        partial void Onencoded_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime start_date
+        {
+            get
+            {
+                return _start_date;
+            }
+            set
+            {
+                Onstart_dateChanging(value);
+                ReportPropertyChanging("start_date");
+                _start_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("start_date");
+                Onstart_dateChanged();
+            }
+        }
+        private global::System.DateTime _start_date;
+        partial void Onstart_dateChanging(global::System.DateTime value);
+        partial void Onstart_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime end_date
+        {
+            get
+            {
+                return _end_date;
+            }
+            set
+            {
+                Onend_dateChanging(value);
+                ReportPropertyChanging("end_date");
+                _end_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("end_date");
+                Onend_dateChanged();
+            }
+        }
+        private global::System.DateTime _end_date;
+        partial void Onend_dateChanging(global::System.DateTime value);
+        partial void Onend_dateChanged();
 
         #endregion
 
@@ -2676,13 +2913,15 @@ namespace Paradiso
         /// <param name="movie_id">Initial value of the movie_id property.</param>
         /// <param name="share_perc">Initial value of the share_perc property.</param>
         /// <param name="effective_date">Initial value of the effective_date property.</param>
-        public static movies_distributor Createmovies_distributor(global::System.Int32 id, global::System.Int32 movie_id, global::System.Single share_perc, global::System.DateTime effective_date)
+        /// <param name="day_count">Initial value of the day_count property.</param>
+        public static movies_distributor Createmovies_distributor(global::System.Int32 id, global::System.Int32 movie_id, global::System.Single share_perc, global::System.DateTime effective_date, global::System.Int32 day_count)
         {
             movies_distributor movies_distributor = new movies_distributor();
             movies_distributor.id = id;
             movies_distributor.movie_id = movie_id;
             movies_distributor.share_perc = share_perc;
             movies_distributor.effective_date = effective_date;
+            movies_distributor.day_count = day_count;
             return movies_distributor;
         }
 
@@ -2788,6 +3027,30 @@ namespace Paradiso
         private global::System.DateTime _effective_date;
         partial void Oneffective_dateChanging(global::System.DateTime value);
         partial void Oneffective_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 day_count
+        {
+            get
+            {
+                return _day_count;
+            }
+            set
+            {
+                Onday_countChanging(value);
+                ReportPropertyChanging("day_count");
+                _day_count = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("day_count");
+                Onday_countChanged();
+            }
+        }
+        private global::System.Int32 _day_count;
+        partial void Onday_countChanging(global::System.Int32 value);
+        partial void Onday_countChanged();
 
         #endregion
 

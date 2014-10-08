@@ -23,7 +23,7 @@
             <l:FooterLineConverter x:Key="footerLine" />
         </Canvas.Resources>
         <Canvas.Background>
-            <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
+            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
         <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350">
@@ -49,7 +49,7 @@
             </StackPanel>
             <Border>
                 <Canvas>
-                    <Canvas Name="TicketCanvas" Canvas.Left="100" Canvas.Top="40" >
+                    <Canvas Name="TicketCanvas" >
                 <StackPanel Margin="5,10,5,0">
                     <TextBlock FontSize="12" TextAlignment="Center" Width="174" Height="14" Text="{Binding Ticket.Header1}"/>
                     <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.Header2}"/>

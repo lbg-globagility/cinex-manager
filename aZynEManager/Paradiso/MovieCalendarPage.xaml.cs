@@ -81,7 +81,6 @@ namespace Paradiso
                 //get all cinemas
                 var _cinemas = (from ms in context.movies_schedule
                                 where ms.movie_date == dtScreenDate
-                                orderby ms.cinema.in_order
                                 select new
                                 {
                                     key = ms.id, //comment
@@ -255,11 +254,16 @@ namespace Paradiso
                 int intCount1 = movieScheduleItems.Count - 1;
                 for (int i = intCount1; i >= 0; i--)
                 {
-                    if (lstKeys.IndexOf(movieScheduleItems[i].Key) == -1)
+                    if (movieScheduleItems[i] != null && lstKeys.IndexOf(movieScheduleItems[i].Key) == -1)
                     {
                         movieScheduleItems.RemoveAt(i);
                     }
                 }
+            }
+
+            for (int k = movieScheduleItems.Count; k < 8; k++)
+            {
+                movieScheduleItems.Add( new MovieScheduleModel());
             }
 
             intColumnCount = 1;
@@ -315,9 +319,15 @@ namespace Paradiso
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+
+            MovieCalendarListBox.Width = MainCanvas.ActualWidth;
+
+            /*
             double left = (MainCanvas.ActualWidth - MovieCalendarListBox.ActualWidth) / 2;
             if (left < 0)
                 left = 0;
+            */
+            double left = 0;
 
             Canvas.SetLeft(MovieCalendarListBox, left);
 
@@ -384,7 +394,7 @@ namespace Paradiso
                 //lookup cinemakey
                 foreach (MovieScheduleModel msi in movieScheduleItems)
                 {
-                    if (msli.CinemaKey == msi.Key)
+                    if (msi != null && msli.CinemaKey == msi.Key)
                     {
                         this.SetNextMovieScheduleListItem(msi);
                     }

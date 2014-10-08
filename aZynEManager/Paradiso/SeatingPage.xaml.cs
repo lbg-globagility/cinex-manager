@@ -82,7 +82,7 @@ namespace Paradiso
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            //timer.Start();
         }
 
         public int Key 
@@ -292,7 +292,8 @@ namespace Paradiso
                                     patronkey = mslp.patron_id,
                                     patroncode = mslp.patron.code,
                                     patronname = mslp.patron.name,
-                                    price = mslp.price
+                                    price = mslp.price,
+                                    seatcolor = mslp.patron.seat_color
                                 }).ToList();
                 if (_patrons != null)
                 {
@@ -304,7 +305,8 @@ namespace Paradiso
                             PatronKey = _patron.patronkey,
                             Code = _patron.patroncode,
                             Name = _patron.patronname,
-                            Price = (decimal) _patron.price
+                            Price = (decimal) _patron.price,
+                            SeatColor = (int) _patron.seatcolor
                         });
                     }
                 }

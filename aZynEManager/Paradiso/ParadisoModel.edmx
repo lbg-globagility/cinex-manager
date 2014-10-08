@@ -12,6 +12,7 @@
           <EntitySet Name="cinema_patron" EntityType="paradisoModel.Store.cinema_patron" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="cinema_seat" EntityType="paradisoModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="classification" EntityType="paradisoModel.Store.classification" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="config_table" EntityType="paradisoModel.Store.config_table" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="movies" EntityType="paradisoModel.Store.movies" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="movies_class" EntityType="paradisoModel.Store.movies_class" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="movies_distributor" EntityType="paradisoModel.Store.movies_distributor" store:Type="Tables" Schema="azynema" />
@@ -78,10 +79,6 @@
             <End Role="classification" EntitySet="classification" />
             <End Role="movies_class" EntitySet="movies_class" />
           </AssociationSet>
-          <AssociationSet Name="fk_movies_class_movies1" Association="paradisoModel.Store.fk_movies_class_movies1">
-            <End Role="movies" EntitySet="movies" />
-            <End Role="movies_class" EntitySet="movies_class" />
-          </AssociationSet>
           <AssociationSet Name="fk_movies_distributor_movies1" Association="paradisoModel.Store.fk_movies_distributor_movies1">
             <End Role="movies" EntitySet="movies" />
             <End Role="movies_distributor" EntitySet="movies_distributor" />
@@ -122,7 +119,7 @@
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
             <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
-          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_patron1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_patron1">
+          <AssociationSet Name="fk_movies_schedule_list_reserved_seat_mslp1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_mslp1">
             <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
             <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
@@ -142,6 +139,10 @@
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
+          <AssociationSet Name="fk_ticket_users1" Association="paradisoModel.Store.fk_ticket_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
           <AssociationSet Name="fk_user_rights_system_module1" Association="paradisoModel.Store.fk_user_rights_system_module1">
             <End Role="system_module" EntitySet="system_module" />
             <End Role="user_rights" EntitySet="user_rights" />
@@ -149,10 +150,6 @@
           <AssociationSet Name="fk_user_rights_users1" Association="paradisoModel.Store.fk_user_rights_users1">
             <End Role="users" EntitySet="users" />
             <End Role="user_rights" EntitySet="user_rights" />
-          </AssociationSet>
-          <AssociationSet Name="fk_user1" Association="paradisoModel.Store.fk_user1">
-            <End Role="users" EntitySet="users" />
-            <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="a_trail">
@@ -224,6 +221,15 @@
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
+        <EntityType Name="config_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="system_code" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="system_desc" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="system_value" Type="varchar" Nullable="false" MaxLength="225" />
+        </EntityType>
         <EntityType Name="movies">
           <Key>
             <PropertyRef Name="id" />
@@ -236,6 +242,9 @@
           <Property Name="rating_id" Type="int" Nullable="false" />
           <Property Name="duration" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="encoded_date" Type="datetime" Nullable="false" />
+          <Property Name="start_date" Type="datetime" Nullable="false" />
+          <Property Name="end_date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_class">
           <Key>
@@ -253,6 +262,7 @@
           <Property Name="movie_id" Type="int" Nullable="false" />
           <Property Name="share_perc" Type="float" Nullable="false" />
           <Property Name="effective_date" Type="date" Nullable="false" />
+          <Property Name="day_count" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule">
           <Key>
@@ -530,18 +540,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_movies_class_movies1">
-          <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
-          <End Role="movies_class" Type="paradisoModel.Store.movies_class" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="movies">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="movies_class">
-              <PropertyRef Name="movie_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_movies_distributor_movies1">
           <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
           <End Role="movies_distributor" Type="paradisoModel.Store.movies_distributor" Multiplicity="*" />
@@ -615,7 +613,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_movies_schedule_list_patron_movies_schedule1">
-          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+          <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="movies_schedule_list">
@@ -662,7 +662,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_movies_schedule_list_reserved_seat_patron1">
+        <Association Name="fk_movies_schedule_list_reserved_seat_mslp1">
           <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="1" />
           <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
           <ReferentialConstraint>
@@ -722,6 +722,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ticket_users1">
+          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_user_rights_system_module1">
           <End Role="system_module" Type="paradisoModel.Store.system_module" Multiplicity="1" />
           <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
@@ -746,19 +758,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_user1">
-          <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
-          <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="CurrentDateTime" ReturnType="datetime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -898,6 +897,7 @@
             <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
             <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
           </AssociationSet>
+          <EntitySet Name="config_table" EntityType="paradisoModel.config_table" />
         </EntityContainer>
         <EntityType Name="application">
           <Key>
@@ -977,6 +977,9 @@
           <NavigationProperty Name="movies_distributor" Relationship="paradisoModel.fk_movies_distributor_movies1" FromRole="movies" ToRole="movies_distributor" />
           <NavigationProperty Name="mtrcb" Relationship="paradisoModel.fk_movies_mtrcb1" FromRole="movies" ToRole="mtrcb" />
           <NavigationProperty Name="movies_schedule" Relationship="paradisoModel.fk_movies_schedule_movies" FromRole="movies" ToRole="movies_schedule" />
+          <Property Type="DateTime" Name="encoded_date" Nullable="false" />
+          <Property Type="DateTime" Name="start_date" Nullable="false" />
+          <Property Type="DateTime" Name="end_date" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_class">
           <Key>
@@ -997,6 +1000,7 @@
           <Property Name="share_perc" Type="Single" Nullable="false" />
           <Property Name="effective_date" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="movie" Relationship="paradisoModel.fk_movies_distributor_movies1" FromRole="movies_distributor" ToRole="movies" />
+          <Property Type="Int32" Name="day_count" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule">
           <Key>
@@ -1566,6 +1570,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="config_table">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="system_code" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="system_desc" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="system_value" Nullable="false" MaxLength="225" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1632,6 +1645,9 @@
           <EntitySetMapping Name="movies">
             <EntityTypeMapping TypeName="paradisoModel.movie">
               <MappingFragment StoreEntitySet="movies">
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="encoded_date" ColumnName="encoded_date" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -1655,6 +1671,7 @@
           <EntitySetMapping Name="movies_distributor">
             <EntityTypeMapping TypeName="paradisoModel.movies_distributor">
               <MappingFragment StoreEntitySet="movies_distributor">
+                <ScalarProperty Name="day_count" ColumnName="day_count" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movie_id" ColumnName="movie_id" />
                 <ScalarProperty Name="share_perc" ColumnName="share_perc" />
@@ -1881,6 +1898,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="config_table">
+            <EntityTypeMapping TypeName="paradisoModel.config_table">
+              <MappingFragment StoreEntitySet="config_table">
+                <ScalarProperty Name="system_value" ColumnName="system_value" />
+                <ScalarProperty Name="system_desc" ColumnName="system_desc" />
+                <ScalarProperty Name="system_code" ColumnName="system_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2000,16 +2027,16 @@
           <ConnectorPoint PointX="6.75" PointY="32.182571614583331" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_distributor_movies1" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="34.450241638221151" />
-          <ConnectorPoint PointX="3.375" PointY="34.825241638221151" />
-          <ConnectorPoint PointX="3.375" PointY="38.490143229166662" />
-          <ConnectorPoint PointX="3.4166666666666665" PointY="38.490143229166662" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="38.490143229166662" />
-          <ConnectorPoint PointX="3.75" PointY="38.490143229166662" />
+          <ConnectorPoint PointX="3" PointY="35.027145935096151" />
+          <ConnectorPoint PointX="3.375" PointY="35.402145935096151" />
+          <ConnectorPoint PointX="3.375" PointY="38.5862939453125" />
+          <ConnectorPoint PointX="3.4166666666666665" PointY="38.5862939453125" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="38.5862939453125" />
+          <ConnectorPoint PointX="3.75" PointY="38.5862939453125" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_mtrcb1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="35.875" />
-          <ConnectorPoint PointX="2.25" PointY="34.451396484374996" />
+          <ConnectorPoint PointX="2.25" PointY="35.028300781249996" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_movies" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="31.125" />
@@ -2066,12 +2093,12 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_patrons1" ManuallyRouted="false">
           <ConnectorPoint PointX="1.2968775" PointY="39.25" />
-          <ConnectorPoint PointX="1.2968775" PointY="35.1631982421875" />
-          <ConnectorPoint PointX="2.1666666666666665" PointY="35.1631982421875" />
-          <ConnectorPoint PointX="2.3333333333333335" PointY="35.1631982421875" />
-          <ConnectorPoint PointX="3.2916666666666665" PointY="35.1631982421875" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="35.1631982421875" />
-          <ConnectorPoint PointX="3.75" PointY="35.1631982421875" />
+          <ConnectorPoint PointX="1.2968775" PointY="35.309897431640621" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="35.309897431640621" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="35.309897431640621" />
+          <ConnectorPoint PointX="3.1994181632111371" PointY="35.309897431640621" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="35.309897431640621" />
+          <ConnectorPoint PointX="3.75" PointY="35.309897431640621" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="41.297801106770834" />
@@ -2079,10 +2106,12 @@
           <ConnectorPoint PointX="3.5" PointY="13.682190755208325" />
           <ConnectorPoint PointX="3.3958333333333335" PointY="13.682190755208325" />
           <ConnectorPoint PointX="3.2291666666666665" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="2.875" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="2.875" PointY="9.9225065104166656" />
-          <ConnectorPoint PointX="3.48437275" PointY="9.9225065104166656" />
-          <ConnectorPoint PointX="3.48437275" PointY="9.2975065104166656" />
+          <ConnectorPoint PointX="2.6875" PointY="13.682190755208325" />
+          <ConnectorPoint PointX="2.6875" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="2.6979166666666665" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="2.8645833333333335" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="3.4804671875" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="3.4804671875" PointY="9.2975065104166656" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" ManuallyRouted="false">
           <ConnectorPoint PointX="6" PointY="7.2604950123697956" />
@@ -2128,14 +2157,12 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_movies_schedule11" >
           <ConnectorPoint PointX="0.921875" PointY="26.509095052083335" />
-          <ConnectorPoint PointX="0.921875" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="1.0104166666666667" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="1.1770833333333333" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="2.1666666666666665" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="2.3333333333333335" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="3.3541666666666665" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="34.807294863281243" />
-          <ConnectorPoint PointX="3.75" PointY="34.807294863281243" />
+          <ConnectorPoint PointX="0.921875" PointY="34.880644458007808" />
+          <ConnectorPoint PointX="1.0104166666666667" PointY="34.880644458007808" />
+          <ConnectorPoint PointX="1.1770833333333333" PointY="34.880644458007808" />
+          <ConnectorPoint PointX="3.3541666666666665" PointY="34.880644458007808" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="34.880644458007808" />
+          <ConnectorPoint PointX="3.75" PointY="34.880644458007808" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patron1" >
           <ConnectorPoint PointX="4.5" PointY="34.375" />
@@ -2144,12 +2171,11 @@
           <ConnectorPoint PointX="3.3541666666666665" PointY="31.547587890625003" />
           <ConnectorPoint PointX="3.3125" PointY="31.547587890625003" />
           <ConnectorPoint PointX="3.3125" PointY="13.557190755208325" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="13.557190755208325" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="13.557190755208325" />
           <ConnectorPoint PointX="2.78125" PointY="13.557190755208325" />
-          <ConnectorPoint PointX="2.78125" PointY="5.5419609690755278" />
-          <ConnectorPoint PointX="3" PointY="5.5419609690755278" />
+          <ConnectorPoint PointX="2.78125" PointY="5.6142827998948164" />
+          <ConnectorPoint PointX="3" PointY="5.6142827998948164" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="paradisoModel.config_table" Width="1.5" PointX="9.375" PointY="9.75" Height="1.7879850260416674" />
       </Diagram>
     </Diagrams>
   </Designer>

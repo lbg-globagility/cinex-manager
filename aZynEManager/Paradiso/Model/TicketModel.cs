@@ -10,8 +10,8 @@ namespace Paradiso.Model
     {
         private string strORNumber = string.Empty;
 
-        private string strHeader1 = "WALTERMART";
-        private string strHeader2 = "MAKATI CINEMA MAKATI CITY";
+        private string strHeader1 = "COMMERCENTER";
+        private string strHeader2 = "MUNTINLUPA CITY";
 
         private string strMIN = string.Empty;
         private string strTIN = "XXX-XXX-XXX-XXX";
@@ -37,6 +37,11 @@ namespace Paradiso.Model
         private string strSessionName = string.Empty;
         private string strSerialNumber = string.Empty;
 
+        public TicketModel()
+        {
+            this.Clear();
+        }
+
         public void Clear()
         {
             DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
@@ -54,6 +59,8 @@ namespace Paradiso.Model
             CurrentTime = dtNow;
             SessionName = string.Empty;
             SerialNumber = string.Empty;
+            strHeader1 = ParadisoObjectManager.GetInstance().Header;
+            strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
         }
 
         public string SerialNumber

@@ -25,7 +25,7 @@
             <l:FooterLineConverter x:Key="footerLine" />
         </Canvas.Resources>
         <Canvas.Background>
-            <ImageBrush ImageSource="/Paradiso;component/Images/bg-transactions.jpg" />
+            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
         <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontFamily="Arial" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
@@ -38,7 +38,7 @@
                     <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
                     <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
                 </StackPanel>
-                <Grid Height="200" Width="200" Margin="25">
+                <Grid Height="200" Width="200" Margin="0,25,10,25" HorizontalAlignment="Right">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
@@ -51,18 +51,18 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Row="0" Grid.Column="0" Margin="2" Click="Button_Click">7</Button>
-                    <Button Grid.Row="0" Grid.Column="1" Margin="2" Click="Button_Click">8</Button>
-                    <Button Grid.Row="0" Grid.Column="2" Margin="2" Click="Button_Click">9</Button>
+                    <Button Grid.Row="0" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">7</Button>
+                    <Button Grid.Row="0" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">8</Button>
+                    <Button Grid.Row="0" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">9</Button>
                     <Button Grid.Row="0" Grid.Column="3" Margin="2" Click="Button_Click">Back</Button>
-                    <Button Grid.Row="1" Grid.Column="0" Margin="2" Click="Button_Click">4</Button>
-                    <Button Grid.Row="1" Grid.Column="1" Margin="2" Click="Button_Click">5</Button>
-                    <Button Grid.Row="1" Grid.Column="2" Margin="2" Click="Button_Click">6</Button>
-                    <Button Grid.Row="2" Grid.Column="0" Margin="2" Click="Button_Click">1</Button>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="2" Click="Button_Click">2</Button>
-                    <Button Grid.Row="2" Grid.Column="2" Margin="2" Click="Button_Click">3</Button>
-                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Click="Button_Click">0</Button>
-                    <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click">.</Button>
+                    <Button Grid.Row="1" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">4</Button>
+                    <Button Grid.Row="1" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">5</Button>
+                    <Button Grid.Row="1" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">6</Button>
+                    <Button Grid.Row="2" Grid.Column="0" Margin="2" Click="Button_Click" FontSize="20">1</Button>
+                    <Button Grid.Row="2" Grid.Column="1" Margin="2" Click="Button_Click" FontSize="20">2</Button>
+                    <Button Grid.Row="2" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">3</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="2" Click="Button_Click" FontSize="20">0</Button>
+                    <Button Grid.Row="3" Grid.Column="2" Margin="2" Click="Button_Click" FontSize="20">.</Button>
                 </Grid>
                 <StackPanel Background="LightGray">
                     <TextBlock Margin="0,0,10,0"  TextAlignment="Right">Change</TextBlock>

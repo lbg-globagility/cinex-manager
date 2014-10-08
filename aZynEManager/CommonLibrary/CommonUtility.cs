@@ -38,13 +38,15 @@ namespace CommonLibrary
                 strServer = ConfigurationManager.AppSettings["Host"];
                 int.TryParse(ConfigurationManager.AppSettings["Port"], out intPort);
                 strDatabase = ConfigurationManager.AppSettings["ServiceName"];
+                //strDatabase = "azynema2";
 
                 Encryption encryption = new Encryption();
 
                 strUserId = encryption.DecryptString(ConfigurationManager.AppSettings["UserId"]);
                 strPassword = encryption.DecryptString(ConfigurationManager.AppSettings["Password"]);
 
-                
+                //strPassword = "Am3L74rS";
+
 
                 /*
 
