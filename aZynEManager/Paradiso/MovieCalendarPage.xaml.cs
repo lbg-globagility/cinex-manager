@@ -407,5 +407,6 @@ namespace Paradiso
             timer.Stop();
             NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
         }
+
     }
 }

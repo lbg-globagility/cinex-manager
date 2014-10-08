@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:l="clr-namespace:Paradiso"
-      mc:Ignorable="d" Title="SeatingPage1" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded">
+      mc:Ignorable="d" Title="SeatingPage1" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,7 +29,7 @@
             <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
         </Canvas.Resources>
         <Canvas.Background>
-            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
+            <ImageBrush ImageSource="/Paradiso;component/Images/dark-bg.jpg" />
         </Canvas.Background>
 
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
@@ -188,7 +188,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" Style="{DynamicResource MetroCircleButtonStyle}" Width="25" Height="25" ToolTip="Delete">
-                                <Image Source="/Paradiso;component/Images/seat-red.png" Width="10" />
+                                <Image Source="/Paradiso;component/Images/delete-icon.png" Width="10" Height="10" />
                                 <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />

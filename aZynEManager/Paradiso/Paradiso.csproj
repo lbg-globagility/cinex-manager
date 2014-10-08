@@ -114,7 +114,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CinemaProxy.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
@@ -371,6 +370,12 @@
   <ItemGroup>
     <Resource Include="Images\blue-bg.jpg" />
     <Resource Include="Images\cinex-login-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dark-bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

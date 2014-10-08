@@ -507,7 +507,7 @@ namespace Paradiso
             timer.Start();
         }
 
-        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        private void confirmPatrons()
         {
             timer.Stop();
             if (SelectedPatronSeatList.PatronSeats.Count == 0)
@@ -523,6 +523,11 @@ namespace Paradiso
                 //call payment
                 NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
+        }
+
+        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.confirmPatrons();
         }
 
         private void SeatCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -684,6 +689,14 @@ namespace Paradiso
             seatCanvas.ContextMenu.IsOpen = true;
             
             e.Handled = true;
+        }
+
+        private void Page_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                this.confirmPatrons();
+            }
         }
     }
 }
