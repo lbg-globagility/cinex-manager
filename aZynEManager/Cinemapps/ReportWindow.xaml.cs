@@ -397,24 +397,6 @@ namespace Cinemapps
             }
         }
 
-        private void RP15StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void PrintRP15_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RP15 report = new RP15(RP15StartDate.SelectedDate, RP15EndDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
         private void PrintRP19_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -427,57 +409,6 @@ namespace Cinemapps
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
-        private void PrintRP17_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RP17 report = new RP17(RP17StartDate.SelectedDate, RP17EndDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-
-        }
-
-        private void RP17StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void PrintRP16_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RP16 report = new RP16(RP16StartDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-        private void RP18StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void PrintRP18_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                RP18 report = new RP18(RP18StartDate.SelectedDate, RP18EndDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
 
     }
 }

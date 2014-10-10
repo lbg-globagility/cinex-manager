@@ -669,7 +669,7 @@ namespace aZynEManager
                             ////added july 21 2014 
                             ////for the auto generate of sked per day with intermission time
                             DateTime movieenddate = currentdate.Date;
-                            if(cbxintermision.Checked == true || txtintermision.Text.Trim() != "")
+                            if(cbxintermision.Checked == true && txtintermision.Text.Trim() != "")
                             {
                                 movieenddate = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
                                 int showcntr = 0;
@@ -864,7 +864,7 @@ namespace aZynEManager
                         intval = 3;
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3})", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
+                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3},0)", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
@@ -907,7 +907,7 @@ namespace aZynEManager
                         if ((bool)dgv[0, i].Value)
                         {
                             StringBuilder sqry = new StringBuilder();
-                            sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2})",
+                            sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},0)",
                                 intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
 
                             if (myconn.State == ConnectionState.Closed)

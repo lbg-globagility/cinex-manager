@@ -937,7 +937,7 @@ namespace aZynEManager
                     this.dttime.Value = new DateTime(2014, 6, 2, (int)result.TotalHours, result.Minutes, 0);
                     cmbrating.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                     cmbdistributor.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
-                    txtshare.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
+                    txtshare.Text = dgv.SelectedRows[0].Cells[8].Value.ToString();
 
                     StringBuilder sbqry = new StringBuilder();
                     sbqry.Append("SELECT b.description, b.name, a.class_id as id FROM movies_class a, classification b ");

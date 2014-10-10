@@ -44,13 +44,6 @@
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="RdlEngine">
-      <HintPath>..\..\library\RdlEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="RdlViewer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=98d963a3ed6bf418, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\library\RdlViewer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -82,8 +75,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Adorners\ResizeRotateAdorner.cs" />
+    <Compile Include="Adorners\ResizeRotateChrome.cs" />
+    <Compile Include="Adorners\SizeAdorner.cs" />
+    <Compile Include="Adorners\SizeChrome.cs" />
     <Compile Include="clsWaterMark.cs" />
     <Compile Include="clsWatermarkPassword.cs" />
+    <Compile Include="DesignerItemDecorator.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -94,7 +92,13 @@
     <Compile Include="MessageYesNoWindow.xaml.cs">
       <DependentUpon>MessageYesNoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MoveThumb.cs" />
     <Compile Include="NegativeConverter.cs" />
+    <Compile Include="NewWindow.xaml.cs">
+      <DependentUpon>NewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResizeThumb.cs" />
+    <Compile Include="RotateThumb.cs" />
     <Compile Include="ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
@@ -107,6 +111,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MessageYesNoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ResizeRotateChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SizeChrome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

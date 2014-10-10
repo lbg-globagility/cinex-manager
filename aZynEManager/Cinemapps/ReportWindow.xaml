@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Reports" Height="990" Width="720" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+        Title="Reports" Height="390" Width="720" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -317,109 +317,7 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
-            <ListViewItem>
-                <DockPanel Margin="4">
-                    <Rectangle Width="20" Height="20" Margin="5"
-                        Fill="DarkBlue" DockPanel.Dock="Left">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                         Visual="{StaticResource appbar_office_excel}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Button Margin="5" Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click">Print
-                    </Button>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold">Voided Tickets per Cinema (RP15)</TextBlock>
-                        <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Voided Tickets with Totals per Cinema for a Date Range</TextBlock>
-                        </Label>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP15StartDate" SelectedDateChanged="RP15StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP15EndDate"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DockPanel>
-            </ListViewItem>
-            <ListViewItem>
-                <DockPanel Margin="4">
-                    <Rectangle Width="20" Height="20" Margin="5"
-                        Fill="DarkBlue" DockPanel.Dock="Left">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                         Visual="{StaticResource appbar_office_excel}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Button Margin="5" Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click">Print
-                    </Button>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold">BIR Summary of Daily Cinema Sales Report (RP16)</TextBlock>
-                        <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per Cinema for a specified date with BIR Totals</TextBlock>
-                        </Label>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP16StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DockPanel>
-            </ListViewItem>
 
-            <ListViewItem>
-                <DockPanel Margin="4">
-                    <Rectangle Width="20" Height="20" Margin="5"
-                        Fill="DarkBlue" DockPanel.Dock="Left">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                         Visual="{StaticResource appbar_office_excel}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Button Margin="5" Name="PrintRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP17_Click">Print
-                    </Button>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Utilization (Simple) (RP17)</TextBlock>
-                        <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Cinema Utilization Report over a Date Range</TextBlock>
-                        </Label>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP17StartDate" SelectedDateChanged="RP17StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP17EndDate"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DockPanel>
-            </ListViewItem>
-            <ListViewItem>
-                <DockPanel Margin="4">
-                    <Rectangle Width="20" Height="20" Margin="5"
-                        Fill="DarkBlue" DockPanel.Dock="Left">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill"
-                         Visual="{StaticResource appbar_office_excel}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Button Margin="5" Name="PrintRP18" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP18_Click">Print
-                    </Button>
-                    <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Utilization (Complex) (RP18)</TextBlock>
-                        <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Cinema Utilization Report over a Date Range</TextBlock>
-                        </Label>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP18StartDate" SelectedDateChanged="RP18StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP18EndDate"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DockPanel>
-            </ListViewItem>
             <ListViewItem>
                 <DockPanel Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
