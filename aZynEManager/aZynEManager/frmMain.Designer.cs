@@ -115,6 +115,7 @@
             this.pnlDescription.Name = "pnlDescription";
             this.pnlDescription.Size = new System.Drawing.Size(331, 105);
             this.pnlDescription.TabIndex = 1;
+            this.pnlDescription.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlDescription_Paint);
             // 
             // pnlClose
             // 

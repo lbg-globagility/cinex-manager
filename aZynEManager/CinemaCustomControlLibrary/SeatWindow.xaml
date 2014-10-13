@@ -99,4 +99,7 @@
             </ScrollViewer>
         </Border>
     </DockPanel>
+    
 </controls:MetroWindow>
+
+    

@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -104,7 +103,6 @@ namespace CinemaCustomControlLibrary
         private ObjectSet<cinema_seat> _cinema_seat;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -124,11 +122,11 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -159,7 +157,6 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -286,7 +283,6 @@ namespace CinemaCustomControlLibrary
         partial void Onin_orderChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -313,7 +309,6 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -340,7 +335,6 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -635,7 +629,6 @@ namespace CinemaCustomControlLibrary
         partial void Onis_handicappedChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -678,10 +671,8 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
-
     }
 
     #endregion
-
     
 }

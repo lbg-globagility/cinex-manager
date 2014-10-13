@@ -334,6 +334,11 @@ namespace aZynEManager
 
         }
 
+        private void pnlDescription_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
 
 
     }

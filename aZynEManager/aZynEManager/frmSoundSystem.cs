@@ -301,7 +301,7 @@ namespace aZynEManager
                     int intid = -1;
                     if (dgvResult.SelectedRows.Count == 1)
                         intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
-
+                   
                     //validate the database for records being used
                     StringBuilder sqry = new StringBuilder();
                     sqry.Append(String.Format("select count(*) from cinema where sound_id = {0}", intid));
@@ -311,7 +311,7 @@ namespace aZynEManager
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
-                    if (rowCount > 1)
+                    if (rowCount > 0)
                     {
                         setnormal();
                         if (myconn.State == ConnectionState.Open)
@@ -319,7 +319,7 @@ namespace aZynEManager
                         MessageBox.Show("Can't remove this record, \n\rit is being used by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    else if (rowCount == 1)
+                    else if (rowCount == 0)
                     {
                         //delete from the moview table where the status is inactive or = 0
                         sqry = new StringBuilder();

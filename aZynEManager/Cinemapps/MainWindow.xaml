@@ -154,12 +154,12 @@
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="White" Height="40" Orientation="Horizontal">
                         <TextBlock x:Name="TileTitle" Text="" TextAlignment="Left" Margin="35,10,0,10" FontSize="18" FontWeight="Regular" FontFamily="Tahoma" FontStyle="Normal" Foreground="Black" Width="311" VerticalAlignment="Center">
                         </TextBlock>
-                        <Button Name="btnLogout" Background="Transparent" FontFamily="Arial" Height="31" KeyboardNavigation.TabIndex="3" Width="34" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0" Margin="90,0" BorderBrush="Black" BorderThickness="0" Foreground="Black" Click="Logout_Click" Cursor="Hand" ToolTip="LOGOUT">
+                        <Button Name="btnLogout" Background="Transparent" FontFamily="Arial" Height="31" Width="34" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0" Margin="90,0" BorderBrush="Black" BorderThickness="0" Foreground="Black" Click="Logout_Click" Cursor="Hand" ToolTip="LOGOUT">
                             <Image Source="/Cinemapps;component/Images/logout.png" ToolTip="LOGOUT"></Image>
                         </Button>
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#CC119EDA" Height="140">
-                        <Grid x:Name="LoginGrid" Margin="30,20, 0, 0" Background="#CC119EDA"  HorizontalAlignment="center" VerticalAlignment="Bottom" Width="260" KeyboardNavigation.TabNavigation="Local" FocusManager.FocusedElement="{Binding ElementName=UserName}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#CC119EDA" Height="140" KeyboardNavigation.TabNavigation="Cycle">
+                        <Grid x:Name="LoginGrid" Margin="30,20, 0, 0" Background="#CC119EDA"  HorizontalAlignment="center" VerticalAlignment="Bottom" Width="260" KeyboardNavigation.TabNavigation="Cycle"  FocusManager.FocusedElement="{Binding ElementName=UserName}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="31*" />
                                 <ColumnDefinition Width="229*" />
@@ -169,12 +169,14 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
+                            
                             <Image Source="/Cinemapps;component/Images/user2.png" Height="Auto" Margin="6,5,228,4" Grid.ColumnSpan="2" />
-                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" IsTabStop="False" KeyboardNavigation.TabIndex="0"/>
+                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" TabIndex="0" KeyboardNavigation.TabIndex="0"/>
+                            <PasswordBox Name="UserPassword" local:PlaceHolderHelper.PlaceHolderText="Password"  Grid.Row="1" Margin="0,2,6,3" Height="25" Grid.Column="1" BorderThickness="0" KeyUp="UserPassword_KeyUp" TabIndex="1" KeyboardNavigation.TabIndex="1" IsTabStop="true"/>
                             <Image Source="/Cinemapps;component/Images/lock1.png" Height="Auto" Margin="6,6,228,5" Grid.Row="1" Grid.ColumnSpan="2" />
-                            <PasswordBox Name="UserPassword" local:PlaceHolderHelper.PlaceHolderText="Password" KeyboardNavigation.TabIndex="1" Grid.Row="1" Margin="0,2,6,3" Height="25" Grid.Column="1" BorderThickness="0" KeyUp="UserPassword_KeyUp" />
+                       
                             <!-- local:PlaceHolderHelper.PlaceHolderText="Password"-->
-                            <Button Grid.Row="2" Background="Gray" Width="100" Margin="122,1,6,3" FontFamily="Arial" Height="31" Click="Button_Click" KeyboardNavigation.TabIndex="2" Grid.Column="1" BorderBrush="White" Cursor="Hand">LOGIN</Button>
+                            <Button Grid.Row="2" Background="Gray" Width="100" Margin="122,1,6,3" FontFamily="Arial" Height="31" Click="Button_Click"  Grid.Column="2" BorderBrush="White" IsTabStop="True" Cursor="Hand">LOGIN</Button>
                         </Grid>
                         <TextBlock x:Name="TileDesc" Text="" Margin="35,20,35,25" TextAlignment="Justify" Foreground="White" TextWrapping="Wrap">
                         </TextBlock>

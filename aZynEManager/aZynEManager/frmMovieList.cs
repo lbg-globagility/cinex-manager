@@ -30,6 +30,7 @@ namespace aZynEManager
         private void frmMovieList_Load(object sender, EventArgs e)
         {
             unselectbutton();
+            refreshDGV(true);
         }
 
         public void refreshDGV(bool withCutOff)
@@ -55,12 +56,14 @@ namespace aZynEManager
             //sbqry.Append("order by b.encoded_date desc");
 
             //3rd version for testing with startdate and enddate 
-            sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, ");
+           /* sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, ");
             sbqry.Append("a.start_date, a.end_date, a.share_perc as share, d.status_desc as status, a.encoded_date ");
             sbqry.Append("FROM movies a, mtrcb b, distributor c, movies_status d WHERE a.rating_id = b.id ");
-            sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");
+            sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");*/
+            sbqry.Append("select * from movies");
+
             if (withCutOff)
-                sbqry.Append(String.Format("and a.encoded_date >= '{0:yyyy-MM-dd}'",m_clscom.m_clscon.MovieListCutOffDate));
+                sbqry.Append(String.Format("where encoded_date >= '{0:yyyy-MM-dd}'",m_clscom.m_clscon.MovieListCutOffDate));
 
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
@@ -449,7 +452,8 @@ namespace aZynEManager
                 btnDelete.Text = "cancel";
                 btnDelete.Enabled = true;
                 btnDelete.Values.Image = Properties.Resources.buttoncancel;
-
+                cbxfilter.Checked = false;
+                cbxfilter.Enabled = false;
                 txtcode.SelectAll();
                 txtcode.Focus();
 
@@ -562,10 +566,14 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into movies value(0,'{0}','{1}',{2},{3},{4},{5},0,Now(),CURDATE(),CURDATE())",
-                    txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
+                sqry.Append("select max(id) from movies");
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+
+                int max_id= Convert.ToInt32(cmd.ExecuteScalar())+1;
+                sqry = new StringBuilder();
+                sqry.Append(String.Format("insert into movies value({0},'{1}','{2}',{3},{4},{5},{6},0,Now(),CURDATE(),CURDATE())",
+                    max_id,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
                     cmbrating.SelectedValue,inttime));
                 try
                 {
@@ -614,6 +622,8 @@ namespace aZynEManager
                     setnormal();
                     
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //refreshDGV(false);
+                    cbxfilter.Enabled = true;
                 }
                 catch
                 {
@@ -770,8 +780,13 @@ namespace aZynEManager
                     }
                 }
             }
+            else
+            {
+                cbxfilter.Enabled = true;
+            }
             refreshDGV(true);
             setnormal();
+           
         }
 
         private void txtshare_KeyPress(object sender, KeyPressEventArgs e)

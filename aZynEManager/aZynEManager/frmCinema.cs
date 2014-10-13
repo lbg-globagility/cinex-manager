@@ -23,7 +23,7 @@ namespace aZynEManager
         DataTable m_dt = new DataTable();
         DataTable m_dtsounds = new DataTable();
         MySqlConnection myconn = new MySqlConnection();
-        CinemaCustomControlLibrary.SeatWindow window;
+        CinemaCustomControlLibrary.SeatWindow window ;
 
         public frmCinema()
         {
@@ -418,11 +418,11 @@ namespace aZynEManager
                     setnormal();
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch
+                catch(Exception err)
                 {
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the contact table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -436,12 +436,16 @@ namespace aZynEManager
                     if ((bool)dgv[0, i].Value)
                     {
                         StringBuilder sqry = new StringBuilder();
-                        sqry.Append(String.Format("insert into cinema_patron values(0,{0},{1},{2})",
-                            intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+                        sqry.Append("select max(id) from cinema_patron");
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        int max_id=Convert.ToInt32(cmd.ExecuteScalar())+1;
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("insert into cinema_patron values({0},{1},{2},{3})",
+                            max_id,intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
 
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
-                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
@@ -643,6 +647,10 @@ namespace aZynEManager
                     //8-20-2014 UPDATES FROM RAYMOND
                     try
                     {
+                        if (window == null)
+                        {
+                            window = new CinemaCustomControlLibrary.SeatWindow();
+                        }
                         window.SaveCinemaSeats(intid);
                     }
                     catch (Exception ex)
@@ -946,6 +954,7 @@ namespace aZynEManager
 
             //resets all 
             window = new CinemaCustomControlLibrary.SeatWindow();
+
             window.LoadCinema(intCinemaId, strCinemaName, intCapacity);
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();

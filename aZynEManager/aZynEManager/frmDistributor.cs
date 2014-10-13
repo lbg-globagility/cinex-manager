@@ -756,18 +756,19 @@ namespace aZynEManager
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
-
-                    if (rowCount > 0)
-                    {
-                        setnormal();
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
-                        MessageBox.Show("Can't add this contact person's record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+     
+                   
 
                     if (cbxnew.Checked == true)
                     {
+                        if (rowCount > 0)
+                        {
+                            setnormal();
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show("Can't add this contact person's record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                         sqry = new StringBuilder();
                         sqry.Append(String.Format("insert into people values(0,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'); select last_insert_id();",
                             txtfn.Text.Trim() + txtln.Text.Trim(), txtln.Text.Trim(), txtfn.Text.Trim(), "",
@@ -859,14 +860,16 @@ namespace aZynEManager
 
                 rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
-
-                if (rowCount > 0)
+                if (cbxnew.Checked == true)
                 {
-                    setnormal();
-                    if (myconn.State == ConnectionState.Open)
-                        myconn.Close();
-                    MessageBox.Show("Can't add this distributor's record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    if (rowCount > 0)
+                    {
+                        setnormal();
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't add this distributor's record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
 
                 StringBuilder strqry = new StringBuilder();
@@ -1022,6 +1025,11 @@ namespace aZynEManager
                     }
                 }
             }
+        }
+
+        private void frmDistributor_Load(object sender, EventArgs e)
+        {
+
         }
 
 

@@ -50,7 +50,10 @@ namespace Cinemapps
             InitializeComponent();
             this.Left = (SystemParameters.WorkArea.Width - this.Width) / 2;
             main = new frmMain();
-
+            UserName.Focus();
+            UserName.TabIndex = 1;
+            UserPassword.TabIndex = 2;
+            
             DescBorder.Visibility = System.Windows.Visibility.Visible;
 
             if (main.boolAppAtTest)

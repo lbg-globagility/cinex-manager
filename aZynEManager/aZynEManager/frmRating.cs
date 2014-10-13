@@ -323,10 +323,14 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into mtrcb value(0,'{0}','{1}')",
-                    txtname.Text.Trim(), txtdesc.Text.Trim()));
+                sqry.Append("select max(id) from mtrcb");
+                MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                int max_id = Convert.ToInt32(cmd2.ExecuteScalar()) + 1;
+                
+                sqry = new StringBuilder();
+                sqry.Append(String.Format("insert into mtrcb value({0},'{1}','{2}')",
+                  max_id,  txtname.Text.Trim(), txtdesc.Text.Trim()));
 
                 
                 try

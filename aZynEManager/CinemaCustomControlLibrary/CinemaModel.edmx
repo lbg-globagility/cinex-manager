@@ -161,12 +161,12 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="CinemaModel" ZoomLevel="10">
-        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="0.75" PointY="1.625" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3" PointY="1" Height="3.5186979166666656" IsExpanded="true" />
+      <Diagram Name="CinemaModel" ZoomLevel="108">
+        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="1" PointY="0.875" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3.375" PointY="0.5" Height="3.5186979166666656" IsExpanded="true" />
         <AssociationConnector Association="cinemaModel.fk_cinema_seat_cinema1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.7112939453125" />
-          <ConnectorPoint PointX="3" PointY="2.7112939453125" />
+          <ConnectorPoint PointX="2.5" PointY="1.9612939453125" />
+          <ConnectorPoint PointX="3.375" PointY="1.9612939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

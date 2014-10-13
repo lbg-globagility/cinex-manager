@@ -240,13 +240,19 @@ namespace aZynEManager
                 }
 
                 sqry = new StringBuilder();
+
+                
+                sqry.Append("Select Max(id) from patrons");
+                MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                int max_id= Convert.ToInt32(cmd2.ExecuteScalar())+1;
+                sqry = new StringBuilder();
                 //with queries
-                sqry.Append(String.Format("insert into patrons values(0,'{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},1,{11})",
-                    txtcode.Text.Trim(), txtname.Text.Trim(), txtprice.Text.Trim(), Convert.ToInt32(cbxpromo.CheckState),
-                    Convert.ToInt32(cbxamusement.CheckState), Convert.ToInt32(cbxcultural.CheckState), Convert.ToInt32(cbxlgu.CheckState),
+                sqry.Append(String.Format("insert into patrons values({0},'{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})",
+                    max_id,txtcode.Text.Trim(), txtname.Text.Trim(), txtprice.Text.Trim(), Convert.ToInt32(cbxpromo.CheckState),
+                    Convert.ToInt32(cbxamusement.CheckState), Convert.ToInt32(cbxcultural.CheckState), Convert.ToInt32(cbxlgu.CheckState),//7
                     Convert.ToInt32(cbxgross.CheckState), Convert.ToInt32(cbxproducer.CheckState), clscommon.Get0BGR(btncolor.SelectedColor),//btncolor.SelectedColor.ToArgb(),
                     txtposition.Text.Trim(), txtlgu.Text.Trim()));
-
+               
                 try
                 {
                     int intid = -1;
@@ -275,11 +281,11 @@ namespace aZynEManager
 
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch
+                catch(Exception err)
                 {
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Can't connect to the patrons table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the patrons table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (myconn.State == ConnectionState.Open)
@@ -573,8 +579,8 @@ namespace aZynEManager
 
                 txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                txtprice.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
-                txtposition.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
+                txtprice.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
+                txtposition.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
 
                 string strid = dgv.SelectedRows[0].Cells[0].Value.ToString();
                 StringBuilder sqry = new StringBuilder();
@@ -620,6 +626,16 @@ namespace aZynEManager
             {
                 e.Handled = true;
             }
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btncolor_SelectedColorChanged(object sender, ColorEventArgs e)
+        {
+
         }
     }
 }
