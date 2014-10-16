@@ -181,8 +181,35 @@
             </ScrollViewer-->
         </DockPanel>
         
-        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White">
-            <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
+        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White" Name="PurchaseDetailsPanel" >
+            <TextBlock FontSize="14" FontWeight="Bold" Name="PurchaseDetailsText" PreviewMouseLeftButtonDown="PurchaseDetailsText_PreviewMouseLeftButtonDown" PreviewMouseMove="PurchaseDetailsText_PreviewMouseMove" PreviewMouseUp="PurchaseDetailsText_PreviewMouseUp">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="CornflowerBlue" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="Black" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>                        
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <TextBlock.Text>
+                    Ticket Purchase Details
+                </TextBlock.Text>
+            </TextBlock>
             <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
                 <ListView.ItemTemplate>
                     <DataTemplate>

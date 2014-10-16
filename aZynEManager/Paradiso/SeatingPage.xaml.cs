@@ -42,6 +42,14 @@ namespace Paradiso
         public bool IsLimitedFreeSeating { get; set; }
         public bool IsUnlimitedFreeSeating { get; set; }
 
+        private bool isDragInProgress = false;
+        private Point origCursorLocation;
+        private double origHorizOffset;
+        private double origVertOffset;
+        private bool modifyLeftOffset;
+        private bool modifyTopOffset;
+        private UIElement elementBeingDragged;
+
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
             InitializeComponent();
@@ -499,7 +507,7 @@ namespace Paradiso
             timer.Stop();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
         }
 
@@ -522,7 +530,7 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
 
         }
@@ -535,7 +543,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                timer.Start();
+                //timer.Start();
                 this.setFocus();
                 return;
             }
@@ -664,7 +672,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        timer.Start();
+                        //timer.Start();
                         this.setFocus();
 
                         return;
@@ -699,7 +707,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
 
         }
@@ -734,6 +742,138 @@ namespace Paradiso
             {
                 this.confirmPatrons();
             }
+        }
+
+        private void PurchaseDetailsText_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            elementBeingDragged = PurchaseDetailsPanel;
+            elementBeingDragged.ReleaseMouseCapture();
+
+            this.isDragInProgress = false;
+            this.origCursorLocation = e.GetPosition(this);
+
+            double left = Canvas.GetLeft(elementBeingDragged);
+            double right = Canvas.GetRight(elementBeingDragged);
+            double top = Canvas.GetTop(elementBeingDragged);
+            double bottom = Canvas.GetBottom(elementBeingDragged);
+
+            this.origHorizOffset = this.ResolveOffset(left, right, out modifyLeftOffset);
+            this.origVertOffset = this.ResolveOffset(top, bottom, out modifyTopOffset);
+
+            e.Handled = true;
+
+            this.isDragInProgress = true;
+        }
+
+        private void PurchaseDetailsText_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (elementBeingDragged == null || !this.isDragInProgress)
+                return;
+
+            Point cursorLocation = e.GetPosition(this);
+
+            double newHorizontalOffset;
+            double newVerticalOffset;
+
+            if (this.modifyLeftOffset)
+                newHorizontalOffset =
+                  this.origHorizOffset + (cursorLocation.X - this.origCursorLocation.X);
+            else
+                newHorizontalOffset =
+                  this.origHorizOffset - (cursorLocation.X - this.origCursorLocation.X);
+
+            if (this.modifyTopOffset)
+                newVerticalOffset = this.origVertOffset + (cursorLocation.Y - this.origCursorLocation.Y);
+            else
+                newVerticalOffset = this.origVertOffset - (cursorLocation.Y - this.origCursorLocation.Y);
+
+            Rect elemRect = this.CalculateDragElementRect(newHorizontalOffset, newVerticalOffset);
+
+            //
+            // If the element is being dragged out of the viewable area, 
+            // determine the ideal rect location, so that the element is 
+            // within the edge(s) of the canvas.
+            //
+            bool leftAlign = elemRect.Left < 0;
+            bool rightAlign = elemRect.Right > this.ActualWidth;
+
+            if (leftAlign)
+                newHorizontalOffset = modifyLeftOffset ? 0 : this.ActualWidth - elemRect.Width;
+            else if (rightAlign)
+                newHorizontalOffset = modifyLeftOffset ? this.ActualWidth - elemRect.Width : 0;
+
+            bool topAlign = elemRect.Top < 0;
+            bool bottomAlign = elemRect.Bottom > this.ActualHeight;
+
+            if (topAlign)
+                newVerticalOffset = modifyTopOffset ? 0 : this.ActualHeight - elemRect.Height;
+            else if (bottomAlign)
+                newVerticalOffset = modifyTopOffset ? this.ActualHeight - elemRect.Height : 0;
+
+            if (this.modifyLeftOffset)
+                Canvas.SetLeft(elementBeingDragged, newHorizontalOffset);
+            else
+                Canvas.SetRight(elementBeingDragged, newHorizontalOffset);
+
+            if (this.modifyTopOffset)
+                Canvas.SetTop(elementBeingDragged, newVerticalOffset);
+            else
+                Canvas.SetBottom(elementBeingDragged, newVerticalOffset);
+        }
+        
+
+        private void PurchaseDetailsText_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            elementBeingDragged = null;
+        }
+
+        private Rect CalculateDragElementRect(double newHorizOffset, double newVertOffset)
+        {
+            if (this.elementBeingDragged == null)
+                throw new InvalidOperationException("ElementBeingDragged is null.");
+
+            Size elemSize = this.elementBeingDragged.RenderSize;
+
+            double x, y;
+
+            if (this.modifyLeftOffset)
+                x = newHorizOffset;
+            else
+                x = this.ActualWidth - newHorizOffset - elemSize.Width;
+
+            if (this.modifyTopOffset)
+                y = newVertOffset;
+            else
+                y = this.ActualHeight - newVertOffset - elemSize.Height;
+
+            Point elemLoc = new Point(x, y);
+
+            return new Rect(elemLoc, elemSize);
+        }
+
+        public double ResolveOffset(double side1, double side2, out bool useSide1)
+        {
+            useSide1 = true;
+            double result;
+            if (Double.IsNaN(side1))
+            {
+                if (Double.IsNaN(side2))
+                {
+                    // Both sides have no value, so set the
+                    // first side to a value of zero.
+                    result = 0;
+                }
+                else
+                {
+                    result = side2;
+                    useSide1 = false;
+                }
+            }
+            else
+            {
+                result = side1;
+            }
+            return result;
         }
     }
 }
