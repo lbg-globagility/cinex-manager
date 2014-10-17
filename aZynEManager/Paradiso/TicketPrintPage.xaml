@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/Black.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -26,25 +27,46 @@
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
-        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350">
-            <StackPanel DockPanel.Dock="Bottom" Margin="10">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <TextBlock VerticalAlignment="Center">OR Number:</TextBlock>
-                    <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper"></TextBox>
-                    <Button Width="100" Name="Search" Click="Search_Click">Search</Button>
-                </StackPanel>
+        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350" Opacity="1">
+            <StackPanel DockPanel.Dock="Bottom" Margin="0" Background="Black">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Button Width="100" Grid.Column="0" Name="Void" Click="Void_Click">Void</Button>
-                    <Button Width="100" Grid.Column="1" Margin="5,0,0,0" Name="Print" Click="Print_Click">Print</Button>
-                    <Button Width="100" Grid.Column="2" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click">Cancel</Button>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="OR Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                        <Button Name="Search" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
+                            <Rectangle Width="20" Height="20" >
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Name="Void" Click="Void_Click" Background="Black" ToolTip="Void" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        Void
+                    </Button>
+                    <Button Grid.Column="2" Margin="5,0,0,0" Name="Print" Click="Print_Click" Background="Black" ToolTip="Print" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_printer}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Grid.Column="3" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click"  Background="Black" ToolTip="Cancel" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_cancel}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
                 </Grid>
             </StackPanel>
             <Border>
