@@ -6,8 +6,22 @@ using System.ComponentModel;
 
 namespace Paradiso.Model
 {
+
     public class SeatModel : INotifyPropertyChanged
     {
+        public enum ModelTypeEnum
+        {
+            SeatModel = 1, //seat
+            ScreenModel = 2, //screen
+        }
+
+        public enum SeatTypeEnum
+        {
+            AvailableSeat = 1, //available
+            SelectedSeat = 2, //selected
+            TakenSeat = 3, //taken
+        }
+
         private int intKey;
         private string strName;
         private int intX;
@@ -18,7 +32,9 @@ namespace Paradiso.Model
 
         private int intSeatType; //1-available, 2-selected, 3-taken
 
-        private int intPatronKey = -1; 
+        private int intPatronKey = -1;
+
+        private bool blnIsSelected = false; //for reserved seating
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -135,6 +151,19 @@ namespace Paradiso.Model
                 {
                     intPatronKey = value;
                     NotifyPropertyChanged("PatronKey");
+                }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get { return blnIsSelected; }
+            set
+            {
+                if (value != blnIsSelected)
+                {
+                    blnIsSelected = value;
+                    NotifyPropertyChanged("IsSelected");
                 }
             }
         }

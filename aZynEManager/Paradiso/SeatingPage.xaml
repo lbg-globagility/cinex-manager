@@ -16,7 +16,30 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <ContextMenu x:Key="cmUnReserve">
+                <DockPanel>
+                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click">Unreserve Seats</Button>
+                    <ItemsControl ItemsSource="{Binding ReservedSeats}" Margin="5">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas Width="32" Height="32" Margin="2">
+                                    <Image Width="32" Source="/Paradiso;component/Images/seat-green.png">
+                                    </Image>
+                                    <TextBlock Canvas.Left="5" Canvas.Top="15" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                                </Canvas>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </ContextMenu>
+
         </ResourceDictionary>
+        
     </Page.Resources>
     <Canvas Name="MainCanvas">
         <Canvas.Resources>

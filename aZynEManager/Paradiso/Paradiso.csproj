@@ -144,6 +144,8 @@
     <Compile Include="Model\PatronQuantityModel.cs" />
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
+    <Compile Include="Model\ReservedSeatListModel.cs" />
+    <Compile Include="Model\ReservedSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
     <Compile Include="MovieCalendarPage.xaml.cs">

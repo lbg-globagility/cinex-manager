@@ -144,6 +144,7 @@ namespace Paradiso
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.ClearSelection();
+            ParadisoObjectManager.GetInstance().IsReservedMode = false;
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
             var window = Window.GetWindow(this);

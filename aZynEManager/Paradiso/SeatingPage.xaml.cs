@@ -15,6 +15,7 @@ using Paradiso.Model;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using CinemaCustomControlLibrary;
+using System.Transactions;
 
 namespace Paradiso
 {
@@ -483,6 +484,50 @@ namespace Paradiso
                         seatCanvas.ContextMenu.IsOpen = true;
 
                     }
+                    else if (seatModel.SeatType == 3)
+                    {
+                        if (!ParadisoObjectManager.GetInstance().HasRights("RESERVE"))
+                            return;
+
+                        string strSessionId = string.Empty;
+                        //verify if reserved
+                        ReservedSeatListModel reservedSeats = new ReservedSeatListModel();
+
+                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        {
+                            var sessionid = (from mcths in context.movies_schedule_list_house_seat_view
+                                             where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
+                                             mcths.notes == "RESERVED"
+                                             select mcths.session_id).SingleOrDefault();
+                            if (sessionid != null)
+                                strSessionId = sessionid;
+                            var reservedseats = (from mcths in context.movies_schedule_list_house_seat
+                                                 where mcths.session_id == strSessionId && mcths.notes == "RESERVED" && mcths.movies_schedule_list_id == MovieSchedule.Key
+                                                 orderby mcths.cinema_seat.id
+                                                 select new
+                                                 {
+                                                     mcths.id,
+                                                     sn = mcths.cinema_seat.row_name + mcths.cinema_seat.col_name,
+                                                 }
+                                                 ).ToList();
+
+                            foreach (var _rs in reservedseats)
+                            {
+                                reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn });
+                            }
+
+                        }
+
+                        if (strSessionId != string.Empty)
+                        {
+                            ContextMenu cm = this.FindResource("cmUnReserve") as ContextMenu;
+                            cm.PlacementTarget = sender as Canvas;
+
+
+                            cm.DataContext = reservedSeats;
+                            cm.IsOpen = true;
+                        }
+                    }
                 }
                 else if (IsFreeSeating)
                 {
@@ -498,7 +543,8 @@ namespace Paradiso
                 }
                 e.Handled = true;
             }
-            catch { }
+            catch //(Exception ex) 
+            { }
             this.setFocus();
         }
 
@@ -874,6 +920,72 @@ namespace Paradiso
                 result = side1;
             }
             return result;
+        }
+
+        private void UnReserveSeat_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            ReservedSeatListModel rsl = (ReservedSeatListModel) b.DataContext;
+            if (rsl.ReservedSeats.Count > 0)
+            {
+                MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+                messageYesNoWindow.MessageText.Text = "Do you want to unreserved these seats?";
+                messageYesNoWindow.ShowDialog();
+                if (!messageYesNoWindow.IsYes)
+                    return;
+
+                string strException = string.Empty;
+                bool success = false;
+
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+
+                    using (TransactionScope transaction = new TransactionScope())
+                    {
+                        try
+                        {
+                            foreach (ReservedSeatModel rs in rsl.ReservedSeats)
+                            {
+                                var _rs = (from mslhs in context.movies_schedule_list_house_seat
+                                           where mslhs.id == rs.Key
+                                           select mslhs).FirstOrDefault();
+                                if (_rs != null)
+                                {
+                                    context.movies_schedule_list_house_seat.DeleteObject(_rs);
+                                    context.SaveChanges();
+                                }
+                            }
+
+                            context.AcceptAllChanges();
+                            transaction.Complete();
+                            success = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex.InnerException != null)
+                                strException = ex.InnerException.Message.ToString();
+                            else
+                                strException = ex.Message.ToString();
+                        }
+                    }
+                }
+
+                if (success)
+                {
+                    //load as selected
+                    this.UpdateMovieSchedule();
+                }
+                else
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Seats cannot be unreserved.";
+                    messageWindow.ShowDialog();
+                }
+            }
+            //prompt password for administrator
+
+            //MessageBox.Show(rsl.ReservedSeats.Count.ToString());
+
         }
     }
 }
