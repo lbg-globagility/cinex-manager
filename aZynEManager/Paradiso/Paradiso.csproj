@@ -115,6 +115,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Adorners\RubberbandAdorner.cs" />
+    <Compile Include="CitizenPrint.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
