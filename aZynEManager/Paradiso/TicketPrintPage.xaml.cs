@@ -239,7 +239,8 @@ namespace Paradiso
 
                 print.SetFontData(0, -1, 125, Ticket.SeatTypeName);
                 print.SetFontData(2, -1, 110, "ADMIT ONE");
-
+                
+                print.SetFontData(0, -1, 91, "THIS SERVES AS AN OFFICIAL RECEIPT");
                 print.SetFontData(0, -1, 96, Ticket.Code);
 
                 print.SetFontData(0, -1, 89, string.Format("OR#{0}", Ticket.ORNumber));
