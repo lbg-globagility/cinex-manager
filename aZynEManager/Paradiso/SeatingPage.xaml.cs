@@ -51,6 +51,7 @@ namespace Paradiso
         private bool modifyLeftOffset;
         private bool modifyTopOffset;
         private UIElement elementBeingDragged;
+        private bool IsEllapsed = false;
 
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
@@ -196,9 +197,9 @@ namespace Paradiso
 
                 //checks if movie already expired
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
-                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow  &&
-                    !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE")
-                    )
+                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                    IsEllapsed = true;
+                if (IsEllapsed && !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
                 {
                     blnIsUpdating = false;
                     MessageWindow messageWindow = new MessageWindow();
@@ -438,7 +439,9 @@ namespace Paradiso
             IsReadOnly = false;
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
-            if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate)
+            if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate
+                || (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
+                ))
             {
                 //disables everything
                 PurchaseDetailsPanel.Visibility = Visibility.Hidden;

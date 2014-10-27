@@ -293,7 +293,7 @@ namespace Paradiso
             print.SetFontData(0, 70, 0, string.Format("MIN:{0}", Ticket.MIN));
 
             print.EndLabelFormatModeAndPrint();
-            RawPrinterHelper.SendStringToPrinter(_printerName, print.Print);
+            RawPrinterHelper.SendStringToPrinter(Ticket.ORNumber, _printerName, print.Print);
         }
 
         //put this into thread or create progress so it will not appear to hang

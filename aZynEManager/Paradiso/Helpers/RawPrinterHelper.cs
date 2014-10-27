@@ -45,14 +45,14 @@ namespace Paradiso.Helpers
         // When the function is given a printer name and an unmanaged array
         // of bytes, the function sends those bytes to the print queue.
         // Returns true on success, false on failure.
-        public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+        public static bool SendBytesToPrinter(string docName, string szPrinterName, IntPtr pBytes, Int32 dwCount)
         {
             Int32 dwError = 0, dwWritten = 0;
             IntPtr hPrinter = new IntPtr(0);
             DOCINFOA di = new DOCINFOA();
             bool bSuccess = false; // Assume failure unless you specifically succeed.
 
-            di.pDocName = "My C#.NET RAW Document";
+            di.pDocName = docName;
             di.pDataType = "RAW";
 
             // Open the printer.
@@ -81,7 +81,7 @@ namespace Paradiso.Helpers
             return bSuccess;
         }
 
-        public static bool SendFileToPrinter(string szPrinterName, string szFileName)
+        public static bool SendFileToPrinter(string docName, string szPrinterName, string szFileName)
         {
             // Open the file.
             FileStream fs = new FileStream(szFileName, FileMode.Open);
@@ -102,12 +102,12 @@ namespace Paradiso.Helpers
             // Copy the managed byte array into the unmanaged array.
             Marshal.Copy(bytes, 0, pUnmanagedBytes, nLength);
             // Send the unmanaged bytes to the printer.
-            bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
+            bSuccess = SendBytesToPrinter(docName, szPrinterName, pUnmanagedBytes, nLength);
             // Free the unmanaged memory that you allocated earlier.
             Marshal.FreeCoTaskMem(pUnmanagedBytes);
             return bSuccess;
         }
-        public static bool SendStringToPrinter(string szPrinterName, string szString)
+        public static bool SendStringToPrinter(string docName, string szPrinterName, string szString)
         {
             IntPtr pBytes;
             Int32 dwCount;
@@ -117,7 +117,7 @@ namespace Paradiso.Helpers
             // the string to ANSI text.
             pBytes = Marshal.StringToCoTaskMemAnsi(szString);
             // Send the converted ANSI string to the printer.
-            SendBytesToPrinter(szPrinterName, pBytes, dwCount);
+            SendBytesToPrinter(docName, szPrinterName, pBytes, dwCount);
             Marshal.FreeCoTaskMem(pBytes);
             return true;
         }
