@@ -42,6 +42,7 @@ namespace Paradiso
         public bool IsFreeSeating { get; set; }
         public bool IsLimitedFreeSeating { get; set; }
         public bool IsUnlimitedFreeSeating { get; set; }
+        public bool IsReadOnly { get; set; }
 
         private bool isDragInProgress = false;
         private Point origCursorLocation;
@@ -195,7 +196,9 @@ namespace Paradiso
 
                 //checks if movie already expired
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
-                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow  &&
+                    !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE")
+                    )
                 {
                     blnIsUpdating = false;
                     MessageWindow messageWindow = new MessageWindow();
@@ -203,7 +206,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -431,11 +435,26 @@ namespace Paradiso
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
+            IsReadOnly = false;
+
+            ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+            if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate)
+            {
+                //disables everything
+                PurchaseDetailsPanel.Visibility = Visibility.Hidden;
+                clearButton.IsEnabled = false;
+                clearButton.Visibility = Visibility.Collapsed;
+                confirmButton.IsEnabled = false;
+                confirmButton.Visibility = Visibility.Collapsed;
+                IsReadOnly = true;
+            }
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (blnIsUpdating)
+                return;
+            if (IsReadOnly)
                 return;
             //timer.Stop();
             

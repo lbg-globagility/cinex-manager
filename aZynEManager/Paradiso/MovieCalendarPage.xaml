@@ -63,7 +63,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" IsEnabled="{Binding IsEnabled}" >
-                                                        <TextBlock Width="55" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontSize="14" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}">
+                                                        <TextBlock Width="65" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontSize="14" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}">
                                                             <TextBlock.Background>
                                                                  <MultiBinding Converter="{StaticResource screenTimeColor}">
                                                                      <Binding Path="IsEnabled"/>

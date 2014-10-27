@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Threading;
+using System.Globalization;
 
 namespace Paradiso
 {
@@ -23,6 +24,11 @@ namespace Paradiso
         public MainWindow()
         {
             InitializeComponent();
+
+            CultureInfo ci = new CultureInfo(Thread.CurrentThread.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "MMMM d, yyyy";
+            ci.DateTimeFormat.DateSeparator = "";
+            Thread.CurrentThread.CurrentCulture = ci;
         }
 
         private void UpdateDashboard()
@@ -34,13 +40,15 @@ namespace Paradiso
             if (paradisoObjectManager.UserName == string.Empty)
             {
                 ScreeningDate.Visibility = System.Windows.Visibility.Hidden;
-                ScreeningDate.Text = string.Empty;
+                ScreeningDate.Visibility = System.Windows.Visibility.Hidden;
                 Dashboard.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
                 ScreeningDate.Visibility = System.Windows.Visibility.Visible;
-                ScreeningDate.Text = string.Format("{0:MMMM dd, yyyy}", paradisoObjectManager.ScreeningDate);
+                ScreeningDate.Visibility = System.Windows.Visibility.Visible;
+                ScreeningDate.Value = paradisoObjectManager.ScreeningDate;
+                //ScreeningDate.Text = string.Format("{0:MMMM dd, yyyy}", paradisoObjectManager.ScreeningDate);
                 UserName.Text = paradisoObjectManager.UserName; 
                 Dashboard.Visibility = System.Windows.Visibility.Visible;
             }
@@ -55,6 +63,16 @@ namespace Paradiso
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             this.UpdateDashboard();
+
+            if (e.Content != null &&  e.Content.ToString() == "Paradiso.MovieCalendarPage")
+            {
+                ScreeningDate.IsEnabled = true;
+            }
+            else
+            {
+                ScreeningDate.IsEnabled = false;
+            }
+
         }
 
         private void UserPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -77,6 +95,46 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().SetNewSessionId();
             MainFrame.Source = new Uri("LoginPage.xaml", UriKind.Relative);
            
+        }
+
+        private void ScreeningDate_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            Xceed.Wpf.Toolkit.DateTimePicker dtp = (Xceed.Wpf.Toolkit.DateTimePicker)sender;
+            
+            DateTime screeningDate = (DateTime)dtp.Value;
+            DateTime currentDate = ParadisoObjectManager.GetInstance().CurrentDate.Date;
+            DateTime oldScreeningDate = ParadisoObjectManager.GetInstance().ScreeningDate;
+
+
+            if (!ParadisoObjectManager.GetInstance().HasRights("ADVANCEDATE") &&  screeningDate > currentDate )
+            {
+                ParadisoObjectManager.GetInstance().ScreeningDate = currentDate;
+                ScreeningDate.Text = string.Format("{0:MMMM dd, yyyy}", currentDate);
+                ScreeningDate.Value = currentDate;
+                
+            }
+            else if (!ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && currentDate > screeningDate)
+            {
+                ParadisoObjectManager.GetInstance().ScreeningDate = currentDate;
+                ScreeningDate.Text = string.Format("{0:MMMM dd, yyyy}", currentDate);
+                ScreeningDate.Value = currentDate;
+            }
+            else
+            {
+                ParadisoObjectManager.GetInstance().ScreeningDate = screeningDate.Date;
+                ScreeningDate.Text = string.Format("{0:MMMM dd, yyyy}", screeningDate);
+                ScreeningDate.Value = screeningDate;
+            }
+
+            if (oldScreeningDate != ParadisoObjectManager.GetInstance().ScreeningDate && MainFrame.Source != null &&
+
+                (MainFrame.Source.ToString() == "MovieCalendarPage.xaml" || MainFrame.Source.ToString() == "Paradiso;component/MovieCalendarPage.xaml"))
+            {
+                //MainFrame.Source = null;
+                //MainFrame.Source = new Uri("MovieCalendarPage.xaml", UriKind.Relative);
+                MainFrame.NavigationService.Refresh();
+            }
+
         }
     }
 }

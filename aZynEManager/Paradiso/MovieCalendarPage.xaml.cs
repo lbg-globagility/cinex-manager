@@ -202,12 +202,24 @@ namespace Paradiso
                             }
                         }
 
+                        if (ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && !_movie_schedule_list_item.IsEnabled)
+                        {
+                            _movie_schedule_list_item.IsEnabled = true;
+                        }
+
                         movieScheduleItem.MovieScheduleListItems.Add(_movie_schedule_list_item);
 
                     }
 
                     if (blnIsClear)
                     {
+
+                        //checks if date 
+                        if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                        {
+                            movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
+                        }
+
                         movieScheduleItems.Add(movieScheduleItem);
                     }
                     else
@@ -243,6 +255,12 @@ namespace Paradiso
                                         }
                                     }
                                 }
+                            }
+
+                            //checks if date 
+                            if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                            {
+                                movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
                             }
 
                             movieScheduleItems[intIndex] = movieScheduleItem;
@@ -312,6 +330,14 @@ namespace Paradiso
                     movieScheduleItem.SelectedMovieScheduleListItem = null;
                 else
                     movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[intMovieScheduleListItemIndex];
+
+                //checks if date
+                DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
+                if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                {
+                    movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
+                }
+
             }
             else
             {
