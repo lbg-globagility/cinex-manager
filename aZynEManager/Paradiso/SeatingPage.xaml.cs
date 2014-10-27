@@ -792,6 +792,8 @@ namespace Paradiso
 
             if (blnIsUpdating)
                 return;
+            if (IsReadOnly)
+                return;
 
             seatCanvas.ContextMenu.PlacementTarget = this;
             seatCanvas.ContextMenu.IsOpen = true;

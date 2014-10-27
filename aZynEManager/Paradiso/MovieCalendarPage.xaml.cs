@@ -26,7 +26,7 @@ namespace Paradiso
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
-        private int intMaxRowCount = 5;
+        private int intMaxRowCount = 2;
         DispatcherTimer timer;
 
         public MovieCalendarPage()
@@ -206,6 +206,7 @@ namespace Paradiso
                         {
                             _movie_schedule_list_item.IsEnabled = true;
                         }
+                        _movie_schedule_list_item.Index = movieScheduleItem.MovieScheduleListItems.Count;
 
                         movieScheduleItem.MovieScheduleListItems.Add(_movie_schedule_list_item);
 
@@ -285,10 +286,25 @@ namespace Paradiso
                 }
             }
 
+            /*
+            if (movieScheduleItems.Count == 2)
+                intMaxRowCount = 1;
+            else if (movieScheduleItems.Count == 4)
+                intMaxRowCount = 2;
+            */
+            //get maximum row count
+            intMaxRowCount = movieScheduleItems.Count / 2;
+            if (movieScheduleItems.Count % 2 != 0)
+                intMaxRowCount++;
+
+
+            //enable this code to fill up empty slot
+            /*
             for (int k = movieScheduleItems.Count; k < intMaxRowCount*2; k++)
             {
                 movieScheduleItems.Add( new MovieScheduleModel());
             }
+            */
 
             intColumnCount = 1;
 
@@ -371,7 +387,9 @@ namespace Paradiso
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
+
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
@@ -401,7 +419,8 @@ namespace Paradiso
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
@@ -421,7 +440,8 @@ namespace Paradiso
 
         private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {

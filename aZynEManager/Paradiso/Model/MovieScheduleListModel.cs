@@ -29,6 +29,8 @@ namespace Paradiso.Model
         private int intLayTime = 0; //in minutes
         private int intSeatType = 3; //1=reserved , 2=free seating (limited), 3=free seating (unlimited)
 
+        private int intIndex = 0;
+
 
         public MovieScheduleListModel()
         {
@@ -51,6 +53,7 @@ namespace Paradiso.Model
             Price = movieScheduleListModel.Price;
             LayTime = movieScheduleListModel.LayTime;
             SeatType = movieScheduleListModel.SeatType;
+            Index = movieScheduleListModel.Index;
         }
 
         public int CinemaKey
@@ -77,6 +80,20 @@ namespace Paradiso.Model
                 {
                     intKey = value;
                     NotifyPropertyChanged("Key");
+                }
+            }
+        }
+
+        public int Index
+        {
+            get { return intIndex; }
+
+            set
+            {
+                if (value != intIndex)
+                {
+                    intIndex = value;
+                    NotifyPropertyChanged("Index");
                 }
             }
         }
