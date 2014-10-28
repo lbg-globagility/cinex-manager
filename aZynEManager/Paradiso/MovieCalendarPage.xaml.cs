@@ -171,6 +171,8 @@ namespace Paradiso
 
                         _movie_schedule_list_item.Booked = (int)reserved;
                         _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
+                        if (_movie_schedule_list_item.Available < 0)
+                            _movie_schedule_list_item.Available = 0;
 
 
                         var price = (from mslp in context.movies_schedule_list_patron
@@ -180,7 +182,7 @@ namespace Paradiso
                             _movie_schedule_list_item.Price =  (decimal) price;
 
 
-                        if (_movie_schedule_list_item.Available == 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
+                        if (_movie_schedule_list_item.Available <= 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
                         {
                             _movie_schedule_list_item.IsEnabled = false;
                         }

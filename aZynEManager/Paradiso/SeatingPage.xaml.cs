@@ -273,7 +273,8 @@ namespace Paradiso
                 MovieSchedule.Selected = selectedseats.Count;
                 MovieSchedule.Booked = reservedseats.Count;
                 MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - selectedseats.Count);
-                    
+                if (MovieSchedule.Available < 0)
+                    MovieSchedule.Available = 0;
 
                 var price = (from mslp in context.movies_schedule_list_patron
                                 where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
@@ -282,7 +283,7 @@ namespace Paradiso
                     MovieSchedule.Price = (decimal)price;
 
 
-                if (MovieSchedule.Available == 0 && MovieSchedule.SeatType != 3) //except unlimited seating
+                if (MovieSchedule.Available <= 0 && MovieSchedule.SeatType != 3) //except unlimited seating
                 {
                     MovieSchedule.IsEnabled = false;
                 }
@@ -459,7 +460,7 @@ namespace Paradiso
         {
             if (blnIsUpdating)
                 return;
-            if (IsReadOnly)
+            if (IsReadOnly || !MovieSchedule.IsEnabled)
                 return;
             //timer.Stop();
             

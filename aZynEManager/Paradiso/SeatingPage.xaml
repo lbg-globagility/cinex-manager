@@ -28,7 +28,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Width="32" Height="32" Margin="2">
-                                    <Image Width="32" Source="/Paradiso;component/Images/seat-green.png">
+                                    <Image Width="32" Source="/Paradiso;component/Images/seat-red.png">
                                     </Image>
                                     <TextBlock Canvas.Left="5" Canvas.Top="15" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
                                 </Canvas>
@@ -88,15 +88,15 @@
                     <TextBlock Margin="5,5,5,10" FontSize="14" FontFamily="Arial" FontWeight="Bold">Legend</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Available</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-red.png" Width="25" />
+                        <Image Source="/Paradiso;component/Images/seat-green.png" Width="25" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <!--StackPanel Orientation="Horizontal">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Selected</TextBlock>
                         <Image Source="/Paradiso;component/Images/seat-yellow.png" Width="25" />
-                    </StackPanel>
+                    </StackPanel-->
                     <StackPanel Orientation="Horizontal"  Margin="0, 0, 0, 5">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Taken</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-green.png" Width="25" />
+                        <Image Source="/Paradiso;component/Images/seat-red.png" Width="25" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -193,9 +193,12 @@
                                             </MultiBinding>
                                         </Image.Source>
                                     </Image>
+                                <TextBlock
+                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" />
                             </Grid>
 
-                            <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                            <!--TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="5" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" /-->
                             
                         </Canvas>
                     </DataTemplate>
@@ -257,7 +260,9 @@
                                 </Rectangle-->
                             </Button>
                             <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding PatronName}" VerticalAlignment="Stretch" Width="150" Height="25" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
+                            <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
+                            </Grid>
                             <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
                             <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
                         </StackPanel>

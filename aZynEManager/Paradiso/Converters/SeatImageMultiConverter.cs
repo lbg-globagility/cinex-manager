@@ -19,11 +19,11 @@ namespace Paradiso
             if (intType == 2)
                 strUri = @"/Paradiso;component/Images/screen.png";
             else if (intSeatType == 1)
-                strUri = @"/Paradiso;component/Images/seat-red-r.png";
-            else if (intSeatType == 2)
-                strUri = @"/Paradiso;component/Images/seat-yellow-r.png";
-            else 
                 strUri = @"/Paradiso;component/Images/seat-green-r.png";
+            else if (intSeatType == 2)
+                strUri = string.Empty; //@"/Paradiso;component/Images/seat-yellow-r.png";
+            else 
+                strUri = @"/Paradiso;component/Images/seat-red-r.png";
 
             return new BitmapImage(new Uri(strUri, UriKind.Relative));
         }
