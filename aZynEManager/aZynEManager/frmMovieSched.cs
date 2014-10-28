@@ -2121,7 +2121,7 @@ namespace aZynEManager
             if (dgvResult.SelectedCells.Count > 0)
             {
                 string id = dgvResult.Rows[dgvResult.CurrentCell.RowIndex].Cells[0].Value.ToString();
-                MessageBox.Show(id);
+               // MessageBox.Show(id);
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append(String.Format("update movies_schedule set status={0} where ", stat));
                 sqry.Append("id=(select movies_schedule_id from movies_schedule_list ");

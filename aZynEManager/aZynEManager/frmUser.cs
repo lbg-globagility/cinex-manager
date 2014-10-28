@@ -76,7 +76,7 @@ namespace aZynEManager
 
         public void setnormal()
         {
-            txtUID.Text ="";
+            txtUID.Text = "";
             txtLName.Text = "";
             txtFName.Text = "";
             txtMName.Text = "";
@@ -119,7 +119,7 @@ namespace aZynEManager
             sbqry.Append("order by a.userid asc");//where a.system_code = 1 
             dtusers = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtusers);
-            txtFound.Text = "Count: " +  dtusers.Rows.Count.ToString();
+            txtFound.Text = "Count: " + dtusers.Rows.Count.ToString();
         }
 
         public void setDataGridView(DataGridView dgv, DataTable dt)
@@ -199,6 +199,7 @@ namespace aZynEManager
                 if (boolchk)
                     cnt += 1;
             }
+           
             //txtcnt.Text = "Count: " + cnt.ToString() + " / " + dgv.Rows.Count.ToString();
         }
 
@@ -218,6 +219,11 @@ namespace aZynEManager
         }
 
         private void cmbAuth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectAuth();
+        }
+
+        private void selectAuth()
         {
             MySqlConnection myconn = new MySqlConnection();
             myconn.ConnectionString = m_frmM._connection;
@@ -526,7 +532,7 @@ namespace aZynEManager
                 grpgrant.Visible = true;
 
                 dgvResult.Enabled = false;
-                
+
                 cmbAuth.Enabled = true;
                 dgvResult.ClearSelection();
 
@@ -534,9 +540,52 @@ namespace aZynEManager
                 setCheck(dgvModuleReport, false);
                 setCheck(dgvModuleUtility, false);
                 setCheck(dgvModuleConfig, false);
-                setCheck(dgvModuleTicket,false);
+                setCheck(dgvModuleTicket, false);
 
                 cmbSystem.SelectedIndex = 0;
+
+                KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+                
+                for (int i = 0; i < cmbSystem.Items.Count; i++)
+                {
+                    DataRowView drv = (DataRowView)cmbSystem.Items[i];
+                    if (!(drv.Row["system_name"].ToString()==""))
+                    {
+                        cmbSystem.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+               // populateuserlevel(cmbSystem.SelectedIndex);
+
+                //string strname = dgv.SelectedRows[0].Cells[5].Value.ToString();
+                for (int i = 0; i < cmbAuth.Items.Count; i++)
+                {
+                    DataRowView drv = (DataRowView)cmbAuth.Items[i];
+                    if (!(drv.Row["level_desc"].ToString()==""))
+                    {
+                        cmbAuth.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+                StringBuilder sbqry = new StringBuilder();
+                sbqry.Append("select b.module_desc, b.module_code, b.module_group, a.module_id ");
+                sbqry.Append("from user_level_rights a left join system_module b ");
+                sbqry.Append("on a.module_id = b.id ");
+                sbqry.Append("where a.user_level = 2 and a.system_code =2");
+                dtmodule = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+
+                String sqry = "[module_group] = 'TICKET'";
+                
+                 var foundRows = dtmodule.Select(sqry);
+                DataTable dtmoduleuticket = new DataTable();
+                if (foundRows.Count() > 0)
+                    dtmoduleuticket = foundRows.CopyToDataTable();
+                if (dtmoduleuticket.Rows.Count > 0)
+                    setDataGridViewII(dgvModuleTicket, dtmoduleuticket);
+
             }
             else
             {
@@ -583,7 +632,7 @@ namespace aZynEManager
                     txtCPW.Focus();
                     return;
                 }
-                if(txtPW.Text.Trim() != txtCPW.Text.Trim())
+                if (txtPW.Text.Trim() != txtCPW.Text.Trim())
                 {
                     MessageBox.Show("Please check your password.");
                     txtCPW.SelectAll();
@@ -652,8 +701,8 @@ namespace aZynEManager
                 Encryption encrypt = new Encryption();
                 sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7})",
-                    this.txtUID.Text.ToUpper().Trim(), encrypt.EncryptString(txtPW.Text.Trim()).ToString(), txtDes.Text.ToUpper().Trim(),cmbAuth.SelectedValue.ToString(),
-                    txtLName.Text.ToUpper().Trim(),txtFName.Text.ToUpper().Trim(),txtMName.Text.ToUpper().Trim(),cmbSystem.SelectedValue.ToString()));
+                    this.txtUID.Text.ToUpper().Trim(), encrypt.EncryptString(txtPW.Text.Trim()).ToString(), txtDes.Text.ToUpper().Trim(), cmbAuth.SelectedValue.ToString(),
+                    txtLName.Text.ToUpper().Trim(), txtFName.Text.ToUpper().Trim(), txtMName.Text.ToUpper().Trim(), cmbSystem.SelectedValue.ToString()));
                 try
                 {
                     int idout = -1;
@@ -859,7 +908,7 @@ namespace aZynEManager
                 MessageBox.Show("You have no access rights for this module.", this.Text);
                 return;
             }
-            
+
             if (dgvResult.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a record from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1141,7 +1190,7 @@ namespace aZynEManager
                 txtDes.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                 txtPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
                 txtCPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
-                
+
                 //txtSystem.Text = dgv.SelectedRows[0].Cells[8].Value.ToString();
                 string systemname = dgv.SelectedRows[0].Cells[8].Value.ToString();
                 for (int i = 0; i < cmbSystem.Items.Count; i++)
@@ -1180,10 +1229,10 @@ namespace aZynEManager
                     dgvModuleConfig.Enabled = true;
                     dgvModuleReport.Enabled = true;
                     dgvModuleUtility.Enabled = true;
-                    dgvModuleTicket.Enabled = false;
+                    dgvModuleTicket.Enabled = true;
 
                     tabModule.SelectedPage = pageCinema;
-                    
+
                     ///
                 }
                 else if (cmbSystem.SelectedValue.ToString() == "2")
@@ -1205,6 +1254,11 @@ namespace aZynEManager
                     tabModule.SelectedPage = pageTicket;
                 }
             }
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
