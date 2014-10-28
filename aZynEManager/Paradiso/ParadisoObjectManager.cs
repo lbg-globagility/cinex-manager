@@ -132,6 +132,36 @@ namespace Paradiso
             }
         }
 
+        public string TIN
+        {
+            get
+            {
+                string strTIN = "XXX-XXX-XXX-XXX";
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var tin = (from h in context.config_table where h.system_desc == "TIN" select h.system_value).SingleOrDefault();
+                    if (tin != null && tin != string.Empty)
+                        strTIN = tin.ToString();
+                }
+                return strTIN;
+            }
+        }
+
+        public string PN
+        {
+            get
+            {
+                string strPN = "XXXX-XXX-XXXXX-XXX";
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var tin = (from h in context.config_table where h.system_desc == "PN" select h.system_value).SingleOrDefault();
+                    if (tin != null && tin != string.Empty)
+                        strPN = tin.ToString();
+                }
+                return strPN;
+            }
+        }
+
         public bool HasRights(string strModuleCode)
         {
             bool blnHasRights = false;

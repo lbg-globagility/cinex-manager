@@ -59,6 +59,8 @@ namespace Paradiso.Model
             CurrentTime = dtNow;
             SessionName = string.Empty;
             SerialNumber = string.Empty;
+            TIN = ParadisoObjectManager.GetInstance().TIN;
+            PN = ParadisoObjectManager.GetInstance().PN;
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
         }
