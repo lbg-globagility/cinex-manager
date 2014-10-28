@@ -39,6 +39,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.btnprint = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnsearch = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnclear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
@@ -61,11 +62,9 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +79,7 @@
             this.groupBox1.Controls.Add(this.btnselect);
             this.groupBox1.Location = new System.Drawing.Point(3, -3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(806, 372);
+            this.groupBox1.Size = new System.Drawing.Size(861, 372);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             // 
@@ -98,7 +97,7 @@
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(794, 354);
+            this.dgvResult.Size = new System.Drawing.Size(849, 354);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -118,7 +117,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.GridLines = true;
             this.lvwResults.HideSelection = false;
-            this.lvwResults.Location = new System.Drawing.Point(61, 46);
+            this.lvwResults.Location = new System.Drawing.Point(88, 46);
             this.lvwResults.MultiSelect = false;
             this.lvwResults.Name = "lvwResults";
             this.lvwResults.ShowItemToolTips = true;
@@ -201,16 +200,17 @@
             // grpfilter
             // 
             this.grpfilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpfilter.Location = new System.Drawing.Point(661, 372);
+            this.grpfilter.Location = new System.Drawing.Point(658, 372);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
             // 
+            this.grpfilter.Panel.Controls.Add(this.btnprint);
             this.grpfilter.Panel.Controls.Add(this.btnsearch);
             this.grpfilter.Panel.Controls.Add(this.btnclear);
             this.grpfilter.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpfilter.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.grpfilter.Size = new System.Drawing.Size(149, 120);
+            this.grpfilter.Size = new System.Drawing.Size(206, 120);
             this.grpfilter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpfilter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpfilter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -222,10 +222,55 @@
             this.grpfilter.StateCommon.Border.Width = 2;
             this.grpfilter.TabIndex = 296;
             // 
+            // btnprint
+            // 
+            this.btnprint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnprint.Location = new System.Drawing.Point(133, 7);
+            this.btnprint.Name = "btnprint";
+            this.btnprint.Size = new System.Drawing.Size(59, 99);
+            this.btnprint.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
+            this.btnprint.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
+            this.btnprint.StateCommon.Back.ColorAngle = 50F;
+            this.btnprint.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnprint.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
+            this.btnprint.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
+            this.btnprint.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnprint.StateCommon.Border.Rounding = 1;
+            this.btnprint.StateCommon.Border.Width = 3;
+            this.btnprint.StateCommon.Content.AdjacentGap = 0;
+            this.btnprint.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnprint.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnprint.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnprint.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnprint.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnprint.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnprint.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnprint.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnprint.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnprint.StateCommon.Content.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
+            this.btnprint.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnprint.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnprint.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnprint.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnprint.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnprint.StateTracking.Border.Color1 = System.Drawing.Color.Gray;
+            this.btnprint.StateTracking.Border.Color2 = System.Drawing.Color.Gray;
+            this.btnprint.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnprint.StateTracking.Border.Rounding = 2;
+            this.btnprint.StateTracking.Border.Width = 2;
+            this.btnprint.TabIndex = 33;
+            this.btnprint.Values.Image = global::aZynEManager.Properties.Resources.print_32x32;
+            this.btnprint.Values.Text = "print";
+            this.btnprint.Click += new System.EventHandler(this.btnprint_Click);
+            // 
             // btnsearch
             // 
             this.btnsearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnsearch.Location = new System.Drawing.Point(74, 7);
+            this.btnsearch.Location = new System.Drawing.Point(67, 7);
             this.btnsearch.Name = "btnsearch";
             this.btnsearch.Size = new System.Drawing.Size(59, 99);
             this.btnsearch.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
@@ -270,7 +315,7 @@
             // btnclear
             // 
             this.btnclear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnclear.Location = new System.Drawing.Point(8, 7);
+            this.btnclear.Location = new System.Drawing.Point(2, 7);
             this.btnclear.Name = "btnclear";
             this.btnclear.Size = new System.Drawing.Size(59, 99);
             this.btnclear.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
@@ -315,7 +360,7 @@
             // kryptonGroup1
             // 
             this.kryptonGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroup1.Location = new System.Drawing.Point(89, 372);
+            this.kryptonGroup1.Location = new System.Drawing.Point(91, 372);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
             // kryptonGroup1.Panel
@@ -537,7 +582,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 495);
+            this.ClientSize = new System.Drawing.Size(867, 495);
             this.Controls.Add(this.txtFound);
             this.Controls.Add(this.kryptonGroup1);
             this.Controls.Add(this.grpfilter);
@@ -549,11 +594,9 @@
             this.Text = "Audit Trail";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
@@ -594,5 +637,6 @@
         internal System.Windows.Forms.Label label7;
         internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtdetails;
         private System.Windows.Forms.CheckBox cbxdate;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnprint;
     }
 }

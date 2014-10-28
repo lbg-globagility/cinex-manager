@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -530,7 +529,6 @@ namespace Paradiso
         private ObjectSet<config_table> _config_table;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -750,11 +748,11 @@ namespace Paradiso
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -791,7 +789,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -966,7 +963,6 @@ namespace Paradiso
         partial void Ontr_detailsChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1009,7 +1005,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1038,7 +1033,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1117,7 +1111,6 @@ namespace Paradiso
         partial void Onsystem_nameChanged();
 
         #endregion
-
     
     }
     
@@ -1149,7 +1142,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1276,7 +1268,6 @@ namespace Paradiso
         partial void Onin_orderChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1385,7 +1376,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1416,7 +1406,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1519,7 +1508,6 @@ namespace Paradiso
         partial void OnpriceChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1600,7 +1588,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1627,7 +1614,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1922,7 +1908,6 @@ namespace Paradiso
         partial void Onis_handicappedChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2009,7 +1994,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2038,7 +2022,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2117,7 +2100,6 @@ namespace Paradiso
         partial void OndescriptionChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2144,7 +2126,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2175,7 +2156,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2278,7 +2258,6 @@ namespace Paradiso
         partial void Onsystem_valueChanged();
 
         #endregion
-
     
     }
     
@@ -2324,7 +2303,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2595,7 +2573,6 @@ namespace Paradiso
         partial void Onend_dateChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2704,7 +2681,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2733,7 +2709,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2812,7 +2787,6 @@ namespace Paradiso
         partial void Onclass_idChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2893,7 +2867,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2926,7 +2899,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3053,7 +3025,6 @@ namespace Paradiso
         partial void Onday_countChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3096,7 +3067,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3127,7 +3097,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3230,7 +3199,6 @@ namespace Paradiso
         partial void Onmovie_dateChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3355,7 +3323,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3390,7 +3357,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3541,7 +3507,6 @@ namespace Paradiso
         partial void OnlaytimeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3672,7 +3637,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3703,7 +3667,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3902,7 +3865,6 @@ namespace Paradiso
         partial void Onmovies_schedule_list_patron_idChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3983,7 +3945,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4014,7 +3975,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4222,7 +4182,6 @@ namespace Paradiso
         partial void Onmovies_schedule_list_patron_idChanged();
 
         #endregion
-
     
     }
     
@@ -4254,7 +4213,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4462,7 +4420,6 @@ namespace Paradiso
         partial void Onmovies_schedule_list_patron_idChanged();
 
         #endregion
-
     
     }
     
@@ -4492,7 +4449,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4619,7 +4575,6 @@ namespace Paradiso
         partial void Onis_defaultChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4760,7 +4715,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4793,7 +4747,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5112,7 +5065,6 @@ namespace Paradiso
         partial void Onvoid_datetimeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -5345,7 +5297,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5374,7 +5325,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5453,7 +5403,6 @@ namespace Paradiso
         partial void Onstatus_descChanged();
 
         #endregion
-
     
     }
     
@@ -5483,7 +5432,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5562,7 +5510,6 @@ namespace Paradiso
         partial void OndescriptionChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -5589,7 +5536,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -5620,7 +5566,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -5939,7 +5884,6 @@ namespace Paradiso
         partial void OnlgutaxChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6010,7 +5954,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6037,7 +5980,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -6092,7 +6034,6 @@ namespace Paradiso
         partial void Onsound_system_typeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6119,7 +6060,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6152,7 +6092,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -6279,7 +6218,6 @@ namespace Paradiso
         partial void Onsystem_codeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6306,7 +6244,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6335,7 +6272,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -6510,7 +6446,6 @@ namespace Paradiso
         partial void OnstatusChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6613,7 +6548,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6654,7 +6588,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -6877,7 +6810,6 @@ namespace Paradiso
         partial void Onsystem_codeChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -6970,7 +6902,6 @@ namespace Paradiso
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -6999,7 +6930,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -7078,7 +7008,6 @@ namespace Paradiso
         partial void Onsystem_codeChanged();
 
         #endregion
-
     
     }
     
@@ -7110,7 +7039,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -7213,7 +7141,6 @@ namespace Paradiso
         partial void Onsystem_codeChanged();
 
         #endregion
-
     
     }
     
@@ -7243,7 +7170,6 @@ namespace Paradiso
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -7322,7 +7248,6 @@ namespace Paradiso
         partial void Onmodule_idChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -7403,10 +7328,8 @@ namespace Paradiso
         }
 
         #endregion
-
     }
 
     #endregion
-
     
 }

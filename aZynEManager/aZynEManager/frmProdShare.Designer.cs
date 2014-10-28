@@ -71,17 +71,14 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).BeginInit();
             this.grpValues.Panel.SuspendLayout();
             this.grpValues.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             this.SuspendLayout();
@@ -119,6 +116,7 @@
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvResult.TabIndex = 1;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
+            this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
             this.dgvResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvResult_CellFormatting);
             // 
             // btnselect
@@ -220,6 +218,7 @@
             this.txtdaycnt.TabIndex = 315;
             this.txtdaycnt.Text = "7";
             this.txtdaycnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtdaycnt.TextChanged += new System.EventHandler(this.txtdaycnt_TextChanged);
             // 
             // label9
             // 
@@ -375,6 +374,7 @@
             this.cmbtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbtitle.FormattingEnabled = true;
             this.cmbtitle.Location = new System.Drawing.Point(14, 54);
+            this.cmbtitle.MaxLength = 1333333333;
             this.cmbtitle.Name = "cmbtitle";
             this.cmbtitle.Size = new System.Drawing.Size(314, 21);
             this.cmbtitle.TabIndex = 1;
@@ -416,6 +416,7 @@
             this.txtshare.Size = new System.Drawing.Size(72, 20);
             this.txtshare.TabIndex = 2;
             this.txtshare.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtshare.TextChanged += new System.EventHandler(this.txtshare_TextChanged);
             this.txtshare.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtshare_KeyPress);
             // 
             // label3
@@ -687,6 +688,7 @@
             this.dgvMovies.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvMovies.TabIndex = 1;
             this.dgvMovies.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovies_CellClick);
+            this.dgvMovies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovies_CellContentClick);
             // 
             // kryptonButton1
             // 
@@ -937,18 +939,15 @@
             this.Load += new System.EventHandler(this.frmProdShare_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).EndInit();
             this.grpValues.Panel.ResumeLayout(false);
             this.grpValues.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).EndInit();
             this.grpValues.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);

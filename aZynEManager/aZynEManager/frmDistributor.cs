@@ -19,6 +19,17 @@ namespace aZynEManager
         DataSet m_ds = new DataSet();
         clscommon m_clscom = null;
 
+        //melvin 10-24-2014
+        String m_name = string.Empty;
+        string m_fname = string.Empty;
+        string m_lname = string.Empty;
+        string m_address = string.Empty;
+        string m_city = string.Empty;
+        string m_country = string.Empty;
+        string m_contact = string.Empty;
+        string m_email = string.Empty;
+        string m_designation = string.Empty;
+        
         DataTable m_dt = new DataTable();
         public frmDistributor()
         {
@@ -65,7 +76,7 @@ namespace aZynEManager
         {
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.id, a.code, a.name, b.name as contact, a.share_perc ");
-            sbqry.Append("from distributor a left join people b on a.contact_id = b.id ");
+            sbqry.Append("from distributor a left outer join people b on a.contact_id = b.id ");
             sbqry.Append("order by a.name asc");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
@@ -100,8 +111,7 @@ namespace aZynEManager
             txtcode.ReadOnly = true;
             txtname.Text = "";
             txtname.ReadOnly = true;
-            txtshare.Text = "";
-            txtshare.ReadOnly = true;
+           
             txtln.Text = "";
             txtln.ReadOnly = true;
             txtfn.Text = "";
@@ -143,7 +153,7 @@ namespace aZynEManager
 
         public void populatecontacts()
         {
-            cmbcontacts.DataSource = null;
+              cmbcontacts.DataSource = null;
             DataTable dt = new DataTable();
             string sqry = "[id] > -1";
             //if (m_frmM.m_dtcontact.Rows.Count == 0)
@@ -171,6 +181,8 @@ namespace aZynEManager
                     cmbcontacts.DisplayMember = "name";
                 }
             }
+
+          
         }
 
         public void ClearControls()
@@ -251,11 +263,11 @@ namespace aZynEManager
                 }
             }
             ////insert a new distributor record
-            if (txtname.Text.Trim() != "" && txtcode.Text.Trim() != "" && txtshare.Text.Trim() != "")
+            if (txtname.Text.Trim() != "" && txtcode.Text.Trim() != "" )
             {
 
-                string sqry = String.Format("insert into distributor values(0,'{0}','{1}',{2},{3})",
-                    txtcode.Text.Trim(),txtname.Text.Trim(),txtshare.Text.Trim(),strid);
+                string sqry = String.Format("insert into distributor values(0,'{0}','{1}','',{2})",
+                    txtcode.Text.Trim(),txtname.Text.Trim(),strid);
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
                 try
@@ -271,7 +283,7 @@ namespace aZynEManager
                     }
                     txtcode.Text = "";
                     txtname.Text = "";
-                    txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
+                   
                     ClearControls();
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -376,28 +388,7 @@ namespace aZynEManager
             }
         }
 
-        private void txtshare_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar)
-                && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
-            {
-                e.Handled = true;
-            }
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
-            {
-                e.Handled = true;
-            }
-
-        }
+       
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -421,8 +412,7 @@ namespace aZynEManager
                 txtcode.ReadOnly = false;
                 txtname.Text = "";
                 txtname.ReadOnly = false;
-                txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
-                txtshare.ReadOnly = false;
+   
                 txtln.Text = "";
                 txtln.ReadOnly = false;
                 txtfn.Text = "";
@@ -475,13 +465,7 @@ namespace aZynEManager
                     txtcode.Focus();
                     return;
                 }
-                if (txtshare.Text == "")
-                {
-                    MessageBox.Show("Please fill the required information.");
-                    txtshare.SelectAll();
-                    txtshare.Focus();
-                    return;
-                }
+
 
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
@@ -540,7 +524,7 @@ namespace aZynEManager
                     }
                 }
                 ////insert a new distributor record
-                if (txtname.Text.Trim() != "" && txtcode.Text.Trim() != "" && txtshare.Text.Trim() != "")
+                if (txtname.Text.Trim() != "" && txtcode.Text.Trim() != "")
                 {
                     if (cbxnew.Checked == false)
                         strid = cmbcontacts.SelectedValue.ToString();
@@ -550,7 +534,7 @@ namespace aZynEManager
                     sqry.Append("select count(*) from distributor ");
                     sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
                     sqry.Append(String.Format("and name = '{0}' ", txtname.Text.Trim()));
-                    sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
+                   
                     if(strid == "0")
                         sqry.Append(String.Format("and contact_id is null", strid));
                     else
@@ -572,8 +556,8 @@ namespace aZynEManager
                     }
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("insert into distributor values(0,'{0}','{1}',{2},{3})",
-                        txtcode.Text.Trim(), txtname.Text.Trim(), txtshare.Text.Trim(), strid));
+                    sqry.Append(String.Format("insert into distributor values(0,'{0}','{1}','',{2})",
+                        txtcode.Text.Trim(), txtname.Text.Trim(), strid));
                     
                     try
                     {
@@ -595,7 +579,7 @@ namespace aZynEManager
 
                         txtcode.Text = "";
                         txtname.Text = "";
-                        txtshare.Text = "";
+                       
                         //ClearControls();
 
                         refreshDGV();
@@ -657,6 +641,7 @@ namespace aZynEManager
         private void btnEdit_Click(object sender, EventArgs e)
         {
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            
             bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "DISTRIBUTOR_EDIT", m_frmM._connection);
             if (m_frmM.boolAppAtTest == true)
                 isEnabled = m_frmM.boolAppAtTest;
@@ -675,12 +660,21 @@ namespace aZynEManager
             }
             else if (dgvResult.SelectedRows.Count == 1)
                 dgvResult.Enabled = false;
-
             if (btnEdit.Text == "edit")
             {
+                
+                m_name =  txtfn.Text.Trim() + " " + txtln.Text.Trim();
+                m_fname = txtfn.Text.Trim();
+                m_lname = txtln.Text.Trim();
+                m_address =txtaddr.Text.Trim();
+                m_city = txtcity.Text.Trim();
+                m_country = txtcountry.Text.Trim();
+                m_contact = txtcontactno.Text.Trim();
+                m_address = txtemail.Text.Trim();
+                m_designation = txtposition.Text.Trim();
+
                 txtcode.ReadOnly = false;
                 txtname.ReadOnly = false;
-                txtshare.ReadOnly = false;
                 txtln.ReadOnly = false;
                 txtfn.ReadOnly = false;
                 txtaddr.ReadOnly = false;
@@ -689,7 +683,7 @@ namespace aZynEManager
                 txtcontactno.ReadOnly = false;
                 txtemail.ReadOnly = false;
                 txtposition.ReadOnly = false;
-
+                cbxnew.Enabled = true;
                 btnAdd.Enabled = false;
                 btnAdd.Text = "new";
 
@@ -706,6 +700,10 @@ namespace aZynEManager
             }
             else if (btnEdit.Text == "update")
             {
+                
+                cbxnew.Enabled = false;
+                string dis_id = cmbcontacts.SelectedValue.ToString();
+               
                 string strid = "0";
                 string strstatus = String.Empty;
                 if (txtname.Text == "")
@@ -722,43 +720,36 @@ namespace aZynEManager
                     txtcode.Focus();
                     return;
                 }
-                if (txtshare.Text == "")
-                {
-                    MessageBox.Show("Please fill the required information.");
-                    txtshare.SelectAll();
-                    txtshare.Focus();
-                    return;
-                }
 
                 StringBuilder sqry = new StringBuilder();
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
                 MySqlCommand cmd = new MySqlCommand();
                 int rowCount = -1;
-
-                if (this.txtfn.Text != "" || this.txtfn.Text != "")
-                {
+                
+ 
                     //validate for the existance of the record
+
+                    //melvin 10-24-2014
                     sqry = new StringBuilder();
                     sqry.Append("select count(*) from people ");
-                    sqry.Append(String.Format("where name = '{0}' ", txtfn.Text.Trim() + " " + txtln.Text.Trim()));
-                    sqry.Append(String.Format("and lname = '{0}' ", txtln.Text.Trim()));
-                    sqry.Append(String.Format("and fname = '{0}' ", txtfn.Text.Trim()));
-                    sqry.Append(String.Format("and position = '{0}' ", txtposition.Text.Trim()));
-                    sqry.Append(String.Format("and contact_no = '{0}' ", txtcontactno.Text.Trim()));
-                    sqry.Append(String.Format("and email_addr = '{0}' ", txtemail.Text.Trim()));
-                    sqry.Append(String.Format("and address = '{0}' ", txtaddr.Text.Trim()));
-                    sqry.Append(String.Format("and city = '{0}' ", txtcity.Text.Trim()));
-                    sqry.Append(String.Format("and country = '{0}'", txtcountry.Text.Trim()));
+                    sqry.Append(String.Format("where lname = '{0}' ", m_lname));
+                    sqry.Append(String.Format("and fname = '{0}' ", m_fname));
+                    sqry.Append(String.Format("and position = '{0}' ", m_designation));
+                    sqry.Append(String.Format("and contact_no = '{0}' ", m_contact));
+                    sqry.Append(String.Format("and email_addr = '{0}' ", m_email));
+                    sqry.Append(String.Format("and address = '{0}' ", m_address));
+                    sqry.Append(String.Format("and city = '{0}' ", m_city));
+                    sqry.Append(String.Format("and country = '{0}'", m_country));
 
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
-     
-                   
 
+
+                    MessageBox.Show(rowCount.ToString());
                     if (cbxnew.Checked == true)
                     {
                         if (rowCount > 0)
@@ -782,7 +773,7 @@ namespace aZynEManager
                             cmd = new MySqlCommand(sqry.ToString(), myconn);
                             cmd.ExecuteNonQuery();
 
-                            strid = cmd.LastInsertedId.ToString();
+                            dis_id = cmd.LastInsertedId.ToString();
 
                             cmd.Dispose();
                         }
@@ -819,6 +810,11 @@ namespace aZynEManager
                         strqry2.Append(String.Format(", position = '{0}'", txtposition.Text.Trim()));
                         strqry2.Append(String.Format(" where id = {0}", sid));
 
+                        //melvin 10-13-2014
+                        refreshDGV();
+                        populatecontacts(); 
+
+
                         myconn = new MySqlConnection();
                         myconn.ConnectionString = m_frmM._connection;
                         try
@@ -833,7 +829,7 @@ namespace aZynEManager
                         {
                         }
                     }
-                }
+                
 
                 int intid = -1;
                 if (dgvResult.SelectedRows.Count == 1)
@@ -841,25 +837,29 @@ namespace aZynEManager
 
                 if (cbxnew.Checked == false)
                     strid = cmbcontacts.SelectedValue.ToString();
-
+               // MessageBox.Show(strid);
                 //validate for the existance of the record
                 sqry = new StringBuilder();
                 sqry.Append("select count(*) from distributor ");
                 sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
                 sqry.Append(String.Format("and name = '{0}' ", txtname.Text.Trim()));
-                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
-                if(strid == "0")
+            
+                if(strid == "" || strid=="0")
                     sqry.Append("and contact_id is null ");
+
                 else
                     sqry.Append(String.Format("and contact_id = {0} ", strid));
-                sqry.Append(String.Format("and id = {0}",intid));
-
+                    sqry.Append(String.Format("and id = {0}",intid));
+                    //MessageBox.Show(intid.ToString());
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 cmd = new MySqlCommand(sqry.ToString(), myconn);
 
                 rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
+               
+
+
                 if (cbxnew.Checked == true)
                 {
                     if (rowCount > 0)
@@ -872,13 +872,17 @@ namespace aZynEManager
                     }
                 }
 
+                //melvin 10-24-2014
+
+
+
                 StringBuilder strqry = new StringBuilder();
+                
                 strqry.Append(String.Format("update distributor set code = '{0}'", txtcode.Text.Trim()));
                 strqry.Append(String.Format(", name = '{0}'", txtname.Text.Trim()));
-                strqry.Append(String.Format(", share_perc = {0}", txtshare.Text.Trim()));
-                strqry.Append(String.Format(", contact_id = {0}", strid));
+                strqry.Append(String.Format(", contact_id = {0}", dis_id));
                 strqry.Append(String.Format(" where id = {0}", intid));
-
+                MessageBox.Show(strqry.ToString());
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
                 try
@@ -899,14 +903,15 @@ namespace aZynEManager
 
                     refreshDGV();
                     setnormal();
-
+                    populatecontacts();
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch
+                catch(Exception err)
                 {
-                    MessageBox.Show("Can't connect to the movies table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the movies table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+          
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -991,9 +996,10 @@ namespace aZynEManager
                     }
                 }
             }
-            
+            cbxnew.Enabled = false;
             refreshDGV();
             setnormal();
+            populatecontacts();
         }
 
         private void dgvResult_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1011,7 +1017,7 @@ namespace aZynEManager
 
                 txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                txtshare.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
+              
 
                 string strname = dgv.SelectedRows[0].Cells[3].Value.ToString();
                 for (int i = 0; i < cmbcontacts.Items.Count; i++)
@@ -1028,6 +1034,11 @@ namespace aZynEManager
         }
 
         private void frmDistributor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -13,7 +13,7 @@
     </Window.Resources>
 
     <DockPanel>
-        <ListView Name="ReportSelector" Margin="20">
+        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged">
             <ListViewItem>
                 <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"

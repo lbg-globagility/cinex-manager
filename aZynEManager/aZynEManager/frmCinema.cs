@@ -435,10 +435,13 @@ namespace aZynEManager
                 {
                     if ((bool)dgv[0, i].Value)
                     {
+                        //MELVIN 10-15-2014
                         StringBuilder sqry = new StringBuilder();
                         sqry.Append("select max(id) from cinema_patron");
                         MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                         int max_id=Convert.ToInt32(cmd.ExecuteScalar())+1;
+
+
                         sqry = new StringBuilder();
                         sqry.Append(String.Format("insert into cinema_patron values({0},{1},{2},{3})",
                             max_id,intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
@@ -501,7 +504,7 @@ namespace aZynEManager
                 StringBuilder sbqry = new StringBuilder();
                 sbqry.Append("select a.name, a.unit_price as price, a.id ");
                 sbqry.Append("from patrons a ");
-                sbqry.Append(String.Format("where a.id not in(select b.patron_id from cinema_patron b where b.cinema_id = {0}) ", cinemaid));
+                sbqry.Append(String.Format("where a.id not in(select b.patron_id from cinema_patron b where b.cinema_id = {0}) ",                 cinemaid));
                 sbqry.Append("order by a.id asc");
                 DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 DataTable dgvdt = (DataTable)dgvpatrons.DataSource;
@@ -594,7 +597,8 @@ namespace aZynEManager
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
-
+                //  if (rowCount > 1)
+                //melvin 10-13-2014
                 if (rowCount > 0)
                 {
                     setnormal();
@@ -647,10 +651,12 @@ namespace aZynEManager
                     //8-20-2014 UPDATES FROM RAYMOND
                     try
                     {
+                        //10-15-2014 MELVIN 
                         if (window == null)
                         {
                             window = new CinemaCustomControlLibrary.SeatWindow();
                         }
+
                         window.SaveCinemaSeats(intid);
                     }
                     catch (Exception ex)
@@ -958,6 +964,11 @@ namespace aZynEManager
             window.LoadCinema(intCinemaId, strCinemaName, intCapacity);
             ElementHost.EnableModelessKeyboardInterop(window);
             window.Show();
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

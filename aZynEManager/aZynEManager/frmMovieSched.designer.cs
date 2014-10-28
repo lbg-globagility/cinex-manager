@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange21 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange22 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange23 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange24 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange25 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange11 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange12 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange13 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange14 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange15 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMovieSched));
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.dtcalview = new System.Windows.Forms.DateTimePicker();
@@ -46,6 +46,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.btnClear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.txtintermision = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.cbxintermision = new System.Windows.Forms.CheckBox();
@@ -101,16 +103,16 @@
             this.grpgrant = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.btnrevoke = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.btnUnPublish = new System.Windows.Forms.Button();
+            this.btnPublish = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -125,14 +127,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // grpfilter
@@ -152,7 +151,7 @@
             this.grpfilter.Panel.Controls.Add(this.label22);
             this.grpfilter.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpfilter.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.grpfilter.Size = new System.Drawing.Size(1127, 225);
+            this.grpfilter.Size = new System.Drawing.Size(1127, 237);
             this.grpfilter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpfilter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpfilter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -220,32 +219,32 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.calsked.Font = new System.Drawing.Font("Segoe UI", 9F);
-            calendarHighlightRange21.DayOfWeek = System.DayOfWeek.Monday;
-            calendarHighlightRange21.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange21.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange22.DayOfWeek = System.DayOfWeek.Tuesday;
-            calendarHighlightRange22.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange22.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange23.DayOfWeek = System.DayOfWeek.Wednesday;
-            calendarHighlightRange23.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange23.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange24.DayOfWeek = System.DayOfWeek.Thursday;
-            calendarHighlightRange24.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange24.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange25.DayOfWeek = System.DayOfWeek.Friday;
-            calendarHighlightRange25.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange25.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange11.DayOfWeek = System.DayOfWeek.Monday;
+            calendarHighlightRange11.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange11.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange12.DayOfWeek = System.DayOfWeek.Tuesday;
+            calendarHighlightRange12.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange12.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange13.DayOfWeek = System.DayOfWeek.Wednesday;
+            calendarHighlightRange13.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange13.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange14.DayOfWeek = System.DayOfWeek.Thursday;
+            calendarHighlightRange14.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange14.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange15.DayOfWeek = System.DayOfWeek.Friday;
+            calendarHighlightRange15.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange15.StartTime = System.TimeSpan.Parse("08:00:00");
             this.calsked.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
-        calendarHighlightRange21,
-        calendarHighlightRange22,
-        calendarHighlightRange23,
-        calendarHighlightRange24,
-        calendarHighlightRange25};
+        calendarHighlightRange11,
+        calendarHighlightRange12,
+        calendarHighlightRange13,
+        calendarHighlightRange14,
+        calendarHighlightRange15};
             this.calsked.Location = new System.Drawing.Point(230, 4);
             this.calsked.MaximumFullDays = 6;
             this.calsked.MaximumViewDays = 7;
             this.calsked.Name = "calsked";
-            this.calsked.Size = new System.Drawing.Size(884, 207);
+            this.calsked.Size = new System.Drawing.Size(884, 219);
             this.calsked.TabIndex = 314;
             this.calsked.Text = "calendar1";
             this.calsked.LoadItems += new System.Windows.Forms.Calendar.Calendar.CalendarLoadEventHandler(this.calsked_LoadItems);
@@ -338,11 +337,14 @@
             // kryptonGroup1
             // 
             this.kryptonGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.kryptonGroup1.Location = new System.Drawing.Point(1, 230);
+            this.kryptonGroup1.Location = new System.Drawing.Point(1, 242);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.btnPublish);
+            this.kryptonGroup1.Panel.Controls.Add(this.btnUnPublish);
+            this.kryptonGroup1.Panel.Controls.Add(this.btnClear);
             this.kryptonGroup1.Panel.Controls.Add(this.pictureBox5);
             this.kryptonGroup1.Panel.Controls.Add(this.txtintermision);
             this.kryptonGroup1.Panel.Controls.Add(this.label23);
@@ -398,6 +400,61 @@
             this.kryptonGroup1.StateCommon.Border.Rounding = 5;
             this.kryptonGroup1.StateCommon.Border.Width = 2;
             this.kryptonGroup1.TabIndex = 317;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClear.Location = new System.Drawing.Point(523, 70);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(59, 43);
+            this.btnClear.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
+            this.btnClear.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
+            this.btnClear.StateCommon.Back.ColorAngle = 50F;
+            this.btnClear.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnClear.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
+            this.btnClear.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
+            this.btnClear.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnClear.StateCommon.Border.Rounding = 1;
+            this.btnClear.StateCommon.Border.Width = 3;
+            this.btnClear.StateCommon.Content.AdjacentGap = 0;
+            this.btnClear.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnClear.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnClear.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnClear.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnClear.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnClear.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnClear.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnClear.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnClear.StateCommon.Content.Padding = new System.Windows.Forms.Padding(1, 2, 1, 1);
+            this.btnClear.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnClear.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnClear.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnClear.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnClear.StateTracking.Border.Color1 = System.Drawing.Color.Gray;
+            this.btnClear.StateTracking.Border.Color2 = System.Drawing.Color.Gray;
+            this.btnClear.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnClear.StateTracking.Border.Rounding = 2;
+            this.btnClear.StateTracking.Border.Width = 2;
+            this.btnClear.TabIndex = 372;
+            this.btnClear.Values.Image = global::aZynEManager.Properties.Resources.simple;
+            this.btnClear.Values.Text = "";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackColor = System.Drawing.Color.Gold;
+            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox5.Location = new System.Drawing.Point(308, 215);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(260, 3);
+            this.pictureBox5.TabIndex = 371;
+            this.pictureBox5.TabStop = false;
             // 
             // txtintermision
             // 
@@ -555,9 +612,9 @@
             // btnsearch
             // 
             this.btnsearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnsearch.Location = new System.Drawing.Point(525, 30);
+            this.btnsearch.Location = new System.Drawing.Point(525, 21);
             this.btnsearch.Name = "btnsearch";
-            this.btnsearch.Size = new System.Drawing.Size(59, 83);
+            this.btnsearch.Size = new System.Drawing.Size(59, 43);
             this.btnsearch.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
             this.btnsearch.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
             this.btnsearch.StateCommon.Back.ColorAngle = 50F;
@@ -689,6 +746,7 @@
             this.dgvMovies.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvMovies.TabIndex = 7;
             this.dgvMovies.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovies_CellClick);
+            this.dgvMovies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovies_CellContentClick);
             this.dgvMovies.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvMovies_CellFormatting);
             // 
             // pagePatrons
@@ -783,7 +841,7 @@
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(281, 255);
+            this.dgvResult.Size = new System.Drawing.Size(281, 218);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -981,7 +1039,7 @@
             // grpcontrol
             // 
             this.grpcontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpcontrol.Location = new System.Drawing.Point(901, 419);
+            this.grpcontrol.Location = new System.Drawing.Point(901, 431);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -1145,7 +1203,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(908, 230);
+            this.label18.Location = new System.Drawing.Point(908, 242);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(86, 12);
             this.label18.TabIndex = 318;
@@ -1158,7 +1216,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(897, 229);
+            this.label16.Location = new System.Drawing.Point(897, 241);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(17, 24);
             this.label16.TabIndex = 352;
@@ -1167,7 +1225,7 @@
             // grpgrant
             // 
             this.grpgrant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.grpgrant.Location = new System.Drawing.Point(901, 310);
+            this.grpgrant.Location = new System.Drawing.Point(901, 323);
             this.grpgrant.Name = "grpgrant";
             // 
             // grpgrant.Panel
@@ -1176,7 +1234,7 @@
             this.grpgrant.Panel.Controls.Add(this.btngrant);
             this.grpgrant.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpgrant.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.grpgrant.Size = new System.Drawing.Size(151, 107);
+            this.grpgrant.Size = new System.Drawing.Size(151, 106);
             this.grpgrant.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpgrant.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpgrant.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -1277,21 +1335,45 @@
             this.btngrant.Values.Text = "grant";
             this.btngrant.Click += new System.EventHandler(this.btngrant_Click);
             // 
-            // pictureBox5
+            // btnUnPublish
             // 
-            this.pictureBox5.BackColor = System.Drawing.Color.Gold;
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox5.Location = new System.Drawing.Point(308, 215);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(260, 3);
-            this.pictureBox5.TabIndex = 371;
-            this.pictureBox5.TabStop = false;
+            this.btnUnPublish.BackColor = System.Drawing.Color.White;
+            this.btnUnPublish.FlatAppearance.BorderSize = 0;
+            this.btnUnPublish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.btnUnPublish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.btnUnPublish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUnPublish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUnPublish.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnUnPublish.Location = new System.Drawing.Point(214, 253);
+            this.btnUnPublish.Name = "btnUnPublish";
+            this.btnUnPublish.Size = new System.Drawing.Size(77, 26);
+            this.btnUnPublish.TabIndex = 374;
+            this.btnUnPublish.Text = "Unpublish";
+            this.btnUnPublish.UseVisualStyleBackColor = false;
+            this.btnUnPublish.Click += new System.EventHandler(this.btnUnPublish_Click);
+            // 
+            // btnPublish
+            // 
+            this.btnPublish.BackColor = System.Drawing.Color.White;
+            this.btnPublish.FlatAppearance.BorderSize = 0;
+            this.btnPublish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.btnPublish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
+            this.btnPublish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPublish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPublish.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnPublish.Location = new System.Drawing.Point(135, 253);
+            this.btnPublish.Name = "btnPublish";
+            this.btnPublish.Size = new System.Drawing.Size(73, 26);
+            this.btnPublish.TabIndex = 375;
+            this.btnPublish.Text = "Publish";
+            this.btnPublish.UseVisualStyleBackColor = false;
+            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
             // 
             // frmMovieSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1129, 530);
+            this.ClientSize = new System.Drawing.Size(1129, 542);
             this.Controls.Add(this.grpgrant);
             this.Controls.Add(this.grpcontrol);
             this.Controls.Add(this.label18);
@@ -1305,17 +1387,16 @@
             this.Opacity = 0.98D;
             this.Text = "Movie Schedule Manager";
             this.Load += new System.EventHandler(this.frmMovieSched_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             this.grpfilter.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -1329,15 +1410,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).EndInit();
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1412,5 +1490,8 @@
         internal ComponentFactory.Krypton.Toolkit.KryptonTextBox txtintermision;
         internal System.Windows.Forms.Label label23;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnClear;
+        private System.Windows.Forms.Button btnPublish;
+        private System.Windows.Forms.Button btnUnPublish;
     }
 }

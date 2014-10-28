@@ -78,7 +78,7 @@ namespace aZynEManager
         {
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("SELECT a.id, a.name, a.description ");
-            sbqry.Append("FROM mtrcb a order by a.description asc");
+            sbqry.Append("FROM mtrcb a order by a.name asc");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
         }
@@ -95,10 +95,11 @@ namespace aZynEManager
                 dgvResult.DataSource = dt;
                 dgvResult.Columns[0].Width = 0;
                 dgvResult.Columns[0].HeaderText = "ID";
-                dgvResult.Columns[1].Width = iwidth - 13;
-                dgvResult.Columns[1].HeaderText = "Name";
-                dgvResult.Columns[2].Width = (iwidth * 2) - 10;
-                dgvResult.Columns[2].HeaderText = "Description";
+                dgvResult.Columns[1].Width = iwidth-13;
+                dgvResult.Columns[1].HeaderText = "Rating";
+                dgvResult.Columns[2].Width = iwidth*2;
+                dgvResult.Columns[2].HeaderText = "Name";
+
             }
         }
 
@@ -323,6 +324,7 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                //melvin 10-14-14
                 sqry = new StringBuilder();
                 sqry.Append("select max(id) from mtrcb");
                 MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
@@ -582,5 +584,7 @@ namespace aZynEManager
                 txtdesc.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
             }
         }
+
+    
     }
 }

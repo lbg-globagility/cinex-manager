@@ -113,11 +113,11 @@ namespace aZynEManager
             do
             {
                 sqry = new StringBuilder();
-                sqry.Append("select a.start_time, a.end_time, c.code, a.id from movies_schedule_list a ");
+                sqry.Append("select a.start_time, a.end_time, c.code, a.id, b.status from movies_schedule_list a ");
                 sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
                 sqry.Append("left join movies c on b.movie_id = c.id ");
-                sqry.Append(String.Format("where b.cinema_id = {0} ", idcnm));
-                sqry.Append(String.Format("and b.movie_date = '{0}' ",String.Format("{0:yyyy-MM-dd HH:mm:ss}",dtref)));
+                sqry.Append(String.Format("where b.cinema_id = {0}  ", idcnm));
+                sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dtref)));
                 sqry.Append("order by a.start_time desc");
 
                 CalendarItem calitem = null;
@@ -143,6 +143,7 @@ namespace aZynEManager
                         string sval = dr["code"].ToString();
                         string stime = dr["start_time"].ToString();
                         string etime = dr["end_time"].ToString();
+                        string stat = dr["status"].ToString();
                         DateTime dtstime = Convert.ToDateTime(stime);
                         DateTime dtetime = Convert.ToDateTime(stime);
                         string stimeval = dtstime.ToShortTimeString();// +" - " + dtetime.ToShortTimeString();
@@ -153,7 +154,10 @@ namespace aZynEManager
                                 firsttitle = sval;
                                 itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 100, 225, 225);
                             }
-
+                            if (stat == "0")
+                            {
+                                itemcolor = Color.Red;
+                            }
                             if (firsttitle != sval)
                             {
                                 calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
@@ -162,7 +166,14 @@ namespace aZynEManager
                                     calsked.Items.Add(calitem);
 
                                 intsw = 0;
-                                itemcolor = Color.FromArgb(100, 100, 225, 225);//Color.FromArgb(100, 225, 225, 100);
+                                if (stat == "0")
+                                {
+                                    itemcolor = Color.Red;
+                                }
+                                else
+                                {
+                                    itemcolor = Color.FromArgb(100, 100, 225, 225);//Color.FromArgb(100, 225, 225, 100);
+                                }
                                 firsttitle = sval;
                             }
                             calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
@@ -787,7 +798,7 @@ namespace aZynEManager
             if (movieschedid == "")
             {
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
+                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}',1)",
                     cinemaid, movieid, currentdate.Date.ToString("yyyy-MM-dd")));
                 try
                 {
@@ -1086,9 +1097,20 @@ namespace aZynEManager
                 string hours = ((int)result.TotalHours).ToString();
                 string minutes = String.Format("{0:00}", result.Minutes);
                 dtduration.Value = new DateTime(2014, 6, 2, (int)result.TotalHours, result.Minutes, 0);
+                setEnable(false);
+                
             }
         }
 
+        private void setEnable(bool con)
+        {
+            txtMC.Enabled = con;
+            txtMT.Enabled = con;   
+            dtduration.Enabled = con;
+            rbtnGuarateed.Enabled = con;
+            rbtnReserved.Enabled = con;
+            rbtnUnlimited.Enabled = con;
+        }
         private void dtduration_ValueChanged(object sender, EventArgs e)
         { 
             //if(cntrol != "resultselect")
@@ -2063,6 +2085,54 @@ namespace aZynEManager
                 && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void dgvMovies_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtintermision.Text = null;
+            txtMC.Text = null;
+            txtMT.Text = null;
+            cbxintermision.Checked = false;
+            dtduration.Enabled = false;
+            setEnable(true);
+        }
+
+        private void btnPublish_Click(object sender, EventArgs e)
+        {
+            //melvin 10-28-2014
+            publish("1", "publish");
+        }
+
+        private void btnUnPublish_Click(object sender, EventArgs e)
+        {
+            //melvin 10-28-2014
+            publish("0", "unpublish");
+        }
+
+        private void publish(string stat,string result)
+        {
+            //melvin 10-27-2014
+            if (dgvResult.SelectedCells.Count > 0)
+            {
+                string id = dgvResult.Rows[dgvResult.CurrentCell.RowIndex].Cells[0].Value.ToString();
+                MessageBox.Show(id);
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append(String.Format("update movies_schedule set status={0} where ", stat));
+                sqry.Append("id=(select movies_schedule_id from movies_schedule_list ");
+                sqry.Append(String.Format("where id={0} )", id));
+                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Successfully "+result, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Select Movie First", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

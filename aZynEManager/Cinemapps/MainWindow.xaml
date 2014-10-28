@@ -70,12 +70,12 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Style x:Key="placeHolder"   TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TextBox}">
+                        <ControlTemplate TargetType="{x:Type TextBox}" >
                             <Grid>
-                                <TextBox Text="{Binding Path=Text,
+                                <TextBox TabIndex="100" KeyboardNavigation.TabIndex="100" Text="{Binding Path=Text, 
                                                 RelativeSource={RelativeSource TemplatedParent}, 
                                                 Mode=TwoWay,
                                                 UpdateSourceTrigger=PropertyChanged}"
@@ -87,12 +87,12 @@
                                  VerticalAlignment="Center"
                                  Panel.ZIndex="2"
                                  />
-                                <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1" >
+                                <TextBox  TabIndex="101" KeyboardNavigation.TabIndex="101" Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1" >
                                     <TextBox.Style>
-                                        <Style TargetType="{x:Type TextBox}">
+                                        <Style TargetType="{x:Type TextBox}" >
                                             <Setter Property="Foreground" Value="Transparent"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
+                                                <DataTrigger KeyboardNavigation.TabIndex="102" Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
                                                     <Setter Property="Foreground" Value="#CC119EDA" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -171,12 +171,12 @@
                             </Grid.RowDefinitions>
                             
                             <Image Source="/Cinemapps;component/Images/user2.png" Height="Auto" Margin="6,5,228,4" Grid.ColumnSpan="2" />
-                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" TabIndex="0" KeyboardNavigation.TabIndex="0"/>
-                            <PasswordBox Name="UserPassword" local:PlaceHolderHelper.PlaceHolderText="Password"  Grid.Row="1" Margin="0,2,6,3" Height="25" Grid.Column="1" BorderThickness="0" KeyUp="UserPassword_KeyUp" TabIndex="1" KeyboardNavigation.TabIndex="1" IsTabStop="true"/>
+                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" />
+                            <PasswordBox Name="UserPassword" local:PlaceHolderHelper.PlaceHolderText="Password"  Grid.Row="1" Margin="0,2,6,3" Height="25" Grid.Column="1" BorderThickness="0" KeyUp="UserPassword_KeyUp" TabIndex="0" KeyboardNavigation.TabIndex="0" IsTabStop="true"/>
                             <Image Source="/Cinemapps;component/Images/lock1.png" Height="Auto" Margin="6,6,228,5" Grid.Row="1" Grid.ColumnSpan="2" />
                        
                             <!-- local:PlaceHolderHelper.PlaceHolderText="Password"-->
-                            <Button Grid.Row="2" Background="Gray" Width="100" Margin="122,1,6,3" FontFamily="Arial" Height="31" Click="Button_Click"  Grid.Column="2" BorderBrush="White" IsTabStop="True" Cursor="Hand">LOGIN</Button>
+                            <Button Grid.Row="2" Background="Gray" Width="100" Margin="122,1,6,3" FontFamily="Arial" Height="31" Click="Button_Click"  Grid.Column="2" BorderBrush="White" TabIndex="2" KeyboardNavigation.TabIndex="2" Cursor="Hand">LOGIN</Button>
                         </Grid>
                         <TextBlock x:Name="TileDesc" Text="" Margin="35,20,35,25" TextAlignment="Justify" Foreground="White" TextWrapping="Wrap">
                         </TextBlock>

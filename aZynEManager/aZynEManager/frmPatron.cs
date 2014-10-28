@@ -579,6 +579,7 @@ namespace aZynEManager
 
                 txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                //melvin 10-10-14
                 txtprice.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
                 txtposition.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
 

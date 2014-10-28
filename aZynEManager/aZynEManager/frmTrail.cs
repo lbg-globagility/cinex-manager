@@ -265,5 +265,29 @@ namespace aZynEManager
                 frdate.Enabled = false;
             }
         }
+
+        private void btnprint_Click(object sender, EventArgs e)
+        {
+            //melvin 10-27-2014
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+
+
+                    frmreport.setDate = (DateTime)frdate.Value.AddDays(-1);
+                    frmreport.setEndDate = (DateTime)todate.Value.AddDays(1);
+
+                    frmreport.frmInit(m_frmM, m_frmM.m_clscom, "AUDIT");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }

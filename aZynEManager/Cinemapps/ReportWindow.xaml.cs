@@ -40,7 +40,7 @@ namespace Cinemapps
 
         private void PrintRP01_Click(object sender, RoutedEventArgs e)
         {
-            try
+/*            try
             {
                 int intUserId = 0;
                 if (RP01Teller.SelectedValue != null)
@@ -54,6 +54,15 @@ namespace Cinemapps
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }*/
+
+            //JMBC 20141016
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport.setDate = (DateTime)RP01StartDate.SelectedDate;
+                frmreport.frmInit(main, main.m_clscom, "RP01");
+                frmreport.ShowDialog();
+                frmreport.Dispose();
             }
         }
 
@@ -142,12 +151,18 @@ namespace Cinemapps
         {
             try
             {
-                RP02 report = new RP02(RP02StartDate.SelectedDate, RP02EndDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP02");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message.ToString()+"asf");
             }
         }
 
@@ -155,8 +170,10 @@ namespace Cinemapps
         {
             using (frmReport frmreport = new frmReport())
             {
-                frmreport._dtStart = (DateTime)RP03StartDate.SelectedDate;
-                frmreport.frmInit(main, main.m_clscom,"RP03");
+                frmreport.setDate = (DateTime)RP03StartDate.SelectedDate;
+                
+         
+                frmreport.frmInit(main, main.m_clscom, "RP03");
                 frmreport.ShowDialog();
                 frmreport.Dispose();
             }
@@ -210,6 +227,7 @@ namespace Cinemapps
 
         private void PreviewRP06_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
                 using (frmReport frmreport = new frmReport())
@@ -224,7 +242,8 @@ namespace Cinemapps
                         }
                     }
 
-                    frmreport._dtStart = (DateTime)RP06StartDate.SelectedDate;
+                    frmreport.setDate = (DateTime)RP06StartDate.SelectedDate;
+                    frmreport.setCinema = (String)RP06Cinema.Text;
                     frmreport._intCinemaID = intCinemaId;
                     frmreport.frmInit(main, main.m_clscom, "RP06");
                     frmreport.ShowDialog();
@@ -328,6 +347,7 @@ namespace Cinemapps
         private void RP06Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //this.UpdateRP08Movie();
+            //RP06Cinema
         }
 
         private void RP02StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -408,6 +428,11 @@ namespace Cinemapps
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void ReportSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
     }

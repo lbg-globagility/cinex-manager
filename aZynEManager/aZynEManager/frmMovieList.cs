@@ -29,8 +29,9 @@ namespace aZynEManager
 
         private void frmMovieList_Load(object sender, EventArgs e)
         {
+           
             unselectbutton();
-            refreshDGV(true);
+
         }
 
         public void refreshDGV(bool withCutOff)
@@ -56,15 +57,15 @@ namespace aZynEManager
             //sbqry.Append("order by b.encoded_date desc");
 
             //3rd version for testing with startdate and enddate 
-           /* sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, ");
-            sbqry.Append("a.start_date, a.end_date, a.share_perc as share, d.status_desc as status, a.encoded_date ");
+            sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, ");
+            sbqry.Append("DATE_FORMAT(a.start_date,'%m-%d-%Y'), DATE_FORMAT(a.end_date,'%m-%d-%Y'), a.share_perc as share, d.status_desc as status, a.encoded_date ");
             sbqry.Append("FROM movies a, mtrcb b, distributor c, movies_status d WHERE a.rating_id = b.id ");
-            sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");*/
-            sbqry.Append("select * from movies");
+            sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");
+          //  sbqry.Append("select * from movies");
 
-            if (withCutOff)
-                sbqry.Append(String.Format("where encoded_date >= '{0:yyyy-MM-dd}'",m_clscom.m_clscon.MovieListCutOffDate));
-
+           // if (withCutOff)
+           //     sbqry.Append(String.Format("where encoded_date >= '{0:yyyy-MM-dd}'",m_clscom.m_clscon.MovieListCutOffDate));
+           // MessageBox.Show(sbqry.ToString());
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
 
@@ -113,6 +114,7 @@ namespace aZynEManager
         public void setDataGridView(DataTable dt)
         {
             this.dgvResult.DataSource = null;
+          
             if (dt.Rows.Count > 0)
                 this.dgvResult.DataSource = dt;
 
@@ -382,6 +384,11 @@ namespace aZynEManager
                 cmbrating.SelectedIndex = 0;
                 cmbrating.Enabled = true;
 
+                //melvin 10-14-14
+                btnDelete.Enabled = false;
+                btnEdit.Enabled = false;
+                btnAdd.Enabled = false;
+
                 //for further study classification for search
                 //for (int i = 0; i < this.lstcls.Items.Count; i++)
                 //    this.lstcls.Items[i].Checked = false;
@@ -391,13 +398,17 @@ namespace aZynEManager
 
                 grpcontrol.Visible = true;
                 grpfilter.Visible = true;
+                btnAdd.Enabled = false;
             }
             else
             {
+               
                 refreshDGV(true);
                 setnormal();
                 grpcontrol.Visible = true;
                 grpfilter.Visible = false;
+                //melvin 10-14-14
+                btnAdd.Enabled = true;
             }
 
         }
@@ -452,8 +463,11 @@ namespace aZynEManager
                 btnDelete.Text = "cancel";
                 btnDelete.Enabled = true;
                 btnDelete.Values.Image = Properties.Resources.buttoncancel;
+               
+                //melvin 10-13-14
                 cbxfilter.Checked = false;
                 cbxfilter.Enabled = false;
+                
                 txtcode.SelectAll();
                 txtcode.Focus();
 
@@ -609,7 +623,7 @@ namespace aZynEManager
                     //        return;
                     //    }
                     //}
-                    tabinsertcheck(myconn, dgvClass, Convert.ToInt32(strid));
+                    tabinsertcheck(myconn, dgvClass, max_id);
 
                     if(myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -625,11 +639,11 @@ namespace aZynEManager
                     //refreshDGV(false);
                     cbxfilter.Enabled = true;
                 }
-                catch
+                catch(Exception err)
                 {
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the contact table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -644,15 +658,17 @@ namespace aZynEManager
                     {
                         StringBuilder sqry = new StringBuilder();
                         sqry.Append(String.Format("insert into movies_class values(0,{0},{1})",
-                            intid, dgv[3, i].Value.ToString()));
+                           intid, dgv[3, i].Value.ToString()));
 
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
+                        myconn.Close();
                     }
                 }
+
             }
         }
 
@@ -780,6 +796,7 @@ namespace aZynEManager
                     }
                 }
             }
+          
             else
             {
                 cbxfilter.Enabled = true;
@@ -937,9 +954,11 @@ namespace aZynEManager
             {
                 //if (cbxfilter.Checked == false)
                 //{
+                if (cbxfilter.Checked == false)
+                {
                     btnEdit.Enabled = true;
                     btnEdit.Text = "edit";
-
+                }
                     btnDelete.Enabled = true;
                     btnDelete.Text = "remove";
 
@@ -1162,14 +1181,14 @@ namespace aZynEManager
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
-                if (rowCount != 1)
+               /* if (rowCount > 0)
                 {
                     setnormal();
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
                     MessageBox.Show("Can't update this record, \n\rit is already being used by the system.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                }
+                }*/
 
                 //validate for the existance of the record
                 sqry = new StringBuilder();
@@ -1248,9 +1267,9 @@ namespace aZynEManager
 
                         tabinsertcheck(myconn, dgvClass, intid);
                     }
-                    catch
+                    catch(MySqlException err)
                     {
-                        MessageBox.Show("Can't connect to the contact table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Can't connect to the contact table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     
                     ////insert the movie_class update
@@ -1309,9 +1328,9 @@ namespace aZynEManager
 
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch
+                catch(Exception err)
                 {
-                    MessageBox.Show("Can't connect to the movies table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the movies table."+ err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1392,6 +1411,11 @@ namespace aZynEManager
             txtshare.ReadOnly = false;
             cmbdistributor.Enabled = true;
             cmbrating.Enabled = true;
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -19,6 +19,8 @@ namespace aZynEManager
         DataTable m_dt = new DataTable();
         DataTable movie_dt = new DataTable();
         MySqlConnection myconn = null;
+        //melvin 10-24-2014
+        int daycnt = 1; 
         bool allowSpace = false;
 
         public frmProdShare()
@@ -44,8 +46,6 @@ namespace aZynEManager
 
             setnormal();
         }
-
-
         public void setnormal()
         {
             txtcode.Text = "";
@@ -90,8 +90,13 @@ namespace aZynEManager
             DataTable dt = new DataTable();
             string sqry = "[id] > -1";
             if (m_frmM.m_dtmovies.Rows.Count == 0)
-                m_frmM.m_dtmovies = m_clscom.setDataTable("select * from movies order by title asc", m_frmM._connection);
 
+                //melvin 10-24-2014, update for date format
+                m_frmM.m_dtmovies = m_clscom.setDataTable("select id, "+
+                    "code,title,dist_id,share_perc,rating_id,duration, "+
+                    "date_format(encoded_date,'%m-%d-%Y'),date_format(start_date,'%m-%d-%Y'),"+
+                    "date_format(end_date,'%m-%d-%Y') from movies order by title asc", m_frmM._connection);
+            
             if (m_frmM.m_dtmovies.Rows.Count > 0)
             {
                 var foundRows = m_frmM.m_dtmovies.Select(sqry);
@@ -117,6 +122,7 @@ namespace aZynEManager
                     cmbtitle.DisplayMember = "title";
                 }
             }
+            MessageBox.Show(cmbtitle.Items.Count.ToString());
         }
 
 
@@ -200,15 +206,16 @@ namespace aZynEManager
             {
                 txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 string strname = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                for (int i = 0; i < cmbtitle.Items.Count; i++)
+                cmbtitle.DropDownStyle = ComboBoxStyle.DropDown;
+               
+              
+                if (cmbtitle.Text == null)
                 {
-                    DataRowView drv = (DataRowView)cmbtitle.Items[i];
-                    if (drv.Row["title"].ToString().ToUpper() == strname.ToUpper())
-                    {
-                        cmbtitle.SelectedIndex = i;
-                        break;
-                    }
+                    cmbtitle.Items.Add(strname);
+                   
                 }
+                cmbtitle.Text = strname;
+                cmbtitle.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 
@@ -251,8 +258,7 @@ namespace aZynEManager
         private void btnsearch2_Click(object sender, EventArgs e)
         {
             unselectbutton();
-            if (txtcode.Text != "")
-            {
+         
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append(String.Format("[code] like '%{0}%'", txtcode.Text.Trim()));
                 var foundRows = movie_dt.Select(sqry.ToString());
@@ -269,18 +275,13 @@ namespace aZynEManager
                 {
                     setDataGridViewII(dgvMovies, foundRows.CopyToDataTable());
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please fill the code block.", this.Text);
-                txtcode.SelectAll();
-                txtcode.Focus();
-            }
+         
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            daycnt = 7;
             bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "PRODSHARE_ADD", m_frmM._connection);
             if (m_frmM.boolAppAtTest == true)
                 isEnabled = m_frmM.boolAppAtTest;
@@ -302,6 +303,7 @@ namespace aZynEManager
                 txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
                 txtshare.ReadOnly = false;
                 dtdate.Enabled = true;
+                txtdaycnt.ReadOnly = false;
 
                 unselectbutton();
                 btnAdd.Text = "save";
@@ -813,7 +815,8 @@ namespace aZynEManager
             //{
             //    e.Handled = true;
             //}
-
+            
+            
             base.OnKeyPress(e);
 
             NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
@@ -822,9 +825,11 @@ namespace aZynEManager
             string negativeSign = numberFormatInfo.NegativeSign;
 
             string keyInput = e.KeyChar.ToString();
-
+   
             if (Char.IsDigit(e.KeyChar))
             {
+
+               
                 // Digits are OK
             }
             else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) ||
@@ -1001,6 +1006,53 @@ namespace aZynEManager
                 dtdate.Enabled = true;
             else
                 dtdate.Enabled = false;
+        }
+
+        private void dgvMovies_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtdaycnt_TextChanged(object sender, EventArgs e)
+        {
+            //melvin 10-24-2014 for limiting number only
+            if (!(txtdaycnt.Text == ""))
+            {
+                try
+                {
+                    if (Convert.ToInt32(txtdaycnt.Text) <= 0)
+                    {
+                        MessageBox.Show("Invalid number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtdaycnt.Text = daycnt.ToString();
+                        int textLength = txtdaycnt.Text.Length;
+                        txtdaycnt.SelectionStart = textLength;
+                        txtdaycnt.SelectionLength = 0;
+
+                    }
+                    else
+                    {
+                        int.TryParse(txtdaycnt.Text, out daycnt);
+                    }
+                }
+                catch
+                {
+                    txtdaycnt.Text = daycnt.ToString();
+                    int textLength = txtdaycnt.Text.Length;
+                    txtdaycnt.SelectionStart = textLength;
+                    txtdaycnt.SelectionLength = 0;
+
+                }
+            }
+        }
+
+        private void txtshare_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
