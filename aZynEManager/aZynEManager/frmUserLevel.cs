@@ -71,7 +71,7 @@ namespace aZynEManager
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.module_desc, a.module_code, a.module_group, a.id ");
             sbqry.Append("from system_module a where a.system_code = 1 ");
-            sbqry.Append(String.Format("and a.module_group = '{0}' order by a.module_desc asc","CINEMA"));
+            sbqry.Append(String.Format("and a.module_group = '{0}' order by a.module_desc asc", "CINEMA"));
             dtmodulecinema = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvModuleCinema, dtmodulecinema);
 
@@ -122,7 +122,7 @@ namespace aZynEManager
             setDataGridViewII(dgvUserLevel, dtuserlevel);
         }
 
-        public void setDataGridView(DataGridView dgv,DataTable dt)
+        public void setDataGridView(DataGridView dgv, DataTable dt)
         {
             dgv.Columns.Clear();
             dgv.DataSource = null;
@@ -170,7 +170,7 @@ namespace aZynEManager
                 dgv.Columns[2].HeaderText = "System Code";
                 dgv.Columns[2].ReadOnly = true;
             }
-            txtcnt.Text = "Count: 0 / " + dgvModuleCinema.Rows.Count.ToString() ;
+            txtcnt.Text = "Count: 0 / " + dgvModuleCinema.Rows.Count.ToString();
         }
 
         public void setnormal()
@@ -206,7 +206,7 @@ namespace aZynEManager
             else if (tabModule.SelectedPage == pageTicket)
                 cnt = dgvModuleTicket.Rows.Count;
 
-            txtcnt.Text = "Count: 0 / " + cnt.ToString() ;
+            txtcnt.Text = "Count: 0 / " + cnt.ToString();
         }
 
         public void unselectbutton()
@@ -256,11 +256,11 @@ namespace aZynEManager
                         break;
                     }
                 }
-                
+
                 //for cinema tabpage
                 for (int i = 0; i < dgvModuleCinema.Rows.Count; i++)
                 {
-                    int intmid = Convert.ToInt32(dgvModuleCinema[4,i].Value.ToString());
+                    int intmid = Convert.ToInt32(dgvModuleCinema[4, i].Value.ToString());
                     StringBuilder sqry = new StringBuilder();
                     sqry.Append(String.Format("select count(*) from user_level_rights a where a.user_level = {0}", intid));
                     sqry.Append(String.Format(" and a.module_id = {0} and a.system_code = {1}", intmid, cmbSystem.SelectedValue));
@@ -386,7 +386,7 @@ namespace aZynEManager
                     cntchk = chklstticket;
                 }
 
-                txtcnt.Text = String.Format("Count: {0} / {1}",cntchk.ToString() , cnt.ToString());
+                txtcnt.Text = String.Format("Count: {0} / {1}", cntchk.ToString(), cnt.ToString());
                 //txtcnt.Text = "Count: " + chklst.ToString() + " / " + dgvModuleCinema.Rows.Count.ToString();
             }
         }
@@ -441,7 +441,7 @@ namespace aZynEManager
             for (int i = 0; i < dgv.Rows.Count; i++)
             {
                 dgv[0, i].Value = (object)boolchk;
-                if(boolchk)
+                if (boolchk)
                     cnt += 1;
             }
             txtcnt.Text = "Count: " + cnt.ToString() + " / " + dgv.Rows.Count.ToString();
@@ -466,7 +466,7 @@ namespace aZynEManager
             {
                 txtuserlevel.Text = "";
                 txtuserlevel.ReadOnly = false;
-              
+
                 btnAdd.Text = "save";
                 btnAdd.Enabled = true;
                 btnAdd.Values.Image = Properties.Resources.buttonsave;
@@ -559,7 +559,7 @@ namespace aZynEManager
                 sqry = new StringBuilder();
                 //with queries
                 sqry.Append(String.Format("insert into user_level values(0,'{0}',{1})",
-                    txtuserlevel.Text.ToUpper().Trim(),cmbSystem.SelectedValue));
+                    txtuserlevel.Text.ToUpper().Trim(), cmbSystem.SelectedValue));
 
                 try
                 {
@@ -571,7 +571,7 @@ namespace aZynEManager
                         cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
                         idout = Convert.ToInt32(cmd.LastInsertedId);
-                        
+
                         cmd.Dispose();
                     }
                     if (idout > -1)
@@ -776,7 +776,7 @@ namespace aZynEManager
                     txtuserlevel.Focus();
                     return;
                 }
-                
+
                 StringBuilder sqry = new StringBuilder();
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
@@ -819,37 +819,37 @@ namespace aZynEManager
                 //}
                 //else if (rowCount == 0)
                 //{
-                    StringBuilder strqry = new StringBuilder();
-                    strqry.Append(String.Format("update user_level set level_desc = '{0}'", txtuserlevel.Text.Trim()));
-                    strqry.Append(String.Format(" where id = {0}", intid));
+                StringBuilder strqry = new StringBuilder();
+                strqry.Append(String.Format("update user_level set level_desc = '{0}'", txtuserlevel.Text.Trim()));
+                strqry.Append(String.Format(" where id = {0}", intid));
 
-                    myconn = new MySqlConnection();
-                    myconn.ConnectionString = m_frmM._connection;
-                    try
-                    {
-                        if (myconn.State == ConnectionState.Closed)
-                            myconn.Open();
-                        cmd = new MySqlCommand(strqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
+                myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+                try
+                {
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(strqry.ToString(), myconn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
 
-                        setModule(myconn, intid);
-                        if (myconn.State == ConnectionState.Open)
-                            myconn.Close();
+                    setModule(myconn, intid);
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
 
-                        m_clscom.AddATrail(m_frmM.m_userid, "GRANT_EDIT", "USER_LEVEL|USER_LEVEL_RIGHTS",
-                           Environment.MachineName.ToString(), "UPDATED USER LEVEL: NAME=" + this.txtuserlevel.Text.Trim()
-                           + " | ID=" + intid.ToString(), m_frmM._connection);
+                    m_clscom.AddATrail(m_frmM.m_userid, "GRANT_EDIT", "USER_LEVEL|USER_LEVEL_RIGHTS",
+                       Environment.MachineName.ToString(), "UPDATED USER LEVEL: NAME=" + this.txtuserlevel.Text.Trim()
+                       + " | ID=" + intid.ToString(), m_frmM._connection);
 
-                        refreshDGV();
-                        setnormal();
+                    refreshDGV();
+                    setnormal();
 
-                        MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Can't connect to the user level table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                    MessageBox.Show("Can't connect to the user level table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 //}
             }
         }
@@ -939,7 +939,7 @@ namespace aZynEManager
             //    }
             //}
             //for config page
-            tabinsertcheck(myconn, dgvModuleConfig,intid);
+            tabinsertcheck(myconn, dgvModuleConfig, intid);
             //for (int i = 0; i < dgvModuleConfig.Rows.Count; i++)
             //{
             //    if (dgvModuleConfig[0, i].Value != null)
@@ -965,7 +965,7 @@ namespace aZynEManager
                 myconn.Close();
         }
 
-        public void tabinsertcheck(MySqlConnection myconn,DataGridView dgv, int intid)
+        public void tabinsertcheck(MySqlConnection myconn, DataGridView dgv, int intid)
         {
             for (int i = 0; i < dgv.Rows.Count; i++)
             {
@@ -984,7 +984,7 @@ namespace aZynEManager
                         cmd.Dispose();
                     }
                 }
-            } 
+            }
         }
 
         private void tabModule_SelectedPageChanged(object sender, EventArgs e)
@@ -1017,7 +1017,7 @@ namespace aZynEManager
                         bool ok = false;
                         if (Boolean.TryParse(dgvModuleReport[0, i].Value.ToString(), out ok))
                         {
-                            if(ok)
+                            if (ok)
                                 cntchk += 1;
                         }
                     }
@@ -1066,7 +1066,7 @@ namespace aZynEManager
 
         private void cmbSystem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
 
             if (cmbSystem.SelectedValue.ToString() == "1")
             {
@@ -1076,7 +1076,7 @@ namespace aZynEManager
                 dgvModuleConfig.Enabled = true;
                 dgvModuleReport.Enabled = true;
                 dgvModuleUtility.Enabled = true;
-                dgvModuleTicket.Enabled = false;
+               // dgvModuleTicket.Enabled = false;
 
                 tabModule.SelectedPage = pageCinema;
                 txtuserlevel.Focus();
@@ -1099,10 +1099,20 @@ namespace aZynEManager
                     setCheck(dgvModuleConfig, false);
                 else if (tabModule.SelectedPage == pageTicket)
                     setCheck(dgvModuleTicket, false);
-                
+
                 tabModule.SelectedPage = pageTicket;
                 txtuserlevel.Focus();
             }
+        }
+
+        private void dgvUserLevel_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvModuleTicket_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

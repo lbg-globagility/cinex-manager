@@ -34,6 +34,8 @@
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.dgvModuleCinema = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.cmbSystem = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.txtuserlevel = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.grpgrant = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
@@ -58,25 +60,19 @@
             this.pageTicket = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.dgvModuleTicket = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmbSystem = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleCinema)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabModule)).BeginInit();
@@ -128,6 +124,7 @@
             this.dgvUserLevel.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvUserLevel.TabIndex = 31;
             this.dgvUserLevel.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUserLevel_CellClick);
+            this.dgvUserLevel.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUserLevel_CellContentClick);
             // 
             // btnselect
             // 
@@ -217,6 +214,29 @@
             this.kryptonGroup1.StateCommon.Border.Rounding = 5;
             this.kryptonGroup1.StateCommon.Border.Width = 2;
             this.kryptonGroup1.TabIndex = 321;
+            // 
+            // cmbSystem
+            // 
+            this.cmbSystem.BackColor = System.Drawing.Color.White;
+            this.cmbSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSystem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSystem.FormattingEnabled = true;
+            this.cmbSystem.Location = new System.Drawing.Point(71, 8);
+            this.cmbSystem.Name = "cmbSystem";
+            this.cmbSystem.Size = new System.Drawing.Size(214, 21);
+            this.cmbSystem.TabIndex = 332;
+            this.cmbSystem.SelectedIndexChanged += new System.EventHandler(this.cmbSystem_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(6, 11);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(41, 13);
+            this.label13.TabIndex = 331;
+            this.label13.Text = "System";
             // 
             // txtuserlevel
             // 
@@ -790,6 +810,7 @@
             this.dgvModuleTicket.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvModuleTicket.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvModuleTicket.TabIndex = 80;
+            this.dgvModuleTicket.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvModuleTicket_CellContentClick);
             // 
             // groupBox2
             // 
@@ -799,29 +820,6 @@
             this.groupBox2.Size = new System.Drawing.Size(360, 238);
             this.groupBox2.TabIndex = 329;
             this.groupBox2.TabStop = false;
-            // 
-            // cmbSystem
-            // 
-            this.cmbSystem.BackColor = System.Drawing.Color.White;
-            this.cmbSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSystem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbSystem.FormattingEnabled = true;
-            this.cmbSystem.Location = new System.Drawing.Point(71, 8);
-            this.cmbSystem.Name = "cmbSystem";
-            this.cmbSystem.Size = new System.Drawing.Size(214, 21);
-            this.cmbSystem.TabIndex = 332;
-            this.cmbSystem.SelectedIndexChanged += new System.EventHandler(this.cmbSystem_SelectedIndexChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(6, 11);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 13);
-            this.label13.TabIndex = 331;
-            this.label13.Text = "System";
             // 
             // frmUserLevel
             // 
@@ -846,20 +844,16 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModuleCinema)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).EndInit();
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);

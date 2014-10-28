@@ -288,6 +288,8 @@ namespace aZynEManager
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+
+           
             unselectbutton();
             if (btnDelete.Text == "remove")
             {
@@ -310,7 +312,8 @@ namespace aZynEManager
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
-
+                    //if (rowCount > 1)
+                    //melvin 10-13-2014
                     if (rowCount > 0)
                     {
                         setnormal();
@@ -319,6 +322,8 @@ namespace aZynEManager
                         MessageBox.Show("Can't remove this record, \n\rit is being used by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    //else if (rowCount == 1)
+                    //melvin 10-13-2014
                     else if (rowCount == 0)
                     {
                         //delete from the moview table where the status is inactive or = 0
@@ -352,7 +357,7 @@ namespace aZynEManager
 
                 }
             }
-            refreshDGV();
+            refreshDGV();//melvin 10-13-2014
             setnormal();
         }
 

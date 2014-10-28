@@ -16,8 +16,7 @@ namespace aZynEManager
         public DataTable setDataTable(string sqry, string conn)
         {
             DataTable dt = new DataTable();
-            try
-            {
+       
                 MySqlConnection myconn = new MySqlConnection();
                 myconn.ConnectionString = conn;
                 if (myconn.State == ConnectionState.Closed)
@@ -28,10 +27,8 @@ namespace aZynEManager
                     da.Fill(dt);
                     myconn.Close();
                 }
-            }
-            catch
-            {
-            }
+            
+
             return dt;
         }
 
@@ -157,7 +154,7 @@ namespace aZynEManager
             {
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
-                MessageBox.Show(err.Message, "AUDIT TRAIL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(err.Message, " AUDIT TRAIL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
             }
         }

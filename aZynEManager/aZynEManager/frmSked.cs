@@ -294,7 +294,7 @@ namespace aZynEManager
             do
             {
                 sqry = new StringBuilder();
-                sqry.Append("select a.start_time, a.end_time, c.code, a.id from movies_schedule_list a ");
+                sqry.Append("select a.start_time, a.end_time, c.code, a.id, b.status from movies_schedule_list a ");
                 sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
@@ -320,6 +320,7 @@ namespace aZynEManager
                         string sval = dr["code"].ToString();
                         string stime = dr["start_time"].ToString();
                         string etime = dr["end_time"].ToString();
+                        string stat = dr["status"].ToString();
                         DateTime dtstime = Convert.ToDateTime(stime);
                         DateTime dtetime = Convert.ToDateTime(stime);
                         string stimeval = dtstime.ToShortTimeString();// +" - " + dtetime.ToShortTimeString();
@@ -330,6 +331,11 @@ namespace aZynEManager
                                 firsttitle = sval;
                                 itemcolor = Color.FromArgb(100, 225, 225, 100);//Color.LightSteelBlue;
                             }
+                            //melvin 10-27-2014 change color for unpublish movie
+                            if (stat == "0")
+                            {
+                                itemcolor = Color.Red;
+                            }
 
                             if (firsttitle != sval)
                             {
@@ -339,7 +345,16 @@ namespace aZynEManager
                                     cal.Items.Add(calitem);
 
                                 intsw = 0;
-                                itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);
+                                
+                                //melvin 10-27-2014 change color for unpublish movie
+                                if (stat == "0")
+                                {
+                                    itemcolor = Color.Red;
+                                }
+                                else
+                                {
+                                    itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);  
+                                }
                                 firsttitle = sval;
                             }
                             calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
@@ -377,6 +392,40 @@ namespace aZynEManager
         public void unselectbutton()
         {
             btnselect.Select();
+        }
+
+        private void toolRefresh_Click(object sender, EventArgs e)
+        {
+            //melvin 10-27-2014 add right-click refresh
+            try
+            {
+                for (int i = 0; i < m_dtcinema.Rows.Count; i++)
+                {
+                    string cinemaname = m_dtcinema.Rows[i]["name"].ToString();
+                    int cinemaid = Convert.ToInt32(m_dtcinema.Rows[i]["id"].ToString());
+
+                    Control.ControlCollection coll = grpfilter.Panel.Controls;
+                    foreach (Control con in coll)
+                    {
+                        if (con is System.Windows.Forms.Calendar.Calendar)
+                        {
+                            if (con.Text.ToString().ToUpper() == cinemaname.Replace(" ", "").ToUpper())
+                            {
+                                ((System.Windows.Forms.Calendar.Calendar)con).SetViewRange(calview.SelectionStart, calview.SelectionEnd);
+
+                                CultureInfo defaultCultureInfo = CultureInfo.CurrentCulture;
+                                DateTime dtstart = GetFirstDayOfWeek(calview.SelectionStart, defaultCultureInfo);
+                                addScreeningSched((System.Windows.Forms.Calendar.Calendar)con, cinemaid, dtstart);
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
     }
 }

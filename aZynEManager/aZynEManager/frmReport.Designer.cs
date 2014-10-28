@@ -47,7 +47,7 @@
             this.rdlViewer1.HighlightAllColor = System.Drawing.Color.Fuchsia;
             this.rdlViewer1.HighlightCaseSensitive = false;
             this.rdlViewer1.HighlightItemColor = System.Drawing.Color.Aqua;
-            //this.rdlViewer1.HighlightPageItem = null;
+           // this.rdlViewer1.HighlightPageItem = null;
             this.rdlViewer1.HighlightText = null;
             this.rdlViewer1.Location = new System.Drawing.Point(0, 61);
             this.rdlViewer1.Name = "rdlViewer1";
@@ -169,6 +169,7 @@
             this.Name = "frmReport";
             this.Text = "frmReport";
             this.Load += new System.EventHandler(this.frmReport_Load);
+            this.Resize += new System.EventHandler(this.frmReport_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

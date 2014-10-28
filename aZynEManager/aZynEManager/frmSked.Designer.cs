@@ -41,22 +41,21 @@
             this.btnsked = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.MenuRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolRefresh = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonHeaderGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonHeaderGroup1.Panel)).BeginInit();
             this.kryptonHeaderGroup1.Panel.SuspendLayout();
             this.kryptonHeaderGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
+            this.MenuRefresh.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpfilter
@@ -70,6 +69,7 @@
             // grpfilter.Panel
             // 
             this.grpfilter.Panel.AutoScroll = true;
+            this.grpfilter.Panel.ContextMenuStrip = this.MenuRefresh;
             this.grpfilter.Panel.Controls.Add(this.kryptonGroup1);
             this.grpfilter.Panel.Controls.Add(this.grpgrant);
             this.grpfilter.Panel.Controls.Add(this.btnselect);
@@ -319,6 +319,21 @@
             this.btnselect.Values.Text = "unselect";
             this.btnselect.Visible = false;
             // 
+            // MenuRefresh
+            // 
+            this.MenuRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.MenuRefresh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolRefresh});
+            this.MenuRefresh.Name = "MenuRefresh";
+            this.MenuRefresh.Size = new System.Drawing.Size(111, 26);
+            // 
+            // toolRefresh
+            // 
+            this.toolRefresh.Name = "toolRefresh";
+            this.toolRefresh.Size = new System.Drawing.Size(110, 22);
+            this.toolRefresh.Text = "refresh";
+            this.toolRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
+            // 
             // frmSked
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,25 +346,22 @@
             this.Opacity = 0.98D;
             this.Text = "Movie Schedules";
             this.Load += new System.EventHandler(this.frmSked_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             this.grpfilter.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonHeaderGroup1.Panel)).EndInit();
             this.kryptonHeaderGroup1.Panel.ResumeLayout(false);
             this.kryptonHeaderGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonHeaderGroup1)).EndInit();
             this.kryptonHeaderGroup1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).EndInit();
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
+            this.MenuRefresh.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -367,5 +379,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup grpgrant;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
+        private System.Windows.Forms.ContextMenuStrip MenuRefresh;
+        private System.Windows.Forms.ToolStripMenuItem toolRefresh;
     }
 }
