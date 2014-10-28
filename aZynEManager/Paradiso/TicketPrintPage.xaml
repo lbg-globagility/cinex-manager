@@ -6,7 +6,7 @@
       xmlns:l="clr-namespace:Paradiso"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
-	Title="TicketPrintPage" SizeChanged="Page_SizeChanged">
+	Title="TicketPrintPage" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/Black.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -26,38 +27,59 @@
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
-        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350">
-            <StackPanel DockPanel.Dock="Bottom" Margin="10">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <TextBlock VerticalAlignment="Center">OR Number:</TextBlock>
-                    <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper"></TextBox>
-                    <Button Width="100" Name="Search" Click="Search_Click">Search</Button>
-                </StackPanel>
+        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350" Opacity="1">
+            <StackPanel DockPanel.Dock="Bottom" Margin="0" Background="Black">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Button Width="100" Grid.Column="0" Name="Void" Click="Void_Click">Void</Button>
-                    <Button Width="100" Grid.Column="1" Margin="5,0,0,0" Name="Print" Click="Print_Click">Print</Button>
-                    <Button Width="100" Grid.Column="2" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click">Cancel</Button>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="OR Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                        <Button Name="Search" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
+                            <Rectangle Width="20" Height="20" >
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Name="Void" Click="Void_Click" Background="Black" ToolTip="Void" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        Void
+                    </Button>
+                    <Button Grid.Column="2" Margin="5,0,0,0" Name="Print" Click="Print_Click" Background="Black" ToolTip="Print" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_printer}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Grid.Column="3" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click"  Background="Black" ToolTip="Cancel" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_cancel}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
                 </Grid>
             </StackPanel>
             <Border>
                 <Canvas>
-                    <Canvas Name="TicketCanvas" >
-                <StackPanel Margin="5,10,5,0">
+                    <Canvas Name="TicketCanvas" Canvas.Left="80"  Canvas.Top="70">
+                <StackPanel Margin="5,0">
                     <TextBlock FontSize="12" TextAlignment="Center" Width="174" Height="14" Text="{Binding Ticket.Header1}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.Header2}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.TIN, StringFormat='TIN:{0}'}"/>
-                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="8" Text="{Binding Ticket.PN, StringFormat='PN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.Header2}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.MIN, StringFormat='MIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.TIN, StringFormat='TIN:{0}'}"/>
+                    <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.PN, StringFormat='PN:{0}'}"/>
                     <TextBlock FontSize="14" TextAlignment="Center" Width="174" Height="16" Text="{Binding Ticket.MovieCode}"/>
-                    <TextBlock FontSize="8" Width="174" Height="10" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
+                    <TextBlock FontSize="7" Width="174" Height="9" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
                     <Border BorderThickness="1" BorderBrush="Black">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -69,17 +91,17 @@
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="124" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" FontSize="16" Text="{Binding Ticket.CinemaNumber}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" FontSize="8" Height="10" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MM/dd/yy ddd}'}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="8" Height="10" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
+                            <TextBlock Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" FontSize="14" Text="{Binding Ticket.CinemaNumber}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MM/dd/yy ddd}'}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
                             <StackPanel Grid.Column="1" Grid.Row="2"  Orientation="Horizontal">
-                                <TextBlock FontSize="8" Height="10" Text="{Binding Ticket.PatronCode, StringFormat='Peso  {0}'}"/>
-                                <TextBlock FontSize="8" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#}'}" xml:space="preserve"/>
+                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.PatronCode, StringFormat='Peso  {0}'}"/>
+                                <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#}'}" xml:space="preserve"/>
                             </StackPanel>
                         </Grid>
                     </Border>
-                    <TextBlock FontSize="8" Height="10" Margin="0,2,0,-2" Text="{Binding Ticket.SeatTypeName}" />
-                    <TextBlock FontSize="12" Height="14">ADMIT ONE</TextBlock>
+                    <TextBlock FontSize="7" Height="9" Text="{Binding Ticket.SeatTypeName}" />
+                    <TextBlock FontSize="9">ADMIT ONE</TextBlock>
                     <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -110,7 +132,7 @@
                             <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.SerialNumber, StringFormat='SN:{0}'}"/>
                         </StackPanel>
                     </Grid>
-                        <Grid Margin="0,2,0,0">
+                        <Grid Margin="0,0,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="8" />
                                 <RowDefinition Height="8" />
@@ -136,7 +158,7 @@
                                 <ColumnDefinition Width="106" />
                                 <ColumnDefinition Width="48" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock FontSize="7" Height="10" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.MovieCode}"/>
+                            <TextBlock FontSize="7" Height="9" Grid.Row="0" Grid.Column="0" Text="{Binding Ticket.MovieCode}"/>
                             <TextBlock xml:space="preserve" VerticalAlignment="Center" FontSize="6" Height="8" Grid.Row="0" Grid.Column="1" Text="{Binding Ticket.SerialNumber, StringFormat=' SN:{0}'}"/>
                             <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
                                 <Grid.RowDefinitions>
@@ -147,7 +169,7 @@
                                     <ColumnDefinition Width="24" />
                                     <ColumnDefinition Width="72" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock FontSize="7" Height="10" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Ticket.CinemaNumber}"/>
+                                <TextBlock FontSize="7" Height="9" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Ticket.CinemaNumber}"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" >
                                     <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='MM/dd/yy ddd'}"/>
                                     <TextBlock xml:space="preserve"> </TextBlock>

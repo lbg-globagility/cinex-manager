@@ -114,9 +114,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Adorners\RubberbandAdorner.cs" />
+    <Compile Include="CitizenPrint.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
+    <Compile Include="ExtensionClass.cs" />
     <Compile Include="FreeSeatingPage.xaml.cs">
       <DependentUpon>FreeSeatingPage.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,8 @@
     <Compile Include="Model\PatronQuantityModel.cs" />
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
+    <Compile Include="Model\ReservedSeatListModel.cs" />
+    <Compile Include="Model\ReservedSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
     <Compile Include="MovieCalendarPage.xaml.cs">
@@ -160,11 +165,12 @@
     <Compile Include="Converters\ScreenTimeColorConverter.cs" />
     <Compile Include="Converters\ScreenTimeColorMultiConverter.cs" />
     <Compile Include="Converters\SeatImageMultiConverter.cs" />
+    <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
+    <Compile Include="Converters\SeatColorConverter.cs" />
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
-    <Compile Include="Converters\SeatColorConverter.cs" />
+    <Compile Include="Converters\SeatColorMultiConverter.cs" />
     <Compile Include="SeatingPage.xaml.cs">
       <DependentUpon>SeatingPage.xaml</DependentUpon>
     </Compile>
@@ -212,13 +218,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ReservedSeatingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SeatingPage.xaml">
       <SubType>Designer</SubType>

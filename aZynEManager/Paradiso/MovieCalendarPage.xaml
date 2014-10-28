@@ -24,87 +24,154 @@
         <Canvas.Resources>
             <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
             <l:FooterLineConverter x:Key="footerLine" />
+            <!--ControlTemplate x:Key="ListViewNewTemplate" TargetType="{x:Type ListBox}">
+                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
+                    <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </ScrollViewer>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsGrouping" Value="True">
+                        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate-->
         </Canvas.Resources>
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg"/>
         </Canvas.Background>
-        <ListBox Opacity="1" ItemsSource="{Binding Path=MovieSchedules}" Background="Transparent" Name="MovieCalendarListBox">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <l:UniformGridWithOrientation Columns="{Binding ColumnCount}" Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Background="Transparent" Margin="0">
-                        <StackPanel.Resources>
-                            <BooleanToVisibilityConverter x:Key="boolToVis" />
-                            <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
-                            <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
-                        </StackPanel.Resources>
-                        <Border BorderThickness="1" BorderBrush="Gray"  Background="LightGoldenrodYellow" >
-                            <DockPanel  Margin="0" Name="MovieCalendarItemPanel" Visibility="{Binding Path=Number, Converter={StaticResource movieScheduleListVisibility}}" >
-                                <Grid Margin="0,0,5,0" DockPanel.Dock="Left">
-                                    <Image Source="Images/bg-cinema-no.png"/>
-                                    <TextBlock Name="MovieCalendarNumber" FontFamily="Arial" FontSize="75" FontWeight="Bold" DockPanel.Dock="Left" Foreground="Black" TextAlignment="Center" Text="{Binding Path=Number}" Margin="0,12,0,0"></TextBlock>
-                                </Grid>
-                                <StackPanel Name="MovieCalendarStackPanel" Background="LightGoldenrodYellow">
-                                    <Canvas Height="20" Margin="0, 10, 0, 0">
-                                        <Canvas Name="MovieCanvas" Width="{Binding Path=ActualWidth, ElementName=MovieCalendarStackPanel}" ClipToBounds="True" Height="20" >
-                                            <TextBlock FontFamily="Arial" Foreground="Blue" Name="MovieName" FontSize="18" FontWeight="Bold" Text="{Binding SelectedMovieScheduleListItem.MovieName}" ></TextBlock>
-                                        </Canvas>
-                                    </Canvas>
-                                    <ListView ItemsSource="{Binding MovieScheduleListItems}" Padding="0" BorderThickness="0" Background="LightGoldenrodYellow">
-                                        <ListView.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" Background="LightGoldenrodYellow"></StackPanel>
-                                            </ItemsPanelTemplate>
-                                        </ListView.ItemsPanel>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" IsEnabled="{Binding IsEnabled}" >
-                                                        <TextBlock Width="55" Foreground="White" TextAlignment="Center" FontFamily="Arial" FontSize="14" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}">
-                                                            <TextBlock.Background>
-                                                                 <MultiBinding Converter="{StaticResource screenTimeColor}">
-                                                                     <Binding Path="IsEnabled"/>
-                                                                     <Binding Path="Key"/>
-                                                                     <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
-                                                                 </MultiBinding>
-                                                            </TextBlock.Background>
-                                                        </TextBlock>
-                                                </Button>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
+        <DockPanel Background="Black" Name="MovieCalendarListBox">
+            <ListBox Opacity="1" ItemsSource="{Binding Path=MovieSchedules}" Background="Black" Margin="15,20"  BorderBrush="Black">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <l:UniformGridWithOrientation Columns="{Binding ColumnCount}" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Background="Black" Margin="0">
+                            <StackPanel.Resources>
+                                <BooleanToVisibilityConverter x:Key="boolToVis" />
+                                <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
+                                <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
+                            </StackPanel.Resources>
+                            <Border BorderThickness="0" BorderBrush="Gray"  Background="LightGoldenrodYellow" >
+                                <DockPanel  Margin="0" Name="MovieCalendarItemPanel" Visibility="{Binding Path=Number, Converter={StaticResource movieScheduleListVisibility}}" >
+                                
+                                    <Grid Margin="0,0,5,0" DockPanel.Dock="Left">
+                                        <Image Source="Images/bg-cinema-no.png"/>
+                                        <TextBlock Name="MovieCalendarNumber" FontFamily="Arial" FontSize="75" FontWeight="Bold" DockPanel.Dock="Left" Foreground="Black" TextAlignment="Center" Text="{Binding Path=Number}" Margin="0,12,0,0"></TextBlock>
+                                    </Grid>
 
-                                    <TextBlock Foreground="Black"  Background="LightGoldenrodYellow" FontFamily="Segoe UI" FontSize="20" Text="{Binding SelectedMovieScheduleListItem.Rating}"></TextBlock>
-
-                                    <StackPanel Margin="0, 0" Orientation="Horizontal">
-                                        <TextBlock FontFamily="Arial" FontSize="11" Foreground="Black" VerticalAlignment="Center">Running Time:</TextBlock>
-                                        <TextBlock FontFamily="Arial" FontSize="11" Foreground="Black" VerticalAlignment="Center" Margin="5, 0, 0, 0" Width="50" Text="{Binding Path=SelectedMovieScheduleListItem.RunningTime}"></TextBlock>
-                                        <TextBlock FontFamily="Arial" FontSize="11" Foreground="Black" VerticalAlignment="Center">Available:</TextBlock>
-                                        <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold"  Foreground="Green" Width="40" Margin="3, 0, 0, 0" Text="{Binding Path=SelectedMovieScheduleListItem.Available}"></TextBlock>
-                                        <TextBlock FontFamily="Arial" FontSize="11" Foreground="Black" VerticalAlignment="Center">Booked:</TextBlock>
-                                        <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold" Margin="3, 0, 0, 0" Width="40"  Foreground="Red" Text="{Binding Path=SelectedMovieScheduleListItem.Booked}"></TextBlock>
+                                    <StackPanel Name="MovieCalendarStackPanel" Background="LightGoldenrodYellow">
+                                        <TextBlock  Margin="0, 20, 0, 0" TextWrapping="Wrap" Background="LightGoldenrodYellow" FontSize="20" FontFamily="Arial" FontWeight="Bold" Height="Auto" Foreground="Black" Text="{Binding SelectedMovieScheduleListItem.MovieName}" ></TextBlock>
+                                        <!--Canvas Height="20" Margin="0, 10, 0, 0">
+                                            <Canvas Name="MovieCanvas" Width="{Binding Path=ActualWidth, ElementName=MovieCalendarStackPanel}" ClipToBounds="True" Height="20" >
+                                                <TextBlock FontFamily="Arial" Foreground="Black" Name="MovieName" FontSize="20" FontWeight="Bold" Text="{Binding SelectedMovieScheduleListItem.MovieName}" ></TextBlock>
+                                            </Canvas>
+                                        </Canvas-->
                                     </StackPanel>
-                                </StackPanel>
-                            </DockPanel>
-                        </Border>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                                </DockPanel>
+                            </Border>
+                            <ListView ItemsSource="{Binding MovieScheduleListItems}" Padding="0" BorderThickness="0" Margin="0" Background="Transparent" HorizontalAlignment="Stretch">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" Background="Black" Margin="0,-3,0,-3"></StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" IsEnabled="{Binding IsEnabled}" >
+                                            <TextBlock Foreground="White" TextAlignment="Center" FontFamily="Arial" FontSize="14" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}">
+                                                <TextBlock.Background>
+                                                        <MultiBinding Converter="{StaticResource screenTimeColor}">
+                                                            <Binding Path="IsEnabled"/>
+                                                            <Binding Path="Key"/>
+                                                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
+                                                            <Binding Path="Index"/>
+                                                        </MultiBinding>
+                                                </TextBlock.Background>
+                                            </TextBlock>
+                                        </Button-->
+                                        <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                                            <TextBlock.Background>
+                                                    <MultiBinding Converter="{StaticResource screenTimeColor}">
+                                                        <Binding Path="IsEnabled"/>
+                                                        <Binding Path="Key"/>
+                                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
+                                                        <Binding Path="Index"/>
+                                                    </MultiBinding>
+                                            </TextBlock.Background>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
 
-        </ListBox>
-        
-        <StackPanel Canvas.Right="10" Canvas.Top="10" Orientation="Horizontal" Name="TicketPanel">
-            <Button Click="Button_Click_1" ToolTip="Ticket" Style="{DynamicResource MetroCircleButtonStyle}" Width="35" Height="35">
+                            <Grid Background="Gray">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="20" Text="{Binding SelectedMovieScheduleListItem.Rating}"></TextBlock>
+                                <StackPanel Grid.Column="1" Margin="0, 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center">Running Time:</TextBlock>
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center" Margin="5, 0, 0, 0" Width="50" Text="{Binding Path=SelectedMovieScheduleListItem.RunningTime}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Margin="0, 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center">Available:</TextBlock>
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" Width="40" Margin="3, 0, 0, 0" Text="{Binding Path=SelectedMovieScheduleListItem.Available}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" Margin="0, 0" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center">Booked:</TextBlock>
+                                    <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" Margin="3, 0, 0, 0" Width="40" Text="{Binding Path=SelectedMovieScheduleListItem.Booked}"></TextBlock>
+                                </StackPanel>
+
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+        </DockPanel>
+
+        <Grid Canvas.Right="0" Canvas.Top="0" Name="TicketPanel" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Name="Unreserved" Click="Unreserved_Click"  ToolTip="Unreserved" Style="{DynamicResource MetroCircleButtonStyle}" Width="35" Height="35">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_unlock}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button Grid.Column="0" Name="Reserved" Click="Reserved_Click" ToolTip="Reserved" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_lock}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button Grid.Column="1" Click="Button_Click_1" ToolTip="Ticket" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
                 <Rectangle Width="20" Height="20">
                     <Rectangle.Fill>
                         <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_ticket}" />
                     </Rectangle.Fill>
                 </Rectangle>
             </Button>
-        </StackPanel>
+        </Grid>
 
         <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
             <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:l="clr-namespace:Paradiso"
-      mc:Ignorable="d" Title="SeatingPage1" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
+      mc:Ignorable="d" Title="SeatingPage" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,11 +16,35 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <ContextMenu x:Key="cmUnReserve">
+                <DockPanel>
+                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click">Unreserve Seats</Button>
+                    <ItemsControl ItemsSource="{Binding ReservedSeats}" Margin="5">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Canvas Width="32" Height="32" Margin="2">
+                                    <Image Width="32" Source="/Paradiso;component/Images/seat-green.png">
+                                    </Image>
+                                    <TextBlock Canvas.Left="5" Canvas.Top="15" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                                </Canvas>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DockPanel>
+            </ContextMenu>
+
         </ResourceDictionary>
+        
     </Page.Resources>
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
+            <l:SeatColorMultiConverter x:Key="seatColorMulti" />
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
@@ -154,15 +178,25 @@
                                     </DockPanel>
                                 </ContextMenu>
                             </Canvas.ContextMenu>
-                            <Image Name="SeatIcon" Width="{Binding Width}" >
-                                    <Image.Source>
-                                        <MultiBinding Converter="{StaticResource seatImage}">
-                                            <Binding Path="Type"/>
-                                            <Binding Path="SeatType"/>
-                                        </MultiBinding>
-                                    </Image.Source>
-                                </Image>
-                                <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                            <Grid>
+                                <Grid.Background>
+                                    <MultiBinding Converter="{StaticResource seatColorMulti}">
+                                        <Binding Path="Type"/>
+                                        <Binding Path="SeatColor"/>
+                                    </MultiBinding>
+                                </Grid.Background>
+                                <Image Name="SeatIcon" Width="{Binding Width}" >
+                                        <Image.Source>
+                                            <MultiBinding Converter="{StaticResource seatImage}">
+                                                <Binding Path="Type"/>
+                                                <Binding Path="SeatType"/>
+                                            </MultiBinding>
+                                        </Image.Source>
+                                    </Image>
+                            </Grid>
+
+                            <TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="7" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                            
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -181,8 +215,35 @@
             </ScrollViewer-->
         </DockPanel>
         
-        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White">
-            <TextBlock FontSize="14" FontWeight="Bold">Ticket Purchase Details</TextBlock>
+        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White" Name="PurchaseDetailsPanel" >
+            <TextBlock FontSize="14" FontWeight="Bold" Name="PurchaseDetailsText" PreviewMouseLeftButtonDown="PurchaseDetailsText_PreviewMouseLeftButtonDown" PreviewMouseMove="PurchaseDetailsText_PreviewMouseMove" PreviewMouseUp="PurchaseDetailsText_PreviewMouseUp">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="CornflowerBlue" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="Black" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>                        
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <TextBlock.Text>
+                    Ticket Purchase Details
+                </TextBlock.Text>
+            </TextBlock>
             <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
                 <ListView.ItemTemplate>
                     <DataTemplate>

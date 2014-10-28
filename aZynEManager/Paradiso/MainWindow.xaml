@@ -4,6 +4,7 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Paradiso"
         xmlns:con="http://schemas.kent.boogaart.com/converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"                       
         Title="TICKETING TERMINAL" MinHeight="768" MinWidth="1024" Icon="/Paradiso;component/Images/icon-ticketingterminal.png" Loaded="MetroWindow_Loaded">
     <DockPanel>
         <DockPanel.Resources>
@@ -35,7 +36,8 @@
                 <Line X1="10" Y1="14" X2="10" Y2="35" Stroke="White" StrokeThickness="2"></Line>
                 <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
             </StackPanel>
-            <TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock>
+            <xctk:DateTimePicker VerticalAlignment="Center" Margin="20,0" Background="Transparent" Foreground="LightYellow" FontSize="20" TextAlignment="Center" Name="ScreeningDate" Format="Custom" FormatString="MMMM dd, yyyy" TimeFormat="Custom" TimePickerVisibility="Collapsed" ShowButtonSpinner="False" AutoCloseCalendar="True" ValueChanged="ScreeningDate_ValueChanged" AllowSpin="False" ClipValueToMinMax ="True"/>
+            <!--TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock-->
         </DockPanel>
         <Frame Name="MainFrame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
     </DockPanel>    

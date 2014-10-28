@@ -26,7 +26,7 @@ namespace Paradiso
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
-        private int intMaxRowCount = 4;
+        private int intMaxRowCount = 2;
         DispatcherTimer timer;
 
         public MovieCalendarPage()
@@ -53,6 +53,12 @@ namespace Paradiso
                 TicketPanel.Visibility = Visibility.Visible;
             else
                 TicketPanel.Visibility = Visibility.Hidden;
+
+            if (paradisoObjectManager.HasRights("RESERVE"))
+                Reserved.Visibility = Visibility.Visible;
+            else
+                Reserved.Visibility = Visibility.Hidden;
+            Unreserved.Visibility = Visibility.Hidden;
         }
 
         public int ColumnCount
@@ -196,12 +202,25 @@ namespace Paradiso
                             }
                         }
 
+                        if (ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && !_movie_schedule_list_item.IsEnabled)
+                        {
+                            _movie_schedule_list_item.IsEnabled = true;
+                        }
+                        _movie_schedule_list_item.Index = movieScheduleItem.MovieScheduleListItems.Count;
+
                         movieScheduleItem.MovieScheduleListItems.Add(_movie_schedule_list_item);
 
                     }
 
                     if (blnIsClear)
                     {
+
+                        //checks if date 
+                        if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                        {
+                            movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
+                        }
+
                         movieScheduleItems.Add(movieScheduleItem);
                     }
                     else
@@ -239,6 +258,12 @@ namespace Paradiso
                                 }
                             }
 
+                            //checks if date 
+                            if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                            {
+                                movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
+                            }
+
                             movieScheduleItems[intIndex] = movieScheduleItem;
                             lstKeys.Add(movieScheduleItem.Key);
                         }
@@ -261,16 +286,35 @@ namespace Paradiso
                 }
             }
 
-            for (int k = movieScheduleItems.Count; k < 8; k++)
+            /*
+            if (movieScheduleItems.Count == 2)
+                intMaxRowCount = 1;
+            else if (movieScheduleItems.Count == 4)
+                intMaxRowCount = 2;
+            */
+            //get maximum row count
+            intMaxRowCount = movieScheduleItems.Count / 2;
+            if (movieScheduleItems.Count % 2 != 0)
+                intMaxRowCount++;
+
+
+            //enable this code to fill up empty slot
+            /*
+            for (int k = movieScheduleItems.Count; k < intMaxRowCount*2; k++)
             {
                 movieScheduleItems.Add( new MovieScheduleModel());
             }
+            */
 
             intColumnCount = 1;
 
             if (movieScheduleItems.Count > intMaxRowCount)
                 intColumnCount = 2;
 
+            if (movieScheduleItems.Count > 0)
+                MovieCalendarListBox.Visibility = System.Windows.Visibility.Visible;
+            else
+                MovieCalendarListBox.Visibility = System.Windows.Visibility.Hidden;
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -306,6 +350,14 @@ namespace Paradiso
                     movieScheduleItem.SelectedMovieScheduleListItem = null;
                 else
                     movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[intMovieScheduleListItemIndex];
+
+                //checks if date
+                DateTime dtScreenDate = ParadisoObjectManager.GetInstance().ScreeningDate;
+                if (dtScreenDate < dtNow && movieScheduleItem.SelectedMovieScheduleListItem == null && ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
+                {
+                    movieScheduleItem.SelectedMovieScheduleListItem = movieScheduleItem.MovieScheduleListItems[0];
+                }
+
             }
             else
             {
@@ -315,6 +367,7 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            //MovieScheduleListItemsListView
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -339,13 +392,18 @@ namespace Paradiso
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
+
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
                 timer.Stop();
-                NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                if (ParadisoObjectManager.GetInstance().IsReservedMode)
+                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
+                else
+                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
 
                 /*
                 if (msli.SeatType == 1) //reserved seating
@@ -366,7 +424,8 @@ namespace Paradiso
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
@@ -386,7 +445,8 @@ namespace Paradiso
 
         private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
-            Button button = sender as Button;
+            //Button button = sender as Button;
+            TextBlock button = sender as TextBlock;
             var dataContext = button.DataContext;
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
@@ -406,6 +466,20 @@ namespace Paradiso
         {
             timer.Stop();
             NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
+        }
+
+        private void Reserved_Click(object sender, RoutedEventArgs e)
+        {
+            ParadisoObjectManager.GetInstance().IsReservedMode = true;
+            Reserved.Visibility = System.Windows.Visibility.Hidden;
+            Unreserved.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Unreserved_Click(object sender, RoutedEventArgs e)
+        {
+            ParadisoObjectManager.GetInstance().IsReservedMode = false;
+            Unreserved.Visibility = System.Windows.Visibility.Hidden;
+            Reserved.Visibility = System.Windows.Visibility.Visible;
         }
 
     }

@@ -15,6 +15,7 @@ using Paradiso.Model;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using CinemaCustomControlLibrary;
+using System.Transactions;
 
 namespace Paradiso
 {
@@ -41,27 +42,37 @@ namespace Paradiso
         public bool IsFreeSeating { get; set; }
         public bool IsLimitedFreeSeating { get; set; }
         public bool IsUnlimitedFreeSeating { get; set; }
+        public bool IsReadOnly { get; set; }
+
+        private bool isDragInProgress = false;
+        private Point origCursorLocation;
+        private double origHorizOffset;
+        private double origVertOffset;
+        private bool modifyLeftOffset;
+        private bool modifyTopOffset;
+        private UIElement elementBeingDragged;
+        private bool IsEllapsed = false;
 
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
             InitializeComponent();
 
             MovieScheduleList = new MovieScheduleListModel(movieScheduleListModel);
-            if (movieScheduleListModel.SeatType == 1)
+            if (movieScheduleListModel.SeatType == 1) //reserved
             {
                 IsReservedSeating = true;
                 IsFreeSeating = false;
                 IsLimitedFreeSeating = false;
                 IsUnlimitedFreeSeating = false;
             }
-            else if (movieScheduleListModel.SeatType == 2)
+            else if (movieScheduleListModel.SeatType == 2) //limited free seating
             {
                 IsReservedSeating = false;
                 IsFreeSeating = true;
                 IsLimitedFreeSeating = true;
                 IsUnlimitedFreeSeating = false;
             }
-            else if (movieScheduleListModel.SeatType == 3)
+            else if (movieScheduleListModel.SeatType == 3) //unlimited free seating
             {
                 IsReservedSeating = false;
                 IsFreeSeating = true;
@@ -187,6 +198,8 @@ namespace Paradiso
                 //checks if movie already expired
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
                 if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                    IsEllapsed = true;
+                if (IsEllapsed && !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
                 {
                     blnIsUpdating = false;
                     MessageWindow messageWindow = new MessageWindow();
@@ -194,7 +207,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -403,6 +417,8 @@ namespace Paradiso
                                         intSeatColor
                                     ));
 
+                                    seatModel.SeatColor = intSeatColor;
+
                                     if (IsReservedSeating)
                                         break;
                                 }
@@ -422,11 +438,28 @@ namespace Paradiso
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
+            IsReadOnly = false;
+
+            ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+            if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate
+                || (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
+                ))
+            {
+                //disables everything
+                PurchaseDetailsPanel.Visibility = Visibility.Hidden;
+                clearButton.IsEnabled = false;
+                clearButton.Visibility = Visibility.Collapsed;
+                confirmButton.IsEnabled = false;
+                confirmButton.Visibility = Visibility.Collapsed;
+                IsReadOnly = true;
+            }
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (blnIsUpdating)
+                return;
+            if (IsReadOnly)
                 return;
             //timer.Stop();
             
@@ -475,6 +508,50 @@ namespace Paradiso
                         seatCanvas.ContextMenu.IsOpen = true;
 
                     }
+                    else if (seatModel.SeatType == 3)
+                    {
+                        if (!ParadisoObjectManager.GetInstance().HasRights("RESERVE"))
+                            return;
+
+                        string strSessionId = string.Empty;
+                        //verify if reserved
+                        ReservedSeatListModel reservedSeats = new ReservedSeatListModel();
+
+                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        {
+                            var sessionid = (from mcths in context.movies_schedule_list_house_seat_view
+                                             where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
+                                             mcths.notes == "RESERVED"
+                                             select mcths.session_id).SingleOrDefault();
+                            if (sessionid != null)
+                                strSessionId = sessionid;
+                            var reservedseats = (from mcths in context.movies_schedule_list_house_seat
+                                                 where mcths.session_id == strSessionId && mcths.notes == "RESERVED" && mcths.movies_schedule_list_id == MovieSchedule.Key
+                                                 orderby mcths.cinema_seat.id
+                                                 select new
+                                                 {
+                                                     mcths.id,
+                                                     sn = mcths.cinema_seat.row_name + mcths.cinema_seat.col_name,
+                                                 }
+                                                 ).ToList();
+
+                            foreach (var _rs in reservedseats)
+                            {
+                                reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn });
+                            }
+
+                        }
+
+                        if (strSessionId != string.Empty)
+                        {
+                            ContextMenu cm = this.FindResource("cmUnReserve") as ContextMenu;
+                            cm.PlacementTarget = sender as Canvas;
+
+
+                            cm.DataContext = reservedSeats;
+                            cm.IsOpen = true;
+                        }
+                    }
                 }
                 else if (IsFreeSeating)
                 {
@@ -490,7 +567,8 @@ namespace Paradiso
                 }
                 e.Handled = true;
             }
-            catch { }
+            catch //(Exception ex) 
+            { }
             this.setFocus();
         }
 
@@ -499,7 +577,7 @@ namespace Paradiso
             timer.Stop();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
         }
 
@@ -522,7 +600,7 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
 
         }
@@ -535,7 +613,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                timer.Start();
+                //timer.Start();
                 this.setFocus();
                 return;
             }
@@ -664,7 +742,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        timer.Start();
+                        //timer.Start();
                         this.setFocus();
 
                         return;
@@ -699,7 +777,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            timer.Start();
+            //timer.Start();
             this.setFocus();
 
         }
@@ -719,6 +797,8 @@ namespace Paradiso
 
             if (blnIsUpdating)
                 return;
+            if (IsReadOnly)
+                return;
 
             seatCanvas.ContextMenu.PlacementTarget = this;
             seatCanvas.ContextMenu.IsOpen = true;
@@ -734,6 +814,204 @@ namespace Paradiso
             {
                 this.confirmPatrons();
             }
+        }
+
+        private void PurchaseDetailsText_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            elementBeingDragged = PurchaseDetailsPanel;
+            elementBeingDragged.ReleaseMouseCapture();
+
+            this.isDragInProgress = false;
+            this.origCursorLocation = e.GetPosition(this);
+
+            double left = Canvas.GetLeft(elementBeingDragged);
+            double right = Canvas.GetRight(elementBeingDragged);
+            double top = Canvas.GetTop(elementBeingDragged);
+            double bottom = Canvas.GetBottom(elementBeingDragged);
+
+            this.origHorizOffset = this.ResolveOffset(left, right, out modifyLeftOffset);
+            this.origVertOffset = this.ResolveOffset(top, bottom, out modifyTopOffset);
+
+            e.Handled = true;
+
+            this.isDragInProgress = true;
+        }
+
+        private void PurchaseDetailsText_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (elementBeingDragged == null || !this.isDragInProgress)
+                return;
+
+            Point cursorLocation = e.GetPosition(this);
+
+            double newHorizontalOffset;
+            double newVerticalOffset;
+
+            if (this.modifyLeftOffset)
+                newHorizontalOffset =
+                  this.origHorizOffset + (cursorLocation.X - this.origCursorLocation.X);
+            else
+                newHorizontalOffset =
+                  this.origHorizOffset - (cursorLocation.X - this.origCursorLocation.X);
+
+            if (this.modifyTopOffset)
+                newVerticalOffset = this.origVertOffset + (cursorLocation.Y - this.origCursorLocation.Y);
+            else
+                newVerticalOffset = this.origVertOffset - (cursorLocation.Y - this.origCursorLocation.Y);
+
+            Rect elemRect = this.CalculateDragElementRect(newHorizontalOffset, newVerticalOffset);
+
+            //
+            // If the element is being dragged out of the viewable area, 
+            // determine the ideal rect location, so that the element is 
+            // within the edge(s) of the canvas.
+            //
+            bool leftAlign = elemRect.Left < 0;
+            bool rightAlign = elemRect.Right > this.ActualWidth;
+
+            if (leftAlign)
+                newHorizontalOffset = modifyLeftOffset ? 0 : this.ActualWidth - elemRect.Width;
+            else if (rightAlign)
+                newHorizontalOffset = modifyLeftOffset ? this.ActualWidth - elemRect.Width : 0;
+
+            bool topAlign = elemRect.Top < 0;
+            bool bottomAlign = elemRect.Bottom > this.ActualHeight;
+
+            if (topAlign)
+                newVerticalOffset = modifyTopOffset ? 0 : this.ActualHeight - elemRect.Height;
+            else if (bottomAlign)
+                newVerticalOffset = modifyTopOffset ? this.ActualHeight - elemRect.Height : 0;
+
+            if (this.modifyLeftOffset)
+                Canvas.SetLeft(elementBeingDragged, newHorizontalOffset);
+            else
+                Canvas.SetRight(elementBeingDragged, newHorizontalOffset);
+
+            if (this.modifyTopOffset)
+                Canvas.SetTop(elementBeingDragged, newVerticalOffset);
+            else
+                Canvas.SetBottom(elementBeingDragged, newVerticalOffset);
+        }
+        
+
+        private void PurchaseDetailsText_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            elementBeingDragged = null;
+        }
+
+        private Rect CalculateDragElementRect(double newHorizOffset, double newVertOffset)
+        {
+            if (this.elementBeingDragged == null)
+                throw new InvalidOperationException("ElementBeingDragged is null.");
+
+            Size elemSize = this.elementBeingDragged.RenderSize;
+
+            double x, y;
+
+            if (this.modifyLeftOffset)
+                x = newHorizOffset;
+            else
+                x = this.ActualWidth - newHorizOffset - elemSize.Width;
+
+            if (this.modifyTopOffset)
+                y = newVertOffset;
+            else
+                y = this.ActualHeight - newVertOffset - elemSize.Height;
+
+            Point elemLoc = new Point(x, y);
+
+            return new Rect(elemLoc, elemSize);
+        }
+
+        public double ResolveOffset(double side1, double side2, out bool useSide1)
+        {
+            useSide1 = true;
+            double result;
+            if (Double.IsNaN(side1))
+            {
+                if (Double.IsNaN(side2))
+                {
+                    // Both sides have no value, so set the
+                    // first side to a value of zero.
+                    result = 0;
+                }
+                else
+                {
+                    result = side2;
+                    useSide1 = false;
+                }
+            }
+            else
+            {
+                result = side1;
+            }
+            return result;
+        }
+
+        private void UnReserveSeat_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            ReservedSeatListModel rsl = (ReservedSeatListModel) b.DataContext;
+            if (rsl.ReservedSeats.Count > 0)
+            {
+                MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+                messageYesNoWindow.MessageText.Text = "Do you want to unreserved these seats?";
+                messageYesNoWindow.ShowDialog();
+                if (!messageYesNoWindow.IsYes)
+                    return;
+
+                string strException = string.Empty;
+                bool success = false;
+
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+
+                    using (TransactionScope transaction = new TransactionScope())
+                    {
+                        try
+                        {
+                            foreach (ReservedSeatModel rs in rsl.ReservedSeats)
+                            {
+                                var _rs = (from mslhs in context.movies_schedule_list_house_seat
+                                           where mslhs.id == rs.Key
+                                           select mslhs).FirstOrDefault();
+                                if (_rs != null)
+                                {
+                                    context.movies_schedule_list_house_seat.DeleteObject(_rs);
+                                    context.SaveChanges();
+                                }
+                            }
+
+                            context.AcceptAllChanges();
+                            transaction.Complete();
+                            success = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ex.InnerException != null)
+                                strException = ex.InnerException.Message.ToString();
+                            else
+                                strException = ex.Message.ToString();
+                        }
+                    }
+                }
+
+                if (success)
+                {
+                    //load as selected
+                    this.UpdateMovieSchedule();
+                }
+                else
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Seats cannot be unreserved.";
+                    messageWindow.ShowDialog();
+                }
+            }
+            //prompt password for administrator
+
+            //MessageBox.Show(rsl.ReservedSeats.Count.ToString());
+
         }
     }
 }

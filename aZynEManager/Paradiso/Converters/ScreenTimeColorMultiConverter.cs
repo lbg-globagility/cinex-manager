@@ -16,6 +16,7 @@ namespace Paradiso
             bool blnIsEnabled = false;
             int intKey = 0;
             int intCurrentKey = 0;
+            int intIndex = 0;
             try
             {
                 blnIsEnabled = (bool)values[0];
@@ -31,15 +32,29 @@ namespace Paradiso
                 int.TryParse(values[2].ToString(), out intCurrentKey);
             }
             catch { }
+
+            try
+            {
+                intIndex = (int)values[3];
+            }
+            catch { }
             //checks if current selection, binding not working properly
 
-            
+
+            /*
             if (!blnIsEnabled) //disabled
                 return new SolidColorBrush(Colors.LightGray);
             else if (intKey == intCurrentKey) //selected
                 return new SolidColorBrush(Colors.Green);
             else //enabled
                 return new SolidColorBrush(Colors.DarkGray);
+            */
+            if (intKey == intCurrentKey) //selected
+                return new SolidColorBrush(Colors.Orange);
+            else if (intIndex % 2 == 0)
+                return new SolidColorBrush(Colors.Black);
+            else
+                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF333333"));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

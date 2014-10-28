@@ -18,7 +18,9 @@ namespace Paradiso
                 if (screenDate == DateTime.MinValue)
                     return string.Empty;
                 else
-                    return string.Format("{0:HH:mm}", screenDate);
+                    //return string.Format("{0:HH:mm}", screenDate);
+                    return string.Format("{0:hh:mm tt}", screenDate);
+                    
             }
 
             return string.Empty;
