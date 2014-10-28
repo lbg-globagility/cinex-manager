@@ -272,6 +272,7 @@
           <Property Name="cinema_id" Type="int" Nullable="false" />
           <Property Name="movie_id" Type="int" Nullable="false" />
           <Property Name="movie_date" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="movies_schedule_list">
           <Key>
@@ -1014,6 +1015,7 @@
           <NavigationProperty Name="movie" Relationship="paradisoModel.fk_movies_schedule_movies" FromRole="movies_schedule" ToRole="movies" />
           <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_movies_schedule1" FromRole="movies_schedule" ToRole="movies_schedule_list" />
           <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1" FromRole="movies_schedule" ToRole="movies_schedule_list_patron" />
+          <Property Type="Int32" Name="status" />
         </EntityType>
         <EntityType Name="movies_schedule_list">
           <Key>
@@ -1682,6 +1684,7 @@
           <EntitySetMapping Name="movies_schedule">
             <EntityTypeMapping TypeName="paradisoModel.movies_schedule">
               <MappingFragment StoreEntitySet="movies_schedule">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
                 <ScalarProperty Name="movie_id" ColumnName="movie_id" />

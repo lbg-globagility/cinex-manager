@@ -86,7 +86,7 @@ namespace Paradiso
             {
                 //get all cinemas
                 var _cinemas = (from ms in context.movies_schedule
-                                where ms.movie_date == dtScreenDate
+                                where ms.movie_date == dtScreenDate && (ms.status == null || ms.status == 0)
                                 select new
                                 {
                                     key = ms.id, //comment

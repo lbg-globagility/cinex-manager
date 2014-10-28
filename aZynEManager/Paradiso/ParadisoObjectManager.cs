@@ -70,7 +70,7 @@ namespace Paradiso
         {
             get
             {
-                return "CINEX Ticketing System";
+                return "CinEx Ticketing System";
             }
         }
 

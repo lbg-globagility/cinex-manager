@@ -59,7 +59,7 @@ namespace Paradiso
 
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();
+                var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && (u.system_code == 2 || u.system_code == 0) select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();
                 if (username != null)
                 {
                     paradisoObjectManager.UserId = username.id;
