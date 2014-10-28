@@ -405,6 +405,7 @@ namespace aZynEManager
                     setCheck(dgvModuleUtility, true);
                 else if (tabModule.SelectedPage == pageConfig)
                     setCheck(dgvModuleConfig, true);
+                //melvin 10-28-2014
                 else if (tabModule.SelectedPage == pageTicket)
                     setCheck(dgvModuleTicket, true);
 
@@ -430,6 +431,7 @@ namespace aZynEManager
                     setCheck(dgvModuleUtility, false);
                 else if (tabModule.SelectedPage == pageConfig)
                     setCheck(dgvModuleConfig, false);
+                    //melvin 10-28-2014
                 else if (tabModule.SelectedPage == pageTicket)
                     setCheck(dgvModuleTicket, false);
             }
