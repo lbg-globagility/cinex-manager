@@ -285,6 +285,24 @@ namespace aZynEManager
 
                         m_clscon.MovieIntermissionTime = inttime;
                     }
+
+                    sbqry.Clear();
+                    sbqry.Append("[system_code] = '009'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.TIN = newdt.Rows[0]["system_value"].ToString();
+                    }
+
+                    sbqry.Clear();
+                    sbqry.Append("[system_code] = '010'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        newdt = foundRows.CopyToDataTable();
+                        m_clscon.PN = newdt.Rows[0]["system_value"].ToString();
+                    }
                 }
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
             }

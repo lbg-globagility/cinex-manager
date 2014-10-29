@@ -18,6 +18,9 @@ namespace aZynEManager
         private DateTime _movielistcutoffdate = new DateTime();
         private int _moviedefaultintermission = 0;
 
+        private string strTin = string.Empty;
+        private string strPn = string.Empty;
+
         [CategoryAttribute("Cinema"),
         DescriptionAttribute("Name of the the cinema"),
         ]
@@ -34,6 +37,7 @@ namespace aZynEManager
             get { return _cinemaaddr; }
             set { _cinemaaddr = value; }
         }
+
 
         [CategoryAttribute("Report"),
         DescriptionAttribute("Sub header that all reports needed")]
@@ -81,6 +85,22 @@ namespace aZynEManager
         {
             get { return _moviedefaultintermission; }
             set { _moviedefaultintermission = value; }
+        }
+
+        [CategoryAttribute("Cinema"),
+        DescriptionAttribute("TIN")]
+        public string TIN
+        {
+            get { return strTin; }
+            set { strTin = value; }
+        }
+
+        [CategoryAttribute("Cinema"),
+        DescriptionAttribute("PN")]
+        public string PN
+        {
+            get { return strPn; }
+            set { strPn = value; }
         }
     }
 }

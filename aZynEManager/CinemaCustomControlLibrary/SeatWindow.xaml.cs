@@ -65,7 +65,7 @@ namespace CinemaCustomControlLibrary
                 ColumnName = "",
                 RowName = "",
                 Width = 900,
-                Height = 80,
+                Height = 36,
                 Type = 2
             });
         }
