@@ -93,7 +93,7 @@ namespace Paradiso
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
-            //timer.Start();
+            timer.Start();
         }
 
         public int Key 
@@ -462,7 +462,7 @@ namespace Paradiso
                 return;
             if (IsReadOnly || !MovieSchedule.IsEnabled)
                 return;
-            //timer.Stop();
+            timer.Stop();
             
             Canvas seatCanvas = (Canvas)sender;
             Seat = null;
@@ -570,6 +570,7 @@ namespace Paradiso
             }
             catch //(Exception ex) 
             { }
+            timer.Start();
             this.setFocus();
         }
 
@@ -578,7 +579,7 @@ namespace Paradiso
             timer.Stop();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
         }
 
@@ -601,7 +602,7 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }
@@ -614,7 +615,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                //timer.Start();
+                timer.Start();
                 this.setFocus();
                 return;
             }
@@ -743,7 +744,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        //timer.Start();
+                        timer.Start();
                         this.setFocus();
 
                         return;
@@ -778,7 +779,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }

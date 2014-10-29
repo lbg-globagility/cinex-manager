@@ -86,7 +86,7 @@ namespace Paradiso
             {
                 //get all cinemas
                 var _cinemas = (from ms in context.movies_schedule
-                                where ms.movie_date == dtScreenDate && (ms.status == null || ms.status == 0)
+                                where ms.movie_date == dtScreenDate && ms.status == 1
                                 select new
                                 {
                                     key = ms.id, //comment
@@ -240,7 +240,10 @@ namespace Paradiso
                         }
 
                         if (intIndex == -1)
+                        {
                             movieScheduleItems.Add(movieScheduleItem);
+                            lstKeys.Add(movieScheduleItem.Key);
+                        }
                         else
                         {
                             //determines if currently selected item is valid
