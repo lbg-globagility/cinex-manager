@@ -171,7 +171,7 @@
                             </Grid.RowDefinitions>
                             
                             <Image Source="/Cinemapps;component/Images/user2.png" Height="Auto" Margin="6,5,228,4" Grid.ColumnSpan="2" />
-                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" />
+                            <TextBox Name="UserName" Style="{StaticResource placeHolder}" Tag="User Name" CharacterCasing="Upper" Grid.Column="1" Margin="0,2,6,3" BorderThickness="0" Height="25" KeyUp="UserName_KeyUp"  />
                             <PasswordBox Name="UserPassword" local:PlaceHolderHelper.PlaceHolderText="Password"  Grid.Row="1" Margin="0,2,6,3" Height="25" Grid.Column="1" BorderThickness="0" KeyUp="UserPassword_KeyUp" TabIndex="0" KeyboardNavigation.TabIndex="0" IsTabStop="true"/>
                             <Image Source="/Cinemapps;component/Images/lock1.png" Height="Auto" Margin="6,6,228,5" Grid.Row="1" Grid.ColumnSpan="2" />
                        
