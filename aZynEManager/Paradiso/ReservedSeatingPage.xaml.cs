@@ -148,7 +148,8 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
             var window = Window.GetWindow(this);
-            window.KeyDown -= Page_PreviewKeyDown;
+            if (window != null)
+                window.KeyDown -= Page_PreviewKeyDown;
 
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -160,7 +161,7 @@ namespace Paradiso
             this.setFocus();
         }
 
-        private void    UpdateMovieSchedule()
+        private void UpdateMovieSchedule()
         {
             blnIsUpdating = true;
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
@@ -191,7 +192,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -207,7 +209,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -354,7 +357,7 @@ namespace Paradiso
                     SeatModel seatModel = new SeatModel()
                     {
                         Key = seat.id,
-                        Name = string.Format("{0}{1}", seat.row_name, seat.col_name),
+                        Name = string.Format("{0}{1}", seat.col_name, seat.row_name),
                         X = (int)seat.x1,
                         Y = (int)seat.y1,
                         Width = (int)seat.x2 - (int) seat.x1,
@@ -463,10 +466,10 @@ namespace Paradiso
                         using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
 
-                            //get default patron
+                            //get first patron instead of default
                             var _patron = (from mslp in context.movies_schedule_list_patron
-                                           where mslp.movies_schedule_list_id == MovieSchedule.Key && mslp.is_default == 1
-                                           select mslp.patron).SingleOrDefault();
+                                           where mslp.movies_schedule_list_id == MovieSchedule.Key  //&& mslp.is_default == 1
+                                           select mslp.patron).FirstOrDefault();
                             if (_patron != null)
                             {
                                 var _sp = Patrons.Where(p => p.PatronKey == _patron.id).SingleOrDefault();
@@ -598,7 +601,8 @@ namespace Paradiso
             else
             {
                 var window = Window.GetWindow(this);
-                window.KeyDown -= Page_PreviewKeyDown;
+                if (window != null)
+                    window.KeyDown -= Page_PreviewKeyDown;
 
                 //mark as reserved payment
                 //set reservation reserved date to a very high date

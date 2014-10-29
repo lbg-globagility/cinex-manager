@@ -146,7 +146,8 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
             var window = Window.GetWindow(this);
-            window.KeyDown -= Page_PreviewKeyDown;
+            if (window != null)
+                window.KeyDown -= Page_PreviewKeyDown;
 
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -189,7 +190,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -358,7 +360,7 @@ namespace Paradiso
                     SeatModel seatModel = new SeatModel()
                     {
                         Key = seat.id,
-                        Name = string.Format("{0}{1}", seat.row_name, seat.col_name),
+                        Name = string.Format("{0}{1}", seat.col_name, seat.row_name),
                         X = (int)seat.x1,
                         Y = (int)seat.y1,
                         Width = (int)seat.x2 - (int) seat.x1,
@@ -532,7 +534,7 @@ namespace Paradiso
                                                  select new
                                                  {
                                                      mcths.id,
-                                                     sn = mcths.cinema_seat.row_name + mcths.cinema_seat.col_name,
+                                                     sn = mcths.cinema_seat.col_name + mcths.cinema_seat.row_name,
                                                  }
                                                  ).ToList();
 
@@ -623,7 +625,8 @@ namespace Paradiso
             {
                 //call payment
                 var window = Window.GetWindow(this);
-                window.KeyDown -= Page_PreviewKeyDown;
+                if (window != null)
+                    window.KeyDown -= Page_PreviewKeyDown;
 
                 NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }

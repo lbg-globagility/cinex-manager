@@ -414,9 +414,24 @@ namespace Paradiso
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
                 timer.Stop();
                 if (ParadisoObjectManager.GetInstance().IsReservedMode)
+                {
+                    //verify if msli is valid
+                    if (msli.SeatType != 1)
+                    {
+                        MessageWindow messageWindow = new MessageWindow();
+                        messageWindow.MessageText.Text = "Reservation can only be done on reserved seating.";
+                        messageWindow.ShowDialog();
+
+                        return;
+                    }
+
+
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
+                }
                 else
+                {
                     NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                }
 
                 /*
                 if (msli.SeatType == 1) //reserved seating
