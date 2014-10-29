@@ -165,7 +165,7 @@ namespace Paradiso
             {
                 //checks if movie schedule exists
                 var _movie_schedule_list = (from msl in context.movies_schedule_list
-                                                where msl.id == this.Key
+                                                where msl.id == this.Key && msl.status == 1
                                                 select new
                                                 {
                                                     mslkey = msl.id,

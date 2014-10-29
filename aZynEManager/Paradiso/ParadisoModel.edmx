@@ -284,6 +284,7 @@
           <Property Name="end_time" Type="datetime" Nullable="false" />
           <Property Name="seat_type" Type="int" Nullable="false" />
           <Property Name="laytime" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule_list_house_seat">
           <Key>
@@ -341,7 +342,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
@@ -1032,6 +1033,7 @@
           <NavigationProperty Name="tickets" Relationship="paradisoModel.fk_ticket_movies_schedule_list1" FromRole="movies_schedule_list" ToRole="ticket" />
           <Property Type="Int32" Name="laytime" Nullable="false" />
           <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_movies_schedule11" FromRole="movies_schedule_list" ToRole="movies_schedule_list_patron" />
+          <Property Type="Int32" Name="status" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_schedule_list_house_seat">
           <Key>
@@ -1695,6 +1697,7 @@
           <EntitySetMapping Name="movies_schedule_list">
             <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list">
               <MappingFragment StoreEntitySet="movies_schedule_list">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="laytime" ColumnName="laytime" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movies_schedule_id" ColumnName="movies_schedule_id" />

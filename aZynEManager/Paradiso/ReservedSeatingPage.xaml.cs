@@ -94,7 +94,7 @@ namespace Paradiso
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
-            //timer.Start();
+            timer.Start();
         }
 
         public int Key 
@@ -160,14 +160,14 @@ namespace Paradiso
             this.setFocus();
         }
 
-        private void UpdateMovieSchedule()
+        private void    UpdateMovieSchedule()
         {
             blnIsUpdating = true;
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 //checks if movie schedule exists
                 var _movie_schedule_list = (from msl in context.movies_schedule_list
-                                                where msl.id == this.Key
+                                                where msl.id == this.Key && msl.status == 1
                                                 select new
                                                 {
                                                     mslkey = msl.id,
@@ -439,7 +439,7 @@ namespace Paradiso
         {
             if (blnIsUpdating)
                 return;
-            //timer.Stop();
+            timer.Stop();
             
             Canvas seatCanvas = (Canvas)sender;
             Seat = null;
@@ -546,7 +546,7 @@ namespace Paradiso
             
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            
+            timer.Start();
             this.setFocus();
         }
 
@@ -555,7 +555,7 @@ namespace Paradiso
             timer.Stop();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
         }
 
@@ -578,7 +578,7 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }
@@ -591,7 +591,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                //timer.Start();
+                timer.Start();
                 this.setFocus();
                 return;
             }
@@ -666,6 +666,9 @@ namespace Paradiso
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.MessageText.Text = "Reservation cannot be processed.";
                     messageWindow.ShowDialog();
+                    
+                    timer.Start();
+                    this.setFocus();                    
                 }
             }
         }
@@ -785,7 +788,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        //timer.Start();
+                        timer.Start();
                         this.setFocus();
 
                         return;
@@ -820,7 +823,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }
