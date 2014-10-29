@@ -42,7 +42,7 @@
             <Button Width="50" Margin="2" Name="ScreenButton" Click="ScreenButton_Click" ToolTip="Screen" IsEnabled="{Binding AvailableScreenCount, Converter={StaticResource integerToBoolean}}">
                 <Image Height="20" Width="40" Source="Images/screen.png" Stretch="Fill"/>
             </Button>
-            <Slider Height="60" Margin="5, 5, 0, 0" Name="GridSlider" Orientation="Vertical" Width="24" SnapsToDevicePixels="False" IsSnapToTickEnabled="False" SmallChange="10" TickFrequency="10" TickPlacement="TopLeft" ValueChanged="GridSlider_ValueChanged" ToolTip="Grid Lines" />
+            <Slider Height="60" Margin="5, 5, 0, 0" Name="GridSlider" Orientation="Vertical" Width="24" SnapsToDevicePixels="False" IsSnapToTickEnabled="False" SmallChange="10" TickFrequency="10" TickPlacement="TopLeft" ValueChanged="GridSlider_ValueChanged" ToolTip="Grid Lines" Visibility="Collapsed" />
             <Border BorderThickness="1" Margin="2" BorderBrush="White">
                 <StackPanel Margin="5">
                     <TextBlock HorizontalAlignment="Center">X</TextBlock>
@@ -63,7 +63,7 @@
         </StackPanel>
         <Border BorderThickness="1" BorderBrush="Black" Margin="2">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Seats}" Width="1000" Height="600" Name="SeatItemsControl" PreviewKeyDown="SeatItemsControl_PreviewKeyDown">
+                <ItemsControl ItemsSource="{Binding Seats}" Width="1000" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" Name="SeatItemsControl" PreviewKeyDown="SeatItemsControl_PreviewKeyDown">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas IsItemsHost="True" >
