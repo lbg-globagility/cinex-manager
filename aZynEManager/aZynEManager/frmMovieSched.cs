@@ -57,6 +57,7 @@ namespace aZynEManager
             CultureInfo defaultCultureInfo = CultureInfo.CurrentCulture;
             DateTime dtstart = GetFirstDayOfWeek(DateTime.Today, defaultCultureInfo);
             calsked.SetViewRange(dtstart, dtstart.AddDays(6));
+            
         }
 
         private void setnormal()
@@ -64,6 +65,7 @@ namespace aZynEManager
             //dtcalview.Value = datestart.Value;
 
             grpgrant.Visible = false;
+            dateend.Value = DateTime.Now;
             datestart.Value = DateTime.Now;
             
             //cntrol = "";
@@ -92,8 +94,6 @@ namespace aZynEManager
             dgvResult.Columns.Clear();
 
             calsked.Enabled = true;
-            dateend.Enabled = true;
-
             txtintermision.Text = m_frmM.m_clscom.m_clscon.MovieIntermissionTime.ToString();
         }
 
@@ -479,7 +479,22 @@ namespace aZynEManager
                 dgv.Columns[3].HeaderText = "Film Length";
             }
         }
-
+        //melvin
+        private void txtEnabled(bool con)
+        {
+            txtMC.Enabled = con;
+            txtMT.Enabled = con;
+            txtintermision.Enabled = con;
+            dateend.Enabled = con;
+            datestart.Enabled = con;
+            timeend.Enabled = con;
+            timestart.Enabled = con;
+            dtduration.Enabled = con;
+            rbtnGuarateed.Enabled = con;
+            rbtnReserved.Enabled = con;
+            rbtnUnlimited.Enabled = con;
+            cbxintermision.Enabled = con;
+        }
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
@@ -518,7 +533,7 @@ namespace aZynEManager
                 btnAdd.Values.Image = Properties.Resources.buttonsave;
 
                 btnEdit.Enabled = false;
-
+                txtEnabled(true);
                 btnDelete.Text = "cancel";
                 btnDelete.Enabled = true;
                 btnDelete.Values.Image = Properties.Resources.buttoncancel;
@@ -687,7 +702,9 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEnabled(false);
                     return;
+
                 }
                 else if (rowCount == 1)
                 {
@@ -795,6 +812,7 @@ namespace aZynEManager
                     cmbCinema.SelectedValue = cinemaid;
                     dtcalview.Value = currentdate.AddDays(-1).Date;
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtEnabled(false);
                 }
             }
         }
@@ -834,7 +852,7 @@ namespace aZynEManager
             if (movieschedid == "")
             {
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}',1)",
+                sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
                     cinemaid, movieid, currentdate.Date.ToString("yyyy-MM-dd")));
                 try
                 {
@@ -846,8 +864,9 @@ namespace aZynEManager
                     movieschedid = cmd.LastInsertedId.ToString();
                     cmd.Dispose();
                 }
-                catch
+                catch(Exception err)
                 {
+                    MessageBox.Show(err.ToString());
                     return false;
                 }
             }
@@ -912,7 +931,7 @@ namespace aZynEManager
                         intval = 3;
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3},0)", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
+                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3},0,1)", movieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
@@ -1018,7 +1037,7 @@ namespace aZynEManager
             DateTime dateto = Convert.ToDateTime(dateend.Value.Date.ToString());
             if (dateto < datefrom)
             {
-                MessageBox.Show("Please check your date parameters.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+              //  MessageBox.Show("Please check your date parameters.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dateend.Value = datefrom;
             }
         }
@@ -1137,20 +1156,12 @@ namespace aZynEManager
                 string hours = ((int)result.TotalHours).ToString();
                 string minutes = String.Format("{0:00}", result.Minutes);
                 dtduration.Value = new DateTime(2014, 6, 2, (int)result.TotalHours, result.Minutes, 0);
-                setEnable(false);
+                
                 
             }
         }
 
-        private void setEnable(bool con)
-        {
-            txtMC.Enabled = con;
-            txtMT.Enabled = con;   
-            dtduration.Enabled = con;
-            rbtnGuarateed.Enabled = con;
-            rbtnReserved.Enabled = con;
-            rbtnUnlimited.Enabled = con;
-        }
+ 
         private void dtduration_ValueChanged(object sender, EventArgs e)
         { 
             //if(cntrol != "resultselect")
@@ -1495,7 +1506,7 @@ namespace aZynEManager
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
-                    
+
                     if (rowCount > 0)
                     {
 
@@ -1605,7 +1616,10 @@ namespace aZynEManager
                     }
                 }
             }
-
+            else
+            {
+                txtEnabled(false);
+            }
             setnormal();
             dtcalview.Value = datestart.Value;
             cmbCinema.SelectedIndex = intidx;
@@ -2064,6 +2078,7 @@ namespace aZynEManager
         private void btnsearch_Click(object sender, EventArgs e)
         {
             unselectbutton();
+            txtEnabled(true);
             DataTable dt = new DataTable();
             tabModule.SelectedPage = pageMovies;
 
@@ -2168,7 +2183,7 @@ namespace aZynEManager
             txtMT.Text = null;
             cbxintermision.Checked = false;
             dtduration.Enabled = false;
-            setEnable(true);
+            txtEnabled(false);
         }
 
         private void btnPublish_Click(object sender, EventArgs e)
@@ -2188,7 +2203,7 @@ namespace aZynEManager
             //melvin 10-27-2014
             if (dgvResult.SelectedCells.Count > 0)
             {
-                string id = dgvResult.Rows[dgvResult.CurrentCell.RowIndex].Cells[0].Value.ToString();
+                string id = dgvResult.SelectedRows[0].Cells[0].Value.ToString();
                // MessageBox.Show(id);
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append(String.Format("update movies_schedule_list set status={0}  ", stat));
@@ -2260,6 +2275,11 @@ namespace aZynEManager
         }
 
         private void cmsRefresh_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void kryptonGroup1_Panel_Paint(object sender, PaintEventArgs e)
         {
 
         }

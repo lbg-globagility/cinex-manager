@@ -768,8 +768,8 @@ namespace aZynEManager
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
-                    MessageBox.Show(sqry.ToString());
-                    MessageBox.Show(rowCount.ToString());
+                  //  MessageBox.Show(sqry.ToString());
+                    //MessageBox.Show(rowCount.ToString());
                     if (cbxnew.Checked == true)
                     {
                         if (rowCount > 0)

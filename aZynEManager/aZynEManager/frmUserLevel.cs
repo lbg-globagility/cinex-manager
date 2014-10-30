@@ -286,7 +286,7 @@ namespace aZynEManager
                     sqry.Append(String.Format(" and a.module_id = {0} and a.system_code = {1}", intmid, cmbSystem.SelectedValue));
                     sqry.Append(String.Format(" and a.module_id in(select b.id from system_module b where b.module_group = '{0}')", "REPORT"));
 
-                   // MessageBox.Show(sqry.ToString());
+                   
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -309,6 +309,7 @@ namespace aZynEManager
                     sqry.Append(String.Format(" and a.module_id in(select b.id from system_module b where b.module_group = '{0}')", "UTILITY"));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
+                   
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
@@ -329,10 +330,11 @@ namespace aZynEManager
                     sqry.Append(String.Format(" and a.module_id in(select b.id from system_module b where b.module_group = '{0}')", "CONFIG"));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
+                   // MessageBox.Show(sqry.ToString());
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
-
+                    //MessageBox.Show(rowCount.ToString());
                     if (rowCount > 0)
                     {
                         dgvModuleConfig[0, i].Value = (object)true;
