@@ -179,23 +179,34 @@
                                 </ContextMenu>
                             </Canvas.ContextMenu>
                             <Grid>
-                                <Grid.Background>
+                                <!--Grid.Background>
                                     <MultiBinding Converter="{StaticResource seatColorMulti}">
                                         <Binding Path="Type"/>
                                         <Binding Path="SeatColor"/>
                                     </MultiBinding>
-                                </Grid.Background>
+                                </Grid.Background-->
                                 <Image Name="SeatIcon" Width="{Binding Width}" >
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource seatImage}">
                                                 <Binding Path="Type"/>
                                                 <Binding Path="SeatType"/>
-                                            </MultiBinding>
+                                                <Binding Path="SeatColor"/>
+                                        </MultiBinding>
                                         </Image.Source>
                                     </Image>
                                 <TextBlock
                                     TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" />
+                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
+                                  <TextBlock.Effect>
+                                    <DropShadowEffect
+                                      ShadowDepth="2"
+                                      Direction="315"
+                                      Color="Black"
+                                      Opacity="1"
+                                     BlurRadius="0.0"/>
+                                  </TextBlock.Effect>
+
+                                </TextBlock>
                             </Grid>
 
                             <!--TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="5" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" /-->
@@ -259,7 +270,7 @@
                                     </Rectangle.Fill>
                                 </Rectangle-->
                             </Button>
-                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
                             <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
                                 <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
                             </Grid>

@@ -22,7 +22,7 @@
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
-            <l:SeatColorMultiConverter x:Key="seatColorMulti" />
+            <!--l:SeatColorMultiConverter x:Key="seatColorMulti" /-->
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
@@ -130,23 +130,34 @@
                     <DataTemplate>
                         <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown" >
                             <Grid>
-                                <Grid.Background>
+                                <!--Grid.Background>
                                     <MultiBinding Converter="{StaticResource seatColorMulti}">
                                         <Binding Path="Type"/>
                                         <Binding Path="SeatColor"/>
                                     </MultiBinding>
-                                </Grid.Background>
+                                </Grid.Background-->
                                 <Image Name="SeatIcon" Width="{Binding Width}" >
                                     <Image.Source>
                                         <MultiBinding Converter="{StaticResource seatImage}">
                                             <Binding Path="Type"/>
                                             <Binding Path="SeatType"/>
+                                            <Binding Path="SeatColor"/>
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
                                 <TextBlock
                                     TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" />
+                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
+                                  <TextBlock.Effect>
+                                    <DropShadowEffect
+                                      ShadowDepth="2"
+                                      Direction="315"
+                                      Color="Black"
+                                      Opacity="1"
+                                     BlurRadius="0.0"/>
+                                  </TextBlock.Effect>
+
+                                </TextBlock>
                             </Grid>
                         </Canvas>
                     </DataTemplate>

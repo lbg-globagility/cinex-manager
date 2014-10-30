@@ -278,8 +278,8 @@ namespace Paradiso
                     
 
                 var price = (from mslp in context.movies_schedule_list_patron
-                                where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
-                                select mslp.price).FirstOrDefault();
+                                where mslp.movies_schedule_list_id == this.Key // && mslp.is_default == 1
+                                select mslp.price).SingleOrDefault();
                 if (price != null)
                     MovieSchedule.Price = (decimal)price;
 
@@ -417,6 +417,7 @@ namespace Paradiso
                                         intSeatColor
                                     ));
 
+                                    seatModel.SeatColor = intSeatColor;
                                     if (IsReservedSeating)
                                         break;
                                 }
