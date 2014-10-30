@@ -92,12 +92,16 @@ namespace Paradiso
             get
             {
                 DateTime currentDateTime = DateTime.Now;
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                try
                 {
-                    var n = context.CreateQuery<DateTime>("CurrentDateTime()");
-                    DateTime dbDate = n.AsEnumerable().First();
-                    currentDateTime = dbDate;
+                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    {
+                        var n = context.CreateQuery<DateTime>("CurrentDateTime()");
+                        DateTime dbDate = n.AsEnumerable().First();
+                        currentDateTime = dbDate;
+                    }
                 }
+                catch (Exception ex) { }
                 return currentDateTime;
             }
         }
@@ -114,6 +118,24 @@ namespace Paradiso
                         strHeader = header.ToString();
                 }
                 return strHeader;
+            }
+        }
+
+        public bool IsCitizenPrinter
+        {
+            get
+            {
+                bool blnIsCitizenPrinter = true;
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    string strPrinter = string.Empty;
+                    var printer = (from h in context.config_table where h.system_desc == "PRINTER" select h.system_value).SingleOrDefault();
+                    if (printer != null && printer != string.Empty)
+                        strPrinter = printer.ToString();
+                    if (strPrinter != string.Empty && strPrinter != "CITIZEN")
+                        blnIsCitizenPrinter = false;
+                }
+                return blnIsCitizenPrinter;
             }
         }
 

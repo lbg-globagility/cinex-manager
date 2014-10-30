@@ -149,7 +149,8 @@ namespace Paradiso
             if (window != null)
                 window.KeyDown -= Page_PreviewKeyDown;
 
-            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+            if (NavigationService != null) 
+                NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
 
 
@@ -193,7 +194,8 @@ namespace Paradiso
                     if (window != null)
                         window.KeyDown -= Page_PreviewKeyDown;
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    if (NavigationService != null) 
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -212,7 +214,8 @@ namespace Paradiso
                     if (window != null)
                         window.KeyDown -= Page_PreviewKeyDown;
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    if (NavigationService != null) 
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -628,7 +631,8 @@ namespace Paradiso
                 if (window != null)
                     window.KeyDown -= Page_PreviewKeyDown;
 
-                NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
+                if (NavigationService != null) 
+                    NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
         }
 

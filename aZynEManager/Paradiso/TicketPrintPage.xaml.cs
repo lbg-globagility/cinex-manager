@@ -209,19 +209,17 @@ namespace Paradiso
             if (_print == true)
             {
                 string _printerName = _printDialog.PrintQueue.FullName;
-                this.PrintRawTicket(_printerName);
-            }
-
-            //using windows 
-            /*
-
-            PrintDialog dialog = new PrintDialog();
-            if (dialog.ShowDialog() == true)
-            { 
-                dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                if (ParadisoObjectManager.GetInstance().IsCitizenPrinter)
+                {
+                    this.PrintRawTicket(_printerName);
+                }
+                else
+                {
+                    _printDialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                }
                 ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|REPRINT", string.Format("REPRINT {0}.", Ticket.ORNumber));
             }
-            */
+
         }
 
         private void PrintRawTicket(string _printerName)
@@ -231,15 +229,7 @@ namespace Paradiso
             print.StartLabelFormatMode();
             print.SetPixelSize11();
 
-            print.BoxDefinition(050, 050, 100, 100);
-
-            /*
-            print.SetData("A14", 190, 220, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            print.SetData("A12", 190, 200, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            print.SetData("A10", 190, 30, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); 
-            print.SetData("A08", 190, 10, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); 
-            print.SetData("A06", 190, 0, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); 
-            */
+            //print.BoxDefinition(050, 050, 100, 100); //not working at all
 
             print.SetFontData(1, -2, 220, Ticket.Header1);
             print.SetFontData(0, -2, 212, Ticket.Header2);
@@ -313,15 +303,22 @@ namespace Paradiso
                         {
 
                             this.PrintTicket(ticket);
-                            this.PrintRawTicket(_printerName);
-
-                            /*
-                            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                            if (ParadisoObjectManager.GetInstance().IsCitizenPrinter)
                             {
-                                dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
-                            }));
-                            */
-                            //System.Threading.Thread.Sleep(100);
+                                this.PrintRawTicket(_printerName);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                                    {
+                                        dialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                                    }));
+                                    System.Threading.Thread.Sleep(100);
+                                }
+                                catch { }
+                            }
                             ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|PRINT", string.Format("PRINT {0}.", Ticket.ORNumber));
                         }
                     });

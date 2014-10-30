@@ -1,7 +1,7 @@
 <SmartAssemblyProject ProjectId="{cda1c496-7caa-4f5e-872e-38a8c329a683}" Version="2.0">
     <MainAssemblyFileName>..\aZynEManager\Paradiso\bin\Debug\Paradiso.exe</MainAssemblyFileName>
     <FriendlyName>Paradiso</FriendlyName>
-    <CompanyName>[Unknown company]</CompanyName>
+    <CompanyName>Amellar Solutions</CompanyName>
     <Configuration Name="Release">
         <Options>
             <ExceptionReporting ReportExceptions="1" Template="res:{SmartExceptions}.1033.dll" />

@@ -54,29 +54,40 @@ namespace Paradiso
 
             Encryption encryption = new Encryption();
             strPassword = encryption.EncryptString(strPassword);
-            
+
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            try
             {
-                var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 && u.status == 1 select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();
-                if (username != null)
-                {
-                    paradisoObjectManager.UserId = username.id;
-                    paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
-                    paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
-                    
-                    paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
-
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
-                }
-                else
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
 
-                    MessageWindow messageWindow = new MessageWindow();
-                    messageWindow.MessageText.Text = "Invalid username/password.";
-                    messageWindow.ShowDialog();
+                    var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 && u.status == 1 select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();
+
+                    if (username != null)
+                    {
+                        paradisoObjectManager.UserId = username.id;
+                        paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
+                        
+                        paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
+
+                        paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
+
+                        if (NavigationService != null) 
+                            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    }
+                    else
+                    {
+
+                        MessageWindow messageWindow = new MessageWindow();
+                        messageWindow.MessageText.Text = "Invalid username/password.";
+                        messageWindow.ShowDialog();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
 
         }
