@@ -24,6 +24,22 @@
         <Canvas.Resources>
             <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
             <l:FooterLineConverter x:Key="footerLine" />
+            <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
+            <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
+
+            <DataTemplate x:Key="screenTimeTemplate">
+                <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                                            <TextBlock.Background>
+                                                    <MultiBinding Converter="{StaticResource screenTimeColor}">
+                                                        <Binding Path="IsEnabled"/>
+                                                        <Binding Path="Key"/>
+                                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
+                                                        <Binding Path="Index"/>
+                                                    </MultiBinding>
+                                            </TextBlock.Background>
+                </TextBlock>
+            </DataTemplate>
+
             <!--ControlTemplate x:Key="ListViewNewTemplate" TargetType="{x:Type ListBox}">
                 <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
                     <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
@@ -54,7 +70,6 @@
                     <DataTemplate>
                         <StackPanel Background="Black" Margin="0">
                             <StackPanel.Resources>
-                                <BooleanToVisibilityConverter x:Key="boolToVis" />
                                 <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
                                 <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
                             </StackPanel.Resources>
@@ -76,7 +91,7 @@
                                     </StackPanel>
                                 </DockPanel>
                             </Border>
-                            <ListView ItemsSource="{Binding MovieScheduleListItems}" Padding="0" BorderThickness="0" Margin="0" Background="Transparent" HorizontalAlignment="Stretch">
+                            <ListView ItemsSource="{Binding MovieScheduleListItems}" Padding="0" BorderThickness="0" Margin="0" Background="Transparent" HorizontalAlignment="Stretch" ItemTemplate="{StaticResource screenTimeTemplate}" >
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Template">
@@ -94,32 +109,6 @@
                                         <StackPanel Orientation="Horizontal" Background="Black"></StackPanel>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <!--Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" IsEnabled="{Binding IsEnabled}" >
-                                            <TextBlock Foreground="White" TextAlignment="Center" FontFamily="Arial" FontSize="14" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}">
-                                                <TextBlock.Background>
-                                                        <MultiBinding Converter="{StaticResource screenTimeColor}">
-                                                            <Binding Path="IsEnabled"/>
-                                                            <Binding Path="Key"/>
-                                                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
-                                                            <Binding Path="Index"/>
-                                                        </MultiBinding>
-                                                </TextBlock.Background>
-                                            </TextBlock>
-                                        </Button-->
-                                        <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
-                                            <TextBlock.Background>
-                                                    <MultiBinding Converter="{StaticResource screenTimeColor}">
-                                                        <Binding Path="IsEnabled"/>
-                                                        <Binding Path="Key"/>
-                                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBox}}" Path="DataContext.SelectedMovieScheduleListItem.Key"/>
-                                                        <Binding Path="Index"/>
-                                                    </MultiBinding>
-                                            </TextBlock.Background>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
                             </ListView>
 
                             <Grid Background="Gray">

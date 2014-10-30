@@ -92,12 +92,16 @@ namespace Paradiso
             get
             {
                 DateTime currentDateTime = DateTime.Now;
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                try
                 {
-                    var n = context.CreateQuery<DateTime>("CurrentDateTime()");
-                    DateTime dbDate = n.AsEnumerable().First();
-                    currentDateTime = dbDate;
+                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    {
+                        var n = context.CreateQuery<DateTime>("CurrentDateTime()");
+                        DateTime dbDate = n.AsEnumerable().First();
+                        currentDateTime = dbDate;
+                    }
                 }
+                catch (Exception ex) { }
                 return currentDateTime;
             }
         }
