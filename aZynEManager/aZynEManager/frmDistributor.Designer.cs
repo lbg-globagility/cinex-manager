@@ -328,6 +328,7 @@
             // cmbcontacts
             // 
             this.cmbcontacts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbcontacts.Enabled = false;
             this.cmbcontacts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbcontacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbcontacts.FormattingEnabled = true;
@@ -451,6 +452,7 @@
             this.txtcity.Name = "txtcity";
             this.txtcity.Size = new System.Drawing.Size(108, 20);
             this.txtcity.TabIndex = 7;
+            this.txtcity.TextChanged += new System.EventHandler(this.txtcity_TextChanged);
             // 
             // txtaddr
             // 

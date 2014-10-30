@@ -122,7 +122,7 @@ namespace aZynEManager
                     cmbtitle.DisplayMember = "title";
                 }
             }
-            MessageBox.Show(cmbtitle.Items.Count.ToString());
+          //  MessageBox.Show(cmbtitle.Items.Count.ToString());
         }
 
 
@@ -274,6 +274,7 @@ namespace aZynEManager
                 else
                 {
                     setDataGridViewII(dgvMovies, foundRows.CopyToDataTable());
+                    
                 }
          
         }
@@ -490,6 +491,7 @@ namespace aZynEManager
             txtcode.Text = "";
             cmbtitle.SelectedIndex = 0;
             txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
+            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -527,11 +529,11 @@ namespace aZynEManager
 
                 cmbtitle.Enabled = false;
                 txtcode.ReadOnly = true;
-
+                txtdaycnt.ReadOnly = false;
                 txtshare.ReadOnly = false;
                 txtshare.SelectAll();
                 txtshare.Focus();
-
+                int.TryParse(txtdaycnt.Text, out daycnt);
                 dtdate.Enabled = true;
 
                 dgvMovies.Enabled = false;
@@ -911,6 +913,8 @@ namespace aZynEManager
                 cmbDate.SelectedIndex = 4;
                 btnsearch2.Visible = false;
                 btnclear2.Visible = false;
+                cbxdate.Enabled = true;
+                cmbDate.Enabled = true;
             }
             else
             {
@@ -925,6 +929,8 @@ namespace aZynEManager
                 dtdate.Enabled = true;
                 btnsearch2.Visible = true;
                 btnclear2.Visible = true;
+                cbxdate.Enabled = false;
+                cmbDate.Enabled = false;
             }
         }
 

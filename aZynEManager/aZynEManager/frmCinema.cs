@@ -213,6 +213,8 @@ namespace aZynEManager
 
         public void setCheck(DataGridView dgv, bool boolchk)
         {
+    
+
             int cnt = 0;
             for (int i = 0; i < dgv.Rows.Count; i++)
             {
@@ -221,6 +223,8 @@ namespace aZynEManager
                     cnt += 1;
             }
         }
+
+        
 
         private void btnrevoke_Click(object sender, EventArgs e)
         {
@@ -437,18 +441,13 @@ namespace aZynEManager
                     {
                         //MELVIN 10-15-2014
                         StringBuilder sqry = new StringBuilder();
-                        sqry.Append("select max(id) from cinema_patron");
-                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        int max_id=Convert.ToInt32(cmd.ExecuteScalar())+1;
-
-
                         sqry = new StringBuilder();
-                        sqry.Append(String.Format("insert into cinema_patron values({0},{1},{2},{3})",
-                            max_id,intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+                        sqry.Append(String.Format("insert into cinema_patron values(0,{0},{1},{2})",
+                            intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
 
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
-                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
                     }
@@ -501,6 +500,7 @@ namespace aZynEManager
                 btnDelete.Text = "cancel";
                 grpgrant.Visible = true;
 
+                
                 StringBuilder sbqry = new StringBuilder();
                 sbqry.Append("select a.name, a.unit_price as price, a.id ");
                 sbqry.Append("from patrons a ");
@@ -508,8 +508,20 @@ namespace aZynEManager
                 sbqry.Append("order by a.id asc");
                 DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 DataTable dgvdt = (DataTable)dgvpatrons.DataSource;
-                dgvdt.Merge(dt);
-                dgvpatrons.DataSource = dgvdt;
+                if (!(dgvdt == null))
+                {
+                    dgvdt.Merge(dt);
+                    dgvpatrons.DataSource = dgvdt;
+                   
+                }
+                else
+                {
+                    DataGridViewCheckBoxColumn d1 = new DataGridViewCheckBoxColumn();
+                    d1.HeaderText = "";
+                    d1.Width = 40;
+                    dgvpatrons.Columns.Add(d1);
+                    dgvpatrons.DataSource = dt;
+                }
 
                 setCheck(dgvpatrons, false);
                 int rowCount = 0;
@@ -663,7 +675,7 @@ namespace aZynEManager
                     {
                         if (myconn.State == ConnectionState.Open)
                             myconn.Close();
-                        MessageBox.Show(ex.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message.ToString()+"error1", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -679,9 +691,9 @@ namespace aZynEManager
 
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch
+                catch(Exception err)
                 {
-                    MessageBox.Show("Can't connect to the movies table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the movies table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

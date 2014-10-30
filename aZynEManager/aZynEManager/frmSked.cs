@@ -294,7 +294,7 @@ namespace aZynEManager
             do
             {
                 sqry = new StringBuilder();
-                sqry.Append("select a.start_time, a.end_time, c.code, a.id, b.status from movies_schedule_list a ");
+                sqry.Append("select a.start_time, a.end_time, c.code, a.id, a.status from movies_schedule_list a ");
                 sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
@@ -330,13 +330,9 @@ namespace aZynEManager
                             {
                                 firsttitle = sval;
                                 itemcolor = Color.FromArgb(100, 225, 225, 100);//Color.LightSteelBlue;
+                         
                             }
-                            //melvin 10-27-2014 change color for unpublish movie
-                            if (stat == "0")
-                            {
-                                itemcolor = Color.Red;
-                            }
-
+                            
                             if (firsttitle != sval)
                             {
                                 calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
@@ -356,6 +352,15 @@ namespace aZynEManager
                                     itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);  
                                 }
                                 firsttitle = sval;
+                            }
+                            //melvin 10-27-2014 change color for unpublish movie
+                            if (stat == "0")
+                            {
+                                itemcolor = Color.Red;
+                            }
+                            else
+                            {
+                                itemcolor = Color.FromArgb(100, 100, 225, 225);
                             }
                             calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
@@ -426,6 +431,11 @@ namespace aZynEManager
             {
                 MessageBox.Show(err.Message);
             }
+        }
+
+        private void grpfilter_Panel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -382,6 +382,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.txtuser);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
+            this.kryptonGroup1.Panel.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroup1_Panel_Paint);
             this.kryptonGroup1.Size = new System.Drawing.Size(569, 120);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
@@ -541,7 +542,7 @@
             this.frdate.ShowUpDown = true;
             this.frdate.Size = new System.Drawing.Size(86, 20);
             this.frdate.TabIndex = 87;
-            this.frdate.Value = new System.DateTime(2014, 6, 4, 0, 0, 0, 0);
+            this.frdate.Value = new System.DateTime(2014, 10, 29, 0, 0, 0, 0);
             this.frdate.ValueChanged += new System.EventHandler(this.frdate_ValueChanged);
             // 
             // label2

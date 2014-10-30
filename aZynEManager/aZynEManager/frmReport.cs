@@ -250,7 +250,7 @@ namespace aZynEManager
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd);
-                MessageBox.Show(sqry.ToString());
+                //MessageBox.Show(sqry.ToString());
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
                // MessageBox.Show(xmlfile.ToString());
@@ -410,6 +410,11 @@ namespace aZynEManager
                 "' GROUP BY movie_id, cinema_id) o GROUP BY " +
                "movie_id) k WHERE e.id = f.movie_id AND e.id = g.movie_id" +
                " AND e.id = k.movie_id;";
+                            }
+
+                            else if (code == "AUDIT")
+                            {
+                                sQry = " Select '" + _dtStart.AddDays(1).ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
                             }
                             flag++;
                         }

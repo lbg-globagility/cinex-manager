@@ -68,9 +68,9 @@
             this.txtname.BackColor = System.Drawing.Color.White;
             this.txtname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtname.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtname.Location = new System.Drawing.Point(76, 8);
+            this.txtname.Location = new System.Drawing.Point(57, 8);
             this.txtname.Name = "txtname";
-            this.txtname.Size = new System.Drawing.Size(107, 20);
+            this.txtname.Size = new System.Drawing.Size(127, 20);
             this.txtname.TabIndex = 79;
             this.txtname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -82,9 +82,9 @@
             this.Label8.ForeColor = System.Drawing.Color.White;
             this.Label8.Location = new System.Drawing.Point(7, 14);
             this.Label8.Name = "Label8";
-            this.Label8.Size = new System.Drawing.Size(35, 13);
+            this.Label8.Size = new System.Drawing.Size(38, 13);
             this.Label8.TabIndex = 80;
-            this.Label8.Text = "Name";
+            this.Label8.Text = "Rating";
             // 
             // kryptonGroup1
             // 
@@ -115,9 +115,9 @@
             this.txtdesc.BackColor = System.Drawing.Color.White;
             this.txtdesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdesc.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtdesc.Location = new System.Drawing.Point(76, 34);
+            this.txtdesc.Location = new System.Drawing.Point(57, 34);
             this.txtdesc.Name = "txtdesc";
-            this.txtdesc.Size = new System.Drawing.Size(270, 20);
+            this.txtdesc.Size = new System.Drawing.Size(289, 20);
             this.txtdesc.TabIndex = 81;
             this.txtdesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -129,9 +129,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(7, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 82;
-            this.label1.Text = "Description";
+            this.label1.Text = "Name";
             // 
             // btnselect
             // 
@@ -307,7 +307,6 @@
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvResult.TabIndex = 31;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
-         
             // 
             // kryptonButton1
             // 

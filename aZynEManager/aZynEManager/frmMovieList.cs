@@ -580,18 +580,16 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                sqry = new StringBuilder();
-                sqry.Append("select max(id) from movies");
-                cmd = new MySqlCommand(sqry.ToString(), myconn);
-
-                int max_id= Convert.ToInt32(cmd.ExecuteScalar())+1;
+               
+                
                 sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into movies value({0},'{1}','{2}',{3},{4},{5},{6},0,Now(),CURDATE(),CURDATE())",
-                    max_id,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
+                    0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
                     cmbrating.SelectedValue,inttime));
                 try
                 {
                     //insert value for the movies table
+                    MessageBox.Show(sqry.ToString());
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -623,7 +621,7 @@ namespace aZynEManager
                     //        return;
                     //    }
                     //}
-                    tabinsertcheck(myconn, dgvClass, max_id);
+                    tabinsertcheck(myconn, dgvClass, intid);
 
                     if(myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -659,7 +657,7 @@ namespace aZynEManager
                         StringBuilder sqry = new StringBuilder();
                         sqry.Append(String.Format("insert into movies_class values(0,{0},{1})",
                            intid, dgv[3, i].Value.ToString()));
-
+                       // MessageBox.Show(sqry.ToString());
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -1076,8 +1074,24 @@ namespace aZynEManager
                 sbqry.Append("order by a.id asc");
                 DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 DataTable dgvdt = (DataTable)dgvClass.DataSource;
-                dgvdt.Merge(dt);
-                dgvClass.DataSource = dgvdt;
+                //melvin 10-29-2014
+                if (!(dgvdt == null))
+                {
+                    dgvdt.Merge(dt);
+                    dgvClass.DataSource = dgvdt;
+
+                }
+                else
+                {
+                    DataGridViewCheckBoxColumn d1 = new DataGridViewCheckBoxColumn();
+                    d1.HeaderText = "";
+                    d1.Width = 40;
+                    dgvClass.Columns.Add(d1);
+                    dgvClass.DataSource = dt;
+                }
+                
+               // dgvdt.Merge(dt);
+               // dgvClass.DataSource = dgvdt;
 
                 setCheck(dgvClass, false);
                 int rowCount = 0;
@@ -1300,25 +1314,39 @@ namespace aZynEManager
 
                     //update start date and end date
                     strqry = new StringBuilder();
-                    strqry.Append("update movies a set a.start_date = (select min(b.movie_date) ");
-                    strqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", intid));
-                    strqry.Append(String.Format("where a.id = {0}",intid));
-                    if (myconn.State == ConnectionState.Closed)
-                        myconn.Open();
-                    MySqlCommand cmd4 = new MySqlCommand(strqry.ToString(), myconn);
-                    cmd4.ExecuteNonQuery();
-                    cmd4.Dispose();
+                    //melvin 10-30-2014
+                    try
+                    {
+                        strqry.Append("update movies a set a.start_date = (select min(b.movie_date) ");
+                        strqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", intid));
 
-                    strqry = new StringBuilder();
-                    strqry.Append("update movies a set a.end_date = (select max(b.movie_date) ");
-                    strqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", intid));
-                    strqry.Append(String.Format("where a.id = {0}", intid));
-                    if (myconn.State == ConnectionState.Closed)
-                        myconn.Open();
-                    MySqlCommand cmd5 = new MySqlCommand(strqry.ToString(), myconn);
-                    cmd5.ExecuteNonQuery();
-                    cmd5.Dispose();
+                        //MessageBox.Show(strqry.ToString());
+                        strqry.Append(String.Format("where a.id = {0}", intid));
 
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd4 = new MySqlCommand(strqry.ToString(), myconn);
+                        cmd4.ExecuteNonQuery();
+                        cmd4.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        strqry = new StringBuilder();
+                        strqry.Append("update movies a set a.end_date = (select max(b.movie_date) ");
+                        strqry.Append(String.Format("from movies_schedule b where b.movie_id = {0}) ", intid));
+                        strqry.Append(String.Format("where a.id = {0}", intid));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd5 = new MySqlCommand(strqry.ToString(), myconn);
+                        cmd5.ExecuteNonQuery();
+                        cmd5.Dispose();
+                    }
+                    catch 
+                    {
+                    }
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_EDIT", "MOVIES|MOVIES_CLASS",
                         Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
                         + " | ID=" + intid.ToString(), m_frmM._connection);
