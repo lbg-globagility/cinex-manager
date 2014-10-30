@@ -46,6 +46,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.rbUnpublish = new System.Windows.Forms.RadioButton();
+            this.rbPublish = new System.Windows.Forms.RadioButton();
             this.btnClear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.txtintermision = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -103,8 +105,8 @@
             this.grpgrant = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.btnrevoke = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnUnPublish = new System.Windows.Forms.Button();
-            this.btnPublish = new System.Windows.Forms.Button();
+            this.cmsRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
@@ -132,6 +134,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
+            this.cmsRefresh.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpfilter
@@ -342,8 +345,8 @@
             // 
             // kryptonGroup1.Panel
             // 
-            this.kryptonGroup1.Panel.Controls.Add(this.btnPublish);
-            this.kryptonGroup1.Panel.Controls.Add(this.btnUnPublish);
+            this.kryptonGroup1.Panel.Controls.Add(this.rbUnpublish);
+            this.kryptonGroup1.Panel.Controls.Add(this.rbPublish);
             this.kryptonGroup1.Panel.Controls.Add(this.btnClear);
             this.kryptonGroup1.Panel.Controls.Add(this.pictureBox5);
             this.kryptonGroup1.Panel.Controls.Add(this.txtintermision);
@@ -400,6 +403,32 @@
             this.kryptonGroup1.StateCommon.Border.Rounding = 5;
             this.kryptonGroup1.StateCommon.Border.Width = 2;
             this.kryptonGroup1.TabIndex = 317;
+            // 
+            // rbUnpublish
+            // 
+            this.rbUnpublish.AutoSize = true;
+            this.rbUnpublish.BackColor = System.Drawing.Color.Transparent;
+            this.rbUnpublish.ForeColor = System.Drawing.Color.White;
+            this.rbUnpublish.Location = new System.Drawing.Point(220, 258);
+            this.rbUnpublish.Name = "rbUnpublish";
+            this.rbUnpublish.Size = new System.Drawing.Size(72, 17);
+            this.rbUnpublish.TabIndex = 377;
+            this.rbUnpublish.Text = "Unpublish";
+            this.rbUnpublish.UseVisualStyleBackColor = false;
+            this.rbUnpublish.CheckedChanged += new System.EventHandler(this.rbUnpublish_CheckedChanged);
+            // 
+            // rbPublish
+            // 
+            this.rbPublish.AutoSize = true;
+            this.rbPublish.BackColor = System.Drawing.Color.Transparent;
+            this.rbPublish.ForeColor = System.Drawing.Color.White;
+            this.rbPublish.Location = new System.Drawing.Point(155, 258);
+            this.rbPublish.Name = "rbPublish";
+            this.rbPublish.Size = new System.Drawing.Size(59, 17);
+            this.rbPublish.TabIndex = 376;
+            this.rbPublish.Text = "Publish";
+            this.rbPublish.UseVisualStyleBackColor = false;
+            this.rbPublish.CheckedChanged += new System.EventHandler(this.rbPublish_CheckedChanged);
             // 
             // btnClear
             // 
@@ -467,6 +496,7 @@
             this.txtintermision.Size = new System.Drawing.Size(34, 20);
             this.txtintermision.TabIndex = 369;
             this.txtintermision.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtintermision.TextChanged += new System.EventHandler(this.txtintermision_TextChanged);
             this.txtintermision.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtintermision_KeyPress);
             // 
             // label23
@@ -847,6 +877,7 @@
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvResult.TabIndex = 6;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
+            this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
             this.dgvResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvResult_CellFormatting);
             this.dgvResult.SelectionChanged += new System.EventHandler(this.dgvResult_SelectionChanged);
             // 
@@ -1335,45 +1366,28 @@
             this.btngrant.Values.Text = "grant";
             this.btngrant.Click += new System.EventHandler(this.btngrant_Click);
             // 
-            // btnUnPublish
+            // cmsRefresh
             // 
-            this.btnUnPublish.BackColor = System.Drawing.Color.White;
-            this.btnUnPublish.FlatAppearance.BorderSize = 0;
-            this.btnUnPublish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.btnUnPublish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.btnUnPublish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUnPublish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUnPublish.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnUnPublish.Location = new System.Drawing.Point(214, 253);
-            this.btnUnPublish.Name = "btnUnPublish";
-            this.btnUnPublish.Size = new System.Drawing.Size(77, 26);
-            this.btnUnPublish.TabIndex = 374;
-            this.btnUnPublish.Text = "Unpublish";
-            this.btnUnPublish.UseVisualStyleBackColor = false;
-            this.btnUnPublish.Click += new System.EventHandler(this.btnUnPublish_Click);
+            this.cmsRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmsRefresh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
+            this.cmsRefresh.Name = "cmsRefresh";
+            this.cmsRefresh.Size = new System.Drawing.Size(153, 48);
+            this.cmsRefresh.Opening += new System.ComponentModel.CancelEventHandler(this.cmsRefresh_Opening);
             // 
-            // btnPublish
+            // refreshToolStripMenuItem
             // 
-            this.btnPublish.BackColor = System.Drawing.Color.White;
-            this.btnPublish.FlatAppearance.BorderSize = 0;
-            this.btnPublish.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.btnPublish.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGray;
-            this.btnPublish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPublish.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPublish.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnPublish.Location = new System.Drawing.Point(135, 253);
-            this.btnPublish.Name = "btnPublish";
-            this.btnPublish.Size = new System.Drawing.Size(73, 26);
-            this.btnPublish.TabIndex = 375;
-            this.btnPublish.Text = "Publish";
-            this.btnPublish.UseVisualStyleBackColor = false;
-            this.btnPublish.Click += new System.EventHandler(this.btnPublish_Click);
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Text = "refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // frmMovieSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1129, 542);
+            this.ContextMenuStrip = this.cmsRefresh;
             this.Controls.Add(this.grpgrant);
             this.Controls.Add(this.grpcontrol);
             this.Controls.Add(this.label18);
@@ -1416,6 +1430,7 @@
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
+            this.cmsRefresh.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1491,7 +1506,9 @@
         internal System.Windows.Forms.Label label23;
         private System.Windows.Forms.PictureBox pictureBox5;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnClear;
-        private System.Windows.Forms.Button btnPublish;
-        private System.Windows.Forms.Button btnUnPublish;
+        private System.Windows.Forms.RadioButton rbUnpublish;
+        private System.Windows.Forms.RadioButton rbPublish;
+        private System.Windows.Forms.ContextMenuStrip cmsRefresh;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

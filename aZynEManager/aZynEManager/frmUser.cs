@@ -65,6 +65,7 @@ namespace aZynEManager
             sbqry.Append("select a.level_desc, a.id ");
             sbqry.Append(String.Format("from user_level a where a.system_code = {0} order by a.level_desc asc", intsystemcode));
             dtuserlevel = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+           // MessageBox.Show(sbqry.ToString());
             DataRow row = dtuserlevel.NewRow();
             row["id"] = "0";
             row["level_desc"] = "";
@@ -115,7 +116,7 @@ namespace aZynEManager
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.id, a.userid, a.lname, a.fname, a.designation, b.level_desc, a.mname, a.user_password, c.system_name ");
             sbqry.Append("from users a left join user_level b on a.user_level_id = b.id ");
-            sbqry.Append("left join application c on a.system_code = c.system_code ");
+            sbqry.Append("left join application c on a.system_code = c.system_code where a.status=1 ");
             sbqry.Append("order by a.userid asc");//where a.system_code = 1 
             dtusers = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtusers);
@@ -246,6 +247,7 @@ namespace aZynEManager
                 sbqry.Append("on a.module_id = b.id ");
                 sbqry.Append(String.Format("where a.user_level = {0} ", intid));
                 sbqry.Append(String.Format("and a.system_code = {0}", cmbSystem.SelectedValue.ToString()));
+                //MessageBox.Show(sbqry.ToString());
                 dtmodule = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             }
             if (dtmodule.Rows.Count > 0)
@@ -262,7 +264,10 @@ namespace aZynEManager
 
                 if (dtmodulecinema.Rows.Count > 0)
                     setDataGridViewII(dgvModuleCinema, dtmodulecinema);
-
+                else
+                {
+                    dgvReset(dgvModuleCinema);
+                }
                 //for reports
                 sqry = "[module_group] = 'REPORT'";
                 foundRows = null;
@@ -272,8 +277,10 @@ namespace aZynEManager
                     dtmodulereport = foundRows.CopyToDataTable();
                 if (dtmodulereport.Rows.Count > 0)
                     setDataGridViewII(dgvModuleReport, dtmodulereport);
-
-                //for utility
+                else
+                {
+                    dgvReset(dgvModuleReport);
+                }                //for utility
                 sqry = "[module_group] = 'UTILITY'";
                 foundRows = null;
                 foundRows = dtmodule.Select(sqry);
@@ -282,7 +289,10 @@ namespace aZynEManager
                     dtmoduleutility = foundRows.CopyToDataTable();
                 if (dtmoduleutility.Rows.Count > 0)
                     setDataGridViewII(dgvModuleUtility, dtmoduleutility);
-
+                else
+                {
+                    dgvReset(dgvModuleUtility);
+                }
                 //for config
                 sqry = "[module_group] = 'CONFIG'";
                 foundRows = null;
@@ -292,7 +302,10 @@ namespace aZynEManager
                     dtmoduleuconfig = foundRows.CopyToDataTable();
                 if (dtmoduleuconfig.Rows.Count > 0)
                     setDataGridViewII(dgvModuleConfig, dtmoduleuconfig);
-
+                else
+                {
+                    dgvReset(dgvModuleConfig);
+                }
                 //for ticket
                 sqry = "[module_group] = 'TICKET'";
                 foundRows = null;
@@ -302,6 +315,37 @@ namespace aZynEManager
                     dtmoduleuticket = foundRows.CopyToDataTable();
                 if (dtmoduleuticket.Rows.Count > 0)
                     setDataGridViewII(dgvModuleTicket, dtmoduleuticket);
+
+                    //melvin for reseting value of datagrid
+                else
+                {
+                    dgvReset(dgvModuleTicket);
+                    //dgvModuleTicket.DataSource = null;
+                    //dgvModuleTicket.Rows.Clear();
+                    //int iwidth = dgvModuleTicket.Width / 3;
+                    //DataGridViewColumn c1 = new DataGridViewColumn();
+                    //DataGridViewColumn c2 = new DataGridViewColumn();
+                    //DataGridViewColumn c3 = new DataGridViewColumn();
+                    //DataGridViewColumn c4 = new DataGridViewColumn();
+                    //DataGridViewColumn c5 = new DataGridViewColumn();
+                    //dgvModuleTicket.Columns.Add(c1);
+                    //dgvModuleTicket.Columns.Add(c2);
+                    //dgvModuleTicket.Columns.Add(c3);
+                    //dgvModuleTicket.Columns.Add(c4);
+     
+                    //dgvModuleTicket.Columns.Add(c5);
+                    //dgvModuleTicket.Columns[0].Width = 30;
+                    //dgvModuleTicket.Columns[1].Width = iwidth * 3 - 45;
+                    //dgvModuleTicket.Columns[1].HeaderText = "Module Description";
+                    //dgvModuleTicket.Columns[2].ReadOnly = true;
+                    //dgvModuleTicket.Columns[2].Width = 0;
+                    //dgvModuleTicket.Columns[3].HeaderText = "Module Code";
+                    //dgvModuleTicket.Columns[3].Width = 0;
+                    //dgvModuleTicket.Columns[4].HeaderText = "Module Group";
+                    //dgvModuleTicket.Columns[4].Width = 0;
+                    //dgvModuleTicket.Columns[5].HeaderText = "Module ID";
+                    
+                }
 
                 if (dgvResult.SelectedRows.Count != 1)
                 {
@@ -442,6 +486,33 @@ namespace aZynEManager
             }
         }
 
+        private void dgvReset(DataGridView dt)
+        {
+            //melvin 10-30-2014
+            dt.DataSource = null;
+            dt.Rows.Clear();
+            int iwidth = dgvModuleTicket.Width / 3;
+            DataGridViewColumn c1 = new DataGridViewColumn();
+            DataGridViewColumn c2 = new DataGridViewColumn();
+            DataGridViewColumn c3 = new DataGridViewColumn();
+            DataGridViewColumn c4 = new DataGridViewColumn();
+            DataGridViewColumn c5 = new DataGridViewColumn();
+            dt.Columns.Add(c1);
+            dt.Columns.Add(c2);
+            dt.Columns.Add(c3);
+            dt.Columns.Add(c4);
+
+            dt.Columns.Add(c5);
+            dt.Columns[0].Width = 30;
+            dt.Columns[1].Width = iwidth * 3;
+            dt.Columns[1].HeaderText = "Module Description";
+            dt.Columns[2].ReadOnly = true;
+            dt.Columns[2].Width = 0;
+            dt.Columns[3].HeaderText = "Module Code";
+            dt.Columns[3].Width = 0;
+            dt.Columns[4].HeaderText = "Module Group";
+            dt.Columns[4].Width = 0;
+        }
         public void tabinsertcheck(MySqlConnection myconn, DataGridView dgv, StringBuilder sqry)
         {
             for (int i = 0; i < dgv.Rows.Count; i++)
@@ -577,15 +648,7 @@ namespace aZynEManager
                 sbqry.Append("where a.user_level = 2 and a.system_code =2");
                 dtmodule = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
 
-                String sqry = "[module_group] = 'TICKET'";
-                
-                 var foundRows = dtmodule.Select(sqry);
-                DataTable dtmoduleuticket = new DataTable();
-                if (foundRows.Count() > 0)
-                    dtmoduleuticket = foundRows.CopyToDataTable();
-                if (dtmoduleuticket.Rows.Count > 0)
-                    setDataGridViewII(dgvModuleTicket, dtmoduleuticket);
-
+             
             }
             else
             {
@@ -808,7 +871,7 @@ namespace aZynEManager
 
                     //validate the database for records being used
                     StringBuilder sqry = new StringBuilder();
-                    sqry.Append(String.Format("select count(*) from user_logs where user_name = '{0}'", strid));
+                    sqry.Append(String.Format("select count(*) from user_logs where user_authority = '{0}'", strid));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -842,7 +905,7 @@ namespace aZynEManager
                     }
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("delete from users where userid = '{0}' and system_code = {1}", strid, "1"));
+                    sqry.Append(String.Format("update  users set status=0 where userid = '{0}' and system_code = {1}", strid, "1"));
                     try
                     {
                         if (myconn.State == ConnectionState.Closed)

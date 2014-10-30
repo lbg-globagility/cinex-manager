@@ -48,15 +48,12 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).BeginInit();
             this.grpValues.Panel.SuspendLayout();
             this.grpValues.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +91,7 @@
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvResult.TabIndex = 31;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
+            this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
             // 
             // btnselect
             // 
@@ -455,7 +453,7 @@
             this.txtdesc.BackColor = System.Drawing.Color.White;
             this.txtdesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdesc.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtdesc.Location = new System.Drawing.Point(76, 30);
+            this.txtdesc.Location = new System.Drawing.Point(48, 30);
             this.txtdesc.Name = "txtdesc";
             this.txtdesc.Size = new System.Drawing.Size(272, 20);
             this.txtdesc.TabIndex = 81;
@@ -469,19 +467,19 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(7, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 82;
-            this.label1.Text = "Description";
+            this.label1.Text = "Name";
             // 
             // txtname
             // 
             this.txtname.BackColor = System.Drawing.Color.White;
             this.txtname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtname.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtname.Location = new System.Drawing.Point(76, 6);
+            this.txtname.Location = new System.Drawing.Point(48, 6);
             this.txtname.Name = "txtname";
             this.txtname.ReadOnly = true;
-            this.txtname.Size = new System.Drawing.Size(107, 20);
+            this.txtname.Size = new System.Drawing.Size(150, 20);
             this.txtname.TabIndex = 79;
             this.txtname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -493,9 +491,10 @@
             this.Label8.ForeColor = System.Drawing.Color.White;
             this.Label8.Location = new System.Drawing.Point(7, 12);
             this.Label8.Name = "Label8";
-            this.Label8.Size = new System.Drawing.Size(35, 13);
+            this.Label8.Size = new System.Drawing.Size(32, 13);
             this.Label8.TabIndex = 80;
-            this.Label8.Text = "Name";
+            this.Label8.Text = "Code";
+            this.Label8.Click += new System.EventHandler(this.Label8_Click);
             // 
             // frmClassification
             // 
@@ -517,15 +516,12 @@
             this.Resize += new System.EventHandler(this.frmClassification_Resize);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).EndInit();
             this.grpValues.Panel.ResumeLayout(false);
             this.grpValues.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).EndInit();

@@ -39,6 +39,8 @@ namespace aZynEManager
 
             unselectbutton();
             setnormal();
+            frdate.Value = DateTime.Now;
+            todate.Value = DateTime.Now;
         }
 
         public void unselectbutton()
@@ -287,6 +289,11 @@ namespace aZynEManager
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void kryptonGroup1_Panel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
     }

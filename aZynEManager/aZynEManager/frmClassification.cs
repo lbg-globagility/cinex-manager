@@ -68,9 +68,9 @@ namespace aZynEManager
                 dgvResult.Columns[0].Width = 0;
                 dgvResult.Columns[0].HeaderText = "ID";
                 dgvResult.Columns[1].Width = iwidth - 13;
-                dgvResult.Columns[1].HeaderText = "Name";
+                dgvResult.Columns[1].HeaderText = "Code";
                 dgvResult.Columns[2].Width = (iwidth * 2) - 10;
-                dgvResult.Columns[2].HeaderText = "Description";
+                dgvResult.Columns[2].HeaderText = "Name";
             }
         }
 
@@ -463,6 +463,16 @@ namespace aZynEManager
         }
 
         private void frmClassification_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSked));
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.MenuRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.kryptonHeaderGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup();
             this.buttonSpecHeaderGroup1 = new ComponentFactory.Krypton.Toolkit.ButtonSpecHeaderGroup();
@@ -41,11 +43,10 @@
             this.btnsked = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.MenuRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolRefresh = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
+            this.MenuRefresh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
@@ -55,7 +56,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
-            this.MenuRefresh.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpfilter
@@ -75,6 +75,7 @@
             this.grpfilter.Panel.Controls.Add(this.btnselect);
             this.grpfilter.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.grpfilter.Panel.Padding = new System.Windows.Forms.Padding(3);
+            this.grpfilter.Panel.Paint += new System.Windows.Forms.PaintEventHandler(this.grpfilter_Panel_Paint);
             this.grpfilter.Size = new System.Drawing.Size(1044, 516);
             this.grpfilter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpfilter.StateCommon.Back.Color2 = System.Drawing.Color.White;
@@ -85,6 +86,21 @@
             this.grpfilter.StateCommon.Border.Rounding = 5;
             this.grpfilter.StateCommon.Border.Width = 2;
             this.grpfilter.TabIndex = 314;
+            // 
+            // MenuRefresh
+            // 
+            this.MenuRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.MenuRefresh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolRefresh});
+            this.MenuRefresh.Name = "MenuRefresh";
+            this.MenuRefresh.Size = new System.Drawing.Size(111, 26);
+            // 
+            // toolRefresh
+            // 
+            this.toolRefresh.Name = "toolRefresh";
+            this.toolRefresh.Size = new System.Drawing.Size(110, 22);
+            this.toolRefresh.Text = "refresh";
+            this.toolRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
             // 
             // kryptonGroup1
             // 
@@ -319,21 +335,6 @@
             this.btnselect.Values.Text = "unselect";
             this.btnselect.Visible = false;
             // 
-            // MenuRefresh
-            // 
-            this.MenuRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.MenuRefresh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolRefresh});
-            this.MenuRefresh.Name = "MenuRefresh";
-            this.MenuRefresh.Size = new System.Drawing.Size(111, 26);
-            // 
-            // toolRefresh
-            // 
-            this.toolRefresh.Name = "toolRefresh";
-            this.toolRefresh.Size = new System.Drawing.Size(110, 22);
-            this.toolRefresh.Text = "refresh";
-            this.toolRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
-            // 
             // frmSked
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,6 +351,7 @@
             this.grpfilter.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
+            this.MenuRefresh.ResumeLayout(false);
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
@@ -361,7 +363,6 @@
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
-            this.MenuRefresh.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

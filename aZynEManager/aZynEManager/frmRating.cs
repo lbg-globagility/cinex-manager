@@ -325,16 +325,11 @@ namespace aZynEManager
                     return;
                 }
                 //melvin 10-14-14
+              
                 sqry = new StringBuilder();
-                sqry.Append("select max(id) from mtrcb");
-                MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                int max_id = Convert.ToInt32(cmd2.ExecuteScalar()) + 1;
-                
-                sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into mtrcb value({0},'{1}','{2}')",
-                  max_id,  txtname.Text.Trim(), txtdesc.Text.Trim()));
+                sqry.Append(String.Format("insert into mtrcb value(0,'{0}','{1}')",
+                   txtname.Text.Trim(), txtdesc.Text.Trim()));
 
-                
                 try
                 {
                     if(myconn.State == ConnectionState.Closed)

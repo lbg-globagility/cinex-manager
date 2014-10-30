@@ -113,7 +113,7 @@ namespace aZynEManager
             do
             {
                 sqry = new StringBuilder();
-                sqry.Append("select a.start_time, a.end_time, c.code, a.id, b.status from movies_schedule_list a ");
+                sqry.Append("select a.start_time, a.end_time, c.code, a.id, a.status from movies_schedule_list a ");
                 sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0}  ", idcnm));
@@ -154,10 +154,7 @@ namespace aZynEManager
                                 firsttitle = sval;
                                 itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 100, 225, 225);
                             }
-                            if (stat == "0")
-                            {
-                                itemcolor = Color.Red;
-                            }
+                            
                             if (firsttitle != sval)
                             {
                                 calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
@@ -175,6 +172,14 @@ namespace aZynEManager
                                     itemcolor = Color.FromArgb(100, 100, 225, 225);//Color.FromArgb(100, 225, 225, 100);
                                 }
                                 firsttitle = sval;
+                            }
+                            if (stat == "0")
+                            {
+                                itemcolor = Color.Red;
+                            }
+                            else
+                            {
+                                itemcolor = Color.FromArgb(100, 100, 225, 225);
                             }
                             calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
@@ -321,12 +326,34 @@ namespace aZynEManager
                             //cntrol = "resultselect";
                             boolresultclick = true;
                             dgvResult.Rows[i].Selected = true;
+
+                            //melvin 10-29-2014
+                            
+                            string id = dgvResult.Rows[i].Cells[0].Value.ToString();
+                            StringBuilder sqry = new StringBuilder();
+                            sqry.Append("select status from movies_schedule_list where id=" + id);
+                            MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                           // MessageBox.Show(sqry.ToString());
+                            int res = Convert.ToInt32(cmd.ExecuteScalar());
+                            if (res == 0)
+                            {
+                                rbUnpublish.Checked = true;
+
+                            }
+                            else
+                            {
+                                rbPublish.Checked = true;  
+                            }
+
                             break;
                         }
                     }
+                   
                 }
 
             }
+
+           
         }
 
         private void calsked_Click(object sender, EventArgs e)
@@ -680,11 +707,11 @@ namespace aZynEManager
                             ////added july 21 2014 
                             ////for the auto generate of sked per day with intermission time
                             DateTime movieenddate = currentdate.Date;
-                            if(cbxintermision.Checked == true && txtintermision.Text.Trim() != "")
+                            if (cbxintermision.Checked == true && txtintermision.Text.Trim() != "")
                             {
                                 movieenddate = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
                                 int showcntr = 0;
-                                while(currentdate.ToShortDateString() == movieenddate.ToShortDateString())
+                                while (currentdate.ToShortDateString() == movieenddate.ToShortDateString())
                                 {
                                     if (showcntr > 0)
                                     {
@@ -706,7 +733,16 @@ namespace aZynEManager
                                 }
                             }
                             else
-                                addsked(currentdate, cinemaid, movieid, movieschedid, moviescheslistid, timestartspan, timeendspan);
+                            {
+                                //melvin 2014-10-28
+
+                                //addsked(currentdate, cinemaid, movieid, movieschedid, moviescheslistid, timestartspan, timeendspan);]
+                                if (!(addsked(currentdate, cinemaid, movieid, movieschedid, moviescheslistid, timestartspan, timeendspan)))
+                                {
+                                    return;
+                                }
+                            }
+
                         }
                         currentdate = currentdate.AddDays((double)1);
                         movieschedid = "";
@@ -763,7 +799,7 @@ namespace aZynEManager
             }
         }
 
-        public void addsked(DateTime currentdate, int cinemaid, int movieid, string movieschedid, string moviescheslistid, TimeSpan timestartspan, TimeSpan timeendspan)
+        public bool addsked(DateTime currentdate, int cinemaid, int movieid, string movieschedid, string moviescheslistid, TimeSpan timestartspan, TimeSpan timeendspan)
         {
             StringBuilder sqry = new StringBuilder();
             sqry.Append("select count(*) from movies_schedule ");
@@ -812,6 +848,7 @@ namespace aZynEManager
                 }
                 catch
                 {
+                    return false;
                 }
             }
 
@@ -848,7 +885,7 @@ namespace aZynEManager
                                 myconn.Close();
                             //setnormal();
                             MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
+                            return false;
                         }
 
                         strqry = new StringBuilder();
@@ -862,7 +899,7 @@ namespace aZynEManager
                                 myconn.Close();
                             setnormal();
                             MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
+                            return false;
                         }
                     }
 
@@ -892,6 +929,7 @@ namespace aZynEManager
                         catch (Exception err)
                         {
                             MessageBox.Show(err.Message, "tabinsertcheck");
+                            return false;
                         }
                     }
                 }
@@ -899,7 +937,9 @@ namespace aZynEManager
             catch(Exception err)
             {
                 MessageBox.Show(err.Message, "addsked");
+                return false;
             }
+            return true;
         }
 
 
@@ -1231,7 +1271,24 @@ namespace aZynEManager
             if (dgv.CurrentRow.Selected)
             {
                 setSelected(dgv);
+                string id = dgvResult.Rows[dgvResult.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("select status from movies_schedule_list where id=" + id);
+                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                int res = Convert.ToInt32(cmd.ExecuteScalar());
+                if (res == 0)
+                {
+                    rbUnpublish.Checked = true;
+                    
+                }
+                else
+                {
+                    rbPublish.Checked = true;
+                }
             }
+
+            
         }
 
         public void setSelected(KryptonDataGridView dgv)
@@ -1657,6 +1714,8 @@ namespace aZynEManager
             }
             else if (btnEdit.Text == "update")
             {
+                
+
                 string strstatus = String.Empty;
                 if (txtMC.Text == "")
                 {
@@ -1747,7 +1806,16 @@ namespace aZynEManager
                     return;
                 }
 
-
+                if (rbPublish.Checked == true)
+                {
+                    publish("1");
+                   
+                }
+                else if (rbUnpublish.Checked == true)
+                {
+                    publish("0");
+                    
+                }
                 chkcnt = 0;
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
@@ -2106,16 +2174,16 @@ namespace aZynEManager
         private void btnPublish_Click(object sender, EventArgs e)
         {
             //melvin 10-28-2014
-            publish("1", "publish");
+           
         }
 
         private void btnUnPublish_Click(object sender, EventArgs e)
         {
             //melvin 10-28-2014
-            publish("0", "unpublish");
+           
         }
 
-        private void publish(string stat,string result)
+        private void publish(string stat)
         {
             //melvin 10-27-2014
             if (dgvResult.SelectedCells.Count > 0)
@@ -2123,17 +2191,79 @@ namespace aZynEManager
                 string id = dgvResult.Rows[dgvResult.CurrentCell.RowIndex].Cells[0].Value.ToString();
                // MessageBox.Show(id);
                 StringBuilder sqry = new StringBuilder();
-                sqry.Append(String.Format("update movies_schedule set status={0} where ", stat));
-                sqry.Append("id=(select movies_schedule_id from movies_schedule_list ");
-                sqry.Append(String.Format("where id={0} )", id));
+                sqry.Append(String.Format("update movies_schedule_list set status={0}  ", stat));
+                sqry.Append(String.Format("where id={0} ", id));
+                //MessageBox.Show(sqry.ToString());
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Successfully "+result, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmd.Dispose();
             }
             else
             {
                 MessageBox.Show("Select Movie First", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void txtintermision_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void rbPublish_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void rbUnpublish_CheckedChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void btnProcess_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //melvin 10-30-2014 add refresh
+            try
+            {
+                if (cmbCinema.Items.Count > 0)
+                {
+                    var val = cmbCinema.SelectedValue;
+                    if (val.ToString() != "System.Data.DataRowView" && val.ToString() != "" && val != null)
+                    {
+                        foreach (CalendarItem item in calsked.GetSelectedItems())
+                        {
+
+                        }
+
+                        calsked.SetViewRange(calview.SelectionStart, calview.SelectionEnd);
+
+                        CultureInfo defaultCultureInfo = CultureInfo.CurrentCulture;
+                        DateTime dtstart = GetFirstDayOfWeek(calview.SelectionStart, defaultCultureInfo);
+                        addScreeningSched(cmbCinema.SelectedValue.ToString(), dtstart);
+
+                        clearCalendarItem();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        private void cmsRefresh_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+   
     }
 }

@@ -537,7 +537,9 @@
             this.txtlgu.Name = "txtlgu";
             this.txtlgu.Size = new System.Drawing.Size(72, 20);
             this.txtlgu.TabIndex = 8;
+            this.txtlgu.TextChanged += new System.EventHandler(this.txtlgu_TextChanged);
             this.txtlgu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlgu_KeyPress);
+            this.txtlgu.Leave += new System.EventHandler(this.txtlgu_Leave);
             // 
             // kryptonGroup1
             // 
@@ -761,10 +763,12 @@
             this.txtprice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtprice.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtprice.Location = new System.Drawing.Point(73, 53);
+            this.txtprice.MaxLength = 3;
             this.txtprice.Name = "txtprice";
             this.txtprice.Size = new System.Drawing.Size(66, 20);
             this.txtprice.TabIndex = 2;
             this.txtprice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtprice.TextChanged += new System.EventHandler(this.txtprice_TextChanged);
             // 
             // txtname
             // 

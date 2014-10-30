@@ -17,7 +17,9 @@ namespace aZynEManager
         MySqlConnection myconn;
         clscommon m_clscom = null;
         DataTable m_dt = new DataTable();
-
+        //melvin
+        int m_val = 0;
+        int m_dot = 0;
         public frmPatron()
         {
             InitializeComponent();
@@ -127,14 +129,17 @@ namespace aZynEManager
           && !char.IsDigit(e.KeyChar)
           && e.KeyChar != '.')
             {
+                
                 e.Handled = true;
             }
 
             // only allow one decimal point
+            
             if (e.KeyChar == '.'
                 && (sender as TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
+
             }
             if (e.KeyChar == '.'
                 && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
@@ -242,13 +247,13 @@ namespace aZynEManager
                 sqry = new StringBuilder();
 
                 
-                sqry.Append("Select Max(id) from patrons");
-                MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                int max_id= Convert.ToInt32(cmd2.ExecuteScalar())+1;
+               // sqry.Append("Select Max(id) from patrons");
+               // MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                //int max_id= Convert.ToInt32(cmd2.ExecuteScalar())+1;
                 sqry = new StringBuilder();
                 //with queries
                 sqry.Append(String.Format("insert into patrons values({0},'{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})",
-                    max_id,txtcode.Text.Trim(), txtname.Text.Trim(), txtprice.Text.Trim(), Convert.ToInt32(cbxpromo.CheckState),
+                    0,txtcode.Text.Trim(), txtname.Text.Trim(), txtprice.Text.Trim(), Convert.ToInt32(cbxpromo.CheckState),
                     Convert.ToInt32(cbxamusement.CheckState), Convert.ToInt32(cbxcultural.CheckState), Convert.ToInt32(cbxlgu.CheckState),//7
                     Convert.ToInt32(cbxgross.CheckState), Convert.ToInt32(cbxproducer.CheckState), clscommon.Get0BGR(btncolor.SelectedColor),//btncolor.SelectedColor.ToArgb(),
                     txtposition.Text.Trim(), txtlgu.Text.Trim()));
@@ -278,7 +283,7 @@ namespace aZynEManager
                     refreshpatrons();
                     refreshDGV();
                     setnormal();
-
+                    chkButton(false);
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch(Exception err)
@@ -437,7 +442,8 @@ namespace aZynEManager
                     refreshpatrons();
                     refreshDGV();
                     setnormal();
-
+                    chkButton(false);
+                    
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch
@@ -447,6 +453,15 @@ namespace aZynEManager
             }
         }
 
+        public void chkButton(bool con)
+        {
+            cbxamusement.Checked = con;
+            cbxcultural.Checked = con;
+            cbxgross.Checked = con;
+            cbxlgu.Checked = con;
+            cbxproducer.Checked = con;
+            cbxpromo.Checked = con;
+        }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
@@ -607,8 +622,10 @@ namespace aZynEManager
             }
         }
 
-        private void txtlgu_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtlgu_KeyPress(object sender, KeyPressEventArgs e )
         {
+
+
             if (!char.IsControl(e.KeyChar)
                 && !char.IsDigit(e.KeyChar)
                 && e.KeyChar != '.')
@@ -616,17 +633,19 @@ namespace aZynEManager
                 e.Handled = true;
             }
 
-            // only allow one decimal point
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
-            {
-                e.Handled = true;
-            }
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
-            {
-                e.Handled = true;
-            }
+                //// only allow one decimal point
+                //if (e.KeyChar == '.')
+                //{
+                //    e.Handled = true;
+                    
+                //}
+
+                //if (e.KeyChar == '.'
+                //    && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
+                //{
+                //    e.Handled = true;
+                //}
+            
         }
 
         private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -637,6 +656,63 @@ namespace aZynEManager
         private void btncolor_SelectedColorChanged(object sender, ColorEventArgs e)
         {
 
+        }
+
+        private void txtprice_TextChanged(object sender, EventArgs e)
+        {
+            //melvin 10-28-2014
+            try
+            {
+                if (txtprice.Text.Length > 0)
+                {
+                    Convert.ToInt32(txtprice.Text);
+                    int.TryParse(txtprice.Text, out m_val);
+                    int textLength = txtprice.Text.Length;
+                    txtprice.SelectionStart = textLength;
+                    txtprice.SelectionLength = 0;
+                }
+            }
+            catch
+            {
+                txtprice.Text = m_val.ToString();
+                return;
+            }
+
+        }
+
+        private void txtlgu_TextChanged(object sender, EventArgs e)
+        {
+            int dot = 0;
+            for (int x = 0; x < txtlgu.Text.Length; x++)
+            {
+                if (txtlgu.Text.Substring(x, 1) == ".")
+                {
+                    dot++;
+                }
+                if (dot > 1)
+                {
+                    txtlgu.Text = txtlgu.Text.Substring(0, x);
+                    txtlgu.SelectionStart = txtlgu.Text.Length;
+                    txtlgu.SelectionLength = 0;
+                }
+
+            }
+        }
+
+        private void txtlgu_Leave(object sender, EventArgs e)
+        {
+            //melvin 10-30 for auto add .00
+            if (txtlgu.Text.Contains(".") == false)
+            {
+                    txtlgu.Text = txtlgu.Text + ".00";
+            }
+            else
+            {
+               if (txtlgu.Text.IndexOf(".") == txtlgu.Text.Length-1)
+                {
+                    txtlgu.Text = txtlgu.Text + "00";
+                }
+            }
         }
     }
 }
