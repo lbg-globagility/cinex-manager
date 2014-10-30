@@ -29,7 +29,8 @@ namespace Cinemapps
             this.ShowsNavigationUI = false;
 
             //load page
-            NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
+            if (NavigationService != null)
+                NavigationService.Navigate(new Uri("LoginPage.xaml", UriKind.Relative));
         }
 
         private void NavigationWindow_Navigated(object sender, NavigationEventArgs e)

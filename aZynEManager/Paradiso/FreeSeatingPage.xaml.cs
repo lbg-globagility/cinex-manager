@@ -90,7 +90,8 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is invalid.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    if (NavigationService != null)
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -103,7 +104,8 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is already expired.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    if (NavigationService != null)
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -165,7 +167,8 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "No more available seats.";
                     messageWindow.ShowDialog();
 
-                    NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    if (NavigationService != null)
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
                 }
 
@@ -265,7 +268,8 @@ namespace Paradiso
         {
             this.ClearSelection();
             ParadisoObjectManager.GetInstance().SetNewSessionId();
-            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+            if (NavigationService != null)
+                NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
@@ -326,7 +330,8 @@ namespace Paradiso
             }
 
             //call payment
-            NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
+            if (NavigationService != null) 
+                NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
         }
 
     }

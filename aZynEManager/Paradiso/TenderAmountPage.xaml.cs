@@ -325,9 +325,8 @@ namespace Paradiso
                         TicketPrintPage ticketPrintPage = new TicketPrintPage();
                         ticketPrintPage.PrintTickets(ornumbers);
 
-
-
-                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                        if (NavigationService != null) 
+                            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     }
                     else
                     {

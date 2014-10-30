@@ -73,7 +73,8 @@ namespace Paradiso
 
                         paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
 
-                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                        if (NavigationService != null) 
+                            NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     }
                     else
                     {
