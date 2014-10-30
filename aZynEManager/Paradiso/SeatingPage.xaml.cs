@@ -93,7 +93,7 @@ namespace Paradiso
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
-            //timer.Start();
+            timer.Start();
         }
 
         public int Key 
@@ -146,7 +146,8 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
             var window = Window.GetWindow(this);
-            window.KeyDown -= Page_PreviewKeyDown;
+            if (window != null)
+                window.KeyDown -= Page_PreviewKeyDown;
 
             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -165,7 +166,7 @@ namespace Paradiso
             {
                 //checks if movie schedule exists
                 var _movie_schedule_list = (from msl in context.movies_schedule_list
-                                                where msl.id == this.Key
+                                                where msl.id == this.Key && msl.status == 1
                                                 select new
                                                 {
                                                     mslkey = msl.id,
@@ -189,7 +190,8 @@ namespace Paradiso
                     messageWindow.ShowDialog();
 
                     var window = Window.GetWindow(this);
-                    window.KeyDown -= Page_PreviewKeyDown;
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
 
                     NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -277,8 +279,8 @@ namespace Paradiso
                     MovieSchedule.Available = 0;
 
                 var price = (from mslp in context.movies_schedule_list_patron
-                                where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
-                                select mslp.price).FirstOrDefault();
+                                where mslp.movies_schedule_list_id == this.Key //&& mslp.is_default == 1
+                                select mslp.price).SingleOrDefault();
                 if (price != null)
                     MovieSchedule.Price = (decimal)price;
 
@@ -358,7 +360,7 @@ namespace Paradiso
                     SeatModel seatModel = new SeatModel()
                     {
                         Key = seat.id,
-                        Name = string.Format("{0}{1}", seat.row_name, seat.col_name),
+                        Name = string.Format("{0}{1}", seat.col_name, seat.row_name),
                         X = (int)seat.x1,
                         Y = (int)seat.y1,
                         Width = (int)seat.x2 - (int) seat.x1,
@@ -462,7 +464,7 @@ namespace Paradiso
                 return;
             if (IsReadOnly || !MovieSchedule.IsEnabled)
                 return;
-            //timer.Stop();
+            timer.Stop();
             
             Canvas seatCanvas = (Canvas)sender;
             Seat = null;
@@ -532,7 +534,7 @@ namespace Paradiso
                                                  select new
                                                  {
                                                      mcths.id,
-                                                     sn = mcths.cinema_seat.row_name + mcths.cinema_seat.col_name,
+                                                     sn = mcths.cinema_seat.col_name + mcths.cinema_seat.row_name,
                                                  }
                                                  ).ToList();
 
@@ -570,6 +572,7 @@ namespace Paradiso
             }
             catch //(Exception ex) 
             { }
+            timer.Start();
             this.setFocus();
         }
 
@@ -578,7 +581,7 @@ namespace Paradiso
             timer.Stop();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
         }
 
@@ -601,7 +604,7 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }
@@ -614,7 +617,7 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                //timer.Start();
+                timer.Start();
                 this.setFocus();
                 return;
             }
@@ -622,7 +625,8 @@ namespace Paradiso
             {
                 //call payment
                 var window = Window.GetWindow(this);
-                window.KeyDown -= Page_PreviewKeyDown;
+                if (window != null)
+                    window.KeyDown -= Page_PreviewKeyDown;
 
                 NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
@@ -743,7 +747,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        //timer.Start();
+                        timer.Start();
                         this.setFocus();
 
                         return;
@@ -778,7 +782,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            //timer.Start();
+            timer.Start();
             this.setFocus();
 
         }

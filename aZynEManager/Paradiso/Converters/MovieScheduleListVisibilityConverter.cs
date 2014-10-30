@@ -19,13 +19,13 @@ namespace Paradiso
             {
                 bool blnIsVisible = (bool)value;
                 if (!blnIsVisible)
-                    visibility = Visibility.Hidden;
+                    visibility = Visibility.Collapsed;
             }
             else if (value is int)
             {
                 int intValue = (int)value;
                 if (intValue == 0)
-                    visibility = Visibility.Hidden;
+                    visibility = Visibility.Collapsed;
             }
 
             return visibility;

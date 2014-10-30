@@ -224,6 +224,10 @@
             <Assembly AssemblyName="SmartAssembly.Shared, Culture=neutral, PublicKeyToken=7f465a1c156d4d57">
                 <Merging />
             </Assembly>
+            <Assembly AssemblyName="Xceed.Wpf.Toolkit, Culture=neutral, PublicKeyToken=3e4669d2f30244f4">
+                <Merging />
+                <Embedding />
+            </Assembly>
         </Assemblies>
     </Configuration>
 </SmartAssemblyProject>

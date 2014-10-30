@@ -3228,30 +3228,6 @@ namespace Paradiso
         private global::System.DateTime _movie_date;
         partial void Onmovie_dateChanging(global::System.DateTime value);
         partial void Onmovie_dateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> status
-        {
-            get
-            {
-                return _status;
-            }
-            set
-            {
-                OnstatusChanging(value);
-                ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("status");
-                OnstatusChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _status;
-        partial void OnstatusChanging(Nullable<global::System.Int32> value);
-        partial void OnstatusChanged();
 
         #endregion
 
@@ -3401,7 +3377,8 @@ namespace Paradiso
         /// <param name="end_time">Initial value of the end_time property.</param>
         /// <param name="seat_type">Initial value of the seat_type property.</param>
         /// <param name="laytime">Initial value of the laytime property.</param>
-        public static movies_schedule_list Createmovies_schedule_list(global::System.Int32 id, global::System.Int32 movies_schedule_id, global::System.DateTime start_time, global::System.DateTime end_time, global::System.Int32 seat_type, global::System.Int32 laytime)
+        /// <param name="status">Initial value of the status property.</param>
+        public static movies_schedule_list Createmovies_schedule_list(global::System.Int32 id, global::System.Int32 movies_schedule_id, global::System.DateTime start_time, global::System.DateTime end_time, global::System.Int32 seat_type, global::System.Int32 laytime, global::System.Int32 status)
         {
             movies_schedule_list movies_schedule_list = new movies_schedule_list();
             movies_schedule_list.id = id;
@@ -3410,6 +3387,7 @@ namespace Paradiso
             movies_schedule_list.end_time = end_time;
             movies_schedule_list.seat_type = seat_type;
             movies_schedule_list.laytime = laytime;
+            movies_schedule_list.status = status;
             return movies_schedule_list;
         }
 
@@ -3563,6 +3541,30 @@ namespace Paradiso
         private global::System.Int32 _laytime;
         partial void OnlaytimeChanging(global::System.Int32 value);
         partial void OnlaytimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                OnstatusChanging(value);
+                ReportPropertyChanging("status");
+                _status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("status");
+                OnstatusChanged();
+            }
+        }
+        private global::System.Int32 _status;
+        partial void OnstatusChanging(global::System.Int32 value);
+        partial void OnstatusChanged();
 
         #endregion
 
@@ -6662,7 +6664,8 @@ namespace Paradiso
         /// <param name="fname">Initial value of the fname property.</param>
         /// <param name="mname">Initial value of the mname property.</param>
         /// <param name="system_code">Initial value of the system_code property.</param>
-        public static user Createuser(global::System.Int32 id, global::System.String userid, global::System.String user_password, global::System.String designation, global::System.Int32 user_level_id, global::System.String lname, global::System.String fname, global::System.String mname, global::System.Int32 system_code)
+        /// <param name="status">Initial value of the status property.</param>
+        public static user Createuser(global::System.Int32 id, global::System.String userid, global::System.String user_password, global::System.String designation, global::System.Int32 user_level_id, global::System.String lname, global::System.String fname, global::System.String mname, global::System.Int32 system_code, global::System.Int32 status)
         {
             user user = new user();
             user.id = id;
@@ -6674,6 +6677,7 @@ namespace Paradiso
             user.fname = fname;
             user.mname = mname;
             user.system_code = system_code;
+            user.status = status;
             return user;
         }
 
@@ -6899,6 +6903,30 @@ namespace Paradiso
         private global::System.Int32 _system_code;
         partial void Onsystem_codeChanging(global::System.Int32 value);
         partial void Onsystem_codeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                OnstatusChanging(value);
+                ReportPropertyChanging("status");
+                _status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("status");
+                OnstatusChanged();
+            }
+        }
+        private global::System.Int32 _status;
+        partial void OnstatusChanging(global::System.Int32 value);
+        partial void OnstatusChanged();
 
         #endregion
 

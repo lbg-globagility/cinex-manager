@@ -57,7 +57,7 @@
         </Canvas.Background>
 
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
-            <StackPanel DockPanel.Dock="Left" Width="145" Margin="10, 20, 0, 0">
+            <StackPanel DockPanel.Dock="Left" Width="145" Margin="10, 5, 0, 0">
                 <StackPanel Background="#ffffff">
                     <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
@@ -101,7 +101,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 20, 10, 40" >
+            <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="5,5,10,5" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas IsItemsHost="True" Name="BlankCanvas" MouseLeftButtonDown="BlankCanvas_MouseLeftButtonDown"  MouseRightButtonUp="BlankCanvas_MouseRightButtonUp">
@@ -158,7 +158,7 @@
                                             <TextBlock FontSize="16">Seat Selected:</TextBlock>
                                             <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Seat.Name}"/>
                                         </StackPanel>
-                                        <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Patrons</TextBlock>
+                                        <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Free Seating</TextBlock>
 
                                         <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
                                             <ListView.ItemContainerStyle>
@@ -179,23 +179,34 @@
                                 </ContextMenu>
                             </Canvas.ContextMenu>
                             <Grid>
-                                <Grid.Background>
+                                <!--Grid.Background>
                                     <MultiBinding Converter="{StaticResource seatColorMulti}">
                                         <Binding Path="Type"/>
                                         <Binding Path="SeatColor"/>
                                     </MultiBinding>
-                                </Grid.Background>
+                                </Grid.Background-->
                                 <Image Name="SeatIcon" Width="{Binding Width}" >
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource seatImage}">
                                                 <Binding Path="Type"/>
                                                 <Binding Path="SeatType"/>
-                                            </MultiBinding>
+                                                <Binding Path="SeatColor"/>
+                                        </MultiBinding>
                                         </Image.Source>
                                     </Image>
                                 <TextBlock
                                     TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" />
+                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
+                                  <TextBlock.Effect>
+                                    <DropShadowEffect
+                                      ShadowDepth="2"
+                                      Direction="315"
+                                      Color="Black"
+                                      Opacity="1"
+                                     BlurRadius="0.0"/>
+                                  </TextBlock.Effect>
+
+                                </TextBlock>
                             </Grid>
 
                             <!--TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="5" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" /-->
@@ -259,7 +270,7 @@
                                     </Rectangle.Fill>
                                 </Rectangle-->
                             </Button>
-                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
                             <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
                                 <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
                             </Grid>

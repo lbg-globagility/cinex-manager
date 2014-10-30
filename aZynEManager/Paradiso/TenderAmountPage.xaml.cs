@@ -83,7 +83,7 @@ namespace Paradiso
                             MovieTimeKey = ss.movies_schedule_list_id;
                         var seatname = (from cs in context.cinema_seat
                                         where cs.id == ss.cinema_seat_id
-                                        select new { sn = cs.row_name + cs.col_name }).SingleOrDefault();
+                                        select new { sn = cs.col_name + cs.row_name }).SingleOrDefault();
                         
 
                         SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()

@@ -383,6 +383,9 @@
   <ItemGroup>
     <Resource Include="Images\delete-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\seat-red.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>

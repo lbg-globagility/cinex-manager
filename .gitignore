@@ -11,3 +11,9 @@ NET/
 EzirizOutput/
 filelist/
 docs/
+aZyneManager/AzynemaConsoleApplication
+aZyneManager/AzynemaService
+aZyneManager/database
+release/
+*.config
+*.Config
