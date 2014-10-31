@@ -344,7 +344,7 @@ namespace aZynEManager
                             {
                                 rbPublish.Checked = true;  
                             }
-
+                            btnsearch.PerformClick();
                             break;
                         }
                     }
@@ -1726,6 +1726,8 @@ namespace aZynEManager
                     }
 
                 }
+                btnsearch.PerformClick();
+                txtEnabled(true);
 
             }
             else if (btnEdit.Text == "update")
@@ -1796,13 +1798,15 @@ namespace aZynEManager
                     movieid = Convert.ToInt32(dgvMovies.SelectedRows[0].Cells[0].Value.ToString());
                     cinemaid = Convert.ToInt32(cmbCinema.SelectedValue.ToString());
                 }
+
+                    
                 else if (dgvMovies.SelectedRows.Count == 0)
                 {
                     MessageBox.Show("Please select a movie.");
                     dgvMovies.Focus();
                     return;
                 }
-
+                MessageBox.Show(movieid.ToString() + "cine" + cinemaid.ToString());
                 int chkcnt = 0;
                 for (int i = 0; i < dgvpatrons.Rows.Count; i++)
                 {
@@ -1856,7 +1860,7 @@ namespace aZynEManager
                 {
                     string movieschedid = String.Empty;
                     string moviescheslistid = String.Empty;
-                    DateTime currentdate = datestart.Value;
+                    DateTime currentdate = datestart.Value;//timestart.Value;
                     do
                     {
                         if (currentdate == dateend.Value.Date)
@@ -2060,6 +2064,7 @@ namespace aZynEManager
                             Environment.MachineName.ToString(), "UPDATED MOVIE SKED INFO: ID=" + movieschedid.ToString(), m_frmM._connection);
 
                     setnormal();
+                    txtEnabled(false);
                     cmbCinema.SelectedValue = cinemaid;
                     dtcalview.Value = currentdate.AddDays(-1).Date;
                     MessageBox.Show("You have successfully updated the selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
