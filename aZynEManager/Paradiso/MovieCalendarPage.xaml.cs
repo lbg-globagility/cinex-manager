@@ -434,7 +434,14 @@ namespace Paradiso
 
                         return;
                     }
+                    else if (msli.IsEllapsed)
+                    {
+                        MessageWindow messageWindow = new MessageWindow();
+                        messageWindow.MessageText.Text = "Reservation cannot be done on ellapsed screen times.";
+                        messageWindow.ShowDialog();
 
+                        return;
+                    }
 
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
                 }
