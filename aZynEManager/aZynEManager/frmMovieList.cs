@@ -589,7 +589,7 @@ namespace aZynEManager
                 try
                 {
                     //insert value for the movies table
-                    MessageBox.Show(sqry.ToString());
+                    //MessageBox.Show(sqry.ToString());
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -981,6 +981,12 @@ namespace aZynEManager
                         dgvClass.DataSource = null;
                         dgvClass.Columns.Clear();
                         setDataGridViewII(dgvClass, dt);
+                    }
+                        //melvin for clearing dgvClass
+                    else
+                    {
+                        
+                        dgvClass.DataSource = null;
                     }
 
                     setCheck(dgvClass, true);
