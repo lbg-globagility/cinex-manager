@@ -157,11 +157,17 @@ namespace aZynEManager
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            unselectButton();
-            frmMovieList frmlist = new frmMovieList();
-            frmlist.frmInit(m_frmM, m_clscom);
-            frmlist.ShowDialog();
-            frmlist.Dispose();
+            try
+            {
+                unselectButton();
+                frmMovieList frmlist = new frmMovieList();
+                frmlist.frmInit(m_frmM, m_clscom);
+                frmlist.ShowDialog();
+                frmlist.Dispose();
+            }
+            catch
+            {
+            }
         }
 
         public void setSkin(Color backColor, Color lineColor)
