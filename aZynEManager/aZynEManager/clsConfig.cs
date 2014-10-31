@@ -20,6 +20,9 @@ namespace aZynEManager
 
         private string strTin = string.Empty;
         private string strPn = string.Empty;
+        private string strPrinter = "CITIZEN";
+
+        private bool blnIsRemoveReservedSeat = true;
 
         [CategoryAttribute("Cinema"),
         DescriptionAttribute("Name of the the cinema"),
@@ -87,7 +90,7 @@ namespace aZynEManager
             set { _moviedefaultintermission = value; }
         }
 
-        [CategoryAttribute("Cinema"),
+        [CategoryAttribute("Ticket"),
         DescriptionAttribute("TIN")]
         public string TIN
         {
@@ -95,12 +98,28 @@ namespace aZynEManager
             set { strTin = value; }
         }
 
-        [CategoryAttribute("Cinema"),
+        [CategoryAttribute("Ticket"),
         DescriptionAttribute("PN")]
         public string PN
         {
             get { return strPn; }
             set { strPn = value; }
+        }
+
+        [CategoryAttribute("Ticket"),
+        DescriptionAttribute("Printer")]
+        public string Printer
+        {
+            get { return strPrinter; }
+            set { strPrinter = value; }
+        }
+
+        [CategoryAttribute("Ticket"),
+        DescriptionAttribute("Remove Reserved Seats on Unreserve command.")]
+        public bool IsRemoveReservedSeat
+        {
+            get { return blnIsRemoveReservedSeat; }
+            set { blnIsRemoveReservedSeat = value; }
         }
     }
 }

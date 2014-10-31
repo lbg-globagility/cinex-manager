@@ -566,7 +566,7 @@ namespace Cinemapps
             doubleAnimation.From = -LoggedUser.ActualWidth;
             doubleAnimation.To = canMain.ActualWidth;
             doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            doubleAnimation.AutoReverse = true;
+            doubleAnimation.AutoReverse = false;
             doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:15"));
 
             LoggedUser.BeginAnimation(Canvas.LeftProperty, doubleAnimation);

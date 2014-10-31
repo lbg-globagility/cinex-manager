@@ -139,6 +139,24 @@ namespace Paradiso
             }
         }
 
+        public bool IsReserveUnreservedSeats
+        {
+            get
+            {
+                bool blnIsReserveUnreservedSeats = false;
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    string strReserveUnreservedSeats = string.Empty;
+                    var reserve = (from h in context.config_table where h.system_desc == "REMOVE RESERVED" select h.system_value).SingleOrDefault();
+                    if (reserve != null && reserve != string.Empty)
+                        strReserveUnreservedSeats = reserve.ToString();
+                    if (strReserveUnreservedSeats != string.Empty && strReserveUnreservedSeats.ToUpper().Trim() != "YES")
+                        blnIsReserveUnreservedSeats = true;
+                }
+                return blnIsReserveUnreservedSeats;
+            }
+        }
+
         public string Subheader
         {
             get

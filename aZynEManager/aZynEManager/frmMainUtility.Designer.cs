@@ -252,7 +252,7 @@
             this.btnTitle.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.btnTitle.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnTitle.TabIndex = 31;
-            this.btnTitle.Values.Text = "System Utility";
+            this.btnTitle.Values.Text = "Setup Utility";
             // 
             // btnselect
             // 

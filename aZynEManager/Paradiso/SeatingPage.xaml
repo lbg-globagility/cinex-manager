@@ -30,7 +30,17 @@
                                 <Canvas Width="32" Height="32" Margin="2">
                                     <Image Width="32" Source="/Paradiso;component/Images/seat-red.png">
                                     </Image>
-                                    <TextBlock Canvas.Left="5" Canvas.Top="15" Foreground="White" FontWeight="Normal" FontFamily="Arial" Text="{Binding Name}" />
+                                    <TextBlock Canvas.Left="5" Canvas.Top="10" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Arial" Text="{Binding Name}">
+                                      <TextBlock.Effect>
+                                        <DropShadowEffect
+                                          ShadowDepth="2"
+                                          Direction="315"
+                                          Color="Black"
+                                          Opacity="1"
+                                         BlurRadius="0.0"/>
+                                      </TextBlock.Effect>
+
+                                    </TextBlock>
                                 </Canvas>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

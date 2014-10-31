@@ -541,7 +541,9 @@ namespace aZynEManager
                 txtMC.SelectAll();
                 txtMC.Focus();
 
-                rbtnGuarateed.Checked = true;
+                rbtnReserved.Checked = true; 
+                //RMB 10.31.2014
+                //rbtnGuarateed.Checked = true;
 
                 dgvMovies.DataSource = null;
                 dgvMovies.Columns.Clear();

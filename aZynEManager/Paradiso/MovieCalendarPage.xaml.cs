@@ -207,6 +207,8 @@ namespace Paradiso
                                 }
                             }
 
+                            _movie_schedule_list_item.IsEllapsed = !_movie_schedule_list_item.IsEnabled;
+
                             if (ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && !_movie_schedule_list_item.IsEnabled)
                             {
                                 _movie_schedule_list_item.IsEnabled = true;
@@ -432,7 +434,14 @@ namespace Paradiso
 
                         return;
                     }
+                    else if (msli.IsEllapsed)
+                    {
+                        MessageWindow messageWindow = new MessageWindow();
+                        messageWindow.MessageText.Text = "Reservation cannot be done on ellapsed screen times.";
+                        messageWindow.ShowDialog();
 
+                        return;
+                    }
 
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
                 }
