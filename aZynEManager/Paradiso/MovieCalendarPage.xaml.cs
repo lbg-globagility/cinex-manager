@@ -207,6 +207,8 @@ namespace Paradiso
                                 }
                             }
 
+                            _movie_schedule_list_item.IsEllapsed = !_movie_schedule_list_item.IsEnabled;
+
                             if (ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && !_movie_schedule_list_item.IsEnabled)
                             {
                                 _movie_schedule_list_item.IsEnabled = true;

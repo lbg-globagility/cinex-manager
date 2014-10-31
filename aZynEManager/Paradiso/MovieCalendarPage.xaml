@@ -26,9 +26,9 @@
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
-
+            <l:ScreenTimeColorConverter x:Key="screenTimeForeColor" />
             <DataTemplate x:Key="screenTimeTemplate">
-                <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                <TextBlock Foreground="{Binding Path=IsEllapsed, Converter={StaticResource screenTimeForeColor}}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
                                             <TextBlock.Background>
                                                     <MultiBinding Converter="{StaticResource screenTimeColor}">
                                                         <Binding Path="IsEnabled"/>
@@ -39,22 +39,6 @@
                                             </TextBlock.Background>
                 </TextBlock>
             </DataTemplate>
-
-            <!--ControlTemplate x:Key="ListViewNewTemplate" TargetType="{x:Type ListBox}">
-                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="True">
-                    <ScrollViewer Focusable="False" Padding="{TemplateBinding Padding}">
-                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                    </ScrollViewer>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                    </Trigger>
-                    <Trigger Property="IsGrouping" Value="True">
-                        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate-->
         </Canvas.Resources>
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg"/>
@@ -83,11 +67,6 @@
 
                                     <StackPanel Name="MovieCalendarStackPanel" Background="LightGoldenrodYellow">
                                         <TextBlock  Margin="0, 20, 0, 0" TextWrapping="Wrap" Background="LightGoldenrodYellow" FontSize="20" FontFamily="Arial" FontWeight="Bold" Height="Auto" Foreground="Black" Text="{Binding SelectedMovieScheduleListItem.MovieName}" ></TextBlock>
-                                        <!--Canvas Height="20" Margin="0, 10, 0, 0">
-                                            <Canvas Name="MovieCanvas" Width="{Binding Path=ActualWidth, ElementName=MovieCalendarStackPanel}" ClipToBounds="True" Height="20" >
-                                                <TextBlock FontFamily="Arial" Foreground="Black" Name="MovieName" FontSize="20" FontWeight="Bold" Text="{Binding SelectedMovieScheduleListItem.MovieName}" ></TextBlock>
-                                            </Canvas>
-                                        </Canvas-->
                                     </StackPanel>
                                 </DockPanel>
                             </Border>
@@ -173,12 +152,6 @@
                 </Rectangle>
             </Button>
         </Grid>
-
-        <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
-            <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
-            <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
-
-        </StackPanel-->
         <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
     </Canvas>
 </Page>
