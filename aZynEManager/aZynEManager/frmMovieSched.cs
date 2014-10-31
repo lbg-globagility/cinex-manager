@@ -1692,9 +1692,27 @@ namespace aZynEManager
                     sqry.Append(String.Format("where c.movies_schedule_list_id = {0}", dgvResult.SelectedRows[0].Cells[0].Value.ToString()));
                     sqry.Append(") order by a.id asc");
                     DataTable dtpatronsaddnl = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
-                    DataTable dtpatrons = (DataTable)dgvpatrons.DataSource;
-                    dtpatrons.Merge(dtpatronsaddnl);
-                    dgvpatrons.DataSource = dtpatrons;
+                    DataTable dtpatrons = new DataTable();
+                    /// RMB added if the datatsource is empty 10.31.2014
+                    if (dgvpatrons.DataSource != null)
+                    {
+                        dtpatrons = (DataTable)dgvpatrons.DataSource;
+                        dtpatrons.Merge(dtpatronsaddnl);
+                        dgvpatrons.DataSource = dtpatrons;
+                    }
+                    else
+                    {                    
+                        dgvpatrons.DataSource = null;
+                        dgvpatrons.Columns.Clear();
+                        StringBuilder sbqry1 = new StringBuilder();
+                        sbqry1.Append("select b.name, a.price, a.patron_id as id ");
+                        sbqry1.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                        sbqry1.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
+                        sbqry1.Append("and b.name is not null ");
+                        sbqry1.Append("order by a.id asc");
+                        m_dtpatrons = m_clscom.setDataTable(sbqry1.ToString(), m_frmM._connection);
+                        setDataGridViewIII(m_dtpatrons, dgvpatrons);
+                    }
 
                     setCheck(dgvpatrons, false);
                     int rowCount = 0;
@@ -1806,7 +1824,7 @@ namespace aZynEManager
                     dgvMovies.Focus();
                     return;
                 }
-                MessageBox.Show(movieid.ToString() + "cine" + cinemaid.ToString());
+                //MessageBox.Show(movieid.ToString() + "cine" + cinemaid.ToString());
                 int chkcnt = 0;
                 for (int i = 0; i < dgvpatrons.Rows.Count; i++)
                 {
@@ -1939,10 +1957,12 @@ namespace aZynEManager
                                     var foundRows = movieschedlist.Select(strqry.ToString());
                                     if (foundRows.Count() > 0)
                                     {
-                                        if (foundRows.CopyToDataTable().Rows[0]["id"].ToString() == dgvResult.SelectedRows[0].Cells[0].Value.ToString())
-                                            continue;
-                                        else
+                                        if (foundRows.CopyToDataTable().Rows[0]["id"].ToString() != dgvResult.SelectedRows[0].Cells[0].Value.ToString())
                                         {
+                                            //rmb REMARKED 10.31.2014
+                                        //    continue;//break;//
+                                        //else
+                                        //{
                                             if (myconn.State == ConnectionState.Open)
                                                 myconn.Close();
                                             MessageBox.Show("Please check your time schedule values.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1957,9 +1977,11 @@ namespace aZynEManager
                                     foundRows = movieschedlist.Select(strqry.ToString());
                                     if (foundRows.Count() > 0)
                                     {
-                                        if (foundRows.CopyToDataTable().Rows[0]["id"].ToString() == dgvResult.SelectedRows[0].Cells[0].Value.ToString())
-                                            continue;
-                                        else
+                                        //rmb COMMENT 10.31.2014
+                                        //if (foundRows.CopyToDataTable().Rows[0]["id"].ToString() == dgvResult.SelectedRows[0].Cells[0].Value.ToString())
+                                        //    continue;
+                                        //else
+                                        if (foundRows.CopyToDataTable().Rows[0]["id"].ToString() != dgvResult.SelectedRows[0].Cells[0].Value.ToString())
                                         {
                                             if (myconn.State == ConnectionState.Open)
                                                 myconn.Close();
@@ -1993,7 +2015,8 @@ namespace aZynEManager
                                     myconn.Open();
                                 cmd = new MySqlCommand(sqry.ToString(), myconn);
                                 cmd.ExecuteNonQuery();
-                                moviescheslistid = cmd.LastInsertedId.ToString();
+                                //rmb REMARKED 10.31.2014 //moviescheslistid = cmd.LastInsertedId.ToString();
+                                moviescheslistid = dgvResult.SelectedRows[0].Cells[0].Value.ToString();
                                 cmd.Dispose();
 
                                 if (moviescheslistid != "")
