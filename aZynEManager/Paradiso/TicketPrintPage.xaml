@@ -20,14 +20,18 @@
         </ResourceDictionary>
     </Page.Resources>
     <Canvas Name="MainCanvas">
-        <Canvas.Resources>
+        <!--Canvas.Resources>
             <l:FooterLineConverter x:Key="footerLine" />
-        </Canvas.Resources>
+        </Canvas.Resources-->
         <Canvas.Background>
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
-        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="350" Opacity="1">
+        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="550" Opacity="1">
+            <StackPanel DockPanel.Dock="Right" Visibility="Collapsed" Name="CancelledORNumberPanel" Width="200" Height="386">
+                <ListView ItemsSource="{Binding Path=CancelledORNumbers}" SelectionMode="Single" Background="Black" SelectionChanged="ListView_SelectionChanged" Height="386" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                </ListView>
+            </StackPanel>
             <StackPanel DockPanel.Dock="Bottom" Margin="0" Background="Black">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>

@@ -356,6 +356,9 @@ namespace Paradiso
                 var seats = (from s in context.cinema_seat
                                 where s.cinema_id == MovieSchedule.CinemaKey
                                 select s).ToList();
+                if (seats.Count == 0)
+                    return;
+
                 int padding = 50;
                 var max_x = seats.Max(s => s.x2);
                 var max_y = seats.Max(s => s.y2);

@@ -16,6 +16,7 @@ using System.Threading;
 using System.Windows.Threading;
 using System.Printing;
 using Paradiso.Helpers;
+using System.Collections.ObjectModel;
 
 namespace Paradiso
 {
@@ -25,12 +26,42 @@ namespace Paradiso
     public partial class TicketPrintPage : Page
     {
         public TicketModel Ticket { get; set;}
+        public ObservableCollection<string> CancelledORNumbers { get; set; }
 
         public TicketPrintPage()
         {
             InitializeComponent();
 
             Ticket = new TicketModel();
+            CancelledORNumbers = new ObservableCollection<string>();
+
+            //load pending tickets to be voided (if any)
+            CancelledORNumbers.Clear();
+            try
+            {
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var ornumbers = (from o in context.or_numbers_unpublished_movies_schedule_view
+                                     select
+                                         new { o.or_number }).ToList();
+                    foreach (var ornumber in ornumbers)
+                    {
+                        CancelledORNumbers.Add(ornumber.or_number);
+                    }
+                }
+            }
+            catch { }
+
+            if (CancelledORNumbers.Count == 0)
+            {
+                TicketPanel.Width = 350;
+                CancelledORNumberPanel.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                TicketPanel.Width = 550;
+                CancelledORNumberPanel.Visibility = Visibility.Visible;
+            }
 
             this.DataContext = this;
 
@@ -84,6 +115,14 @@ namespace Paradiso
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "OR Number is invalid.";
+                messageWindow.ShowDialog();
+                return;
+            }
+
+            if (Ticket.IsVoid)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "Cannot void an OR Number that is already void.";
                 messageWindow.ShowDialog();
                 return;
             }
@@ -159,7 +198,9 @@ namespace Paradiso
                              vt = mslrs.vat_amount,
                              terminalname = mslrs.ticket.terminal,
                              tellercode = mslrs.ticket.user.userid,
-                             session = mslrs.ticket.session_id
+                             session = mslrs.ticket.session_id,
+                             isvoid = (mslrs.void_datetime != null),
+
                          }).FirstOrDefault();
                 if (t != null)
                 {
@@ -178,6 +219,7 @@ namespace Paradiso
                     Ticket.TellerCode = t.tellercode;
                     Ticket.SessionName = t.session;
                     Ticket.CurrentTime = ParadisoObjectManager.GetInstance().CurrentDate;
+                    Ticket.IsVoid = t.isvoid;
                 }
             }
         }
@@ -193,10 +235,19 @@ namespace Paradiso
                 NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
             }
+
             if (Ticket.ORNumber == string.Empty)
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "OR Number is invalid.";
+                messageWindow.ShowDialog();
+                return;
+            }
+
+            if (Ticket.IsVoid)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "You cannot reprint an OR Number that is void.";
                 messageWindow.ShowDialog();
                 return;
             }
@@ -369,6 +420,15 @@ namespace Paradiso
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //this.PrintTicket("C100000006");
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems != null)
+            {
+                ORNumberInput.Text = e.AddedItems[0].ToString();
+                this.PrintTicket(e.AddedItems[0].ToString());   
+            }
         }
     }
 }
