@@ -284,7 +284,7 @@ namespace Paradiso
                                 context.movies_schedule_list_reserved_seat.AddObject(mslrs);
 
 
-                                context.SaveChanges(System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
+                                context.SaveChanges(); //System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
                             }
 
                             string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
