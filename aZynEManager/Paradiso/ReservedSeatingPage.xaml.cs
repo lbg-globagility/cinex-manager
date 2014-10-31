@@ -286,7 +286,7 @@ namespace Paradiso
 
                 var price = (from mslp in context.movies_schedule_list_patron
                                 where mslp.movies_schedule_list_id == this.Key // && mslp.is_default == 1
-                                select mslp.price).SingleOrDefault();
+                                select mslp.price).FirstOrDefault();
                 if (price != null)
                     MovieSchedule.Price = (decimal)price;
 

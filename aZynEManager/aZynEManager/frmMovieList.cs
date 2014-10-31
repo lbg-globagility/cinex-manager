@@ -995,6 +995,12 @@ namespace aZynEManager
                         dgvClass.DataSource = null;
                         dgvClass.Columns.Clear();
                     }
+                        //melvin for clearing dgvClass
+                    else
+                    {
+                        
+                        dgvClass.DataSource = null;
+                    }
 
                     setCheck(dgvClass, true);
 

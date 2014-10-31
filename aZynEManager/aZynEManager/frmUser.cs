@@ -763,7 +763,7 @@ namespace aZynEManager
                 }
                 Encryption encrypt = new Encryption();
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7})",
+                sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7},1)",
                     this.txtUID.Text.ToUpper().Trim(), encrypt.EncryptString(txtPW.Text.Trim()).ToString(), txtDes.Text.ToUpper().Trim(), cmbAuth.SelectedValue.ToString(),
                     txtLName.Text.ToUpper().Trim(), txtFName.Text.ToUpper().Trim(), txtMName.Text.ToUpper().Trim(), cmbSystem.SelectedValue.ToString()));
                 try
