@@ -528,6 +528,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<config_table> _config_table;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<or_numbers_unpublished_movies_schedule_view> or_numbers_unpublished_movies_schedule_view
+        {
+            get
+            {
+                if ((_or_numbers_unpublished_movies_schedule_view == null))
+                {
+                    _or_numbers_unpublished_movies_schedule_view = base.CreateObjectSet<or_numbers_unpublished_movies_schedule_view>("or_numbers_unpublished_movies_schedule_view");
+                }
+                return _or_numbers_unpublished_movies_schedule_view;
+            }
+        }
+        private ObjectSet<or_numbers_unpublished_movies_schedule_view> _or_numbers_unpublished_movies_schedule_view;
 
         #endregion
 
@@ -747,6 +763,14 @@ namespace Paradiso
         public void AddToconfig_table(config_table config_table)
         {
             base.AddObject("config_table", config_table);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the or_numbers_unpublished_movies_schedule_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToor_numbers_unpublished_movies_schedule_view(or_numbers_unpublished_movies_schedule_view or_numbers_unpublished_movies_schedule_view)
+        {
+            base.AddObject("or_numbers_unpublished_movies_schedule_view", or_numbers_unpublished_movies_schedule_view);
         }
 
         #endregion
@@ -5616,6 +5640,87 @@ namespace Paradiso
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="or_numbers_unpublished_movies_schedule_view")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class or_numbers_unpublished_movies_schedule_view : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new or_numbers_unpublished_movies_schedule_view object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        public static or_numbers_unpublished_movies_schedule_view Createor_numbers_unpublished_movies_schedule_view(global::System.Int32 id)
+        {
+            or_numbers_unpublished_movies_schedule_view or_numbers_unpublished_movies_schedule_view = new or_numbers_unpublished_movies_schedule_view();
+            or_numbers_unpublished_movies_schedule_view.id = id;
+            return or_numbers_unpublished_movies_schedule_view;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String or_number
+        {
+            get
+            {
+                return _or_number;
+            }
+            set
+            {
+                Onor_numberChanging(value);
+                ReportPropertyChanging("or_number");
+                _or_number = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("or_number");
+                Onor_numberChanged();
+            }
+        }
+        private global::System.String _or_number;
+        partial void Onor_numberChanging(global::System.String value);
+        partial void Onor_numberChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

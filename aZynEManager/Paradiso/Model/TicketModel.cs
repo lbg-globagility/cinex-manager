@@ -37,6 +37,8 @@ namespace Paradiso.Model
         private string strSessionName = string.Empty;
         private string strSerialNumber = string.Empty;
 
+        private bool blnIsVoid = false;
+
         public TicketModel()
         {
             this.Clear();
@@ -63,6 +65,20 @@ namespace Paradiso.Model
             PN = ParadisoObjectManager.GetInstance().PN;
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
+            IsVoid = false;
+        }
+
+        public bool IsVoid
+        {
+            get { return blnIsVoid; }
+            set
+            {
+                if (blnIsVoid != value)
+                {
+                    blnIsVoid = value;
+                    NotifyPropertyChanged("IsVoid");
+                }
+            }
         }
 
         public string SerialNumber
