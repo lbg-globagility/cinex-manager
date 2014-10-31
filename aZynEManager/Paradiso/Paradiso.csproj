@@ -113,9 +113,6 @@
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
     <Compile Include="ExtensionClass.cs" />
-    <Compile Include="FreeSeatingPage.xaml.cs">
-      <DependentUpon>FreeSeatingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
@@ -179,10 +176,6 @@
     </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="FreeSeatingPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

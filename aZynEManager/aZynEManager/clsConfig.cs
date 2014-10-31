@@ -22,6 +22,8 @@ namespace aZynEManager
         private string strPn = string.Empty;
         private string strPrinter = "CITIZEN";
 
+        private bool blnIsRemoveReservedSeat = true;
+
         [CategoryAttribute("Cinema"),
         DescriptionAttribute("Name of the the cinema"),
         ]
@@ -110,6 +112,14 @@ namespace aZynEManager
         {
             get { return strPrinter; }
             set { strPrinter = value; }
+        }
+
+        [CategoryAttribute("Ticket"),
+        DescriptionAttribute("Remove Reserved Seats on Unreserve command.")]
+        public bool IsRemoveReservedSeat
+        {
+            get { return blnIsRemoveReservedSeat; }
+            set { blnIsRemoveReservedSeat = value; }
         }
     }
 }

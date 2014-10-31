@@ -979,6 +979,7 @@ namespace Paradiso
                     {
                         try
                         {
+                            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
                             foreach (ReservedSeatModel rs in rsl.ReservedSeats)
                             {
                                 var _rs = (from mslhs in context.movies_schedule_list_house_seat
@@ -986,7 +987,16 @@ namespace Paradiso
                                            select mslhs).FirstOrDefault();
                                 if (_rs != null)
                                 {
-                                    context.movies_schedule_list_house_seat.DeleteObject(_rs);
+                                    if (ParadisoObjectManager.GetInstance().IsReserveUnreservedSeats)
+                                    {
+                                        _rs.session_id = strSessionId;
+                                        _rs.reserved_date = ParadisoObjectManager.GetInstance().CurrentDate;
+                                    }
+                                    else
+                                    {
+                                        context.movies_schedule_list_house_seat.DeleteObject(_rs);
+                                    }
+                                    
                                     context.SaveChanges();
                                 }
                             }

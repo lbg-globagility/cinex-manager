@@ -145,6 +145,19 @@ namespace aZynEManager
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
+                sqry.Clear();
+                string strRemoveReserved = "NO";
+                if (m_clscom.m_clscon.IsRemoveReservedSeat)
+                    strRemoveReserved = "YES";
+                
+                sqry.Append(String.Format("update config_table set system_value = '{0}' ", strRemoveReserved));
+                sqry.Append(String.Format("where system_code = '{0}' ", "012"));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
 
