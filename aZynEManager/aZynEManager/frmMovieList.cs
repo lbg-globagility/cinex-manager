@@ -589,12 +589,12 @@ namespace aZynEManager
                 try
                 {
                     //insert value for the movies table
-                    MessageBox.Show(sqry.ToString());
+                    //MessageBox.Show(sqry.ToString());
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
-                    int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
                     cmd.ExecuteNonQuery();
+                    int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
 
                     string strid = cmd.LastInsertedId.ToString();
 
@@ -621,6 +621,8 @@ namespace aZynEManager
                     //        return;
                     //    }
                     //}
+                    //int.TryParse(strid, out intid);
+
                     tabinsertcheck(myconn, dgvClass, intid);
 
                     if(myconn.State == ConnectionState.Open)
@@ -635,6 +637,8 @@ namespace aZynEManager
                     
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //refreshDGV(false);
+                    dgvClass.DataSource = null;
+                    dgvClass.Columns.Clear();
                     cbxfilter.Enabled = true;
                 }
                 catch(Exception err)
@@ -785,6 +789,9 @@ namespace aZynEManager
                         m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_DELETE", "MOVIES|MOVIES_CLASS",
                             Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
                             + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                        dgvClass.DataSource = null;
+                        dgvClass.Columns.Clear();
                     }
                     catch (MySqlException er)
                     {
@@ -794,9 +801,10 @@ namespace aZynEManager
                     }
                 }
             }
-          
             else
             {
+                dgvClass.DataSource = null;
+                dgvClass.Columns.Clear();
                 cbxfilter.Enabled = true;
             }
             refreshDGV(true);
@@ -981,6 +989,17 @@ namespace aZynEManager
                         dgvClass.DataSource = null;
                         dgvClass.Columns.Clear();
                         setDataGridViewII(dgvClass, dt);
+                    }//rmb ADDED ELSE 10.31.2014
+                    else
+                    {
+                        dgvClass.DataSource = null;
+                        dgvClass.Columns.Clear();
+                    }
+                        //melvin for clearing dgvClass
+                    else
+                    {
+                        
+                        dgvClass.DataSource = null;
                     }
 
                     setCheck(dgvClass, true);
@@ -1071,23 +1090,31 @@ namespace aZynEManager
                 StringBuilder sbqry = new StringBuilder();
                 sbqry.Append("select a.description, a.name, a.id FROM classification a ");
                 sbqry.Append(String.Format("where a.id not in(select b.class_id from movies_class b where b.movie_id = {0}) ", movieid));
-                sbqry.Append("order by a.id asc");
+                sbqry.Append("order by a.description asc");
                 DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 DataTable dgvdt = (DataTable)dgvClass.DataSource;
                 //melvin 10-29-2014
                 if (!(dgvdt == null))
                 {
                     dgvdt.Merge(dt);
+                    //RMB added sort upon edit 10.31.2014
+                    DataView dv = dgvdt.AsDataView();
+                    dv.Sort = "description asc";
+                    dgvdt = dv.ToTable();
                     dgvClass.DataSource = dgvdt;
 
                 }
                 else
                 {
-                    DataGridViewCheckBoxColumn d1 = new DataGridViewCheckBoxColumn();
-                    d1.HeaderText = "";
-                    d1.Width = 40;
-                    dgvClass.Columns.Add(d1);
-                    dgvClass.DataSource = dt;
+                    //RMB remarked
+                    //DataGridViewCheckBoxColumn d1 = new DataGridViewCheckBoxColumn();
+                    //d1.HeaderText = "";
+                    //d1.Width = 40;
+                    //dgvClass.Columns.Add(d1);
+                    dgvClass.DataSource = null;
+                    dgvClass.Columns.Clear();
+                    setDataGridViewII(dgvClass, dt);
+                    //dgvClass.DataSource = dt;
                 }
                 
                // dgvdt.Merge(dt);
@@ -1355,6 +1382,8 @@ namespace aZynEManager
                     setnormal();
 
                     MessageBox.Show("You have successfully updated \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvClass.DataSource = null;
+                    dgvClass.Columns.Clear();
                 }
                 catch(Exception err)
                 {
