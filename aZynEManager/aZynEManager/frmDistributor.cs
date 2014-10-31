@@ -153,7 +153,7 @@ namespace aZynEManager
 
         public void populatecontacts()
         {
-              cmbcontacts.DataSource = null;
+            cmbcontacts.DataSource = null;
             DataTable dt = new DataTable();
             string sqry = "[id] > -1";
             //if (m_frmM.m_dtcontact.Rows.Count == 0)
@@ -181,6 +181,7 @@ namespace aZynEManager
                     cmbcontacts.DisplayMember = "name";
                 }
             }
+            //if(cmbcontacts.SelectedIndex != null && cmbcontacts.SelectedIndex != -1)
 
           
         }
@@ -339,6 +340,12 @@ namespace aZynEManager
 
         private void cmbcontacts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //RMB 10/31/2014 added new function
+            refreshContact();
+        }
+
+        public void refreshContact()
+        {
             DataTable dt = new DataTable();
             if (cbxnew.Checked == false)
             {
@@ -357,7 +364,7 @@ namespace aZynEManager
                         string val = cmbcontacts.SelectedValue.ToString();
                         string sqry = String.Format("[id] = '{0}'", val);
                         var foundRows = m_frmM.m_dtcontact.Select(sqry);
-                        if(foundRows.Count() == 0)
+                        if (foundRows.Count() == 0)
                         {
                             txtln.Text = "";
                             txtfn.Text = "";
@@ -692,24 +699,25 @@ namespace aZynEManager
                 if(cmbcontacts.Items.Count == 0)
                     populatecontacts();
 
+                refreshContact();
                 cbxnew.Checked = false;
             }
             else if (btnEdit.Text == "update")
             {
                 
                 cbxnew.Enabled = false;
-                 string dis_id = string.Empty;
+                string dis_id = string.Empty;
                 
-                 if (cmbcontacts.SelectedValue != null)
-                        {
-                            try
-                            {
-                                dis_id =  cmbcontacts.SelectedValue.ToString();
-                            }
-                            catch
-                            {
-                            }
-                        }
+                if (cmbcontacts.SelectedValue != null)
+                {
+                    try
+                    {
+                        dis_id =  cmbcontacts.SelectedValue.ToString();
+                    }
+                    catch
+                    {
+                    }
+                }
                
               //  MessageBox.Show(dis_id);
                
@@ -737,7 +745,7 @@ namespace aZynEManager
                 int rowCount = -1;
                 
  
-                    //validate for the existance of the record
+                //validate for the existance of the record
                 //melvin 10-24-2014
                 if (cbxnew.Checked == true)
                 {
@@ -768,7 +776,7 @@ namespace aZynEManager
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
-                  //  MessageBox.Show(sqry.ToString());
+                    //MessageBox.Show(sqry.ToString());
                     //MessageBox.Show(rowCount.ToString());
                     if (cbxnew.Checked == true)
                     {
@@ -1076,6 +1084,11 @@ namespace aZynEManager
         private void txtcity_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbcontacts_ParentChanged(object sender, EventArgs e)
+        {
+            refreshContact();
         }
 
 

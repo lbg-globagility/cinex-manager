@@ -242,7 +242,7 @@
             this.btnTitle.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.btnTitle.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnTitle.TabIndex = 39;
-            this.btnTitle.Values.Text = "System Configuration";
+            this.btnTitle.Values.Text = "Administration";
             // 
             // btnGrants
             // 
