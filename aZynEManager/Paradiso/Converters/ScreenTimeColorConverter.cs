@@ -17,10 +17,10 @@ namespace Paradiso
             {
                 bool blnIsEnabled = (bool)value;
                 if (blnIsEnabled)
-                    return new SolidColorBrush(Colors.YellowGreen);
+                    return new SolidColorBrush(Colors.Red);
             }
 
-            return new SolidColorBrush(Colors.Red);
+            return new SolidColorBrush(Colors.White);
         }
 
         public object ConvertBack(object value, Type targetType,

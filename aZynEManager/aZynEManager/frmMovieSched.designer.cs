@@ -29,17 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange11 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange12 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange13 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange14 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange15 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMovieSched));
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange1 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange2 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange3 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange4 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange5 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.dtcalview = new System.Windows.Forms.DateTimePicker();
             this.txtLabel = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.calview = new System.Windows.Forms.Calendar.MonthView();
-            this.calsked = new System.Windows.Forms.Calendar.Calendar();
             this.label22 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeMovieSchedulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,6 +105,8 @@
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.cmsRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calview = new System.Windows.Forms.Calendar.MonthView();
+            this.calsked = new System.Windows.Forms.Calendar.Calendar();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
@@ -189,73 +189,6 @@
             this.txtLabel.StateCommon.ShortText.Font = new System.Drawing.Font("Baskerville Old Face", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLabel.TabIndex = 315;
             this.txtLabel.Values.Text = "Cinema Name";
-            // 
-            // calview
-            // 
-            this.calview.ArrowsColor = System.Drawing.SystemColors.Window;
-            this.calview.ArrowsSelectedColor = System.Drawing.Color.Gold;
-            this.calview.DayBackgroundColor = System.Drawing.Color.Empty;
-            this.calview.DayGrayedText = System.Drawing.SystemColors.GrayText;
-            this.calview.DaySelectedBackgroundColor = System.Drawing.SystemColors.Highlight;
-            this.calview.DaySelectedColor = System.Drawing.SystemColors.WindowText;
-            this.calview.DaySelectedTextColor = System.Drawing.SystemColors.HighlightText;
-            this.calview.ItemPadding = new System.Windows.Forms.Padding(2);
-            this.calview.Location = new System.Drawing.Point(6, 41);
-            this.calview.MonthTitleColor = System.Drawing.SystemColors.ActiveCaption;
-            this.calview.MonthTitleColorInactive = System.Drawing.SystemColors.InactiveCaption;
-            this.calview.MonthTitleTextColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.calview.MonthTitleTextColorInactive = System.Drawing.SystemColors.InactiveCaptionText;
-            this.calview.Name = "calview";
-            this.calview.SelectionMode = System.Windows.Forms.Calendar.MonthView.MonthViewSelection.Week;
-            this.calview.Size = new System.Drawing.Size(220, 147);
-            this.calview.TabIndex = 0;
-            this.calview.Text = "monthView1";
-            this.calview.TodayBorderColor = System.Drawing.Color.Maroon;
-            this.calview.SelectionChanged += new System.EventHandler(this.calview_SelectionChanged);
-            // 
-            // calsked
-            // 
-            this.calsked.AllowItemEdit = false;
-            this.calsked.AllowItemResize = false;
-            this.calsked.AllowNew = false;
-            this.calsked.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.calsked.Font = new System.Drawing.Font("Segoe UI", 9F);
-            calendarHighlightRange11.DayOfWeek = System.DayOfWeek.Monday;
-            calendarHighlightRange11.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange11.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange12.DayOfWeek = System.DayOfWeek.Tuesday;
-            calendarHighlightRange12.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange12.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange13.DayOfWeek = System.DayOfWeek.Wednesday;
-            calendarHighlightRange13.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange13.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange14.DayOfWeek = System.DayOfWeek.Thursday;
-            calendarHighlightRange14.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange14.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange15.DayOfWeek = System.DayOfWeek.Friday;
-            calendarHighlightRange15.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange15.StartTime = System.TimeSpan.Parse("08:00:00");
-            this.calsked.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
-        calendarHighlightRange11,
-        calendarHighlightRange12,
-        calendarHighlightRange13,
-        calendarHighlightRange14,
-        calendarHighlightRange15};
-            this.calsked.Location = new System.Drawing.Point(230, 4);
-            this.calsked.MaximumFullDays = 6;
-            this.calsked.MaximumViewDays = 7;
-            this.calsked.Name = "calsked";
-            this.calsked.Size = new System.Drawing.Size(884, 219);
-            this.calsked.TabIndex = 314;
-            this.calsked.Text = "calendar1";
-            this.calsked.LoadItems += new System.Windows.Forms.Calendar.Calendar.CalendarLoadEventHandler(this.calsked_LoadItems);
-            this.calsked.ItemClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calsked_ItemClick);
-            this.calsked.ItemMouseHover += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calsked_ItemMouseHover);
-            this.calsked.Click += new System.EventHandler(this.calsked_Click);
-            this.calsked.DoubleClick += new System.EventHandler(this.calsked_DoubleClick);
-            this.calsked.MouseUp += new System.Windows.Forms.MouseEventHandler(this.calsked_MouseUp);
             // 
             // label22
             // 
@@ -392,6 +325,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.label20);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
+            this.kryptonGroup1.Panel.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroup1_Panel_Paint);
             this.kryptonGroup1.Size = new System.Drawing.Size(898, 296);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
@@ -488,6 +422,7 @@
             // txtintermision
             // 
             this.txtintermision.BackColor = System.Drawing.Color.White;
+            this.txtintermision.Enabled = false;
             this.txtintermision.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtintermision.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtintermision.Location = new System.Drawing.Point(360, 253);
@@ -503,6 +438,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Enabled = false;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.White;
             this.label23.Location = new System.Drawing.Point(314, 256);
@@ -515,6 +451,7 @@
             // 
             this.cbxintermision.AutoSize = true;
             this.cbxintermision.BackColor = System.Drawing.Color.Transparent;
+            this.cbxintermision.Enabled = false;
             this.cbxintermision.ForeColor = System.Drawing.Color.White;
             this.cbxintermision.Location = new System.Drawing.Point(307, 230);
             this.cbxintermision.Name = "cbxintermision";
@@ -527,6 +464,7 @@
             // timestart
             // 
             this.timestart.CustomFormat = "h:mm tt";
+            this.timestart.Enabled = false;
             this.timestart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timestart.Location = new System.Drawing.Point(342, 191);
             this.timestart.Name = "timestart";
@@ -573,6 +511,7 @@
             // timeend
             // 
             this.timeend.CustomFormat = "h:mm tt";
+            this.timeend.Enabled = false;
             this.timeend.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timeend.Location = new System.Drawing.Point(472, 191);
             this.timeend.Name = "timeend";
@@ -687,6 +626,7 @@
             // datestart
             // 
             this.datestart.CustomFormat = "h:mm";
+            this.datestart.Enabled = false;
             this.datestart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.datestart.Location = new System.Drawing.Point(342, 151);
             this.datestart.Name = "datestart";
@@ -711,6 +651,7 @@
             // dateend
             // 
             this.dateend.CustomFormat = "h:mm";
+            this.dateend.Enabled = false;
             this.dateend.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateend.Location = new System.Drawing.Point(473, 151);
             this.dateend.Name = "dateend";
@@ -808,6 +749,7 @@
             // 
             // rbtnGuarateed
             // 
+            this.rbtnGuarateed.Enabled = false;
             this.rbtnGuarateed.Location = new System.Drawing.Point(413, 242);
             this.rbtnGuarateed.Name = "rbtnGuarateed";
             this.rbtnGuarateed.Size = new System.Drawing.Size(165, 20);
@@ -817,6 +759,7 @@
             // 
             // rbtnUnlimited
             // 
+            this.rbtnUnlimited.Enabled = false;
             this.rbtnUnlimited.Location = new System.Drawing.Point(413, 264);
             this.rbtnUnlimited.Name = "rbtnUnlimited";
             this.rbtnUnlimited.Size = new System.Drawing.Size(154, 20);
@@ -827,6 +770,7 @@
             // rbtnReserved
             // 
             this.rbtnReserved.Checked = true;
+            this.rbtnReserved.Enabled = false;
             this.rbtnReserved.Location = new System.Drawing.Point(413, 220);
             this.rbtnReserved.Name = "rbtnReserved";
             this.rbtnReserved.Size = new System.Drawing.Size(116, 20);
@@ -918,6 +862,7 @@
             // 
             this.txtMC.BackColor = System.Drawing.Color.White;
             this.txtMC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMC.Enabled = false;
             this.txtMC.Location = new System.Drawing.Point(369, 54);
             this.txtMC.Multiline = true;
             this.txtMC.Name = "txtMC";
@@ -952,6 +897,7 @@
             // 
             this.txtMT.BackColor = System.Drawing.Color.White;
             this.txtMT.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMT.Enabled = false;
             this.txtMT.Location = new System.Drawing.Point(369, 77);
             this.txtMT.Multiline = true;
             this.txtMT.Name = "txtMT";
@@ -1372,15 +1318,82 @@
             this.cmsRefresh.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem});
             this.cmsRefresh.Name = "cmsRefresh";
-            this.cmsRefresh.Size = new System.Drawing.Size(153, 48);
+            this.cmsRefresh.Size = new System.Drawing.Size(111, 26);
             this.cmsRefresh.Opening += new System.ComponentModel.CancelEventHandler(this.cmsRefresh_Opening);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.refreshToolStripMenuItem.Text = "refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // calview
+            // 
+            this.calview.ArrowsColor = System.Drawing.SystemColors.Window;
+            this.calview.ArrowsSelectedColor = System.Drawing.Color.Gold;
+            this.calview.DayBackgroundColor = System.Drawing.Color.Empty;
+            this.calview.DayGrayedText = System.Drawing.SystemColors.GrayText;
+            this.calview.DaySelectedBackgroundColor = System.Drawing.SystemColors.Highlight;
+            this.calview.DaySelectedColor = System.Drawing.SystemColors.WindowText;
+            this.calview.DaySelectedTextColor = System.Drawing.SystemColors.HighlightText;
+            this.calview.ItemPadding = new System.Windows.Forms.Padding(2);
+            this.calview.Location = new System.Drawing.Point(6, 41);
+            this.calview.MonthTitleColor = System.Drawing.SystemColors.ActiveCaption;
+            this.calview.MonthTitleColorInactive = System.Drawing.SystemColors.InactiveCaption;
+            this.calview.MonthTitleTextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.calview.MonthTitleTextColorInactive = System.Drawing.SystemColors.InactiveCaptionText;
+            this.calview.Name = "calview";
+            this.calview.SelectionMode = System.Windows.Forms.Calendar.MonthView.MonthViewSelection.Week;
+            this.calview.Size = new System.Drawing.Size(220, 147);
+            this.calview.TabIndex = 0;
+            this.calview.Text = "monthView1";
+            this.calview.TodayBorderColor = System.Drawing.Color.Maroon;
+            this.calview.SelectionChanged += new System.EventHandler(this.calview_SelectionChanged);
+            // 
+            // calsked
+            // 
+            this.calsked.AllowItemEdit = false;
+            this.calsked.AllowItemResize = false;
+            this.calsked.AllowNew = false;
+            this.calsked.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.calsked.Font = new System.Drawing.Font("Segoe UI", 9F);
+            calendarHighlightRange1.DayOfWeek = System.DayOfWeek.Monday;
+            calendarHighlightRange1.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange1.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange2.DayOfWeek = System.DayOfWeek.Tuesday;
+            calendarHighlightRange2.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange2.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange3.DayOfWeek = System.DayOfWeek.Wednesday;
+            calendarHighlightRange3.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange3.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange4.DayOfWeek = System.DayOfWeek.Thursday;
+            calendarHighlightRange4.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange4.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange5.DayOfWeek = System.DayOfWeek.Friday;
+            calendarHighlightRange5.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange5.StartTime = System.TimeSpan.Parse("08:00:00");
+            this.calsked.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
+        calendarHighlightRange1,
+        calendarHighlightRange2,
+        calendarHighlightRange3,
+        calendarHighlightRange4,
+        calendarHighlightRange5};
+            this.calsked.Location = new System.Drawing.Point(230, 4);
+            this.calsked.MaximumFullDays = 6;
+            this.calsked.MaximumViewDays = 7;
+            this.calsked.Name = "calsked";
+            this.calsked.Size = new System.Drawing.Size(884, 219);
+            this.calsked.TabIndex = 314;
+            this.calsked.Text = "calendar1";
+            this.calsked.LoadItems += new System.Windows.Forms.Calendar.Calendar.CalendarLoadEventHandler(this.calsked_LoadItems);
+            this.calsked.ItemClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calsked_ItemClick);
+            this.calsked.ItemMouseHover += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calsked_ItemMouseHover);
+            this.calsked.Click += new System.EventHandler(this.calsked_Click);
+            this.calsked.DoubleClick += new System.EventHandler(this.calsked_DoubleClick);
+            this.calsked.MouseUp += new System.Windows.Forms.MouseEventHandler(this.calsked_MouseUp);
             // 
             // frmMovieSched
             // 
