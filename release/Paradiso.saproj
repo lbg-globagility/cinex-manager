@@ -4,7 +4,7 @@
     <CompanyName>Amellar Solutions</CompanyName>
     <Configuration Name="Release">
         <Options>
-            <ExceptionReporting ReportExceptions="1" Template="res:{SmartExceptions}.1033.dll" />
+            <ExceptionReporting ReportExceptions="0" Template="res:{SmartExceptions}.1033.dll" />
             <FeatureUsageReporting Template="res:SmartUsageWithUIConsentFirstRun1033.dll" />
             <StringsEncoding />
             <StrongNameSigning />
@@ -21,7 +21,7 @@
                     <ResourcesCompression />
                     <MemberRefsProxy />
                     <Pruning />
-                    <Obfuscation Obfuscate="0">
+                    <Obfuscation Obfuscate="1">
                         <Exclusion />
                     </Obfuscation>
                     <ControlFlow />
@@ -41,7 +41,7 @@
             <Assembly AssemblyName="CommonLibrary, Culture=neutral, PublicKeyToken=null">
                 <Merging Merge="1">
                     <Pruning />
-                    <Obfuscation Obfuscate="0">
+                    <Obfuscation Obfuscate="1">
                         <Exclusion />
                     </Obfuscation>
                     <ControlFlow />
@@ -53,7 +53,7 @@
             <Assembly AssemblyName="EncryptUtilities, Culture=neutral, PublicKeyToken=null">
                 <Merging Merge="1">
                     <Pruning />
-                    <Obfuscation Obfuscate="0">
+                    <Obfuscation Obfuscate="1">
                         <Exclusion />
                     </Obfuscation>
                     <ControlFlow />
