@@ -396,6 +396,7 @@
             this.grpparameter.StateCommon.Border.Rounding = 5;
             this.grpparameter.StateCommon.Border.Width = 2;
             this.grpparameter.TabIndex = 33;
+            this.grpparameter.Paint += new System.Windows.Forms.PaintEventHandler(this.grpparameter_Paint);
             // 
             // txtshare
             // 

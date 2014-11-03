@@ -689,12 +689,13 @@ namespace aZynEManager
                 chkcnt = 0;
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
-                sqry.Append("select count(*) from movies ");
-                sqry.Append(String.Format("where title = '{0}' ", txtMT.Text.Trim()));
-                sqry.Append(String.Format("and code = '{0}' ", txtMC.Text.Trim()));
+                sqry.Append("select count(*) from movies where title = @title ");
+                sqry.Append("and code = @code ");
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.Parameters.AddWithValue("@title", txtMT.Text.Trim());
+                cmd.Parameters.AddWithValue("@code", txtMC.Text.Trim());
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -1857,12 +1858,20 @@ namespace aZynEManager
                 chkcnt = 0;
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
-                sqry.Append("select count(*) from movies ");
-                sqry.Append(String.Format("where title = '{0}' ", txtMT.Text.Trim()));
-                sqry.Append(String.Format("and code = '{0}' ", txtMC.Text.Trim()));
+               // sqry.Append("select count(*) from movies ");
+                //sqry.Append(String.Format("where title = '{0}' ", txtMT.Text.Trim()));
+                //sqry.Append(String.Format("and code = '{0}' ", txtMC.Text.Trim()));
+
+                sqry.Append("select count(*) from movies where title = @title ");
+                sqry.Append("and code = @code ");
+                
+                
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
+                //melvin 11-3-2014 for sql injection
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.Parameters.AddWithValue("@title", txtMT.Text.Trim());
+                cmd.Parameters.AddWithValue("@code", txtMC.Text.Trim());
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -2115,10 +2124,10 @@ namespace aZynEManager
             StringBuilder sqry = new StringBuilder();
             sqry.Append("[id] > -1");
             if (txtMC.Text.Trim() != "")
-                sqry.Append(String.Format(" and [code] like '%{0}%'", txtMC.Text.Trim()));
+                sqry.Append(String.Format(" and [code] like '%{0}%'", txtMC.Text.Trim().Replace("'","''")));
             if (txtMT.Text.Trim() != "")
-                sqry.Append(String.Format(" and [title] like '%{0}%'", txtMT.Text.Trim()));
-
+                sqry.Append(String.Format(" and [title] like '%{0}%'", txtMT.Text.Trim().Replace("'","''")));
+            
             if (m_dtmovies.Rows.Count == 0)
             {
                 StringBuilder sbqry = new StringBuilder();
@@ -2130,6 +2139,7 @@ namespace aZynEManager
 
             if (m_dtmovies.Rows.Count > 0)
             {
+                
                 var foundRows = m_dtmovies.Select(sqry.ToString());
                 if (foundRows.Count() == 0)
                 {
