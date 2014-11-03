@@ -24,6 +24,7 @@ namespace aZynEManager
                 if (myconn.State == ConnectionState.Open)
                 {
                     MySqlDataAdapter da = new MySqlDataAdapter(sqry, myconn);
+                    
                     da.Fill(dt);
                     myconn.Close();
                 }

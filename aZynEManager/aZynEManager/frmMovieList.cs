@@ -559,16 +559,24 @@ namespace aZynEManager
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies ");
-                sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
-                sqry.Append(String.Format("and title = '{0}' ", txttitle.Text.Trim()));
-                sqry.Append(String.Format("and dist_id = {0} ", cmbdistributor.SelectedValue));
-                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
-                sqry.Append(String.Format("and rating_id = {0} ", cmbrating.SelectedValue));
-                sqry.Append(String.Format("and duration = {0}", inttime));
-
+                sqry.Append("where code = @code " );
+                sqry.Append("and title = @title ");
+                sqry.Append("and dist_id = @dist ");
+                sqry.Append("and share_perc = @share ");
+                sqry.Append("and rating_id = @rating ");
+                sqry.Append("and duration = @duration");
+               
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+
+                //melvin 10-31-2014 to secure in sql injection
+                cmd.Parameters.AddWithValue("@code",txtcode.Text.Trim());
+                cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@dist",cmbdistributor.SelectedValue);
+                cmd.Parameters.AddWithValue("@share",txtshare.Text.Trim());
+                cmd.Parameters.AddWithValue("@rating",cmbrating.SelectedValue);
+                cmd.Parameters.AddWithValue("@duration",inttime);
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -583,9 +591,12 @@ namespace aZynEManager
                
                 
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into movies value({0},'{1}','{2}',{3},{4},{5},{6},0,Now(),CURDATE(),CURDATE())",
-                    0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
-                    cmbrating.SelectedValue,inttime));
+                //sqry.Append(String.Format("insert into movies value({0},'{1}','{2}',{3},{4},{5},{6},0,Now(),CURDATE(),CURDATE())",
+                  //  0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
+                    //cmbrating.SelectedValue,inttime));
+
+                sqry.Append("insert into movies values(0,@code,@title,@dist,@share,@rating,@duration,0,Now(),CURDATE(),CURDATE())");
+
                 try
                 {
                     //insert value for the movies table
@@ -593,6 +604,13 @@ namespace aZynEManager
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    //melvin 10-31-2014 to secure in sql injection
+                    cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
+                    cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@dist", cmbdistributor.SelectedValue);
+                    cmd.Parameters.AddWithValue("@share", txtshare.Text.Trim());
+                    cmd.Parameters.AddWithValue("@rating", cmbrating.SelectedValue);
+                    cmd.Parameters.AddWithValue("@duration", inttime);
                     cmd.ExecuteNonQuery();
                     int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
 
@@ -785,7 +803,7 @@ namespace aZynEManager
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
 
- 
+                        MessageBox.Show("Successfully deleted", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_DELETE", "MOVIES|MOVIES_CLASS",
                             Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
                             + " | ID=" + intid.ToString(), m_frmM._connection);
@@ -996,11 +1014,11 @@ namespace aZynEManager
                         dgvClass.Columns.Clear();
                     }
                         //melvin for clearing dgvClass
-                    else
-                    {
+                    //else
+                    //{
                         
-                        dgvClass.DataSource = null;
-                    }
+                    //    dgvClass.DataSource = null;
+                    //}
 
                     setCheck(dgvClass, true);
 
@@ -1471,6 +1489,11 @@ namespace aZynEManager
         }
 
         private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void grpparameter_Paint(object sender, PaintEventArgs e)
         {
 
         }

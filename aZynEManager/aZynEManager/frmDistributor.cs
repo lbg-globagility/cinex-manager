@@ -820,6 +820,7 @@ namespace aZynEManager
 
 
                         //melvin 10-29-2014
+                        int flag = 0;
                         string name = string.Empty;
                         if (txtln.Text.Trim() == "" && txtfn.Text.Trim() == "")
                         {
@@ -840,7 +841,18 @@ namespace aZynEManager
                         }
                         if (name == "")
                         {
-                            MessageBox.Show("Invalid Name",this.Text,MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Invalid Name", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            if (cmbcontacts.Text == "")
+                            {
+                                MessageBox.Show("Please select from the list of contact or check new if you want to add new contact", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+
+                            }
+                            
                         }
                         strqry2.Append(String.Format("update people set name = '{0}'", name));
                         strqry2.Append(String.Format(", lname = '{0}'", txtln.Text.Trim()));
