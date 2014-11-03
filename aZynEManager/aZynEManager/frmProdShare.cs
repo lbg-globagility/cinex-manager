@@ -129,7 +129,7 @@ namespace aZynEManager
         public void refreshDGV(bool withCutOff)
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date ");
+            sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date,a.day_count ");
             sbqry.Append("from movies_distributor a ");
             sbqry.Append("left join movies b on a.movie_id = b.id ");
             sbqry.Append("inner join distributor c on b.dist_id = c.id ");
@@ -573,6 +573,7 @@ namespace aZynEManager
                 int intid = -1;
                 if (dgvResult.SelectedRows.Count == 1)
                     intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+               
 
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
@@ -586,12 +587,12 @@ namespace aZynEManager
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
-                if (rowCount > 0)
+                if (rowCount == 0)
                 {
                     setnormal();
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Cannot find the movies.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -599,7 +600,8 @@ namespace aZynEManager
                 strqry.Append("update movies_distributor set");
                 strqry.Append(String.Format(" movie_id = {0},", cmbtitle.SelectedValue));
                 strqry.Append(String.Format(" share_perc = {0},", txtshare.Text.Trim()));
-                strqry.Append(String.Format(" effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                strqry.Append(String.Format(" effective_date = '{0}',", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                strqry.Append(String.Format(" day_count={0}", txtdaycnt.Text));
                 strqry.Append(String.Format(" where id = {0}", intid));
                 try
                 {
@@ -682,7 +684,7 @@ namespace aZynEManager
 
                             m_clscom.AddATrail(m_frmM.m_userid, "PRODSHARE_DELETE", "MOVIES_DISTRIBUTOR",
                             Environment.MachineName.ToString(), "REMOVED DISTRIBUTOR SHARE INFO: MOVIEID=" + cmbtitle.SelectedValue.ToString() + " | ID=" + intid.ToString(), m_frmM._connection);
-
+                            MessageBox.Show("Successfully Deleted",this.Text,MessageBoxButtons.OK,MessageBoxIcon.Information);
                             //update the moviestatus to new if all records will be deleted
                             sqry = new StringBuilder();
                             sqry.Append(String.Format("select count(*) from movies_distributor where movie_id = {0}", cmbtitle.SelectedValue.ToString()));
@@ -789,7 +791,7 @@ namespace aZynEManager
                     txtshare.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                     string sdt = dgv.SelectedRows[0].Cells[5].Value.ToString();
                     //DateTime date = DateTime.ParseExact(sdt, "MM|dd|yyyy HH:mm:ss",CultureInfo.InvariantCulture);
-
+                    txtdaycnt.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
                     DateTime date = Convert.ToDateTime(sdt);
                     dtdate.Value = date;
                 //}
