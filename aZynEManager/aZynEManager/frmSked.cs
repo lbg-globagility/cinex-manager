@@ -299,7 +299,9 @@ namespace aZynEManager
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
                 sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dtref)));
-                sqry.Append("order by a.start_time desc");
+                //RMB remarked nov 3 2014
+                //sqry.Append("order by a.start_time desc");
+                sqry.Append("order by c.code, a.start_time desc");
 
                 CalendarItem calitem = null;
                 if (myconn.State == ConnectionState.Closed)
@@ -358,10 +360,11 @@ namespace aZynEManager
                             {
                                 itemcolor = Color.Red;
                             }
-                            else
-                            {
-                                itemcolor = Color.FromArgb(100, 100, 225, 225);
-                            }
+                            //RMB remarked 11.3.2014
+                            //else
+                            //{
+                            //    itemcolor = Color.FromArgb(100, 100, 225, 225);
+                            //}
                             calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
                             if (cal.ViewIntersects(calitem))

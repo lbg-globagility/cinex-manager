@@ -118,7 +118,7 @@ namespace aZynEManager
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0}  ", idcnm));
                 sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dtref)));
-                sqry.Append("order by a.start_time desc");
+                sqry.Append("order by c.code, a.start_time desc");
 
                 CalendarItem calitem = null;
                 if (myconn.State == ConnectionState.Closed)
@@ -177,10 +177,11 @@ namespace aZynEManager
                             {
                                 itemcolor = Color.Red;
                             }
-                            else
-                            {
-                                itemcolor = Color.FromArgb(100, 100, 225, 225);
-                            }
+                            //RMB remarked 11.3.2014
+                            //else
+                            //{
+                            //    itemcolor = Color.FromArgb(100, 100, 225, 225);
+                            //}
                             calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
                             if (calsked.ViewIntersects(calitem))
@@ -896,6 +897,9 @@ namespace aZynEManager
                         ////timestart.Value replaces by curtimestart(7/21/2014)
                         ////timeend.Value replaces by curtimeend(7/21/2014)
                         StringBuilder strqry = new StringBuilder();
+                        //rmb REMARKED 11.3.2014 CALCULATE FOR ENDTIME
+                        //strqry.Append(String.Format("and [start_time] <= '{0}' ", curtimestart));
+                        //strqry.Append(String.Format("and [end_time] >= '{0}' ", curtimestart));
                         strqry.Append(String.Format("[id] > 0 ", curtimestart));
                         strqry.Append(String.Format("and [start_time] <= '{0}' ", curtimestart));
                         strqry.Append(String.Format("and [end_time] >= '{0}' ", curtimestart));
@@ -911,8 +915,11 @@ namespace aZynEManager
 
                         strqry = new StringBuilder();
                         strqry.Append(String.Format("[id] > 0 ", curtimestart));
-                        strqry.Append(String.Format("and [start_time] >= '{0}' ", curtimeend));
-                        strqry.Append(String.Format("and [end_time] <= '{0}' ", curtimeend));
+                        //RMB remarked 11.3.2014
+                        //strqry.Append(String.Format("and [start_time] >= '{0}' ", curtimeend));
+                        //strqry.Append(String.Format("and [end_time] <= '{0}' ", curtimeend));
+                        strqry.Append(String.Format("and [start_time] <= '{0}' ", curtimeend));
+                        strqry.Append(String.Format("and [end_time] >= '{0}' ", curtimeend));
                         foundRows = movieschedlist.Select(strqry.ToString());
                         if (foundRows.Count() > 0)
                         {
@@ -1844,16 +1851,7 @@ namespace aZynEManager
                     return;
                 }
 
-                if (rbPublish.Checked == true)
-                {
-                    publish("1");
-                   
-                }
-                else if (rbUnpublish.Checked == true)
-                {
-                    publish("0");
-                    
-                }
+
                 chkcnt = 0;
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
@@ -1952,6 +1950,9 @@ namespace aZynEManager
                                 {
                                     StringBuilder strqry = new StringBuilder();
                                     strqry.Append(String.Format("[id] > 0 ", timestart.Value));
+                                    //RMB remarked 11.3.2014 checked for the current time is already avalilable
+                                    //strqry.Append(String.Format("and [start_time] <= '{0}' ", timestart.Value));
+                                    //strqry.Append(String.Format("and [end_time] >= '{0}' ", timestart.Value));
                                     strqry.Append(String.Format("and [start_time] <= '{0}' ", timestart.Value));
                                     strqry.Append(String.Format("and [end_time] >= '{0}' ", timestart.Value));
                                     var foundRows = movieschedlist.Select(strqry.ToString());
@@ -1972,8 +1973,11 @@ namespace aZynEManager
 
                                     strqry = new StringBuilder();
                                     strqry.Append(String.Format("[id] > 0 ", timestart.Value));
-                                    strqry.Append(String.Format("and [start_time] >= '{0}' ", timeend.Value));
-                                    strqry.Append(String.Format("and [end_time] <= '{0}' ", timeend.Value));
+                                    //remarked 11.3.2014 validate sched
+                                    //strqry.Append(String.Format("and [start_time] >= '{0}' ", timeend.Value));
+                                    //strqry.Append(String.Format("and [end_time] <= '{0}' ", timeend.Value));
+                                    strqry.Append(String.Format("and [start_time] <= '{0}' ", timeend.Value));
+                                    strqry.Append(String.Format("and [end_time] >= '{0}' ", timeend.Value));
                                     foundRows = movieschedlist.Select(strqry.ToString());
                                     if (foundRows.Count() > 0)
                                     {
@@ -2085,6 +2089,11 @@ namespace aZynEManager
 
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIESKED_EDIT", "MOVIES_SCHEDULE|MOVIES_SCHEDULE_LIST|MOVIES_SCHEDULE_LIST_PATRON",
                             Environment.MachineName.ToString(), "UPDATED MOVIE SKED INFO: ID=" + movieschedid.ToString(), m_frmM._connection);
+
+                    if (rbPublish.Checked == true)
+                        publish("1");
+                    else if (rbUnpublish.Checked == true)
+                        publish("0");
 
                     setnormal();
                     txtEnabled(false);
@@ -2239,6 +2248,9 @@ namespace aZynEManager
                 sqry.Append(String.Format("update movies_schedule_list set status={0}  ", stat));
                 sqry.Append(String.Format("where id={0} ", id));
                 //MessageBox.Show(sqry.ToString());
+                //validate if connection is open
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
