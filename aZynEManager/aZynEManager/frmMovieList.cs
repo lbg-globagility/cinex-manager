@@ -1250,19 +1250,30 @@ namespace aZynEManager
                 }*/
 
                 //validate for the existance of the record
+                //sqry = new StringBuilder();
+                //sqry.Append("select count(*) from movies ");
+                //sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
+                //sqry.Append(String.Format("and title = '{0}' ", txttitle.Text.Trim()));
+                //sqry.Append(String.Format("and dist_id = {0} ", cmbdistributor.SelectedValue));
+                //sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
+                //sqry.Append(String.Format("and rating_id = {0} ", cmbrating.SelectedValue));
+                //sqry.Append(String.Format("and duration = {0} ", totaltime));
+                //sqry.Append(String.Format("and id != {0}",intid));
+
+                //melvin 11-4-2014
                 sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies ");
-                sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
-                sqry.Append(String.Format("and title = '{0}' ", txttitle.Text.Trim()));
+                sqry.Append("where code = @code and title = @title ");
                 sqry.Append(String.Format("and dist_id = {0} ", cmbdistributor.SelectedValue));
                 sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
                 sqry.Append(String.Format("and rating_id = {0} ", cmbrating.SelectedValue));
                 sqry.Append(String.Format("and duration = {0} ", totaltime));
-                sqry.Append(String.Format("and id != {0}",intid));
-
+                sqry.Append(String.Format("and id != {0}", intid));
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
+                cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
                 rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -1296,8 +1307,7 @@ namespace aZynEManager
                 }
 
                 StringBuilder strqry = new StringBuilder();
-                strqry.Append(String.Format("update movies set code='{0}',",txtcode.Text.Trim()));
-                strqry.Append(String.Format(" title='{0}',",txttitle.Text.Trim()));
+                strqry.Append("update movies set code=@code, title=@title,");
                 strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));
                 strqry.Append(String.Format(" duration = {0},",totaltime));
                 strqry.Append(String.Format(" dist_id = {0},", cmbdistributor.SelectedValue));
@@ -1310,6 +1320,8 @@ namespace aZynEManager
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(strqry.ToString(), myconn);
+                    cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
+                    cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
@@ -1393,7 +1405,8 @@ namespace aZynEManager
                     {
                     }
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_EDIT", "MOVIES|MOVIES_CLASS",
-                        Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
+                        Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" +
+                        this.txtcode.Text.Replace("'","''")
                         + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV(true);

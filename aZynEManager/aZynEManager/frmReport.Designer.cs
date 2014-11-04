@@ -47,7 +47,7 @@
             this.rdlViewer1.HighlightAllColor = System.Drawing.Color.Fuchsia;
             this.rdlViewer1.HighlightCaseSensitive = false;
             this.rdlViewer1.HighlightItemColor = System.Drawing.Color.Aqua;
-           // this.rdlViewer1.HighlightPageItem = null;
+            //this.rdlViewer1.HighlightPageItem = null;
             this.rdlViewer1.HighlightText = null;
             this.rdlViewer1.Location = new System.Drawing.Point(0, 61);
             this.rdlViewer1.Name = "rdlViewer1";
@@ -67,6 +67,7 @@
             this.rdlViewer1.UseTrueMargins = true;
             this.rdlViewer1.Zoom = 1.053922F;
             this.rdlViewer1.ZoomMode = fyiReporting.RdlViewer.ZoomEnum.FitWidth;
+            this.rdlViewer1.Click += new System.EventHandler(this.rdlViewer1_Click);
             // 
             // groupBox1
             // 

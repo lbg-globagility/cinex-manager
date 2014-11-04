@@ -1117,6 +1117,8 @@
             this.dgvResult.TabIndex = 31;
             this.dgvResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellClick);
             this.dgvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResult_CellContentClick);
+            this.dgvResult.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvResult_CellFormatting);
+            this.dgvResult.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvResult_CellMouseUp);
             // 
             // btnselect
             // 

@@ -42,6 +42,7 @@ namespace aZynEManager
             populatesystem();
             unselectbutton();
             setnormal();
+ 
         }
 
         public void populatesystem()
@@ -114,13 +115,14 @@ namespace aZynEManager
         public void refreshDGV()
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("select a.id, a.userid, a.lname, a.fname, a.designation, b.level_desc, a.mname, a.user_password, c.system_name ");
+            sbqry.Append("select a.id, a.userid, a.lname, a.fname, a.designation, b.level_desc,(case when a.status=1 then 'Active' else 'Inactive' end) as Status, a.mname, a.user_password, c.system_name  ");
             sbqry.Append("from users a left join user_level b on a.user_level_id = b.id ");
-            sbqry.Append("left join application c on a.system_code = c.system_code where a.status=1 ");
-            sbqry.Append("order by a.userid asc");//where a.system_code = 1 
+            sbqry.Append("left join application c on a.system_code = c.system_code  ");
+            sbqry.Append(" group by a.userid order by a.userid asc");//where a.system_code = 1 
             dtusers = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtusers);
             txtFound.Text = "Count: " + dtusers.Rows.Count.ToString();
+
         }
 
         public void setDataGridView(DataGridView dgv, DataTable dt)
@@ -144,13 +146,18 @@ namespace aZynEManager
                 dgv.Columns[4].HeaderText = "Designation";
                 dgv.Columns[5].Width = iwidth * 2 - 10;
                 dgv.Columns[5].HeaderText = "User Level";
-                dgv.Columns[6].Width = 0;
-                dgv.Columns[6].HeaderText = "Middle Initial";
+                dgv.Columns[6].Width = iwidth * 2 - 10;
+                dgv.Columns[6].HeaderText = "Status";
                 dgv.Columns[7].Width = 0;
-                dgv.Columns[7].HeaderText = "Password";
+                dgv.Columns[7].HeaderText = "Middle Initial";
                 dgv.Columns[8].Width = 0;
-                dgv.Columns[8].HeaderText = "System";
+                dgv.Columns[8].HeaderText = "Password";
+                dgv.Columns[9].Width = 0;
+                dgv.Columns[9].HeaderText = "System";
             }
+
+   
+   
         }
 
         public void unselectbutton()
@@ -761,37 +768,64 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+               
+               // MessageBox.Show(cmbAuth.SelectedText.ToString() + "-" + cmbSystem.SelectedText.ToString());
                 Encryption encrypt = new Encryption();
                 sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7},1)",
+               /* sqry.Append(String.Format("insert into users values(0,'{0}','{1}','{2}',{3},'{4}','{5}','{6}',{7},1)",
                     this.txtUID.Text.ToUpper().Trim(), encrypt.EncryptString(txtPW.Text.Trim()).ToString(), txtDes.Text.ToUpper().Trim(), cmbAuth.SelectedValue.ToString(),
-                    txtLName.Text.ToUpper().Trim(), txtFName.Text.ToUpper().Trim(), txtMName.Text.ToUpper().Trim(), cmbSystem.SelectedValue.ToString()));
+                    txtLName.Text.ToUpper().Trim(), txtFName.Text.ToUpper().Trim(), txtMName.Text.ToUpper().Trim(), cmbSystem.SelectedValue.ToString()));*/
+                string pw= encrypt.EncryptString(txtPW.Text.Trim()).ToString();
+                
+                sqry.Append("insert into users values(0,@userid,@pw,@des,@auth,@lname,@fname,@mname,@system,1)");
+               string system = cmbSystem.SelectedValue.ToString();
                 try
                 {
                     int idout = -1;
-                    if (myconn.State == ConnectionState.Closed)
-                        myconn.Open();
-                    if (myconn.State == ConnectionState.Open)
+                    int flag = 1;
+                    while (flag < 3)
                     {
-                        cmd = new MySqlCommand(sqry.ToString(), myconn);
-                        cmd.ExecuteNonQuery();
-                        idout = Convert.ToInt32(cmd.LastInsertedId);
-                        cmd.Dispose();
+                        idout = -1;
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        if (myconn.State == ConnectionState.Open)
+                        {
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.Parameters.AddWithValue("@userid", txtUID.Text.ToUpper().Trim());
+                            cmd.Parameters.AddWithValue("@pw", pw);
+                            cmd.Parameters.AddWithValue("@des", txtDes.Text.ToUpper().Trim());
+                            cmd.Parameters.AddWithValue("@auth", cmbAuth.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@lname", txtLName.Text.ToUpper().Trim());
+                            cmd.Parameters.AddWithValue("@fname", txtFName.Text.ToUpper().Trim());
+                            cmd.Parameters.AddWithValue("@mname", txtMName.Text.ToUpper().Trim());
+                            cmd.Parameters.AddWithValue("@system",system);
+                            
+                            cmd.ExecuteNonQuery();
+                            idout = Convert.ToInt32(cmd.LastInsertedId);
+                            cmd.Dispose();
+                        }
+                        if (idout > -1)
+                        {
+                            //for cinema
+                            tabinsertcheck(myconn, dgvModuleCinema, idout);
+                            //for report
+                            tabinsertcheck(myconn, dgvModuleReport, idout);
+                            //for utility
+                            tabinsertcheck(myconn, dgvModuleUtility, idout);
+                            //for config
+                            tabinsertcheck(myconn, dgvModuleConfig, idout);
+                            //for ticketing
+                            tabinsertcheck(myconn, dgvModuleTicket, idout);
+                        }
+ 
+                       if (!(cmbSystem.SelectedValue.ToString() == "1") &&!(cmbAuth.SelectedValue.ToString()=="1"))
+                       {
+                           //MessageBox.Show("not admin");
+                           
+                           break;
+                        }
+                       system = "2";
                     }
-                    if (idout > -1)
-                    {
-                        //for cinema
-                        tabinsertcheck(myconn, dgvModuleCinema, idout);
-                        //for report
-                        tabinsertcheck(myconn, dgvModuleReport, idout);
-                        //for utility
-                        tabinsertcheck(myconn, dgvModuleUtility, idout);
-                        //for config
-                        tabinsertcheck(myconn, dgvModuleConfig, idout);
-                        //for ticketing
-                        tabinsertcheck(myconn, dgvModuleTicket, idout);
-                    }
-
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
@@ -905,7 +939,7 @@ namespace aZynEManager
                     }
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("update  users set status=0 where userid = '{0}' and system_code = {1}", strid, "1"));
+                    sqry.Append(String.Format("update  users set status=0 where userid = '{0}' ", strid));
                     try
                     {
                         if (myconn.State == ConnectionState.Closed)
@@ -942,7 +976,7 @@ namespace aZynEManager
                            + " | ID=" + strid, m_frmM._connection);
 
 
-                        MessageBox.Show("You have successfully removed \n\rthe selected record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("You have successfully inactivate \n\rthe selected record. This account cannot login now", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (MySqlException er)
                     {
@@ -1279,6 +1313,8 @@ namespace aZynEManager
                     }
                 }
             }
+         //   MessageBox.Show(dgvResult.Rows[0].Cells[6].Value.ToString());
+
         }
 
         private void cmbSystem_SelectedIndexChanged(object sender, EventArgs e)
@@ -1322,6 +1358,36 @@ namespace aZynEManager
         private void dgvResult_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dgvResult_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //melvin 11-3-2014
+            for (int x = 0; x < dgvResult.Rows.Count; x++)
+            {
+                if (dgvResult[6, x].Value.ToString() == "Inactive")
+                {
+                  //  dgvResult.Rows[x].DefaultCellStyle.BackColor = Color.LightGray;
+                    dgvResult.Rows[x].DefaultCellStyle.ForeColor = Color.Red;
+                }
+            }
+            if (dgvResult.Rows[0].Cells[6].Value.ToString() == "Inactive")
+            {
+                dgvResult.Rows[0].DefaultCellStyle.ForeColor= Color.Red;
+            }
+        }
+
+        private void dgvResult_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //melvin 11-4-2014
+            //if (dgvResult.SelectedRows[0].Cells[6].Value.ToString() == "Inactive")
+          //  {
+            //    dgvResult.DefaultCellStyle.SelectionForeColor = Color.Red;
+            //}
+            //else
+            //{
+            //    dgvResult.DefaultCellStyle.SelectionForeColor = Color.Black;
+            //}
         }
     }
 }

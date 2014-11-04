@@ -175,6 +175,8 @@ namespace aZynEManager
                 dgv.Columns[4].HeaderText = "Share";
                 dgv.Columns[5].Width = iwidth;
                 dgv.Columns[5].HeaderText = "Effective Date";
+                dgv.Columns[6].Width = 0;
+                dgv.Columns[6].HeaderText = "Days Cover";
             }
         }
 
