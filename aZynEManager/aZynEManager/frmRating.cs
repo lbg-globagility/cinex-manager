@@ -43,8 +43,6 @@ namespace aZynEManager
             grpfilter.Visible = false;
             unselectbutton();
 
-            dgvResult.ClearSelection();
-
             setnormal();
         }
 
@@ -77,10 +75,11 @@ namespace aZynEManager
         public void refreshDGV()
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("SELECT a.id, a.name, a.description ");
+            sbqry.Append("SELECT a.id, a.name, a.description, a.remarks ");
             sbqry.Append("FROM mtrcb a order by a.name asc");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
+            dgvResult.ClearSelection();
         }
 
         public void setDataGridView(DataTable dt)
@@ -91,7 +90,7 @@ namespace aZynEManager
 
             if (dt.Rows.Count > 0)
             {
-                int iwidth = dgvResult.Width / 3;
+                int iwidth = dgvResult.Width / 4;
                 dgvResult.DataSource = dt;
                 dgvResult.Columns[0].Width = 0;
                 dgvResult.Columns[0].HeaderText = "ID";
@@ -99,6 +98,8 @@ namespace aZynEManager
                 dgvResult.Columns[1].HeaderText = "Rating";
                 dgvResult.Columns[2].Width = iwidth*2;
                 dgvResult.Columns[2].HeaderText = "Name";
+                dgvResult.Columns[3].HeaderText = "Remarks";
+                dgvResult.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             }
         }
@@ -109,6 +110,8 @@ namespace aZynEManager
             txtname.ReadOnly = true;
             txtdesc.Text = "";
             txtdesc.ReadOnly = true;
+            txtRemarks.Text = string.Empty;
+            txtRemarks.ReadOnly = true;
 
             btnAdd.Enabled = true;
             btnAdd.Text = "new";
@@ -140,8 +143,7 @@ namespace aZynEManager
             //ClearControls();
             if (this.txtname.Text != "" || this.txtdesc.Text != "")
             {
-                string strqry = String.Format("insert into mtrcb values(0,'{0}','{1}')",
-                    txtname.Text.Trim(), txtdesc.Text.Trim());
+                string strQuery = "INSERT INTO mtrcb VALUES (0, @name, '@description, @remarks)";
 
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
@@ -149,7 +151,10 @@ namespace aZynEManager
                 {
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                    MySqlCommand cmd = new MySqlCommand(strqry, myconn);
+                    MySqlCommand cmd = new MySqlCommand(strQuery, myconn);
+                    cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                    cmd.Parameters.AddWithValue("@description", txtdesc.Text.Trim());
+                    cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text.Trim());
                     cmd.ExecuteNonQuery();
 
                     cmd.Dispose();
@@ -170,6 +175,7 @@ namespace aZynEManager
 
             txtdesc.Text = "";
             txtname.Text = "";
+            txtRemarks.Text = string.Empty;
 
             this.Close();
         }
@@ -269,6 +275,8 @@ namespace aZynEManager
                 txtname.ReadOnly = false;
                 txtdesc.Text = "";
                 txtdesc.ReadOnly = false;
+                txtRemarks.Text = string.Empty;
+                txtRemarks.ReadOnly = false;
 
                 unselectbutton();
                 btnAdd.Text = "save";
@@ -306,13 +314,12 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
 
                 //validate for the existance of the record
-                StringBuilder sqry = new StringBuilder();
-                sqry.Append("select count(*) from mtrcb ");
-                sqry.Append(String.Format("where name = '{0}' ", txtname.Text.Trim()));
-                sqry.Append(String.Format("and description = '{0}'", txtdesc.Text.Trim()));
+                string strValidateQuery = "SELECT COUNT(*) FROM mtrcb WHERE name = @name AND description = @description";
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
-                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                MySqlCommand cmd = new MySqlCommand(strValidateQuery, myconn);
+                cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                cmd.Parameters.AddWithValue("@description", txtdesc.Text.Trim());
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -326,15 +333,18 @@ namespace aZynEManager
                 }
                 //melvin 10-14-14
               
-                sqry = new StringBuilder();
-                sqry.Append(String.Format("insert into mtrcb value(0,'{0}','{1}')",
-                   txtname.Text.Trim(), txtdesc.Text.Trim()));
+                string strQuery = "INSERT INTO mtrcb VALUES (0, @name , @description, @remarks)";
 
                 try
                 {
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd = new MySqlCommand(strQuery, myconn);
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                    cmd.Parameters.AddWithValue("@description", txtdesc.Text.Trim());
+                    cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text.Trim());
+
                     cmd.ExecuteNonQuery();
 
                     string strid = cmd.LastInsertedId.ToString();
@@ -388,11 +398,12 @@ namespace aZynEManager
                         intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
 
                     //validate the database for records being used
-                    StringBuilder sqry = new StringBuilder();
-                    sqry.Append(String.Format("select count(*) from movies where rating_id = {0}",intid));
+                    string strValidateQuery = "SELECT COUNT(*) FROM movies WHERE rating_id = @id";
+
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                    MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    MySqlCommand cmd = new MySqlCommand(strValidateQuery, myconn);
+                    cmd.Parameters.AddWithValue("@id", intid);
                     int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
@@ -405,25 +416,24 @@ namespace aZynEManager
                         return;
                     }
 
-                    sqry = new StringBuilder();
-                    sqry.Append(String.Format("select count(*) from mtrcb where id = {0}", intid));
+                    string strValidateQuery1 = "SELECT COUNT(*) FROM mtrcb WHERE id = @id";
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    cmd = new MySqlCommand(strValidateQuery1, myconn);
+                    cmd.Parameters.AddWithValue("@id", intid);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                     cmd.Dispose();
 
                     if (rowCount > 0)
                     {
-                        //delete from the moview table where the status is inactive or = 0
-                        sqry = new StringBuilder();
-                        sqry.Append(String.Format("delete from mtrcb where id = {0}", intid));
+                        string strQuery = "DELETE FROM mtrcb WHERE id = @id";
                         try
                         {
                             //delete value for the movies table
                             if (myconn.State == ConnectionState.Closed)
                                 myconn.Open();
-                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd = new MySqlCommand(strQuery, myconn);
+                            cmd.Parameters.AddWithValue("@id", intid);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
                             if (myconn.State == ConnectionState.Open)
@@ -473,6 +483,7 @@ namespace aZynEManager
             {
                 txtname.ReadOnly = false;
                 txtdesc.ReadOnly = false;
+                txtRemarks.ReadOnly = false;
 
                 btnAdd.Enabled = false;
                 btnAdd.Text = "new";
@@ -508,14 +519,14 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
 
                 //validate for the existance of the record
-                StringBuilder sqry = new StringBuilder();
-                sqry.Append("select count(*) from mtrcb ");
-                sqry.Append(String.Format("where name = '{0}' ", txtname.Text.Trim()));
-                sqry.Append(String.Format("and description = '{0}' ", txtdesc.Text.Trim()));
-                sqry.Append(String.Format("and id = {0}",intid.ToString()));
+                string strValidateQuery = "SELECT COUNT(*) FROM mtrcb WHERE name = @name AND description = @description AND id <> @id";
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
-                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                MySqlCommand cmd = new MySqlCommand(strValidateQuery, myconn);
+                cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                cmd.Parameters.AddWithValue("@description", txtdesc.Text.Trim());
+                cmd.Parameters.AddWithValue("@id", intid);
+
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -529,17 +540,18 @@ namespace aZynEManager
                 }
 
                 //update the selected record
-                StringBuilder strqry = new StringBuilder();
-                strqry.Append(String.Format("update mtrcb set name = '{0}',", txtname.Text.Trim()));
-                strqry.Append(String.Format(" description = '{0}'", txtdesc.Text.Trim()));
-                strqry.Append(String.Format(" where id = {0}", intid));
-                
+                string strQuery = "UPDATE mtrcb SET name = @name, description = @description, remarks = @remarks WHERE id = @id";
+
                 try
                 {
                     //update the movies table
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
-                    cmd = new MySqlCommand(strqry.ToString(), myconn);
+                    cmd = new MySqlCommand(strQuery, myconn);
+                    cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                    cmd.Parameters.AddWithValue("@description", txtdesc.Text.Trim());
+                    cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text.Trim());
+                    cmd.Parameters.AddWithValue("@id", intid);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
@@ -577,7 +589,13 @@ namespace aZynEManager
 
                 txtname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtdesc.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                txtRemarks.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
             }
+        }
+
+        private void frmRating_Shown(object sender, EventArgs e)
+        {
+            dgvResult.ClearSelection();
         }
 
     

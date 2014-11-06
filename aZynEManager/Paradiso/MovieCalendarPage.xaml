@@ -99,7 +99,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Column="0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="20" Text="{Binding SelectedMovieScheduleListItem.Rating}"></TextBlock>
+                                <TextBlock Grid.Column="0" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="20" Text="{Binding SelectedMovieScheduleListItem.Rating}" ToolTip="{Binding SelectedMovieScheduleListItem.RatingDescription}" ></TextBlock>
                                 <StackPanel Grid.Column="1" Margin="0, 0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center">Running Time:</TextBlock>
                                     <TextBlock FontFamily="Arial" FontSize="14" Foreground="White" VerticalAlignment="Center" Margin="5, 0, 0, 0" Width="50" Text="{Binding Path=SelectedMovieScheduleListItem.RunningTime}"></TextBlock>

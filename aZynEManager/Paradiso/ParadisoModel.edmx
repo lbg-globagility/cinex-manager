@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="paradisoModelStoreContainer">
           <EntitySet Name="a_trail" EntityType="paradisoModel.Store.a_trail" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="application" EntityType="paradisoModel.Store.application" store:Type="Tables" Schema="azynema" />
@@ -354,6 +354,7 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
           <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="remarks" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <EntityType Name="patrons">
           <Key>
@@ -443,7 +444,7 @@
           <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_free_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'azynema.movies_schedule_list_house_seat_free_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_house_seat_free_view">
           <Key>
@@ -462,7 +463,7 @@
           <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'azynema.movies_schedule_list_house_seat_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_house_seat_view">
           <Key>
@@ -481,7 +482,7 @@
           <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.or_numbers_unpublished_movies_schedule_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'azynema.or_numbers_unpublished_movies_schedule_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="or_numbers_unpublished_movies_schedule_view">
           <Key>
@@ -1136,6 +1137,7 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="movies" Relationship="paradisoModel.fk_movies_mtrcb1" FromRole="mtrcb" ToRole="movies" />
+          <Property Type="String" Name="remarks" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="patron">
           <Key>
@@ -1802,6 +1804,7 @@
           <EntitySetMapping Name="mtrcbs">
             <EntityTypeMapping TypeName="paradisoModel.mtrcb">
               <MappingFragment StoreEntitySet="mtrcb">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
