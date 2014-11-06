@@ -112,6 +112,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
+    <Compile Include="Converters\SeatNameMultiConverter.cs" />
     <Compile Include="ExtensionClass.cs" />
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
@@ -371,6 +372,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\seat-red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disabledseat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\seat-disabled-x.png" />
+    <Resource Include="Images\seat-disabled.png" />
+    <Resource Include="Images\seat-gray.png" />
+    <Resource Include="Images\seat-white-x.png" />
+    <Resource Include="Images\seat-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\seat-gray-disabled-x.png" />
+    <Resource Include="Images\seat-gray-disabled.png" />
+    <Resource Include="Images\seat-gray-x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -37,6 +37,8 @@ namespace Paradiso.Model
 
         private bool blnIsSelected = false; //for reserved seating
 
+        private bool blnIsHandicapped = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int Key
@@ -169,6 +171,18 @@ namespace Paradiso.Model
             }
         }
 
+        public bool IsHandicapped
+        {
+            get { return blnIsHandicapped; }
+            set
+            {
+                if (value != blnIsHandicapped)
+                {
+                    blnIsHandicapped = value;
+                    NotifyPropertyChanged("IsHandicapped");
+                }
+            }
+        }
 
         public int SeatColor
         {
