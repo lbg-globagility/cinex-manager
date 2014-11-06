@@ -361,7 +361,7 @@ namespace aZynEManager
                                 "c.movies_schedule_id = d.id AND d.movie_date = '2006/12/07' " +
                                 " AND d.movie_id = e.id AND d.cinema_id = f.id and " +
                                 "f.name='Cinema 1' GROUP BY g.code;";
-                                    MessageBox.Show(id[0].ToString() + "\n" + id[1].ToString());
+                                   // MessageBox.Show(id[0].ToString() + "\n" + id[1].ToString());
                                 }
 
 
@@ -414,7 +414,7 @@ namespace aZynEManager
 
                             else if (code == "AUDIT")
                             {
-                                sQry = " Select '" + _dtStart.AddDays(1).ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
+                                sQry = " Select '" + _dtStart.ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
                             }
                             flag++;
                         }
