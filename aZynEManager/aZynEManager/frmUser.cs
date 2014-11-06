@@ -1035,6 +1035,10 @@ namespace aZynEManager
                 txtLName.SelectAll();
                 txtLName.Focus();
                 cmbAuth.Enabled = true;
+                
+                //RMB 11.6.2014 disable selection from the list of user
+                dgvResult.Enabled = false;
+
             }
             else if (btnEdit.Text == "update")
             {
@@ -1283,13 +1287,13 @@ namespace aZynEManager
                 txtUID.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtLName.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
                 txtFName.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
-                txtMName.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
+                txtMName.Text = dgv.SelectedRows[0].Cells[7].Value.ToString();
                 txtDes.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
-                txtPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
-                txtCPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[7].Value.ToString());
+                txtPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[8].Value.ToString());
+                txtCPW.Text = encrypt.DecryptString(dgv.SelectedRows[0].Cells[8].Value.ToString());
 
                 //txtSystem.Text = dgv.SelectedRows[0].Cells[8].Value.ToString();
-                string systemname = dgv.SelectedRows[0].Cells[8].Value.ToString();
+                string systemname = dgv.SelectedRows[0].Cells[9].Value.ToString();
                 for (int i = 0; i < cmbSystem.Items.Count; i++)
                 {
                     DataRowView drv = (DataRowView)cmbSystem.Items[i];
