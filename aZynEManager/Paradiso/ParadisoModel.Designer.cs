@@ -5523,12 +5523,14 @@ namespace Paradiso
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="description">Initial value of the description property.</param>
-        public static mtrcb Createmtrcb(global::System.Int32 id, global::System.String name, global::System.String description)
+        /// <param name="remarks">Initial value of the remarks property.</param>
+        public static mtrcb Createmtrcb(global::System.Int32 id, global::System.String name, global::System.String description, global::System.String remarks)
         {
             mtrcb mtrcb = new mtrcb();
             mtrcb.id = id;
             mtrcb.name = name;
             mtrcb.description = description;
+            mtrcb.remarks = remarks;
             return mtrcb;
         }
 
@@ -5610,6 +5612,30 @@ namespace Paradiso
         private global::System.String _description;
         partial void OndescriptionChanging(global::System.String value);
         partial void OndescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String remarks
+        {
+            get
+            {
+                return _remarks;
+            }
+            set
+            {
+                OnremarksChanging(value);
+                ReportPropertyChanging("remarks");
+                _remarks = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("remarks");
+                OnremarksChanged();
+            }
+        }
+        private global::System.String _remarks;
+        partial void OnremarksChanging(global::System.String value);
+        partial void OnremarksChanged();
 
         #endregion
 
