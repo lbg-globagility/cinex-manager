@@ -277,7 +277,7 @@ namespace aZynEManager
                 {
 
 
-                    frmreport.setDate = (DateTime)frdate.Value.AddDays(-1);
+                    frmreport.setDate = (DateTime)frdate.Value;
                     frmreport.setEndDate = (DateTime)todate.Value.AddDays(1);
 
                     frmreport.frmInit(m_frmM, m_frmM.m_clscom, "AUDIT");

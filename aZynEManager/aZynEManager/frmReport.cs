@@ -575,6 +575,11 @@ namespace aZynEManager
                 rdlViewer1.Top = 70;
         }
 
+        private void rdlViewer1_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         //public DataTable GetResult()
         //{
