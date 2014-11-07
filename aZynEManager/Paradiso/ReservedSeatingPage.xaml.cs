@@ -241,7 +241,7 @@ namespace Paradiso
                 //taken seats
                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
                                   where mslrs.movies_schedule_list_id == this.Key
-                                  select mslrs.cinema_seat_id).ToList();
+                                  select new { mslrs.cinema_seat_id, mslrs.movies_schedule_list_patron.patron.seat_color }).ToList();
 
 
                 //reserved seats from other sessions
@@ -370,14 +370,20 @@ namespace Paradiso
                         Width = (int)seat.x2 - (int) seat.x1,
                         Height = (int)seat.y2 - (int)seat.y1,
                         Type = (int) seat.object_type,
-                        SeatType = 1
+                        SeatType = 1,
+                        IsHandicapped = (seat.is_handicapped == 1) ? true : false
                     };
 
                     //get seat type
                     if (takenseats.Count > 0 && IsReservedSeating)
                     {
-                        if (takenseats.IndexOf(seat.id) != -1)
+                        var takenseat = takenseats.Where(t => t.cinema_seat_id == seat.id).ToList();
+                        if (takenseat.Count > 0)
+                        {
+                            //if (takenseats.IndexOf(seat.id) != -1)
                             seatModel.SeatType = 3;
+                            seatModel.SeatColor = (int)takenseat[0].seat_color;
+                        }
                     }
                     if (seatModel.SeatType == 1)
                     {
@@ -386,6 +392,18 @@ namespace Paradiso
                             if (reservedseats.IndexOf(seat.id) != -1)
                             {
                                 seatModel.SeatType = 3;
+                                var seatcolor = (from mcths in context.movies_schedule_list_house_seat
+                                                 where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id
+                                                 select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
+                                if (seatcolor != null)
+                                {
+                                    int intSeatColor = (int) seatcolor.seat_color;
+                                    string strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED")
+                                        seatModel.SeatColor = 8421504;
+                                    else
+                                        seatModel.SeatColor = intSeatColor;
+                                }
                             }
                         }
                         

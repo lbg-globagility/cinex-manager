@@ -403,9 +403,16 @@ namespace Paradiso
                                 seatModel.SeatType = 3;
                                 var seatcolor = (from mcths in context.movies_schedule_list_house_seat
                                                  where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id
-                                                 select mcths.movies_schedule_list_patron.patron.seat_color ).FirstOrDefault();
+                                                 select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
                                 if (seatcolor != null)
-                                    seatModel.SeatColor = (int) seatcolor;
+                                {
+                                    int intSeatColor = (int) seatcolor.seat_color;
+                                    string strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED")
+                                        seatModel.SeatColor = 8421504;
+                                    else
+                                        seatModel.SeatColor = intSeatColor;
+                                }
                             }
                         }
                         
