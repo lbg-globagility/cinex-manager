@@ -32,6 +32,8 @@ namespace aZynEManager
         public string strCinema = null;
         public string rp01Account = null;
         public string rp05distributor = null;
+        public static string rp08cinema = null;
+        public static string rp08movie = null;
 
         public frmReport()
         {
@@ -62,7 +64,8 @@ namespace aZynEManager
         {
             m_frmM = frm;
             m_clscom = cls;
-            
+          //  MessageBox.Show(rp08cinema + "-" + rp08movie);
+            //return;
             frmInitDbase(reportcode);
           
         }
@@ -272,6 +275,35 @@ namespace aZynEManager
                         sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
                         sqry.Append("c.name='" + strCinema + "';");
                         break;
+                    case "RP08":
+                        sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) ");
+                        sqry.Append("QTY, a.price PRICE, IFNULL(SUM(a.price), 0) SALES, ");
+                        sqry.Append("d.start_time START_TIME, d.end_time END_TIME, f.system_value ");
+                        sqry.Append("SYSTEM_VAL, g.name REPORT_NAME, e.name ");
+                        sqry.Append("CINEMA_NAME, h.TITLE FROM ");
+                        sqry.Append("azynema.movies_schedule_list_reserved_seat a, ");
+                        sqry.Append("movies_schedule_list_patron b, patrons c, ");
+                        sqry.Append("movies_schedule_list d, cinema e,config_table f, ");
+                        sqry.Append("report g, movies h where a.movies_schedule_list_id = ");
+                        sqry.Append("(select id from (select id, max(totalticket) from ");
+                        sqry.Append("(select a.id, count(c.cinema_seat_id) totalticket,");
+                        sqry.Append(" sum(c.price) totalprice, a.start_time, a.end_time ");
+                        sqry.Append("from movies_schedule_list a, movies_schedule b, ");
+                        sqry.Append("movies_schedule_list_reserved_seat c, cinema d, movies e ");
+                        sqry.Append("where a.movies_schedule_id = b.id and a.status = 1 ");
+                        sqry.Append("and d.name = '"+rp08cinema+"' ");
+                        sqry.Append("and e.code= '"+rp08movie+"' ");
+                        sqry.Append(String.Format("and movie_date ='{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(" and a.id = c.movies_schedule_list_id and ");
+                        sqry.Append("b.cinema_id= d.id and e.id= b.movie_id ");
+                        sqry.Append("group by c.movies_schedule_list_id ) table1) table2) ");
+                        sqry.Append("and a.patron_id = b.id and b.patron_id = c.id ");
+                        sqry.Append("and a.movies_schedule_list_id = d.id ");
+                        sqry.Append("and f.system_code = '001' ");
+                        sqry.Append("and g.id = 8 and e.id = 1 and h.id = 31 ");
+                        sqry.Append("group by a.patron_id;");
+                        break;
+
                     case "RP12":
                         //2014/10/31
                         sqry.Append("select a.code, @patron:= a.name as PATRON, ");
@@ -288,7 +320,7 @@ namespace aZynEManager
                         sqry.Append(" and a.name=@patron and c.name = @cinema)");
                         sqry.Append(" as QTY, (@c*b.price) as `TOTALSALES`,");
                         sqry.Append(" d.movie_date , h.start_date, h.title, ");
-                        sqry.Append("i.userid, I.fname, i.lname, i.mname ");
+                        sqry.Append("i.userid, i.fname, i.lname, i.mname ");
                         sqry.Append("from patrons a inner join cinema_patron ");
                         sqry.Append("b on a.id=b.patron_id inner join  cinema c on ");
                         sqry.Append("b.cinema_id = c.id inner join movies_schedule d ");

@@ -279,7 +279,7 @@ namespace Cinemapps
         private void PrintRP08_Click(object sender, RoutedEventArgs e)
         {
 
-            try
+           /* try
             {
                 int intCinemaId = 0;
                 int intMovieId = 0;
@@ -306,7 +306,24 @@ namespace Cinemapps
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }*/
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmReport.rp08cinema = RP08Cinema.SelectedValue.ToString();
+                    frmReport.rp08movie = RP08Movie.SelectedValue.ToString();
+                    frmreport.frmInit(main, main.m_clscom, "RP08");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+
         }
 
         private void UpdateRP08Movie()
