@@ -326,5 +326,23 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is MovieScheduleListModel)
+            {
+                MovieScheduleListModel m = (MovieScheduleListModel)obj;
+                if (m.Key == this.Key)
+                    return true;
+            }
+            return false;
+            //return base.Equals(obj);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0:hh:mm tt} - {1:hh:mm tt}", this.StartTime, this.EndTime);
+            //return base.ToString();
+        }
     }
 }
