@@ -60,6 +60,7 @@ namespace Cinemapps
             using (frmReport frmreport = new frmReport())
             {
                 frmreport.setDate = (DateTime)RP01StartDate.SelectedDate;
+                frmreport.rp01Account = RP01Teller.SelectedValue.ToString();
                 frmreport.frmInit(main, main.m_clscom, "RP01");
                 frmreport.ShowDialog();
                 frmreport.Dispose();
@@ -162,7 +163,7 @@ namespace Cinemapps
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString()+"asf");
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -208,7 +209,7 @@ namespace Cinemapps
 
         private void PrintRP05_Click(object sender, RoutedEventArgs e)
         {
-            try
+           /* try
             {
                 int intDistributorId = 0;
                 if (RP05Distributor.SelectedValue != null)
@@ -222,6 +223,22 @@ namespace Cinemapps
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }*/
+
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP05StartDate.SelectedDate;
+                    frmreport.rp05distributor = RP05Distributor.SelectedValue.ToString();
+                    frmreport.frmInit(main, main.m_clscom, "RP05");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString() + "asf");
             }
         }
 
