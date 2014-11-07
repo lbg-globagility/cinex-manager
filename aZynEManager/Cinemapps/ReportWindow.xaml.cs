@@ -59,6 +59,13 @@ namespace Cinemapps
             //JMBC 20141016
             using (frmReport frmreport = new frmReport())
             {
+                //RMB 11.7.2014 validate user
+                if (RP01Teller.SelectedValue == null || RP01Teller.SelectedValue.ToString() == "")
+                {
+                    MessageBox.Show("Please select a teller from the list.");
+                    return;
+                }
+
                 frmreport.setDate = (DateTime)RP01StartDate.SelectedDate;
                 frmreport.rp01Account = RP01Teller.SelectedValue.ToString();
                 frmreport.frmInit(main, main.m_clscom, "RP01");
