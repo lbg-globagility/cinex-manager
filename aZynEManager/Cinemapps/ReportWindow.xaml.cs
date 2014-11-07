@@ -231,7 +231,7 @@ namespace Cinemapps
             {
                 MessageBox.Show(ex.Message.ToString());
             }*/
-
+            //melvin 11/7/2014
             try
             {
                 using (frmReport frmreport = new frmReport())
@@ -245,7 +245,7 @@ namespace Cinemapps
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString() + "asf");
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -417,10 +417,26 @@ namespace Cinemapps
 
         private void PrintRP12_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP12 report = new RP12(RP12StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+
+            //melvin 11/7/2014
             try
             {
-                RP12 report = new RP12(RP12StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP12StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP12");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
