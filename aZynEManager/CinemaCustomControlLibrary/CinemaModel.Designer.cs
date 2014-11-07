@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -103,6 +104,7 @@ namespace CinemaCustomControlLibrary
         private ObjectSet<cinema_seat> _cinema_seat;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -122,11 +124,11 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -157,6 +159,7 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -283,6 +286,7 @@ namespace CinemaCustomControlLibrary
         partial void Onin_orderChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -309,6 +313,7 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -326,15 +331,18 @@ namespace CinemaCustomControlLibrary
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="cinema_id">Initial value of the cinema_id property.</param>
-        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id)
+        /// <param name="is_handicapped">Initial value of the is_handicapped property.</param>
+        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id, global::System.SByte is_handicapped)
         {
             cinema_seat cinema_seat = new cinema_seat();
             cinema_seat.id = id;
             cinema_seat.cinema_id = cinema_id;
+            cinema_seat.is_handicapped = is_handicapped;
             return cinema_seat;
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -607,9 +615,9 @@ namespace CinemaCustomControlLibrary
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.SByte> is_handicapped
+        public global::System.SByte is_handicapped
         {
             get
             {
@@ -624,11 +632,12 @@ namespace CinemaCustomControlLibrary
                 Onis_handicappedChanged();
             }
         }
-        private Nullable<global::System.SByte> _is_handicapped;
-        partial void Onis_handicappedChanging(Nullable<global::System.SByte> value);
+        private global::System.SByte _is_handicapped;
+        partial void Onis_handicappedChanging(global::System.SByte value);
         partial void Onis_handicappedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -671,8 +680,10 @@ namespace CinemaCustomControlLibrary
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }
