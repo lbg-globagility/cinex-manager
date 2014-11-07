@@ -46,6 +46,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_a_trail_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "a_trail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.a_trail), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_patron_movies_schedule11", "movies_schedule_list", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list), "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_patron), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_patron), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_patron), "movies_schedule_list_house_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_house_seat), true)]
 
 #endregion
 
@@ -1642,11 +1643,13 @@ namespace Paradiso
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="cinema_id">Initial value of the cinema_id property.</param>
-        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id)
+        /// <param name="is_handicapped">Initial value of the is_handicapped property.</param>
+        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id, global::System.SByte is_handicapped)
         {
             cinema_seat cinema_seat = new cinema_seat();
             cinema_seat.id = id;
             cinema_seat.cinema_id = cinema_id;
+            cinema_seat.is_handicapped = is_handicapped;
             return cinema_seat;
         }
 
@@ -1924,9 +1927,9 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.SByte> is_handicapped
+        public global::System.SByte is_handicapped
         {
             get
             {
@@ -1941,8 +1944,8 @@ namespace Paradiso
                 Onis_handicappedChanged();
             }
         }
-        private Nullable<global::System.SByte> _is_handicapped;
-        partial void Onis_handicappedChanging(Nullable<global::System.SByte> value);
+        private global::System.SByte _is_handicapped;
+        partial void Onis_handicappedChanging(global::System.SByte value);
         partial void Onis_handicappedChanged();
 
         #endregion
@@ -4031,6 +4034,44 @@ namespace Paradiso
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron")]
+        public movies_schedule_list_patron movies_schedule_list_patron
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<movies_schedule_list_patron> movies_schedule_list_patronReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4805,6 +4846,28 @@ namespace Paradiso
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<movies_schedule_list_reserved_seat>("paradisoModel.fk_movies_schedule_list_reserved_seat_patron1", "movies_schedule_list_reserved_seat", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_house_seat")]
+        public EntityCollection<movies_schedule_list_house_seat> movies_schedule_list_house_seat
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<movies_schedule_list_house_seat>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_house_seat");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<movies_schedule_list_house_seat>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_house_seat", value);
                 }
             }
         }

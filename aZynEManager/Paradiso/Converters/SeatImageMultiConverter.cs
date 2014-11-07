@@ -45,6 +45,12 @@ namespace Paradiso
                 int g = 128;
                 int b = 128;
 
+                if (blnIsHandicapped)
+                    strImageUri = @"Images/seat-gray-disabled.png";
+                else
+                    strImageUri = @"Images/seat-gray.png";
+
+                /*
                 if (intSeatType == 2)
                 {
                     if (blnIsHandicapped)
@@ -59,12 +65,8 @@ namespace Paradiso
                     else
                         strImageUri = @"Images/seat-gray-x.png";
                     
-                    /*
-                    bytes[0] = 128;
-                    bytes[1] = 128;
-                    bytes[2] = 128;
-                    */
                 }
+                */
 
                 System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(System.Windows.Application.GetResourceStream(
                     new Uri(strImageUri, UriKind.Relative)).Stream);

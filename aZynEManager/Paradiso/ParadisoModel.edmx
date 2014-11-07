@@ -109,6 +109,10 @@
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
             <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
           </AssociationSet>
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_mslp1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_mslp1">
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+          </AssociationSet>
           <AssociationSet Name="fk_movies_schedule_list_movies_schedule1" Association="paradisoModel.Store.fk_movies_schedule_list_movies_schedule1">
             <End Role="movies_schedule" EntitySet="movies_schedule" />
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
@@ -221,7 +225,7 @@
           <Property Name="row_name" Type="varchar" MaxLength="100" />
           <Property Name="col_name" Type="varchar" MaxLength="100" />
           <Property Name="object_type" Type="int" />
-          <Property Name="is_handicapped" Type="tinyint" />
+          <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="classification">
           <Key>
@@ -635,6 +639,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_movies_schedule_list_house_seat_mslp1">
+          <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="1" />
+          <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list_patron">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="movies_schedule_list_patron_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_movies_schedule_list_movies_schedule1">
           <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="1" />
           <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="*" />
@@ -934,6 +950,10 @@
           </AssociationSet>
           <EntitySet Name="config_table" EntityType="paradisoModel.config_table" />
           <EntitySet Name="or_numbers_unpublished_movies_schedule_view" EntityType="paradisoModel.or_numbers_unpublished_movies_schedule_view" />
+          <AssociationSet Name="fk_movies_schedule_list_house_seat_mslp1" Association="paradisoModel.fk_movies_schedule_list_house_seat_mslp1">
+            <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+            <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="application">
           <Key>
@@ -983,7 +1003,7 @@
           <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="object_type" Type="Int32" />
-          <Property Name="is_handicapped" Type="SByte" />
+          <Property Name="is_handicapped" Type="SByte" Nullable="false" />
           <NavigationProperty Name="cinema" Relationship="paradisoModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
           <NavigationProperty Name="movies_schedule_list_house_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_house_seat" />
           <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_reserved_seat" />
@@ -1082,6 +1102,7 @@
           <Property Type="DateTime" Name="reserved_date" />
           <Property Type="String" Name="session_id" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="movies_schedule_list_patron_id" Nullable="false" />
+          <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_mslp1" FromRole="movies_schedule_list_house_seat" ToRole="movies_schedule_list_patron" />
         </EntityType>
         <EntityType Name="movies_schedule_list_patron">
           <Key>
@@ -1096,6 +1117,7 @@
           <Property Type="Int32" Name="is_default" />
           <NavigationProperty Name="movies_schedule_list" Relationship="paradisoModel.fk_movies_schedule_list_patron_movies_schedule11" FromRole="movies_schedule_list_patron" ToRole="movies_schedule_list" />
           <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_patron1" FromRole="movies_schedule_list_patron" ToRole="movies_schedule_list_reserved_seat" />
+          <NavigationProperty Name="movies_schedule_list_house_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_mslp1" FromRole="movies_schedule_list_patron" ToRole="movies_schedule_list_house_seat" />
         </EntityType>
         <EntityType Name="movies_schedule_list_reserved_seat">
           <Key>
@@ -1625,6 +1647,18 @@
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="or_number" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="fk_movies_schedule_list_house_seat_mslp1">
+          <End Type="paradisoModel.movies_schedule_list_patron" Role="movies_schedule_list_patron" Multiplicity="1" />
+          <End Type="paradisoModel.movies_schedule_list_house_seat" Role="movies_schedule_list_house_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="movies_schedule_list_patron">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="movies_schedule_list_house_seat">
+              <PropertyRef Name="movies_schedule_list_patron_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2030,35 +2064,37 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_cinema1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.9999999999999996" PointY="19.749492187499996" />
-          <ConnectorPoint PointX="3.2535744349011213" PointY="20.003066622401118" />
-          <ConnectorPoint PointX="3.3714255650988791" PointY="20.120917752598874" />
-          <ConnectorPoint PointX="3.375" PointY="20.124492187499996" />
-          <ConnectorPoint PointX="3.375" PointY="27.126152846153843" />
-          <ConnectorPoint PointX="3.3714255650988787" PointY="27.129727281054965" />
+          <ConnectorPoint PointX="3.2535744349011217" PointY="20.003066622401118" />
+          <ConnectorPoint PointX="3.4339255650988791" PointY="20.183417752598874" />
+          <ConnectorPoint PointX="3.4410744349011213" PointY="20.190566622401118" />
+          <ConnectorPoint PointX="3.5589255650988791" PointY="20.308417752598874" />
+          <ConnectorPoint PointX="3.625" PointY="20.374492187499996" />
+          <ConnectorPoint PointX="3.625" PointY="26.876152846153843" />
+          <ConnectorPoint PointX="3.5589255650988787" PointY="26.942227281054965" />
+          <ConnectorPoint PointX="3.4410744349011209" PointY="27.060078411252722" />
+          <ConnectorPoint PointX="3.4339255650988783" PointY="27.067227281054965" />
           <ConnectorPoint PointX="3.2535744349011209" PointY="27.247578411252722" />
           <ConnectorPoint PointX="3" PointY="27.501152846153843" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_cinema_patron_patrons1" ManuallyRouted="false">
           <ConnectorPoint PointX="1.09375" PointY="39.25" />
-          <ConnectorPoint PointX="1.09375" PointY="30.75671718098959" />
-          <ConnectorPoint PointX="2.1354141666666662" PointY="30.75671718098959" />
-          <ConnectorPoint PointX="2.3020808333333331" PointY="30.75671718098959" />
-          <ConnectorPoint PointX="3.2291666666666665" PointY="30.75671718098959" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="30.75671718098959" />
-          <ConnectorPoint PointX="3.75" PointY="30.75671718098959" />
+          <ConnectorPoint PointX="1.09375" PointY="30.708639322916671" />
+          <ConnectorPoint PointX="2.1354141666666662" PointY="30.708639322916671" />
+          <ConnectorPoint PointX="2.3020808333333331" PointY="30.708639322916671" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="30.708639322916671" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="30.708639322916671" />
+          <ConnectorPoint PointX="3.75" PointY="30.708639322916671" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" ManuallyRouted="false">
-          <ConnectorPoint PointX="0.9796142578125" PointY="15.40330078125" />
-          <ConnectorPoint PointX="0.9796142578125" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="2.1666666666666665" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="2.3333333333333335" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.2156845824681062" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.395833333333333" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.4166666666666665" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="3.9270833333333335" PointY="20.048510103301435" />
-          <ConnectorPoint PointX="4" PointY="20.048510103301435" />
+          <ConnectorPoint PointX="0.97919464111328125" PointY="15.40330078125" />
+          <ConnectorPoint PointX="0.97919464111328125" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="20.082182817328736" />
+          <ConnectorPoint PointX="4" PointY="20.082182817328736" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="11.501152846153847" />
@@ -2077,10 +2113,12 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_class_movies1" ManuallyRouted="false">
           <ConnectorPoint PointX="3" PointY="32.182571614583331" />
-          <ConnectorPoint PointX="3.2916666666666665" PointY="32.182571614583331" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="32.182571614583331" />
-          <ConnectorPoint PointX="4.4513027820512825" PointY="32.182571614583331" />
-          <ConnectorPoint PointX="4.6179694487179486" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="3.5208333333333335" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="4.4479186666666672" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="4.6145853333333333" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="4.8385446666666665" PointY="32.182571614583331" />
+          <ConnectorPoint PointX="5.0052113333333326" PointY="32.182571614583331" />
           <ConnectorPoint PointX="5.572916666666667" PointY="32.182571614583331" />
           <ConnectorPoint PointX="5.739583333333333" PointY="32.182571614583331" />
           <ConnectorPoint PointX="6.75" PointY="32.182571614583331" />
@@ -2107,45 +2145,41 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_movies_schedule1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.999999999999996" PointY="30.057190755208335" />
-          <ConnectorPoint PointX="3.2535744349011213" PointY="30.310765190109461" />
-          <ConnectorPoint PointX="3.3714255650988791" PointY="30.428616320307217" />
-          <ConnectorPoint PointX="3.375" PointY="30.432190755208339" />
-          <ConnectorPoint PointX="3.375" PointY="33.993231769230768" />
-          <ConnectorPoint PointX="3.4410744349011217" PointY="34.059306204131886" />
-          <ConnectorPoint PointX="3.5589255650988787" PointY="34.17715733432965" />
-          <ConnectorPoint PointX="3.7567682307692314" PointY="34.375" />
+          <ConnectorPoint PointX="3.2512663796143766" PointY="30.289128951775456" />
+          <ConnectorPoint PointX="3.3737336203856239" PointY="30.4021756355643" />
+          <ConnectorPoint PointX="3.40625" PointY="30.432190755208339" />
+          <ConnectorPoint PointX="3.40625" PointY="33.993231769230768" />
+          <ConnectorPoint PointX="4.7470769230769232" PointY="34.375" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_house_seat_movies_schedule_list1" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.20855712890625" PointY="23.375" />
-          <ConnectorPoint PointX="1.20855712890625" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="2.1666666666666665" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="2.3333333333333335" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="3.2291666666666665" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="3.9270833333333335" PointY="20.338904361546554" />
-          <ConnectorPoint PointX="4" PointY="20.338904361546554" />
+          <ConnectorPoint PointX="1.2083473205566406" PointY="23.375" />
+          <ConnectorPoint PointX="1.2083473205566406" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="2.1666666666666665" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="2.3333333333333335" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="20.353593908664369" />
+          <ConnectorPoint PointX="4" PointY="20.353593908664369" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_movies_schedule_list1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="25.537156263305661" />
-          <ConnectorPoint PointX="3.2291666666666665" PointY="25.537156263305661" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="25.537156263305661" />
-          <ConnectorPoint PointX="3.75" PointY="25.537156263305661" />
+          <ConnectorPoint PointX="2.25" PointY="25.563110558013911" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="25.563110558013911" />
+          <ConnectorPoint PointX="3.7083333333333335" PointY="25.563110558013911" />
+          <ConnectorPoint PointX="3.75" PointY="25.563110558013911" />
           <ConnectorPoint PointX="3.75" PointY="13.432190755208325" />
           <ConnectorPoint PointX="2.75" PointY="13.432190755208325" />
           <ConnectorPoint PointX="2.75" PointY="9.6725065104166656" />
-          <ConnectorPoint PointX="3.3959133658854168" PointY="9.6725065104166656" />
-          <ConnectorPoint PointX="3.5625800325520838" PointY="9.6725065104166656" />
-          <ConnectorPoint PointX="4.0209973984375" PointY="9.6725065104166656" />
-          <ConnectorPoint PointX="4.0209973984375" PointY="9.2975065104166656" />
+          <ConnectorPoint PointX="3.395852341471354" PointY="9.6725065104166656" />
+          <ConnectorPoint PointX="3.5625190081380209" PointY="9.6725065104166656" />
+          <ConnectorPoint PointX="4.0208753496093745" PointY="9.6725065104166656" />
+          <ConnectorPoint PointX="4.0208753496093745" PointY="9.2975065104166656" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_ticket_movies_schedule_list1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="24.42482563165283" />
-          <ConnectorPoint PointX="3.2291666666666665" PointY="24.42482563165283" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="24.42482563165283" />
-          <ConnectorPoint PointX="3.6666666666666665" PointY="24.42482563165283" />
-          <ConnectorPoint PointX="3.9270833333333335" PointY="24.42482563165283" />
-          <ConnectorPoint PointX="7.125" PointY="24.42482563165283" />
+          <ConnectorPoint PointX="2.25" PointY="24.437802779006955" />
+          <ConnectorPoint PointX="3.2291666666666665" PointY="24.437802779006951" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="24.437802779006955" />
+          <ConnectorPoint PointX="7.125" PointY="24.437802779006955" />
           <ConnectorPoint PointX="7.125" PointY="8.3167936197916674" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_patron_patrons1" ManuallyRouted="false">
@@ -2159,16 +2193,14 @@
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patrons1" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="41.329053106770829" />
-          <ConnectorPoint PointX="3.5" PointY="41.329053106770829" />
-          <ConnectorPoint PointX="3.5" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="3.3958333333333335" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="3.2291666666666665" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="2.5625" PointY="13.682190755208325" />
-          <ConnectorPoint PointX="2.5625" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="2.5729166666666665" PointY="9.7975065104166639" />
+          <ConnectorPoint PointX="3.3125" PointY="41.329053106770829" />
+          <ConnectorPoint PointX="3.3125" PointY="13.682190755208325" />
+          <ConnectorPoint PointX="2.6875" PointY="13.682190755208325" />
+          <ConnectorPoint PointX="2.6875" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="2.6979166666666665" PointY="9.7975065104166656" />
           <ConnectorPoint PointX="2.8645833333333335" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="3.4792466992187503" PointY="9.7975065104166656" />
-          <ConnectorPoint PointX="3.4792466992187503" PointY="9.2975065104166656" />
+          <ConnectorPoint PointX="3.4791856748046874" PointY="9.7975065104166656" />
+          <ConnectorPoint PointX="3.4791856748046874" PointY="9.2975065104166656" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" ManuallyRouted="false">
           <ConnectorPoint PointX="6" PointY="7.2604950123697956" />
@@ -2222,18 +2254,29 @@
           <ConnectorPoint PointX="3.75" PointY="34.381461538461544" />
         </AssociationConnector>
         <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_reserved_seat_patron1" >
-          <ConnectorPoint PointX="4.5346361153846155" PointY="34.375" />
-          <ConnectorPoint PointX="4.5346361153846155" PointY="31.547587890625003" />
-          <ConnectorPoint PointX="3.5833333333333335" PointY="31.547587890625003" />
-          <ConnectorPoint PointX="3.3541666666666665" PointY="31.547587890625003" />
-          <ConnectorPoint PointX="3.3125" PointY="31.547587890625003" />
-          <ConnectorPoint PointX="3.3125" PointY="13.557190755208325" />
+          <ConnectorPoint PointX="4.531252" PointY="34.375" />
+          <ConnectorPoint PointX="4.531252" PointY="31.547587890625003" />
+          <ConnectorPoint PointX="3.5" PointY="31.547587890625003" />
+          <ConnectorPoint PointX="3.5" PointY="13.557190755208325" />
           <ConnectorPoint PointX="2.78125" PointY="13.557190755208325" />
-          <ConnectorPoint PointX="2.78125" PointY="5.6608503728126731" />
-          <ConnectorPoint PointX="3" PointY="5.6608503728126731" />
+          <ConnectorPoint PointX="2.78125" PointY="5.6750032582424055" />
+          <ConnectorPoint PointX="3" PointY="5.6750032582424055" />
         </AssociationConnector>
         <EntityTypeShape EntityType="paradisoModel.config_table" Width="1.5" PointX="9.375" PointY="9.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="paradisoModel.or_numbers_unpublished_movies_schedule_view" Width="1.5" PointX="10.375" PointY="0.75" Height="1.4033821614583246" />
+        <AssociationConnector Association="paradisoModel.fk_movies_schedule_list_house_seat_mslp1" >
+          <ConnectorPoint PointX="4.9218779999999995" PointY="34.375" />
+          <ConnectorPoint PointX="4.9218779999999995" PointY="31.797587890625003" />
+          <ConnectorPoint PointX="4.6145853333333333" PointY="31.797587890625003" />
+          <ConnectorPoint PointX="4.4479186666666672" PointY="31.797587890625003" />
+          <ConnectorPoint PointX="3.375" PointY="31.797587890625003" />
+          <ConnectorPoint PointX="3.375" PointY="18.822339408664369" />
+          <ConnectorPoint PointX="3.4166666666666665" PointY="18.822339408664369" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="18.822339408664369" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="18.822339408664369" />
+          <ConnectorPoint PointX="3.9270833333333335" PointY="18.822339408664369" />
+          <ConnectorPoint PointX="4" PointY="18.822339408664369" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

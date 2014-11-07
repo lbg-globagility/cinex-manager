@@ -19,6 +19,7 @@ namespace Paradiso.Model
 
         private string strRunningTime;
         private int intAvailable = 0;
+        private int intReserved = 0;
         private int intBooked = 0;
         private int intSelected = 0;
         private string strRating = string.Empty;
@@ -48,6 +49,7 @@ namespace Paradiso.Model
             MovieName = movieScheduleListModel.MovieName;
             RunningTime = movieScheduleListModel.RunningTime;
             Available = movieScheduleListModel.Available;
+            Reserved = movieScheduleListModel.Reserved;
             Booked = movieScheduleListModel.Booked;
             Selected = movieScheduleListModel.Selected;
             Rating = movieScheduleListModel.Rating;
@@ -200,6 +202,19 @@ namespace Paradiso.Model
             }
         }
 
+        public int Reserved
+        {
+            get { return intReserved; }
+            set
+            {
+                if (value != intReserved)
+                {
+                    intReserved = value;
+                    this.NotifyPropertyChanged("Reserved");
+                }
+            }
+        }
+
         public string Rating
         {
             get { return strRating; }
@@ -325,6 +340,24 @@ namespace Paradiso.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is MovieScheduleListModel)
+            {
+                MovieScheduleListModel m = (MovieScheduleListModel)obj;
+                if (m.Key == this.Key)
+                    return true;
+            }
+            return false;
+            //return base.Equals(obj);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0:hh:mm tt} - {1:hh:mm tt}", this.StartTime, this.EndTime);
+            //return base.ToString();
         }
     }
 }

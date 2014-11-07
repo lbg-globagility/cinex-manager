@@ -240,9 +240,17 @@ namespace Paradiso
 
                 //taken seats
                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
-                                  where mslrs.movies_schedule_list_id == this.Key
-                                  select mslrs.cinema_seat_id).ToList();
+                                  where mslrs.movies_schedule_list_id == this.Key && mslrs.status != 2
+                                  select new { mslrs.cinema_seat_id, mslrs.movies_schedule_list_patron.patron.seat_color }).ToList();
 
+                int tmpreservedseats = 0;
+                if (!IsFreeSeating)
+                {
+                    tmpreservedseats = (from mcths in context.movies_schedule_list_house_seat
+                                         where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId  
+                                         && ( mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED "))
+                                         select mcths.cinema_seat_id).Count();
+                }
 
                 //reserved seats from other sessions
                 var reservedseats = (from mcths in context.movies_schedule_list_house_seat_view
@@ -280,7 +288,9 @@ namespace Paradiso
                                 select mcths.cinema_seat_id).Count();
                 */
                 MovieSchedule.Selected = selectedseats.Count;
-                MovieSchedule.Booked = reservedseats.Count;
+                MovieSchedule.Booked = takenseats.Count;
+
+                MovieSchedule.Reserved = tmpreservedseats; //reservedseats.Count;
                 MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - selectedseats.Count);
                     
 
@@ -370,14 +380,20 @@ namespace Paradiso
                         Width = (int)seat.x2 - (int) seat.x1,
                         Height = (int)seat.y2 - (int)seat.y1,
                         Type = (int) seat.object_type,
-                        SeatType = 1
+                        SeatType = 1,
+                        IsHandicapped = (seat.is_handicapped == 1) ? true : false
                     };
 
                     //get seat type
                     if (takenseats.Count > 0 && IsReservedSeating)
                     {
-                        if (takenseats.IndexOf(seat.id) != -1)
+                        var takenseat = takenseats.Where(t => t.cinema_seat_id == seat.id).ToList();
+                        if (takenseat.Count > 0)
+                        {
+                            //if (takenseats.IndexOf(seat.id) != -1)
                             seatModel.SeatType = 3;
+                            seatModel.SeatColor = (int)takenseat[0].seat_color;
+                        }
                     }
                     if (seatModel.SeatType == 1)
                     {
@@ -386,6 +402,21 @@ namespace Paradiso
                             if (reservedseats.IndexOf(seat.id) != -1)
                             {
                                 seatModel.SeatType = 3;
+                                var seatcolor = (from mcths in context.movies_schedule_list_house_seat
+                                                 where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id
+                                                 orderby mcths.reserved_date descending
+                                                 select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
+                                if (seatcolor != null)
+                                {
+                                    int intSeatColor = (int) seatcolor.seat_color;
+                                    string strNotes = string.Empty;
+                                    if (seatcolor.notes != null)
+                                        strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED" || strNotes.StartsWith("RESERVED "))
+                                        seatModel.SeatColor = 8421504;
+                                    else
+                                        seatModel.SeatColor = intSeatColor;
+                                }
                             }
                         }
                         
@@ -597,6 +628,7 @@ namespace Paradiso
         private void confirmPatrons()
         {
             timer.Stop();
+
             if (SelectedPatronSeatList.PatronSeats.Count == 0)
             {
                 MessageWindow messageWindow = new MessageWindow();
@@ -609,8 +641,28 @@ namespace Paradiso
             else
             {
                 var window = Window.GetWindow(this);
+                
+                //prompt window for name and notes
+                ReservedSeatingDetailsWindow reservedSeatingDetailsWindow = new ReservedSeatingDetailsWindow();
+                if (window != null)
+                    reservedSeatingDetailsWindow.Owner = window;
+                reservedSeatingDetailsWindow.ShowDialog();
+                if (reservedSeatingDetailsWindow.SeatingDetails.IsCancelled)
+                {
+                    timer.Start();
+                    this.setFocus();
+                    return;
+                }
+
                 if (window != null)
                     window.KeyDown -= Page_PreviewKeyDown;
+
+
+                ReservedSeatingDetails details = new ReservedSeatingDetails()
+                {
+                    Name = reservedSeatingDetailsWindow.SeatingDetails.Name,
+                    Notes = reservedSeatingDetailsWindow.SeatingDetails.Notes
+                };
 
                 //mark as reserved payment
                 //set reservation reserved date to a very high date
@@ -642,7 +694,8 @@ namespace Paradiso
                                     if (selectedseat != null)
                                     {
                                         selectedseat.reserved_date = dtCurrentDate;
-                                        selectedseat.notes = "RESERVED";
+                                        selectedseat.full_name = details.Name;
+                                        selectedseat.notes = string.Format("RESERVED {0}", details.Notes);
                                         context.SaveChanges(System.Data.Objects.SaveOptions.AcceptAllChangesAfterSave);
 
                                     }

@@ -25,10 +25,14 @@ namespace aZynEManager
         public int _intCinemaID = -1;
         public DateTime _dtStart = new DateTime();
         public DateTime _dtEnd = new DateTime();
+       
         public string _strDistributor = String.Empty;
         public static ArrayList queryList = new ArrayList();
         //melvin 2014 10-17
         public string strCinema = null;
+        public string rp01Account = null;
+        public string rp05distributor = null;
+
         public frmReport()
         {
             InitializeComponent();
@@ -58,7 +62,7 @@ namespace aZynEManager
         {
             m_frmM = frm;
             m_clscom = cls;
-
+            
             frmInitDbase(reportcode);
           
         }
@@ -89,7 +93,30 @@ namespace aZynEManager
                         break;
                         
                     case "RP01":
-
+                        sqry.Append("select @patron:= a.name as PATRON, @cinema:= c.name ");
+                        sqry.Append("CINEMA, b.price PRICE, @c:= (select count(f.cinema_seat_id) ");
+                        sqry.Append("from patrons a inner join cinema_patron b on a.id=b.patron_id ");
+                        sqry.Append("inner join  cinema c on b.cinema_id = c.id ");
+                        sqry.Append("inner join movies_schedule d on d.cinema_id = c.id ");
+                        sqry.Append("inner join movies_schedule_list e on ");
+                        sqry.Append("e.movies_schedule_id = d.id inner join ");
+                        sqry.Append("movies_schedule_list_reserved_seat f on ");
+                        sqry.Append("f.movies_schedule_list_id= e.id where d.movie_date=");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(" and a.name=@patron ");
+                        sqry.Append("and c.name = @cinema) as QTY, (@c*b.price) as ");
+                        sqry.Append("`TOTALSALES` from patrons a inner join cinema_patron ");
+                        sqry.Append("b on a.id=b.patron_id inner join  cinema c on ");
+                        sqry.Append("b.cinema_id = c.id inner join movies_schedule d ");
+                        sqry.Append("on d.cinema_id = c.id inner join movies_schedule_list ");
+                        sqry.Append("e on e.movies_schedule_id = d.id inner join ");
+                        sqry.Append("movies_schedule_list_reserved_seat f on ");
+                        sqry.Append("f.movies_schedule_list_id= e.id inner join ");
+                        sqry.Append("ticket g on e.id= g.movies_schedule_list_id ");
+                        sqry.Append("where d.movie_date=");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(String.Format(" and g.terminal='{0}' ",rp01Account));
+                        sqry.Append(" group by a.name, c.name order by c.name;");
                         break;
                     case "RP02":
                         sqry.Append("SELECT e.title, e.no_of_days, ");
@@ -124,7 +151,21 @@ namespace aZynEManager
                         sqry.Append("cinema_id) o GROUP BY movie_id) k WHERE e.id = f.movie_id AND ");
                         sqry.Append("e.id = g.movie_id AND e.id = k.movie_id;");
                         break;
-
+                    case "RP05":
+                        sqry.Append("select a.code as movie_code, a.title, ");
+                        sqry.Append("count(e.cinema_seat_id) as QTY, ");
+                        sqry.Append("(e.price* count(e.cinema_seat_id)) as Sales, ");
+                        sqry.Append("b.movie_date, c.code as dist_code from movies a ");
+                        sqry.Append("inner join movies_schedule b on a.id= b.movie_id ");
+                        sqry.Append("inner join distributor c on a.dist_id= c.id ");
+                        sqry.Append("inner join movies_schedule_list d on b.id= ");
+                        sqry.Append("d.movies_schedule_id inner join ");
+                        sqry.Append("movies_schedule_list_reserved_seat e ");
+                        sqry.Append("on d.id = e.movies_schedule_list_id where b.movie_date = ");
+                        sqry.Append(string.Format("'{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append(" and c.code='"+rp05distributor+"' and  e.status=1 ");
+                        sqry.Append("GROUP BY a.code;");
+                        break;
                     case "RP06":
                      int h = rdlViewer1.Height;
                      rdlViewer1.Height = rdlViewer1.Width-50;
@@ -249,8 +290,8 @@ namespace aZynEManager
                         break;
                 }
 
-                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd);
-                //MessageBox.Show(sqry.ToString());
+                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);
+               // MessageBox.Show(sqry.ToString());
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
                // MessageBox.Show(xmlfile.ToString());
@@ -264,7 +305,7 @@ namespace aZynEManager
             }
         }
 
-        static string GetXmlString(string strFile, string sQry, string sConnString, string cine, string code, DateTime _dtStart, DateTime _dtEnd)
+        static string GetXmlString(string strFile, string sQry, string sConnString, string cine, string code, DateTime _dtStart, DateTime _dtEnd,string rp01)
         {
             XmlDocument xmlDoc = new XmlDocument();
             if (File.Exists(strFile))
@@ -306,11 +347,9 @@ namespace aZynEManager
                             {
                                 if (flag == 0)
                                 {
-                                    sQry = "Select name as cinema_name from "+                                      "cinema where id=" + cine + " limit 1;";
+                                    sQry = "Select name as cinema_name from "+  
+                                        "cinema where id=" + cine + " limit 1;";
                                 }
-
-
-
                                 else if(flag==1)
                                 {
                                     string[] result = new string[]{};
@@ -318,10 +357,12 @@ namespace aZynEManager
                                     string[] stringSeparators = new string[] { "id:" };
                                     for (int x = 0; x < queryList.Count; x++)
                                     {
-                                        result = queryList[x].ToString().Split(stringSeparators, StringSplitOptions.None);
+                                        result = queryList[x].ToString().Split(
+                                            stringSeparators, 
+                                            StringSplitOptions.None
+                                            );
                                         id.Add(result[1]);
                                         result = null;
-                                        
                                     }
                                 sQry = "SELECT  @myVal := g.code as patron_code, g.name, a.price, " +
                                 "@myQty1:=(select count(a.cinema_seat_id) as count " +
@@ -361,60 +402,101 @@ namespace aZynEManager
                                 "c.movies_schedule_id = d.id AND d.movie_date = '2006/12/07' " +
                                 " AND d.movie_id = e.id AND d.cinema_id = f.id and " +
                                 "f.name='Cinema 1' GROUP BY g.code;";
-                                   // MessageBox.Show(id[0].ToString() + "\n" + id[1].ToString());
-                                }
-
-
-
-     
+                                 }
                             }
-
-
-
-
                             else if (code == "RP02")
                             {
                                 sQry = "SELECT Sum(e.no_of_days) as`days`," +
-               "sum( f.no_of_screenings) as `screening`, " +
-               "sum(total_seats_taken)as `seat_taken`, " +
-               "sum(total_available_seats) `available_seat`," +
-               "sum( total_ticket_sales)as `ticket_sales`," +
-               "sum((total_seats_taken/total_available_seats) * 100) `util`" +
-               "FROM (SELECT a.id, code, title, rating_id, " +
-               "COUNT(movie_date) no_of_days FROM movies a, movies_schedule " +
-               "b WHERE a.id = b.movie_id AND b.movie_date BETWEEN " +
-               "'" + String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
-                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
-                    "' GROUP BY a.id ) e," +
-               "(SELECT movie_id, COUNT(c.id) no_of_screenings FROM " +
-               "movies_schedule_list c, movies_schedule d WHERE " +
-               "c.movies_schedule_id =d.id AND d.movie_date BETWEEN " +
-               "'"+ String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
-                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
-                    "' GROUP BY movie_id ) f," +
-               "(SELECT j.movie_id, COUNT(h.cinema_seat_id) " +
-               "total_seats_taken, SUM(h.price) total_ticket_sales FROM " +
-               "movies_schedule_list_reserved_seat h, movies_schedule_list " +
-               "i, movies_schedule j WHERE h.movies_schedule_list_id = i.id" +
-               " AND i.movies_schedule_id = j.id AND j.movie_date BETWEEN  " +
-               "'"+  String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
-                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
-                    "'   GROUP BY movie_id) g," +
-               "(SELECT movie_id, SUM(available_seats) total_available_seats" +
-               " FROM (SELECT movie_id, n.capacity * COUNT(l.id) " +
-               "available_seats FROM movies_schedule_list l, movies_schedule" +
-               " m, cinema n WHERE l.movies_schedule_id =m.id AND " +
-               "m.cinema_id = n.id AND m.movie_date BETWEEN  '"+
-                String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
-                String.Format("{0:yyyy/MM/dd}", _dtEnd) +
-                "' GROUP BY movie_id, cinema_id) o GROUP BY " +
-               "movie_id) k WHERE e.id = f.movie_id AND e.id = g.movie_id" +
-               " AND e.id = k.movie_id;";
+                               "sum( f.no_of_screenings) as `screening`, " +
+                               "sum(total_seats_taken)as `seat_taken`, " +
+                               "sum(total_available_seats) `available_seat`," +
+                               "sum( total_ticket_sales)as `ticket_sales`," +
+                               "sum((total_seats_taken/total_available_seats) * 100) `util`" +
+                               "FROM (SELECT a.id, code, title, rating_id, " +
+                               "COUNT(movie_date) no_of_days FROM movies a, movies_schedule " +
+                               "b WHERE a.id = b.movie_id AND b.movie_date BETWEEN " +
+                               "'" + String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
+                                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
+                                    "' GROUP BY a.id ) e," +
+                               "(SELECT movie_id, COUNT(c.id) no_of_screenings FROM " +
+                               "movies_schedule_list c, movies_schedule d WHERE " +
+                               "c.movies_schedule_id =d.id AND d.movie_date BETWEEN " +
+                               "'"+ String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
+                                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
+                                    "' GROUP BY movie_id ) f," +
+                               "(SELECT j.movie_id, COUNT(h.cinema_seat_id) " +
+                               "total_seats_taken, SUM(h.price) total_ticket_sales FROM " +
+                               "movies_schedule_list_reserved_seat h, movies_schedule_list " +
+                               "i, movies_schedule j WHERE h.movies_schedule_list_id = i.id" +
+                               " AND i.movies_schedule_id = j.id AND j.movie_date BETWEEN  " +
+                               "'"+  String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
+                                    String.Format("{0:yyyy/MM/dd}", _dtEnd) + 
+                                    "'   GROUP BY movie_id) g," +
+                               "(SELECT movie_id, SUM(available_seats) total_available_seats" +
+                               " FROM (SELECT movie_id, n.capacity * COUNT(l.id) " +
+                               "available_seats FROM movies_schedule_list l, movies_schedule" +
+                               " m, cinema n WHERE l.movies_schedule_id =m.id AND " +
+                               "m.cinema_id = n.id AND m.movie_date BETWEEN  '"+
+                                String.Format("{0:yyyy/MM/dd}", _dtStart) +"' AND '"+
+                                String.Format("{0:yyyy/MM/dd}", _dtEnd) +
+                                "' GROUP BY movie_id, cinema_id) o GROUP BY " +
+                               "movie_id) k WHERE e.id = f.movie_id AND e.id = g.movie_id" +
+                               " AND e.id = k.movie_id;";
                             }
 
                             else if (code == "AUDIT")
                             {
                                 sQry = " Select '" + _dtStart.ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
+                            }
+                            else if (code == "RP01")
+                            {
+                                if (flag == 0)
+                                {
+                                    sQry = String.Format("select '{0:yyyy/MM/dd}' as date_sel", _dtStart);
+                                }
+                                else if (flag == 1)
+                                {
+                                    sQry = "select userid, concat(fname,' ',lname) as name " +
+                                        "from users where userid='"+rp01+"'";
+                                }
+                                else if (flag == 2)
+                                {
+                                    sQry = "select sum(a.a) as total from (select @patron:= " +
+                                        "a.name as PATRON, @cinema:= c.name CINEMA, b.price PRICE," +
+                                        "@c:= (select count(f.cinema_seat_id)" +
+                                        "from patrons a inner join cinema_patron b on " +
+                                        "a.id=b.patron_id inner join  cinema c on b.cinema_id " +
+                                        "= c.id inner join movies_schedule d on d.cinema_id = " +
+                                        "c.id inner join movies_schedule_list e on " +
+                                        "e.movies_schedule_id = d.id inner join " +
+                                        "movies_schedule_list_reserved_seat f on " +
+                                        "f.movies_schedule_list_id= e.id " +
+                                        String.Format(" where d.movie_date='{0:yyyy/MM/dd}'", _dtStart) +
+                                        " and a.name=@patron and c.name = @cinema) as QTY," +
+                                        "(@c*b.price) as a from patrons a inner join " +
+                                        "cinema_patron b on a.id=b.patron_id " +
+                                        "inner join  cinema c on b.cinema_id = c.id " +
+                                        "inner join movies_schedule d on d.cinema_id = c.id " +
+                                        "inner join movies_schedule_list e on e.movies_schedule_id = " +
+                                        "d.id inner join movies_schedule_list_reserved_seat f on " +
+                                        "f.movies_schedule_list_id= e.id " +
+                                        "inner join ticket g on e.id= g.movies_schedule_list_id " +
+                                        String.Format("where d.movie_date='{0:yyyy/MM/dd}'", _dtStart) +
+                                        "and g.terminal='" + rp01 + "' group by a.name, c.name " +
+                                        "order by c.name) a;";
+                                }
+                                else if (flag == 3)
+                                {
+                                    sQry = " select count(f.cinema_seat_id) as totalQTY " +
+                                        "from patrons a inner join cinema_patron b on " +
+                                        "a.id=b.patron_id inner join  cinema c on " +
+                                        "b.cinema_id = c.id inner join movies_schedule d" +
+                                        "on d.cinema_id = c.id inner join movies_schedule_list " +
+                                        "e on e.movies_schedule_id = d.id inner join " +
+                                        "movies_schedule_list_reserved_seat f on " +
+                                        "f.movies_schedule_list_id= e.id where d.movie_date=" +
+                                     String.Format("'{0:yyyy/MM/dd}';", _dtStart);
+                                }
                             }
                             flag++;
                         }

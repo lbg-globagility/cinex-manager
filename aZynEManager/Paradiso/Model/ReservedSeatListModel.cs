@@ -11,6 +11,9 @@ namespace Paradiso.Model
 {
     public class ReservedSeatListModel : INotifyPropertyChanged
     {
+        private string strName;
+        private string strNotes;
+
         public MyObservableCollection<ReservedSeatModel>  ReservedSeats { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,7 +36,39 @@ namespace Paradiso.Model
             //this.UpdateCountTotal();
         }
 
+        public string Name
+        {
+            get { return strName; }
+            set
+            {
+                if (value != strName)
+                {
+                    strName = value;
+                    this.NotifyPropertyChanged("Name");
+                }
+            }
+        }
 
+        public string Notes
+        {
+            get 
+            {
+                if (strNotes == "RESERVED")
+                    return string.Empty;
+                else if (strNotes.StartsWith("RESERVED "))
+                    return strNotes.Substring(9).Trim();
+                else
+                    return strNotes; 
+            }
+            set
+            {
+                if (value != strNotes)
+                {
+                    strNotes = value;
+                    this.NotifyPropertyChanged("Notes");
+                }
+            }
+        }
 
         private void NotifyPropertyChanged(String info)
         {
