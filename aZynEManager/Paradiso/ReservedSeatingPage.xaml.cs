@@ -240,8 +240,10 @@ namespace Paradiso
 
                 //taken seats
                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
-                                  where mslrs.movies_schedule_list_id == this.Key
+                                  where mslrs.movies_schedule_list_id == this.Key && mslrs.status != 2
                                   select new { mslrs.cinema_seat_id, mslrs.movies_schedule_list_patron.patron.seat_color }).ToList();
+
+                //int tmpreservedseats = 0;
 
 
                 //reserved seats from other sessions
@@ -280,7 +282,10 @@ namespace Paradiso
                                 select mcths.cinema_seat_id).Count();
                 */
                 MovieSchedule.Selected = selectedseats.Count;
-                MovieSchedule.Booked = reservedseats.Count;
+                MovieSchedule.Booked = takenseats.Count;
+
+                //filter
+                MovieSchedule.Reserved = reservedseats.Count;
                 MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - selectedseats.Count);
                     
 

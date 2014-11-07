@@ -54,9 +54,13 @@
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Selected:</TextBlock>
                         <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Selected}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,10">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Reserved:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Booked:</TextBlock>
                         <TextBlock Name="SeatBooked" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Booked}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Reserved:</TextBlock>
+                        <TextBlock Name="SeatReserved" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Reserved}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Available:</TextBlock>
