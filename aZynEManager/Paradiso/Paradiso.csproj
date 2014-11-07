@@ -136,6 +136,7 @@
     <Compile Include="Model\PatronQuantityModel.cs" />
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
+    <Compile Include="Model\ReservedSeatingDetails.cs" />
     <Compile Include="Model\ReservedSeatListModel.cs" />
     <Compile Include="Model\ReservedSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="Converters\SeatImageMultiConverter.cs" />
     <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
     <Compile Include="Converters\SeatColorConverter.cs" />
+    <Compile Include="ReservedSeatingDetailsWindow.xaml.cs">
+      <DependentUpon>ReservedSeatingDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
@@ -202,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PatronWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReservedSeatingDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

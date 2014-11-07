@@ -394,12 +394,15 @@ namespace Paradiso
                                 seatModel.SeatType = 3;
                                 var seatcolor = (from mcths in context.movies_schedule_list_house_seat
                                                  where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id
+                                                 orderby mcths.reserved_date descending
                                                  select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
                                 if (seatcolor != null)
                                 {
                                     int intSeatColor = (int) seatcolor.seat_color;
-                                    string strNotes = seatcolor.notes.ToString();
-                                    if (strNotes == "RESERVED")
+                                    string strNotes = string.Empty;
+                                    if (seatcolor.notes != null)
+                                        strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED" || strNotes.StartsWith("RESERVED "))
                                         seatModel.SeatColor = 8421504;
                                     else
                                         seatModel.SeatColor = intSeatColor;
@@ -615,6 +618,7 @@ namespace Paradiso
         private void confirmPatrons()
         {
             timer.Stop();
+
             if (SelectedPatronSeatList.PatronSeats.Count == 0)
             {
                 MessageWindow messageWindow = new MessageWindow();
@@ -627,8 +631,28 @@ namespace Paradiso
             else
             {
                 var window = Window.GetWindow(this);
+                
+                //prompt window for name and notes
+                ReservedSeatingDetailsWindow reservedSeatingDetailsWindow = new ReservedSeatingDetailsWindow();
+                if (window != null)
+                    reservedSeatingDetailsWindow.Owner = window;
+                reservedSeatingDetailsWindow.ShowDialog();
+                if (reservedSeatingDetailsWindow.SeatingDetails.IsCancelled)
+                {
+                    timer.Start();
+                    this.setFocus();
+                    return;
+                }
+
                 if (window != null)
                     window.KeyDown -= Page_PreviewKeyDown;
+
+
+                ReservedSeatingDetails details = new ReservedSeatingDetails()
+                {
+                    Name = reservedSeatingDetailsWindow.SeatingDetails.Name,
+                    Notes = reservedSeatingDetailsWindow.SeatingDetails.Notes
+                };
 
                 //mark as reserved payment
                 //set reservation reserved date to a very high date
@@ -660,7 +684,8 @@ namespace Paradiso
                                     if (selectedseat != null)
                                     {
                                         selectedseat.reserved_date = dtCurrentDate;
-                                        selectedseat.notes = "RESERVED";
+                                        selectedseat.full_name = details.Name;
+                                        selectedseat.notes = string.Format("RESERVED {0}", details.Notes);
                                         context.SaveChanges(System.Data.Objects.SaveOptions.AcceptAllChangesAfterSave);
 
                                     }

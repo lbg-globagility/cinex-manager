@@ -18,7 +18,17 @@
             </ResourceDictionary.MergedDictionaries>
             <ContextMenu x:Key="cmUnReserve">
                 <DockPanel>
-                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click">Unreserve Seats</Button>
+                    <StackPanel DockPanel.Dock="Top" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock xml:space="preserve">Full Name : </TextBlock>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock xml:space="preserve">Notes : </TextBlock>
+                            <TextBlock Text="{Binding Notes}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click" Margin="2">Unreserve Seats</Button>
                     <ItemsControl ItemsSource="{Binding ReservedSeats}" Margin="5">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -31,15 +41,6 @@
                                     <Image Width="32" Source="/Paradiso;component/Images/seat-white.png">
                                     </Image>
                                     <TextBlock Canvas.Left="5" Canvas.Top="10" Foreground="Black" FontWeight="Bold" FontSize="16" FontFamily="Arial" Text="{Binding Name}">
-                                      <!--TextBlock.Effect>
-                                        <DropShadowEffect
-                                          ShadowDepth="2"
-                                          Direction="315"
-                                          Color="Black"
-                                          Opacity="1"
-                                         BlurRadius="0.0"/>
-                                      </TextBlock.Effect-->
-
                                     </TextBlock>
                                 </Canvas>
                             </DataTemplate>

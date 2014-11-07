@@ -402,13 +402,15 @@ namespace Paradiso
                                 //retrieve reserved seat
                                 seatModel.SeatType = 3;
                                 var seatcolor = (from mcths in context.movies_schedule_list_house_seat
-                                                 where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id
+                                                 where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id orderby mcths.reserved_date descending
                                                  select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
                                 if (seatcolor != null)
                                 {
                                     int intSeatColor = (int) seatcolor.seat_color;
-                                    string strNotes = seatcolor.notes.ToString();
-                                    if (strNotes == "RESERVED")
+                                    string strNotes = string.Empty;
+                                    if (seatcolor.notes != null)
+                                        strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED" || strNotes.StartsWith("RESERVED "))
                                         seatModel.SeatColor = 8421504;
                                     else
                                         seatModel.SeatColor = intSeatColor;
@@ -555,22 +557,26 @@ namespace Paradiso
                         {
                             var sessionid = (from mcths in context.movies_schedule_list_house_seat_view
                                              where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
-                                             mcths.notes == "RESERVED"
+                                             ( mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED ")) 
                                              select mcths.session_id).SingleOrDefault();
                             if (sessionid != null)
                                 strSessionId = sessionid;
                             var reservedseats = (from mcths in context.movies_schedule_list_house_seat
-                                                 where mcths.session_id == strSessionId && mcths.notes == "RESERVED" && mcths.movies_schedule_list_id == MovieSchedule.Key
+                                                 where mcths.session_id == strSessionId && ( mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED ")) && mcths.movies_schedule_list_id == MovieSchedule.Key
                                                  orderby mcths.cinema_seat.id
                                                  select new
                                                  {
                                                      mcths.id,
+                                                     mcths.full_name,
+                                                     mcths.notes,
                                                      sn = mcths.cinema_seat.col_name + mcths.cinema_seat.row_name,
                                                  }
                                                  ).ToList();
 
                             foreach (var _rs in reservedseats)
                             {
+                                reservedSeats.Name = _rs.full_name;
+                                reservedSeats.Notes = _rs.notes;
                                 reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn });
                             }
 
