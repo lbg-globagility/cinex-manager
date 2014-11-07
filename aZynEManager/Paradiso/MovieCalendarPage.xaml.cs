@@ -156,7 +156,7 @@ namespace Paradiso
                              */
 
                             var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
-                                           where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey
+                                           where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey &&  mslrs.status != 2
                                            select mslrs.cinema_seat_id).Count();
 
                             //reserved
@@ -174,7 +174,12 @@ namespace Paradiso
                                             select mcths.cinema_seat_id).Count();
                             }
 
-                            _movie_schedule_list_item.Booked = (int)reserved;
+                            //new definitions
+                            //reserved - used in reserving online or manul so notes with reserved
+                            //tempreserved - different session 
+                            //booked - already purchased  and is not voided
+                            
+                            _movie_schedule_list_item.Booked = (int) patrons;
                             _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;

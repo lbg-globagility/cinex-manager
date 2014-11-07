@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="cinemaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="cinemaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="cinemaModelStoreContainer">
           <EntitySet Name="cinema" EntityType="cinemaModel.Store.cinema" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="cinema_seat" EntityType="cinemaModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
@@ -38,7 +38,7 @@
           <Property Name="row_name" Type="varchar" MaxLength="100" />
           <Property Name="col_name" Type="varchar" MaxLength="100" />
           <Property Name="object_type" Type="int" />
-          <Property Name="is_handicapped" Type="tinyint" />
+          <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="fk_cinema_seat_cinema1">
           <End Role="cinema" Type="cinemaModel.Store.cinema" Multiplicity="1" />
@@ -52,8 +52,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="cinemaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -91,7 +90,7 @@
           <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="object_type" Type="Int32" />
-          <Property Name="is_handicapped" Type="SByte" />
+          <Property Name="is_handicapped" Type="SByte" Nullable="false" />
           <NavigationProperty Name="cinema" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
         </EntityType>
         <Association Name="fk_cinema_seat_cinema1">
@@ -162,11 +161,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="CinemaModel" ZoomLevel="108">
-        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="1" PointY="0.875" Height="2.172587890625" IsExpanded="true" />
-        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3.375" PointY="0.5" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="1.125" PointY="0.5" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3.125" PointY="0.875" Height="3.5186979166666656" IsExpanded="true" />
         <AssociationConnector Association="cinemaModel.fk_cinema_seat_cinema1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.5" PointY="1.9612939453125" />
-          <ConnectorPoint PointX="3.375" PointY="1.9612939453125" />
+          <ConnectorPoint PointX="2.625" PointY="1.7737939453125" />
+          <ConnectorPoint PointX="3.125" PointY="1.7737939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
