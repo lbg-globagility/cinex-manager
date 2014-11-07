@@ -217,21 +217,37 @@ namespace aZynEManager
                     txtprice.Focus();
                     return;
                 }
+                //melvin 10-5-2014
+                if (txtposition.Text == "")
+                {
+                    MessageBox.Show("Please fill the required information.");
+                    txtposition.SelectAll();
+                    txtposition.Focus();
+                    return;
+                }
 
                 myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
 
                 //validate for the existance of the record
+                /*
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from patrons ");
                 sqry.Append(String.Format("where code = '{0}' ", txtcode.Text.Trim()));
                 sqry.Append(String.Format("and name = '{0}' ", txtname.Text.Trim()));
                 sqry.Append(String.Format("and unit_price = {0} ", txtprice.Text.Trim()));
                 sqry.Append(String.Format("and seat_position = {0}", txtposition.Text.Trim()));
-
+                */
+                //melvin 11-5-2014 for sql injection
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("select count(*) from patrons where code = @code and name = @name ");
+                sqry.Append(String.Format("and unit_price = {0} ", txtprice.Text.Trim()));
+                sqry.Append(String.Format("and seat_position = {0}", txtposition.Text.Trim()));
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
+                cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -252,11 +268,16 @@ namespace aZynEManager
                 //int max_id= Convert.ToInt32(cmd2.ExecuteScalar())+1;
                 sqry = new StringBuilder();
                 //with queries
+                /*
                 sqry.Append(String.Format("insert into patrons values({0},'{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12})",
                     0,txtcode.Text.Trim(), txtname.Text.Trim(), txtprice.Text.Trim(), Convert.ToInt32(cbxpromo.CheckState),
                     Convert.ToInt32(cbxamusement.CheckState), Convert.ToInt32(cbxcultural.CheckState), Convert.ToInt32(cbxlgu.CheckState),//7
                     Convert.ToInt32(cbxgross.CheckState), Convert.ToInt32(cbxproducer.CheckState), clscommon.Get0BGR(btncolor.SelectedColor),//btncolor.SelectedColor.ToArgb(),
-                    txtposition.Text.Trim(), txtlgu.Text.Trim()));
+                    txtposition.Text.Trim(), txtlgu.Text.Trim()));*/
+                //melvin 11-5-2014 for sql injection
+
+                sqry.Append("insert into patrons values(0,@code,@name,@price,@promo,@amusement,");
+                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu)");
                
                 try
                 {
@@ -266,6 +287,18 @@ namespace aZynEManager
                     if (myconn.State == ConnectionState.Open)
                     {
                         cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.Parameters.AddWithValue("@code",txtcode.Text.Trim());
+                        cmd.Parameters.AddWithValue("@name", txtname.Text.Trim());
+                        cmd.Parameters.AddWithValue("@price", txtprice.Text.Trim());
+                        cmd.Parameters.AddWithValue("@promo", Convert.ToInt32(cbxpromo.CheckState));
+                        cmd.Parameters.AddWithValue("@amusement", Convert.ToInt32(cbxamusement.CheckState));
+                        cmd.Parameters.AddWithValue("@cultural", Convert.ToInt32(cbxcultural.CheckState));
+                        cmd.Parameters.AddWithValue("@lgubox", Convert.ToInt32(cbxlgu.CheckState));
+                        cmd.Parameters.AddWithValue("@gross", Convert.ToInt32(cbxgross.CheckState));
+                        cmd.Parameters.AddWithValue("@producer", Convert.ToInt32(cbxproducer.CheckState));
+                        cmd.Parameters.AddWithValue("@color", clscommon.Get0BGR(btncolor.SelectedColor));
+                        cmd.Parameters.AddWithValue("@position", txtposition.Text.Trim());
+                        cmd.Parameters.AddWithValue("@lgu", txtlgu.Text.Trim());
                         cmd.ExecuteNonQuery();
                         intid = Convert.ToInt32(cmd.LastInsertedId);
                         cmd.Dispose();

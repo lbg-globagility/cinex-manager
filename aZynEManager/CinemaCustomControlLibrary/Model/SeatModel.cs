@@ -17,6 +17,7 @@ namespace CinemaCustomControlLibrary.Model
         private int intHeight;
         private int intWidth;
         private int intType; //1 -seat, 2-screen
+        private bool blnIsHandicapped;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -141,6 +142,24 @@ namespace CinemaCustomControlLibrary.Model
                 {
                     strRowName = value;
                     NotifyPropertyChanged("RowName");
+                }
+            }
+        }
+
+        public bool IsHandicapped
+        {
+            get { return blnIsHandicapped; }
+            set
+            {
+                if (value != blnIsHandicapped)
+                {
+                    blnIsHandicapped = value;
+                    NotifyPropertyChanged("IsHandicapped");
+                    if (blnIsHandicapped)
+                    {
+                        RowName = string.Empty;
+                        ColumnName = string.Empty;
+                    }
                 }
             }
         }

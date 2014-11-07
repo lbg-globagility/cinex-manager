@@ -106,8 +106,14 @@ namespace CinemaCustomControlLibrary.ViewModel
             get
             {
                 int intMaxRowName = 0;
-                string strMaxRowName = Seats.Where(d => d.ColumnName == this.MaxColumnName).Max(e => e.RowName);
-                int.TryParse(strMaxRowName, out intMaxRowName);
+                try
+                {
+                    var rowNames = Seats.Where(d => d.ColumnName == this.MaxColumnName).Select(d => d.RowName).ToList();
+
+                    int temp = 0;
+                    intMaxRowName = rowNames.Select(n => int.TryParse(n, out temp) ? temp : 0).Max();
+                }
+                catch { }
                 return string.Format("{0}", intMaxRowName);
             }
         }

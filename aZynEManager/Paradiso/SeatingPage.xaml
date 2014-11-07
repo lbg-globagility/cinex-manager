@@ -54,6 +54,7 @@
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
+            <l:SeatNameMultiConverter x:Key="seatName" />
             <l:SeatColorMultiConverter x:Key="seatColorMulti" />
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
@@ -201,21 +202,26 @@
                                                 <Binding Path="Type"/>
                                                 <Binding Path="SeatType"/>
                                                 <Binding Path="SeatColor"/>
+                                                <Binding Path="IsHandicapped"/>
                                         </MultiBinding>
                                         </Image.Source>
                                     </Image>
-                                <TextBlock
-                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
-                                  <TextBlock.Effect>
+                                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    FontSize="16" Foreground="Black" FontWeight="Bold" FontFamily="Arial">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource seatName}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="SeatType"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>                                    
+                                  <!--TextBlock.Effect>
                                     <DropShadowEffect
                                       ShadowDepth="2"
                                       Direction="315"
                                       Color="Black"
                                       Opacity="1"
                                      BlurRadius="0.0"/>
-                                  </TextBlock.Effect>
-
+                                  </TextBlock.Effect-->
                                 </TextBlock>
                             </Grid>
 

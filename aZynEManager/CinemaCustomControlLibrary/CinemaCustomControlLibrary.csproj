@@ -77,31 +77,20 @@
     </Compile>
     <Compile Include="Converters\IntegerToBooleanConverter.cs" />
     <Compile Include="Converters\SeatImageConverter.cs" />
+    <Compile Include="Converters\SeatImageMultiConverter.cs" />
     <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
     <Compile Include="DesignerItemDecorator.cs" />
     <Compile Include="Helpers\DragCanvas.cs" />
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Model\SeatModel.cs" />
-    <Compile Include="MoveThumb.cs" />
     <Compile Include="ResizeThumb.cs" />
     <Compile Include="RotateThumb.cs" />
-    <Compile Include="SeatControl.xaml.cs">
-      <DependentUpon>SeatControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SeatWindow.xaml.cs">
       <DependentUpon>SeatWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\SeatsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="DemoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\DesignerItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\ResizeRotateChrome.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -115,30 +104,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SeatControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SeatWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="CinemaItem.cs" />
-    <Compile Include="CinemaScreen.cs" />
-    <Compile Include="CinemaSeat.cs" />
-    <Compile Include="CinemaSeatArgs.cs" />
-    <Compile Include="CustomControl1.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoWindow.xaml.cs">
-      <DependentUpon>DemoWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

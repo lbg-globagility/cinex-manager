@@ -23,7 +23,8 @@ namespace CinemaCustomControlLibrary
     /// </summary>
     public partial class SeatWindow : MetroWindow
     {
-
+        private int intSeatDimension = 36;
+        private int intScreenDimension = 900;
         private SeatsViewModel seatsViewModel;
         private Canvas previousCanvas;
 
@@ -49,9 +50,10 @@ namespace CinemaCustomControlLibrary
                 Y = 0,
                 ColumnName = seatsViewModel.MaxColumnName,
                 RowName = seatsViewModel.NextRowName,
-                Width = 36,
-                Height = 36,
-                Type = 1
+                Width = intSeatDimension,
+                Height = intSeatDimension,
+                Type = 1,
+                IsHandicapped = false,
             });
         }
 
@@ -64,9 +66,10 @@ namespace CinemaCustomControlLibrary
                 Y = 0,
                 ColumnName = "",
                 RowName = "",
-                Width = 900,
-                Height = 36,
-                Type = 2
+                Width = intScreenDimension,
+                Height = intSeatDimension,
+                Type = 2,
+                IsHandicapped = false,
             });
         }
 
@@ -137,7 +140,8 @@ namespace CinemaCustomControlLibrary
                             y2 = seat.Y + seat.Height,
                             row_name = seat.RowName,
                             col_name = seat.ColumnName,
-                            object_type = seat.Type
+                            object_type = seat.Type,
+                            is_handicapped = (sbyte) ( (seat.Type == 1 && seat.IsHandicapped) ? 1 : 0),
                         };
                         context.cinema_seat.AddObject(cseat);
                     }
@@ -153,6 +157,7 @@ namespace CinemaCustomControlLibrary
                             oldseat.row_name = seat.RowName;
                             oldseat.col_name = seat.ColumnName;
                             oldseat.object_type = seat.Type;
+                            oldseat.is_handicapped = (sbyte)((seat.Type == 1 && seat.IsHandicapped) ? 1 : 0);
                         }
                     }
                     context.SaveChanges();
@@ -183,84 +188,12 @@ namespace CinemaCustomControlLibrary
                         Height = (int)(seat.y2 - seat.y1),
                         ColumnName = seat.col_name,
                         RowName = seat.row_name,
-                        Type = (int)seat.object_type
+                        Type = (int)seat.object_type,
+                        IsHandicapped = ( (byte) seat.is_handicapped == 1) ? true : false
                     });
                 }
             }
         }
-
-        /*
-        public void LoadCinemaOld(int intKey, string strCinemaName, int intCapacity)
-        {
-
-            CinemaName.Text = strCinemaName;
-            SeatCapacity = intCapacity;
-            CinemaCapacity.Text = string.Empty;
-            CinemaScreens.Clear();
-            CinemaSeats.Clear();
-
-            double dblCX = 0.0;
-            double dblCY = 0.0;
-
-            using (var context = new cinemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("CinemaModel")))
-            {
-                var cinemas = from c in context.cinemas where c.id == intKey select c;
-
-                foreach (var cinema in cinemas)
-                {
-                    if (strCinemaName == string.Empty)
-                        CinemaName.Text = cinema.name;
-                    
-                    SeatCapacity = (int) cinema.capacity;
-                    CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
-                }
-
-                var seats = from s in context.cinema_seat
-                             where s.cinema_id == intKey && s.object_type == 2
-                             select s;
-                foreach (var seat in seats)
-                {
-                    CinemaScreens.Add(new CinemaScreen()
-                    {
-                        Key = seat.id,
-                        X1 = (int) seat.x1,
-                        Y1 = (int) seat.y1,
-                        X2 = (int) seat.x2,
-                        Y2 = (int) seat.y2
-                    });
-
-                }
-
-
-                var screens = from s in context.cinema_seat
-                             where s.cinema_id == intKey && s.object_type == 1
-                             select s;
-                foreach (var screen in screens)
-                {
-                    dblCX = (int) screen.x1 + (( (int) screen.x2 - (int) screen.x1) / 2);
-                    dblCY = (int) screen.y1 + (( (int) screen.y2 - (int) screen.y1) / 2);
-
-                    CinemaSeats.Add(new CinemaSeat()
-                    {
-                        Key = screen.id,
-                        Name = string.Format("{0}{1}", screen.row_name, screen.col_name),
-                        CX = dblCX,
-                        CY = dblCY,
-                        X1 = dblCX - (dblWidth / 2),
-                        Y1 = dblCY - (dblHeight / 2),
-                        X2 = dblCX + (dblWidth / 2),
-                        Y2 = dblCY + (dblHeight / 2),
-                    });
-                }
-            }
-
-            if (SeatCapacity > intCapacity)
-                SeatCapacity = intCapacity;
-            CinemaCapacity.Text = string.Format("{0:#,##0}", SeatCapacity);
-
-            this.UpdateSeatCanvas();
-        }
-        */
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {

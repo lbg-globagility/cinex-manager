@@ -647,7 +647,8 @@ namespace aZynEManager
                         myconn.Close();
 
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_ADD", "MOVIES|MOVIES_CLASS",
-                        Environment.MachineName.ToString(), "ADD NEW MOVIE INFO: NAME=" + this.txtcode.Text
+                        Environment.MachineName.ToString(), "ADD NEW MOVIE INFO: NAME=" + 
+                        this.txtcode.Text.Replace("'","''")
                         + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV(true);
@@ -805,7 +806,8 @@ namespace aZynEManager
 
                         MessageBox.Show("Successfully deleted", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_DELETE", "MOVIES|MOVIES_CLASS",
-                            Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + this.txtcode.Text
+                            Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + 
+                            this.txtcode.Text.Replace("'","''")
                             + " | ID=" + intid.ToString(), m_frmM._connection);
 
                         dgvClass.DataSource = null;
@@ -1307,6 +1309,7 @@ namespace aZynEManager
                 }
 
                 StringBuilder strqry = new StringBuilder();
+                //melvin 10-4-2014
                 strqry.Append("update movies set code=@code, title=@title,");
                 strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));
                 strqry.Append(String.Format(" duration = {0},",totaltime));
@@ -1320,6 +1323,7 @@ namespace aZynEManager
                     if(myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(strqry.ToString(), myconn);
+                    //melvin 11-4-2014
                     cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
                     cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
                     cmd.ExecuteNonQuery();

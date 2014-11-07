@@ -21,8 +21,11 @@ namespace aZynEManager
         MySqlConnection myconn = null;
         //melvin 10-24-2014
         int daycnt = 1; 
-        bool allowSpace = false;
+        string title = null;
+        string share = null;
+        string date = null;
 
+        bool allowSpace = false;
         public frmProdShare()
         {
             InitializeComponent();
@@ -498,7 +501,10 @@ namespace aZynEManager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //melvin
+           
             //QUERY IF THE USER HAS RIGHTS FOR THE MODULE
+            
             bool isEnabled = m_clscom.verifyUserRights(m_frmM.m_userid, "PRODSHARE_EDIT", m_frmM._connection);
             if (m_frmM.boolAppAtTest == true)
                 isEnabled = m_frmM.boolAppAtTest;
@@ -520,6 +526,8 @@ namespace aZynEManager
 
             if (btnEdit.Text == "edit")
             {
+                
+
                 btnAdd.Enabled = false;
                 btnAdd.Text = "new";
 
@@ -539,6 +547,11 @@ namespace aZynEManager
                 dtdate.Enabled = true;
 
                 dgvMovies.Enabled = false;
+
+                //melvin
+                title = cmbtitle.SelectedValue.ToString();
+                share = txtshare.Text.Trim();
+                date = dtdate.Value.Date.ToString("yyyy-MM-dd");
             }
             else if (btnEdit.Text == "update")
             {
@@ -580,9 +593,9 @@ namespace aZynEManager
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies_distributor ");
-                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
-                sqry.Append(String.Format("and share_perc = {0} ", txtshare.Text.Trim()));
-                sqry.Append(String.Format("and effective_date = '{0}'", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append(String.Format("where movie_id = {0} ", title));
+                sqry.Append(String.Format("and share_perc = {0} ", share));
+                sqry.Append(String.Format("and effective_date = '{0}'", date));
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -796,7 +809,6 @@ namespace aZynEManager
                     txtdaycnt.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
                     DateTime date = Convert.ToDateTime(sdt);
                     dtdate.Value = date;
-                //}
             }
         }
 
