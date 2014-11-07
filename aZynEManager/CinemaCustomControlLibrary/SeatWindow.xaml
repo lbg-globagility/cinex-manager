@@ -95,7 +95,7 @@
                                     </Image.Source>
                                 </Image>
                                 <StackPanel Orientation="Horizontal" Canvas.Left="{Binding Path=RowName,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="12" 
-                                    TextBlock.Foreground="White" TextBlock.FontWeight="Normal" TextBlock.FontFamily="Arial">
+                                    TextBlock.Foreground="Black" TextBlock.FontWeight="Normal" TextBlock.FontFamily="Arial">
                                     <TextBlock Text="{Binding ColumnName}" />
                                     <TextBlock Text="{Binding RowName}" />
                                 </StackPanel>

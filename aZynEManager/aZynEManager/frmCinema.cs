@@ -675,7 +675,10 @@ namespace aZynEManager
                     {
                         if (myconn.State == ConnectionState.Open)
                             myconn.Close();
-                        MessageBox.Show(ex.Message.ToString()+"error1", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (ex.InnerException != null)
+                            MessageBox.Show(ex.InnerException.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                            MessageBox.Show(ex.Message.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 

@@ -112,6 +112,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
+    <Compile Include="Converters\SeatNameMultiConverter.cs" />
     <Compile Include="ExtensionClass.cs" />
     <Compile Include="Helpers\MyObservableCollection.cs" />
     <Compile Include="Helpers\RawPrinterHelper.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Model\PatronQuantityModel.cs" />
     <Compile Include="Model\PatronSeatListModel.cs" />
     <Compile Include="Model\PatronSeatModel.cs" />
+    <Compile Include="Model\ReservedSeatingDetails.cs" />
     <Compile Include="Model\ReservedSeatListModel.cs" />
     <Compile Include="Model\ReservedSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
@@ -157,6 +159,9 @@
     <Compile Include="Converters\SeatImageMultiConverter.cs" />
     <Compile Include="Converters\SeatLabelLeftCanvasConverter.cs" />
     <Compile Include="Converters\SeatColorConverter.cs" />
+    <Compile Include="ReservedSeatingDetailsWindow.xaml.cs">
+      <DependentUpon>ReservedSeatingDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReservedSeatingPage.xaml.cs">
       <DependentUpon>ReservedSeatingPage.xaml</DependentUpon>
     </Compile>
@@ -201,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PatronWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReservedSeatingDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -371,6 +380,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\seat-red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\disabledseat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\seat-disabled-x.png" />
+    <Resource Include="Images\seat-disabled.png" />
+    <Resource Include="Images\seat-gray.png" />
+    <Resource Include="Images\seat-white-x.png" />
+    <Resource Include="Images\seat-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\seat-gray-disabled-x.png" />
+    <Resource Include="Images\seat-gray-disabled.png" />
+    <Resource Include="Images\seat-gray-x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

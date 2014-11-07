@@ -18,7 +18,17 @@
             </ResourceDictionary.MergedDictionaries>
             <ContextMenu x:Key="cmUnReserve">
                 <DockPanel>
-                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click">Unreserve Seats</Button>
+                    <StackPanel DockPanel.Dock="Top" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock xml:space="preserve">Full Name : </TextBlock>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock xml:space="preserve">Notes : </TextBlock>
+                            <TextBlock Text="{Binding Notes}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Bottom" Width="100" HorizontalAlignment="Center" Name="UnReserveSeat" Click="UnReserveSeat_Click" Margin="2">Unreserve Seats</Button>
                     <ItemsControl ItemsSource="{Binding ReservedSeats}" Margin="5">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -28,18 +38,9 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Canvas Width="32" Height="32" Margin="2">
-                                    <Image Width="32" Source="/Paradiso;component/Images/seat-red.png">
+                                    <Image Width="32" Source="/Paradiso;component/Images/seat-white.png">
                                     </Image>
-                                    <TextBlock Canvas.Left="5" Canvas.Top="10" Foreground="White" FontWeight="Bold" FontSize="16" FontFamily="Arial" Text="{Binding Name}">
-                                      <TextBlock.Effect>
-                                        <DropShadowEffect
-                                          ShadowDepth="2"
-                                          Direction="315"
-                                          Color="Black"
-                                          Opacity="1"
-                                         BlurRadius="0.0"/>
-                                      </TextBlock.Effect>
-
+                                    <TextBlock Canvas.Left="5" Canvas.Top="10" Foreground="Black" FontWeight="Bold" FontSize="16" FontFamily="Arial" Text="{Binding Name}">
                                     </TextBlock>
                                 </Canvas>
                             </DataTemplate>
@@ -54,6 +55,7 @@
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
+            <l:SeatNameMultiConverter x:Key="seatName" />
             <l:SeatColorMultiConverter x:Key="seatColorMulti" />
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
@@ -67,14 +69,15 @@
         </Canvas.Background>
 
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
-            <StackPanel DockPanel.Dock="Left" Width="145" Margin="10, 5, 0, 0">
+            <StackPanel DockPanel.Dock="Left" Width="152" Margin="10, 5, 0, 0">
                 <StackPanel Background="#ffffff">
                     <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
-                        <TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
+                        <ComboBox Name="MovieScheduleComboBox" ItemsSource="{Binding Path=MovieSchedules}" SelectedItem="{Binding Path=MovieScheduleList, Mode=OneWay}" SelectionChanged="MovieScheduleComboBox_SelectionChanged"/>
+                        <!--TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}"/>
                         <TextBlock xml:space="preserve"> - </TextBlock>
-                        <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}"/>
+                        <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}"/-->
                     </StackPanel>
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Movie Price:</TextBlock>
                     <TextBlock Name="Price" Margin="5,0,0,5" FontSize="14" FontWeight="Bold" Text="{Binding Path=MovieSchedule.Price, StringFormat='PHP #,#.00'}"/>
@@ -92,21 +95,6 @@
                     <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Available}"/>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Background="#c1c1c1">
-                    <TextBlock Margin="5,5,5,10" FontSize="14" FontFamily="Arial" FontWeight="Bold">Legend</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Available</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-green.png" Width="25" />
-                    </StackPanel>
-                    <!--StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Selected</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-yellow.png" Width="25" />
-                    </StackPanel-->
-                    <StackPanel Orientation="Horizontal"  Margin="0, 0, 0, 5">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Taken</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-red.png" Width="25" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -201,21 +189,26 @@
                                                 <Binding Path="Type"/>
                                                 <Binding Path="SeatType"/>
                                                 <Binding Path="SeatColor"/>
+                                                <Binding Path="IsHandicapped"/>
                                         </MultiBinding>
                                         </Image.Source>
                                     </Image>
-                                <TextBlock
-                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
-                                  <TextBlock.Effect>
+                                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    FontSize="16" Foreground="Black" FontWeight="Bold" FontFamily="Arial">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource seatName}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="SeatType"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>                                    
+                                  <!--TextBlock.Effect>
                                     <DropShadowEffect
                                       ShadowDepth="2"
                                       Direction="315"
                                       Color="Black"
                                       Opacity="1"
                                      BlurRadius="0.0"/>
-                                  </TextBlock.Effect>
-
+                                  </TextBlock.Effect-->
                                 </TextBlock>
                             </Grid>
 

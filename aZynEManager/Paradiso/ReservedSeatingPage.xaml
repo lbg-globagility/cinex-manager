@@ -21,6 +21,7 @@
     </Page.Resources>
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
+            <l:SeatNameMultiConverter x:Key="seatName" />
             <l:SeatColorConverter x:Key="seatColor" />
             <!--l:SeatColorMultiConverter x:Key="seatColorMulti" /-->
             <l:FooterLineConverter x:Key="footerLine" />
@@ -60,21 +61,6 @@
                     <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
                         <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Available}"/>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Background="#c1c1c1">
-                    <TextBlock Margin="5,5,5,10" FontSize="14" FontFamily="Arial" FontWeight="Bold">Legend</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Available</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-red.png" Width="25" />
-                    </StackPanel>
-                    <!--StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Selected</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-yellow.png" Width="25" />
-                    </StackPanel-->
-                    <StackPanel Orientation="Horizontal"  Margin="0, 0, 0, 5">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="60">Taken</TextBlock>
-                        <Image Source="/Paradiso;component/Images/seat-green.png" Width="25" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -142,20 +128,28 @@
                                             <Binding Path="Type"/>
                                             <Binding Path="SeatType"/>
                                             <Binding Path="SeatColor"/>
+                                            <Binding Path="IsHandicapped"/>
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
                                 <TextBlock
                                     TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial" Text="{Binding Name}">
-                                  <TextBlock.Effect>
+                                    FontSize="16" Foreground="Black" FontWeight="Bold" FontFamily="Arial">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource seatName}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="SeatType"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>                                    
+                                    
+                                  <!--TextBlock.Effect>
                                     <DropShadowEffect
                                       ShadowDepth="2"
                                       Direction="315"
                                       Color="Black"
                                       Opacity="1"
                                      BlurRadius="0.0"/>
-                                  </TextBlock.Effect>
+                                  </TextBlock.Effect-->
 
                                 </TextBlock>
                             </Grid>

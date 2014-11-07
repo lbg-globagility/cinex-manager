@@ -18,21 +18,60 @@ namespace Paradiso
             int intColor = 0;
             if (values.Count() >= 3 && values[2] is int)
                 intColor = (int)values[2];
+            bool blnIsHandicapped = false;
+            if (values.Count() >= 4 && values[3] is bool)
+                blnIsHandicapped = (bool)values[3];
 
             string strUri = string.Empty;
 
             if (intType == 2)
+            {
                 strUri = @"/Paradiso;component/Images/screen.png";
-            else if (intSeatType == 1)
-                strUri = @"/Paradiso;component/Images/seat-green-r.png";
-            else if (intSeatType == 2)
+            }
+            else if (intSeatType == 1)  //free
+            {
+                if (blnIsHandicapped)
+                    strUri = @"/Paradiso;component/Images/seat-disabled.png";
+                else
+                    strUri = @"/Paradiso;component/Images/seat-white.png";
+            }
+            else  //if (intSeatType == 2) //selected
             {
                 byte[] bytes = BitConverter.GetBytes(intColor);
 
-                strUri = @"/Paradiso;component/Images/seat-red-r.png";
+                string strImageUri = string.Empty;
+                
+                int r = 128;
+                int g = 128;
+                int b = 128;
+
+                if (blnIsHandicapped)
+                    strImageUri = @"Images/seat-gray-disabled.png";
+                else
+                    strImageUri = @"Images/seat-gray.png";
+
+                /*
+                if (intSeatType == 2)
+                {
+                    if (blnIsHandicapped)
+                        strImageUri = @"Images/seat-gray-disabled.png";
+                    else
+                        strImageUri = @"Images/seat-gray.png";
+                }
+                else
+                {
+                    if (blnIsHandicapped)
+                        strImageUri = @"Images/seat-gray-disabled-x.png";
+                    else
+                        strImageUri = @"Images/seat-gray-x.png";
+                    
+                }
+                */
 
                 System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(System.Windows.Application.GetResourceStream(
-                    new Uri("Images/seat-red-r.png", UriKind.Relative)).Stream);
+                    new Uri(strImageUri, UriKind.Relative)).Stream);
+
+                strUri = @"/Paradiso;component/Images/seat-red-r.png";
 
                 if (bmp != null)
                 {
@@ -41,9 +80,8 @@ namespace Paradiso
                         for (int y = 0; y < bmp.Height; y++)
                         {
                             //int argb = bmp.GetPixel(x, y).ToArgb();
-                            if ((bmp.GetPixel(x, y).R == 192 && bmp.GetPixel(x, y).G == 25 && bmp.GetPixel(x, y).B == 0))
+                            if ((bmp.GetPixel(x, y).R == r && bmp.GetPixel(x, y).G == g && bmp.GetPixel(x, y).B == b))
                             {
-                                
                                 bmp.SetPixel(x, y, System.Drawing.Color.FromArgb(bytes[2], bytes[1], bytes[0]));
                             }
                         }
@@ -58,8 +96,12 @@ namespace Paradiso
                     return i;
                 }
             }
-            else
+            /*
+            else //taken
+            {
                 strUri = @"/Paradiso;component/Images/seat-red-r.png";
+            }
+            */
 
             return new BitmapImage(new Uri(strUri, UriKind.Relative));
         }

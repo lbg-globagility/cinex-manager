@@ -25,6 +25,8 @@ namespace Paradiso
     public partial class SeatingPage : Page
     {
         public MovieScheduleListModel MovieScheduleList { get; set; }
+
+        public ObservableCollection<MovieScheduleListModel> MovieSchedules { get; set; } 
         
         public MovieScheduleListModel MovieSchedule { get; set; }
         
@@ -57,6 +59,8 @@ namespace Paradiso
         {
             InitializeComponent();
 
+            MovieSchedules = new ObservableCollection<MovieScheduleListModel>();
+
             MovieScheduleList = new MovieScheduleListModel(movieScheduleListModel);
             if (movieScheduleListModel.SeatType == 1) //reserved
             {
@@ -86,7 +90,128 @@ namespace Paradiso
             Seat = new SeatModel();
             
             this.UpdateMovieSchedule();
-            
+
+            //MovieSchedules.Add(MovieSchedule);
+
+            //get movie schedules
+            DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
+
+            try
+            {
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    int _movie_schedule_id = (from msl in context.movies_schedule_list
+                                       where msl.id == MovieSchedule.Key
+                                       select msl.movies_schedule_id).SingleOrDefault();
+                    if (_movie_schedule_id != 0)
+                    {
+
+                        var _movie_schedule_lists = (from msl in context.movies_schedule_list
+                                                     where msl.movies_schedule_id == _movie_schedule_id && msl.status == 1
+                                                     orderby msl.start_time
+                                                     select new
+                                                     {
+                                                         mslkey = msl.id,
+                                                         moviekey = msl.movies_schedule.movie_id,
+                                                         moviename = msl.movies_schedule.movie.title,
+                                                         capacity = msl.movies_schedule.cinema.capacity,
+                                                         duration = msl.movies_schedule.movie.duration,
+                                                         rating = msl.movies_schedule.movie.mtrcb.name,
+                                                         ratingdescription = msl.movies_schedule.movie.mtrcb.remarks,
+                                                         starttime = msl.start_time,
+                                                         endtime = msl.end_time,
+                                                         seattype = msl.seat_type,
+                                                         laytime = msl.laytime
+                                                     }).ToList();
+                        foreach (var _movie_schedule_list in _movie_schedule_lists)
+                        {
+
+                            var _movie_schedule_list_item = new MovieScheduleListModel()
+                            {
+                                //CinemaKey = _cinema.cinema_key,
+                                CinemaKey = MovieSchedule.CinemaKey,
+                                Key = _movie_schedule_list.mslkey,
+                                MovieKey = _movie_schedule_list.moviekey,
+                                MovieName = _movie_schedule_list.moviename.ToUpper(),
+                                Rating = _movie_schedule_list.rating,
+                                RatingDescription = _movie_schedule_list.ratingdescription,
+                                StartTime = _movie_schedule_list.starttime,
+                                EndTime = _movie_schedule_list.endtime,
+                                RunningTimeInSeconds = _movie_schedule_list.duration,
+                                SeatType = _movie_schedule_list.seattype
+                            };
+                            var capacity = _movie_schedule_list.capacity;
+
+                            var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
+                                           where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey
+                                           select mslrs.cinema_seat_id).Count();
+
+                            //reserved
+                            var reserved = 0;
+                            if (_movie_schedule_list_item.SeatType == 1) //reserved
+                            {
+                                reserved = (from mcths in context.movies_schedule_list_house_seat_view
+                                            where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey
+                                            select mcths.cinema_seat_id).Count();
+                            }
+                            else
+                            {
+                                reserved = (from mcths in context.movies_schedule_list_house_seat_free_view
+                                            where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey
+                                            select mcths.cinema_seat_id).Count();
+                            }
+
+                            _movie_schedule_list_item.Booked = (int)reserved;
+                            _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
+                            if (_movie_schedule_list_item.Available < 0)
+                                _movie_schedule_list_item.Available = 0;
+
+
+                            var price = (from mslp in context.movies_schedule_list_patron
+                                         where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
+                                         select mslp.price).FirstOrDefault();
+                            if (price != null)
+                                _movie_schedule_list_item.Price = (decimal)price;
+
+
+                            if (_movie_schedule_list_item.Available <= 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
+                            {
+                                _movie_schedule_list_item.IsEnabled = false;
+                            }
+                            else
+                            {
+                                if (dtNow < _movie_schedule_list.starttime)
+                                {
+                                    _movie_schedule_list_item.IsEnabled = true;
+                                }
+                                else if (dtNow < _movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime)) //_movie_schedule_list.endtime ) //allow already running
+                                {
+                                    _movie_schedule_list_item.IsEnabled = true;
+                                }
+                                else
+                                {
+                                    _movie_schedule_list_item.IsEnabled = false;
+                                }
+                            }
+
+                            _movie_schedule_list_item.IsEllapsed = !_movie_schedule_list_item.IsEnabled;
+
+                            if (ParadisoObjectManager.GetInstance().HasRights("PRIORDATE") && !_movie_schedule_list_item.IsEnabled)
+                            {
+                                _movie_schedule_list_item.IsEnabled = true;
+                            }
+
+                            if (_movie_schedule_list_item.IsEnabled)
+                            {
+                                //add
+                                MovieSchedules.Add(_movie_schedule_list_item);
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch { }
 
             this.DataContext = this;
 
@@ -243,7 +368,7 @@ namespace Paradiso
                 //taken seats
                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
                                   where mslrs.movies_schedule_list_id == this.Key
-                                  select mslrs.cinema_seat_id).ToList();
+                                  select new { mslrs.cinema_seat_id, mslrs.movies_schedule_list_patron.patron.seat_color }).ToList();
 
 
                 //reserved seats from other sessions
@@ -378,14 +503,20 @@ namespace Paradiso
                         Width = (int)seat.x2 - (int) seat.x1,
                         Height = (int)seat.y2 - (int)seat.y1,
                         Type = (int) seat.object_type,
-                        SeatType = 1
+                        SeatType = 1,
+                        IsHandicapped = (seat.is_handicapped == 1) ? true : false
                     };
 
                     //get seat type
                     if (takenseats.Count > 0 && IsReservedSeating)
                     {
-                        if (takenseats.IndexOf(seat.id) != -1)
+                        var takenseat = takenseats.Where(t => t.cinema_seat_id == seat.id).ToList();
+                        if (takenseat.Count > 0)
+                        {
+                            //if (takenseats.IndexOf(seat.id) != -1)
                             seatModel.SeatType = 3;
+                            seatModel.SeatColor =  (int) takenseat[0].seat_color;
+                        }
                     }
                     if (seatModel.SeatType == 1)
                     {
@@ -393,7 +524,22 @@ namespace Paradiso
                         {
                             if (reservedseats.IndexOf(seat.id) != -1)
                             {
+                                //retrieve reserved seat
                                 seatModel.SeatType = 3;
+                                var seatcolor = (from mcths in context.movies_schedule_list_house_seat
+                                                 where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seat.id orderby mcths.reserved_date descending
+                                                 select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
+                                if (seatcolor != null)
+                                {
+                                    int intSeatColor = (int) seatcolor.seat_color;
+                                    string strNotes = string.Empty;
+                                    if (seatcolor.notes != null)
+                                        strNotes = seatcolor.notes.ToString();
+                                    if (strNotes == "RESERVED" || strNotes.StartsWith("RESERVED "))
+                                        seatModel.SeatColor = 8421504;
+                                    else
+                                        seatModel.SeatColor = intSeatColor;
+                                }
                             }
                         }
                         
@@ -536,22 +682,26 @@ namespace Paradiso
                         {
                             var sessionid = (from mcths in context.movies_schedule_list_house_seat_view
                                              where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
-                                             mcths.notes == "RESERVED"
+                                             ( mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED ")) 
                                              select mcths.session_id).SingleOrDefault();
                             if (sessionid != null)
                                 strSessionId = sessionid;
                             var reservedseats = (from mcths in context.movies_schedule_list_house_seat
-                                                 where mcths.session_id == strSessionId && mcths.notes == "RESERVED" && mcths.movies_schedule_list_id == MovieSchedule.Key
+                                                 where mcths.session_id == strSessionId && ( mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED ")) && mcths.movies_schedule_list_id == MovieSchedule.Key
                                                  orderby mcths.cinema_seat.id
                                                  select new
                                                  {
                                                      mcths.id,
+                                                     mcths.full_name,
+                                                     mcths.notes,
                                                      sn = mcths.cinema_seat.col_name + mcths.cinema_seat.row_name,
                                                  }
                                                  ).ToList();
 
                             foreach (var _rs in reservedseats)
                             {
+                                reservedSeats.Name = _rs.full_name;
+                                reservedSeats.Notes = _rs.notes;
                                 reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn });
                             }
 
@@ -1042,6 +1192,24 @@ namespace Paradiso
 
             //MessageBox.Show(rsl.ReservedSeats.Count.ToString());
 
+        }
+
+        private void MovieScheduleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MovieScheduleComboBox.SelectedValue != this.MovieScheduleList)
+            {
+                MovieScheduleListModel msli = (MovieScheduleListModel) MovieScheduleComboBox.SelectedValue;
+
+                //clear all
+                this.ClearSelection();
+
+                var window = Window.GetWindow(this);
+                if (window != null)
+                    window.KeyDown -= Page_PreviewKeyDown;
+                if (timer != null)
+                    timer.Stop();
+                NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+            }
         }
     }
 }

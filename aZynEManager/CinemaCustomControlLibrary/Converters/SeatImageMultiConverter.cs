@@ -21,9 +21,9 @@ namespace CinemaCustomControlLibrary.Converters
             if (intType == 2)
                 strUri = @"/CinemaCustomControlLibrary;component/Images/screen.png";
             else if (intType == 1 && blnIsHandicapped)
-                strUri = @"/CinemaCustomControlLibrary;component/Images/disabledseat.png";
+                strUri = @"/CinemaCustomControlLibrary;component/Images/seat-disabled.png";
             else if (intType == 1)
-                strUri = @"/CinemaCustomControlLibrary;component/Images/seat-red-r.png";
+                strUri = @"/CinemaCustomControlLibrary;component/Images/seat-white.png";
 
             return new BitmapImage(new Uri(strUri, UriKind.Relative));
         }
