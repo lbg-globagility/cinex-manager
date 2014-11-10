@@ -15,7 +15,10 @@ namespace Paradiso
             int intType = 0;
             if (values[1] is int)
                 intType = (int) values[1];
-            if (intType == 3)
+            bool blnIsHandicapped = false;
+            if (values[2] is bool)
+                blnIsHandicapped = (bool)values[2];
+            if (intType == 3 || blnIsHandicapped)
                 return string.Empty;
             else
                 return strName;
