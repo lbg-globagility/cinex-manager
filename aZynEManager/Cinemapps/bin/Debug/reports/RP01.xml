@@ -10,7 +10,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString></ConnectString>
+        <ConnectString>dsn=localhost;</ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -35,7 +35,14 @@
     <DataSet Name="MovieName">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText></CommandText>
+        <CommandText>Select a.title, d.start_time, c.name
+
+from movies a, movies_schedule b, cinema c, movies_schedule_list d
+where a.id=b.movie_id and b.cinema_id = c.id and d.movies_schedule_id = b.id 
+and b.movie_date ='2014/11/09' and c.name='Cinema 1' 
+group by d.start_time;
+
+</CommandText>
       </Query>
       <Fields>
         <Field Name="title">
@@ -63,7 +70,7 @@
       <Textbox Name="Textbox2">
         <Height>27.09pt</Height>
         <Width>258.93pt</Width>
-        <Value>SHANG CINEPLEX</Value>
+        <Value>CommerCenter</Value>
         <Left>17.5pt</Left>
         <Top>63.9pt</Top>
         <Style>

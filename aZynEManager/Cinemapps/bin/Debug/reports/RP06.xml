@@ -131,7 +131,7 @@
       <Textbox Name="Textbox2">
         <Height>27.09pt</Height>
         <Width>258.93pt</Width>
-        <Value>SHANG CINEPLEX</Value>
+        <Value>CommerCenter</Value>
         <Left>17.5pt</Left>
         <Top>63.9pt</Top>
         <Style>
@@ -145,7 +145,7 @@
       <Textbox Name="Textbox3">
         <Height>15.76pt</Height>
         <Width>144.55pt</Width>
-        <Value>FRDCA-04</Value>
+        <Value></Value>
         <Left>18.7pt</Left>
         <Top>94.3pt</Top>
         <Style>

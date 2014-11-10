@@ -307,8 +307,22 @@ namespace Cinemapps
                     }
                 }
 
-                RP08 report = new RP08(RP08StartDate.SelectedDate, intCinemaId, intMovieId);
-                report.PreviewReport();
+                //RMB 11-10-2014 start remarks
+                //RP08 report = new RP08(RP08StartDate.SelectedDate, intCinemaId, intMovieId);
+                //report.PreviewReport();
+
+                //RMB 11-10-2014 added -start
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport._dtMovieDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmreport._intMovieID = intMovieId;
+                    frmreport._intCinemaID = intCinemaId;
+
+                    frmreport.frmInit(main, main.m_clscom, "RP08");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+                //RMB 11-10-2014 added -end
             }
             catch (Exception ex)
             {
