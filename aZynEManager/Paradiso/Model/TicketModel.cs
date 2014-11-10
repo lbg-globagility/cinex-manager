@@ -8,6 +8,7 @@ namespace Paradiso.Model
 {
     public class TicketModel : INotifyPropertyChanged
     {
+        private int intId = 0;
         private string strORNumber = string.Empty;
 
         private string strHeader1 = "COMMERCENTER";
@@ -39,6 +40,10 @@ namespace Paradiso.Model
 
         private bool blnIsVoid = false;
 
+        private string strPatronDescription = string.Empty;
+        private string strSeatName = string.Empty;
+        private bool blnIsSelected = false;
+
         public TicketModel()
         {
             this.Clear();
@@ -46,6 +51,7 @@ namespace Paradiso.Model
 
         public void Clear()
         {
+            Id = 0;
             DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
             CinemaNumber = 0;
             MovieCode = string.Empty;
@@ -66,6 +72,19 @@ namespace Paradiso.Model
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             IsVoid = false;
+        }
+
+        public int Id
+        {
+            get { return intId; }
+            set
+            {
+                if (value != intId)
+                {
+                    intId = value;
+                    NotifyPropertyChanged("Id");
+                }
+            }
         }
 
         public bool IsVoid
@@ -390,6 +409,45 @@ namespace Paradiso.Model
                 {
                     strMIN = value;
                     NotifyPropertyChanged("MIN");
+                }
+            }
+        }
+
+        public string PatronDescription
+        {
+            get { return strPatronDescription; }
+            set
+            {
+                if (value != strPatronDescription)
+                {
+                    strPatronDescription = value;
+                    NotifyPropertyChanged("PatronDescription");
+                }
+            }
+        }
+
+        public string SeatName
+        {
+            get { return strSeatName; }
+            set
+            {
+                if (value != strSeatName)
+                {
+                    strSeatName = value;
+                    NotifyPropertyChanged("SeatName");
+                }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get { return blnIsSelected; }
+            set
+            {
+                if (value != blnIsSelected)
+                {
+                    blnIsSelected = value;
+                    NotifyPropertyChanged("IsSelected");
                 }
             }
         }
