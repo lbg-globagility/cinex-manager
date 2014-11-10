@@ -110,7 +110,7 @@ namespace Paradiso
 
         private void Void_Click(object sender, RoutedEventArgs e)
         {
-            if (ParadisoObjectManager.GetInstance().HasRights("VOID"))
+            if (!ParadisoObjectManager.GetInstance().HasRights("VOID"))
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "You don't have access for this page.";
