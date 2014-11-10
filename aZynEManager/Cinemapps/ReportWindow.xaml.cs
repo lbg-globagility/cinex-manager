@@ -419,8 +419,18 @@ namespace Cinemapps
         {
             try
             {
-                RP09 report = new RP09(RP09StartDate.SelectedDate, RP09EndDate.SelectedDate);
-                report.PreviewReport();
+                //RMB 11.10.2014 remarked for new report
+                //RP09 report = new RP09(RP09StartDate.SelectedDate, RP09EndDate.SelectedDate);
+                //report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP09StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP09EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP09");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
             }
             catch (Exception ex)
             {
