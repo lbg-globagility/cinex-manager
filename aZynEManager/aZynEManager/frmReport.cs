@@ -129,12 +129,10 @@ namespace aZynEManager
                         sqry.Append("e.movies_schedule_id = d.id inner join ");
                         sqry.Append("movies_schedule_list_reserved_seat f on ");
                         sqry.Append("f.movies_schedule_list_id= e.id where d.movie_date=");
-                        sqry.Append(String.Format("'{0:yyyy/MM/dd}' ", _dtStart));
-                        sqry.Append("and a.name=@patron ");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(" and a.name=@patron ");
                         sqry.Append("and c.name = @cinema) as QTY, (@c*b.price) as ");
-                        sqry.Append("`TOTALSALES`, d.movie_date, g.terminal, ");
-                        sqry.Append("h.system_value from patrons ");
-                        sqry.Append("a inner join cinema_patron ");
+                        sqry.Append("`TOTALSALES` from patrons a inner join cinema_patron ");
                         sqry.Append("b on a.id=b.patron_id inner join  cinema c on ");
                         sqry.Append("b.cinema_id = c.id inner join movies_schedule d ");
                         sqry.Append("on d.cinema_id = c.id inner join movies_schedule_list ");
@@ -142,11 +140,10 @@ namespace aZynEManager
                         sqry.Append("movies_schedule_list_reserved_seat f on ");
                         sqry.Append("f.movies_schedule_list_id= e.id inner join ");
                         sqry.Append("ticket g on e.id= g.movies_schedule_list_id ");
-                        sqry.Append("inner join config_table h where d.movie_date=");
-                        sqry.Append(String.Format("'{0:yyyy/MM/dd}' ", _dtStart));
-                        sqry.Append("and g.terminal='"+rp01Account+"' and h.system_code='001'");
-                        sqry.Append("group by a.name, c.name order by c.name; ");
-                        //reportcode = "RP01s";
+                        sqry.Append("where d.movie_date=");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(String.Format(" and g.terminal='{0}' ",rp01Account));
+                        sqry.Append(" group by a.name, c.name order by c.name;");
                         break;
                     case "RP02":
                         sqry.Append("SELECT e.title, e.no_of_days, ");
