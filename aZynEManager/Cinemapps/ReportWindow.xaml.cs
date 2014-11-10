@@ -286,7 +286,7 @@ namespace Cinemapps
         private void PrintRP08_Click(object sender, RoutedEventArgs e)
         {
 
-            try
+           /* try
             {
                 int intCinemaId = 0;
                 int intMovieId = 0;
@@ -307,13 +307,44 @@ namespace Cinemapps
                     }
                 }
 
-                RP08 report = new RP08(RP08StartDate.SelectedDate, intCinemaId, intMovieId);
-                report.PreviewReport();
+                //RMB 11-10-2014 start remarks
+                //RP08 report = new RP08(RP08StartDate.SelectedDate, intCinemaId, intMovieId);
+                //report.PreviewReport();
+
+                //RMB 11-10-2014 added -start
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport._dtMovieDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmreport._intMovieID = intMovieId;
+                    frmreport._intCinemaID = intCinemaId;
+
+                    frmreport.frmInit(main, main.m_clscom, "RP08");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+                //RMB 11-10-2014 added -end
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }*/
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmReport.rp08cinema = RP08Cinema.SelectedValue.ToString();
+                    frmReport.rp08movie = RP08Movie.SelectedValue.ToString();
+                    frmreport.frmInit(main, main.m_clscom, "RP08");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+
         }
 
         private void UpdateRP08Movie()
