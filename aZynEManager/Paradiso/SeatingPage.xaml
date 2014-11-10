@@ -203,6 +203,7 @@
                                         <MultiBinding Converter="{StaticResource seatName}">
                                                 <Binding Path="Name"/>
                                                 <Binding Path="SeatType"/>
+                                                <Binding Path="IsHandicapped"/>
                                         </MultiBinding>
                                     </TextBlock.Text>                                    
                                   <!--TextBlock.Effect>

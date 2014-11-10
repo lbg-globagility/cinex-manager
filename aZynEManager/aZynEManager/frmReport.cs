@@ -35,11 +35,22 @@ namespace aZynEManager
         public static string rp08cinema = null;
         public static string rp08movie = null;
 
+        //RMB 11-10-2014 added valiables start
+        public int _intMovieID = -1;
+        public DateTime _dtMovieDate = new DateTime();
+        
+
         public frmReport()
         {
             InitializeComponent();
         }
 
+        // RMB 11-10-2014 start - added 
+        public int setMovieID
+        {
+            set { _intMovieID = value; }
+        } 
+        // RMB 11-10-2014 end 
 
         //JMBC 10152014
 
@@ -371,6 +382,31 @@ namespace aZynEManager
                         sqry.Append(" order by tr_date desc");
                         //MessageBox.Show(_dtStart.ToShortDateString() + "to:" + _dtEnd.ToShortDateString());
                         break;
+
+                        //RMB 11-10-2014 added new report start
+                    case "RP08":
+                        sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) QTY, a.price PRICE, IFNULL(SUM(a.price), 0) SALES, ");
+                        sqry.Append("d.start_time START_TIME, d.end_time END_TIME, f.system_value SYSTEM_VAL, g.name REPORT_NAME, e.name CINEMA_NAME, h.TITLE ");
+                        sqry.Append("FROM azynema.movies_schedule_list_reserved_seat a, movies_schedule_list_patron b, patrons c, ");
+                        sqry.Append("movies_schedule_list d, cinema e, config_table f, report g, movies h ");
+                        sqry.Append("where a.movies_schedule_list_id = (select id from (select id, max(totalticket) from ( ");
+                        sqry.Append("select a.id, count(c.cinema_seat_id) totalticket, sum(c.price) totalprice, a.start_time, a.end_time from movies_schedule_list a, movies_schedule b, movies_schedule_list_reserved_seat c ");
+                        sqry.Append("where a.movies_schedule_id = b.id and a.status = 1 ");
+                        sqry.Append(String.Format("and b.cinema_id = {0} ", _intCinemaID));
+                        sqry.Append(String.Format("and b.movie_id = {0} ", _intMovieID));
+                        sqry.Append(String.Format("and movie_date = '{0:yyyy/MM/dd}' ", _dtMovieDate));
+                        sqry.Append("and a.id = c.movies_schedule_list_id ");
+                        sqry.Append("group by c.movies_schedule_list_id ) table1) table2) ");
+                        sqry.Append("and a.patron_id = b.id ");
+                        sqry.Append("and b.patron_id = c.id ");
+                        sqry.Append("and a.movies_schedule_list_id = d.id ");
+                        sqry.Append("and f.system_code = '001' ");
+                        sqry.Append("and g.id = 8 ");
+                        sqry.Append(String.Format("and e.id = {0} ", _intCinemaID));
+                        sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
+                        sqry.Append("group by a.patron_id");
+                        break;
+                        //RMB 11-10-2014 added new report end
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);

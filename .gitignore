@@ -17,3 +17,9 @@ aZyneManager/database
 release/
 *.config
 *.Config
+!aZyneManager/Cinemapps/bin/
+aZyneManager/Cinemapps/bin/*
+!aZyneManager/Cinemapps/bin/Debug/
+aZyneManager/Cinemapps/bin/Debug/*
+!aZyneManager/Cinemapps/bin/Debug/reports
+
