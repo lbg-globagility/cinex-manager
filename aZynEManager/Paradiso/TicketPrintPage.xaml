@@ -65,7 +65,7 @@
                         </Style>
                     </DataGrid.CellStyle>
                 </DataGrid>
-                <DataGrid Name="TicketDataGrid" AutoGenerateColumns="False" Height="260" Margin="2" ItemsSource="{Binding TicketList.Tickets}" CanUserAddRows="False">
+                <DataGrid Name="TicketDataGrid" AutoGenerateColumns="False" Height="260" Margin="2" ItemsSource="{Binding TicketList.Tickets}" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="TicketDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.HeaderTemplate>
