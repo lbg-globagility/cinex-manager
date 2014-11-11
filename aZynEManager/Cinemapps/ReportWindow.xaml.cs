@@ -477,10 +477,25 @@ namespace Cinemapps
 
         private void PrintRP13_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP13 report = new RP13(RP13StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+
             try
             {
-                RP13 report = new RP13(RP13StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP13StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP13");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
