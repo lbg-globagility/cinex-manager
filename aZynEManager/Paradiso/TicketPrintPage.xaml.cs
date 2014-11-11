@@ -45,35 +45,7 @@ namespace Paradiso
 
             CancelledORNumbers = new ObservableCollection<string>();
 
-            //load pending tickets to be voided (if any)
-            CancelledORNumbers.Clear();
-            try
-            {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
-                {
-                    var ornumbers = (from o in context.or_numbers_unpublished_movies_schedule_view
-                                     select
-                                         new { o.or_number }).ToList();
-                    foreach (var ornumber in ornumbers)
-                    {
-                        CancelledORNumbers.Add(ornumber.or_number);
-                    }
-                }
-            }
-            catch { }
-
-            /*
-            if (CancelledORNumbers.Count == 0)
-            {
-                TicketPanel.Width = 350;
-                CancelledORNumberPanel.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                TicketPanel.Width = 550;
-                CancelledORNumberPanel.Visibility = Visibility.Visible;
-            }
-            */
+            this.Reset();
 
             this.DataContext = this;
 
@@ -97,6 +69,112 @@ namespace Paradiso
 
         }
 
+
+        private void Reset()
+        {
+            //load pending tickets to be voided (if any)
+            CancelledORNumbers.Clear();
+            try
+            {
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var ornumbers = (from o in context.or_numbers_unpublished_movies_schedule_view
+                                     select
+                                         new { o.or_number }).ToList();
+                    foreach (var ornumber in ornumbers)
+                    {
+                        CancelledORNumbers.Add(ornumber.or_number);
+                    }
+                }
+            }
+            catch { }
+            if (CancelledORNumbers.Count > 0)
+            {
+                TicketSessions.Clear();
+                TicketList.Tickets.Clear();
+
+                //search ornumber or session number
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    foreach (string strSearch in CancelledORNumbers)
+                    {
+
+                        //ticket and details
+                        var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                                       where mslrs.or_number == strSearch  && mslrs.status == 1
+                                       select new
+                                       {
+                                           ticketid = mslrs.ticket_id,
+                                           ticketdatetime = mslrs.ticket.ticket_datetime,
+                                           terminalname = mslrs.ticket.terminal,
+                                           tellercode = mslrs.ticket.user.userid,
+                                           session = mslrs.ticket.session_id,
+
+                                           id = mslrs.id,
+                                           cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                           moviecode = mslrs.movies_schedule_list.movies_schedule.movie.code,
+                                           rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                           seattype = mslrs.movies_schedule_list.seat_type,
+                                           startdate = mslrs.movies_schedule_list.start_time,
+                                           patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                           patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                           seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                           price = mslrs.price,
+                                           ornumber = mslrs.or_number,
+                                           at = mslrs.amusement_tax_amount,
+                                           ct = mslrs.cultural_tax_amount,
+                                           vt = mslrs.vat_amount,
+
+                                           isvoid = (mslrs.void_datetime != null),
+                                       }).ToList();
+
+                        //show all tickets in initial search
+
+                        DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
+                        foreach (var t in tickets)
+                        {
+                            if (TicketSessions.Where(ts => ts.Id == t.ticketid).Count() == 0)
+                            {
+                                TicketSessions.Add(new TicketSessionModel()
+                                {
+                                    Id = t.ticketid,
+                                    SessionId = t.session,
+                                    Terminal = t.terminalname,
+                                    User = t.tellercode,
+                                    TicketDateTime = (DateTime)t.ticketdatetime
+                                });
+
+                                TicketList.Tickets.Add(new TicketModel()
+                                {
+                                    Id = t.id,
+                                    CinemaNumber = t.cinemanumber,
+                                    MovieCode = t.moviecode,
+                                    Rating = t.rating,
+                                    SeatType = t.seattype,
+                                    StartTime = t.startdate,
+                                    PatronCode = t.patroncode,
+                                    PatronPrice = (decimal)t.price,
+                                    PatronDescription = t.patrondescription,
+                                    SeatName = t.seatname,
+                                    ORNumber = t.ornumber,
+                                    AmusementTax = (decimal)t.at,
+                                    CulturalTax = (decimal)t.ct,
+                                    VatTax = (decimal)t.vt,
+                                    TerminalName = t.terminalname,
+                                    TellerCode = t.tellercode,
+                                    SessionName = t.session,
+                                    CurrentTime = dtCurrentDateTime,
+                                    IsVoid = t.isvoid,
+                                    IsSelected = false
+                                });
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
         /*
         public void Print(string strORNumber)
         {
@@ -478,7 +556,25 @@ namespace Paradiso
                                    tellercode = mslrs.ticket.user.userid,
                                    session = mslrs.ticket.session_id,
 
+                                   id = mslrs.id,
+                                   cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                   moviecode = mslrs.movies_schedule_list.movies_schedule.movie.code,
+                                   rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                   seattype = mslrs.movies_schedule_list.seat_type,
+                                   startdate = mslrs.movies_schedule_list.start_time,
+                                   patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                   patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                   seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                   price = mslrs.price,
+                                   ornumber = mslrs.or_number,
+                                   at = mslrs.amusement_tax_amount,
+                                   ct = mslrs.cultural_tax_amount,
+                                   vt = mslrs.vat_amount,
+
+                                   isvoid = (mslrs.void_datetime != null),
                                }).ToList();
+
+                //show all tickets in initial search
 
                 DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
                 foreach (var t in tickets)
@@ -493,7 +589,36 @@ namespace Paradiso
                             User = t.tellercode,
                             TicketDateTime = (DateTime)t.ticketdatetime
                         });
+
+                        TicketList.Tickets.Add(new TicketModel()
+                        {
+                            Id = t.id,
+                            CinemaNumber = t.cinemanumber,
+                            MovieCode = t.moviecode,
+                            Rating = t.rating,
+                            SeatType = t.seattype,
+                            StartTime = t.startdate,
+                            PatronCode = t.patroncode,
+                            PatronPrice = (decimal)t.price,
+                            PatronDescription = t.patrondescription,
+                            SeatName = t.seatname,
+                            ORNumber = t.ornumber,
+                            AmusementTax = (decimal)t.at,
+                            CulturalTax = (decimal)t.ct,
+                            VatTax = (decimal)t.vt,
+                            TerminalName = t.terminalname,
+                            TellerCode = t.tellercode,
+                            SessionName = t.session,
+                            CurrentTime = dtCurrentDateTime,
+                            IsVoid = t.isvoid,
+                            IsSelected = false
+                        });
                     }
+                }
+
+                if (tickets.Count == 0)
+                {
+
                 }
             }
         }
@@ -535,6 +660,8 @@ namespace Paradiso
             {
                 Keyboard.Focus(ORNumberInput);
             }
+
+
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -632,9 +759,13 @@ namespace Paradiso
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
+            this.Ticket.Clear();
             ORNumberInput.Text = string.Empty;
             TicketSessions.Clear();
             TicketList.Tickets.Clear();
+
+            this.Reset();
+
             if (ORNumberInput.Focusable)
                 Keyboard.Focus(ORNumberInput);
         }
