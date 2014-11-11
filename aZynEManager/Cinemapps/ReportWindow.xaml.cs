@@ -286,7 +286,7 @@ namespace Cinemapps
         private void PrintRP08_Click(object sender, RoutedEventArgs e)
         {
 
-           /* try
+            /*try
             {
                 int intCinemaId = 0;
                 int intMovieId = 0;
@@ -330,11 +330,29 @@ namespace Cinemapps
             }*/
             try
             {
+                int intCinemaId = 0;
+                int intMovieId = 0;
+                if (RP08Cinema.SelectedValue != null)
+                {
+                    if (RP08Cinema.SelectedValue is Cinema)
+                    {
+                        Cinema cinema = (Cinema)RP08Cinema.SelectedValue;
+                        intCinemaId = cinema.Id;
+                    }
+                }
+                if (RP08Movie.SelectedValue != null)
+                {
+                    if (RP08Movie.SelectedValue is Movie)
+                    {
+                        Movie movie = (Movie)RP08Movie.SelectedValue;
+                        intMovieId = movie.Id;
+                    }
+                }
                 using (frmReport frmreport = new frmReport())
                 {
-                    frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
-                    frmReport.rp08cinema = RP08Cinema.SelectedValue.ToString();
-                    frmReport.rp08movie = RP08Movie.SelectedValue.ToString();
+                    frmreport._dtMovieDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmreport._intCinemaID = intCinemaId;
+                    frmreport._intMovieID = intMovieId;
                     frmreport.frmInit(main, main.m_clscom, "RP08");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -419,8 +437,18 @@ namespace Cinemapps
         {
             try
             {
-                RP09 report = new RP09(RP09StartDate.SelectedDate, RP09EndDate.SelectedDate);
-                report.PreviewReport();
+                //RMB 11.10.2014 remarked for new report
+                //RP09 report = new RP09(RP09StartDate.SelectedDate, RP09EndDate.SelectedDate);
+                //report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP09StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP09EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP09");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
             }
             catch (Exception ex)
             {
