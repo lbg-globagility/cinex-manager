@@ -140,9 +140,7 @@
     <Compile Include="Model\ReservedSeatListModel.cs" />
     <Compile Include="Model\ReservedSeatModel.cs" />
     <Compile Include="Model\SeatModel.cs" />
-    <Compile Include="Model\TicketListModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
-    <Compile Include="Model\TicketSessionModel.cs" />
     <Compile Include="MovieCalendarPage.xaml.cs">
       <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>

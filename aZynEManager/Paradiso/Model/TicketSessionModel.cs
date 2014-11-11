@@ -8,7 +8,6 @@ namespace Paradiso.Model
 {
     public class TicketSessionModel : INotifyPropertyChanged
     {
-        private int intId = 0;
         private string strSessionId = string.Empty;
         private string strTerminal = string.Empty;
         private string strUser = string.Empty;

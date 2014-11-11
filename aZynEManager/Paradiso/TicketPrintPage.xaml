@@ -27,90 +27,12 @@
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
         </Canvas.Background>
 
-        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="586" Width="750" Opacity="1">
-            <StackPanel DockPanel.Dock="Left">
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="Session Id/OR Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
-                    <Button Name="SearchTicket" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
-                        <Rectangle Width="20" Height="20" >
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-                    <Button Name="Clear" Click="Clear_Click"  ToolTip="Clear" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
-                        <Rectangle Width="20" Height="20" >
-                            <Rectangle.Fill>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_clear}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
-                <DataGrid Name="TicketSessionDataGrid" AutoGenerateColumns="False" Height="265" Margin="2" ItemsSource="{Binding TicketSessions, Mode=OneWay}" SelectionMode="Single" IsReadOnly="True" SelectionChanged="TicketSessionDataGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <!--DataGridTextColumn  Header="#"/-->
-                        <DataGridTextColumn Header="Session No" Binding="{Binding Path= SessionId}"/>
-                        <DataGridTextColumn Header="Session Date/Time" Binding="{Binding Path= TicketDateTime}" />
-                        <DataGridTextColumn Header="Username" Binding="{Binding Path=User}"/>
-                        <DataGridTextColumn Header="Terminal" Binding="{Binding Path=Terminal}"/>
-                    </DataGrid.Columns>
-                    <DataGrid.CellStyle>
-                        <Style TargetType="{x:Type DataGridCell}">
-                            <Style.Triggers>
-                                <Trigger Property="DataGridCell.IsSelected" Value="True">
-                                    <Setter Property="Background" Value="#CCDAFF" />
-                                    <Setter Property="BorderBrush" Value="Black" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.CellStyle>
-                </DataGrid>
-                <DataGrid Name="TicketDataGrid" AutoGenerateColumns="False" Height="260" Margin="2" ItemsSource="{Binding TicketList.Tickets}" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="TicketDataGrid_SelectionChanged">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn>
-                            <DataGridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox Style="{x:Null}" Name="chkSelectAll" Content=" " Checked="chkSelectAll_Checked" Unchecked="chkSelectAll_Unchecked"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.HeaderTemplate>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Style="{x:Null}" IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="OR Number" Binding="{Binding Path= ORNumber}" IsReadOnly="True" />
-                        <DataGridTextColumn Header="Patron" Binding="{Binding Path= PatronDescription}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Seat"  Binding="{Binding Path= SeatName}" IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle> 
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Price" Binding="{Binding Path= PatronPrice, StringFormat='{}{0:#,0}'}"   IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Right" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
-            <!--StackPanel DockPanel.Dock="Left" Name="CancelledORNumberPanel" Width="200" Height="386">
+        <DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="386" Width="550" Opacity="1">
+            <StackPanel DockPanel.Dock="Right" Visibility="Collapsed" Name="CancelledORNumberPanel" Width="200" Height="386">
                 <ListView ItemsSource="{Binding Path=CancelledORNumbers}" SelectionMode="Single" Background="Black" SelectionChanged="ListView_SelectionChanged" Height="386" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 </ListView>
-            </StackPanel-->
+            </StackPanel>
             <StackPanel DockPanel.Dock="Bottom" Margin="0" Background="Black">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Left" Foreground="White">Total Tickets</TextBlock>
-                    <TextBlock HorizontalAlignment="Right" Foreground="White" Text="{Binding TicketList.Count, StringFormat='{}{0:#,0}'}"/>
-                </DockPanel>
-                <DockPanel>
-                    <TextBlock Foreground="White" DockPanel.Dock="Left">Total Amount</TextBlock>
-                    <TextBlock HorizontalAlignment="Right" Foreground="White" Text="{Binding TicketList.Total, StringFormat='{}{0:#,0}'}"/>
-                </DockPanel>
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -121,6 +43,16 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="OR Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                        <Button Name="Search" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
+                            <Rectangle Width="20" Height="20" >
+                                <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
 
                     <Button Grid.Column="1" Name="Void" Click="Void_Click" Background="Black" ToolTip="Void" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
                         Void
