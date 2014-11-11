@@ -408,11 +408,32 @@ namespace aZynEManager
                         sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
                         sqry.Append("group by a.patron_id");
                         break;
+                    case "RP09":
+                        sqry.Append("select e.name cinema_name,  d.code patron_code, d.name patron_name, a.price, ");
+                        sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.price) sales, g.system_value report_header, h.name report_title ");
+                        sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
+                        sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
+                        sqry.Append("config_table g, report h ");
+                        sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
+                        if(_dtStart == _dtEnd)
+                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}')", _dtStart, _dtStart.AddDays(1)));
+                        else
+                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}') ",_dtStart,_dtEnd));
+                        sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                        sqry.Append("AND b.movies_schedule_id = c.id ");
+                        sqry.Append("AND a.patron_id = f.id ");
+                        sqry.Append("AND f.patron_id = d.id ");
+                        sqry.Append("AND c.cinema_id = e.id ");
+                        sqry.Append("and g.system_code = '001' ");
+                        sqry.Append("and h.id = 9 ");
+                        sqry.Append("GROUP BY c.cinema_id, f.patron_id, a.price ");
+                        sqry.Append("ORDER BY e.in_order, d.name, a.price");
+                        break;
                         //RMB 11-10-2014 added new report end
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);
-                MessageBox.Show(sqry.ToString());
+                //MessageBox.Show(sqry.ToString());
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
                // MessageBox.Show(xmlfile.ToString());
@@ -597,7 +618,68 @@ namespace aZynEManager
                                 }
                             }
                         }
+
+             
                     }
+                    //RMB 11.10.2014 added start for insertion of query from date to date (txtfrdatetodate)
+                    if (node1.Name == "Body")
+                    {
+                        foreach (XmlNode node2 in node1.ChildNodes)
+                        {
+                            if (node2.Name == "ReportItems")
+                            {
+                                foreach (XmlNode node3 in node2.ChildNodes)
+                                {
+                                    if (node3.Name == "Table")
+                                    {
+                                        foreach (XmlNode node4 in node3.ChildNodes)
+                                        {
+                                            if (node4.Name == "Header")
+                                            {
+                                                foreach (XmlNode node5 in node4.ChildNodes)
+                                                {
+                                                    if (node5.Name == "TableRows")
+                                                    {
+                                                        foreach (XmlNode node6 in node5.ChildNodes)
+                                                        {
+                                                            if (node6.Name == "TableRow")
+                                                            {
+                                                                foreach (XmlNode node7 in node6.ChildNodes)
+                                                                {
+                                                                    if (node7.Name == "TableCells")
+                                                                    {
+                                                                        foreach (XmlNode node8 in node7.ChildNodes)
+                                                                        {
+                                                                            if (node8.Name == "TableCell")
+                                                                            {
+                                                                                foreach (XmlNode node9 in node8.ChildNodes)
+                                                                                {
+                                                                                    if (node9.Name == "ReportItems")
+                                                                                    {
+                                                                                        foreach (XmlNode node10 in node9.ChildNodes)
+                                                                                        {
+                                                                                            if (node10.FirstChild.InnerText == "txtfrdatetodate")
+                                                                                                node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd);
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                                
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //RMB 11.10.2014 added end
                 }
                 StringWriter sw = new StringWriter();
                 XmlTextWriter xw = new XmlTextWriter(sw);
