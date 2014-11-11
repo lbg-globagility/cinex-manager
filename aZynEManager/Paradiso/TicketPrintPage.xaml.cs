@@ -795,5 +795,14 @@ namespace Paradiso
         {
             this.SelectAll(false);
         }
+
+        private void TicketDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TicketDataGrid.SelectedItem != null)
+            {
+                TicketModel t = (TicketModel)TicketDataGrid.SelectedItem;
+                this.PrintTicket(t.ORNumber);
+            }
+        }
     }
 }
