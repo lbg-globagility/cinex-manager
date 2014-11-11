@@ -44,6 +44,8 @@ namespace Paradiso.Model
         private string strSeatName = string.Empty;
         private bool blnIsSelected = false;
 
+        private bool blnIsHandicapped = false;
+
         public TicketModel()
         {
             this.Clear();
@@ -233,6 +235,35 @@ namespace Paradiso.Model
             }
         }
 
+        private void UpdateSeatTypeName()
+        {
+            if (SeatType == 1)
+            {
+                StringBuilder _strSeatName = new StringBuilder();
+                if (SeatName != string.Empty)
+                    _strSeatName.Append(SeatName);
+                if (blnIsHandicapped)
+                {
+                    if (_strSeatName.Length > 0)
+                        _strSeatName.Append(" - ");
+                    _strSeatName.Append("Disabled");
+                }
+                if (_strSeatName.Length > 0)
+                {
+                    _strSeatName.Insert(0, " (");
+                    _strSeatName.Append(")");
+                }
+
+                SeatTypeName = string.Format("GUARANTEED SEATING{0}", _strSeatName.ToString());
+            }
+            else if (SeatType == 2)
+                SeatTypeName = "FREE SEATING (LIMITED)";
+            else if (SeatType == 3)
+                SeatTypeName = "FREE SEATING (UNLIMITED)";
+            else
+                SeatTypeName = string.Empty;
+
+        }
 
         public int SeatType
         {
@@ -242,15 +273,7 @@ namespace Paradiso.Model
                 if (intSeatType != value)
                 {
                     intSeatType = value;
-                    if (intSeatType == 1)
-                        SeatTypeName = "GUARANTEED SEATING";
-                    else if (intSeatType == 2)
-                        SeatTypeName = "FREE SEATING (LIMITED)";
-                    else if (intSeatType == 3)
-                        SeatTypeName = "FREE SEATING (UNLIMITED)";
-                    else
-                        SeatTypeName = string.Empty;
-
+                    this.UpdateSeatTypeName();
                     NotifyPropertyChanged("SeatType");
                 }
             }
@@ -434,6 +457,7 @@ namespace Paradiso.Model
                 if (value != strSeatName)
                 {
                     strSeatName = value;
+                    UpdateSeatTypeName();
                     NotifyPropertyChanged("SeatName");
                 }
             }
@@ -448,6 +472,20 @@ namespace Paradiso.Model
                 {
                     blnIsSelected = value;
                     NotifyPropertyChanged("IsSelected");
+                }
+            }
+        }
+
+        public bool IsHandicapped
+        {
+            get { return blnIsHandicapped; }
+            set
+            {
+                if (blnIsHandicapped != value)
+                {
+                    blnIsHandicapped = value;
+                    UpdateSeatTypeName();
+                    NotifyPropertyChanged("IsHandicapped");
                 }
             }
         }

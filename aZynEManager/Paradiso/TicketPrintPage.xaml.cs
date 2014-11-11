@@ -303,6 +303,8 @@ namespace Paradiso
                              tellercode = mslrs.ticket.user.userid,
                              session = mslrs.ticket.session_id,
                              isvoid = (mslrs.void_datetime != null),
+                             seatname = mslrs.cinema_seat.col_name +  mslrs.cinema_seat.row_name,
+                             ishandicapped = (mslrs.cinema_seat.is_handicapped == 1) ? true : false
 
                          }).FirstOrDefault();
                 if (t != null)
@@ -310,7 +312,6 @@ namespace Paradiso
                     Ticket.CinemaNumber = t.cinemanumber;
                     Ticket.MovieCode = t.moviecode;
                     Ticket.Rating = t.rating;
-                    Ticket.SeatType = t.seattype;
                     Ticket.StartTime = t.startdate;
                     Ticket.PatronCode = t.patroncode;
                     Ticket.PatronPrice = (decimal) t.price;
@@ -323,6 +324,9 @@ namespace Paradiso
                     Ticket.SessionName = t.session;
                     Ticket.CurrentTime = ParadisoObjectManager.GetInstance().CurrentDate;
                     Ticket.IsVoid = t.isvoid;
+                    Ticket.SeatName = t.seatname;
+                    Ticket.IsHandicapped = t.ishandicapped;
+                    Ticket.SeatType = t.seattype;
                 }
             }
         }
