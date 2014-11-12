@@ -38,7 +38,10 @@ namespace aZynEManager
         //RMB 11-10-2014 added valiables start
         public int _intMovieID = -1;
         public DateTime _dtMovieDate = new DateTime();
-        
+
+        //RMB 11.11.2014 added new variables
+        public double _gttoday = 0;
+        public double _gtyesterday = 0;
 
         public frmReport()
         {
@@ -396,7 +399,7 @@ namespace aZynEManager
                         sqry.Append("where a.movies_schedule_id = b.id and a.status = 1 ");
                         sqry.Append(String.Format("and b.cinema_id = {0} ", _intCinemaID));
                         sqry.Append(String.Format("and b.movie_id = {0} ", _intMovieID));
-                        sqry.Append(String.Format("and movie_date = '{0:yyyy/MM/dd}' ", _dtMovieDate));
+                        sqry.Append(String.Format("and movie_date = '{0:yyyy/MM/dd}' ", _dtStart));
                         sqry.Append("and a.id = c.movies_schedule_list_id ");
                         sqry.Append("group by c.movies_schedule_list_id ) table1) table2) ");
                         sqry.Append("and a.patron_id = b.id ");
@@ -416,9 +419,9 @@ namespace aZynEManager
                         sqry.Append("config_table g, report h ");
                         sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
                         if(_dtStart == _dtEnd)
-                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}')", _dtStart, _dtStart.AddDays(1)));
+                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}') and bb.status = 1 ", _dtStart, _dtStart.AddDays(1)));
                         else
-                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}') ",_dtStart,_dtEnd));
+                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}') and bb.status = 1 ",_dtStart,_dtEnd));
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append("AND b.movies_schedule_id = c.id ");
                         sqry.Append("AND a.patron_id = f.id ");
@@ -430,6 +433,43 @@ namespace aZynEManager
                         sqry.Append("ORDER BY e.in_order, d.name, a.price");
                         break;
                         //RMB 11-10-2014 added new report end
+                        //RMB 11.11.2014 added new report start
+                    case "RP10":
+                        sqry.Append("select e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.price, ");
+                        sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.price) sales, g.system_value report_header, h.name report_title ");
+                        sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
+                        sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
+                        sqry.Append("config_table g, report h, movies i ");
+                        sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
+                        if (_dtStart == _dtEnd)
+                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
+                        else
+                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
+                        sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                        sqry.Append("AND b.movies_schedule_id = c.id ");
+                        sqry.Append("AND a.patron_id = f.id ");
+                        sqry.Append("AND f.patron_id = d.id ");
+                        sqry.Append("AND c.cinema_id = e.id ");
+                        sqry.Append("AND c.movie_id = i.id ");
+                        sqry.Append("AND g.system_code = '001' ");
+                        sqry.Append("AND h.id = 10 ");
+                        sqry.Append("GROUP BY c.cinema_id, i.id, f.patron_id, a.price ");
+                        sqry.Append("ORDER BY e.in_order, i.title, d.name, a.price");
+                        break;
+                    case "RP16":
+                        sqry.Append("SELECT f.id, f.name, e.code, e.title, COUNT(cinema_seat_id) quantity, SUM(price) sales, g.system_value, h.name report_name, d.movie_date ");
+                        sqry.Append("FROM movies_schedule_list_reserved_seat a, ticket b, ");
+                        sqry.Append("movies_schedule_list c, movies_schedule d, movies e, cinema f, config_table g, report h ");
+                        sqry.Append("WHERE a.ticket_id = b.id ");
+                        sqry.Append("AND a.status = 1 AND a.movies_schedule_list_id = c.id AND c.movies_schedule_id = d.id ");
+                        sqry.Append(String.Format("AND d.movie_date = '{0:yyyy/MM/dd}' AND d.movie_id = e.id AND d.cinema_id = f.id ", _dtStart));
+                        sqry.Append("AND g.system_code = '001' ");
+                        sqry.Append("AND h.id = 16 ");
+                        sqry.Append("GROUP BY f.id, e.id ORDER BY f.in_order");
+
+                        //m_clscom._gttoday = m_clscom.calculateTotalCollection(m_frmM, m_frmM._connection, _dtStart);
+                        //m_clscom._gtyesterday = m_clscom.calculateTotalCollection(m_frmM, m_frmM._connection, _dtStart.AddDays(-1));
+                        break;
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);
@@ -449,6 +489,9 @@ namespace aZynEManager
 
         static string GetXmlString(string strFile, string sQry, string sConnString, string cine, string code, DateTime _dtStart, DateTime _dtEnd,string rp01)
         {
+            clscommon clscom = new clscommon();
+            double gttoday = clscom.calculateTotalCollection(sConnString, _dtStart);
+            double gtyesterday = clscom.calculateTotalCollection(sConnString, _dtStart.AddDays(-1));
             XmlDocument xmlDoc = new XmlDocument();
             if (File.Exists(strFile))
             {
@@ -672,7 +715,46 @@ namespace aZynEManager
                                                     }
                                                 }
                                             }
-
+                                            else if (node4.Name == "Footer")
+                                            {
+                                                foreach (XmlNode node5 in node4.ChildNodes)
+                                                {
+                                                    if (node5.Name == "TableRows")
+                                                    {
+                                                        foreach (XmlNode node6 in node5.ChildNodes)
+                                                        {
+                                                            if (node6.Name == "TableRow")
+                                                            {
+                                                                foreach (XmlNode node7 in node6.ChildNodes)
+                                                                {
+                                                                    if (node7.Name == "TableCells")
+                                                                    {
+                                                                        foreach (XmlNode node8 in node7.ChildNodes)
+                                                                        {
+                                                                            if (node8.Name == "TableCell")
+                                                                            {
+                                                                                foreach (XmlNode node9 in node8.ChildNodes)
+                                                                                {
+                                                                                    if (node9.Name == "ReportItems")
+                                                                                    {
+                                                                                        foreach (XmlNode node10 in node9.ChildNodes)
+                                                                                        {
+                                                                                            if (node10.FirstChild.InnerText == "txtgrandtotaltoday")
+                                                                                                node10.FirstChild.InnerText = String.Format("{0:#,###,###,###,##0.00}", gttoday);
+                                                                                            else if (node10.FirstChild.InnerText == "txtgrandtotalyesterday")
+                                                                                                node10.FirstChild.InnerText = String.Format("{0:#,###,###,###,##0.00}", gtyesterday);
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
