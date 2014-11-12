@@ -96,6 +96,16 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                     </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#CCDAFF" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
                 </DataGrid>
             </StackPanel>
             <!--StackPanel DockPanel.Dock="Left" Name="CancelledORNumberPanel" Width="200" Height="386">
