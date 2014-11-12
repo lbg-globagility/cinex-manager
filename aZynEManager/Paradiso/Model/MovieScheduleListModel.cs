@@ -11,6 +11,7 @@ namespace Paradiso.Model
 
         private int intKey; //to be passed 
         private int intCinemaKey; //to be referenced
+        private string strCinemaName;
         private DateTime dtStartTime;
         private DateTime dtEndTime;
 
@@ -43,6 +44,7 @@ namespace Paradiso.Model
         {
             Key = movieScheduleListModel.Key;
             CinemaKey = movieScheduleListModel.CinemaKey;
+            CinemaName = movieScheduleListModel.CinemaName;
             StartTime = movieScheduleListModel.StartTime;
             EndTime = movieScheduleListModel.EndTime;
             MovieKey = movieScheduleListModel.MovieKey;
@@ -72,6 +74,19 @@ namespace Paradiso.Model
                 {
                     intCinemaKey = value;
                     NotifyPropertyChanged("CinemaKey");
+                }
+            }
+        }
+
+        public string CinemaName
+        {
+            get { return strCinemaName; }
+            set
+            {
+                if (value != strCinemaName)
+                {
+                    strCinemaName = value;
+                    NotifyPropertyChanged("CinemaName");
                 }
             }
         }

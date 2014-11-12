@@ -38,6 +38,7 @@
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel DockPanel.Dock="Left" Width="145" Margin="10, 5, 0, 0">
                 <StackPanel Background="#ffffff">
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding MovieSchedule.CinemaName}"/>
                     <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">

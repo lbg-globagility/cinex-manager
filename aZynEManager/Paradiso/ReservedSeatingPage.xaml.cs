@@ -176,6 +176,7 @@ namespace Paradiso
                                                 {
                                                     mslkey = msl.id,
                                                     cinemakey = msl.movies_schedule.cinema_id,
+                                                    cinemaname = msl.movies_schedule.cinema.name,
                                                     moviekey = msl.movies_schedule.movie_id,
                                                     moviename = msl.movies_schedule.movie.title,
                                                     duration = msl.movies_schedule.movie.duration,
@@ -224,10 +225,10 @@ namespace Paradiso
                 }
 
                 string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
-
                 {
                     MovieSchedule.Key = _movie_schedule_list.mslkey;
                     MovieSchedule.CinemaKey = _movie_schedule_list.cinemakey;
+                    MovieSchedule.CinemaName = _movie_schedule_list.cinemaname;
                     MovieSchedule.MovieKey = _movie_schedule_list.moviekey;
                     MovieSchedule.MovieName = _movie_schedule_list.moviename;
                     MovieSchedule.RunningTimeInSeconds = _movie_schedule_list.duration;
