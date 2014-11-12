@@ -22,4 +22,4 @@ aZyneManager/Cinemapps/bin/*
 !aZyneManager/Cinemapps/bin/Debug/
 aZyneManager/Cinemapps/bin/Debug/*
 !aZyneManager/Cinemapps/bin/Debug/reports
-
+!release/Cinema Ticketing/Paradiso.exe

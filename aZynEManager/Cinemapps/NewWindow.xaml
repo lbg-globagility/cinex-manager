@@ -1,5 +1,0 @@
-﻿<NavigationWindow x:Class="Cinemapps.NewWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Cinema Management System" Height="630" Width="850" Navigated="NavigationWindow_Navigated" Icon="/Cinemapps;component/cinema-manager-icon.ico" MinHeight="630" MinWidth="850" WindowStartupLocation="CenterScreen">
-</NavigationWindow>

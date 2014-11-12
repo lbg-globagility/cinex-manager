@@ -14,7 +14,6 @@ using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
-using CinemaCustomControlLibrary;
 using Paradiso.Adorners;
 using System.Transactions;
 
