@@ -102,5 +102,18 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is PatronModel)
+            {
+                PatronModel p = (PatronModel)obj;
+                if (p.Key == this.Key)
+                    return true;
+            }
+
+            return false;
+            //return base.Equals(obj);
+        }
     }
 }

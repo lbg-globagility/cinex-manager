@@ -583,6 +583,7 @@ namespace Paradiso
                                         ss.id,
                                         seatModel.Key,
                                         seatModel.Name,
+                                        seatModel.PatronKey,
                                         strPatronName,
                                         decPrice,
                                         (DateTime)ss.reserved_date,
@@ -844,7 +845,7 @@ namespace Paradiso
 
                             //taken seats
                             var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
-                                              where mslrs.movies_schedule_list_id == MovieSchedule.Key && mslrs.cinema_seat_id == Seat.Key
+                                              where mslrs.movies_schedule_list_id == MovieSchedule.Key && mslrs.cinema_seat_id == Seat.Key && mslrs.status != 2
                                               select mslrs.cinema_seat_id).Count();
 
                             //reserved seats from other sessions
@@ -1219,7 +1220,12 @@ namespace Paradiso
                     window.KeyDown -= Page_PreviewKeyDown;
                 if (timer != null)
                     timer.Stop();
-                NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                //if (msli.SeatType == 1)
+                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                /*
+                else
+                    NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));
+                 */
             }
         }
     }

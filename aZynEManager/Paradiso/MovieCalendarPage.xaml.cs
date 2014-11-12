@@ -452,10 +452,16 @@ namespace Paradiso
 
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
                 }
-                else
+                else //if (msli.SeatType == 1)
                 {
                     NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 }
+                /*
+                else
+                {
+                    NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));
+                }
+                */
             }
         }
 

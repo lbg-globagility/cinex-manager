@@ -25,11 +25,12 @@ namespace Paradiso.Model
         {
         }
 
-        public PatronSeatModel(int key, int seatKey, string seatName, string patronName, decimal price, DateTime reservedDate, int seatColor)
+        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, DateTime reservedDate, int seatColor)
         {
             Key = key;
             SeatKey = seatKey;
             SeatName = seatName;
+            PatronKey = patronKey;
             PatronName = patronName;
             Price = price;
             ReservedDate = reservedDate;
