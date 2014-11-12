@@ -23,29 +23,9 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>select @user_id:= g.user_id, a.code, @patron:= a.name as PATRON, @cinema:= c.name CINEMA, 
-b.price PRICE, @c:= 
-(select count(f.cinema_seat_id)
-from patrons a inner join cinema_patron b on a.id=b.patron_id 
-inner join  cinema c on b.cinema_id = c.id 
-inner join movies_schedule d on d.cinema_id = c.id 
-inner join movies_schedule_list e
-on e.movies_schedule_id = d.id 
-inner join movies_schedule_list_reserved_seat f 
-on f.movies_schedule_list_id= e.id  inner join 
-ticket g on e.id= g.movies_schedule_list_id 
-where d.movie_date='2014/11/10' and a.name=@patron and c.name = @cinema 
-and g.user_id=@user_id and f.status=1)
-as QTY, (@c*b.price) as `TOTALSALES`, 
-d.movie_date , h.start_date, h.title, i.userid, i.fname, i.lname, i.mname, j.system_value
- from patrons a inner join cinema_patron b on a.id=b.patron_id inner join  
-cinema c on b.cinema_id = c.id inner join movies_schedule d on d.cinema_id = c.id 
-inner join movies_schedule_list e on e.movies_schedule_id = d.id inner join 
-movies_schedule_list_reserved_seat f on f.movies_schedule_list_id= e.id inner join 
-ticket g on e.id= g.movies_schedule_list_id inner join movies h on h.id= d.movie_id 
-inner join users i on i.id= g.user_id inner join config_table j where j.system_code='001' 
-and f.status=1 and d.movie_date='2014/11/10' 
-group by  g.user_id, a.name, c.name order by c.name;
+        <CommandText>
+
+
 </CommandText>
       </Query>
       <Fields>
@@ -334,11 +314,11 @@ group by  g.user_id, a.name, c.name order by c.name;
         </ReportItems>
         <Style>
           <BorderStyle>
-            <Default >Solid</Default>
-            <Left >Solid</Left>
-            <Right >Solid</Right>
-            <Top >Solid</Top>
-            <Bottom >Solid</Bottom>
+            <Default>Solid</Default>
+            <Left>Solid</Left>
+            <Right>Solid</Right>
+            <Top>Solid</Top>
+            <Bottom>Solid</Bottom>
           </BorderStyle>
           <BorderColor />
           <BorderWidth />
@@ -350,7 +330,7 @@ group by  g.user_id, a.name, c.name order by c.name;
             <GroupExpression>=Fields!system_value.Value</GroupExpression>
           </GroupExpressions>
         </Grouping>
-        <NoRows >No data on this date</NoRows>
+        <NoRows>No data on this date</NoRows>
       </List>
       <List Name="List2">
         <Height>280.46pt</Height>
@@ -887,7 +867,7 @@ group by  g.user_id, a.name, c.name order by c.name;
                 <PageBreakAtStart>false</PageBreakAtStart>
                 <PageBreakAtEnd>false</PageBreakAtEnd>
                 <GroupExpressions>
-                  <GroupExpression >=Fields!system_value.Value</GroupExpression>
+                  <GroupExpression>=Fields!system_value.Value</GroupExpression>
                 </GroupExpressions>
               </Grouping>
             </Details>
@@ -1069,7 +1049,7 @@ group by  g.user_id, a.name, c.name order by c.name;
             <PageBreakAtStart>false</PageBreakAtStart>
             <PageBreakAtEnd>false</PageBreakAtEnd>
             <GroupExpressions>
-              <GroupExpression >=Fields!system_value.Value</GroupExpression>
+              <GroupExpression>=Fields!system_value.Value</GroupExpression>
             </GroupExpressions>
           </Grouping>
         </Details>

@@ -157,6 +157,16 @@ namespace Cinemapps
 
         private void PrintRP02_Click(object sender, RoutedEventArgs e)
         {
+            
+                //using (frmReport frmreport = new frmReport())
+                //{
+                //    frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
+                //    frmreport._dtEnd = (DateTime)RP02EndDate.SelectedDate;
+                //    frmreport.frmInit(main, main.m_clscom, "RP02");
+                //    frmreport.ShowDialog();
+                //    frmreport.Dispose();
+                //}
+
             try
             {
                 using (frmReport frmreport = new frmReport())
@@ -167,6 +177,7 @@ namespace Cinemapps
                     frmreport.ShowDialog();
                     frmreport.Dispose();
                 }
+
             }
             catch (Exception ex)
             {
