@@ -21,7 +21,7 @@ namespace Paradiso
                 return Colors.Transparent;
 
             byte[] bytes = BitConverter.GetBytes(intColor);
-            return new SolidColorBrush(Color.FromRgb(bytes[2], bytes[1], bytes[0]));
+            return new SolidColorBrush(Color.FromRgb(bytes[0], bytes[1], bytes[2]));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

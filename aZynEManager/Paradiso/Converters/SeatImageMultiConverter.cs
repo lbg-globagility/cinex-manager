@@ -82,7 +82,7 @@ namespace Paradiso
                             //int argb = bmp.GetPixel(x, y).ToArgb();
                             if ((bmp.GetPixel(x, y).R == r && bmp.GetPixel(x, y).G == g && bmp.GetPixel(x, y).B == b))
                             {
-                                bmp.SetPixel(x, y, System.Drawing.Color.FromArgb(bytes[2], bytes[1], bytes[0]));
+                                bmp.SetPixel(x, y, System.Drawing.Color.FromArgb(bytes[0], bytes[1], bytes[2]));
                             }
                         }
                     }
