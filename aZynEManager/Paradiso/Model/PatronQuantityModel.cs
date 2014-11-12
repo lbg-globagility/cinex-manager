@@ -11,6 +11,8 @@ namespace Paradiso.Model
         private decimal decTotalAmount = 0;
         private int intMaxQuantity = 999;
 
+        public PatronModel _patron;
+
         public int Quantity
         {
             get { return intQuantity; }
@@ -21,6 +23,19 @@ namespace Paradiso.Model
                     intQuantity = value;
                     TotalAmount = Quantity * Price;
                     NotifyPropertyChanged("Quantity");
+                }
+            }
+        }
+
+        public PatronModel Patron
+        {
+            get { return _patron; }
+            set
+            {
+                if (value != _patron)
+                {
+                    _patron = value;
+                    NotifyPropertyChanged("Patron");
                 }
             }
         }
