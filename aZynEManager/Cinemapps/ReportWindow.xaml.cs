@@ -377,7 +377,7 @@ namespace Cinemapps
                 }
                 using (frmReport frmreport = new frmReport())
                 {
-                    frmreport._dtMovieDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
                     frmreport._intCinemaID = intCinemaId;
                     frmreport._intMovieID = intMovieId;
                     frmreport.frmInit(main, main.m_clscom, "RP08");
@@ -492,8 +492,17 @@ namespace Cinemapps
         {
             try
             {
-                RP10 report = new RP10(RP10StartDate.SelectedDate, RP10EndDate.SelectedDate);
-                report.PreviewReport();
+                //RMB 11.11.2014 REMARKED AND ADDED NEW REPORT
+                //RP10 report = new RP10(RP10StartDate.SelectedDate, RP10EndDate.SelectedDate);
+                //report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP10StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP10EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP10");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -548,6 +557,25 @@ namespace Cinemapps
                 {
                     frmreport.setDate = (DateTime)RP13StartDate.SelectedDate;
                     frmreport.frmInit(main, main.m_clscom, "RP13");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        //RMB 11.11.2014 ADDED NEW REPORT
+        private void PrintRP16_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP16StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP16");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
                 }

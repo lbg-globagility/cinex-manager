@@ -24,6 +24,9 @@ namespace aZynEManager
 
         private bool blnIsRemoveReservedSeat = true;
 
+        //ADDED NEW CLASS AT CONFIG_TABLE
+        private DateTime _collectionstartdate = new DateTime();
+
         [CategoryAttribute("Cinema"),
         DescriptionAttribute("Name of the the cinema"),
         ]
@@ -88,6 +91,14 @@ namespace aZynEManager
         {
             get { return _moviedefaultintermission; }
             set { _moviedefaultintermission = value; }
+        }
+
+        [CategoryAttribute("Movies"),
+       DescriptionAttribute("Set system collection start date.")]
+        public DateTime SystemCollectionStartDate
+        {
+            get { return _collectionstartdate; }
+            set { _collectionstartdate = value; }
         }
 
         [CategoryAttribute("Ticket"),

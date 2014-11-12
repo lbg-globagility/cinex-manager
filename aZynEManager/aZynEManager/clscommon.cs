@@ -6,12 +6,16 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Data.Odbc;
 
 namespace aZynEManager
 {
     public class clscommon
     {
         public clsConfig m_clscon = new clsConfig();
+        public double _gttoday = 0;
+        public double _gtyesterday = 0;
+        public frmMain _frmM = null;//RMB 11.12.2014 added new variable
 
         public DataTable setDataTable(string sqry, string conn)
         {
@@ -186,6 +190,9 @@ namespace aZynEManager
 
         public void initConfig(frmMain frmM)
         {
+            //RMB 11.12.2014 added new variable
+            _frmM = frmM;
+
             ////setup for the system configuration
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select * from config_table ");
@@ -313,6 +320,20 @@ namespace aZynEManager
                         newdt = foundRows.CopyToDataTable();
                         m_clscon.Printer = newdt.Rows[0]["system_value"].ToString();
                     }
+                    
+                    sbqry.Clear();
+                    sbqry.Append("[system_code] = '013'");
+                    foundRows = dt.Select(sbqry.ToString());
+                    if (foundRows.Count() > 0)
+                    {
+                        DateTime datein = new DateTime();
+                        newdt = foundRows.CopyToDataTable();
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(newdt.Rows[0]["system_value"].ToString(), out dateout))
+                            datein = dateout;
+
+                        m_clscon.SystemCollectionStartDate = datein;
+                    }
                 }
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
             }
@@ -320,6 +341,48 @@ namespace aZynEManager
             {
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
                 MessageBox.Show(err.Message);
+            }
+        }
+
+        //added new function 11.12.2014
+        public double calculateTotalCollection(String sConnString, DateTime dt)
+        {
+            double gt = 0;
+            try
+            {
+                initConfig(new frmMain());
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                DateTime startdate = m_clscon.SystemCollectionStartDate;
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("SELECT sum(a.price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");
+                sqry.Append("WHERE a.status = 1 ");
+                sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                sqry.Append(String.Format("AND b.start_time > '{0:yyyy-MM-dd}' ", m_clscon.SystemCollectionStartDate));
+                sqry.Append(String.Format("AND b.start_time < '{0:yyyy-MM-dd}' ", dt.AddDays(1)));
+                sqry.Append("AND b.status = 1");
+
+                OdbcConnection conn = new OdbcConnection(sConnString);
+                if(conn.State == ConnectionState.Closed)
+                    conn.Open();
+                using (OdbcCommand cmd = new OdbcCommand(sqry.ToString(), conn))
+                {
+                    using (OdbcDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            gt = Convert.ToDouble(reader[0].ToString());
+                        }
+                    }
+                }
+
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+                return gt;
+            }
+            catch
+            {
+                return gt;
             }
         }
 

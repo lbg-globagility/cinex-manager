@@ -317,7 +317,30 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
-
+            <!--RMB 11.11.2014 added new report-->
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">BIR Summary of Daily Cinema Sales Report (RP16)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Displays Total Ticket Sales per Cinema for a specified date with BIR Totals</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP16StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
             <ListViewItem>
                 <DockPanel Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
