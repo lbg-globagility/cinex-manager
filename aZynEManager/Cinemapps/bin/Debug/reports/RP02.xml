@@ -124,19 +124,11 @@ FROM
       </Fields>
     </DataSet>
     <DataSet Name="date_param">
-<<<<<<< HEAD
       <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>select '2014/11/4' as date1 , '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
       </Query>
       <Fields>
-=======
-      <Query >
-        <DataSourceName>DS1</DataSourceName>
-        <CommandText>select '2014/11/4' as date1 , '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
-      </Query>
-      <Fields >
->>>>>>> 3dcc51f27241904290c33a6968576b92bb81fd01
         <Field Name="date1">
           <DataField>date1</DataField>
           <TypeName>System.String</TypeName>
@@ -167,6 +159,8 @@ FROM
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
+          <BorderColor  />
+          <BorderWidth  />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -351,7 +345,7 @@ FROM
         <Details>
           <TableRows>
             <TableRow>
-              <Height>12 pt</Height>
+              <Height>14.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -492,84 +486,34 @@ FROM
         </Details>
         <Left>21.6pt</Left>
         <Top>111.6pt</Top>
-      </Table>
-      <Table Name="Table3">
-        <DataSetName>Sub</DataSetName>
-        <NoRows>Query returned no rows!</NoRows>
-        <Style>
-          <BorderStyle>
-            <Default>None</Default>
-            <Left>None</Left>
-            <Right>None</Right>
-            <Top>None</Top>
-            <Bottom>None</Bottom>
-          </BorderStyle>
-          <BorderColor />
-          <BorderWidth />
-        </Style>
-        <TableColumns>
-          <TableColumn>
-            <Width>128.1pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>43.7pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>59.5pt</Width>
-<<<<<<< HEAD
-          </TableColumn>
-          <TableColumn>
-            <Width>57.1pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>80.2pt</Width>
-          </TableColumn>
-          <TableColumn>
-=======
-          </TableColumn>
-          <TableColumn>
-            <Width>57.1pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>80.2pt</Width>
-          </TableColumn>
-          <TableColumn>
->>>>>>> 3dcc51f27241904290c33a6968576b92bb81fd01
-            <Width>90.5pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>65.1pt</Width>
-          </TableColumn>
-        </TableColumns>
-        <Details>
+        <Footer >
           <TableRows>
             <TableRow>
-              <Height>12 pt</Height>
+              <Height>26.1pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox21">
+                    <Textbox Name="Textbox3">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Middle</VerticalAlign>
+                      </Style>
                       <Value>GRAND TOTAL:</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <BorderColor />
-                        <BorderWidth />
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox35">
-                      <Value>=Fields!days.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox21">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -580,16 +524,16 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!no_of_days.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox36">
-                      <Value>=Fields!screening.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox23">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -600,16 +544,16 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!no_of_screenings.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox37">
-                      <Value>=Fields!seat_taken.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox24">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -620,16 +564,16 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!total_seats_taken.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox38">
-                      <Value>=Fields!available_seat.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox25">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -640,16 +584,16 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!total_available_seats.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox39">
-                      <Value>=Fields!ticket_sales.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox27">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -660,16 +604,16 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!total_ticket_sales.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox40">
-                      <Value>=Fields!util.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox28">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -680,17 +624,17 @@ FROM
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
+                        <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Bold</FontWeight>
                       </Style>
+                      <Value>=SUM(Fields!util.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
               </TableCells>
             </TableRow>
           </TableRows>
-        </Details>
-        <Left>19.9pt</Left>
-        <Top>171.0pt</Top>
+        </Footer>
       </Table>
       <Textbox Name="Textbox1" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
         <Top>15.8pt</Top>

@@ -172,7 +172,7 @@ namespace Cinemapps
                 using (frmReport frmreport = new frmReport())
                 {
                     frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
-                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate.Value.AddDays(1);
                     frmreport.frmInit(main, main.m_clscom, "RP02");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
