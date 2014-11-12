@@ -203,10 +203,26 @@ namespace Cinemapps
 
         private void PrintRP04_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP04 report = new RP04(RP04StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+
+            //melvin 11/7/2014
             try
             {
-                RP04 report = new RP04(RP04StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP04StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP04");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -514,10 +530,25 @@ namespace Cinemapps
 
         private void PrintRP13_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP13 report = new RP13(RP13StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+            //melvin 11/10/2014
             try
             {
-                RP13 report = new RP13(RP13StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP13StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP13");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {

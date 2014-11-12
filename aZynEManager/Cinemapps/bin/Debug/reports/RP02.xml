@@ -124,11 +124,19 @@ FROM
       </Fields>
     </DataSet>
     <DataSet Name="date_param">
+<<<<<<< HEAD
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>select '2014/11/4' as date1 , '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
+      </Query>
+      <Fields>
+=======
       <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText>select '2014/11/4' as date1 , '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
       </Query>
       <Fields >
+>>>>>>> 3dcc51f27241904290c33a6968576b92bb81fd01
         <Field Name="date1">
           <DataField>date1</DataField>
           <TypeName>System.String</TypeName>
@@ -508,6 +516,7 @@ FROM
           </TableColumn>
           <TableColumn>
             <Width>59.5pt</Width>
+<<<<<<< HEAD
           </TableColumn>
           <TableColumn>
             <Width>57.1pt</Width>
@@ -516,6 +525,16 @@ FROM
             <Width>80.2pt</Width>
           </TableColumn>
           <TableColumn>
+=======
+          </TableColumn>
+          <TableColumn>
+            <Width>57.1pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>80.2pt</Width>
+          </TableColumn>
+          <TableColumn>
+>>>>>>> 3dcc51f27241904290c33a6968576b92bb81fd01
             <Width>90.5pt</Width>
           </TableColumn>
           <TableColumn>
