@@ -505,7 +505,7 @@ namespace aZynEManager
                         sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
                         sqry.Append("group by a.patron_id");
                         break;
-<<<<<<< .mine
+
                     case "RP09":
                         sqry.Append("select e.name cinema_name,  d.code patron_code, d.name patron_name, a.price, ");
                         sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.price) sales, g.system_value report_header, h.name report_title ");
@@ -527,29 +527,7 @@ namespace aZynEManager
                         sqry.Append("GROUP BY c.cinema_id, f.patron_id, a.price ");
                         sqry.Append("ORDER BY e.in_order, d.name, a.price");
                         break;
-=======
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
                         //RMB 11-10-2014 added new report end
                         //RMB 11.11.2014 added new report start
                     case "RP10":
