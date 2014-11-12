@@ -145,7 +145,8 @@
       <Textbox Name="Textbox3">
         <Height>15.76pt</Height>
         <Width>144.55pt</Width>
-        <Value></Value>
+        <Value>
+        </Value>
         <Left>18.7pt</Left>
         <Top>94.3pt</Top>
         <Style>
@@ -428,7 +429,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>9.8pt</Height>
+              <Height>21.8pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -474,9 +475,9 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox11" >
+                    <Textbox Name="Textbox11">
                       <Value>qty1</Value>
-                      <Style >
+                      <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -795,11 +796,11 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>18.7pt</Left>
-        <Top>218.2pt</Top>
+        <Left>14.7pt</Left>
+        <Top>233.4pt</Top>
       </Table>
     </ReportItems>
-    <Height>237.5pt</Height>
+    <Height>308.2pt</Height>
     <Columns>1</Columns>
   </Body>
   <PageFooter>

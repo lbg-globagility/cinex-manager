@@ -203,10 +203,26 @@ namespace Cinemapps
 
         private void PrintRP04_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP04 report = new RP04(RP04StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+
+            //melvin 11/7/2014
             try
             {
-                RP04 report = new RP04(RP04StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP04StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP04");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -286,7 +302,7 @@ namespace Cinemapps
         private void PrintRP08_Click(object sender, RoutedEventArgs e)
         {
 
-           /* try
+            /*try
             {
                 int intCinemaId = 0;
                 int intMovieId = 0;
@@ -330,11 +346,29 @@ namespace Cinemapps
             }*/
             try
             {
+                int intCinemaId = 0;
+                int intMovieId = 0;
+                if (RP08Cinema.SelectedValue != null)
+                {
+                    if (RP08Cinema.SelectedValue is Cinema)
+                    {
+                        Cinema cinema = (Cinema)RP08Cinema.SelectedValue;
+                        intCinemaId = cinema.Id;
+                    }
+                }
+                if (RP08Movie.SelectedValue != null)
+                {
+                    if (RP08Movie.SelectedValue is Movie)
+                    {
+                        Movie movie = (Movie)RP08Movie.SelectedValue;
+                        intMovieId = movie.Id;
+                    }
+                }
                 using (frmReport frmreport = new frmReport())
                 {
-                    frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
-                    frmReport.rp08cinema = RP08Cinema.SelectedValue.ToString();
-                    frmReport.rp08movie = RP08Movie.SelectedValue.ToString();
+                    frmreport._dtMovieDate = (DateTime)RP08StartDate.SelectedDate;
+                    frmreport._intCinemaID = intCinemaId;
+                    frmreport._intMovieID = intMovieId;
                     frmreport.frmInit(main, main.m_clscom, "RP08");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -487,10 +521,25 @@ namespace Cinemapps
 
         private void PrintRP13_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    RP13 report = new RP13(RP13StartDate.SelectedDate);
+            //    report.PreviewReport();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString());
+            //}
+            //melvin 11/10/2014
             try
             {
-                RP13 report = new RP13(RP13StartDate.SelectedDate);
-                report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP13StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP13");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
