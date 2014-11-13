@@ -21,7 +21,7 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>select a.code, @patron:= a.name as PATRON,  @cinema:= c.name 
 CINEMA, b.price PRICE, @c:= (select count(f.cinema_seat_id) 
@@ -48,7 +48,7 @@ and h.system_code='001'
 
 group by a.name, c.name order by c.name;</CommandText>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="code">
           <DataField>code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -606,7 +606,7 @@ group by a.name, c.name order by c.name;</CommandText>
           <Textbox Name="Textbox4">
             <Height>18.00pt</Height>
             <Width>161.97pt</Width>
-            <Value>="DATE: " + Format(Today(), "dd/MM/yyyy")</Value>
+            <Value>="DATE: " + Format(Today(), "MM/dd/yyyy")</Value>
             <Left>345.00pt</Left>
             <Top>6.40pt</Top>
             <Style>
