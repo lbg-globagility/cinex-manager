@@ -292,13 +292,22 @@ namespace Paradiso
 
                 MovieSchedule.Reserved = tmpreservedseats; //reservedseats.Count;
                 MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - selectedseats.Count);
-                    
 
                 var price = (from mslp in context.movies_schedule_list_patron
-                                where mslp.movies_schedule_list_id == this.Key // && mslp.is_default == 1
-                                select mslp.price).FirstOrDefault();
+                             where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
+                             select mslp.price).FirstOrDefault();
                 if (price != null)
+                {
                     MovieSchedule.Price = (decimal)price;
+                }
+                else
+                {
+                    var price2 = (from mslp in context.movies_schedule_list_patron
+                                 where mslp.movies_schedule_list_id == this.Key // && mslp.is_default == 1
+                                 select mslp.price).FirstOrDefault();
+                    if (price2 != null)
+                        MovieSchedule.Price = (decimal)price2;
+                }
 
 
                 if (MovieSchedule.Available == 0 && MovieSchedule.SeatType != 3) //except unlimited seating

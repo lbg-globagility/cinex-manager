@@ -153,7 +153,7 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown">
+                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown" MouseRightButtonDown="SeatCanvas_MouseRightButtonDown">
                             <Canvas.ContextMenu>
                                 <ContextMenu>
                                     <DockPanel>
