@@ -604,5 +604,25 @@ namespace Cinemapps
 
         }
 
+        private void PrintRP17_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP17StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP17");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
     }
 }

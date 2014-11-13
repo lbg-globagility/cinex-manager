@@ -90,43 +90,10 @@ FROM
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="Sub">
-      <Query>
-        <DataSourceName>DS1</DataSourceName>
-        <CommandText>
-        </CommandText>
-      </Query>
-      <Fields>
-        <Field Name="days">
-          <DataField>days</DataField>
-          <TypeName>System.Decimal</TypeName>
-        </Field>
-        <Field Name="screening">
-          <DataField>screening</DataField>
-          <TypeName>System.Decimal</TypeName>
-        </Field>
-        <Field Name="seat_taken">
-          <DataField>seat_taken</DataField>
-          <TypeName>System.Decimal</TypeName>
-        </Field>
-        <Field Name="available_seat">
-          <DataField>available_seat</DataField>
-          <TypeName>System.Decimal</TypeName>
-        </Field>
-        <Field Name="ticket_sales">
-          <DataField>ticket_sales</DataField>
-          <TypeName>System.Double</TypeName>
-        </Field>
-        <Field Name="util">
-          <DataField>util</DataField>
-          <TypeName>System.Decimal</TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
     <DataSet Name="date_param">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>select '2014/11/4' as date1 , '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
+        <CommandText>select '2014/11/4' as date1,  '2014/11/7' as date2, system_value from config_table where system_code='001'</CommandText>
       </Query>
       <Fields>
         <Field Name="date1">
@@ -159,8 +126,8 @@ FROM
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
-          <BorderColor  />
-          <BorderWidth  />
+          <BorderColor />
+          <BorderWidth />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -486,7 +453,7 @@ FROM
         </Details>
         <Left>21.6pt</Left>
         <Top>111.6pt</Top>
-        <Footer >
+        <Footer>
           <TableRows>
             <TableRow>
               <Height>26.1pt</Height>
@@ -708,7 +675,7 @@ FROM
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>282.2pt</Width>
+            <Width>228.0pt</Width>
           </TableColumn>
         </TableColumns>
         <Details>
@@ -719,7 +686,7 @@ FROM
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox26">
-                      <Value>="From: " + Fields!date1.Value +" To: "+ Fields!date2.Value</Value>
+                      <Value>="From: " + Fields!date1.Value + " To: " +Fields!date2.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
