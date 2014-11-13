@@ -27,6 +27,9 @@ namespace Paradiso
     {
         public TicketModel Ticket { get; set;}
 
+        public ObservableCollection<UserModel> Users { get; set; }
+        public UserModel SelectedUser { get; set; }
+
         public ObservableCollection<TicketSessionModel> TicketSessions { get; set; }
         public TicketListModel TicketList { get; set; }
 
@@ -44,6 +47,9 @@ namespace Paradiso
             TicketList = new TicketListModel();
 
             CancelledORNumbers = new ObservableCollection<string>();
+
+            Users = new ObservableCollection<UserModel>();
+            this.PopulateUsers();
 
             this.Reset();
 
@@ -69,6 +75,27 @@ namespace Paradiso
 
         }
 
+        private void PopulateUsers() 
+        {
+            Users.Clear();
+            Users.Add(new UserModel() { Key = 0, Name = "ALL" });
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var users = (from u in context.users
+                             where u.system_code == 2 && u.status == 1
+                             orderby u.userid
+                             select new { u.id, u.userid }).ToList();
+                if (users.Count > 0)
+                {
+                    foreach (var user in users)
+                    {
+                        Users.Add(new UserModel() { Key = user.id, Name = user.userid });
+                    }
+                }
+            }
+
+            SelectedUser = Users[0];
+        }
 
         private void Reset()
         {
@@ -532,7 +559,7 @@ namespace Paradiso
 
         private void Search(string strSearch)
         {
-            if (strSearch == string.Empty)
+            if (strSearch == string.Empty && SelectedUser.Key == 0)
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "Missing search text.";
@@ -551,32 +578,34 @@ namespace Paradiso
             {
                 //ticket and details
                 var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
-                               where (mslrs.or_number == strSearch || mslrs.ticket.session_id.Contains(strSearch)) && mslrs.status == 1
-                               select new
-                               {
-                                   ticketid = mslrs.ticket_id,
-                                   ticketdatetime = mslrs.ticket.ticket_datetime,
-                                   terminalname = mslrs.ticket.terminal,
-                                   tellercode = mslrs.ticket.user.userid,
-                                   session = mslrs.ticket.session_id,
+                                     where (mslrs.or_number == strSearch || mslrs.ticket.session_id.Contains(strSearch)) && mslrs.status == 1
+                                     && ((SelectedUser.Key != 0 && mslrs.ticket.user.id == SelectedUser.Key) || SelectedUser.Key == 0)
 
-                                   id = mslrs.id,
-                                   cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
-                                   moviecode = mslrs.movies_schedule_list.movies_schedule.movie.code,
-                                   rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
-                                   seattype = mslrs.movies_schedule_list.seat_type,
-                                   startdate = mslrs.movies_schedule_list.start_time,
-                                   patroncode = mslrs.movies_schedule_list_patron.patron.code,
-                                   patrondescription = mslrs.movies_schedule_list_patron.patron.name,
-                                   seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
-                                   price = mslrs.price,
-                                   ornumber = mslrs.or_number,
-                                   at = mslrs.amusement_tax_amount,
-                                   ct = mslrs.cultural_tax_amount,
-                                   vt = mslrs.vat_amount,
+                                     select new
+                                     {
+                                         ticketid = mslrs.ticket_id,
+                                         ticketdatetime = mslrs.ticket.ticket_datetime,
+                                         terminalname = mslrs.ticket.terminal,
+                                         tellercode = mslrs.ticket.user.userid,
+                                         session = mslrs.ticket.session_id,
 
-                                   isvoid = (mslrs.void_datetime != null),
-                               }).ToList();
+                                         id = mslrs.id,
+                                         cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                         moviecode = mslrs.movies_schedule_list.movies_schedule.movie.code,
+                                         rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                         seattype = mslrs.movies_schedule_list.seat_type,
+                                         startdate = mslrs.movies_schedule_list.start_time,
+                                         patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                         patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                         seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                         price = mslrs.price,
+                                         ornumber = mslrs.or_number,
+                                         at = mslrs.amusement_tax_amount,
+                                         ct = mslrs.cultural_tax_amount,
+                                         vt = mslrs.vat_amount,
+
+                                         isvoid = (mslrs.void_datetime != null),
+                                     }).ToList();
 
                 //show all tickets in initial search
 
@@ -765,6 +794,7 @@ namespace Paradiso
         {
             this.Ticket.Clear();
             ORNumberInput.Text = string.Empty;
+            SelectedUser = Users[0];
             TicketSessions.Clear();
             TicketList.Tickets.Clear();
 

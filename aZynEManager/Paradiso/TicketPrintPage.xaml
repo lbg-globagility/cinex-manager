@@ -31,6 +31,7 @@
             <StackPanel DockPanel.Dock="Left">
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="Session Id/OR Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                    <ComboBox Name="UsersComboBox" Margin="5,0,0,0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" />
                     <Button Name="SearchTicket" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
                         <Rectangle Width="20" Height="20" >
                             <Rectangle.Fill>

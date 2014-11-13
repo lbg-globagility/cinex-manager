@@ -146,6 +146,7 @@
     <Compile Include="Model\TicketListModel.cs" />
     <Compile Include="Model\TicketModel.cs" />
     <Compile Include="Model\TicketSessionModel.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="MovieCalendarPage.xaml.cs">
       <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>
@@ -403,7 +404,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
