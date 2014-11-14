@@ -606,26 +606,35 @@ namespace Cinemapps
 
         }
 
-<<<<<<< HEAD
         //RMB 11.12.2014 added new report
         private void PrintRP11_Click(object sender, RoutedEventArgs e)
-=======
-        private void PrintRP17_Click(object sender, RoutedEventArgs e)
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
         {
             try
             {
                 using (frmReport frmreport = new frmReport())
                 {
-<<<<<<< HEAD
                     frmreport.setDate = (DateTime)RP11StartDate.SelectedDate;
                     frmreport.setEndDate = (DateTime)RP11EndDate.SelectedDate;
                     frmreport.frmInit(main, main.m_clscom, "RP11");
-=======
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void PrintRP17_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
                     frmreport.setDate = (DateTime)RP17StartDate.SelectedDate;
                     frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate.Value.AddDays(1);
                     frmreport.frmInit(main, main.m_clscom, "RP17");
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
                     frmreport.ShowDialog();
                     frmreport.Dispose();
                 }
@@ -637,13 +646,10 @@ namespace Cinemapps
             }
         }
 
-<<<<<<< HEAD
         private void RP11StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-=======
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
     }
 }

@@ -618,13 +618,9 @@ namespace aZynEManager
                         break;
                 }
 
-<<<<<<< HEAD
-                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);
-                //MessageBox.Show(sqry.ToString());
-=======
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd);
                // MessageBox.Show(sqry.ToString());
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
+
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
                // MessageBox.Show(xmlfile.ToString());
