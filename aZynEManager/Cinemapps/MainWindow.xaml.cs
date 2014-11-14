@@ -394,7 +394,7 @@ namespace Cinemapps
 
         private void ReportsTile_Click(object sender, RoutedEventArgs e)
         {
-            ReportWindow reportWindow = new ReportWindow();
+            ReportWindow reportWindow = new ReportWindow(main);
             reportWindow.Owner = this;
             reportWindow.Show();
         }

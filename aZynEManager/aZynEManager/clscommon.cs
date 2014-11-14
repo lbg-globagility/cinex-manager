@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Data.Odbc;
+using System.Collections;
 
 namespace aZynEManager
 {
@@ -383,6 +384,147 @@ namespace aZynEManager
             catch
             {
                 return gt;
+            }
+        }
+
+        //added 11.12.2014 added new table to database (total_gross_coll)
+        public void refreshTable(frmMain frm, String tbl, string sConnString)
+        {
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                MySqlConnection myconn = new MySqlConnection(sConnString);
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append(String.Format("select count(*) from {0} where ", tbl));
+                sQuery.Append(String.Format("userid = '{0}'", frm.m_usercode));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                int intCnt = Convert.ToInt32(cmd.ExecuteScalar());
+                if (intCnt > 0)
+                {
+                    cmd.Dispose();
+                    sQuery = new StringBuilder();
+                    sQuery.Append(String.Format("delete from {0} where ", tbl));
+                    sQuery.Append(String.Format("userid = '{0}'", frm.m_usercode));
+                    cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        public void populateTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
+        {
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                MySqlConnection myconn = new MySqlConnection(sConnString);
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select z.Date ");
+                sQuery.Append("from ( ");
+                sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
+                sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
+                sQuery.Append(") z ");
+                sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
+                sQuery.Append("order by z.Date asc");
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlDataReader rd = cmd.ExecuteReader();
+                ArrayList datecoll = new ArrayList();
+                String finalsqry = String.Empty;
+                finalsqry = String.Format("INSERT INTO {0} VALUES(0,", tbl);
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dtout = new DateTime();
+                        if(DateTime.TryParse(rd[0].ToString(),out dtout))
+                            datecoll.Add(dtout);
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                foreach(DateTime recdate in datecoll){//for each date in arraylist
+                    finalsqry = String.Empty;
+                    finalsqry = String.Format("INSERT INTO {0} VALUES(0,", tbl);
+                    finalsqry = finalsqry + String.Format("'{0:yyyy/MM/dd}',", recdate); //insert date
+
+                    StringBuilder sbqry = new StringBuilder();
+                    sbqry.Append("SELECT * FROM cinema ORDER BY in_order");
+                    DataTable dtable = setDataTable(sbqry.ToString(), sConnString);
+                    if (dtable.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dtable.Rows)
+                        {
+                            string finalquery2  = String.Empty;
+                            int cinemaid = Convert.ToInt32(row["id"].ToString());
+                                //finalsqry.Append(String.Format("{0},", cinemaid)); //insert cinema_id
+
+                            //create query for the total_gross per date
+                            StringBuilder newqry = new StringBuilder();
+                            newqry.Append("SELECT sum(price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, movies_schedule c ");
+                            newqry.Append("WHERE a.movies_schedule_list_id in (SELECT aa.id FROM movies_schedule_list aa ");
+                            newqry.Append(String.Format("WHERE aa.start_time > '{0:yyyy/MM/dd}' ", recdate));
+                            newqry.Append(String.Format("AND aa.start_time < '{0:yyyy/MM/dd}') ", recdate.AddDays(1)));
+                            newqry.Append("AND a.movies_schedule_list_id = b.id ");
+                            newqry.Append("AND b.movies_schedule_id = c.id ");
+                            newqry.Append(String.Format("AND c.cinema_id = {0} ",cinemaid));
+                            newqry.Append("GROUP BY c.movie_date, c.cinema_id ");
+                            newqry.Append("ORDER BY c.movie_date ASC");
+
+                            MySqlCommand cmd1 = new MySqlCommand(newqry.ToString(), myconn);
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlDataReader rd1 = cmd1.ExecuteReader();
+                            int inttotal = 0;
+                            if (rd1.HasRows)
+                            {
+                                while (rd1.Read())
+                                {
+                                    int intout = 0;
+                                    if (int.TryParse(rd1[0].ToString(), out intout))
+                                        inttotal = intout;
+                                }
+                            }
+                            rd1.Dispose();
+                            cmd1.Dispose();
+                            
+                            finalquery2 = String.Format("{0},{1},'{2}')", cinemaid, inttotal, frm.m_usercode); //insert total
+
+                            //insert final query
+                            MySqlCommand cmd2 = new MySqlCommand(finalsqry + finalquery2, myconn);
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd2.ExecuteNonQuery();
+                            cmd2.Dispose();
+                            finalquery2 = "";
+                        }
+                    }
+                    else
+                        finalsqry = String.Empty;
+                }
+                
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch{
             }
         }
 

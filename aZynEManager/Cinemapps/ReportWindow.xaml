@@ -279,6 +279,32 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="5" Name="PrintRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP11_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Total Gross (RP11)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales per Cinema broken down by Day over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP11StartDate" SelectedDateChanged="RP11StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP11EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
                     <Button Margin="5" Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click">Print
                     </Button>
                     <StackPanel>

@@ -514,9 +514,9 @@ namespace aZynEManager
                         sqry.Append("config_table g, report h ");
                         sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
                         if(_dtStart == _dtEnd)
-                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}') and bb.status = 1 ", _dtStart, _dtStart.AddDays(1)));
+                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
                         else
-                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}') and bb.status = 1 ",_dtStart,_dtEnd));
+                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append("AND b.movies_schedule_id = c.id ");
                         sqry.Append("AND a.patron_id = f.id ");
@@ -562,14 +562,76 @@ namespace aZynEManager
                         sqry.Append("AND g.system_code = '001' ");
                         sqry.Append("AND h.id = 16 ");
                         sqry.Append("GROUP BY f.id, e.id ORDER BY f.in_order");
+                        break;
 
-                        //m_clscom._gttoday = m_clscom.calculateTotalCollection(m_frmM, m_frmM._connection, _dtStart);
-                        //m_clscom._gtyesterday = m_clscom.calculateTotalCollection(m_frmM, m_frmM._connection, _dtStart.AddDays(-1));
+                    case "RP11":
+                        m_clscom.refreshTable(m_frmM,"tmp_gross",m_frmM._connection);
+                        m_clscom.populateTable(m_frmM, "tmp_gross", m_frmM._connection,_dtStart,_dtEnd);
+
+                        string strqry = "select * from cinema order by in_order asc";
+                        DataTable dtcinema = m_clscom.setDataTable(strqry,m_frmM._connection);
+
+                        sqry.Append("SELECT tg.report_date Report_Date ");
+                        string temp = "a";
+                        int cntr = 0;
+                        string newtemp = ", ( ";
+                        foreach (DataRow row in dtcinema.Rows)
+                        {
+                            cntr += 1;
+                            sqry.Append("," + temp + ".gross Cinema" + cntr.ToString());
+                            if(cntr == 1)
+                                newtemp += temp + ".gross";
+                            else if(cntr == dtcinema.Rows.Count)
+                                newtemp += " + " + temp + ".gross ) Total_Gross";
+                            else
+                                newtemp += " + " + temp + ".gross ";
+                            temp += "a";
+                        }
+                        sqry.Append(newtemp);
+                        //a.gross Cinema1, aa.gross Cinema2, aaa.gross Cinema3, aaaa.gross Cinema4, (a.gross + aa.gross + aaa.gross + aaaa.gross) Total_Gross,
+                        sqry.Append(", g.system_value, h.name report_name ");
+                        sqry.Append("FROM tmp_gross tg, ");
+
+                        temp = "a";
+                        cntr = 0;
+                        foreach (DataRow row in dtcinema.Rows)
+                        {
+                            cntr += 1;
+                            sqry.Append(String.Format("(SELECT report_date,gross from tmp_gross where cinema_id = {0} and userid = '{1}') {2}, ",cntr,m_frmM.m_usercode,temp));
+                            temp += "a";
+                        }
+                        //sqry.Append("(SELECT report_date,gross from tmp_gross where cinema_id = 1 and userid = 'LILOY') a, ");
+                        //sqry.Append("(SELECT report_date,gross from tmp_gross where cinema_id = 2 and userid = 'LILOY') aa, ");
+                        //sqry.Append("(SELECT report_date,gross from tmp_gross where cinema_id = 3 and userid = 'LILOY') aaa, ");
+                        //sqry.Append("(SELECT report_date,gross from tmp_gross where cinema_id = 4 and userid = 'LILOY') aaaa, ");
+                        sqry.Append("config_table g, report h ");
+                        sqry.Append("WHERE ");
+
+                        temp = "a";
+                        cntr = 0;
+                        foreach (DataRow row in dtcinema.Rows)
+                        {
+                            cntr += 1;
+                            if(cntr== 1)
+                                sqry.Append(String.Format("{0}.report_date = tg.report_date ",temp));
+                            else
+                                sqry.Append(String.Format("AND {0}.report_date = tg.report_date ",temp));
+                            temp += "a";
+                        }
+                        //sqry.Append("a.report_date = tg.report_date ");
+                        //sqry.Append("AND aa.report_date = tg.report_date ");
+                        //sqry.Append("AND aaa.report_date = tg.report_date ");
+                        //sqry.Append("AND aaaa.report_date = tg.report_date ");
+
+                        sqry.Append("AND g.system_code = '001' ");
+                        sqry.Append("AND h.id = 11 ");
+                        sqry.Append("GROUP BY tg.report_date ");
+                        sqry.Append("ORDER BY tg.report_date");
                         break;
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd,rp01Account);
-                MessageBox.Show(sqry.ToString());
+                //MessageBox.Show(sqry.ToString());
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
                // MessageBox.Show(xmlfile.ToString());
