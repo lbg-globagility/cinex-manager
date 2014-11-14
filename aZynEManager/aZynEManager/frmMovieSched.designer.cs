@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange1 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange2 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange3 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange4 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange5 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange6 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange7 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange8 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange9 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange10 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMovieSched));
             this.grpfilter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.dtcalview = new System.Windows.Forms.DateTimePicker();
@@ -107,6 +107,8 @@
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.cmsRefresh = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label24 = new System.Windows.Forms.Label();
+            this.cmbpatron = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
@@ -226,27 +228,27 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.calsked.Font = new System.Drawing.Font("Segoe UI", 9F);
-            calendarHighlightRange1.DayOfWeek = System.DayOfWeek.Monday;
-            calendarHighlightRange1.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange1.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange2.DayOfWeek = System.DayOfWeek.Tuesday;
-            calendarHighlightRange2.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange2.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange3.DayOfWeek = System.DayOfWeek.Wednesday;
-            calendarHighlightRange3.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange3.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange4.DayOfWeek = System.DayOfWeek.Thursday;
-            calendarHighlightRange4.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange4.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange5.DayOfWeek = System.DayOfWeek.Friday;
-            calendarHighlightRange5.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange5.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange6.DayOfWeek = System.DayOfWeek.Monday;
+            calendarHighlightRange6.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange6.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange7.DayOfWeek = System.DayOfWeek.Tuesday;
+            calendarHighlightRange7.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange7.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange8.DayOfWeek = System.DayOfWeek.Wednesday;
+            calendarHighlightRange8.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange8.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange9.DayOfWeek = System.DayOfWeek.Thursday;
+            calendarHighlightRange9.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange9.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange10.DayOfWeek = System.DayOfWeek.Friday;
+            calendarHighlightRange10.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange10.StartTime = System.TimeSpan.Parse("08:00:00");
             this.calsked.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
-        calendarHighlightRange1,
-        calendarHighlightRange2,
-        calendarHighlightRange3,
-        calendarHighlightRange4,
-        calendarHighlightRange5};
+        calendarHighlightRange6,
+        calendarHighlightRange7,
+        calendarHighlightRange8,
+        calendarHighlightRange9,
+        calendarHighlightRange10};
             this.calsked.Location = new System.Drawing.Point(230, 4);
             this.calsked.MaximumFullDays = 6;
             this.calsked.MaximumViewDays = 7;
@@ -751,7 +753,7 @@
             this.tabModule.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.pageMovies,
             this.pagePatrons});
-            this.tabModule.SelectedIndex = 0;
+            this.tabModule.SelectedIndex = 1;
             this.tabModule.Size = new System.Drawing.Size(298, 281);
             this.tabModule.StateCommon.Panel.Color1 = System.Drawing.Color.Transparent;
             this.tabModule.TabIndex = 356;
@@ -782,7 +784,7 @@
             this.dgvMovies.Name = "dgvMovies";
             this.dgvMovies.RowHeadersVisible = false;
             this.dgvMovies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMovies.Size = new System.Drawing.Size(291, 248);
+            this.dgvMovies.Size = new System.Drawing.Size(291, 249);
             this.dgvMovies.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvMovies.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvMovies.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -793,11 +795,13 @@
             // 
             // pagePatrons
             // 
+            this.pagePatrons.Controls.Add(this.label24);
+            this.pagePatrons.Controls.Add(this.cmbpatron);
             this.pagePatrons.Controls.Add(this.dgvpatrons);
             this.pagePatrons.MinimumSize = new System.Drawing.Size(50, 50);
             this.pagePatrons.Name = "pagePatrons";
             this.pagePatrons.Size = new System.Drawing.Size(296, 254);
-            this.pagePatrons.StateCommon.Page.Color1 = System.Drawing.Color.DarkGray;
+            this.pagePatrons.StateCommon.Page.Color1 = System.Drawing.Color.Gray;
             this.pagePatrons.Text = "Patrons";
             this.pagePatrons.ToolTipTitle = "Page ToolTip";
             this.pagePatrons.UniqueName = "319739D022E3441A319739D022E3441A";
@@ -808,11 +812,11 @@
             this.dgvpatrons.AllowUserToDeleteRows = false;
             this.dgvpatrons.AllowUserToResizeRows = false;
             this.dgvpatrons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvpatrons.Location = new System.Drawing.Point(2, 2);
+            this.dgvpatrons.Location = new System.Drawing.Point(2, 33);
             this.dgvpatrons.Name = "dgvpatrons";
             this.dgvpatrons.RowHeadersVisible = false;
             this.dgvpatrons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvpatrons.Size = new System.Drawing.Size(291, 248);
+            this.dgvpatrons.Size = new System.Drawing.Size(291, 218);
             this.dgvpatrons.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvpatrons.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvpatrons.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -1399,6 +1403,28 @@
             this.refreshToolStripMenuItem.Text = "refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.Transparent;
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(6, 11);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(41, 13);
+            this.label24.TabIndex = 357;
+            this.label24.Text = "Default";
+            // 
+            // cmbpatron
+            // 
+            this.cmbpatron.BackColor = System.Drawing.Color.White;
+            this.cmbpatron.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbpatron.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbpatron.FormattingEnabled = true;
+            this.cmbpatron.Location = new System.Drawing.Point(53, 6);
+            this.cmbpatron.Name = "cmbpatron";
+            this.cmbpatron.Size = new System.Drawing.Size(237, 21);
+            this.cmbpatron.TabIndex = 356;
+            // 
             // frmMovieSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1440,6 +1466,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pagePatrons)).EndInit();
             this.pagePatrons.ResumeLayout(false);
+            this.pagePatrons.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1531,5 +1558,7 @@
         private System.Windows.Forms.RadioButton rbPublish;
         private System.Windows.Forms.ContextMenuStrip cmsRefresh;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        internal System.Windows.Forms.Label label24;
+        internal System.Windows.Forms.ComboBox cmbpatron;
     }
 }
