@@ -9,11 +9,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-<<<<<<< HEAD
-        <ConnectString></ConnectString>
-=======
         <ConnectString>dsn=localhost;</ConnectString>
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -26,9 +22,6 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-<<<<<<< HEAD
-        <CommandText></CommandText>
-=======
         <CommandText>select @user:= j.userid as user, b.price PRICE, @c:= (select count(f.cinema_seat_id) 
 from patrons a inner join cinema_patron b on a.id=b.patron_id
 inner join  cinema c on b.cinema_id = c.id
@@ -50,7 +43,6 @@ ticket g on e.id= g.movies_schedule_list_id inner join users j on j.id=g.user_id
 where d.movie_date='2014/11/7'
  and h.system_code='001' and f.status=1 
 group by a.name, b.price;</CommandText>
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
       </Query>
       <Fields>
         <Field Name="user">
@@ -127,11 +119,7 @@ group by a.name, b.price;</CommandText>
           <Textbox Name="Textbox2">
             <Height>19.53pt</Height>
             <Width>149.77pt</Width>
-<<<<<<< HEAD
-            <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
-=======
             <Value>="Date: " + Format(Today(), "dd/MM/yyyy")</Value>
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
             <Left>399.7pt</Left>
             <Top>0.8pt</Top>
             <Style>

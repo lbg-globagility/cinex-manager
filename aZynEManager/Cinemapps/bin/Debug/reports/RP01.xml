@@ -524,7 +524,7 @@ group by a.name, c.name order by c.name;</CommandText>
                             </BorderStyle>
                             <BorderColor />
                             <BorderWidth />
-                            <FontWeight >Bold</FontWeight>
+                            <FontWeight>Bold</FontWeight>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -544,7 +544,7 @@ group by a.name, c.name order by c.name;</CommandText>
                             </BorderStyle>
                             <BorderColor />
                             <BorderWidth />
-                            <FontWeight >Bold</FontWeight>
+                            <FontWeight>Bold</FontWeight>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -556,7 +556,7 @@ group by a.name, c.name order by c.name;</CommandText>
             <Left>11.2pt</Left>
             <Top>45.1pt</Top>
           </Table>
-          <Textbox Name="Textbox29" >
+          <Textbox Name="Textbox29">
             <Height>16.50pt</Height>
             <Width>230.38pt</Width>
             <Value>TICKET SELLER: ____________________</Value>
@@ -569,7 +569,7 @@ group by a.name, c.name order by c.name;</CommandText>
               <FontWeight>Bold</FontWeight>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox26" >
+          <Textbox Name="Textbox26">
             <Height>21.03pt</Height>
             <Width>207.04pt</Width>
             <Value>MANAGER:       ___________________</Value>
@@ -582,7 +582,7 @@ group by a.name, c.name order by c.name;</CommandText>
               <FontWeight>Bold</FontWeight>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox30" >
+          <Textbox Name="Textbox30">
             <Height>18.76pt</Height>
             <Width>207.06pt</Width>
             <Value>CHECKED BY: ____________________</Value>
@@ -597,7 +597,7 @@ group by a.name, c.name order by c.name;</CommandText>
           </Textbox>
         </ReportItems>
       </List>
-      <List Name="List2" >
+      <List Name="List2">
         <Height>66.20pt</Height>
         <Width>591.78pt</Width>
         <Left>26.50pt</Left>
@@ -606,7 +606,7 @@ group by a.name, c.name order by c.name;</CommandText>
           <Textbox Name="Textbox4">
             <Height>18.00pt</Height>
             <Width>161.97pt</Width>
-            <Value>="DATE: " + Format(Today(), "dd/MM/yyyy")</Value>
+            <Value>="DATE: " + Format(Today(), "MM/dd/yyyy")</Value>
             <Left>345.00pt</Left>
             <Top>6.40pt</Top>
             <Style>
