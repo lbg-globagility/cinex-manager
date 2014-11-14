@@ -410,7 +410,7 @@ namespace aZynEManager
 
                 //RMB 11.14.2014 added to new control to fill movies_schecule_list_patron is_default field to 1
                 sbqry = new StringBuilder();
-                sbqry.Append("select concat(b.name ,'(', cast(b.unit_price as char) , ')') patron, a.patron_id as id ");
+                sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
                 sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
                 sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
                 sbqry.Append("and b.name is not null ");
@@ -586,7 +586,7 @@ namespace aZynEManager
 
                             //RMB 11.14.2014 added new default patron for ticketing left click on seat 
                             sbqry = new StringBuilder();
-                            sbqry.Append("select concat(b.name ,'(', cast(b.unit_price as char) , ')') patron, a.patron_id as id ");
+                            sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
                             sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
                             sbqry.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
                             sbqry.Append("and b.name is not null ");
@@ -1445,7 +1445,7 @@ namespace aZynEManager
 
                     //RMB 11.14.2014 control for the default patron of ticketing
                     sbqry = new StringBuilder();
-                    sbqry.Append("select concat(b.name ,'(', cast(b.unit_price as char) , ')') patron, a.patron_id as id ");
+                    sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
                     sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
                     sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
                     sbqry.Append("and b.name is not null ");
