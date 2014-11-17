@@ -163,13 +163,23 @@ namespace aZynEManager
                             m_popedContainer.dgvResult.DataSource = null;
                             m_popedContainer.dgvResult.Columns.Clear();
                             sqry = new StringBuilder();
-                            sqry.Append("select b.name, a.price ");
+                            sqry.Append("select b.name, a.price, a.patron_id, a.is_default ");
                             sqry.Append("from movies_schedule_list_patron a ");
                             sqry.Append("left join patrons b on a.patron_id = b.id ");
                             sqry.Append(String.Format("where a.movies_schedule_list_id = {0}", dtselect.Rows[0]["id"].ToString()));
                             DataTable dtpatrons = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
                             if(dtpatrons.Rows.Count > 0)
                                 setDataGridViewIII(dtpatrons, m_popedContainer.dgvResult);
+                            //RMB added 11.14.2014
+                            m_popedContainer.dgvResult.ClearSelection();
+                            m_popedContainer.dgvResult.CurrentCell = null;
+                            //m_popedContainer.dgvResult.CurrentCell.Selected = false;
+
+                            for (int i = 0; i < m_popedContainer.dgvResult.Rows.Count; i++)
+                            {
+                                if (m_popedContainer.dgvResult.Rows[i].Cells[3].Value.ToString() == "1")
+                                    m_popedContainer.dgvResult.Rows[i].Selected = true;
+                            }
 
                             m_popedContainer.txtcinema.Text = dtselect.Rows[0]["cinemaname"].ToString();
                             m_popedContainer.txttitle.Text = dtselect.Rows[0]["title"].ToString();
@@ -220,7 +230,13 @@ namespace aZynEManager
                 dgv.Columns[0].ReadOnly = true;
                 dgv.Columns[1].Width = iwidth / 2;
                 dgv.Columns[1].HeaderText = "Price";
+                dgv.Columns[2].Width = 0;
+                dgv.Columns[2].HeaderText = "Patron ID";
+                dgv.Columns[3].Width = 0;
+                dgv.Columns[3].HeaderText = "Default";
             }
+            dgv.ClearSelection();
+            dgv.CurrentCell = null;
         }
 
         private void calendar_MouseUp(object sender, MouseEventArgs e)

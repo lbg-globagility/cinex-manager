@@ -26,10 +26,12 @@ namespace Cinemapps
     {
         private frmMain main;
 
-        public ReportWindow()
+        public ReportWindow(frmMain frmM)
         {
             InitializeComponent();
-            main = new frmMain();
+            //RMB 11.13.2014 remarked 
+            //main = new frmMain();
+            main = frmM;
         }
 
         private void PrintSRD_Click(object sender, RoutedEventArgs e)
@@ -608,6 +610,26 @@ namespace Cinemapps
 
         }
 
+        //RMB 11.12.2014 added new report
+        private void PrintRP11_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP11StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP11EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP11");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void PrintRP17_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -626,6 +648,11 @@ namespace Cinemapps
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void RP11StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
     }

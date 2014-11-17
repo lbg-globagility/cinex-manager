@@ -392,15 +392,13 @@ namespace aZynEManager
                 addScreeningSched(cmbCinema.SelectedValue.ToString(), calview.SelectionStart);
 
                 
-
                 //calsked.Invalidate();
                 //calsked.Refresh();
-
+                StringBuilder sbqry = new StringBuilder();
                 if (btnAdd.Text == "save")
                 {
                     dgvpatrons.DataSource = null;
                     dgvpatrons.Columns.Clear();
-                    StringBuilder sbqry = new StringBuilder();
                     sbqry.Append("select b.name, a.price, a.patron_id as id ");
                     sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
                     sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
@@ -409,6 +407,15 @@ namespace aZynEManager
                     m_dtpatrons = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                     setDataGridViewIII(m_dtpatrons, dgvpatrons);
                 }
+
+                //RMB 11.14.2014 added to new control to fill movies_schecule_list_patron is_default field to 1
+                sbqry = new StringBuilder();
+                sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
+                sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
+                sbqry.Append("and b.name is not null ");
+                sbqry.Append("order by a.id asc");
+                setDefaultPatron(sbqry.ToString());
             }
             else
                 txtLabel.Values.Text = "";
@@ -576,11 +583,23 @@ namespace aZynEManager
                             sbqry.Append("order by a.id asc");
                             m_dtpatrons = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                             setDataGridViewIII(m_dtpatrons, dgvpatrons);
+
+                            //RMB 11.14.2014 added new default patron for ticketing left click on seat 
+                            sbqry = new StringBuilder();
+                            sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
+                            sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                            sbqry.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
+                            sbqry.Append("and b.name is not null ");
+                            sbqry.Append("order by a.id asc");
+                            setDefaultPatron(sbqry.ToString());
                         }
                     }
                 }
                 dgvResult.Enabled = false;
                 calsked.Enabled = false;
+
+                //RMB added 11.14.2014
+                rbPublish.Checked = true;
             }
             else
             {
@@ -686,6 +705,47 @@ namespace aZynEManager
                     }
                 }
 
+                //RMB 11.14.2014 added for is_default start
+                if (cmbpatron.SelectedValue == null || cmbpatron.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Please select a default patron for the ticketing system.",this.Text,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    cmbpatron.Focus();
+                    return;
+                }
+                bool boolselect = false;
+                for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                {
+                    int intmid = 0;
+                    int intout = -1;
+                    if (int.TryParse(dgvpatrons[3, i].Value.ToString(), out intout))
+                        intmid = intout;
+
+                    if (intmid > 0)
+                    {
+                        try
+                        {
+                            if (intmid == Convert.ToInt32(cmbpatron.SelectedValue.ToString()))
+                            {
+                                if (dgvpatrons[0, i].Value != null)
+                                {
+                                    if ((bool)dgvpatrons[0, i].Value)
+                                        boolselect = true;
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            intmid = 0;
+                        }
+                    }
+                }
+                if (boolselect == false)
+                {
+                    MessageBox.Show("The default you've selected is not checked from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmbpatron.Focus();
+                    return;
+                }
+                //RMB 11.14.2014 added for is_default end
 
                 chkcnt = 0;
                 //validate for the existance of the record
@@ -987,8 +1047,14 @@ namespace aZynEManager
                         if ((bool)dgv[0, i].Value)
                         {
                             StringBuilder sqry = new StringBuilder();
-                            sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},0)",
-                                intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+
+                            //RMB 11.14.2014 for is_default
+                            if(dgv[3, i].Value.ToString() == cmbpatron.SelectedValue.ToString())
+                                sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},1)",
+                                    intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+                            else
+                                sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},0)",
+                                    intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
 
                             if (myconn.State == ConnectionState.Closed)
                                 myconn.Open();
@@ -1369,13 +1435,42 @@ namespace aZynEManager
                     sbqry.Append("left join patrons b on a.patron_id = b.id ");
                     sbqry.Append(String.Format("where a.movies_schedule_list_id = {0}", dgv.SelectedRows[0].Cells[0].Value.ToString()));
                     m_dtpatrons = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+                    
                     setDataGridViewIII(m_dtpatrons, dgvpatrons);
-
                     if (dgvpatrons.Rows.Count > 0)
                     {
                         tabModule.SelectedPage = pagePatrons;
                         setCheck(dgvpatrons, true);
                     }
+
+                    //RMB 11.14.2014 control for the default patron of ticketing
+                    sbqry = new StringBuilder();
+                    sbqry.Append("select concat(b.name ,'(', cast(a.price as char) , ')') patron, a.patron_id as id ");
+                    sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                    sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
+                    sbqry.Append("and b.name is not null ");
+                    sbqry.Append("order by a.id asc");
+                    setDefaultPatron(sbqry.ToString());
+
+                    sbqry = new StringBuilder();
+                    sbqry.Append(String.Format("select patron_id from movies_schedule_list_patron where movies_schedule_list_id = {0} ",dgv.SelectedRows[0].Cells[0].Value.ToString()));
+                    sbqry.Append(" and is_default = 1");
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd3 = new MySqlCommand(sbqry.ToString(), myconn);
+                    MySqlDataReader reader = cmd3.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            cmbpatron.SelectedValue = Convert.ToInt32(reader["Patron_id"].ToString());
+                        }
+                    }
+                    else
+                        cmbpatron.SelectedIndex = 0;
+                    reader.Close();
+                    cmd3.Dispose();
+
                 }
 
                 btnEdit.Enabled = true;
@@ -1519,6 +1614,39 @@ namespace aZynEManager
 
                     if (rowCount > 0)
                     {
+                        // RMB 11.14.2014
+                        //remove movies_schedule_list_patron
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("select count(*) from movies_schedule_list_patron where movies_schedule_list_id = {0}", intid));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                        rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
+                        cmd2.Dispose();
+
+                        try
+                        {
+                            if (rowCount > 0)
+                            {
+                                sqry = new StringBuilder();
+                                sqry.Append(String.Format("delete from movies_schedule_list_patron where movies_schedule_list_id = {0}", intid));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                cmd.ExecuteNonQuery();
+                                cmd.Dispose();
+                            }
+                        }
+                        catch
+                        {
+                            if (myconn.State == ConnectionState.Open)
+                                myconn.Close();
+                            MessageBox.Show("The movies schedule has already been sold.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
 
                         //delete from the moview table where the status is inactive or = 0
                         sqry = new StringBuilder();
@@ -1530,28 +1658,6 @@ namespace aZynEManager
                             cmd = new MySqlCommand(sqry.ToString(), myconn);
                             cmd.ExecuteNonQuery();
                             cmd.Dispose();
-
-                            sqry = new StringBuilder();
-                            sqry.Append(String.Format("select count(*) from movies_schedule_list_patron where movies_schedule_list_id = {0}", intid));
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                            rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
-                            cmd2.Dispose();
-
-                            if (rowCount > 0)
-                            {
-                                sqry = new StringBuilder();
-                                sqry.Append(String.Format("delete from movies_schedule_list where id = {0}", intid));
-                                if (myconn.State == ConnectionState.Closed)
-                                    myconn.Open();
-                                cmd = new MySqlCommand(sqry.ToString(), myconn);
-                                cmd.ExecuteNonQuery();
-                                cmd.Dispose();
-                            }
-
-                            if (myconn.State == ConnectionState.Open)
-                                myconn.Close();
 
                             //update the moviestatus to new if all records will be deleted
                             sqry = new StringBuilder();
@@ -1621,7 +1727,11 @@ namespace aZynEManager
                         {
                             if (myconn.State == ConnectionState.Open)
                                 myconn.Close();
-                            MessageBox.Show(er.Message, this.Text);
+                            //MessageBox.Show(er.Message, this.Text);
+
+                            MessageBox.Show("The movies schedule has already been sold.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+
                         }
                     }
                 }
@@ -1851,6 +1961,40 @@ namespace aZynEManager
                     dgvpatrons.Focus();
                     return;
                 }
+
+                //RMB 11.14.2014 added for is_default start
+                if (cmbpatron.SelectedValue == null || cmbpatron.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Please select a default patron for the ticketing system.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmbpatron.Focus();
+                    return;
+                }
+                bool boolselect = false;
+                for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                {
+                    int intmid = 0;
+                    int intout = -1;
+                    if (int.TryParse(dgvpatrons[3, i].Value.ToString(), out intout))
+                        intmid = intout;
+
+                    if (intmid > 0)
+                    {
+                        if (intmid == Convert.ToInt32(cmbpatron.SelectedValue.ToString()))
+                        {
+                            if ((bool)dgvpatrons[0, i].Value)
+                            {
+                                boolselect = true;
+                            }
+                        }
+                    }
+                }
+                if (boolselect == false)
+                {
+                    MessageBox.Show("The default you've selected is not checked from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmbpatron.Focus();
+                    return;
+                }
+                //RMB 11.14.2014 added for is_default end
 
 
                 chkcnt = 0;
@@ -2336,6 +2480,25 @@ namespace aZynEManager
 
         }
 
-   
+        public void setDefaultPatron(String sqry)
+        {
+            DataTable new_dtpatrons = new DataTable();
+            new_dtpatrons = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
+            cmbpatron.DataSource = null;
+            cmbpatron.Items.Clear();
+
+            DataView dv = new_dtpatrons.AsDataView();
+            dv.Sort = "patron asc";
+            new_dtpatrons = dv.ToTable();
+
+            DataRow dr = new_dtpatrons.NewRow();
+            dr["id"] = 0;
+            dr["patron"] = "";
+            new_dtpatrons.Rows.InsertAt(dr, 0);
+            cmbpatron.DataSource = new_dtpatrons;
+            cmbpatron.ValueMember = "id";
+            cmbpatron.DisplayMember = "patron";
+        }
+
     }
 }

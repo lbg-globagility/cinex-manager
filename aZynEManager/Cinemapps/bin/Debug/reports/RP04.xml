@@ -99,7 +99,15 @@
           <Textbox Name="Textbox2">
             <Height>19.53pt</Height>
             <Width>149.77pt</Width>
+<<<<<<< HEAD
             <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
+=======
+<<<<<<< HEAD
+            <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
+=======
+            <Value>="Date: " + Format(Today(), "dd/MM/yyyy")</Value>
+>>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
+>>>>>>> 68938f88dcfd5140b6a3e01b7443a39772207777
             <Left>399.7pt</Left>
             <Top>0.8pt</Top>
             <Style>
