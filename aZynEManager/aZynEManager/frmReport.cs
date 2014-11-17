@@ -222,60 +222,16 @@ namespace aZynEManager
                         break;
                     case "RP06":
                         
-                        sqry.Append("SELECT MIN( CONCAT(a.title,'\\n', ");
-                        sqry.Append("DATE_FORMAT(d.start_time,'%h:%i %p'), \" id:\",cast(d.id as char(5))) )");
-                        sqry.Append(" col1, CONCAT(a.title,'\\n', DATE_FORMAT((select MIN(d.start_time) ");
-                        sqry.Append("from movies a, movies_schedule b, ");
-                        sqry.Append("cinema c, movies_schedule_list d  ");
-                        sqry.Append("where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("  d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and " + "c.name='");
-                        sqry.Append(strCinema + "' and  start_time > (SELECT MIN(d.start_time) ");
-                        sqry.Append("FROM movies a, movies_schedule b,");
-                        sqry.Append("cinema c, movies_schedule_list d where a.id=b.movie_id and ");
-                        sqry.Append("b.cinema_id = c.id and d.movies_schedule_id = b.id and ");
-                        sqry.Append("b.movie_date ='"+String.Format("{0:yyyy/MM/dd}", _dtStart) +"' ");
-                        sqry.Append("and c.name='"+strCinema+"')),'%h:%i %p'), \" id:\", ");
-                        sqry.Append("cast((SELECT MIN(d.id) FROM movies a, movies_schedule b, cinema c,");
-                        sqry.Append("movies_schedule_list d where a.id=b.movie_id and b.cinema_id = c.id ");
-                        sqry.Append("and d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "' and d.start_time> ");
-                        sqry.Append("(select Min(d.start_time) FROM movies a, movies_schedule b,");
-                        sqry.Append("cinema c, movies_schedule_list d where a.id=b.movie_id and ");
-                        sqry.Append("b.cinema_id = c.id and d.movies_schedule_id = b.id and ");
-                        sqry.Append("b.movie_date ='" + String.Format("{0:yyyy/MM/dd}", _dtStart));
-                        sqry.Append("' and c.name='" + strCinema + "'))as char(5)))  col2,");
-                        sqry.Append(" CONCAT(a.title,'\\n', DATE_FORMAT(");
-                        sqry.Append("(select Max(d.start_time) from movies a, ");
-                        sqry.Append("movies_schedule b, cinema c, movies_schedule_list d ");
-                        sqry.Append("where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "' and start_time < ");
-                        sqry.Append("(SELECT Max(d.start_time) FROM movies a, movies_schedule b, ");
-                        sqry.Append("cinema c, movies_schedule_list d where a.id=b.movie_id and ");
-                        sqry.Append("b.cinema_id = c.id and  d.movies_schedule_id = b.id and ");
-                        sqry.Append("b.movie_date ='" + String.Format("{0:yyyy/MM/dd}", _dtStart));
-                        sqry.Append("' and c.name='" + strCinema + "') ),'%h:%i %p'), \" id:\",");
-                        sqry.Append("cast((SELECT MAX(d.id) FROM movies a, movies_schedule b, cinema c,");
-                        sqry.Append("movies_schedule_list d where a.id=b.movie_id and b.cinema_id = c.id ");
-                        sqry.Append("and d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "' and d.start_time< (select Max(d.start_time)");
-                        sqry.Append("FROM movies a, movies_schedule b, cinema c, movies_schedule_list d ");
-                        sqry.Append("where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "'))as char(5)))  col3, ");
-                        sqry.Append(" MAX( CONCAT(a.title,'\\n', ");
-                        sqry.Append("DATE_FORMAT(d.start_time,'%h:%i %p'),\" id:\",");
-                        sqry.Append("cast(d.id as char(5))) ) col4 ");
-                        sqry.Append(" FROM movies a, movies_schedule b, cinema c, movies_schedule_list d ");
-                        sqry.Append(" where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "';");
+
+                        sqry.Append("SELECT c.start_time, e.title FROM ");
+                        sqry.Append("movies_schedule_list_reserved_seat a, ticket b, ");
+                        sqry.Append("movies_schedule_list c, movies_schedule d, movies e, ");
+                        sqry.Append("cinema f WHERE a.ticket_id = b.id and a.status = 1 ");
+                        sqry.Append("AND a.movies_schedule_list_id = c.id AND c.movies_schedule_id = d.id ");
+                        sqry.Append(string.Format("AND d.movie_date = '{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append("AND d.movie_id = e.id AND d.cinema_id = f.id and ");
+                        sqry.Append(string.Format("f.name= '{0}' GROUP BY",strCinema));
+                        sqry.Append(" c.start_time, f.id, e.id ORDER BY f.in_order;");
                         MySqlConnection myconn = new MySqlConnection();
                         myconn.ConnectionString = m_frmM._connection;
 
@@ -285,45 +241,24 @@ namespace aZynEManager
                         MySqlDataReader reader = cmd.ExecuteReader();
                         while(reader.Read())
                         {
-                        queryList.Add(reader["col1"]);
-                        queryList.Add(reader["col2"]);
-                        queryList.Add(reader["col4"]);
-                        queryList.Add(reader["col3"]);
+                        queryList.Add(reader["title"]+"\\n"+reader["start_time"]);
                         }
-                        sqry = new StringBuilder();
-                        sqry.Append("SELECT MIN( CONCAT(a.title,'\\n', ");
-                        sqry.Append("DATE_FORMAT(d.start_time,'%h:%i %p')))");
-                        sqry.Append(" col1, CONCAT(a.title,'\\n', DATE_FORMAT((select MIN(d.start_time) ");
-                        sqry.Append("from movies a, movies_schedule b, ");
-                        sqry.Append("cinema c, movies_schedule_list d  ");
-                        sqry.Append("where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("  d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and " + "c.name='");
-                        sqry.Append(strCinema + "' and  start_time > (SELECT MIN(d.start_time) ");
-                        sqry.Append("FROM movies a, movies_schedule b,");
-                        sqry.Append("cinema c, movies_schedule_list d where a.id=b.movie_id and ");
-                        sqry.Append("b.cinema_id = c.id and d.movies_schedule_id = b.id and ");
-                        sqry.Append("b.movie_date ='"+String.Format("{0:yyyy/MM/dd}", _dtStart) +"' ");
-                        sqry.Append("and c.name='"+strCinema+"')),'%h:%i %p'))  col2,");//colum2
-                        sqry.Append(" CONCAT(a.title,'\\n', DATE_FORMAT(");
-                        sqry.Append("(select Max(d.start_time) from movies a, ");
-                        sqry.Append("movies_schedule b, cinema c, movies_schedule_list d ");
-                        sqry.Append("where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "' and start_time < ");
-                        sqry.Append("(SELECT Max(d.start_time) FROM movies a, movies_schedule b, ");
-                        sqry.Append("cinema c, movies_schedule_list d where a.id=b.movie_id and ");
-                        sqry.Append("b.cinema_id = c.id and  d.movies_schedule_id = b.id and ");
-                        sqry.Append("b.movie_date ='" + String.Format("{0:yyyy/MM/dd}", _dtStart));
-                        sqry.Append("' and c.name='" + strCinema + "') ),'%h:%i %p'))  col3, ");
-                        sqry.Append(" MAX( CONCAT(a.title,'\\n', ");
-                        sqry.Append("DATE_FORMAT(d.start_time,'%h:%i %p'))) col4 ");
-                        sqry.Append(" FROM movies a, movies_schedule b, cinema c, movies_schedule_list d ");
-                        sqry.Append(" where a.id=b.movie_id and b.cinema_id = c.id and ");
-                        sqry.Append("d.movies_schedule_id = b.id and b.movie_date ='");
-                        sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtStart) + "' and ");
-                        sqry.Append("c.name='" + strCinema + "';");
+                        string query = "CREATE TABLE tmp_storage ( ";
+                        for (int x = 0; x < queryList.Count; x++)
+                        {
+
+                            query += "`"+queryList[x].ToString() + "` text";
+                            if (x < queryList.Count - 1)
+                            {
+                                query += ",";
+                            }
+                        }
+                        query += " )";
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+
+
+
                         break;
                     //case "RP08":
                     //    sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) ");
