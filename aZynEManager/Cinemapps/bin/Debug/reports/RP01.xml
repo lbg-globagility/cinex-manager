@@ -10,7 +10,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>dsn=localhost;</ConnectString>
+        <ConnectString></ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -23,30 +23,7 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>select a.code, @patron:= a.name as PATRON,  @cinema:= c.name 
-CINEMA, b.price PRICE, @c:= (select count(f.cinema_seat_id) 
-from patrons a inner join cinema_patron b on a.id=b.patron_id
-inner join  cinema c on b.cinema_id = c.id
-inner join movies_schedule d on d.cinema_id = c.id 
-inner join movies_schedule_list e on 
-e.movies_schedule_id = d.id inner join 
-movies_schedule_list_reserved_seat f on 
-f.movies_schedule_list_id= e.id where d.movie_date='2014/11/7'
-and a.name=@patron
-and c.name = @cinema) as QTY, (@c*b.price) as 
-`TOTALSALES`, d.movie_date, g.terminal, h.system_value from patrons a inner join cinema_patron 
-b on a.id=b.patron_id inner join  cinema c on 
-b.cinema_id = c.id inner join movies_schedule d
-on d.cinema_id = c.id inner join movies_schedule_list
-e on e.movies_schedule_id = d.id inner join 
-movies_schedule_list_reserved_seat f on 
-f.movies_schedule_list_id= e.id inner join 
-ticket g on e.id= g.movies_schedule_list_id inner join config_table h
-where d.movie_date='2014/11/7'
-and g.terminal='ZAIRAN' 
-and h.system_code='001'
-
-group by a.name, c.name order by c.name;</CommandText>
+        <CommandText></CommandText>
       </Query>
       <Fields>
         <Field Name="code">

@@ -9,7 +9,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>dsn=localhost;</ConnectString>
+        <ConnectString></ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -22,16 +22,7 @@
     <DataSet Name="Data">
       <Query >
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>select a.code as movie_code, a.title, count(e.cinema_seat_id) as QTY, 
-(e.price* count(e.cinema_seat_id)) as Sales, b.movie_date,
- c.code as dist_code, f.system_value from movies a inner join movies_schedule b 
-on a.id= b.movie_id inner join distributor c on a.dist_id= c.id 
-inner join movies_schedule_list d on b.id= d.movies_schedule_id 
-inner join movies_schedule_list_reserved_seat e on d.id = e.movies_schedule_list_id 
-inner join config_table f 
-where b.movie_date = '2014/11/03'  and c.code='DIGIMAR' and  e.status=1 
-and f.system_code='001' 
-GROUP BY a.code;</CommandText>
+        <CommandText></CommandText>
       </Query>
       <Fields >
         <Field Name="movie_code">

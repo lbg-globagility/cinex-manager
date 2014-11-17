@@ -10,7 +10,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>dsn=localhost;
+        <ConnectString>
         </ConnectString>
       </ConnectionProperties>
     </DataSource>
@@ -24,39 +24,7 @@
     <DataSet Name="mainQuery">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>SELECT e.title, e.no_of_days,f.no_of_screenings, total_seats_taken, 
-total_available_seats,  total_ticket_sales,
-(total_seats_taken/total_available_seats) * 100 util 
-FROM 
-	( SELECT a.id, code, title, rating_id, COUNT(movie_date) 
-		no_of_days FROM movies a, movies_schedule b 
-		WHERE a.id = b.movie_id  AND b.movie_date
-		BETWEEN '2014/11/4' AND '2014/11/7' GROUP BY a.id ) e, 
-
-	(SELECT movie_id, COUNT(c.id) no_of_screenings FROM
-			movies_schedule_list c, movies_schedule d WHERE 
-			c.movies_schedule_id =d.id AND  d.movie_date 
-			BETWEEN  '2014/11/4' AND '2014/11/7'
-			GROUP BY movie_id ) f, 
-
-	(SELECT j.movie_id, COUNT(h.cinema_seat_id) 
-		total_seats_taken, SUM(h.price) total_ticket_sales
-		FROM movies_schedule_list_reserved_seat h,
-		movies_schedule_list i, movies_schedule j 
-		WHERE h.movies_schedule_list_id = i.id AND 
-		i.movies_schedule_id = j.id AND  j.movie_date 
-		BETWEEN  '2014/11/4' AND '2014/11/7' GROUP BY movie_id )g,
-
-	(SELECT movie_id, SUM(available_seats) total_available_seats 
-		FROM (SELECT movie_id, n.capacity * COUNT(l.id) 
-		available_seats FROM movies_schedule_list l, 
-		movies_schedule m, cinema n WHERE l.movies_schedule_id
-		=m.id AND m.cinema_id = n.id AND m.movie_date 
-		BETWEEN  '2014/11/4' AND '2014/11/7' GROUP BY movie_id, 
-		cinema_id) o GROUP BY movie_id) k 
-
-	WHERE e.id = f.movie_id AND
-		e.id = g.movie_id AND e.id = k.movie_id;
+        <CommandText>
 </CommandText>
       </Query>
       <Fields>

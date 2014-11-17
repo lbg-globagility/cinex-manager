@@ -22,29 +22,7 @@
     <DataSet Name="Data">
       <Query >
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>select @user:= i.userid as userid, a.code, @patron:= a.name as PATRON,  
-@cinema:= c.name CINEMA, b.price PRICE, @c:= 
-(select count(a.cinema_seat_id)from movies_schedule_list_reserved_seat a
- inner join movies_schedule_list b on a.movies_schedule_list_id= b.id 
-inner join movies_schedule c on b.movies_schedule_id=c.id inner join 
-cinema d on d.id= c.cinema_id inner join movies_schedule_list_patron e
- on e.id = a.patron_id inner join patrons f on f.id = e.patron_id 
-inner join ticket g on g.id= a.ticket_id inner join users h on g.user_id= h.id
-where
-  a.status = 1 and f.name=@patron and d.name=@cinema and h.userid=@user
-
-AND c.movie_date = '2014/11/07')
- as QTY, (@c*b.price) as `TOTALSALES`, d.movie_date , h.start_date, h.title, i.fname,
- i.lname, i.mname, j.system_value from patrons a inner join cinema_patron b on
- a.id=b.patron_id inner join cinema c on b.cinema_id = c.id inner join
- movies_schedule d on d.cinema_id = c.id inner join movies_schedule_list
- e on e.movies_schedule_id = d.id inner join movies_schedule_list_reserved_seat
- f on f.movies_schedule_list_id= e.id inner join ticket g on e.id= 
-g.movies_schedule_list_id inner join movies h on h.id= d.movie_id 
-inner join users i on i.id= g.user_id inner join config_table j 
-where d.movie_date='2014/11/07'and j.system_code='001' and 
-f.status=1 
-group by g.user_id, a.name,c.name order by c.name; </CommandText>
+        <CommandText> </CommandText>
       </Query>
       <Fields >
         <Field Name="userid">

@@ -281,22 +281,26 @@ namespace Cinemapps
             
             try
             {
-                using (frmReport frmreport = new frmReport())
+                using (frmRP06 frmreport = new frmRP06())
                 {
-                    int intCinemaId = 0;
-                    if (RP06Cinema.SelectedValue != null)
-                    {
-                        if (RP06Cinema.SelectedValue is Cinema)
-                        {
-                            Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
-                            intCinemaId = cinema.Id;
-                        }
-                    }
+                    
+                    //if (RP06Cinema.SelectedValue != null)
+                    //{
+                    //    if (RP06Cinema.SelectedValue is Cinema)
+                    //    {
+                    //        Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
+                    //        intCinemaId = cinema.Id;
+                    //    }
+                    //}
 
-                    frmreport.setDate = (DateTime)RP06StartDate.SelectedDate;
-                    frmreport.setCinema = (String)RP06Cinema.Text;
-                    frmreport._intCinemaID = intCinemaId;
-                    frmreport.frmInit(main, main.m_clscom, "RP06");
+                    //frmreport.setDate = (DateTime)RP06StartDate.SelectedDate;
+                    //frmreport.setCinema = (String)RP06Cinema.Text;
+                    //frmreport._intCinemaID = intCinemaId;
+                   // frmreport.frmInit(main, main.m_clscom);
+                    frmreport._dtStart = (DateTime)RP06StartDate.SelectedDate;
+                    frmreport.cinema = (String)RP06Cinema.Text;
+                    frmreport.frmInit(main, main.m_clscom);
+
                     frmreport.ShowDialog();
                     frmreport.Dispose();
                 }
