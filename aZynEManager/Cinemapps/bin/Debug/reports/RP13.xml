@@ -10,7 +10,8 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString></ConnectString>
+        <ConnectString>
+        </ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -24,7 +25,7 @@
       <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>
-</CommandText>
+        </CommandText>
       </Query>
       <Fields>
         <Field Name="code">
@@ -144,7 +145,7 @@
           <Textbox Name="Textbox4">
             <Height>20.29pt</Height>
             <Width>160.32pt</Width>
-            <Value>="Timee: "  + Format(Today(), "HH:mm tt")</Value>
+            <Value>="Timee: "  + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
             <Left>380.70pt</Left>
             <Top>21.00pt</Top>
             <Style>

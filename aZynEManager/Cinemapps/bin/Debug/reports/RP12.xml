@@ -20,11 +20,12 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText> </CommandText>
+        <CommandText>
+        </CommandText>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="userid">
           <DataField>userid</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -317,7 +318,7 @@
           <Textbox Name="Textbox42">
             <Height>15.00pt</Height>
             <Width>161.88pt</Width>
-            <Value>="Time: " + Format(Today(), "HH:mm tt")</Value>
+            <Value>="Time: " + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
             <Left>347.10pt</Left>
             <Top>18.90pt</Top>
             <Style>

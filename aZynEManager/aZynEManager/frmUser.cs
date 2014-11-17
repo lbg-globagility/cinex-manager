@@ -753,7 +753,9 @@ namespace aZynEManager
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from users ");
                 sqry.Append(String.Format("where userid = '{0}' ", this.txtUID.Text.ToUpper().Trim()));
-
+                //melvin added for multiple access of account
+                sqry.Append(string.Format("and user_level_id = {0} ", cmbAuth.SelectedValue.ToString()));
+                
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -778,13 +780,11 @@ namespace aZynEManager
                 string pw= encrypt.EncryptString(txtPW.Text.Trim()).ToString();
                 
                 sqry.Append("insert into users values(0,@userid,@pw,@des,@auth,@lname,@fname,@mname,@system,1)");
-               string system = cmbSystem.SelectedValue.ToString();
+               
                 try
                 {
                     int idout = -1;
-                    int flag = 1;
-                    while (flag < 3)
-                    {
+                
                         idout = -1;
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
@@ -798,7 +798,7 @@ namespace aZynEManager
                             cmd.Parameters.AddWithValue("@lname", txtLName.Text.ToUpper().Trim());
                             cmd.Parameters.AddWithValue("@fname", txtFName.Text.ToUpper().Trim());
                             cmd.Parameters.AddWithValue("@mname", txtMName.Text.ToUpper().Trim());
-                            cmd.Parameters.AddWithValue("@system",system);
+                            cmd.Parameters.AddWithValue("@system",cmbSystem.SelectedValue.ToString());
                             
                             cmd.ExecuteNonQuery();
                             idout = Convert.ToInt32(cmd.LastInsertedId);
@@ -818,14 +818,8 @@ namespace aZynEManager
                             tabinsertcheck(myconn, dgvModuleTicket, idout);
                         }
  
-                       if (!(cmbSystem.SelectedValue.ToString() == "1") &&!(cmbAuth.SelectedValue.ToString()=="1"))
-                       {
-                           //MessageBox.Show("not admin");
-                           
-                           break;
-                        }
-                       system = "2";
-                    }
+                     
+                   
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
