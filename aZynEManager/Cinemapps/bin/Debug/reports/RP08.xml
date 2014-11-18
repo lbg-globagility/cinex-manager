@@ -807,7 +807,7 @@
                         <BorderWidth />
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <Format>HH:mm</Format>
+                        <Format>hh:mm tt</Format>
                       </Style>
                       <HideDuplicates>Data</HideDuplicates>
                     </Textbox>

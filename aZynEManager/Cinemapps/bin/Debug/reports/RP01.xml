@@ -603,7 +603,7 @@
           <Textbox Name="Textbox5">
             <Height>18.00pt</Height>
             <Width>161.12pt</Width>
-            <Value>="Times: "+ Format( Globals!ExecutionTime, "HH:mm tt")</Value>
+            <Value>="Times: "+ Format( Globals!ExecutionTime, "hh:mm tt")</Value>
             <Left>344.5pt</Left>
             <Top>33.2pt</Top>
             <Style>
@@ -611,7 +611,7 @@
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
-              <Format>HH:mm tt</Format>
+              <Format>hh:mm tt</Format>
             </Style>
           </Textbox>
           <Textbox Name="Textbox2">

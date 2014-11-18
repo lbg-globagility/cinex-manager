@@ -40,6 +40,9 @@
             // 
             // rdlViewer1
             // 
+            this.rdlViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.rdlViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(243)))), ((int)(((byte)(238)))));
             this.rdlViewer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.rdlViewer1.Folder = null;

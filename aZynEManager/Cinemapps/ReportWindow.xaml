@@ -95,7 +95,7 @@
 
                     <Button Margin="6" Name="PreviewP03" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP03_Click">Excel
                     </Button>
-                    <Button Margin="5" Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Print1RP15_Click">Print Preview
+                    <Button Margin="5" Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP03_Click">Print
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Summary of Daily Cinema Sales (RP03)</TextBlock>

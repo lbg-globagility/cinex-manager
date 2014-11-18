@@ -113,7 +113,7 @@
           <Textbox Name="Textbox3">
             <Height>14.26pt</Height>
             <Width>150.56pt</Width>
-            <Value>="Time: " + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
+            <Value>="Time: " + Format(Globals!ExecutionTime, "hh:mm tt")</Value>
             <Left>399.5pt</Left>
             <Top>19.6pt</Top>
             <Style>

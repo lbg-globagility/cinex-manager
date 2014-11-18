@@ -148,7 +148,7 @@
           <Textbox Name="Textbox4">
             <Height>20.29pt</Height>
             <Width>160.32pt</Width>
-            <Value>="Timee: "  + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
+            <Value>="Timee: "  + Format(Globals!ExecutionTime, "hh:mm tt")</Value>
             <Left>380.70pt</Left>
             <Top>21.00pt</Top>
             <Style>
