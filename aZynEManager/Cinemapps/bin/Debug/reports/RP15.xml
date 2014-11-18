@@ -2,16 +2,14 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Description>
   </Description>
-  <Author>
-  </Author>
+  <Author>JOHN MELVIN</Author>
   <PageHeight>11in</PageHeight>
   <PageWidth>8.5in</PageWidth>
   <DataSources>
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>
-        </ConnectString>
+        <ConnectString></ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -22,69 +20,49 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText></CommandText>
       </Query>
-      <Fields>
-        <Field Name="@user_id:= g.user_id">
-          <DataField>@user_id:= g.user_id</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
+      <Fields >
+        <Field Name="system_value">
+          <DataField>system_value</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dtFrom">
+          <DataField>dtFrom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="dtTo">
+          <DataField>dtTo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cinema">
+          <DataField>cinema</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="code">
           <DataField>code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PATRON">
-          <DataField>PATRON</DataField>
+        <Field Name="patron">
+          <DataField>patron</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CINEMA">
-          <DataField>CINEMA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PRICE">
-          <DataField>PRICE</DataField>
+        <Field Name="price">
+          <DataField>price</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="QTY">
-          <DataField>QTY</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="TOTALSALES">
-          <DataField>TOTALSALES</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="movie_date">
           <DataField>movie_date</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="start_date">
-          <DataField>start_date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="qty">
+          <DataField>qty</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
         <Field Name="title">
           <DataField>title</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="userid">
-          <DataField>userid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="fname">
-          <DataField>fname</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="lname">
-          <DataField>lname</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="mname">
-          <DataField>mname</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="system_value">
-          <DataField>system_value</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -96,17 +74,22 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>592.8pt</Height>
-    <ReportItems>
-      <List Name="List1">
-        <Height>79.12pt</Height>
-        <Width>533.97pt</Width>
-        <Left>34.70pt</Left>
-        <Top>11.10pt</Top>
+    <Height>345.8pt</Height>
+    <ReportItems >
+      <List Name="List1" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+        <Height>94.91pt</Height>
+        <Width>545.05pt</Width>
+        <Left>45.40pt</Left>
+        <Top>13.60pt</Top>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
         <ReportItems>
-          <Textbox Name="Textbox1">
-            <Height>24.03pt</Height>
-            <Width>246.93pt</Width>
+          <Textbox Name="Textbox2">
+            <Height>23.26pt</Height>
+            <Width>237.12pt</Width>
             <Value>=Fields!system_value.Value</Value>
             <Left>0.00pt</Left>
             <Top>0.00pt</Top>
@@ -118,12 +101,12 @@
               <FontSize>16pt</FontSize>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox2">
-            <Height>23.30pt</Height>
-            <Width>247.64pt</Width>
-            <Value>TELLER DAILY SALES PER CINEMA</Value>
+          <Textbox Name="Textbox3">
+            <Height>17.28pt</Height>
+            <Width>237.17pt</Width>
+            <Value>VOIDED TICKET PER CINEMA</Value>
             <Left>0.00pt</Left>
-            <Top>24.90pt</Top>
+            <Top>24.10pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -132,25 +115,12 @@
               <FontSize>12pt</FontSize>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox3">
-            <Height>19.50pt</Height>
-            <Width>161.89pt</Width>
-            <Value>="Date: "  + Format(Today(), "dd/MM/yyyy")</Value>
-            <Left>380.50pt</Left>
-            <Top>0.00pt</Top>
-            <Style>
-              <BorderStyle />
-              <BorderColor />
-              <BorderWidth />
-              <FontWeight>Bold</FontWeight>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox4">
-            <Height>20.29pt</Height>
-            <Width>160.32pt</Width>
-            <Value>="Timee: "  + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
-            <Left>380.70pt</Left>
-            <Top>21.00pt</Top>
+            <Height>17.25pt</Height>
+            <Width>242.45pt</Width>
+            <Value>="From "+ Format(Fields!dtFrom.Value, "MM/dd/yyyy") + " To "+Format(Fields!dtTo.Value, "MM/dd/yyyy")</Value>
+            <Left>0.0pt</Left>
+            <Top>61.1pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -158,12 +128,25 @@
               <FontWeight>Bold</FontWeight>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox5">
-            <Height>16.56pt</Height>
-            <Width>268.00pt</Width>
-            <Value>="For Sales Date " +Format(Fields!movie_date.Value, "dd/MM/yyyy")</Value>
-            <Left>0.00pt</Left>
-            <Top>53.00pt</Top>
+          <Textbox Name="Textbox1" >
+            <Height>17.25pt</Height>
+            <Width>161.10pt</Width>
+            <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
+            <Left>422.4pt</Left>
+            <Top>1.0pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5" >
+            <Height>15.01pt</Height>
+            <Width>121.92pt</Width>
+            <Value>="Time: " + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
+            <Left>422.70pt</Left>
+            <Top>21.40pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -172,30 +155,17 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Style>
-          <BorderStyle>
-            <Default>None</Default>
-            <Left>None</Left>
-            <Right>None</Right>
-            <Top>None</Top>
-            <Bottom>None</Bottom>
-          </BorderStyle>
-          <BorderColor />
-          <BorderWidth />
-        </Style>
-        <Grouping Name="system">
+        <Grouping Name="SYSTEM" >
           <PageBreakAtStart>false</PageBreakAtStart>
           <PageBreakAtEnd>false</PageBreakAtEnd>
           <GroupExpressions>
             <GroupExpression>=Fields!system_value.Value</GroupExpression>
           </GroupExpressions>
         </Grouping>
-        <NoRows>No data on this date</NoRows>
       </List>
-      <Table Name="Table6">
+      <Table Name="Table1">
         <DataSetName>Data</DataSetName>
-        <NoRows>
-        </NoRows>
+        <NoRows>Query returned no rows!</NoRows>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
@@ -205,29 +175,29 @@
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>167.9pt</Width>
+            <Width>150.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>112.5pt</Width>
+            <Width>107.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>55.3pt</Width>
+            <Width>75.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>55.8pt</Width>
+            <Width>54.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>96.5pt</Width>
+            <Width>76.9pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
           <TableRows>
             <TableRow>
-              <Height>28.7pt</Height>
+              <Height>15.1pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox19">
+                    <Textbox Name="Textbox6">
                       <Value>PATRON CODE</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
@@ -241,14 +211,13 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <VerticalAlign >Middle</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox20">
+                    <Textbox Name="Textbox7">
                       <Value>PATRON NAME</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
@@ -262,14 +231,13 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <VerticalAlign >Middle</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox21">
+                    <Textbox Name="Textbox8">
                       <Value>PRICE</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
@@ -283,14 +251,13 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <VerticalAlign >Middle</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox22">
+                    <Textbox Name="Textbox11">
                       <Value>QTY</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
@@ -304,15 +271,14 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <VerticalAlign >Middle</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox24">
-                      <Value>TOTALSALES</Value>
+                    <Textbox Name="Textbox37">
+                      <Value>TOTAL VOID</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -325,7 +291,6 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <VerticalAlign >Middle</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -342,7 +307,7 @@
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="Textbox12">
                       <Value>=Fields!code.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
@@ -361,8 +326,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox45">
-                      <Value>=Fields!PATRON.Value</Value>
+                    <Textbox Name="Textbox13">
+                      <Value>=Fields!patron.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -380,8 +345,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox46">
-                      <Value>=Fields!PRICE.Value</Value>
+                    <Textbox Name="Textbox14">
+                      <Value>=Fields!price.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -399,8 +364,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox47">
-                      <Value>=Fields!QTY.Value</Value>
+                    <Textbox Name="Textbox16">
+                      <Value>=Fields!qty.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -418,9 +383,8 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox48">
-                      <Value>=Fields!TOTALSALES.Value</Value>
-                      <CanGrow>true</CanGrow>
+                    <Textbox Name="Textbox38">
+                      <Value>=Fields!price.Value * Fields!qty.Value</Value>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -439,26 +403,26 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>35.7pt</Left>
-        <Top>103.5pt</Top>
+        <Left>47.5pt</Left>
+        <Top>123.1pt</Top>
         <TableGroups>
           <TableGroup>
             <Grouping Name="cinema">
               <PageBreakAtStart>false</PageBreakAtStart>
               <PageBreakAtEnd>false</PageBreakAtEnd>
               <GroupExpressions>
-                <GroupExpression>=Fields!CINEMA.Value</GroupExpression>
+                <GroupExpression>=Fields!cinema.Value</GroupExpression>
               </GroupExpressions>
             </Grouping>
             <Header>
-              <RepeatOnNewPage>false</RepeatOnNewPage>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>21.4pt</Height>
+                  <Height>27.8pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox7">
+                        <Textbox Name="Textbox17">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -469,16 +433,16 @@
                             </BorderStyle>
                             <BorderColor />
                             <BorderWidth />
+                            <FontWeight>Bold</FontWeight>
                             <VerticalAlign>Middle</VerticalAlign>
-                            <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>=Fields!CINEMA.Value</Value>
+                          <Value>=Fields!cinema.Value</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox8">
+                        <Textbox Name="Textbox18">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -497,7 +461,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox9">
+                        <Textbox Name="Textbox19">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -516,7 +480,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox10">
+                        <Textbox Name="Textbox21">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -535,107 +499,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox11">
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                          <Value>
-                          </Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                </TableRow>
-                <TableRow>
-                  <Height>22.3pt</Height>
-                  <TableCells>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox54">
-                          <Value>=Fields!title.Value</Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox55">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox56">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox57">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox58">
+                        <Textbox Name="Textbox39">
                           <Value>
                           </Value>
                           <Style>
@@ -657,14 +521,14 @@
               </TableRows>
             </Header>
             <Footer>
-              <RepeatOnNewPage>false</RepeatOnNewPage>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>22.4pt</Height>
+                  <Height>13.7pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox49">
+                        <Textbox Name="Textbox22">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -683,7 +547,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox50">
+                        <Textbox Name="Textbox23">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -702,7 +566,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox51">
+                        <Textbox Name="Textbox24">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -721,7 +585,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox52">
+                        <Textbox Name="Textbox26">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -734,13 +598,14 @@
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>=Sum(Fields!QTY.Value)</Value>
+                          <Value>=SUM(Fields!qty.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox53">
+                        <Textbox Name="Textbox40">
+                          <Value>=SUM(Fields!price.Value * Fields!qty.Value)</Value>
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -753,7 +618,6 @@
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>=sum(Fields!TOTALSALES.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -763,22 +627,22 @@
             </Footer>
           </TableGroup>
           <TableGroup>
-            <Grouping Name="username">
+            <Grouping Name="date">
               <PageBreakAtStart>false</PageBreakAtStart>
               <PageBreakAtEnd>false</PageBreakAtEnd>
               <GroupExpressions>
-                <GroupExpression>=Fields!userid.Value</GroupExpression>
+                <GroupExpression>=Fields!movie_date.Value</GroupExpression>
               </GroupExpressions>
             </Grouping>
             <Header>
               <RepeatOnNewPage>false</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>.2in</Height>
+                  <Height>21.6pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox59">
+                        <Textbox Name="Textbox27">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -789,15 +653,17 @@
                             </BorderStyle>
                             <BorderColor />
                             <BorderWidth />
+                            <Format>MM/dd/yyyy</Format>
                             <FontWeight>Bold</FontWeight>
+                            <VerticalAlign>Top</VerticalAlign>
                           </Style>
-                          <Value>=Fields!userid.Value</Value>
+                          <Value>=Fields!movie_date.Value</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox60">
+                        <Textbox Name="Textbox28">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -816,7 +682,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox61">
+                        <Textbox Name="Textbox29">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -835,7 +701,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox62">
+                        <Textbox Name="Textbox31">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -854,107 +720,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox63">
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                          <Value>
-                          </Value>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                  </TableCells>
-                </TableRow>
-                <TableRow>
-                  <Height>.2in</Height>
-                  <TableCells>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox69">
-                          <Value>=Fields!fname.Value + " " +Fields!mname.Value + ". " + Fields!lname.Value</Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox70">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox71">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox72">
-                          <Value>
-                          </Value>
-                          <Style>
-                            <BorderStyle>
-                              <Default>None</Default>
-                              <Left>None</Left>
-                              <Right>None</Right>
-                              <Top>None</Top>
-                              <Bottom>None</Bottom>
-                            </BorderStyle>
-                            <BorderColor />
-                            <BorderWidth />
-                          </Style>
-                        </Textbox>
-                      </ReportItems>
-                    </TableCell>
-                    <TableCell>
-                      <ReportItems>
-                        <Textbox Name="Textbox73">
+                        <Textbox Name="Textbox41">
                           <Value>
                           </Value>
                           <Style>
@@ -979,11 +745,11 @@
               <RepeatOnNewPage>false</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>28.4pt</Height>
+                  <Height>26.2pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox64">
+                        <Textbox Name="Textbox32">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -996,13 +762,13 @@
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>Sub Total:</Value>
+                          <Value>Sub total:</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox65">
+                        <Textbox Name="Textbox33">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -1021,7 +787,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox66">
+                        <Textbox Name="Textbox34">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -1040,7 +806,7 @@
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox67">
+                        <Textbox Name="Textbox36">
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -1053,13 +819,14 @@
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>=Sum(Fields!QTY.Value)</Value>
+                          <Value>=SUM(Fields!qty.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
-                        <Textbox Name="Textbox68">
+                        <Textbox Name="Textbox42">
+                          <Value>=SUM(Fields!price.Value * Fields!qty.Value)</Value>
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -1072,7 +839,6 @@
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
                           </Style>
-                          <Value>=sum(Fields!TOTALSALES.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -1085,11 +851,11 @@
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>23.5pt</Height>
+              <Height>29.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox6">
+                    <Textbox Name="Textbox43">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1109,7 +875,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox12">
+                    <Textbox Name="Textbox44">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1118,7 +884,6 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
                       </Style>
@@ -1129,7 +894,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox13">
+                    <Textbox Name="Textbox45">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1138,7 +903,6 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
                       </Style>
@@ -1149,7 +913,7 @@
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox14">
+                    <Textbox Name="Textbox46">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1158,18 +922,18 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
                         <VerticalAlign>Bottom</VerticalAlign>
                       </Style>
-                      <Value>=Sum(Fields!QTY.Value)</Value>
+                      <Value>=SUM(Fields!qty.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox15">
+                    <Textbox Name="Textbox47">
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1178,12 +942,12 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
                         <VerticalAlign>Bottom</VerticalAlign>
                       </Style>
-                      <Value>=sum(Fields!TOTALSALES.Value)</Value>
+                      <Value>=SUM(Fields!price.Value * Fields!qty.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1195,9 +959,9 @@
     </ReportItems>
   </Body>
   <PageFooter>
-    <Height>49.7pt</Height>
+    <Height>14pt</Height>
     <ReportItems>
-      <Textbox Name="Textbox16">
+      <Textbox Name="Textbox9">
         <Top>1pt</Top>
         <Left>10pt</Left>
         <Height>12pt</Height>

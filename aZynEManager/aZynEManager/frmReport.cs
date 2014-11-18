@@ -30,10 +30,11 @@ namespace aZynEManager
         public static ArrayList queryList = new ArrayList();
         //melvin 2014 10-17
         public string strCinema = null;
-        public string rp01Account = null;
+        public string account = null;
         public string rp05distributor = null;
         public static string rp08cinema = null;
         public static string rp08movie = null;
+        public string module = null;
 
         //RMB 11-10-2014 added valiables start
         public int _intMovieID = -1;
@@ -78,7 +79,7 @@ namespace aZynEManager
         {
             m_frmM = frm;
             m_clscom = cls;
-          //  MessageBox.Show(rp08cinema + "-" + rp08movie);
+            //MessageBox.Show(module + "-" + account);
             //return;
             frmInitDbase(reportcode);
           
@@ -135,7 +136,7 @@ namespace aZynEManager
                         sqry.Append("inner join config_table h inner join users i on ");
                         sqry.Append("i.id= g.user_id where d.movie_date=");
                         sqry.Append(string.Format("'{0:yyyy/MM/dd}' and i.userid=",_dtStart));
-                        sqry.Append(string.Format("'{0}' and  h.system_code='001' ",rp01Account));
+                        sqry.Append(string.Format("'{0}' and  h.system_code='001' ",account));
                         sqry.Append("and f.status=1 group by a.name, c.name order by c.name; ");  
                         break;
                     case "RP02":
@@ -353,6 +354,23 @@ namespace aZynEManager
                         sqry.Append(string.Format("'{0:yyyy/MM/dd}' ",_dtStart));
                         sqry.Append("group by  g.user_id, a.name, c.name order by c.name;");
                         break;
+                    case "RP15":
+                        DateTime endDate = _dtEnd.AddDays(-1);
+                        sqry.Append(string.Format("select h.system_value, '{0:yyyy/MM/dd}'",_dtStart));
+                        sqry.Append(string.Format( "as dtFrom , '{0:yyyy/MM/dd}' as dtTo, ",endDate));
+                        sqry.Append("f.name `cinema`, e.code, e.name `patron`, a.price, ");
+                        sqry.Append("c.movie_date, count(a.cinema_seat_id) as `qty`, d.title ");
+                        sqry.Append("from movies_schedule_list_reserved_seat a, ");
+                        sqry.Append("movies_schedule_list b, movies_schedule c, movies d,");
+                        sqry.Append("patrons e, cinema f, movies_schedule_list_patron g,");
+                        sqry.Append("config_table h where a.movies_schedule_list_id= b.id ");
+                        sqry.Append("and b.movies_schedule_id = c.id and c.movie_id = d.id ");
+                        sqry.Append("and e.id= g.patron_id and g.id = a.patron_id ");
+                        sqry.Append("and f.id=c.cinema_id and a.status=2 and ");
+                        sqry.Append("h.system_code='001' and c.movie_date between ");
+                        sqry.Append(string.Format("'{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}'",_dtStart,_dtEnd));
+                        sqry.Append(" group by d.title, f.name;");
+                        break;
                     case "RP17":
                         //melvin 11/13/2014 
                         string endDt = _dtEnd.AddDays(-1).ToShortDateString();
@@ -393,14 +411,25 @@ namespace aZynEManager
 
                         break;
                     case "AUDIT":
-                        sqry.Append("select a.id, a.tr_date, b.userid,");
+                        sqry.Append("SELECT a.id, a.tr_date, b.userid, d.system_value, ");
                         sqry.Append("a.tr_details, c.module_desc, c.module_group,");
                         sqry.Append("a.computer_name, concat(b.fname , ' ',b.lname)");
-                        sqry.Append("username from a_trail a left join users b ");
+                        sqry.Append("username FROM a_trail a left join users b ");
                         sqry.Append("on a.user_id = b.id left join system_module c ");
-                        sqry.Append("on trim(a.module_code) = trim(c.id) where tr_date between ");
-                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart) + " and ");
-                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtEnd));
+                        sqry.Append("on trim(a.module_code) = trim(c.id) inner ");
+                        sqry.Append("join config_table d where tr_date BETWEEN ");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart) + " AND ");
+                        sqry.Append(String.Format("'{0:yyyy/MM/dd}' ", _dtEnd));
+                        sqry.Append(" and d.system_code='001'");
+                        if(!(module==""))
+                        {
+                            sqry.Append(string.Format("AND c.module_group like '%{0}%' ", module));
+                        }
+                        if(!(account==""))
+                        {
+                            sqry.Append(string.Format("AND b.userid like '%{0}%'", account));
+                        }
+
                         sqry.Append(" order by tr_date desc");
                         //MessageBox.Show(_dtStart.ToShortDateString() + "to:" + _dtEnd.ToShortDateString());
                         break;

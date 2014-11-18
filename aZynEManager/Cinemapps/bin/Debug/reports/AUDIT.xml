@@ -24,8 +24,7 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>
-        </CommandText>
+        <CommandText></CommandText>
       </Query>
       <Fields>
         <Field Name="id">
@@ -38,6 +37,10 @@
         </Field>
         <Field Name="userid">
           <DataField>userid</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="system_value">
+          <DataField>system_value</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="tr_details">
@@ -86,7 +89,7 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>145.5pt</Height>
+    <Height>193.2pt</Height>
     <ReportItems>
       <Table Name="Table1">
         <DataSetName>Data</DataSetName>
@@ -109,13 +112,13 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>54.3pt</Width>
+            <Width>44.2pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>126.3pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>112.9pt</Width>
+            <Width>104.9pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>1in</Width>
@@ -405,101 +408,113 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>13.0pt</Left>
-        <Top>87.8pt</Top>
+        <Left>18.6pt</Left>
+        <Top>108.4pt</Top>
       </Table>
-      <Textbox Name="Textbox10" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-        <Height>14.26pt</Height>
-        <Width>79.03pt</Width>
-        <Value>REPORTS - </Value>
-        <Left>12.4pt</Left>
-        <Top>0.0pt</Top>
+      <List Name="List1">
+        <Height>58.14pt</Height>
+        <Width>551.85pt</Width>
+        <Left>16.00pt</Left>
+        <Top>12.50pt</Top>
         <Style>
           <BorderStyle />
           <BorderColor />
           <BorderWidth />
-          <FontWeight>BOLD</FontWeight>
-          <FontSize>13pt</FontSize>
         </Style>
-      </Textbox>
-      <Textbox Name="Textbox11" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-        <Top>0.0pt</Top>
-        <Left>92.4pt</Left>
-        <Width>433.62pt</Width>
-        <Height>14.32pt</Height>
-        <Value>=Format(Today(), "dddd MMM/dd/yy")</Value>
-        <Style>
-          <FontSize>12pt</FontSize>
-          <FontWeight>normal</FontWeight>
-          <BorderStyle />
-          <BorderColor />
-          <BorderWidth />
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox12" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-        <Height>13.49pt</Height>
-        <Width>142.25pt</Width>
-        <Value>SHANG CINEPLEX</Value>
-        <Left>12.6pt</Left>
-        <Top>24.4pt</Top>
-        <Style>
-          <BorderStyle />
-          <BorderColor />
-          <BorderWidth />
-          <FontWeight>BOLD</FontWeight>
-          <FontSize>11pt</FontSize>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox14" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-        <Height>13.49pt</Height>
-        <Width>142.25pt</Width>
-        <Value>Audit Trail</Value>
-        <Left>12.6pt</Left>
-        <Top>41.2pt</Top>
-        <Style>
-          <BorderStyle />
-          <BorderColor />
-          <BorderWidth />
-          <FontWeight>BOLD</FontWeight>
-          <FontSize>10pt</FontSize>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox15" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-        <Height>11.24pt</Height>
-        <Width>30.85pt</Width>
-        <Value>From</Value>
-        <Left>12.6pt</Left>
-        <Top>57.9pt</Top>
-        <Style>
-          <BorderStyle />
-          <BorderColor />
-          <BorderWidth />
-          <FontWeight>BOLD</FontWeight>
-          <FontSize>10pt</FontSize>
-        </Style>
-      </Textbox>
+        <ReportItems>
+          <Textbox Name="Textbox10">
+            <Height>24.08pt</Height>
+            <Width>234.14pt</Width>
+            <Value>=Fields!system_value.Value</Value>
+            <Left>0.0pt</Left>
+            <Top>0.0pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>16pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox11">
+            <Height>18.06pt</Height>
+            <Width>196.51pt</Width>
+            <Value>AUDIT TRAIL</Value>
+            <Left>0.00pt</Left>
+            <Top>27.80pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+              <FontSize>14pt</FontSize>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox12">
+            <Height>15.00pt</Height>
+            <Width>191.94pt</Width>
+            <Value>="Date:" + Format(Today(), "MM/dd/yyyy")</Value>
+            <Left>426.4pt</Left>
+            <Top>4.7pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox13">
+            <Height>17.25pt</Height>
+            <Width>194.99pt</Width>
+            <Value>="Time: "+ Format(Globals!ExecutionTime, "HH:mm tt")</Value>
+            <Left>426.1pt</Left>
+            <Top>21.0pt</Top>
+            <Style>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontWeight>Bold</FontWeight>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Grouping Name="system">
+          <PageBreakAtStart>false</PageBreakAtStart>
+          <PageBreakAtEnd>false</PageBreakAtEnd>
+          <GroupExpressions>
+            <GroupExpression>=Fields!system_value.Value</GroupExpression>
+          </GroupExpressions>
+        </Grouping>
+        <DataSetName>Data</DataSetName>
+      </List>
       <Table Name="Table2">
         <DataSetName>SetDate</DataSetName>
-        <NoRows>Query returned no rows!</NoRows>
+        <NoRows>
+        </NoRows>
         <Style>
           <BorderStyle>
-            <Default>Solid</Default>
+            <Default>None</Default>
+            <Left>None</Left>
+            <Right>None</Right>
+            <Top>None</Top>
+            <Bottom>None</Bottom>
           </BorderStyle>
+          <BorderColor />
+          <BorderWidth />
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>282.1pt</Width>
+            <Width>265.5pt</Width>
           </TableColumn>
         </TableColumns>
         <Details>
           <TableRows>
             <TableRow>
-              <Height>11.2pt</Height>
+              <Height>12 pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
-                    <Textbox Name="Textbox24">
-                      <Value>=(Fields!date_from.Value ) &amp;" To  " &amp; (Fields!date_to.Value)</Value>
+                    <Textbox Name="Textbox16">
+                      <Value>="From: " + Fields!date_from.Value + " To: " + Fields!date_to.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -511,7 +526,7 @@
                         </BorderStyle>
                         <BorderColor />
                         <BorderWidth />
-                        <FontWeight >Bold</FontWeight>
+                        <FontWeight>Bold</FontWeight>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -520,8 +535,8 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>45.0pt</Left>
-        <Top>58.1pt</Top>
+        <Left>17.8pt</Left>
+        <Top>81.9pt</Top>
       </Table>
     </ReportItems>
   </Body>

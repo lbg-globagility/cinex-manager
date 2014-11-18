@@ -279,7 +279,8 @@ namespace aZynEManager
 
                     frmreport.setDate = (DateTime)frdate.Value;
                     frmreport.setEndDate = (DateTime)todate.Value.AddDays(1);
-
+                    frmreport.account = txtuser.Text.Trim();
+                    frmreport.module = cmbmodulegrp.Text;
                     frmreport.frmInit(m_frmM, m_frmM.m_clscom, "AUDIT");
                     frmreport.ShowDialog();
                     frmreport.Dispose();

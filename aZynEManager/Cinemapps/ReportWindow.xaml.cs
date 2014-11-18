@@ -69,7 +69,7 @@ namespace Cinemapps
                 }
 
                 frmreport.setDate = (DateTime)RP01StartDate.SelectedDate;
-                frmreport.rp01Account = RP01Teller.SelectedValue.ToString();
+                frmreport.account = RP01Teller.SelectedValue.ToString();
                 frmreport.frmInit(main, main.m_clscom, "RP01");
                 frmreport.ShowDialog();
                 frmreport.Dispose();
@@ -653,6 +653,31 @@ namespace Cinemapps
         private void RP11StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Print1RP15_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrintRP15_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP15StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP15EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP15");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
     }
