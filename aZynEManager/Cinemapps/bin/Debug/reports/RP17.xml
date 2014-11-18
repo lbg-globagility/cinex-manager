@@ -124,7 +124,7 @@
           <Textbox Name="Textbox5">
             <Height>18.00pt</Height>
             <Width>123.41pt</Width>
-            <Value>="Time: " + Format(Globals!ExecutionTime, HH:mm tt)</Value>
+            <Value>="Time: " + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
             <Left>367.8pt</Left>
             <Top>22.4pt</Top>
             <Style>
@@ -169,6 +169,8 @@
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
+          <BorderColor  />
+          <BorderWidth  />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -323,7 +325,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>14.4pt</Height>
+              <Height>12.8pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -447,8 +449,139 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>25.5pt</Left>
-        <Top>117.4pt</Top>
+        <Left>26.3pt</Left>
+        <Top>116.6pt</Top>
+        <Footer >
+          <TableRows>
+            <TableRow>
+              <Height>22.9pt</Height>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox19">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                      </Style>
+                      <Value>GRAND TOTAL:</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox20">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <VerticalAlign>Bottom</VerticalAlign>
+                      </Style>
+                      <Value>
+                      </Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox21">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                      <Value>=SUM(Fields!total_available_seats.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox22">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                      <Value>=SUM(Fields!total_seats_taken.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox23">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                      </Style>
+                      <Value>=SUM(Fields!total_ticket_sales.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox24">
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontWeight>Bold</FontWeight>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                      </Style>
+                      <Value>=SUM(Fields!util.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+            </TableRow>
+          </TableRows>
+        </Footer>
       </Table>
     </ReportItems>
   </Body>

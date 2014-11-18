@@ -95,7 +95,7 @@
 
                     <Button Margin="6" Name="PreviewP03" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP03_Click">Excel
                     </Button>
-                    <Button Margin="5" Name="Print1RP03" Height="20" DockPanel.Dock="Right" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP03_Click">Print Preview
+                    <Button Margin="5" Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Print1RP15_Click">Print Preview
                     </Button>
                     <StackPanel>
                         <TextBlock FontWeight="Bold">Summary of Daily Cinema Sales (RP03)</TextBlock>
@@ -339,6 +339,33 @@
                         <StackPanel Orientation="Horizontal">
                             <Label>Start Date</Label>
                             <DatePicker Name="RP13StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <!--Melvin 11/18/2014 -->
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Voided Tickets per Cinema (RP15)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                       Displays Voided Tickets with Totals per Cinema for a Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP15StartDate"  SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP15EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>

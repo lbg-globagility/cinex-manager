@@ -9,7 +9,8 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString></ConnectString>
+        <ConnectString>
+        </ConnectString>
       </ConnectionProperties>
     </DataSource>
   </DataSources>
@@ -22,7 +23,7 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText></CommandText>
+        <CommandText>e;</CommandText>
       </Query>
       <Fields>
         <Field Name="user">
@@ -99,15 +100,7 @@
           <Textbox Name="Textbox2">
             <Height>19.53pt</Height>
             <Width>149.77pt</Width>
-<<<<<<< HEAD
             <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
-=======
-<<<<<<< HEAD
-            <Value>="Date: " + Format(Today(), "MM/dd/yyyy")</Value>
-=======
-            <Value>="Date: " + Format(Today(), "dd/MM/yyyy")</Value>
->>>>>>> bb506e375ee405ca648cc42a9b4237ed4b54a368
->>>>>>> 68938f88dcfd5140b6a3e01b7443a39772207777
             <Left>399.7pt</Left>
             <Top>0.8pt</Top>
             <Style>
@@ -120,7 +113,7 @@
           <Textbox Name="Textbox3">
             <Height>14.26pt</Height>
             <Width>150.56pt</Width>
-            <Value>="Time: " + Format(Today(), "HH:mm tt")</Value>
+            <Value>="Time: " + Format(Globals!ExecutionTime, "HH:mm tt")</Value>
             <Left>399.5pt</Left>
             <Top>19.6pt</Top>
             <Style>

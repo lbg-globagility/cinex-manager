@@ -25,7 +25,7 @@
       <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText>
-</CommandText>
+        </CommandText>
       </Query>
       <Fields>
         <Field Name="title">
@@ -85,7 +85,7 @@
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
   <Body>
-    <Height>271.5pt</Height>
+    <Height>534.0pt</Height>
     <ReportItems>
       <Table Name="Table1">
         <DataSetName>mainQuery</DataSetName>
@@ -727,13 +727,13 @@
     </ReportItems>
   </Body>
   <PageFooter>
-    <Height>164.0pt</Height>
+    <Height>22.7pt</Height>
     <ReportItems>
       <Textbox Name="Textbox9">
-        <Top>109.5pt</Top>
-        <Left>6.0pt</Left>
-        <Height>12pt</Height>
-        <Width>3in</Width>
+        <Top>0.0pt</Top>
+        <Left>0.8pt</Left>
+        <Height>12.00pt</Height>
+        <Width>216.81pt</Width>
         <Value>=Globals!PageNumber + ' of ' + Globals!TotalPages</Value>
         <Style>
           <FontSize>10pt</FontSize>
