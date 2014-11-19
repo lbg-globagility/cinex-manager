@@ -517,7 +517,7 @@ namespace Paradiso
 
                             //get first patron instead of default
                             var _patron = (from mslp in context.movies_schedule_list_patron
-                                           where mslp.movies_schedule_list_id == MovieSchedule.Key  //&& mslp.is_default == 1
+                                           where mslp.movies_schedule_list_id == MovieSchedule.Key  && mslp.is_default == 1
                                            select mslp.patron).FirstOrDefault();
                             if (_patron != null)
                             {

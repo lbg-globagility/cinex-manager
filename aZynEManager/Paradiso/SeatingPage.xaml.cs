@@ -626,22 +626,23 @@ namespace Paradiso
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 
-            /*
-            //special case
-            //get previous 
-            if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
+            DateTime now = paradisoObjectManager.CurrentDate;
+            if (!MovieSchedule.IsEnabled && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now)
             {
-                MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
-                messageYesNoWindow.MessageText.Text = "Do you still want to reserve seats?";
-                messageYesNoWindow.ShowDialog();
-                if (messageYesNoWindow.IsYes)
+                //get previous 
+                if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
                 {
-                    IsAllowReserve = true;
-                    return;
+                    MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+                    messageYesNoWindow.MessageText.Text = "Do you still want to reserve seats?";
+                    messageYesNoWindow.ShowDialog();
+                    if (messageYesNoWindow.IsYes)
+                    {
+                        IsAllowReserve = true;
+                        return;
+                    }
+                    IsAllowReserve = false;
                 }
-                IsAllowReserve = false;
             }
-            */
 
             if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate
                 || (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
@@ -661,7 +662,7 @@ namespace Paradiso
         {
             if (blnIsUpdating)
                 return;
-            if (IsReadOnly || !MovieSchedule.IsEnabled)
+            if (IsReadOnly || (!MovieSchedule.IsEnabled && !IsAllowReserve))
                 return;
             //for reserved seating only 
             //if (IsReservedSeating)
@@ -732,7 +733,7 @@ namespace Paradiso
         {
             if (blnIsUpdating)
                 return;
-            if (IsReadOnly || !MovieSchedule.IsEnabled)
+            if (IsReadOnly || (!MovieSchedule.IsEnabled && !IsAllowReserve))
                 return;
             timer.Stop();
             

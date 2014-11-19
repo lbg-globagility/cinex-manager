@@ -58,7 +58,16 @@ namespace Paradiso
             PrintLab.PTK_ClearBuffer();
             PrintLab.PTK_SetPrintSpeed(4);
             PrintLab.PTK_SetDarkness(10);
-            PrintLab.PTK_SetLabelHeight(400, 16);
+
+            string strHeight = ParadisoObjectManager.GetInstance().GetConfigValue("HEIGHT", "400");
+            int intHeight = 400;
+            int.TryParse(strHeight, out intHeight);
+
+            string strGap = ParadisoObjectManager.GetInstance().GetConfigValue("GAP", "16");
+            int intGap = 16;
+            int.TryParse(strGap, out intGap);
+
+            PrintLab.PTK_SetLabelHeight((uint) intHeight, (uint) intGap);
         }
 
         public void Close()
