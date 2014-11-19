@@ -370,7 +370,7 @@ namespace Paradiso
                 return;
             }
 
-            if (TicketList.Tickets.Count == 0)
+            if (TicketList.Tickets.Count > 0 && TicketList.Tickets.Where (x=>x.IsSelected == true).Count() == 0)
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No ticket is selected.";
@@ -378,22 +378,34 @@ namespace Paradiso
                 return;
             }
 
-            PrintDialog _printDialog = new PrintDialog();
-
             bool? _print = false;
+            string _printerName = string.Empty;
+            PrintDialog _printDialog = new PrintDialog();
             
-            try
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("DIRECT PRINT", "YES") != "YES")
             {
-                _print = _printDialog.ShowDialog();
-            }
-            catch { }
 
-            //raw print
+                try
+                {
+                    _print = _printDialog.ShowDialog();
+                }
+                catch { }
+
+                //raw print
+
+                if (_print == true)
+                {
+                    _printerName = _printDialog.PrintQueue.FullName;
+                }
+            }
+            else
+            {
+                _printerName = ParadisoObjectManager.GetInstance().DefaultPrinterName;
+                _print = true;
+            }
 
             if (_print == true)
             {
-                string _printerName = _printDialog.PrintQueue.FullName;
-
                 foreach (var t in TicketList.Tickets)
                 {
                     if (t.IsSelected)
@@ -417,7 +429,7 @@ namespace Paradiso
                             return;
                         }
 
-                        if (ParadisoObjectManager.GetInstance().IsCitizenPrinter)
+                        if (ParadisoObjectManager.GetInstance().IsRawPrinter)
                         {
                             this.PrintRawTicket(_printerName);
                         }
@@ -441,66 +453,318 @@ namespace Paradiso
 
         private void PrintRawTicket(string _printerName)
         {
-            CitizenPrint print = new CitizenPrint();
-            print.SetUnitsToInch();
-            print.StartLabelFormatMode();
-            print.SetPixelSize11();
+            if (_printerName.ToUpper().StartsWith("CITIZEN"))
+            {
+                CitizenPrint print = new CitizenPrint();
+                print.SetUnitsToInch();
+                print.StartLabelFormatMode();
+                print.SetPixelSize11();
 
-            //print.BoxDefinition(050, 050, 100, 100); //not working at all
+                //print.BoxDefinition(050, 050, 100, 100); //not working at all
 
-            print.SetFontData(1, -2, 220, Ticket.Header1);
-            print.SetFontData(0, -2, 212, Ticket.Header2);
-            print.SetFontData(0, -2, 205, string.Format("MIN:{0}", Ticket.MIN));
-            print.SetFontData(0, -2, 198, string.Format("TIN:{0}", Ticket.TIN));
-            print.SetFontData(0, -2, 191, string.Format("PN:{0}", Ticket.PN));
-            print.SetFontData(3, -2, 173, Ticket.MovieCode);
-            print.SetFontData(0, -1, 166, string.Format("MTRCB RATING:{0}", Ticket.Rating));
+                print.SetFontData(1, -2, 220, Ticket.Header1);
+                print.SetFontData(0, -2, 212, Ticket.Header2);
+                print.SetFontData(0, -2, 205, string.Format("MIN:{0}", Ticket.MIN));
+                print.SetFontData(0, -2, 198, string.Format("TIN:{0}", Ticket.TIN));
+                print.SetFontData(0, -2, 191, string.Format("PN:{0}", Ticket.PN));
+                print.SetFontData(3, -2, 173, Ticket.MovieCode);
+                print.SetFontData(0, -1, 166, string.Format("MTRCB RATING:{0}", Ticket.Rating));
 
-            print.SetFontData(0, 150, 158, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime));
-            print.SetFontData(0, 150, 150, string.Format("Time  {0:hh:mm tt}", Ticket.StartTime));
-            print.SetFontData(0, 150, 142, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
-            print.SetFontData(2, 180, 148, Ticket.CinemaNumber.ToString());
+                print.SetFontData(0, 150, 158, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime));
+                print.SetFontData(0, 150, 150, string.Format("Time  {0:hh:mm tt}", Ticket.StartTime));
+                print.SetFontData(0, 150, 142, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
+                print.SetFontData(2, 180, 148, Ticket.CinemaNumber.ToString());
 
-            print.SetFontData(0, -1, 125, Ticket.SeatTypeName);
-            print.SetFontData(2, -1, 110, "ADMIT ONE");
+                print.SetFontData(0, -1, 125, Ticket.SeatTypeName);
+                print.SetFontData(2, -1, 110, "ADMIT ONE");
 
-            print.SetFontData(0, -1, 91, "THIS SERVES AS AN OFFICIAL RECEIPT");
-            print.SetFontData(0, -1, 96, Ticket.Code);
+                //print.SetFontData(0, -1, 91, "THIS SERVES AS AN OFFICIAL RECEIPT");
+                print.SetFontData(0, -1, 96, Ticket.Code);
 
-            print.SetFontData(0, -1, 89, string.Format("OR#{0}", Ticket.ORNumber));
-            print.SetFontData(0, 60, 89, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
+                print.SetFontData(0, -1, 89, string.Format("OR#{0}", Ticket.ORNumber));
+                print.SetFontData(0, 60, 89, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
 
-            print.SetFontData(0, -1, 82, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
-            print.SetFontData(0, 60, 82, string.Format("at:{0:00.00}", Ticket.AmusementTax));
+                print.SetFontData(0, -1, 82, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
+                print.SetFontData(0, 60, 82, string.Format("at:{0:00.00}", Ticket.AmusementTax));
 
-            print.SetFontData(0, 60, 75, string.Format("vt:{0:00.00}", Ticket.VatTax));
+                print.SetFontData(0, 60, 75, string.Format("vt:{0:00.00}", Ticket.VatTax));
 
-            print.SetFontData(0, -1, 68, string.Format("{0}    SN:{1}", Ticket.SessionName, Ticket.SerialNumber));
+                print.SetFontData(0, -1, 68, string.Format("{0}    SN:{1}", Ticket.SessionName, Ticket.SerialNumber));
 
-            //cutter here
+                //cutter here
 
-            print.SetFontData(0, -1, 53, Ticket.Header1);
-            print.SetFontData(0, 80, 53, Ticket.Code);
+                print.SetFontData(0, -1, 53, Ticket.Header1);
+                print.SetFontData(0, 80, 53, Ticket.Code);
 
-            print.SetFontData(0, 80, 44, string.Format("OR#{0}", Ticket.ORNumber));
-            print.SetFontData(1, -1, 35, Ticket.MovieCode);
-            print.SetFontData(0, 70, 33, string.Format(" SN:{0}", Ticket.SerialNumber));
+                print.SetFontData(0, 80, 44, string.Format("OR#{0}", Ticket.ORNumber));
+                print.SetFontData(1, -1, 35, Ticket.MovieCode);
+                print.SetFontData(0, 70, 33, string.Format(" SN:{0}", Ticket.SerialNumber));
 
-            print.SetFontData(0, 170, 24, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime));
-            print.SetFontData(0, 70, 24, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
+                print.SetFontData(0, 170, 24, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime));
+                print.SetFontData(0, 70, 24, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
 
-            print.SetFontData(2, -1, 17, Ticket.CinemaNumber.ToString());
-            print.SetFontData(0, 170, 17, string.Format("Peso {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
-            print.SetFontData(0, 70, 17, string.Format("at:{0:00.00}", Ticket.AmusementTax));
+                print.SetFontData(2, -1, 17, Ticket.CinemaNumber.ToString());
+                print.SetFontData(0, 170, 17, string.Format("Peso {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
+                print.SetFontData(0, 70, 17, string.Format("at:{0:00.00}", Ticket.AmusementTax));
 
-            print.SetFontData(0, -1, 10, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
-            print.SetFontData(0, 70, 10, string.Format("vt:{0:00.00}", Ticket.VatTax));
+                print.SetFontData(0, -1, 10, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
+                print.SetFontData(0, 70, 10, string.Format("vt:{0:00.00}", Ticket.VatTax));
 
-            print.SetFontData(0, -1, 0, Ticket.SessionName);
-            print.SetFontData(0, 70, 0, string.Format("MIN:{0}", Ticket.MIN));
+                print.SetFontData(0, -1, 0, Ticket.SessionName);
+                print.SetFontData(0, 70, 0, string.Format("MIN:{0}", Ticket.MIN));
 
-            print.EndLabelFormatModeAndPrint();
-            RawPrinterHelper.SendStringToPrinter(Ticket.ORNumber, _printerName, print.Print);
+                print.EndLabelFormatModeAndPrint();
+                RawPrinterHelper.SendStringToPrinter(Ticket.ORNumber, _printerName, print.Print);
+            }
+            else if (_printerName.ToUpper().StartsWith("POSTEK"))
+            {
+
+                //PrintLab.OpenPort(_printerName);
+                /*
+                PrintLab.PTK_ClearBuffer();
+                PrintLab.PTK_SetPrintSpeed(4);
+                PrintLab.PTK_SetDarkness(10);
+                PrintLab.PTK_SetLabelHeight(400, 16);
+
+
+                PrintLab.PTK_PrintLabel(1, 1);
+                PrintLab.ClosePort();
+                */
+
+                PostekPrinter1 print = new PostekPrinter1();
+                print.Open(_printerName);
+
+
+                //starting column is 200 instead of 50
+                //15
+                //18
+                //20
+                //22
+                //30
+                
+                //start 
+                //200 - ?
+                //10 - ?
+
+                //final
+                //20 +18 34
+                //25 +20 
+                //30 +22
+                //35 +28
+                //40 +36
+                //
+
+                //PrintLab.PTK_DrawTextTrueTypeW(215, 120, 20, 0, "Arial", 2, 400, false, false, false, "A1", "ABCDEFGHIJ");
+                //PrintLab.PTK_DrawTextTrueTypeW(235, 90, 30, 0, "Arial", 2, 400, false, false, false, "A2", "ABCDEFGHIJ");
+                //PrintLab.PTK_DrawTextTrueTypeW(257, 120, 35, 0, "Arial", 2, 400, false, false, false, "A4", "ABCDEFGHIJ");
+                //PrintLab.PTK_DrawTextTrueTypeW(282, 120, 40, 0, "Arial", 2, 400, false, false, false, "A5", "ABCDEFGHIJ");
+
+
+                //350
+                /*
+                --correct layout ignore others
+                PrintLab.PTK_DrawTextTrueTypeW(200, 10, 25, 0, "Arial", 2, 400, false, false, false, "A0", "1ABCDEFGHIJ");
+                PrintLab.PTK_DrawTextTrueTypeW(220, 10, 20, 0, "Arial", 2, 400, false, false, false, "A1", "2ABCDEFGHIJ");
+                PrintLab.PTK_DrawTextTrueTypeW(238, 10, 30, 0, "Arial", 2, 400, false, false, false, "A3", "3ABCDEFGHIJ");
+                PrintLab.PTK_DrawTextTrueTypeW(260, 10, 35, 0, "Arial", 2, 400, false, false, false, "A4", "4ABCDEFGHIJ"); //+28
+                PrintLab.PTK_DrawTextTrueTypeW(288, 10, 20, 0, "Arial", 2, 400, false, false, false, "A5", "5ABCDEFGHIJ");
+                */
+
+                //test print
+                /*
+                PrintLab.PTK_DrawTextTrueTypeW(200, 10, 25, 0, "Arial", 2, 400, false, false, false, "C0", "Y");
+                PrintLab.PTK_DrawTextTrueTypeW(200, 110, 25, 0, "Arial", 2, 400, false, false, false, "C1", "Y");
+                PrintLab.PTK_DrawTextTrueTypeW(200, 210, 25, 0, "Arial", 2, 400, false, false, false, "C2", "Y");
+                PrintLab.PTK_DrawTextTrueTypeW(200, 310, 25, 0, "Arial", 2, 400, false, false, false, "C3", "Y");
+                PrintLab.PTK_DrawTextTrueTypeW(200, 360, 25, 0, "Arial", 2, 400, false, false, false, "C4", "Y");
+
+                PrintLab.PTK_DrawTextTrueTypeW(220, 10, 20, 0, "Arial", 2, 400, false, false, false, "Z0", "Z");
+                PrintLab.PTK_DrawTextTrueTypeW(220, 110, 20, 0, "Arial", 2, 400, false, false, false, "Z1", "Z");
+                PrintLab.PTK_DrawTextTrueTypeW(220, 210, 20, 0, "Arial", 2, 400, false, false, false, "Z2", "Z");
+                PrintLab.PTK_DrawTextTrueTypeW(220, 310, 20, 0, "Arial", 2, 400, false, false, false, "Z3", "Z");
+                PrintLab.PTK_DrawTextTrueTypeW(220, 360, 20, 0, "Arial", 2, 400, false, false, false, "Z4", "Z");
+
+                PrintLab.PTK_DrawTextTrueTypeW(238, 10, 40, 0, "Arial", 2, 400, false, false, false, "X0", "X");
+                PrintLab.PTK_DrawTextTrueTypeW(238, 110, 40, 0, "Arial", 2, 400, false, false, false, "X1", "X");
+                PrintLab.PTK_DrawTextTrueTypeW(238, 210, 40, 0, "Arial", 2, 400, false, false, false, "X2", "X");
+                PrintLab.PTK_DrawTextTrueTypeW(238, 310, 40, 0, "Arial", 2, 400, false, false, false, "X3", "X");
+                PrintLab.PTK_DrawTextTrueTypeW(238, 360, 40, 0, "Arial", 2, 400, false, false, false, "X4", "X");
+
+                PrintLab.PTK_DrawTextTrueTypeW(274, 10, 35, 0, "Arial", 2, 400, false, false, false, "K0", "K");
+                PrintLab.PTK_DrawTextTrueTypeW(274, 110, 35, 0, "Arial", 2, 400, false, false, false, "K1", "K");
+                PrintLab.PTK_DrawTextTrueTypeW(274, 210, 35, 0, "Arial", 2, 400, false, false, false, "K2", "K");
+                PrintLab.PTK_DrawTextTrueTypeW(274, 310, 35, 0, "Arial", 2, 400, false, false, false, "K3", "K");
+                PrintLab.PTK_DrawTextTrueTypeW(274, 360, 35, 0, "Arial", 2, 400, false, false, false, "K4", "K");
+
+                PrintLab.PTK_DrawTextTrueTypeW(296, 10, 20, 0, "Arial", 2, 400, false, false, false, "L0", "L");
+                PrintLab.PTK_DrawTextTrueTypeW(296, 110, 20, 0, "Arial", 2, 400, false, false, false, "L1", "L");
+                PrintLab.PTK_DrawTextTrueTypeW(296, 210, 20, 0, "Arial", 2, 400, false, false, false, "L2", "L");
+                PrintLab.PTK_DrawTextTrueTypeW(296, 310, 20, 0, "Arial", 2, 400, false, false, false, "L3", "L");
+                PrintLab.PTK_DrawTextTrueTypeW(296, 360, 20, 0, "Arial", 2, 400, false, false, false, "L4", "L");
+                */
+
+                print.DrawText(1, 2, -1, Ticket.Header1, true);
+                print.DrawText(0, 2, -1, Ticket.Header2, true);
+                //min not included
+                print.DrawText(0, 2, -1, string.Format("TIN:{0}", Ticket.TIN), true);
+                print.DrawText(0, 2, -1, string.Format("PN:{0}", Ticket.PN), true);
+                print.DrawText(3, 2, -1, Ticket.MovieCode, true);
+                print.DrawText(0, 0, -1, string.Format("MTRCB RATING:{0}", Ticket.Rating), true);
+
+                print.DrawText(2, 1, -1, Ticket.CinemaNumber.ToString(), false);
+                print.DrawText(0, 0, -1, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime), true);
+                print.DrawText(0, 0, -1, string.Format(" Time  {0:hh:mm tt}", Ticket.StartTime), true);
+                print.DrawText(0, 0, -1, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice), true);
+
+                print.DrawText(0, 0, -1, " ", true);
+
+                print.DrawText(0, 0, -1, Ticket.SeatTypeName, true);
+                print.DrawText(2, 0, -1, "ADMIT ONE", true);
+
+                print.DrawText(0, 0, -1, " ", true);
+
+                print.DrawText(0, 0, -1, string.Format("OR#{0}", Ticket.ORNumber), false);
+                print.DrawText(0, 1, -1, string.Format("ct:{0:00.00}", Ticket.CulturalTax), true);
+
+                print.DrawText(0, 0, -1, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime), false);
+                print.DrawText(0, 1, -1, string.Format("at:{0:00.00}", Ticket.AmusementTax), true);
+
+                print.DrawText(0, 1, -1, string.Format("vt:{0:00.00}", Ticket.VatTax), true);
+
+                //print.DrawText(0, 0, -1, string.Format("{0}    SN:{1}", Ticket.SessionName, Ticket.SerialNumber), true);
+                print.DrawText(0, 0, -1, string.Format("{0}", Ticket.SessionName), true);
+
+                print.Row += 10;
+                //cutter here
+
+                print.DrawText(0, 0, -1, Ticket.Header1, true);
+                print.DrawText(0, 1, -1, string.Format("OR#{0}", Ticket.ORNumber), true);
+                print.DrawText(1, 0, -1, Ticket.MovieCode, false);
+                //print.DrawText(0, 1, -1, string.Format(" SN:{0}", Ticket.SerialNumber), false);
+
+                print.DrawText(1, 1, -1, Ticket.CinemaNumber.ToString(), true);
+                print.DrawText(0, 0, -1, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime), false);
+                print.DrawText(0, 1, -1, string.Format("ct:{0:00.00}", Ticket.CulturalTax), true);
+
+                print.DrawText(0, 0, -1, string.Format("Peso {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice), false);
+                print.DrawText(0, 1, -1, string.Format("at:{0:00.00}", Ticket.AmusementTax), true);
+
+                print.DrawText(0, 0, -1, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime), false);
+                print.DrawText(0, 1, -1, string.Format("vt:{0:00.00}", Ticket.VatTax), true);
+
+                print.DrawText(0, 1, -1, Ticket.SessionName, true);
+                //print.SetFontData(0, 70, 0, string.Format("MIN:{0}", Ticket.MIN));
+
+
+                //PrintLab.PTK_DrawTextTrueTypeW(80, 120, 20, 0, "Arial", 1, 400, false, false, false, "C1", "TrueTypeFont");                
+                /*
+                print.SetFontData(1, -2, 220, Ticket.Header1);
+                print.SetFontData(0, -2, 212, Ticket.Header2);
+                print.SetFontData(0, -2, 205, string.Format("MIN:{0}", Ticket.MIN));
+                print.SetFontData(0, -2, 198, string.Format("TIN:{0}", Ticket.TIN));
+                print.SetFontData(0, -2, 191, string.Format("PN:{0}", Ticket.PN));
+                print.SetFontData(3, -2, 173, Ticket.MovieCode);
+                print.SetFontData(0, -1, 166, string.Format("MTRCB RATING:{0}", Ticket.Rating));
+
+                print.SetFontData(0, 150, 158, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime));
+                print.SetFontData(0, 150, 150, string.Format("Time  {0:hh:mm tt}", Ticket.StartTime));
+                print.SetFontData(0, 150, 142, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
+                print.SetFontData(2, 180, 148, Ticket.CinemaNumber.ToString());
+
+                print.SetFontData(0, -1, 125, Ticket.SeatTypeName);
+                print.SetFontData(2, -1, 110, "ADMIT ONE");
+
+                //print.SetFontData(0, -1, 91, "THIS SERVES AS AN OFFICIAL RECEIPT");
+                print.SetFontData(0, -1, 96, Ticket.Code);
+
+                print.SetFontData(0, -1, 89, string.Format("OR#{0}", Ticket.ORNumber));
+                print.SetFontData(0, 60, 89, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
+
+                print.SetFontData(0, -1, 82, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
+                print.SetFontData(0, 60, 82, string.Format("at:{0:00.00}", Ticket.AmusementTax));
+
+                print.SetFontData(0, 60, 75, string.Format("vt:{0:00.00}", Ticket.VatTax));
+
+                print.SetFontData(0, -1, 68, string.Format("{0}    SN:{1}", Ticket.SessionName, Ticket.SerialNumber));
+
+                //cutter here
+
+                print.SetFontData(0, -1, 53, Ticket.Header1);
+                print.SetFontData(0, 80, 53, Ticket.Code);
+
+                print.SetFontData(0, 80, 44, string.Format("OR#{0}", Ticket.ORNumber));
+                print.SetFontData(1, -1, 35, Ticket.MovieCode);
+                print.SetFontData(0, 70, 33, string.Format(" SN:{0}", Ticket.SerialNumber));
+
+                print.SetFontData(0, 170, 24, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime));
+                print.SetFontData(0, 70, 24, string.Format("ct:{0:00.00}", Ticket.CulturalTax));
+
+                print.SetFontData(2, -1, 17, Ticket.CinemaNumber.ToString());
+                print.SetFontData(0, 170, 17, string.Format("Peso {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice));
+                print.SetFontData(0, 70, 17, string.Format("at:{0:00.00}", Ticket.AmusementTax));
+
+                print.SetFontData(0, -1, 10, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime));
+                print.SetFontData(0, 70, 10, string.Format("vt:{0:00.00}", Ticket.VatTax));
+
+                print.SetFontData(0, -1, 0, Ticket.SessionName);
+                print.SetFontData(0, 70, 0, string.Format("MIN:{0}", Ticket.MIN));
+                */
+
+                print.Close();
+
+            }
+            else 
+            {
+                try
+                {
+                    PrintLab.OpenPort(_printerName);
+                    
+                    PrintLab.PTK_ClearBuffer();
+                    PrintLab.PTK_SetPrintSpeed(4);
+                    PrintLab.PTK_SetDarkness(10);
+
+                    //PrintLab.PTK_SetLabelWidth(600); //determine width
+
+                    /*
+                    PrintLab.PTK_DrawText(50, 400, 3, 1, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    PrintLab.PTK_DrawText(65, 400, 3, 2, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    PrintLab.PTK_DrawText(85, 400, 3, 3, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    PrintLab.PTK_DrawText(110, 400, 3, 4, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    PrintLab.PTK_DrawText(140, 400, 3, 5, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    //PrintLab.PTK_DrawText(50, 25, 3, 2, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    //PrintLab.PTK_DrawText(50, 45, 3, 3, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                    //PrintLab.PTK_DrawText(50, 70, 3, 4, 1, 1, 'N', "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
+
+                    /*
+                    //PrintLab.PTK_DrawText(50, 10, 0, 4, 1, 1, 'N', Ticket.Header1);
+
+                    PostekPrinter postek = new PostekPrinter();
+
+                    postek.DrawText(4, 2, Ticket.Header1);
+                    postek.DrawText(1, 2, Ticket.Header2);
+                    postek.DrawText(1, 2, Ticket.Header3);
+                    /*
+                    postek.DrawText(2, 2, string.Format("Vat Reg Tin#: {0}", Ticket.TIN));
+                    postek.DrawText(2, 2, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber));
+
+                    postek.DrawText(75, 2, string.Format("Permit #: {0}", Ticket.PermitNumber), false);
+                    postek.DrawText(400, 2, string.Format("Permit #: {0}", Ticket.ServerSerialNumber));
+                    postek.DrawText(75, 2, string.Format("MIN: {0}", Ticket.MIN), false);
+                    postek.DrawText(400, 2, string.Format("POS #: {0}", Ticket.POSNumber));
+
+                    postek.DrawText(75, 5, Ticket.MovieCode, false);
+                    postek.DrawText(500, 2, string.Format("Or#: {0}", Ticket.ORNumber));
+                    */
+
+
+                    PrintLab.PTK_PrintLabel(1, 1);
+                    PrintLab.ClosePort();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
 
         //put this into thread or create progress so it will not appear to hang
@@ -520,7 +784,7 @@ namespace Paradiso
                         {
 
                             this.PrintTicket(ticket);
-                            if (ParadisoObjectManager.GetInstance().IsCitizenPrinter)
+                            if (ParadisoObjectManager.GetInstance().IsRawPrinter)
                             {
                                 this.PrintRawTicket(_printerName);
                             }

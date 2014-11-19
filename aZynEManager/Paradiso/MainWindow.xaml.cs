@@ -58,6 +58,7 @@ namespace Paradiso
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            //ParadisoObjectManager.GetInstance().GetPrinterPort(ParadisoObjectManager.GetInstance().DefaultPrinterName);
         }
 
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)

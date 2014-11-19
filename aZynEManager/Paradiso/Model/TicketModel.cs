@@ -13,6 +13,12 @@ namespace Paradiso.Model
 
         private string strHeader1 = "COMMERCENTER";
         private string strHeader2 = "MUNTINLUPA CITY";
+        private string strHeader3 = "HEADER 3";
+
+        private string strAccreditationNumber = "XXX-XXXXXXXXX-XXXXXX-XXXXX";
+        private string strPermitNumber = "XXXX-XXX-XXXXXX-XXX";
+        private string strServerSerialNumber = "XXXXXXXXXXX-X";
+        private string strPOSNumber = "XXXXXXXX";
 
         private string strMIN = string.Empty;
         private string strTIN = "XXX-XXX-XXX-XXX";
@@ -73,6 +79,12 @@ namespace Paradiso.Model
             PN = ParadisoObjectManager.GetInstance().PN;
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
+            strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
+            strAccreditationNumber = ParadisoObjectManager.GetInstance().GetConfigValue("ACCREDITATION", "XXX-XXXXXXXXX-XXXXXX-XXXXX");
+            strPermitNumber = ParadisoObjectManager.GetInstance().GetConfigValue("PERMIT", "XXXX-XXX-XXXXXX-XXX");
+            strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL", "XXXXXXXXXXX-X");
+            strPOSNumber = string.Empty;
+
             IsVoid = false;
         }
 
@@ -423,6 +435,19 @@ namespace Paradiso.Model
             }
         }
 
+        public string Header3
+        {
+            get { return strHeader3; }
+            set
+            {
+                if (value != strHeader3)
+                {
+                    strHeader3 = value;
+                    NotifyPropertyChanged("Header3");
+                }
+            }
+        }
+
         public string MIN
         {
             get { return strMIN; }
@@ -486,6 +511,58 @@ namespace Paradiso.Model
                     blnIsHandicapped = value;
                     UpdateSeatTypeName();
                     NotifyPropertyChanged("IsHandicapped");
+                }
+            }
+        }
+
+        public string AccreditationNumber
+        {
+            get { return strAccreditationNumber; }
+            set
+            {
+                if (value != strAccreditationNumber)
+                {
+                    strAccreditationNumber = value;
+                    NotifyPropertyChanged("AccreditationNumber");
+                }
+            }
+        }
+
+        public string PermitNumber
+        {
+            get { return strPermitNumber; }
+            set
+            {
+                if (value != strPermitNumber)
+                {
+                    strPermitNumber = value;
+                    NotifyPropertyChanged("PermitNumber");
+                }
+            }
+        }
+
+        public string ServerSerialNumber
+        {
+            get { return strServerSerialNumber; }
+            set
+            {
+                if (value != strServerSerialNumber)
+                {
+                    strServerSerialNumber = value;
+                    NotifyPropertyChanged("ServerSerialNumber");
+                }
+            }
+        }
+
+        public string POSNumber
+        {
+            get { return strPOSNumber; }
+            set
+            {
+                if (value != strPOSNumber)
+                {
+                    strPOSNumber = value;
+                    NotifyPropertyChanged("POSNumber");
                 }
             }
         }

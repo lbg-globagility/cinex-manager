@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Printing;
 
 namespace Paradiso
 {
@@ -106,35 +107,73 @@ namespace Paradiso
             }
         }
 
+        public string GetConfigValue(string _strHeader, string strDefault)
+        {
+            string strHeader = strDefault;
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var header = (from h in context.config_table where h.system_desc == _strHeader select h.system_value).SingleOrDefault();
+                if (header != null && header != string.Empty)
+                    strHeader = header.ToString();
+            }
+            return strHeader;
+        }
+
         public string Header
         {
             get
             {
-                string strHeader = "COMMERCENTER";
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
-                {
-                    var header = (from h in context.config_table where h.system_desc == "CINEMA NAME" select h.system_value).SingleOrDefault();
-                    if (header != null && header != string.Empty)
-                        strHeader = header.ToString();
-                }
-                return strHeader;
+                return GetConfigValue("CINEMA NAME", "COMMERCENTER");
             }
         }
 
-        public bool IsCitizenPrinter
+        public string PrinterName
         {
             get
             {
-                bool blnIsCitizenPrinter = true;
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                return GetConfigValue("PRINTER", string.Empty);
+            }
+        }
+
+        public string GetPrinterPort(string strPrinterName)
+        {
+            string strPort = string.Empty;
+
+            PrintServer server = new PrintServer();
+            foreach (PrintQueue queue in server.GetPrintQueues())
+            {
+                if (queue.Name == strPrinterName)
+                    strPort = queue.QueuePort.Name;
+            }
+            return strPort;
+        }
+
+        public string DefaultPrinterName
+        {
+            get
+            {
+                string strPrinterName = this.PrinterName.ToUpper();
+                string strDefaultPrinterName = string.Empty;
+
+                PrintServer server = new PrintServer();
+                foreach (PrintQueue queue in server.GetPrintQueues())
                 {
-                    string strPrinter = string.Empty;
-                    var printer = (from h in context.config_table where h.system_desc == "PRINTER" select h.system_value).SingleOrDefault();
-                    if (printer != null && printer != string.Empty)
-                        strPrinter = printer.ToString();
-                    if (strPrinter != string.Empty && strPrinter != "CITIZEN")
-                        blnIsCitizenPrinter = false;
+                    if (queue.Name.ToUpper().StartsWith(strPrinterName))
+                        strDefaultPrinterName = queue.Name;    
                 }
+
+                return strDefaultPrinterName;
+            }
+        }
+
+        public bool IsRawPrinter
+        {
+            get
+            {
+                bool blnIsCitizenPrinter = false;
+                string strPrinter = this.PrinterName;
+                if (strPrinter != string.Empty && (strPrinter.ToUpper().StartsWith("CITIZEN") || strPrinter.ToUpper().StartsWith("POSTEK")))
+                    blnIsCitizenPrinter = true;
                 return blnIsCitizenPrinter;
             }
         }
@@ -157,18 +196,37 @@ namespace Paradiso
             }
         }
 
+        public bool IsPrintWithoutPreview
+        {
+            get
+            {
+                bool blnIsPrintWithoutPreview = false;
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    string strIsPrintWithoutPreview = string.Empty;
+                    var printwopreview = (from h in context.config_table where h.system_desc == "PRINT WITHOUT PREVIEW" select h.system_value).SingleOrDefault();
+                    if (printwopreview != null && printwopreview != string.Empty)
+                        strIsPrintWithoutPreview = printwopreview.ToString();
+                    if (strIsPrintWithoutPreview != string.Empty && strIsPrintWithoutPreview.ToUpper().Trim() != "YES")
+                        blnIsPrintWithoutPreview = true;
+                }
+                return blnIsPrintWithoutPreview;
+            }
+        }
+
         public string Subheader
         {
             get
             {
-                string strSubheader = "MUNTINLUPA CITY";
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
-                {
-                    var subheader = (from h in context.config_table where h.system_desc == "CINEMA ADDRESS" select h.system_value).SingleOrDefault();
-                    if (subheader != null && subheader != string.Empty)
-                        strSubheader = subheader.ToString();
-                }
-                return strSubheader;
+                return GetConfigValue("CINEMA ADDRESS", "MUNTINLUPA CITY");
+            }
+        }
+
+        public string Subheader1
+        {
+            get
+            {
+                return GetConfigValue("CINEMA ADDRESS2", "HEADER 3");
             }
         }
 
