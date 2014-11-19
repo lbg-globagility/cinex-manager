@@ -53,6 +53,7 @@ namespace Paradiso
         private bool modifyTopOffset;
         private UIElement elementBeingDragged;
         private bool IsEllapsed = false;
+        private bool IsAllowReserve = false;
 
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
@@ -624,6 +625,24 @@ namespace Paradiso
             IsReadOnly = false;
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+
+            /*
+            //special case
+            //get previous 
+            if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
+            {
+                MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
+                messageYesNoWindow.MessageText.Text = "Do you still want to reserve seats?";
+                messageYesNoWindow.ShowDialog();
+                if (messageYesNoWindow.IsYes)
+                {
+                    IsAllowReserve = true;
+                    return;
+                }
+                IsAllowReserve = false;
+            }
+            */
+
             if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date > paradisoObjectManager.ScreeningDate
                 || (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
                 ))

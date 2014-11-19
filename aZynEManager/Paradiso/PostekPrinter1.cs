@@ -22,7 +22,9 @@ namespace Paradiso
 
         public PostekPrinter1()
         {
-            Row = 200; //starting row;
+            //200, 350
+
+            Row = 17; //starting row;
             Column = 10;
 
             fontInfo = new List<FontInfo>();

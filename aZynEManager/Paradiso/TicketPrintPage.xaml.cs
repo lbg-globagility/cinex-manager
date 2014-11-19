@@ -611,7 +611,7 @@ namespace Paradiso
                 print.DrawText(3, 2, -1, Ticket.MovieCode, true);
                 print.DrawText(0, 0, -1, string.Format("MTRCB RATING:{0}", Ticket.Rating), true);
 
-                print.DrawText(2, 1, -1, Ticket.CinemaNumber.ToString(), false);
+                print.DrawText(3, 1, -1, Ticket.CinemaNumber.ToString(), false);
                 print.DrawText(0, 0, -1, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime), true);
                 print.DrawText(0, 0, -1, string.Format(" Time  {0:hh:mm tt}", Ticket.StartTime), true);
                 print.DrawText(0, 0, -1, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice), true);
