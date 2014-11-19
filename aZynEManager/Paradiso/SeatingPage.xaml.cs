@@ -144,6 +144,7 @@ namespace Paradiso
 
                             var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
                                            where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey && mslrs.status != 2
+
                                            select mslrs.cinema_seat_id).Count();
 
                             //reserved
@@ -470,6 +471,7 @@ namespace Paradiso
                     Patrons.Add(null);
                 var _patrons = (from mslp in context.movies_schedule_list_patron
                                 where mslp.movies_schedule_list_id == this.Key
+                                orderby mslp.is_default descending, mslp.patron.name
                                 select new
                                 {
                                     key = mslp.id,
@@ -477,11 +479,29 @@ namespace Paradiso
                                     patroncode = mslp.patron.code,
                                     patronname = mslp.patron.name,
                                     price = mslp.price,
-                                    seatcolor = mslp.patron.seat_color
+                                    seatcolor = mslp.patron.seat_color,
+                                    isdefault = mslp.is_default
                                 }).ToList();
-                if (_patrons != null)
+                if (_patrons.Count > 0)
                 {
-                    foreach (var _patron in _patrons)
+                    //get default
+                    var defaultPatron = _patrons.Where(x => x.isdefault == 1).FirstOrDefault();
+                    if (defaultPatron != null)
+                    {
+                        Patrons.Add(new PatronModel()
+                        {
+                            Key = defaultPatron.key,
+                            PatronKey = defaultPatron.patronkey,
+                            Code = defaultPatron.patroncode,
+                            Name = defaultPatron.patronname,
+                            Price = (decimal)defaultPatron.price,
+                            SeatColor = (int)defaultPatron.seatcolor
+                        });
+                    }
+
+                    var regPatrons = _patrons.Where(x => x.isdefault != 1 && x.patronname.StartsWith("REG")).ToList();
+
+                    foreach (var _patron in regPatrons)
                     {
                         Patrons.Add(new PatronModel()
                         {
@@ -489,8 +509,23 @@ namespace Paradiso
                             PatronKey = _patron.patronkey,
                             Code = _patron.patroncode,
                             Name = _patron.patronname,
-                            Price = (decimal) _patron.price,
-                            SeatColor = (int) _patron.seatcolor
+                            Price = (decimal)_patron.price,
+                            SeatColor = (int)_patron.seatcolor
+                        });
+                    }
+
+                    var otherPatrons = _patrons.Where(x => x.isdefault != 1 && !x.patronname.StartsWith("REG")).ToList();
+
+                    foreach (var _patron in otherPatrons)
+                    {
+                        Patrons.Add(new PatronModel()
+                        {
+                            Key = _patron.key,
+                            PatronKey = _patron.patronkey,
+                            Code = _patron.patroncode,
+                            Name = _patron.patronname,
+                            Price = (decimal)_patron.price,
+                            SeatColor = (int)_patron.seatcolor
                         });
                     }
                 }
