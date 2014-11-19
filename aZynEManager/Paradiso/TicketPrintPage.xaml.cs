@@ -690,7 +690,7 @@ namespace Paradiso
                                where mslrs.or_number == strSearch && mslrs.status == 1 //
 
                                      //) && ((SelectedUser.Key != 0 && mslrs.ticket.user.id == SelectedUser.Key) || SelectedUser.Key == 0)
-
+                               orderby mslrs.ticket.ticket_datetime descending
                                      select new
                                      {
                                          ticketid = mslrs.ticket_id,
@@ -722,6 +722,7 @@ namespace Paradiso
                                      where 
                                      mslrs.status == 1
                                      && mslrs.ticket.user.id == SelectedUser.Key
+                                    orderby mslrs.ticket.ticket_datetime descending
                                      select new
                                      {
                                          ticketid = mslrs.ticket_id,

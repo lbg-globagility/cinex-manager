@@ -81,6 +81,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="OR Number" Binding="{Binding Path= ORNumber}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Screening Time" Binding="{Binding Path= StartTime}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Patron" Binding="{Binding Path= PatronDescription}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Seat"  Binding="{Binding Path= SeatName}" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
