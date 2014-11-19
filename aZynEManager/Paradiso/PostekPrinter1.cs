@@ -108,7 +108,7 @@ namespace Paradiso
                 intColumn = ((_strData.Length * 350)/ intColumnCount) + 10;
                 data = _strData;
                 */
-                data = string.Format("{0}{1}", _strData, "".PadLeft((intColumnCount- data.Length), ' '));
+                data = string.Format("{0}{1}", data, "".PadLeft((intColumnCount- data.Length), ' '));
             }
             else if (intAlignment == 2) //center alignment
             {
