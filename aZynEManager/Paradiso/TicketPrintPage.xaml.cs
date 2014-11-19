@@ -429,16 +429,20 @@ namespace Paradiso
                             return;
                         }
 
-                        if (ParadisoObjectManager.GetInstance().IsRawPrinter)
+                        try
                         {
-                            this.PrintRawTicket(_printerName);
-                        }
-                        else
-                        {
-                            _printDialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
-                        }
+                            if (ParadisoObjectManager.GetInstance().IsRawPrinter)
+                            {
+                                this.PrintRawTicket(_printerName);
+                            }
+                            else
+                            {
+                                _printDialog.PrintVisual(TicketCanvas, Ticket.ORNumber);
+                            }
 
-                        ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|REPRINT", string.Format("REPRINT {0}.", Ticket.ORNumber));
+                            ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|REPRINT", string.Format("REPRINT {0}.", Ticket.ORNumber));
+                        }
+                        catch { }
 
                     }
                 }
@@ -771,11 +775,37 @@ namespace Paradiso
         public void PrintTickets(List<string> tickets)
         {
             PrintDialog dialog = new PrintDialog();
+            bool? _print = false;
+            string _printerName = string.Empty;
+
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("DIRECT PRINT", "YES") != "YES")
+            {
+
+                try
+                {
+                    _print = dialog.ShowDialog();
+                }
+                catch { }
+
+                //raw print
+
+                if (_print == true)
+                {
+                    _printerName = dialog.PrintQueue.FullName;
+                }
+            }
+            else
+            {
+                _printerName = ParadisoObjectManager.GetInstance().DefaultPrinterName;
+                _print = true;
+            }
+
+
             try
             {
-                if (dialog.ShowDialog() == true)
+                if (_print == true)
                 {
-                    string _printerName = dialog.PrintQueue.FullName;
+                    //string _printerName = dialog.PrintQueue.FullName;
 
 
                     ThreadStart job = new ThreadStart(() =>
@@ -786,7 +816,11 @@ namespace Paradiso
                             this.PrintTicket(ticket);
                             if (ParadisoObjectManager.GetInstance().IsRawPrinter)
                             {
-                                this.PrintRawTicket(_printerName);
+                                try
+                                {
+                                    this.PrintRawTicket(_printerName);
+                                }
+                                catch { }
                             }
                             else
                             {
