@@ -566,6 +566,7 @@ namespace Paradiso
                 //print.DrawText(0, 1, -1, string.Format(" SN:{0}", Ticket.SerialNumber), false);
 
                 print.DrawText(1, 1, -1, Ticket.CinemaNumber.ToString(), true);
+
                 print.DrawText(0, 0, -1, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime), false);
                 print.DrawText(0, 1, -1, string.Format("ct:{0:00.00}", Ticket.CulturalTax), true);
 
@@ -575,6 +576,7 @@ namespace Paradiso
                 print.DrawText(0, 0, -1, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime), false);
                 print.DrawText(0, 1, -1, string.Format("vt:{0:00.00}", Ticket.VatTax), true);
 
+                print.DrawText(0, 0, -1, Ticket.SeatName, false);
                 print.DrawText(0, 1, -1, Ticket.SessionName, true);
 
                 print.Close();
