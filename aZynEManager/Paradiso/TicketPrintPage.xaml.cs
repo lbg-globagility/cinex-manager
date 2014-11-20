@@ -690,7 +690,6 @@ namespace Paradiso
                 //ticket and details
                 var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
                                where mslrs.or_number == strSearch && mslrs.status == 1 //
-
                                      //) && ((SelectedUser.Key != 0 && mslrs.ticket.user.id == SelectedUser.Key) || SelectedUser.Key == 0)
                                orderby mslrs.ticket.ticket_datetime descending
                                      select new
@@ -718,7 +717,39 @@ namespace Paradiso
 
                                          isvoid = (mslrs.void_datetime != null),
                                      }).ToList();
-                if (strSearch == string.Empty && SelectedUser.Key != 0)
+                if (SelectedUser.Key == 0 && tickets.Count == 0)
+                {
+                    tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                               where mslrs.ticket.session_id.StartsWith(strSearch) && mslrs.status == 1
+                               orderby mslrs.ticket.ticket_datetime descending
+                               select new
+                               {
+                                   ticketid = mslrs.ticket_id,
+                                   ticketdatetime = mslrs.ticket.ticket_datetime,
+                                   terminalname = mslrs.ticket.terminal,
+                                   tellercode = mslrs.ticket.user.userid,
+                                   session = mslrs.ticket.session_id,
+
+                                   id = mslrs.id,
+                                   cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                   moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                                   rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                   seattype = mslrs.movies_schedule_list.seat_type,
+                                   startdate = mslrs.movies_schedule_list.start_time,
+                                   patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                   patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                   seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                   price = mslrs.price,
+                                   ornumber = mslrs.or_number,
+                                   at = mslrs.amusement_tax_amount,
+                                   ct = mslrs.cultural_tax_amount,
+                                   vt = mslrs.vat_amount,
+
+                                   isvoid = (mslrs.void_datetime != null),
+                               }).ToList();
+
+                }
+                else if (SelectedUser.Key != 0)
                 {
                         tickets = (from mslrs in context.movies_schedule_list_reserved_seat
                                      where 
@@ -750,7 +781,10 @@ namespace Paradiso
 
                                          isvoid = (mslrs.void_datetime != null),
                                      }).ToList();
-
+                        if (strSearch != string.Empty)
+                        {
+                            tickets = tickets.Where(x => (x.ornumber == strSearch || x.session.StartsWith(strSearch))).ToList();
+                        }
                 }
 
                 //show all tickets in initial search
