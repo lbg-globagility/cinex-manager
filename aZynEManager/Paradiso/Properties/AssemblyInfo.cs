@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("Paradiso")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Amellar Solutions")]
 [assembly: AssemblyProduct("Paradiso")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

@@ -266,10 +266,10 @@ namespace Paradiso.Model
                     _strSeatName.Append(")");
                 }
 
-                SeatTypeName = string.Format("GUARANTEED SEATING{0}", _strSeatName.ToString());
+                SeatTypeName = string.Format("RESERVED SEATING{0}", _strSeatName.ToString());
             }
             else if (SeatType == 2)
-                SeatTypeName = "FREE SEATING (LIMITED)";
+                SeatTypeName = "FREE SEATING (GUARANTEED)";
             else if (SeatType == 3)
                 SeatTypeName = "FREE SEATING (UNLIMITED)";
             else

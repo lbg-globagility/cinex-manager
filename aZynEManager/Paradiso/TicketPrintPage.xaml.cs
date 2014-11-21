@@ -535,9 +535,16 @@ namespace Paradiso
                 print.DrawText(0, 0, -1, string.Format("MTRCB RATING:{0}", Ticket.Rating), true);
 
                 print.DrawText(3, 1, -1, Ticket.CinemaNumber.ToString(), false);
-                print.DrawText(0, 0, -1, string.Format("Date  {0:MM/dd/yy ddd}", Ticket.StartTime), true);
+                print.DrawText(0, 0, -1, string.Format("Date  {0:MM-dd-yy ddd}", Ticket.StartTime), true);
                 print.DrawText(0, 0, -1, string.Format("Time  {0:hh:mm tt}", Ticket.StartTime), true);
-                print.DrawText(0, 0, -1, string.Format("Peso  {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice), true);
+
+                string ticketName = string.Empty;
+                if (Ticket.PatronCode.EndsWith(string.Format("{0:#}", Ticket.PatronPrice)))
+                    ticketName = Ticket.PatronCode;
+                else
+                    ticketName = string.Format("{0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice);
+
+                print.DrawText(0, 0, -1, string.Format("Peso  {0}", ticketName), true);
 
                 print.DrawText(0, 0, -1, " ", true);
 
@@ -557,7 +564,12 @@ namespace Paradiso
                 //print.DrawText(0, 0, -1, string.Format("{0}    SN:{1}", Ticket.SessionName, Ticket.SerialNumber), true);
                 print.DrawText(0, 0, -1, string.Format("{0}", Ticket.SessionName), true);
 
-                print.Row += 10;
+                string strDefaultAddRow = ParadisoObjectManager.GetInstance().GetConfigValue("ADDROW", "20");
+                string strAddRow = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("ADDROW_{0}", Environment.MachineName), strDefaultAddRow);
+                int intAddRow = 20;
+                int.TryParse(strAddRow, out intAddRow);
+                print.Row += intAddRow;
+
                 //cutter here
 
                 print.DrawText(0, 0, -1, Ticket.Header1, true);
@@ -567,16 +579,20 @@ namespace Paradiso
 
                 print.DrawText(1, 1, -1, Ticket.CinemaNumber.ToString(), true);
 
-                print.DrawText(0, 0, -1, string.Format("{0:MM/dd/yy ddd hh:mm tt}", Ticket.StartTime), false);
+                print.DrawText(0, 0, -1, string.Format("{0:MM-dd-yy ddd hh:mm tt}", Ticket.StartTime), false);
                 print.DrawText(0, 1, -1, string.Format("ct:{0:00.00}", Ticket.CulturalTax), true);
 
-                print.DrawText(0, 0, -1, string.Format("Peso {0} {1:#}", Ticket.PatronCode, Ticket.PatronPrice), false);
+                print.DrawText(0, 0, -1, string.Format("Peso {0}", ticketName), false);
                 print.DrawText(0, 1, -1, string.Format("at:{0:00.00}", Ticket.AmusementTax), true);
 
                 print.DrawText(0, 0, -1, string.Format("T:{0} {1} {2:HH:mm}", Ticket.TerminalName, Ticket.TellerCode, Ticket.CurrentTime), false);
                 print.DrawText(0, 1, -1, string.Format("vt:{0:00.00}", Ticket.VatTax), true);
 
-                print.DrawText(0, 0, -1, Ticket.SeatName, false);
+                string _seatName = string.Empty;
+                if (Ticket.SeatName != string.Empty)
+                    _seatName = string.Format("SEAT#:{0}",Ticket.SeatName);
+
+                print.DrawText(0, 0, -1, _seatName, false);
                 print.DrawText(0, 1, -1, Ticket.SessionName, true);
 
                 print.Close();
