@@ -424,6 +424,8 @@ namespace aZynEManager
             }
         }
 
+
+
         public void populateTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
         {
             try
@@ -528,6 +530,130 @@ namespace aZynEManager
             }
         }
 
+        public void populateTableDaily(frmMain frm, String tbl, string sConnString, string sqry)
+        {
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            MySqlConnection myconn = new MySqlConnection(sConnString);
+            try
+            {
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append(String.Format("insert into {0} ({1}) ",tbl,sqry));
+                MySqlCommand cmd2 = new MySqlCommand(sQuery.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd2.ExecuteNonQuery();
+                cmd2.Dispose();
+                sQuery = new StringBuilder();
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch
+            {
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        public void populateScreening(frmMain frm, String tbl, string sConnString, DateTime startdate)
+        {
+            try
+            {
+                DataTable dtsched = new DataTable();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                MySqlConnection myconn = new MySqlConnection(sConnString);
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select a.id, a.movies_schedule_id from movies_schedule_list a ");
+                sQuery.Append(String.Format("where a.start_time > '{0:yyyy/MM/dd}' ", startdate));
+                sQuery.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ", startdate.AddDays(1)));
+                sQuery.Append("and status = 1 ");
+                sQuery.Append("order by a.movies_schedule_id, a.start_time");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                if (myconn.State == ConnectionState.Open)
+                {
+                    MySqlDataAdapter da = new MySqlDataAdapter(sQuery.ToString(), myconn);
+                    da.Fill(dtsched);
+                    myconn.Close();
+                }
+
+                if (dtsched.Rows.Count > 0)
+                {
+                    int schedidcntr = 0;
+                    int movieschedid = -1;
+                    int schedid = -1;
+                    foreach (DataRow dr in dtsched.Rows)
+                    {
+                        schedid = Convert.ToInt32(dr[0].ToString());
+                        if (schedidcntr == 0)
+                            movieschedid = Convert.ToInt32(dr[1].ToString());
+                        else
+                        {
+                            if (movieschedid != Convert.ToInt32(dr[1].ToString()))
+                            {
+                                movieschedid = Convert.ToInt32(dr[1].ToString());
+                                schedidcntr = 0;
+                            }
+                        }
+                        schedidcntr += 1; //screening counter
+
+                        int movieid = -1;
+                        int qtty = 0;
+                        double amt = 0;
+                        sQuery = new StringBuilder();
+                        sQuery.Append("select d.movie_id,count(b.ticket_id) qtty,sum(b.price) amt from movies_schedule_list_reserved_seat b, ");
+                        sQuery.Append("movies_schedule_list c, movies_schedule d ");
+                        sQuery.Append(String.Format("where b.movies_schedule_list_id = {0} ", schedid));
+                        sQuery.Append("and b.movies_schedule_list_id = c.id ");
+                        sQuery.Append("and c.movies_schedule_id = d.id ");
+                        sQuery.Append("and b.status = 1");
+                        MySqlCommand cmd1 = new MySqlCommand(sQuery.ToString(), myconn);
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlDataReader rd1 = cmd1.ExecuteReader();
+                        int inttotal = 0;
+                        if (rd1.HasRows)
+                        {
+                            while (rd1.Read())
+                            {
+                                movieid = Convert.ToInt32(rd1["movie_id"].ToString());
+                                qtty = Convert.ToInt32(rd1["qtty"].ToString());
+                                if (!DBNull.Value.Equals(rd1["amt"]))
+                                    amt = Convert.ToDouble(rd1["amt"].ToString());
+                            }
+                        }
+                        rd1.Dispose();
+                        cmd1.Dispose();
+
+                        StringBuilder finalqry = new StringBuilder();
+                        finalqry.Append("insert into tmp_screening values(0");
+                        finalqry.Append(String.Format(",{0}", movieid));
+                        finalqry.Append(String.Format(",{0}", schedidcntr));
+                        finalqry.Append(String.Format(",{0}", qtty));
+                        finalqry.Append(String.Format(",{0}", amt));
+                        finalqry.Append(String.Format(",'{0:yyyy/MM/dd}'", startdate));
+                        finalqry.Append(String.Format(",'{0}'", frm.UserCode));
+                        finalqry.Append(")");
+                        MySqlCommand cmd2 = new MySqlCommand(finalqry.ToString(), myconn);
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd2.ExecuteNonQuery();
+                        cmd2.Dispose();
+                        finalqry = new StringBuilder();
+                    }
+                }
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch
+            {
+
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+        }
     }
 
 

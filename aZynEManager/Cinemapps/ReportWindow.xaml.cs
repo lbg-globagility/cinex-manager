@@ -283,25 +283,27 @@ namespace Cinemapps
             
             try
             {
-                using (frmRP06 frmreport = new frmRP06())
+                //using (frmRP06 frmreport = new frmRP06())
+                //{
+                using (frmReport frmreport = new frmReport())
                 {
-                    
-                    //if (RP06Cinema.SelectedValue != null)
-                    //{
-                    //    if (RP06Cinema.SelectedValue is Cinema)
-                    //    {
-                    //        Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
-                    //        intCinemaId = cinema.Id;
-                    //    }
-                    //}
+                    int intCinemaId = -1;
+                    if (RP06Cinema.SelectedValue != null)
+                    {
+                        if (RP06Cinema.SelectedValue is Cinema)
+                        {
+                            Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
+                            intCinemaId = cinema.Id;
+                        }
+                    }
 
                     //frmreport.setDate = (DateTime)RP06StartDate.SelectedDate;
                     //frmreport.setCinema = (String)RP06Cinema.Text;
-                    //frmreport._intCinemaID = intCinemaId;
-                   // frmreport.frmInit(main, main.m_clscom);
+                    frmreport._intCinemaID = intCinemaId;
                     frmreport._dtStart = (DateTime)RP06StartDate.SelectedDate;
-                    frmreport.cinema = (String)RP06Cinema.Text;
-                    frmreport.frmInit(main, main.m_clscom);
+                    frmreport.frmInit(main, main.m_clscom, "RP06");
+                    //frmreport.cinema = (String)RP06Cinema.Text;
+                    //frmreport.frmInit(main, main.m_clscom);
 
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -680,5 +682,25 @@ namespace Cinemapps
             }
         }
 
+        //RMB added new report 11.19.2014
+        private void PreviewRP07_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP07StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP07");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        
     }
 }
