@@ -10,6 +10,7 @@ namespace Paradiso.Model
     {
         private int intKey;
         private string strName;
+        private bool blnIsSelected;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,6 +37,19 @@ namespace Paradiso.Model
                 {
                     strName = value;
                     NotifyPropertyChanged("Name");
+                }
+            }
+        }
+
+        public bool IsSelected
+        {
+            get { return blnIsSelected; }
+            set
+            {
+                if (value != blnIsSelected)
+                {
+                    blnIsSelected = value;
+                    NotifyPropertyChanged("IsSelected");
                 }
             }
         }

@@ -951,7 +951,7 @@ namespace Paradiso
                             {
                                 reservedSeats.Name = _rs.full_name;
                                 reservedSeats.Notes = _rs.notes;
-                                reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn });
+                                reservedSeats.ReservedSeats.Add(new ReservedSeatModel() { Key = _rs.id, Name = _rs.sn, IsSelected = true });
                             }
 
                         }
@@ -1371,7 +1371,17 @@ namespace Paradiso
         {
             Button b = (Button)sender;
             ReservedSeatListModel rsl = (ReservedSeatListModel) b.DataContext;
-            if (rsl.ReservedSeats.Count > 0)
+
+            var __rsl = rsl.ReservedSeats.Where(x => x.IsSelected == true).ToList();
+           
+            if (__rsl.Count == 0)
+            {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.MessageText.Text = "Please select a seat to unreserve.";
+                messageWindow.ShowDialog();
+                return;
+            }
+            else
             {
                 MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
                 messageYesNoWindow.MessageText.Text = "Do you want to unreserved these seats?";
@@ -1390,7 +1400,7 @@ namespace Paradiso
                         try
                         {
                             string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
-                            foreach (ReservedSeatModel rs in rsl.ReservedSeats)
+                            foreach (ReservedSeatModel rs in __rsl)
                             {
                                 var _rs = (from mslhs in context.movies_schedule_list_house_seat
                                            where mslhs.id == rs.Key
