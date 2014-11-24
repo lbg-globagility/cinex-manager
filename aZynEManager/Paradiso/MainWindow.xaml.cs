@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Threading;
 using System.Globalization;
+using AppLimit.NetSparkle;
+using System.Configuration;
 
 namespace Paradiso
 {
@@ -21,6 +23,8 @@ namespace Paradiso
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private Sparkle sparkle;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +33,21 @@ namespace Paradiso
             ci.DateTimeFormat.ShortDatePattern = "MMMM d, yyyy";
             ci.DateTimeFormat.DateSeparator = "";
             Thread.CurrentThread.CurrentCulture = ci;
+
+            string strServer = "localhost";
+            strServer = ConfigurationManager.AppSettings["Host"];
+
+            string strVersion = "x86";
+            if (System.Environment.Is64BitOperatingSystem)
+                strVersion = "x64";
+
+            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
+            //sparkle.ShowDiagnosticWindow = true;
+            //sparkle.EnableSilentMode = true;
+            sparkle.StartLoop(true, true, new TimeSpan(0, 15, 0));
         }
+
+
 
         private void UpdateDashboard()
         {

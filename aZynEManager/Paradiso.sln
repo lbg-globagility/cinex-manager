@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptUtilities", "EncryptUtilities\EncryptUtilities.csproj", "{EB833D79-9D87-48EC-B396-79AACE685253}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSparkle2010", "NetSparkle\NetSparkle2010.csproj", "{74635A21-2BAD-4522-AB95-E3E5703CD301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{EB833D79-9D87-48EC-B396-79AACE685253}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EB833D79-9D87-48EC-B396-79AACE685253}.Release|x64.ActiveCfg = Release|Any CPU
 		{EB833D79-9D87-48EC-B396-79AACE685253}.Release|x86.ActiveCfg = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|x64.ActiveCfg = Release|Any CPU
+		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
