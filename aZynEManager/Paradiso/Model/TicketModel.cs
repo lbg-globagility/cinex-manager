@@ -266,7 +266,11 @@ namespace Paradiso.Model
                     _strSeatName.Append(")");
                 }
 
-                SeatTypeName = string.Format("RESERVED SEATING{0}", _strSeatName.ToString());
+                if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                    SeatTypeName = "RESERVED SEATING"; 
+                else
+                    SeatTypeName = string.Format("RESERVED SEATING{0}", _strSeatName.ToString());
+
             }
             else if (SeatType == 2)
                 SeatTypeName = "FREE SEATING (GUARANTEED)";

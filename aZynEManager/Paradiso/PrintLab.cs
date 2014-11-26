@@ -60,5 +60,7 @@ namespace Paradiso
         public static extern int PTK_DrawPcxGraphics(uint px, uint py, string gname);
         [DllImport("WINPSK.dll")]
         public static extern int PTK_DrawText(uint px, uint py, uint pdirec, uint pFont, uint pHorizontal, uint pVertical, char ptext, string pstr);
+        [DllImport("WINPSK.dll")]
+        public static extern int PTK_SetDirection(char direct);
     }
 }

@@ -508,7 +508,10 @@ namespace Paradiso
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             timer.Stop();
-            NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage2());
+            else
+                NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
         }
 
         private void Reserved_Click(object sender, RoutedEventArgs e)

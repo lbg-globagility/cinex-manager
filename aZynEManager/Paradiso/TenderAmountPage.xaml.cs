@@ -322,9 +322,16 @@ namespace Paradiso
 
                         ParadisoObjectManager.GetInstance().SetNewSessionId();
 
-                        TicketPrintPage ticketPrintPage = new TicketPrintPage();
-                        ticketPrintPage.PrintTickets(ornumbers);
-
+                        if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                        {
+                            TicketPrintPage2 ticketPrintPage = new TicketPrintPage2();
+                            ticketPrintPage.PrintTickets(ornumbers);
+                        }
+                        else
+                        {
+                            TicketPrintPage ticketPrintPage = new TicketPrintPage();
+                            ticketPrintPage.PrintTickets(ornumbers);
+                        }
                         if (NavigationService != null) 
                             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     }
