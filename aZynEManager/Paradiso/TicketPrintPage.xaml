@@ -32,6 +32,8 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="OR Number/Session Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                     <ComboBox Name="UsersComboBox" Margin="5,0,0,0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" />
+                    <CheckBox Style="{x:Null}" Height="16" Name="chkSessionOnly" Checked="chkSessionOnly_Checked"  Unchecked="chkSessionOnly_Unchecked"/>
+                    <TextBlock Height="16">Session Only</TextBlock>
                     <Button Name="SearchTicket" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
                         <Rectangle Width="20" Height="20" >
                             <Rectangle.Fill>
