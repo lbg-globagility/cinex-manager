@@ -10,7 +10,8 @@
         <DataProvider>ODBC</DataProvider>
         <ConnectString></ConnectString>
       </ConnectionProperties>
-    </DataSource></DataSources>
+    </DataSource>
+  </DataSources>
   <Width>7.5in</Width>
   <TopMargin>.25in</TopMargin>
   <LeftMargin>.25in</LeftMargin>
@@ -23,28 +24,20 @@
         <CommandText></CommandText>
       </Query>
       <Fields>
-        <Field Name="pname">
-          <DataField>pname</DataField>
+        <Field Name="usercode">
+          <DataField>usercode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="cname">
-          <DataField>cname</DataField>
+        <Field Name="username">
+          <DataField>username</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="user">
-          <DataField>user</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PRICE">
-          <DataField>PRICE</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="QTY">
-          <DataField>QTY</DataField>
+        <Field Name="qty">
+          <DataField>qty</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
-        <Field Name="TOTALSALES">
-          <DataField>TOTALSALES</DataField>
+        <Field Name="totalsales">
+          <DataField>totalsales</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="movie_date">
@@ -55,21 +48,9 @@
           <DataField>system_value</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="fname">
-          <DataField>fname</DataField>
+        <Field Name="report_name">
+          <DataField>report_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="mname">
-          <DataField>mname</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="lname">
-          <DataField>lname</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="start_date">
-          <DataField>start_date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -89,8 +70,8 @@
         <Top>20.2pt</Top>
         <ReportItems>
           <Textbox Name="Textbox1">
-            <Height>25.52pt</Height>
-            <Width>226.48pt</Width>
+            <Height>24.77pt</Height>
+            <Width>361.98pt</Width>
             <Value>=Fields!system_value.Value</Value>
             <Left>0.00pt</Left>
             <Top>0.00pt</Top>
@@ -133,11 +114,11 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox4">
-            <Height>26.31pt</Height>
-            <Width>225.89pt</Width>
-            <Value>TELLER DAILY SUMMARY SALES</Value>
-            <Left>0.00pt</Left>
-            <Top>25.70pt</Top>
+            <Height>22.57pt</Height>
+            <Width>361.43pt</Width>
+            <Value>=Fields!report_name.Value</Value>
+            <Left>0.0pt</Left>
+            <Top>24.9pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -151,16 +132,17 @@
             </Style>
           </Textbox>
           <Textbox Name="Textbox5">
-            <Height>16.54pt</Height>
-            <Width>228.87pt</Width>
+            <Height>15.78pt</Height>
+            <Width>359.91pt</Width>
             <Value>="For Sales Date: " + Format(Fields!movie_date.Value,"MMMM dd, yyyy (dddd)")</Value>
-            <Left>0.0pt</Left>
-            <Top>63.5pt</Top>
+            <Left>0.00pt</Left>
+            <Top>63.50pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
               <BorderWidth />
               <FontWeight>Bold</FontWeight>
+              <PaddingLeft>10pt</PaddingLeft>
             </Style>
           </Textbox>
           <Line Name="Line1">
@@ -342,7 +324,7 @@
               <PageBreakAtStart>false</PageBreakAtStart>
               <PageBreakAtEnd>false</PageBreakAtEnd>
               <GroupExpressions>
-                <GroupExpression>=Fields!user.Value</GroupExpression>
+                <GroupExpression>=Fields!usercode.Value</GroupExpression>
               </GroupExpressions>
             </Grouping>
             <Header>
@@ -370,7 +352,7 @@
                             <PaddingLeft>5pt</PaddingLeft>
                             <FontStyle>Normal</FontStyle>
                           </Style>
-                          <Value>=Fields!user.Value</Value>
+                          <Value>=Fields!usercode.Value</Value>
                           <CanGrow>true</CanGrow>
                         </Textbox>
                       </ReportItems>
@@ -441,7 +423,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox15">
-                          <Value>=Fields!fname.Value + " " + Fields!mname.Value + ". " + Fields!lname.Value</Value>
+                          <Value>=Fields!username.Value</Value>
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -643,7 +625,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox31">
-                          <Value>=SUM(Fields!QTY.Value)</Value>
+                          <Value>=SUM(Fields!qty.Value)</Value>
                           <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                             <BorderStyle>
                               <Default>None</Default>
@@ -692,7 +674,7 @@
                             <Format>#,##0.00</Format>
                             <PaddingRight>10pt</PaddingRight>
                           </Style>
-                          <Value>=SUM(Fields!TOTALSALES.Value)</Value>
+                          <Value>=SUM(Fields!totalsales.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -864,9 +846,9 @@
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
-                        <FontWeight >Bolder</FontWeight>
+                        <FontWeight>Bolder</FontWeight>
                       </Style>
-                      <Value>=SUM(Fields!QTY.Value)</Value>
+                      <Value>=SUM(Fields!qty.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -893,9 +875,9 @@
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
                         <PaddingRight>10pt</PaddingRight>
-                        <FontWeight >Bolder</FontWeight>
+                        <FontWeight>Bolder</FontWeight>
                       </Style>
-                      <Value>=SUM(Fields!TOTALSALES.Value)</Value>
+                      <Value>=SUM(Fields!totalsales.Value)</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>

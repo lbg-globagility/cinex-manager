@@ -771,7 +771,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox15">
-                      <Value>=Format(Fields!START_TIME.Value,'h:mm tt')</Value>
+                      <Value>=Format(Min(Fields!START_TIME.Value),'h:mm tt')</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -793,7 +793,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox16">
-                      <Value>=Format(Fields!END_TIME.Value,'h:mm tt')</Value>
+                      <Value>=Format(Max(Fields!END_TIME.Value),'h:mm tt')</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>

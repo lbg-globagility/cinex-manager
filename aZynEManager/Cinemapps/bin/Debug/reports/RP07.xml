@@ -19,11 +19,11 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText></CommandText>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="code">
           <DataField>code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -193,7 +193,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>25.4pt</Height>
+              <Height>19.8pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -258,7 +258,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>24.4pt</Height>
+              <Height>19.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -271,7 +271,7 @@
                           <Left>None</Left>
                           <Right>None</Right>
                           <Top>None</Top>
-                          <Bottom>None</Bottom>
+                          <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bolder</FontWeight>
                         <BorderColor>
@@ -302,7 +302,7 @@
                           <Left>None</Left>
                           <Right>None</Right>
                           <Top>None</Top>
-                          <Bottom>None</Bottom>
+                          <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
                         <BorderColor>
@@ -325,7 +325,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>16.9pt</Height>
+              <Height>25.6pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -360,7 +360,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>20.8pt</Height>
+              <Height>15.8pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1237,6 +1237,7 @@
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Normal</FontWeight>
+                        <FontStyle >Italic</FontStyle>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1729,21 +1730,6 @@ iif(Len(Convert.ToString(Fields!screening8_amount.Value)) &lt;= 0,0,iif(Fields!s
         <Left>8.8pt</Left>
         <Top>0.0pt</Top>
       </Table>
-      <Line Name="Line1">
-        <Height>0.04pt</Height>
-        <Width>-886.77pt</Width>
-        <Style>
-          <BorderStyle>
-            <Default>Solid</Default>
-          </BorderStyle>
-          <BorderColor>
-            <Default>Lightgrey</Default>
-          </BorderColor>
-          <BorderWidth />
-        </Style>
-        <Left>894.0pt</Left>
-        <Top>49.5pt</Top>
-      </Line>
     </ReportItems>
     <Height>158.1pt</Height>
   </Body>

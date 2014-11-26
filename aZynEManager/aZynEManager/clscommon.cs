@@ -530,20 +530,17 @@ namespace aZynEManager
             }
         }
 
-        public void populateTableDaily(frmMain frm, String tbl, string sConnString, string sqry)
+        public void populateTableDaily(frmMain frm, String tbl, string sConnString, string sQuery)
         {
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-            MySqlConnection myconn = new MySqlConnection(sConnString);
+            MySqlConnection myconn = new MySqlConnection(sConnString + "Allow User Variables=True;");
             try
             {
-                StringBuilder sQuery = new StringBuilder();
-                sQuery.Append(String.Format("insert into {0} ({1}) ",tbl,sqry));
-                MySqlCommand cmd2 = new MySqlCommand(sQuery.ToString(), myconn);
+                MySqlCommand cmd2 = new MySqlCommand(sQuery, myconn);
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 cmd2.ExecuteNonQuery();
                 cmd2.Dispose();
-                sQuery = new StringBuilder();
 
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
@@ -600,14 +597,16 @@ namespace aZynEManager
                         schedidcntr += 1; //screening counter
 
                         int movieid = -1;
+                        int cinemaid = -1;
                         int qtty = 0;
                         double amt = 0;
                         sQuery = new StringBuilder();
-                        sQuery.Append("select d.movie_id,count(b.ticket_id) qtty,sum(b.price) amt from movies_schedule_list_reserved_seat b, ");
-                        sQuery.Append("movies_schedule_list c, movies_schedule d ");
+                        sQuery.Append("select f.id cinema_id, d.movie_id,count(b.ticket_id) qtty,sum(b.price) amt from movies_schedule_list_reserved_seat b, ");
+                        sQuery.Append("movies_schedule_list c, movies_schedule d, cinema f ");
                         sQuery.Append(String.Format("where b.movies_schedule_list_id = {0} ", schedid));
                         sQuery.Append("and b.movies_schedule_list_id = c.id ");
                         sQuery.Append("and c.movies_schedule_id = d.id ");
+                        sQuery.Append("and d.cinema_id = f.id ");
                         sQuery.Append("and b.status = 1");
                         MySqlCommand cmd1 = new MySqlCommand(sQuery.ToString(), myconn);
                         if (myconn.State == ConnectionState.Closed)
@@ -618,6 +617,7 @@ namespace aZynEManager
                         {
                             while (rd1.Read())
                             {
+                                cinemaid = Convert.ToInt32(rd1["cinema_id"].ToString());
                                 movieid = Convert.ToInt32(rd1["movie_id"].ToString());
                                 qtty = Convert.ToInt32(rd1["qtty"].ToString());
                                 if (!DBNull.Value.Equals(rd1["amt"]))
@@ -629,6 +629,7 @@ namespace aZynEManager
 
                         StringBuilder finalqry = new StringBuilder();
                         finalqry.Append("insert into tmp_screening values(0");
+                        finalqry.Append(String.Format(",{0}", cinemaid));
                         finalqry.Append(String.Format(",{0}", movieid));
                         finalqry.Append(String.Format(",{0}", schedidcntr));
                         finalqry.Append(String.Format(",{0}", qtty));
