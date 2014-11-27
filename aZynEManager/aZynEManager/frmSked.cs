@@ -347,10 +347,15 @@ namespace aZynEManager
                             if (intsw == 0)
                             {
                                 firsttitle = sval;
-                                itemcolor = Color.FromArgb(100, 225, 225, 100);//Color.LightSteelBlue;
+                                itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);//
                          
                             }
-                            
+                            // RMB 11.27.2014 moved and updated 
+                            if (stat == "0")
+                                itemcolor = Color.Red;
+                            else
+                                itemcolor = Color.LightSteelBlue;
+
                             if (firsttitle != sval)
                             {
                                 calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
@@ -367,14 +372,9 @@ namespace aZynEManager
                                 }
                                 else
                                 {
-                                    itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);  
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100); // Color.LightSteelBlue;
                                 }
                                 firsttitle = sval;
-                            }
-                            //melvin 10-27-2014 change color for unpublish movie
-                            if (stat == "0")
-                            {
-                                itemcolor = Color.Red;
                             }
                             //RMB remarked 11.3.2014
                             //else

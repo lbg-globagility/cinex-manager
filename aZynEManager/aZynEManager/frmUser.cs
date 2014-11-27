@@ -117,8 +117,10 @@ namespace aZynEManager
             StringBuilder sbqry = new StringBuilder();
             sbqry.Append("select a.id, a.userid, a.lname, a.fname, a.designation, b.level_desc,(case when a.status=1 then 'Active' else 'Inactive' end) as Status, a.mname, a.user_password, c.system_name  ");
             sbqry.Append("from users a left join user_level b on a.user_level_id = b.id ");
-            sbqry.Append("left join application c on a.system_code = c.system_code  ");
-            sbqry.Append(" group by a.userid order by a.userid asc");//where a.system_code = 1 
+            sbqry.Append("left join application c on a.system_code = c.system_code ");
+            //rmb 11.26.2014 REMOVED GROUP BY
+            //sbqry.Append(" group by a.userid order by a.userid asc");//where a.system_code = 1 
+            sbqry.Append("order by a.userid asc");
             dtusers = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(dgvResult, dtusers);
             txtFound.Text = "Count: " + dtusers.Rows.Count.ToString();
@@ -275,6 +277,7 @@ namespace aZynEManager
                 {
                     dgvReset(dgvModuleCinema);
                 }
+               
                 //for reports
                 sqry = "[module_group] = 'REPORT'";
                 foundRows = null;
@@ -488,6 +491,25 @@ namespace aZynEManager
                             dgvModuleTicket[0, i].Value = (object)true;
                             chklst += 1;
                         }
+                    }
+
+                    //RMB added validation for the user not showing if the
+                    //system is different
+                    if (cmbSystem.SelectedValue.ToString() == "1")
+                    {
+                        dgvModuleTicket.DataSource = null;
+                        dgvModuleTicket.Rows.Clear();
+                    }
+                    else
+                    {
+                        dgvModuleCinema.DataSource = null;
+                        dgvModuleCinema.Rows.Clear();
+                        dgvModuleReport.DataSource = null; 
+                        dgvModuleReport.Rows.Clear();
+                        dgvModuleUtility.DataSource = null;
+                        dgvModuleUtility.Rows.Clear();
+                        dgvModuleConfig.DataSource = null;
+                        dgvModuleConfig.Rows.Clear();
                     }
                 }
             }
@@ -917,7 +939,8 @@ namespace aZynEManager
 
                     //validate the database for records being used
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("select count(*) from users where userid = '{0}' and system_code = {1}", strid, "1"));
+                    //sqry.Append(String.Format("select count(*) from users where id = {0} and system_code = {1}", intid, "1"));
+                    sqry.Append(String.Format("select count(*) from users where id = {0}", intid));
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
@@ -933,7 +956,7 @@ namespace aZynEManager
                     }
 
                     sqry = new StringBuilder();
-                    sqry.Append(String.Format("update  users set status=0 where userid = '{0}' ", strid));
+                    sqry.Append(String.Format("update users set status=0 where id = '{0}' ", intid));
                     try
                     {
                         if (myconn.State == ConnectionState.Closed)
@@ -1161,6 +1184,7 @@ namespace aZynEManager
                     strqry.Append(String.Format("user_password = '{0}', ", encrypt.EncryptString(this.txtPW.Text.Trim())));
                     strqry.Append(String.Format("mname = '{0}', ", this.txtMName.Text.ToUpper().Trim()));
                     strqry.Append(String.Format("designation = '{0}', ", this.txtDes.Text.ToUpper().Trim()));
+                    strqry.Append(String.Format("status = {0}, ", "1"));
                     strqry.Append(String.Format("user_level_id = {0} ", this.cmbAuth.SelectedValue.ToString()));
                     strqry.Append(String.Format("where userid = '{0}' ", strid));
                     strqry.Append(String.Format("and id = {0}", intid));

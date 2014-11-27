@@ -485,6 +485,7 @@ namespace aZynEManager
                             newqry.Append(String.Format("AND aa.start_time < '{0:yyyy/MM/dd}') ", recdate.AddDays(1)));
                             newqry.Append("AND a.movies_schedule_list_id = b.id ");
                             newqry.Append("AND b.movies_schedule_id = c.id ");
+                            newqry.Append("AND a.status = 1 ");
                             newqry.Append(String.Format("AND c.cinema_id = {0} ",cinemaid));
                             newqry.Append("GROUP BY c.movie_date, c.cinema_id ");
                             newqry.Append("ORDER BY c.movie_date ASC");
@@ -565,7 +566,7 @@ namespace aZynEManager
                 sQuery.Append("select a.id, a.movies_schedule_id from movies_schedule_list a ");
                 sQuery.Append(String.Format("where a.start_time > '{0:yyyy/MM/dd}' ", startdate));
                 sQuery.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ", startdate.AddDays(1)));
-                sQuery.Append("and status = 1 ");
+                sQuery.Append("and a.status = 1 ");
                 sQuery.Append("order by a.movies_schedule_id, a.start_time");
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();

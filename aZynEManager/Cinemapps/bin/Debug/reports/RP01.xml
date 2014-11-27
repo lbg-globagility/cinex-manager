@@ -20,14 +20,14 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText></CommandText>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="user">
           <DataField>user</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="code">
           <DataField>code</DataField>
@@ -65,11 +65,15 @@
           <DataField>system_value</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="reportname">
+          <DataField>reportname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
   </DataSets>
   <PageHeader>
-    <Height>2.8pt</Height>
+    <Height>12.4pt</Height>
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageHeader>
@@ -482,7 +486,7 @@
             <Footer>
               <TableRows>
                 <TableRow>
-                  <Height>19.0pt</Height>
+                  <Height>25.2pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -584,8 +588,8 @@
             <Height>18.03pt</Height>
             <Width>221.31pt</Width>
             <Value>TICKET SELLER: ____________________</Value>
-            <Left>9.60pt</Left>
-            <Top>120.50pt</Top>
+            <Left>9.6pt</Left>
+            <Top>138.1pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -598,7 +602,7 @@
             <Width>201.80pt</Width>
             <Value>MANAGER:       ___________________</Value>
             <Left>321.1pt</Left>
-            <Top>118.5pt</Top>
+            <Top>136.9pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -610,8 +614,8 @@
             <Height>23.28pt</Height>
             <Width>199.51pt</Width>
             <Value>CHECKED BY: ____________________</Value>
-            <Left>321.60pt</Left>
-            <Top>144.70pt</Top>
+            <Left>321.6pt</Left>
+            <Top>160.7pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -667,9 +671,9 @@
           <Textbox Name="Textbox2">
             <Height>16.50pt</Height>
             <Width>263.52pt</Width>
-            <Value>TELLER DAILY SALES</Value>
-            <Left>2.60pt</Left>
-            <Top>33.00pt</Top>
+            <Value>=Fields!reportname.Value</Value>
+            <Left>2.6pt</Left>
+            <Top>27.4pt</Top>
             <Style>
               <BorderStyle />
               <BorderColor />
@@ -713,7 +717,7 @@
               <BorderWidth />
             </Style>
             <Left>2.4pt</Left>
-            <Top>50.2pt</Top>
+            <Top>43.8pt</Top>
           </Line>
         </ReportItems>
         <Style>
