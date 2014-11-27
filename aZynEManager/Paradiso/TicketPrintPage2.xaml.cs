@@ -516,7 +516,7 @@ namespace Paradiso
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(86, Ticket.Header2), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(86, Ticket.Header3), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(86, string.Format("Vat Reg Tin#: {0}", Ticket.TIN)), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(86, string.Format("Acrrediation #: {0}", Ticket.AccreditationNumber)), true);
+                print.DrawText(-1, print.Row, print.Column, print.CenterString(86, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
                 print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
@@ -554,12 +554,15 @@ namespace Paradiso
 
                 print.DrawText(0, print.Row, print.Column, Ticket.SeatTypeName, true);
                 print.DrawText(2, print.Row, print.Column, "ADMIT ONE", true);
-                print.DrawText(0, print.Row, print.Column, "OFFICIAL RECEIPT", true);
+                //print.DrawText(0, print.Row, print.Column, "OFFICIAL RECEIPT", true);
+                print.DrawText(0, print.Row, print.Column, " ", true);
+                print.DrawText(0, print.Row, print.Column, string.Format("MTRCB RATING: {0}", Ticket.Rating), true);
 
-                print.Column += 35;
+                print.Column += 15;
                 print.DrawText(-1, print.Row, print.Column, string.Format("Sess. # {0}", Ticket.SessionName), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
 
+                print.Column += 5;
                 //cutter
                 print.DrawText(0, print.Row, print.Column, string.Format("{0}  {1}", Ticket.Header1, Ticket.MovieCode), true);
 
@@ -587,7 +590,6 @@ namespace Paradiso
                 print.DrawText(0, print.Row + 340, print.Column + 85, "Total", false);
                 print.DrawText(0, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
 
-
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Vat Reg Tin#: {0}", Ticket.TIN), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("A#: {0}", Ticket.AccreditationNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("SS#: {0}", Ticket.ServerSerialNumber), true);
@@ -596,7 +598,8 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("POS # {0}", Ticket.POSNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, Ticket.SeatTypeName, true);
                 print.DrawText(-1, print.Row + 125, print.Column, "ADMIT ONE", true);
-                print.DrawText(-1, print.Row + 125, print.Column, "OFFICIAL RECEIPT", true);
+                //print.DrawText(-1, print.Row + 125, print.Column, "OFFICIAL RECEIPT", true);
+                print.DrawText(-1, print.Row + 125, print.Column, " ", true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Sess. # {0}", Ticket.SessionName), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);

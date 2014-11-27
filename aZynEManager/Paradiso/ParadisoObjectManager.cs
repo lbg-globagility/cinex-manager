@@ -226,7 +226,7 @@ namespace Paradiso
         {
             get
             {
-                return GetConfigValue("CINEMA ADDRESS2", "HEADER 3");
+                return GetConfigValue("CINEMA ADDRESS2", string.Empty);
             }
         }
 

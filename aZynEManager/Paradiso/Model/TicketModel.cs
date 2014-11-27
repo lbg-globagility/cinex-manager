@@ -16,7 +16,7 @@ namespace Paradiso.Model
         private string strHeader3 = "HEADER 3";
 
         private string strAccreditationNumber = "XXX-XXXXXXXXX-XXXXXX-XXXXX";
-        private string strPermitNumber = "XXXX-XXX-XXXXXX-XXX";
+        //private string strPermitNumber = "XXXX-XXX-XXXXXX-XXX";
         private string strServerSerialNumber = "XXXXXXXXXXX-X";
         private string strPOSNumber = "XXXXXXXX";
 
@@ -81,7 +81,7 @@ namespace Paradiso.Model
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
             strAccreditationNumber = ParadisoObjectManager.GetInstance().GetConfigValue("ACCREDITATION", "XXX-XXXXXXXXX-XXXXXX-XXXXX");
-            strPermitNumber = ParadisoObjectManager.GetInstance().GetConfigValue("PERMIT", "XXXX-XXX-XXXXXX-XXX");
+            //strPermitNumber = ParadisoObjectManager.GetInstance().GetConfigValue("PERMIT", "XXXX-XXX-XXXXXX-XXX");
             strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL", "XXXXXXXXXXX-X");
             strPOSNumber = string.Empty;
 
@@ -532,6 +532,7 @@ namespace Paradiso.Model
             }
         }
 
+        /*
         public string PermitNumber
         {
             get { return strPermitNumber; }
@@ -544,6 +545,7 @@ namespace Paradiso.Model
                 }
             }
         }
+        */
 
         public string ServerSerialNumber
         {

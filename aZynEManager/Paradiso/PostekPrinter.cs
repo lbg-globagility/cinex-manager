@@ -13,7 +13,9 @@ namespace Paradiso
 
         public PostekPrinter()
         {
-            string strRow = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("STARTROW_{0}", Environment.MachineName), "17");
+            string strDefaultRow = ParadisoObjectManager.GetInstance().GetConfigValue("START_ROW", "17");
+            string strRow = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("STARTROW_{0}", Environment.MachineName), strDefaultRow);
+            
             int _row = 17;
             int.TryParse(strRow, out _row);
             Row = _row; //starting row;
