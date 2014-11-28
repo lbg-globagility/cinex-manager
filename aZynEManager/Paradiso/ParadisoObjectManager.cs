@@ -117,6 +117,27 @@ namespace Paradiso
             }
         }
 
+        public void SaveConfigValue(string strHeader, string strValue)
+        {
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var ct = (from h in context.config_table where h.system_desc == strHeader select h).SingleOrDefault();
+                if (ct == null)
+                {
+                    config_table nct = new config_table() { system_desc = strHeader, system_value = strValue, system_code = "" };
+                    context.config_table.AddObject(nct);
+                    context.SaveChanges();
+                    nct.system_code = string.Format("{0:000}", nct.id);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    ct.system_value = strValue;
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public string GetConfigValue(string _strHeader, string strDefault)
         {
             string strHeader = strDefault;

@@ -50,7 +50,8 @@ namespace Paradiso
             timer.Start();
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
-            if (paradisoObjectManager.HasRights("REPRINT") || paradisoObjectManager.HasRights("VOID"))
+            if (paradisoObjectManager.HasRights("REPRINT") || paradisoObjectManager.HasRights("VOID")
+                || paradisoObjectManager.HasRights("SETTINGS"))
                 TicketPanel.Visibility = Visibility.Visible;
             else
                 TicketPanel.Visibility = Visibility.Hidden;
@@ -60,7 +61,12 @@ namespace Paradiso
             else
                 Reserved.Visibility = Visibility.Hidden;
             Unreserved.Visibility = Visibility.Hidden;
+            if (paradisoObjectManager.HasRights("SETTINGS"))
+                Settings.Visibility = Visibility.Visible;
+            else
+                Settings.Visibility = Visibility.Collapsed;
 
+            Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
         public int ColumnCount
@@ -532,6 +538,14 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().IsReservedMode = false;
             Unreserved.Visibility = System.Windows.Visibility.Hidden;
             Reserved.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            //checks grant
+            
+            NavigationService.GetNavigationService(this).Navigate(new SettingPage());
         }
 
     }
