@@ -322,7 +322,13 @@ namespace Paradiso
 
                         ParadisoObjectManager.GetInstance().SetNewSessionId();
 
+                        bool blnIsTicketFormatB = false;
                         if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                            blnIsTicketFormatB = true;
+                        if (ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), "A") == "B")
+                            blnIsTicketFormatB = true;
+
+                        if (blnIsTicketFormatB)
                         {
                             TicketPrintPage2 ticketPrintPage = new TicketPrintPage2();
                             ticketPrintPage.PrintTickets(ornumbers);

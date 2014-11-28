@@ -80,10 +80,10 @@ namespace Paradiso.Model
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
-            strAccreditationNumber = ParadisoObjectManager.GetInstance().GetConfigValue("ACCREDITATION", "XXX-XXXXXXXXX-XXXXXX-XXXXX");
+            strAccreditationNumber = ParadisoObjectManager.GetInstance().GetConfigValue("ACCREDITATION", string.Empty); //"XXX-XXXXXXXXX-XXXXXX-XXXXX");
             //strPermitNumber = ParadisoObjectManager.GetInstance().GetConfigValue("PERMIT", "XXXX-XXX-XXXXXX-XXX");
-            strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL", "XXXXXXXXXXX-X");
-            strPOSNumber = string.Empty;
+            strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL",  string.Empty); //"XXXXXXXXXXX-X");
+            strPOSNumber = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), string.Empty);
 
             IsVoid = false;
         }
@@ -266,7 +266,13 @@ namespace Paradiso.Model
                     _strSeatName.Append(")");
                 }
 
+                bool blnIsTicketFormatB = false;
                 if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                    blnIsTicketFormatB = true;
+                if (ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), "A") == "B")
+                    blnIsTicketFormatB = true;
+
+                if (blnIsTicketFormatB)
                     SeatTypeName = "RESERVED SEATING"; 
                 else
                     SeatTypeName = string.Format("RESERVED SEATING{0}", _strSeatName.ToString());

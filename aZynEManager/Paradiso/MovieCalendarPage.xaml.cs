@@ -508,7 +508,13 @@ namespace Paradiso
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             timer.Stop();
+            bool blnIsTicketFormatB = false;
             if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                blnIsTicketFormatB = true;
+            if (ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), "A") == "B")
+                blnIsTicketFormatB = true;
+
+            if (blnIsTicketFormatB)
                 NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage2());
             else
                 NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());

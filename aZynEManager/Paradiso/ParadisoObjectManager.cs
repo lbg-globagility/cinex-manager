@@ -234,7 +234,7 @@ namespace Paradiso
         {
             get
             {
-                string strTIN = "XXX-XXX-XXX-XXX";
+                string strTIN = string.Empty; //"XXX-XXX-XXX-XXX";
                 using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var tin = (from h in context.config_table where h.system_desc == "TIN" select h.system_value).SingleOrDefault();
@@ -249,7 +249,7 @@ namespace Paradiso
         {
             get
             {
-                string strPN = "XXXX-XXX-XXXXX-XXX";
+                string strPN = string.Empty; // "XXXX-XXX-XXXXX-XXX";
                 using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var tin = (from h in context.config_table where h.system_desc == "PN" select h.system_value).SingleOrDefault();
