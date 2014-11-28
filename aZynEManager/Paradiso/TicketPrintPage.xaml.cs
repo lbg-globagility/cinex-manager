@@ -73,6 +73,7 @@ namespace Paradiso
             else
                 Print.Visibility = Visibility.Hidden;
 
+            Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
         private void PopulateUsers() 

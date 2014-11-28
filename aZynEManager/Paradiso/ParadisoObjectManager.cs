@@ -75,6 +75,16 @@ namespace Paradiso
             }
         }
 
+        public string Version
+        {
+            get
+            {
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                Version version = assembly.GetName().Version;
+                return string.Format("v {0}", version.ToString());
+            }
+        }
+
         public void SetNewSessionId()
         {
             this.SessionId = this.NewSessionId;

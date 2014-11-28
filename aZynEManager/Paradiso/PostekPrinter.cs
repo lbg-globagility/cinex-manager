@@ -82,6 +82,12 @@ namespace Paradiso
                 intFontSpacing = 18; //?
                 intColumnCount = 50;
             }
+            else if (intFont == -2)
+            {
+                intFontHeight = 25;
+                intFontSpacing = 21; //?
+                intColumnCount = 20;
+            }
             else if (intFont == 1)
             {
                 intFontHeight = 35;

@@ -35,6 +35,8 @@ namespace Paradiso
             this.UpdatePatronSeats();
 
             this.DataContext = this;
+
+            Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
         private void UpdatePatronSeats()

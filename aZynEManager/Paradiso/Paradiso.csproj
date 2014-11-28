@@ -132,6 +132,9 @@
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
     <Compile Include="Converters\SeatNameMultiConverter.cs" />
+    <Compile Include="SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TicketPrintPage2.xaml.cs">
       <DependentUpon>TicketPrintPage2.xaml</DependentUpon>
     </Compile>
@@ -212,6 +215,10 @@
     </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TicketPrintPage2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

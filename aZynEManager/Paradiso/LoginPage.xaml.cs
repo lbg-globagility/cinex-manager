@@ -128,6 +128,7 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            Version.Text = ParadisoObjectManager.GetInstance().Version;
             if (UserName.Focusable)
                 Keyboard.Focus(UserName);
         }

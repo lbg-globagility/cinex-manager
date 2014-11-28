@@ -94,6 +94,8 @@ namespace Paradiso
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
+
+            Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
         public int Key 
