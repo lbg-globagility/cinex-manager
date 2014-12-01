@@ -548,7 +548,7 @@ namespace Paradiso
 
                 int intx2a = print.Row + 135;
                 int inty2a = print.Column + 10;
-                int intx2b = print.Row + 410;
+                int intx2b = print.Row + 440;
                 int inty2b = print.Column + 10;
 
                 PrintLab.PTK_DrawRectangle((uint)intx1a, (uint)inty1a, 2, (uint)intx2a, (uint)inty2a);
