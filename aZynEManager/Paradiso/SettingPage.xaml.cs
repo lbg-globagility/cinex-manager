@@ -60,6 +60,17 @@ namespace Paradiso
                 }
             }
 
+            OfficialReceipt.SelectedIndex = -1;
+            string strOfficialReceipt = pom.GetConfigValue("OFFICIAL RECEIPT", "No");
+            for (int l = 0; l < OfficialReceipt.Items.Count; l++)
+            {
+                if (((ComboBoxItem)OfficialReceipt.Items[l]).Content.Equals(strOfficialReceipt))
+                {
+                    OfficialReceipt.SelectedIndex = l;
+                    break;
+                }
+            }
+
             Config7.Text = pom.GetConfigValue("SERVER SERIAL", string.Empty);
             Config8.Text = pom.GetConfigValue("MIN", string.Empty);
             Config9.Text = pom.GetConfigValue("STARTROW", "17");
@@ -78,6 +89,18 @@ namespace Paradiso
 
             Config10.Text = pom.GetConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), string.Empty);
             Config11.Text = pom.GetConfigValue(string.Format("STARTROW_{0}", Environment.MachineName), pom.GetConfigValue("STARTROW", "17"));
+
+            ClientOfficialReceipt.SelectedIndex = -1;
+            string strClientOfficialReceipt = pom.GetConfigValue(string.Format("OFFICIAL RECEIPT_{0}", Environment.MachineName), "No");
+            for (int m = 0; m < ClientOfficialReceipt.Items.Count; m++)
+            {
+                if (((ComboBoxItem)ClientOfficialReceipt.Items[m]).Content.Equals(strClientOfficialReceipt))
+                {
+                    ClientOfficialReceipt.SelectedIndex = m;
+                    break;
+                }
+            }
+
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -93,6 +116,9 @@ namespace Paradiso
             pom.SaveConfigValue("SERVER SERIAL", Config7.Text.Trim());
             pom.SaveConfigValue("MIN", Config8.Text.Trim());
             pom.SaveConfigValue("STARTROW", Config9.Text.Trim());
+            
+            if (OfficialReceipt.SelectedValue != null)
+                pom.SaveConfigValue("OFFICIAL RECEIPT", ((ComboBoxItem)OfficialReceipt.SelectedValue).Content.ToString());
 
             if (Printer.SelectedValue != null)
                 pom.SaveConfigValue("PRINTER",  ((ComboBoxItem) Printer.SelectedValue).Content.ToString());
@@ -102,6 +128,9 @@ namespace Paradiso
 
             if (ClientTicketFormat.SelectedValue != null)
                 pom.SaveConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), ((ComboBoxItem) ClientTicketFormat.SelectedValue).Content.ToString());
+
+            if (ClientOfficialReceipt.SelectedValue != null)
+                pom.SaveConfigValue(string.Format("OFFICIAL RECEIPT_{0}", Environment.MachineName), ((ComboBoxItem)ClientOfficialReceipt.SelectedValue).Content.ToString());
 
             if (Config10.Text.Trim() != string.Empty)
                 pom.SaveConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), Config10.Text.Trim());

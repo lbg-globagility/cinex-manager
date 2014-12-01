@@ -24,13 +24,15 @@
             <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg"/>
         </Canvas.Background>
         <DockPanel  Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
-            <DockPanel Margin="50" Background="White" >
+            <DockPanel Margin="25" Background="White" >
                 <StackPanel  HorizontalAlignment="Center" DockPanel.Dock="Bottom" Orientation="Horizontal">
                     <Button Width="80" Name="Save" Click="Save_Click">Save</Button>
                     <Button Width="80" Name="Cancel" Click="Cancel_Click" >Cancel</Button>
                 </StackPanel>
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -90,16 +92,26 @@
                     </ComboBox>
                     <TextBlock Grid.Row="14" Grid.Column="0">Ticket Starting Column</TextBlock>
                     <TextBox Grid.Row="14" Grid.Column="1" Name="Config9"/>
-                    <TextBlock Grid.Row="15" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">CLIENT CONFIGURATION</TextBlock>
-                    <TextBlock Grid.Row="16" Grid.Column="0">POS #</TextBlock>
-                    <TextBox Grid.Row="16" Grid.Column="1" Name="Config10"/>
-                    <TextBlock Grid.Row="17" Grid.Column="0">Ticket Format</TextBlock>
-                    <ComboBox Grid.Row="17" Grid.Column="1" Name="ClientTicketFormat" ItemsSource="{Binding}">
+                    <TextBlock Grid.Row="15" Grid.Column="0">Official Receipt</TextBlock>
+                    <ComboBox Grid.Row="15" Grid.Column="1" Name="OfficialReceipt" ItemsSource="{Binding}">
+                        <ComboBoxItem Content="Yes" />
+                        <ComboBoxItem Content="No" IsSelected="True" />
+                    </ComboBox>
+                    <TextBlock Grid.Row="16" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">CLIENT CONFIGURATION</TextBlock>
+                    <TextBlock Grid.Row="17" Grid.Column="0">POS #</TextBlock>
+                    <TextBox Grid.Row="17" Grid.Column="1" Name="Config10"/>
+                    <TextBlock Grid.Row="18" Grid.Column="0">Ticket Format</TextBlock>
+                    <ComboBox Grid.Row="18" Grid.Column="1" Name="ClientTicketFormat" ItemsSource="{Binding}">
                         <ComboBoxItem Content="A"/>
                         <ComboBoxItem Content="B"/>
                     </ComboBox>
-                    <TextBlock Grid.Row="18" Grid.Column="0">Ticket Starting Column</TextBlock>
-                    <TextBox Grid.Row="18" Grid.Column="1" Name="Config11"/>
+                    <TextBlock Grid.Row="19" Grid.Column="0">Ticket Starting Column</TextBlock>
+                    <TextBox Grid.Row="19" Grid.Column="1" Name="Config11"/>
+                    <TextBlock Grid.Row="20" Grid.Column="0">Official Receipt</TextBlock>
+                    <ComboBox Grid.Row="20" Grid.Column="1" Name="ClientOfficialReceipt" ItemsSource="{Binding}">
+                        <ComboBoxItem Content="Yes" />
+                        <ComboBoxItem Content="No" IsSelected="True" />
+                    </ComboBox>
                 </Grid>
 
             </DockPanel>

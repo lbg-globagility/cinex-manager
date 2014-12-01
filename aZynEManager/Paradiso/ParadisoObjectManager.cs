@@ -138,6 +138,12 @@ namespace Paradiso
             }
         }
 
+        public string GetTerminalConfigValue(string _strHeader, string strDefault)
+        {
+            string strDefaultValue = this.GetConfigValue(_strHeader, strDefault);
+            return this.GetConfigValue(string.Format("{0}_{1}", _strHeader, Environment.MachineName), strDefaultValue);
+        }
+
         public string GetConfigValue(string _strHeader, string strDefault)
         {
             string strHeader = strDefault;
