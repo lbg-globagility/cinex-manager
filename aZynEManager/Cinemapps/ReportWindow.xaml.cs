@@ -174,7 +174,8 @@ namespace Cinemapps
                 using (frmReport frmreport = new frmReport())
                 {
                     frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
-                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate.Value.AddDays(1);
+                    //RMB 12.2.2014 remarked//frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate;
                     frmreport.frmInit(main, main.m_clscom, "RP02");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -639,7 +640,8 @@ namespace Cinemapps
                 using (frmReport frmreport = new frmReport())
                 {
                     frmreport.setDate = (DateTime)RP17StartDate.SelectedDate;
-                    frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate.Value.AddDays(1);
+                    //frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate;
                     frmreport.frmInit(main, main.m_clscom, "RP17");
                     frmreport.ShowDialog();
                     frmreport.Dispose();

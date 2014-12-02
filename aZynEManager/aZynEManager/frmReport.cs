@@ -175,7 +175,8 @@ namespace aZynEManager
                         sqry.Append("order by h.cinema_id, f.code asc");
                         break;
                     case "RP02":
-                        //melvin 11/7/2014
+                        //RMB 11.28.2014 REMARKED
+                        /*//melvin 11/7/2014
                         sqry.Append("SELECT e.title, e.no_of_days, ");
                         sqry.Append("f.no_of_screenings, total_seats_taken, ");
                         sqry.Append("total_available_seats,  total_ticket_sales,");
@@ -207,7 +208,33 @@ namespace aZynEManager
                         sqry.Append(String.Format("{0:yyyy/MM/dd}", _dtEnd) + "' GROUP BY movie_id, ");
                         sqry.Append("cinema_id) o GROUP BY movie_id) k WHERE e.id = f.movie_id AND ");
                         sqry.Append("e.id = g.movie_id AND e.id = k.movie_id;");
-                        _dtEnd.AddDays(-1);
+                        _dtEnd.AddDays(-1);*/
+                        //sqry.Append(String.Format("set @startdate:= '{0:yyyy/MM/dd}'; ",));
+                        //sqry.Append(String.Format("set @enddate:= '{0:yyyy/MM/dd}'; ", ));
+                        sqry.Append("select moviecode, movietitle, dayshown, sum(screen) screen, sum(seattaken) seattaken,  ");
+                        sqry.Append("sum(seattotal) seattotal, sum(totalprice) totalprice, ((sum(seattaken)/sum(seattotal)) * 100) util, ");
+                        sqry.Append("system_value, reportname ");
+                        sqry.Append(String.Format("from (select e.code moviecode, e.title movietitle, (DATEDIFF('{0:yyyy/MM/dd}','{1:yyyy/MM/dd}') + 1) dayshown, count(distinct(c.id)) screen, ", _dtEnd, _dtStart));
+                        sqry.Append("count(b.cinema_seat_id) seattaken, f.capacity * count(distinct(c.id)) seattotal, ");
+                        sqry.Append("sum(b.price) totalprice, j.system_value, k.name reportname ");
+                        sqry.Append("from movies_schedule_list_reserved_seat b, movies_schedule_list c, ");
+                        sqry.Append("movies_schedule d, movies e, cinema f, config_table j, report k ");
+                        sqry.Append("where b.movies_schedule_list_id in ");
+                        sqry.Append("(select a.id from movies_schedule_list a ");
+                        sqry.Append(String.Format("where a.start_time > '{0:yyyy/MM/dd}' ", _dtStart));
+                        sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ",_dtEnd.AddDays(1)));
+                        sqry.Append("and a.status = 1) ");
+                        sqry.Append("and b.movies_schedule_list_id = c.id ");
+                        sqry.Append("and c.movies_schedule_id = d.id ");
+                        sqry.Append("and d.movie_id = e.id ");
+                        sqry.Append("and d.cinema_id = f.id ");
+                        sqry.Append("and b.status = 1 ");
+                        sqry.Append("and j.system_code = '001' ");
+                        sqry.Append("and k.id = 2 ");
+                        sqry.Append("group by e.code,d.cinema_id ");
+                        sqry.Append("order by e.title asc) tbl1  ");
+                        sqry.Append("group by moviecode ");
+                        sqry.Append("order by movietitle");
                         break;
                     case "RP04":
                         //melvin 11/11/2014 
@@ -571,7 +598,8 @@ namespace aZynEManager
                         break;
                     case "RP17":
                         //melvin 11/13/2014 
-                        string endDt = _dtEnd.AddDays(-1).ToShortDateString();
+                        //RMB remarked 12.02.2014
+                        /*string endDt = _dtEnd.AddDays(-1).ToShortDateString();
                         sqry.Append("SELECT '"+_dtStart.ToShortDateString()+"' as dt1,");
                         sqry.Append("'"+endDt+"' as dt2, z.system_value, k.id, k.name,");
                         sqry.Append("sum(total_available_seats) total_available_seats,");
@@ -605,7 +633,23 @@ namespace aZynEManager
                         sqry.Append(" GROUP BY movie_id, cinema_id) o GROUP BY  movie_id) k ");
                         sqry.Append(", config_table z WHERE e.id = f.movie_id AND e.id = ");
                         sqry.Append("g.movie_id AND e.id = k.movie_id and z.system_code='001' ");
-                        sqry.Append(" group by k.name; ");
+                        sqry.Append(" group by k.name; ");*/
+                        sqry.Append("select cinemacode, cinemaname, sum(seattaken), sum(seattotal), sum(totalprice), ((sum(seattaken)/sum(seattotal)) * 100) util, ");
+                        sqry.Append("system_value, reportname from (select f.id cinemacode, f.name cinemaname, ");
+                        sqry.Append("count(b.cinema_seat_id) seattaken, f.capacity * count(distinct(c.id)) seattotal, ");
+                        sqry.Append("sum(b.price) totalprice, j.system_value, k.name reportname ");
+                        sqry.Append("from movies_schedule_list_reserved_seat b, movies_schedule_list c, movies_schedule d, movies e, ");
+                        sqry.Append("cinema f, config_table j, report k ");
+                        sqry.Append("where b.movies_schedule_list_id in ");
+                        sqry.Append(String.Format("(select a.id from movies_schedule_list a where a.start_time > '{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' and a.status = 1)  ", _dtEnd.AddDays(1)));
+                        sqry.Append("and b.movies_schedule_list_id = c.id and c.movies_schedule_id = d.id ");
+                        sqry.Append("and d.movie_id = e.id and d.cinema_id = f.id and b.status = 1 ");
+                        sqry.Append("and j.system_code = '001' and k.id = 17 ");
+                        sqry.Append("group by d.cinema_id,e.code ");
+                        sqry.Append("order by d.cinema_id,e.title asc) tbl1 ");
+                        sqry.Append("group by cinemacode ");
+                        sqry.Append("order by cinemacode");
 
                         break;
                     case "AUDIT":
@@ -887,8 +931,8 @@ namespace aZynEManager
                                     }
                                 }
                             }
-                            
-                             if (code == "RP02")
+                            //rmb 11.28.2014 REMARKED
+                            /* if (code == "RP02")
                             {
                                if (flag == 0)
                                 {
@@ -901,7 +945,7 @@ namespace aZynEManager
                                 
                             }
 
-                            else if (code == "AUDIT")
+                            else*/ if (code == "AUDIT")
                             {
                                 sQry = " Select '" + _dtStart.ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
                             }
