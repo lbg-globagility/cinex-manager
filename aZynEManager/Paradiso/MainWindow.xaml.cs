@@ -37,11 +37,14 @@ namespace Paradiso
             string strServer = "localhost";
             strServer = ConfigurationManager.AppSettings["Host"];
 
+            /*
             string strVersion = "x86";
             if (System.Environment.Is64BitOperatingSystem)
                 strVersion = "x64";
+            */
 
-            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
+            //sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
+            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.xml", strServer));
             //sparkle.ShowDiagnosticWindow = true;
             //sparkle.EnableSilentMode = true;
             sparkle.StartLoop(true, true, new TimeSpan(0, 15, 0));

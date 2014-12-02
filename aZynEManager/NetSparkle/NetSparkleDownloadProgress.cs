@@ -97,7 +97,7 @@ namespace AppLimit.NetSparkle
         private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             progressDownload.Visible = false;
-            btnInstallAndReLaunch.Visible = true;            
+            //btnInstallAndReLaunch.Visible = true;            
 
             // report message            
             _sparkle.ReportDiagnosticMessage("Finished downloading file to: " + _tempName);
@@ -108,10 +108,11 @@ namespace AppLimit.NetSparkle
                 lblSecurityHint.Visible = true;
                 BackColor = Color.Tomato;
             }
-               
+
+            NetSparkleCheckAndInstall.Install(_sparkle, _tempName);
             // Check the unattended mode
-            if (_unattend)
-                btnInstallAndReLaunch_Click(null, null);
+            //if (_unattend)
+            //    btnInstallAndReLaunch_Click(null, null);
         }
                
         private void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

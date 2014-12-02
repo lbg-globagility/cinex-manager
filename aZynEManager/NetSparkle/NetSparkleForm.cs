@@ -8,6 +8,8 @@ namespace AppLimit.NetSparkle
     public partial class NetSparkleForm : Form
     {
         NetSparkleAppCastItem _currentItem;
+        public bool _IsCancelled = true;
+
         
         public NetSparkleForm(NetSparkleAppCastItem item, Image appIcon, Icon windowIcon)
         {            
@@ -93,9 +95,10 @@ namespace AppLimit.NetSparkle
         {
             // set the result to yes
             DialogResult = DialogResult.Yes;
-
+            _IsCancelled = false;   
             // close the dialog
             Close();
         }
+
     }
 }

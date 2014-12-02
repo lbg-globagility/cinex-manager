@@ -460,6 +460,8 @@ namespace AppLimit.NetSparkle
             // create the form
             NetSparkleForm frm = new NetSparkleForm(currentItem, ApplicationIcon, ApplicationWindowIcon);
 
+            frm.FormClosing += new FormClosingEventHandler(frm_FormClosing);
+            frm.FormClosed += new FormClosedEventHandler(frm_FormClosed);
             // configure the form
             frm.TopMost = true;
 
@@ -480,6 +482,19 @@ namespace AppLimit.NetSparkle
                 // download the binaries
                 InitDownloadAndInstallProcess(currentItem);
             }
+        }
+
+        void frm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        void frm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var form = (AppLimit.NetSparkle.NetSparkleForm)sender;
+            if (form._IsCancelled)
+                Environment.Exit(0);
+            //throw new NotImplementedException();
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
@@ -710,7 +725,7 @@ namespace AppLimit.NetSparkle
             }
             else
             {
-                NetSparkleDownloadProgress dlProgress = new NetSparkleDownloadProgress(this, item, _AppReferenceAssembly, ApplicationIcon, ApplicationWindowIcon, EnableSilentMode);
+                NetSparkleDownloadProgress dlProgress = new NetSparkleDownloadProgress(this, item, _AppReferenceAssembly, ApplicationIcon, ApplicationWindowIcon,  EnableSilentMode);
                 dlProgress.ShowDialog();
             }
 
