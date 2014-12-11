@@ -49,6 +49,12 @@ namespace aZynEManager
             InitializeComponent();
         }
 
+        //RMB 11.11.2014
+        public string setDistCode
+        {
+            set { _strDistributor = value; }
+        }
+
         // RMB 11-10-2014 start - added 
         public int setMovieID
         {
@@ -288,7 +294,8 @@ namespace aZynEManager
 
                     case "RP05":
                         //melvin 11/10/2014
-                        sqry.Append("select a.code as movie_code, a.title, ");
+                        //RMB 12.11.2014
+                        /*sqry.Append("select a.code as movie_code, a.title, ");
                         sqry.Append("count(e.cinema_seat_id) as QTY, ");
                         sqry.Append("(e.price* count(e.cinema_seat_id)) as Sales, ");
                         sqry.Append("b.movie_date, c.code as dist_code, f.system_value from movies a ");
@@ -301,7 +308,25 @@ namespace aZynEManager
                         sqry.Append(" where b.movie_date = ");
                         sqry.Append(string.Format("'{0:yyyy/MM/dd}' ",_dtStart));
                         sqry.Append(" and c.code='"+rp05distributor+"' and  e.status=1 and f.system_code='001'");
-                        sqry.Append("GROUP BY a.code;");
+                        sqry.Append("GROUP BY a.code;");*/
+
+                        sqry.Append("select d.code as movie_code, d.title, count(a.cinema_seat_id) as qty, ");
+                        sqry.Append("(a.price * count(a.cinema_seat_id)) as Sales, c.movie_date, e.name dist_name, ");
+                        sqry.Append("e.code as dist_code, g.system_value, h.name report_name ");
+                        sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
+                        sqry.Append("movies_schedule c, movies d, distributor e, config_table g, report h ");
+                        sqry.Append("where a.movies_schedule_list_id = b.id ");
+                        sqry.Append("and b.movies_schedule_id = c.id ");
+                        sqry.Append("and c.movie_id = d.id ");
+                        sqry.Append("and d.dist_id = e.id ");
+                        sqry.Append(String.Format("and c.movie_date = '{0:yyyy/MM/dd}' ", _dtStart));
+                        sqry.Append(String.Format("and e.code = '{0}' ", _strDistributor));
+                        sqry.Append("and a.status = 1 ");
+                        sqry.Append("and b.status = 1 ");
+                        sqry.Append("and g.system_code = '001' ");
+                        sqry.Append("and h.id = 5 ");
+                        sqry.Append("group by e.code, d.code ");
+                        sqry.Append("order by d.title asc");
                         break;
 
                     case "RP06":
@@ -728,10 +753,12 @@ namespace aZynEManager
                         sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
                         sqry.Append("config_table g, report h ");
                         sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
-                        if(_dtStart == _dtEnd)
-                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
-                        else
-                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
+                        //RMB remarked 12.11.2014                    
+                        //if(_dtStart == _dtEnd)
+                        //    sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd.AddDays(1)));
+                        //else
+                        //  sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
+                        sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd.AddDays(1)));
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append("AND b.movies_schedule_id = c.id ");
                         sqry.Append("AND a.patron_id = f.id ");
@@ -753,10 +780,12 @@ namespace aZynEManager
                         sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
                         sqry.Append("config_table g, report h, movies i ");
                         sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
-                        if (_dtStart == _dtEnd)
-                            sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
-                        else
-                            sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
+                        //RMB 12.11.2014 remarked
+                        //if (_dtStart == _dtEnd)
+                        //    sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
+                        //else
+                        //    sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
+                        sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd.AddDays(1)));
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append("AND b.movies_schedule_id = c.id ");
                         sqry.Append("AND a.patron_id = f.id ");

@@ -13,6 +13,7 @@ using CinemaCustomControlLibrary;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using MahApps.Metro;
+using System.Collections;
 
 namespace aZynEManager
 {
@@ -636,7 +637,8 @@ namespace aZynEManager
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
-                    //validate for the existance of the record
+                    //RMB remarked violate the existnace of ticket already sold
+                    /*//validate for the existance of the record
                     sqry = new StringBuilder();
                     sqry.Append("select count(*) from cinema_patron ");
                     sqry.Append(String.Format("where cinema_id = {0} ", intid));
@@ -657,8 +659,131 @@ namespace aZynEManager
                         cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
                     }
+                    tabinsertcheck(myconn, dgvpatrons, intid);*/
 
-                    tabinsertcheck(myconn, dgvpatrons, intid);
+                    //RMB validate for ticket records
+                    ArrayList patroncoll = new ArrayList();
+                    sqry = new StringBuilder();
+                    sqry.Append("select patron_id from cinema_patron ");
+                    sqry.Append(String.Format("where cinema_id = {0} ", intid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    MySqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            patroncoll.Add(rd[0].ToString());
+                        }
+                    }
+                    rd.Dispose();
+                    cmd.Dispose();
+
+                    //to do 12.9.2014
+                    //compare the list of checked patrons to the existing patrons in cinema
+                    ArrayList newPatronList = new ArrayList(patroncoll);
+                    for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                    {
+                        if (dgvpatrons[0, i].Value != null)
+                        {
+                            if ((bool)dgvpatrons[0, i].Value)
+                            {
+                                foreach (string ptronid in patroncoll)
+                                {
+                                    if (dgvpatrons[3, i].Value.ToString() == ptronid)
+                                        newPatronList.Remove(ptronid);//to get the collection of unchecked patrons
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (string ptron in newPatronList)
+                    {
+                        StringBuilder sbqry = new StringBuilder();
+                        sbqry.Append("select count(*) from patrons f where f.id in ");
+                        sbqry.Append("(select distinct(c.id) from movies_schedule_list_reserved_seat a, ");
+                        sbqry.Append("movies_schedule_list_patron b, patrons c, ");
+                        sbqry.Append("movies_schedule_list d, movies_schedule e ");
+                        sbqry.Append("where a.patron_id = b.id ");
+                        sbqry.Append("and b.patron_id = c.id ");
+                        sbqry.Append("and a.movies_schedule_list_id = d.id ");
+                        sbqry.Append("and d.movies_schedule_id = e.id ");
+                        sbqry.Append(String.Format("and e.cinema_id = {0} ", intid));
+                        sbqry.Append("order by c.id asc) ");
+                        sbqry.Append(String.Format("and f.id = {0} ", ptron));
+
+                        if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                        cmd = new MySqlCommand(sbqry.ToString(), myconn);
+                        int rowCount3 = 0;
+                        rowCount3 = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd.Dispose();
+
+                        if (rowCount3 == 0)
+                        {
+                            StringBuilder sqry2 = new StringBuilder();
+                            sqry2.Append("delete from cinema_patron where ");
+                            sqry2.Append(String.Format("cinema_id = {0} and patron_id = {1}",intid, ptron));
+                            cmd = new MySqlCommand(sqry2.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+                    }
+
+                    //will insert records from the database
+                    for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                    {
+                        if (dgvpatrons[0, i].Value != null)
+                        {
+                            if ((bool)dgvpatrons[0, i].Value)
+                            {
+                                sqry = new StringBuilder();
+                                sqry.Append("select count(*) from cinema_patron ");
+                                sqry.Append(String.Format("where cinema_id = {0} and patron_id = {1}", intid, dgvpatrons[3, i].Value.ToString()));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                rowCount = 0;
+                                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                                cmd.Dispose();
+
+                                if (rowCount == 0)
+                                {
+                                    StringBuilder sqry2 = new StringBuilder();
+                                    sqry2.Append(String.Format("insert into cinema_patron values(0,{0},{1},{2})",
+                                        intid, dgvpatrons[3, i].Value.ToString(), dgvpatrons[2, i].Value.ToString()));
+
+                                    if (myconn.State == ConnectionState.Closed)
+                                        myconn.Open();
+                                    MySqlCommand cmd2 = new MySqlCommand(sqry2.ToString(), myconn);
+                                    cmd2.ExecuteNonQuery();
+                                    cmd2.Dispose();
+                                }
+                            }
+                        }
+                    }
+
+                    //sqry = new StringBuilder();
+                    //sqry.Append("select count(*) from ticket ");
+                    //sqry.Append(String.Format("where name = '{0}' ", txtname.Text.Trim()));
+                    //sqry.Append(String.Format("and capacity = {0} ", txtcapacity.Text.Trim()));
+                    //sqry.Append(String.Format("and sound_id = {0} ", cmbsounds.SelectedValue.ToString()));
+                    //sqry.Append(String.Format("and id != {0} ", intid));
+                    //if (myconn.State == ConnectionState.Closed)
+                    //    myconn.Open();
+                    //cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    //int rowCount2 = Convert.ToInt32(cmd.ExecuteScalar());
+                    //cmd.Dispose();
+                    //if (rowCount2 > 0)
+                    //{
+                    //    setnormal();
+                    //    if (myconn.State == ConnectionState.Open)
+                    //        myconn.Close();
+                    //    MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //    return;
+                    //}
+                    
 
                     //8-20-2014 UPDATES FROM RAYMOND
                     try

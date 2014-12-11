@@ -133,13 +133,13 @@ namespace aZynEManager
                     int result = 0;
                     int intid = 0;
                     int intsw = 0;
-                    Color itemcolor = Color.FromArgb(100, 225, 225, 100);//Color.LightSteelBlue;
+                    int colorsw = 0;
+                    Color itemcolor = Color.LightSteelBlue;
                     int reccntr = 0;
                     while (dr.Read())
                     {
                         reccntr += 1;
-                        
-                        
+
                         string sval = dr["code"].ToString();
                         string stime = dr["start_time"].ToString();
                         string etime = dr["end_time"].ToString();
@@ -150,39 +150,39 @@ namespace aZynEManager
                         if (sval != "")
                         {
                             if (intsw == 0)
-                            {
                                 firsttitle = sval;
-                                itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 100, 225, 225);
-                            }
-                            // RMB 11.27.2014 moved and updated 
-                            if (stat == "0")
-                                itemcolor = Color.Red;
-                            else
-                                itemcolor = Color.LightSteelBlue;
+
                             if (firsttitle != sval)
                             {
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+
                                 calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
                                 calitem.BackgroundColor = itemcolor;
                                 if (calsked.ViewIntersects(calitem))
                                     calsked.Items.Add(calitem);
 
                                 intsw = 0;
-                                if (stat == "0")
-                                {
-                                    itemcolor = Color.Red;
-                                }
-                                else
-                                {
-                                    itemcolor = Color.FromArgb(100, 100, 225, 225);//Color.FromArgb(100, 225, 225, 100);
-                                }
                                 firsttitle = sval;
+
+                                if (colorsw == 0)
+                                    colorsw = 1;
+                                else if (colorsw == 1)
+                                    colorsw = 0;
                             }
-                            
-                            //RMB remarked 11.3.2014
-                            //else
-                            //{
-                            //    itemcolor = Color.FromArgb(100, 100, 225, 225);
-                            //}
+
+                            if (stat == "0")
+                                itemcolor = Color.Red;
+                            else
+                            {
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+                            }
+
                             calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
                             if (calsked.ViewIntersects(calitem))
@@ -190,6 +190,11 @@ namespace aZynEManager
 
                             if (reccntr == dt.Rows.Count)
                             {
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+
                                 calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
                                 calitem.BackgroundColor = itemcolor;
                                 if (calsked.ViewIntersects(calitem))
@@ -204,9 +209,6 @@ namespace aZynEManager
                 cntr += 1;
                 dtref = dtstart.AddDays((double)cntr);
             } while (cntr < 7);
-
-
-           
         }
 
         private void populateCinema()
@@ -697,7 +699,7 @@ namespace aZynEManager
 
                 if (cbxintermision.Checked == true)
                 {
-                    if (txtintermision.Text.Trim() == "")
+                    if (txtintermision.Text.Trim() == "" || txtintermision.Text.Trim() == "0")
                     {
                         MessageBox.Show("Please provide a value\n\r for the itermission minutes.",
                         this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2372,12 +2374,13 @@ namespace aZynEManager
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            unselectbutton();
             txtintermision.Text = null;
             txtMC.Text = null;
             txtMT.Text = null;
             cbxintermision.Checked = false;
             dtduration.Enabled = false;
-            txtEnabled(false);
+            txtEnabled(true);
         }
 
         private void btnPublish_Click(object sender, EventArgs e)

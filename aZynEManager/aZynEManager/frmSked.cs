@@ -330,7 +330,10 @@ namespace aZynEManager
                 {
                     string firsttitle = String.Empty;
                     int intsw = 0;
-                    Color itemcolor = Color.FromArgb(100, 225, 225, 100);
+                    //RMB 12.11.2014 remarked
+                    //Color itemcolor = Color.FromArgb(100, 225, 225, 100);
+                    Color itemcolor = Color.LightSteelBlue;
+                    int colorsw = 0;
                     int reccntr = 0;
                     while (dr.Read())
                     {
@@ -345,49 +348,51 @@ namespace aZynEManager
                         if (sval != "")
                         {
                             if (intsw == 0)
-                            {
                                 firsttitle = sval;
-                                itemcolor = Color.LightSteelBlue;//Color.FromArgb(100, 225, 225, 100);//
-                         
-                            }
-                            // RMB 11.27.2014 moved and updated 
-                            if (stat == "0")
-                                itemcolor = Color.Red;
-                            else
-                                itemcolor = Color.LightSteelBlue;
 
                             if (firsttitle != sval)
                             {
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+
                                 calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
                                 calitem.BackgroundColor = itemcolor;
                                 if (cal.ViewIntersects(calitem))
                                     cal.Items.Add(calitem);
 
                                 intsw = 0;
-                                
-                                //melvin 10-27-2014 change color for unpublish movie
-                                if (stat == "0")
-                                {
-                                    itemcolor = Color.Red;
-                                }
-                                else
-                                {
-                                    itemcolor = Color.FromArgb(100, 225, 225, 100); // Color.LightSteelBlue;
-                                }
                                 firsttitle = sval;
+
+                                if(colorsw ==0)
+                                    colorsw = 1;
+                                else if(colorsw == 1)
+                                    colorsw = 0;
                             }
-                            //RMB remarked 11.3.2014
-                            //else
-                            //{
-                            //    itemcolor = Color.FromArgb(100, 100, 225, 225);
-                            //}
+
+                            if (stat == "0")
+                                itemcolor = Color.Red;
+                            else
+                            {
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+                            }
                             calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
                             calitem.BackgroundColor = itemcolor;
                             if (cal.ViewIntersects(calitem))
                                 cal.Items.Add(calitem);
 
-                            if (reccntr == dt.Rows.Count)
+                            if (reccntr == dt.Rows.Count)//gets the last records as title
                             {
+
+                                if (colorsw == 0)
+                                    itemcolor = Color.LightSteelBlue;
+                                else
+                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+
                                 calitem = new CalendarItem(cal, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
                                 calitem.BackgroundColor = itemcolor;
                                 if (cal.ViewIntersects(calitem))

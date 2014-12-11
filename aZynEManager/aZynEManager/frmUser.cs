@@ -776,7 +776,9 @@ namespace aZynEManager
                 sqry.Append("select count(*) from users ");
                 sqry.Append(String.Format("where userid = '{0}' ", this.txtUID.Text.ToUpper().Trim()));
                 //melvin added for multiple access of account
-                sqry.Append(string.Format("and user_level_id = {0} ", cmbAuth.SelectedValue.ToString()));
+                //sqry.Append(string.Format("and user_level_id = {0} ", cmbAuth.SelectedValue.ToString()));
+                //RMB remarked for the system_code needs to be different for multi system user
+                sqry.Append(string.Format("and system_code = {0} ", cmbSystem.SelectedValue.ToString()));
                 
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();

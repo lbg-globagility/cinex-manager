@@ -98,7 +98,8 @@ namespace Cinemapps
             }
 
             RP05Distributor.Items.Clear();
-            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+            //RMB 12.11.2014 remarked
+            /*using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
             {
                 using (MySqlCommand command = new MySqlCommand("retrieve_distributors", connection))
                 {
@@ -113,7 +114,7 @@ namespace Cinemapps
                         RP05Distributor.Items.Add(new Distributor(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
                     }
                 }
-            }
+            }*/
 
             RP06Cinema.Items.Clear();
             using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
@@ -267,7 +268,9 @@ namespace Cinemapps
                 using (frmReport frmreport = new frmReport())
                 {
                     frmreport.setDate = (DateTime)RP05StartDate.SelectedDate;
-                    frmreport.rp05distributor = RP05Distributor.SelectedValue.ToString();
+                    //RMB remarked 11.12.2014
+                    //frmreport.rp05distributor = RP05Distributor.SelectedValue.ToString();
+                    frmreport.setDistCode = RP05Distributor.SelectedValue.ToString();
                     frmreport.frmInit(main, main.m_clscom, "RP05");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -704,5 +707,48 @@ namespace Cinemapps
             }
         }
         
+
+        //ADDED 12.11.2014
+        private void RP05StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.UpdateRP05Distibutor();
+        }
+
+        private void UpdateRP05Distibutor()
+        {
+            if (RP05Distributor == null || RP05Distributor == null)
+                return;
+
+            RP05Distributor.Items.Clear();
+            if (RP05StartDate.SelectedDate == null)
+            {
+                RP05Distributor.IsEnabled = false;
+            }
+            else
+            {
+                RP05Distributor.IsEnabled = true;
+
+
+                using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+                {
+                    using (MySqlCommand command = new MySqlCommand("retrieve_distributors", connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("?_movie_date", RP05StartDate.SelectedDate);
+
+                        MySqlDataReader reader = command.ExecuteReader();
+
+                        //get elements
+                        while (reader.Read())
+                        {
+                            RP05Distributor.Items.Add(new Distributor(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }

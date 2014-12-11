@@ -153,7 +153,7 @@
                         </Label>
                         <StackPanel Orientation="Horizontal">
                             <Label>Start Date</Label>
-                            <DatePicker Name="RP05StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <DatePicker Name="RP05StartDate" SelectedDateChanged="RP05StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
                             <Label>Distributor</Label>
                             <ComboBox Name="RP05Distributor" Width="150">
                             </ComboBox>
