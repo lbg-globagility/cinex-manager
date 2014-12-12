@@ -19,11 +19,11 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query >
+      <Query>
         <DataSourceName>DS1</DataSourceName>
         <CommandText></CommandText>
       </Query>
-      <Fields >
+      <Fields>
         <Field Name="code">
           <DataField>code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -136,52 +136,52 @@
             <Width>100.8pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>35.9pt</Width>
+            <Width>33.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.6pt</Width>
+            <Width>40.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>38.7pt</Width>
+            <Width>34.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.9pt</Width>
+            <Width>40.8pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>38.0pt</Width>
+            <Width>33.4pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>35.0pt</Width>
+            <Width>39.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.7pt</Width>
+            <Width>31.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>37.0pt</Width>
+            <Width>39.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>35.1pt</Width>
+            <Width>32.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>35.6pt</Width>
+            <Width>39.6pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>37.7pt</Width>
+            <Width>34.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>35.1pt</Width>
+            <Width>40.6pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.4pt</Width>
+            <Width>31.6pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.1pt</Width>
+            <Width>42.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.2pt</Width>
+            <Width>32.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.5pt</Width>
+            <Width>43.6pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>51.4pt</Width>
@@ -1191,7 +1191,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>19.3pt</Height>
+              <Height>24.1pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1237,7 +1237,7 @@
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Normal</FontWeight>
-                        <FontStyle >Italic</FontStyle>
+                        <FontStyle>Italic</FontStyle>
                       </Style>
                     </Textbox>
                   </ReportItems>

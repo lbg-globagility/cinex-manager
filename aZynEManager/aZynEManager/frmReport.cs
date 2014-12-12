@@ -367,6 +367,7 @@ namespace aZynEManager
                         //RMB 11.20.2014 remarked end
 
                         //for the new report// prepare the query to fill the tmp_dailysummary table
+                        m_clscom.refreshTable(m_frmM, "tmp_dailysummary", m_frmM._connection);
                         StringBuilder strqry1 = new StringBuilder();
                         strqry1.Append("set @list_id = 0; ");
                         strqry1.Append("set @rank = 0; ");
@@ -393,7 +394,6 @@ namespace aZynEManager
                         strqry1.Append("and g.cinema_id = j.id ");
                         strqry1.Append("and c.status = 1 ");
                         strqry1.Append("group by c.movies_schedule_list_id, c.patron_id order by f.start_time asc)as t1 order by t1.start_time asc);");
-                        m_clscom.refreshTable(m_frmM,"tmp_dailysummary",m_frmM._connection);
                         m_clscom.populateTableDaily(m_frmM, "tmp_dailysummary", m_frmM._connection, strqry1.ToString());
                         ////set the query for the report
                         sqry.Append("select a.patron_nm, a.price, ");
@@ -469,16 +469,18 @@ namespace aZynEManager
                         sqry.Append("(select distinct(concat_ws(' - ',DATE_FORMAT(start_time,'%l:%i %p'),DATE_FORMAT(end_time,'%l:%i %p'))) ");
                         sqry.Append(String.Format("from tmp_dailysummary where userid = '{0}' ", m_frmM.m_usercode));
                         sqry.Append("and screening_id = 8) time8, ");
-                        sqry.Append("(select min(min_or) from tmp_dailysummary) min_or, ");
-                        sqry.Append("(select max(max_or) from tmp_dailysummary) max_or, ");
+                        sqry.Append(String.Format("(select min(min_or) from tmp_dailysummary where userid = '{0}') min_or, ", m_frmM.m_usercode));
+                        sqry.Append(String.Format("(select max(max_or) from tmp_dailysummary where userid = '{0}') max_or, ", m_frmM.m_usercode));
                         sqry.Append("(select system_value from config_table where system_code = '001') system_value, ");
                         sqry.Append("(select h.name from report h where h.id = '6') report_name, ");
-                        sqry.Append("(select distinct(start_time) from tmp_dailysummary where start_time is not null limit 1) movie_date, ");
-                        sqry.Append("(select sum(unit) from tmp_dailysummary) seat_taken, ");
-                        sqry.Append("(select capacity * (select max(screening_id) from tmp_dailysummary) from cinema where name = (select distinct(cinema_name) from tmp_dailysummary)) seat_capacity, ");
-                        sqry.Append("(select distinct(cinema_name) from tmp_dailysummary) cinema_nm ");
+                        sqry.Append(String.Format("(select distinct(start_time) from tmp_dailysummary where userid = '{0}' and start_time is not null limit 1) movie_date, ", m_frmM.m_usercode));
+                        sqry.Append(String.Format("(select sum(unit) from tmp_dailysummary where userid = '{0}') seat_taken, ", m_frmM.m_usercode));
+                        sqry.Append(String.Format("(select capacity * (select max(screening_id) from tmp_dailysummary where userid = '{0}') from cinema where name = ", m_frmM.m_usercode));
+                        sqry.Append(String.Format("(select distinct(cinema_name) from tmp_dailysummary where userid = '{0}')) seat_capacity, ", m_frmM.m_usercode));
+                        sqry.Append(String.Format("(select distinct(cinema_name) from tmp_dailysummary where userid = '{0}') cinema_nm ", m_frmM.m_usercode));
                         sqry.Append("from tmp_dailysummary a ");
-                        sqry.Append("group by a.patron_nm, a.price, a.title");
+                        sqry.Append(String.Format("where a.userid = '{0}' ", m_frmM.m_usercode));
+                        sqry.Append("group by a.patron_nm, a.price");
                         break;
 
                     case "RP12":
