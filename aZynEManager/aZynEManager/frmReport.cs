@@ -311,7 +311,7 @@ namespace aZynEManager
                         sqry.Append("GROUP BY a.code;");*/
 
                         sqry.Append("select d.code as movie_code, d.title, count(a.cinema_seat_id) as qty, ");
-                        sqry.Append("(a.price * count(a.cinema_seat_id)) as Sales, c.movie_date, e.name dist_name, ");
+                        sqry.Append("sum(a.price) as Sales, c.movie_date, e.name dist_name, ");
                         sqry.Append("e.code as dist_code, g.system_value, h.name report_name ");
                         sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
                         sqry.Append("movies_schedule c, movies d, distributor e, config_table g, report h ");
@@ -584,7 +584,7 @@ namespace aZynEManager
                         sqry.Append("movies_schedule h, cinema i, config_table j, report k, movies l ");
                         sqry.Append("where b.movies_schedule_list_id in ");
                         sqry.Append("(select a.id from movies_schedule_list a ");
-                        sqry.Append(String.Format("where a.start_time > '{0:yyyy/MM/dd}' ", _dtStart));
+                        sqry.Append(String.Format("where a.start_time >= '{0:yyyy/MM/dd}' ", _dtStart));
                         sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ", _dtStart.AddDays(1)));
                         sqry.Append("and a.status = 1) ");
                         sqry.Append("and b.ticket_id = c.id ");

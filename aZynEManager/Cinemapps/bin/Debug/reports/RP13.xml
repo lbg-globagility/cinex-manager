@@ -558,14 +558,14 @@
               <PageBreakAtStart>false</PageBreakAtStart>
               <PageBreakAtEnd>false</PageBreakAtEnd>
               <GroupExpressions>
-                <GroupExpression >=Fields!title.Value</GroupExpression>
+                <GroupExpression>=Fields!title.Value</GroupExpression>
               </GroupExpressions>
             </Grouping>
             <Header>
               <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>.2in</Height>
+                  <Height>20.9pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -602,6 +602,8 @@
                             <FontFamily>Arial Narrow</FontFamily>
                             <FontWeight>Bold</FontWeight>
                             <FontSize>11pt</FontSize>
+                            <VerticalAlign >Middle</VerticalAlign>
+                            <TextAlign >Left</TextAlign>
                           </Style>
                           <Value>=Fields.cinemaname.Value + '   (' + Fields.title.Value + ')'</Value>
                           <CanGrow>true</CanGrow>
@@ -626,7 +628,7 @@
               <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>.2in</Height>
+                  <Height>18.4pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -661,6 +663,8 @@
                             <BorderColor />
                             <BorderWidth />
                             <FontStyle>Italic</FontStyle>
+                            <VerticalAlign >Middle</VerticalAlign>
+                            <TextAlign >Left</TextAlign>
                           </Style>
                           <Value>=Fields!usernm.Value + '   (' + Fields!userid.Value + ')'</Value>
                         </Textbox>
@@ -683,23 +687,23 @@
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
-                              <Left >None</Left>
-                              <Right >None</Right>
-                              <Top >None</Top>
-                              <Bottom >None</Bottom>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
-                            <BorderColor  />
-                            <BorderWidth  />
-                            <TextAlign >Right</TextAlign>
-                            <VerticalAlign >Middle</VerticalAlign>
-                            <FontStyle >Italic</FontStyle>
-                            <FontWeight >Bold</FontWeight>
-                            <FontSize >9pt</FontSize>
+                            <BorderColor />
+                            <BorderWidth />
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <FontStyle>Italic</FontStyle>
+                            <FontWeight>Bold</FontWeight>
+                            <FontSize>9pt</FontSize>
                           </Style>
                           <Value>Subtotal:</Value>
                         </Textbox>
                       </ReportItems>
-                      <ColSpan >4</ColSpan>
+                      <ColSpan>4</ColSpan>
                     </TableCell>
                     <TableCell>
                       <ReportItems>
@@ -707,17 +711,17 @@
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
-                              <Left >None</Left>
-                              <Right >None</Right>
-                              <Top >None</Top>
-                              <Bottom >None</Bottom>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
-                            <BorderColor  />
-                            <BorderWidth  />
-                            <TextAlign >Right</TextAlign>
-                            <VerticalAlign >Middle</VerticalAlign>
-                            <PaddingRight >10pt</PaddingRight>
-                            <Format >#,##0</Format>
+                            <BorderColor />
+                            <BorderWidth />
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingRight>10pt</PaddingRight>
+                            <Format>#,##0</Format>
                           </Style>
                           <Value>=Sum(Fields!qty.Value)</Value>
                         </Textbox>
@@ -729,17 +733,17 @@
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
-                              <Left >None</Left>
-                              <Right >None</Right>
-                              <Top >None</Top>
-                              <Bottom >None</Bottom>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
-                            <BorderColor  />
-                            <BorderWidth  />
-                            <TextAlign >Right</TextAlign>
-                            <VerticalAlign >Middle</VerticalAlign>
-                            <Format >#,##0.00</Format>
-                            <PaddingRight >10pt</PaddingRight>
+                            <BorderColor />
+                            <BorderWidth />
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>10pt</PaddingRight>
                           </Style>
                           <Value>=Sum(Fields!totalsales.Value)</Value>
                         </Textbox>
