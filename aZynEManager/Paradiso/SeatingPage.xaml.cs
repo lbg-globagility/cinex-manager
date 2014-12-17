@@ -140,6 +140,9 @@ namespace Paradiso
                                 RunningTimeInSeconds = _movie_schedule_list.duration,
                                 SeatType = _movie_schedule_list.seattype
                             };
+                            if (_movie_schedule_list_item.EndTime < _movie_schedule_list_item.StartTime)
+                                _movie_schedule_list_item.EndTime = _movie_schedule_list_item.EndTime.AddDays(1);
+
                             var capacity = _movie_schedule_list.capacity;
 
                             var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
@@ -367,6 +370,10 @@ namespace Paradiso
                     MovieSchedule.Rating = _movie_schedule_list.rating;
                     MovieSchedule.StartTime = _movie_schedule_list.starttime;
                     MovieSchedule.EndTime = _movie_schedule_list.endtime;
+                    if (MovieSchedule.EndTime < MovieSchedule.StartTime)
+                        MovieSchedule.EndTime = MovieSchedule.EndTime.AddDays(1);
+
+
                     MovieSchedule.SeatType = _movie_schedule_list.seattype;
                     MovieSchedule.LayTime = _movie_schedule_list.laytime;
                 }
@@ -667,7 +674,9 @@ namespace Paradiso
             if (!MovieSchedule.IsEnabled && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now)
             {
                 //get previous 
-                if (paradisoObjectManager.HasRights("PRIORDATE") && paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate && IsEllapsed)
+                if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate ||
+                    paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate.AddDays(1).Date) //allow only one date difference
+                    && IsEllapsed)
                 {
                     MessageYesNoWindow messageYesNoWindow = new MessageYesNoWindow();
                     messageYesNoWindow.MessageText.Text = "Do you still want to reserve seats?";
