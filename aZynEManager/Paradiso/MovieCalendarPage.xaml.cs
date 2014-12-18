@@ -153,6 +153,9 @@ namespace Paradiso
                                 RunningTimeInSeconds = _movie_schedule_list.duration,
                                 SeatType = _movie_schedule_list.seattype
                             };
+                            if (_movie_schedule_list_item.EndTime < _movie_schedule_list_item.StartTime)
+                                _movie_schedule_list_item.EndTime = _movie_schedule_list_item.EndTime.AddDays(1);
+
 
                             /**
                              reserved 

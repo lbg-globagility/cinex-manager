@@ -143,6 +143,9 @@ namespace Paradiso
                                 RunningTimeInSeconds = _movie_schedule_list.duration,
                                 SeatType = _movie_schedule_list.seattype
                             };
+                            if (_movie_schedule_list_item.EndTime < _movie_schedule_list_item.StartTime)
+                                _movie_schedule_list_item.EndTime = _movie_schedule_list_item.EndTime.AddDays(1);
+
                             var capacity = _movie_schedule_list.capacity;
 
                             var patrons = (from mslrs in context.movies_schedule_list_reserved_seat

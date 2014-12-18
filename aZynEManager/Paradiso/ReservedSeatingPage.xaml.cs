@@ -238,6 +238,9 @@ namespace Paradiso
                     MovieSchedule.EndTime = _movie_schedule_list.endtime;
                     MovieSchedule.SeatType = _movie_schedule_list.seattype;
                     MovieSchedule.LayTime = _movie_schedule_list.laytime;
+                    
+                    if (MovieSchedule.EndTime < MovieSchedule.StartTime)
+                        MovieSchedule.EndTime = MovieSchedule.EndTime.AddDays(1);
                 }
 
                 //taken seats
