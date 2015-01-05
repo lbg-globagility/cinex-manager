@@ -72,15 +72,19 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -576,6 +580,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.label14);
             this.kryptonGroup1.Panel.Controls.Add(this.label16);
             this.kryptonGroup1.Panel.Controls.Add(this.label15);
+            this.kryptonGroup1.Panel.Controls.Add(this.label2);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Size = new System.Drawing.Size(315, 289);
@@ -763,12 +768,13 @@
             this.txtprice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtprice.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtprice.Location = new System.Drawing.Point(73, 53);
-            this.txtprice.MaxLength = 3;
+            this.txtprice.MaxLength = 10;
             this.txtprice.Name = "txtprice";
             this.txtprice.Size = new System.Drawing.Size(66, 20);
             this.txtprice.TabIndex = 2;
             this.txtprice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtprice.TextChanged += new System.EventHandler(this.txtprice_TextChanged);
+            this.txtprice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtprice_KeyPress);
             // 
             // txtname
             // 
@@ -850,6 +856,18 @@
             this.label15.TabIndex = 282;
             this.label15.Text = "*";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(293, 83);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(17, 24);
+            this.label2.TabIndex = 301;
+            this.label2.Text = "*";
+            // 
             // frmPatron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -870,12 +888,15 @@
             this.Text = "Patron Information";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
@@ -933,5 +954,6 @@
         private System.Windows.Forms.CheckBox cbxgross;
         internal System.Windows.Forms.Label lbllgu;
         private System.Windows.Forms.CheckBox cbxpromo;
+        internal System.Windows.Forms.Label label2;
     }
 }

@@ -954,7 +954,14 @@ namespace aZynEManager
                 if (timestartspan.Days < 1 && timeendspan.TotalDays < 1)
                 {
                     DateTime curtimestart = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timestartspan.TotalHours, timestartspan.Minutes, 0);
-                    DateTime curtimeend = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                    //RMB remarked 12.17.2014
+                    //DateTime curtimeend = new DateTime(currentdate.Year, currentdate.Month, currentdate.Day, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                    int curday = currentdate.Day;
+                    if ((timeendspan.TotalHours > 0) && (timeendspan.TotalHours < 4))
+                        curday += 1;
+                    
+                    DateTime curtimeend = new DateTime(currentdate.Year, currentdate.Month, curday, (int)timeendspan.TotalHours, timeendspan.Minutes, 0);
+                    
 
                     if (movieschedlist.Rows.Count > 0)
                     {

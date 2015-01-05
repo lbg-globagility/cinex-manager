@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using ComponentFactory.Krypton.Toolkit;
+using System.Globalization;
 
 namespace aZynEManager
 {
@@ -125,27 +126,62 @@ namespace aZynEManager
 
         private void txtposition_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-          && !char.IsDigit(e.KeyChar)
-          && e.KeyChar != '.')
+            base.OnKeyPress(e);
+
+            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
+            string negativeSign = numberFormatInfo.NegativeSign;
+
+            string keyInput = e.KeyChar.ToString();
+
+            if (Char.IsDigit(e.KeyChar))
             {
+
+
+                // Digits are OK
+            }
+            else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) ||
+             keyInput.Equals(negativeSign))
+            {
+                // Decimal separator is OK
+            }
+            else if (e.KeyChar == '\b')
+            {
+                // Backspace key is OK
+            }
+            //    else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0)
+            //    {
+            //     // Let the edit control handle control and alt key combinations
+            //    }
+            else
+            {
+                // Swallow this invalid key and beep
+                e.Handled = true;
+                //    MessageBeep();
+            }
+
+          //  if (!char.IsControl(e.KeyChar)
+          //&& !char.IsDigit(e.KeyChar)
+          //&& e.KeyChar != '.')
+          //  {
                 
-                e.Handled = true;
-            }
+          //      e.Handled = true;
+          //  }
 
-            // only allow one decimal point
+          //  // only allow one decimal point
             
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
-            {
-                e.Handled = true;
+          //  if (e.KeyChar == '.'
+          //      && (sender as TextBox).Text.IndexOf('.') > -1)
+          //  {
+          //      e.Handled = true;
 
-            }
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
-            {
-                e.Handled = true;
-            }
+          //  }
+          //  if (e.KeyChar == '.'
+          //      && (sender as TextBox).Text.IndexOf('.') > -1 && (sender as TextBox).Text.Substring((sender as TextBox).Text.IndexOf('.')).Length >= 3)
+          //  {
+          //      e.Handled = true;
+          //  }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -217,6 +253,25 @@ namespace aZynEManager
                     txtprice.Focus();
                     return;
                 }
+                //RMB 1.5.2015
+                if (txtprice.Text != "")
+                {
+                    int cntr = 0;
+                    int i = 0;
+                    while ((i = txtprice.Text.IndexOf('.', i)) != -1)
+                    {
+                        i++;
+                        cntr += 1;
+                    }
+                    if (cntr > 1)
+                    {
+                        MessageBox.Show("Please check the price information.");
+                        txtprice.SelectAll();
+                        txtprice.Focus();
+                        return;
+                    }
+                }
+
                 //melvin 10-5-2014
                 if (txtposition.Text == "")
                 {
@@ -224,6 +279,23 @@ namespace aZynEManager
                     txtposition.SelectAll();
                     txtposition.Focus();
                     return;
+                }
+                if (txtposition.Text != "")
+                {
+                    int cntr = 0;
+                    int i = 0;
+                    while ((i = txtposition.Text.IndexOf('.', i)) != -1)
+                    {
+                        i++;
+                        cntr += 1;
+                    }
+                    if (cntr > 0)
+                    {
+                        MessageBox.Show("Please check the position information.");
+                        txtposition.SelectAll();
+                        txtposition.Focus();
+                        return;
+                    }
                 }
 
                 myconn = new MySqlConnection();
@@ -394,6 +466,24 @@ namespace aZynEManager
                     txtprice.SelectAll();
                     txtprice.Focus();
                     return;
+                }
+                //RMB 1.5.2015
+                if (txtprice.Text != "")
+                {
+                    int cntr = 0;
+                    int i = 0;
+                    while ((i = txtprice.Text.IndexOf('.', i)) != -1)
+                    {
+                        i++;
+                        cntr += 1;
+                    }
+                    if (cntr > 1)
+                    {
+                        MessageBox.Show("Please check the price information.");
+                        txtprice.SelectAll();
+                        txtprice.Focus();
+                        return;
+                    }
                 }
 
                 StringBuilder sqry = new StringBuilder();
@@ -693,23 +783,23 @@ namespace aZynEManager
 
         private void txtprice_TextChanged(object sender, EventArgs e)
         {
-            //melvin 10-28-2014
-            try
-            {
-                if (txtprice.Text.Length > 0)
-                {
-                    Convert.ToInt32(txtprice.Text);
-                    int.TryParse(txtprice.Text, out m_val);
-                    int textLength = txtprice.Text.Length;
-                    txtprice.SelectionStart = textLength;
-                    txtprice.SelectionLength = 0;
-                }
-            }
-            catch
-            {
-                txtprice.Text = m_val.ToString();
-                return;
-            }
+            ////melvin 10-28-2014
+            //try
+            //{
+            //    if (txtprice.Text.Length > 0)
+            //    {
+            //        Convert.ToInt32(txtprice.Text);
+            //        int.TryParse(txtprice.Text, out m_val);
+            //        int textLength = txtprice.Text.Length;
+            //        txtprice.SelectionStart = textLength;
+            //        txtprice.SelectionLength = 0;
+            //    }
+            //}
+            //catch
+            //{
+            //    txtprice.Text = m_val.ToString();
+            //    return;
+            //}
 
         }
 
@@ -745,6 +835,44 @@ namespace aZynEManager
                 {
                     txtlgu.Text = txtlgu.Text + "00";
                 }
+            }
+        }
+
+        private void txtprice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+
+            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
+            string negativeSign = numberFormatInfo.NegativeSign;
+
+            string keyInput = e.KeyChar.ToString();
+
+            if (Char.IsDigit(e.KeyChar))
+            {
+
+
+                // Digits are OK
+            }
+            else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) ||
+             keyInput.Equals(negativeSign))
+            {
+                // Decimal separator is OK
+            }
+            else if (e.KeyChar == '\b')
+            {
+                // Backspace key is OK
+            }
+            //    else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0)
+            //    {
+            //     // Let the edit control handle control and alt key combinations
+            //    }
+            else
+            {
+                // Swallow this invalid key and beep
+                e.Handled = true;
+                //    MessageBeep();
             }
         }
     }
