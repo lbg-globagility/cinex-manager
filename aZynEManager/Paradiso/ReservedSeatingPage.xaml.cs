@@ -89,13 +89,28 @@ namespace Paradiso
             
 
             this.DataContext = this;
-
+            
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            StartTimer();
 
             Version.Text = ParadisoObjectManager.GetInstance().Version;
+        }
+
+        public void StartTimer()
+        {
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        public void StopTimer()
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= new EventHandler(timer_Tick);
+
+            }
         }
 
         public int Key 
@@ -152,8 +167,7 @@ namespace Paradiso
             if (window != null)
                 window.KeyDown -= Page_PreviewKeyDown;
 
-            if (timer != null)
-                timer.Stop();
+            StopTimer();
             if (NavigationService != null)
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
@@ -199,8 +213,7 @@ namespace Paradiso
                     var window = Window.GetWindow(this);
                     if (window != null)
                         window.KeyDown -= Page_PreviewKeyDown;
-                    if (timer != null)
-                        timer.Stop();
+                    StopTimer();
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -218,8 +231,7 @@ namespace Paradiso
                     var window = Window.GetWindow(this);
                     if (window != null)
                         window.KeyDown -= Page_PreviewKeyDown;
-                    if (timer != null)
-                        timer.Stop();
+                    StopTimer();
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -496,7 +508,7 @@ namespace Paradiso
         {
             if (blnIsUpdating)
                 return;
-            timer.Stop();
+            StopTimer();
             
             Canvas seatCanvas = (Canvas)sender;
             Seat = null;
@@ -603,22 +615,22 @@ namespace Paradiso
             
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            timer.Start();
+            StartTimer();
             this.setFocus();
         }
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
+            StopTimer();
             this.ClearSelection();
             this.UpdateMovieSchedule();
-            timer.Start();
+            StartTimer();
             this.setFocus();
         }
 
         private void RemovePatronSeat_Click(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
+            StopTimer();
 
             PatronSeatModel patronSeatModel = (PatronSeatModel)((Button)sender).DataContext;
 
@@ -635,21 +647,21 @@ namespace Paradiso
             }
 
             this.UpdateMovieSchedule();
-            timer.Start();
+            StartTimer();
             this.setFocus();
 
         }
 
         private void confirmPatrons()
         {
-            timer.Stop();
+            StopTimer();
 
             if (SelectedPatronSeatList.PatronSeats.Count == 0)
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "No seat has been selected.";
                 messageWindow.ShowDialog();
-                timer.Start();
+                StartTimer();
                 this.setFocus();
                 return;
             }
@@ -664,7 +676,7 @@ namespace Paradiso
                 reservedSeatingDetailsWindow.ShowDialog();
                 if (reservedSeatingDetailsWindow.SeatingDetails.IsCancelled)
                 {
-                    timer.Start();
+                    StartTimer();
                     this.setFocus();
                     return;
                 }
@@ -739,8 +751,7 @@ namespace Paradiso
                     ParadisoObjectManager.GetInstance().IsReservedMode = false;
                     ParadisoObjectManager.GetInstance().SetNewSessionId();
                     //go back to movie calendar page
-                    if (timer != null)
-                        timer.Stop();
+                    StopTimer();
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                 }
@@ -750,7 +761,7 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Reservation cannot be processed.";
                     messageWindow.ShowDialog();
                     
-                    timer.Start();
+                    StartTimer();
                     this.setFocus();                    
                 }
             }
@@ -773,7 +784,7 @@ namespace Paradiso
 
         private void PatronsListView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            timer.Stop();
+            StopTimer();
             bool IsUpdated = false;
 
             var item = ItemsControl.ContainerFromElement( (ListView) sender, e.OriginalSource as DependencyObject) as ListBoxItem;
@@ -871,7 +882,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No more available seats.";
                         messageWindow.ShowDialog();
-                        timer.Start();
+                        StartTimer();
                         this.setFocus();
 
                         return;
@@ -906,7 +917,7 @@ namespace Paradiso
 
             if (IsUpdated)
                 this.UpdateMovieSchedule();
-            timer.Start();
+            StartTimer();
             this.setFocus();
 
         }

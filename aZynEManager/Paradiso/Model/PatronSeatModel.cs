@@ -24,6 +24,20 @@ namespace Paradiso.Model
         public PatronSeatModel()
         {
         }
+        
+        //called only after application has exit
+        //~PatronSeatModel()
+        public void Dispose()
+        {
+            try
+            {
+                if (timer != null)
+                    timer.Stop();
+
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
+            catch { }
+        }
 
         public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, DateTime reservedDate, int seatColor)
         {

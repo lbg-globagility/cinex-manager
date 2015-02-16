@@ -438,7 +438,11 @@ namespace Paradiso
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
-                timer.Stop();
+                if (timer != null)
+                {
+                    timer.Stop();
+                    timer.Tick -= new EventHandler(timer_Tick);
+                }
                 if (ParadisoObjectManager.GetInstance().IsReservedMode)
                 {
                     //verify if msli is valid
@@ -516,7 +520,11 @@ namespace Paradiso
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
             bool blnIsTicketFormatB = false;
             if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
                 blnIsTicketFormatB = true;
@@ -545,7 +553,11 @@ namespace Paradiso
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            timer.Stop();
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
             //checks grant
             
             NavigationService.GetNavigationService(this).Navigate(new SettingPage());

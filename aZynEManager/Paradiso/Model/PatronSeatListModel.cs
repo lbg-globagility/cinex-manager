@@ -19,7 +19,25 @@ namespace Paradiso.Model
 
             PatronSeats.CollectionChanged += (sender, e) => NotifyPropertyChanged("Total");
         }
-        
+
+
+        public void Dispose()
+        {
+            int intCount = PatronSeats.Count;
+            if (intCount > 0)
+            {
+                for (int i = 0; i < intCount; i++)
+                {
+                    PatronSeats[i].Dispose();
+                }
+            }
+            PatronSeats.Clear();
+            try
+            {
+                PatronSeats.CollectionChanged -= (sender, e) => NotifyPropertyChanged("Total");
+            }
+            catch { }
+        }
 
         public decimal Total
         {
