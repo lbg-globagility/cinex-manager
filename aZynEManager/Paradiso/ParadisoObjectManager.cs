@@ -18,7 +18,7 @@ namespace Paradiso
         public string UserName { get; set; }
         public string SessionId { get; set; }
         private bool _IsReservedMode { get; set; }
-
+        public bool RunOnce { get; set; }
 
         private static ParadisoObjectManager instance;
 
@@ -31,6 +31,7 @@ namespace Paradiso
             UserId = 0;
             UserName = string.Empty;
             _IsReservedMode = false;
+            RunOnce = true;
         }
 
         public DateTime ScreeningDate

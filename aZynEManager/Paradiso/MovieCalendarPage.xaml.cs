@@ -411,6 +411,76 @@ namespace Paradiso
             {
                 NavigationService.RemoveBackEntry();
             }
+
+            //checks for terminated session
+            if (ParadisoObjectManager.GetInstance().RunOnce)
+            {
+                ParadisoObjectManager.GetInstance().RunOnce = false;
+
+                bool blnHasTerminatedSession = false;
+
+                DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
+                string strCurrentSessionId = ParadisoObjectManager.GetInstance().SessionId;
+                try
+                {
+                    //MessageBox.Show(strCurrentSessionId);
+                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    {
+                        var _mslhs = (from mslsh in context.movies_schedule_list_house_seat
+                                      where mslsh.reserved_date.Value.Year == dtNow.Year &&
+                                      mslsh.reserved_date.Value.Month == dtNow.Month &&
+                                      mslsh.reserved_date.Value.Day == dtNow.Day
+                                      && mslsh.notes == null && mslsh.full_name == null
+                                      select new { id = mslsh.id, session_id = mslsh.session_id, reserved_date = mslsh.reserved_date }).ToList();
+                        foreach (var m in _mslhs)
+                        {
+                            TimeSpan ts = dtNow - (DateTime) m.reserved_date;
+                            if (ts.TotalMinutes <= 10)
+                            {
+
+                                if (m.session_id.EndsWith(string.Format("-{0}", ParadisoObjectManager.GetInstance().UserId)))
+                                {
+                                    blnHasTerminatedSession = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+
+                if (blnHasTerminatedSession)
+                {
+                    if (ParadisoObjectManager.GetInstance().HasRights("VOID"))
+                    {
+                        MessageBox.Show("You have pending transactions for the day. Select the transactions to void.");
+                        //open 
+                        if (timer != null)
+                        {
+                            timer.Stop();
+                            timer.Tick -= new EventHandler(timer_Tick);
+                        }
+                        bool blnIsTicketFormatB = false;
+                        if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
+                            blnIsTicketFormatB = true;
+                        if (ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), "A") == "B")
+                            blnIsTicketFormatB = true;
+
+                        ParadisoObjectManager.GetInstance().RunOnce = true;
+                        if (blnIsTicketFormatB)
+                            NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage2());
+                        else
+                            NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("You have pending transactions for the day. Please Call your administrator to cancel it.");
+                    }
+                }
+            }
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

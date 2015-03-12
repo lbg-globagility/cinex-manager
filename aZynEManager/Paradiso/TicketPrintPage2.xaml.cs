@@ -1047,6 +1047,24 @@ namespace Paradiso
             {
                 NavigationService.RemoveBackEntry();
             }
+
+            if (ParadisoObjectManager.GetInstance().RunOnce)
+            {
+                if (Users.Count > 0)
+                {
+                    for (int i = 0; i < Users.Count; i++)
+                    {
+                        if (Users[i].Key == ParadisoObjectManager.GetInstance().UserId)
+                        {
+                            SelectedUser = Users[i];
+                            chkSessionOnly.IsChecked = true;
+                            break;
+                        }
+                    }
+                }
+
+                ParadisoObjectManager.GetInstance().RunOnce = false;
+            }
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
