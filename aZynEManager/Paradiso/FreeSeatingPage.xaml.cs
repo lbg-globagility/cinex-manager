@@ -663,6 +663,11 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
+
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
             IsReadOnly = false;

@@ -1043,7 +1043,10 @@ namespace Paradiso
                 Keyboard.Focus(ORNumberInput);
             }
 
-
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

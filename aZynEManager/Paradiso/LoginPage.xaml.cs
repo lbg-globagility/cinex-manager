@@ -131,6 +131,11 @@ namespace Paradiso
             Version.Text = ParadisoObjectManager.GetInstance().Version;
             if (UserName.Focusable)
                 Keyboard.Focus(UserName);
+
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
         }
     }
 }

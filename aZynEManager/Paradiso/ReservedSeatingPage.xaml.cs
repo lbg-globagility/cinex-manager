@@ -502,6 +502,11 @@ namespace Paradiso
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
+
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

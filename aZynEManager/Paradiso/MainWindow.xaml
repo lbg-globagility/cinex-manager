@@ -38,6 +38,6 @@
             <xctk:DateTimePicker VerticalAlignment="Center" Margin="20,0" Background="Transparent" Foreground="LightYellow" FontSize="20" TextAlignment="Center" Name="ScreeningDate" Format="Custom" FormatString="MMMM dd, yyyy" TimeFormat="Custom" TimePickerVisibility="Collapsed" ShowButtonSpinner="False" AutoCloseCalendar="True" ValueChanged="ScreeningDate_ValueChanged" AllowSpin="False" ClipValueToMinMax ="True"/>
             <!--TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock-->
         </DockPanel>
-        <Frame Name="MainFrame" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
+        <Frame Name="MainFrame" JournalOwnership="OwnsJournal" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
     </DockPanel>    
 </controls:MetroWindow>

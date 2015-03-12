@@ -407,6 +407,10 @@ namespace Paradiso
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //MovieScheduleListItemsListView
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

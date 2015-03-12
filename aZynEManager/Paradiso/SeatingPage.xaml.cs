@@ -677,6 +677,12 @@ namespace Paradiso
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
+
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
+
             IsReadOnly = false;
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
