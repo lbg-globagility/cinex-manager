@@ -15,6 +15,7 @@ using System.Threading;
 using System.Globalization;
 using AppLimit.NetSparkle;
 using System.Configuration;
+using System.Net.NetworkInformation;
 
 namespace Paradiso
 {
@@ -29,6 +30,8 @@ namespace Paradiso
         {
             InitializeComponent();
 
+            //checks if ip can be ping
+
             CultureInfo ci = new CultureInfo(Thread.CurrentThread.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "MMMM d, yyyy";
             ci.DateTimeFormat.DateSeparator = "";
@@ -37,6 +40,30 @@ namespace Paradiso
             string strServer = "localhost";
             strServer = ConfigurationManager.AppSettings["Host"];
 
+            Ping myPing = new Ping();
+            try
+            {
+                PingReply reply = myPing.Send(strServer, 1000);
+                if (reply != null)
+                {
+                    if (reply.Status == IPStatus.Success)
+                    {
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot connect to server.");
+                        Application.Current.Shutdown();
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Cannot connect to server.");
+                Application.Current.Shutdown();
+                return;
+            }
+
             /*
             string strVersion = "x86";
             if (System.Environment.Is64BitOperatingSystem)
@@ -44,7 +71,7 @@ namespace Paradiso
             */
 
             //sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
-            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.php", strServer));
+            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.xml", strServer));
             //sparkle.ShowDiagnosticWindow = true;
             //sparkle.EnableSilentMode = true;
             sparkle.StartLoop(true, true, new TimeSpan(0, 15, 0));
