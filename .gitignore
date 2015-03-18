@@ -14,7 +14,9 @@ docs/
 aZyneManager/AzynemaConsoleApplication
 aZyneManager/AzynemaService
 aZyneManager/database
-release/
+!release/
+release/*
+!release/wix/
 *.config
 *.Config
 !aZyneManager/Cinemapps/bin/
@@ -23,3 +25,4 @@ aZyneManager/Cinemapps/bin/*
 aZyneManager/Cinemapps/bin/Debug/*
 !aZyneManager/Cinemapps/bin/Debug/reports
 !release/Cinema Ticketing/Paradiso.exe
+

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Name='Cinema Ticketing' Id='8E029C70-5626-4BE5-B411-723AA9DC9446' UpgradeCode='E8FFF2E4-73BA-44F7-918F-8D78FF914B32'
+    Language='1033' Version='2.1.3' Manufacturer='Amellar Solutions'>
+	<Package Manufacturer='Amellar Solutions' InstallerVersion='100' Languages='1033' Compressed='yes' InstallScope="perMachine"  />
+	<Media Id="1" Cabinet="Paradiso.cab" EmbedCab="yes" />
+	
+	<MajorUpgrade
+		DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
+  
+	<Directory Id="TARGETDIR" Name="SourceDir">
+		<Directory Id="ProgramFilesFolder">
+			<Directory Id="Cinex" Name="Cinex">
+				<Directory Id="INSTALLFOLDER" Name="Cinema Ticketing">
+					<Component Id="MainExecutable" Guid="{DF7357F6-F75F-4897-8659-9026716B4068}">
+						<File Id='EXE' Name='Paradiso.exe' Source='Paradiso.exe'/>
+						<File Id='Metro_dll' Name='MahApps.Metro.dll' Source='MahApps.Metro.dll'/>
+						<File Id='Metro_xml' Name='MahApps.Metro.xml' Source='MahApps.Metro.xml' />
+						<File Id='Interactivity' Name='System.Windows.Interactivity.dll' Source='System.Windows.Interactivity.dll' />
+						<File Id='WINPSK' Name='WINPSK.dll' Source='WINPSK.dll' />
+						<File Id='Wpf_Datagrid' Name='Xceed.Wpf.DataGrid.dll' Source='Xceed.Wpf.DataGrid.dll' />
+						<File Id='Wpf_Toolkit' Name='Xceed.Wpf.Toolkit.dll' Source='Xceed.Wpf.Toolkit.dll' />
+					</Component>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Directory>
+	
+	<Feature Id="ProductFeature" Level="1">
+      <ComponentRef Id="MainExecutable" />
+    </Feature>
+    
+	<UI>
+        <UIRef Id="WixUI_Minimal" />
+		<Publish Dialog="ExitDialog" 
+            Control="Finish" 
+            Event="DoAction" 
+            Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+	</UI>
+	 <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Cinema Ticketing"  />
+	 <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+
+    <Property Id="WixShellExecTarget" Value="[#EXE]" />
+    <CustomAction Id="LaunchApplication" 
+        BinaryKey="WixCA" 
+        DllEntry="WixShellExec"
+        Impersonate="yes" />	
+	<!--Icon Id="Paradiso.exe" SourceFile="Paradiso.exe" /-->
+	<Icon Id="icon.ico" SourceFile="cinema-ticketing-icon.ico"/>
+	<Property Id="ARPPRODUCTICON" Value="icon.ico" />	
+	 
+	
+  </Product>
+</Wix>
