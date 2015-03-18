@@ -222,6 +222,17 @@ namespace Paradiso
                             context.tickets.AddObject(t);
                             context.SaveChanges(System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
 
+                            string strORNumberFormat = ParadisoObjectManager.GetInstance().GetConfigValue("OR_NUMBER_FORMAT", string.Empty);
+                            if (strORNumberFormat == string.Empty)
+                            {
+                                strORNumberFormat = "A";
+                                ParadisoObjectManager.GetInstance().SaveConfigValue("OR_NUMBER_FORMAT", strORNumberFormat);
+                            }
+                            else if (strORNumberFormat != "A" && strORNumberFormat != "B") //must be A or B
+                            {
+                                strORNumberFormat = "A";
+                            }
+
                             foreach (PatronSeatModel patronSeatModel in SelectedPatronSeatList.PatronSeats)
                             {
                                 //get cinema number
@@ -230,18 +241,28 @@ namespace Paradiso
                                                     select cs.cinema.in_order).SingleOrDefault();
                                 string header = string.Format("C{0}", cinemanumber);
 
-                                //get maximum ornumber
-                                var maxornumber = (from _mslrs in context.movies_schedule_list_reserved_seat
-                                                   where _mslrs.or_number.Substring(0, 2) == header
-                                                   orderby _mslrs.or_number descending
-                                                   select _mslrs.or_number.Substring(2)).FirstOrDefault();
+                                if (strORNumberFormat == "A")
+                                {
+                                    //get maximum ornumber
+                                    var maxornumber = (from _mslrs in context.movies_schedule_list_reserved_seat
+                                                       where _mslrs.or_number.Substring(0, 2) == header
+                                                       orderby _mslrs.or_number descending
+                                                       select _mslrs.or_number.Substring(2)).FirstOrDefault();
 
-                                //get new ornumber
-                                int newornumber = 0;
-                                int.TryParse(maxornumber, out newornumber);
-                                newornumber++;
+                                    //get new ornumber
+                                    int newornumber = 0;
+                                    int.TryParse(maxornumber, out newornumber);
+                                    newornumber++;
 
-                                ornumber = string.Format("{0}{1:00000000}", header, newornumber);
+                                    ornumber = string.Format("{0}{1:00000000}", header, newornumber);
+                                }
+                                else if (strORNumberFormat == "B")
+                                {
+                                    var maxornumber = (from _mslrs in context.movies_schedule_list_reserved_seat
+                                                       orderby _mslrs.id descending
+                                                       select _mslrs.id).FirstOrDefault();
+                                    ornumber = string.Format("{0:000000000}", maxornumber+1);
+                                }
 
                                 //get taxes based on patron
                                 var taxes = (from mslp in context.movies_schedule_list_patron

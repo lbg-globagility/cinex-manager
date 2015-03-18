@@ -52,6 +52,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -97,18 +98,23 @@
                         <ComboBoxItem Content="Yes" />
                         <ComboBoxItem Content="No" IsSelected="True" />
                     </ComboBox>
-                    <TextBlock Grid.Row="16" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">CLIENT CONFIGURATION</TextBlock>
-                    <TextBlock Grid.Row="17" Grid.Column="0">POS #</TextBlock>
-                    <TextBox Grid.Row="17" Grid.Column="1" Name="Config10"/>
-                    <TextBlock Grid.Row="18" Grid.Column="0">Ticket Format</TextBlock>
-                    <ComboBox Grid.Row="18" Grid.Column="1" Name="ClientTicketFormat" ItemsSource="{Binding}">
+                    <TextBlock Grid.Row="16" Grid.Column="0">OR Number Format</TextBlock>
+                    <ComboBox Grid.Row="16" Grid.Column="1" Name="ORNumberFormat" ItemsSource="{Binding}">
+                        <ComboBoxItem Content="A" IsSelected="True" />
+                        <ComboBoxItem Content="B"/>
+                    </ComboBox>
+                    <TextBlock Grid.Row="17" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">CLIENT CONFIGURATION</TextBlock>
+                    <TextBlock Grid.Row="18" Grid.Column="0">POS #</TextBlock>
+                    <TextBox Grid.Row="18" Grid.Column="1" Name="Config10"/>
+                    <TextBlock Grid.Row="19" Grid.Column="0">Ticket Format</TextBlock>
+                    <ComboBox Grid.Row="19" Grid.Column="1" Name="ClientTicketFormat" ItemsSource="{Binding}">
                         <ComboBoxItem Content="A"/>
                         <ComboBoxItem Content="B"/>
                     </ComboBox>
-                    <TextBlock Grid.Row="19" Grid.Column="0">Ticket Starting Column</TextBlock>
-                    <TextBox Grid.Row="19" Grid.Column="1" Name="Config11"/>
-                    <TextBlock Grid.Row="20" Grid.Column="0">Official Receipt</TextBlock>
-                    <ComboBox Grid.Row="20" Grid.Column="1" Name="ClientOfficialReceipt" ItemsSource="{Binding}">
+                    <TextBlock Grid.Row="20" Grid.Column="0">Ticket Starting Column</TextBlock>
+                    <TextBox Grid.Row="20" Grid.Column="1" Name="Config11"/>
+                    <TextBlock Grid.Row="21" Grid.Column="0">Official Receipt</TextBlock>
+                    <ComboBox Grid.Row="21" Grid.Column="1" Name="ClientOfficialReceipt" ItemsSource="{Binding}">
                         <ComboBoxItem Content="Yes" />
                         <ComboBoxItem Content="No" IsSelected="True" />
                     </ComboBox>

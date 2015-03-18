@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,17 @@ namespace Paradiso
                 if (((ComboBoxItem)TicketFormat.Items[j]).Content.Equals(strTicketFormat))
                 {
                     TicketFormat.SelectedIndex = j;
+                    break;
+                }
+            }
+
+            ORNumberFormat.SelectedIndex = -1;
+            string strORNumberFormat = pom.GetConfigValue("OR_NUMBER_FORMAT", "A");
+            for (int n = 0; n < ORNumberFormat.Items.Count; n++)
+            {
+                if (((ComboBoxItem)ORNumberFormat.Items[n]).Content.Equals(strORNumberFormat))
+                {
+                    ORNumberFormat.SelectedIndex = n;
                     break;
                 }
             }
@@ -125,6 +137,9 @@ namespace Paradiso
 
             if (TicketFormat.SelectedValue != null)
                 pom.SaveConfigValue("TICKET_FORMAT",  ((ComboBoxItem)TicketFormat.SelectedValue).Content.ToString());
+
+            if (ORNumberFormat.SelectedValue != null)
+                pom.SaveConfigValue("OR_NUMBER_FORMAT", ((ComboBoxItem)ORNumberFormat.SelectedValue).Content.ToString());
 
             if (ClientTicketFormat.SelectedValue != null)
                 pom.SaveConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), ((ComboBoxItem) ClientTicketFormat.SelectedValue).Content.ToString());
