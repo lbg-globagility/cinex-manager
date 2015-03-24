@@ -148,6 +148,7 @@ namespace Paradiso
                                            patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                            seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                            price = mslrs.price,
+                                           baseprice = mslrs.base_price,
                                            ornumber = mslrs.or_number,
                                            at = mslrs.amusement_tax_amount,
                                            ct = mslrs.cultural_tax_amount,
@@ -182,6 +183,7 @@ namespace Paradiso
                                     StartTime = t.startdate,
                                     PatronCode = t.patroncode,
                                     PatronPrice = (decimal)t.price,
+                                    BasePrice = (decimal)t.baseprice,
                                     PatronDescription = t.patrondescription,
                                     SeatName = t.seatname,
                                     ORNumber = t.ornumber,
@@ -343,6 +345,7 @@ namespace Paradiso
                              startdate = mslrs.movies_schedule_list.start_time,
                              patroncode = mslrs.movies_schedule_list_patron.patron.code,
                              price = mslrs.price,
+                             baseprice = mslrs.base_price,
                              ornumber = mslrs.or_number,
                              at = mslrs.amusement_tax_amount,
                              ct = mslrs.cultural_tax_amount,
@@ -363,6 +366,7 @@ namespace Paradiso
                     Ticket.StartTime = t.startdate;
                     Ticket.PatronCode = t.patroncode;
                     Ticket.PatronPrice = (decimal) t.price;
+                    Ticket.BasePrice = (decimal)t.baseprice;
                     Ticket.ORNumber = t.ornumber;
                     Ticket.AmusementTax = (decimal) t.at;
                     Ticket.CulturalTax = (decimal) t.ct;
@@ -390,6 +394,7 @@ namespace Paradiso
                 Ticket.StartTime = t.StartTime;
                 Ticket.PatronCode = t.PatronCode;
                 Ticket.PatronPrice = t.PatronPrice;
+                Ticket.BasePrice = t.BasePrice;
                 Ticket.ORNumber = t.ORNumber;
                 Ticket.AmusementTax = t.AmusementTax;
                 Ticket.CulturalTax = t.CulturalTax;
@@ -559,7 +564,12 @@ namespace Paradiso
                 //totals
                 //right align?
                 print.DrawText(-1, print.Row + 340, print.Column, "Amount:", false);
-                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                if (Ticket.OrdinancePrice > 0m)
+                {
+                    print.DrawText(-1, print.Row + 340, print.Column, "Ordinance:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
                 print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.CulturalTax), false);
@@ -616,7 +626,12 @@ namespace Paradiso
                 //totals
                 //right align?
                 print.DrawText(-1, print.Row + 340, print.Column, "Amount:", false);
-                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                if (Ticket.OrdinancePrice > 0m)
+                {
+                    print.DrawText(-1, print.Row + 340, print.Column, "Ordinance Tax:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
                 print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.CulturalTax), false);
@@ -738,7 +753,8 @@ namespace Paradiso
 
         private void Search(string strSearch)
         {
-            if (strSearch == string.Empty && SelectedUser.Key == 0)
+            if ((strSearch == string.Empty && SelectedUser.Key == 0) || 
+                (strSearch == string.Empty && SelectedUser.Key != 0 && chkSessionOnly.IsChecked == false))
             {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "Missing search text.";

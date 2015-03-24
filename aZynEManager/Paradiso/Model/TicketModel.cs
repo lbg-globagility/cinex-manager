@@ -30,6 +30,7 @@ namespace Paradiso.Model
         private DateTime dtStartTime;
         private string strPatronCode = string.Empty;
         private decimal decPatronPrice = 0m;
+        private decimal decBasePrice = 0m;
 
         private int intSeatType = 0;
         private string strSeatType = string.Empty;
@@ -67,6 +68,7 @@ namespace Paradiso.Model
             StartTime = dtNow;
             PatronCode = string.Empty;
             PatronPrice = 0m;
+            BasePrice = 0m;
             SeatType = 0;
             Code = string.Empty;
             CulturalTax = 0;
@@ -310,7 +312,33 @@ namespace Paradiso.Model
                 {
                     decPatronPrice = value;
                     NotifyPropertyChanged("PatronPrice");
+                    NotifyPropertyChanged("OrdinancePrice");
                 }
+            }
+        }
+
+        public decimal BasePrice
+        {
+            get { return decBasePrice; }
+            set
+            {
+                if (decBasePrice != value)
+                {
+                    decBasePrice = value;
+                    NotifyPropertyChanged("BasePrice");
+                    NotifyPropertyChanged("OrdinancePrice");
+                }
+            }
+        }
+
+        public decimal OrdinancePrice
+        {
+            get
+            {
+                decimal decOrdinancePrice = this.PatronPrice - this.BasePrice;
+                if (decOrdinancePrice < 0m)
+                    decOrdinancePrice = 0m;
+                return decOrdinancePrice;
             }
         }
 
