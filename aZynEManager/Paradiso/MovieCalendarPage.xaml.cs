@@ -194,7 +194,7 @@ namespace Paradiso
                                 _movie_schedule_list_item.Available = 0;
 
 
-                            var price = (from mslp in context.movies_schedule_list_patron
+                            var price = (from mslp in context.movies_schedule_list_patron_view
                                          where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
                                          select mslp.price).FirstOrDefault();
                             if (price != null)

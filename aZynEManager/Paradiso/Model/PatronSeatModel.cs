@@ -16,6 +16,7 @@ namespace Paradiso.Model
         private int intSeatColor;
         private string strSeatName;
         private decimal decPrice;
+        private decimal decBasePrice;
         private DateTime dtReservedDate;
         
         private string strRemainingTime;
@@ -39,7 +40,7 @@ namespace Paradiso.Model
             catch { }
         }
 
-        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, DateTime reservedDate, int seatColor)
+        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, decimal baseprice, DateTime reservedDate, int seatColor)
         {
             Key = key;
             SeatKey = seatKey;
@@ -47,6 +48,7 @@ namespace Paradiso.Model
             PatronKey = patronKey;
             PatronName = patronName;
             Price = price;
+            BasePrice = baseprice;
             ReservedDate = reservedDate;
             RemainingTime = RemainingTimeValue;
             SeatColor = seatColor;
@@ -179,6 +181,19 @@ namespace Paradiso.Model
                 {
                     decPrice = value;
                     NotifyPropertyChanged("Price");
+                }
+            }
+        }
+
+        public decimal BasePrice
+        {
+            get { return decBasePrice; }
+            set
+            {
+                if (value != decBasePrice)
+                {
+                    decBasePrice = value;
+                    NotifyPropertyChanged("BasePrice");
                 }
             }
         }

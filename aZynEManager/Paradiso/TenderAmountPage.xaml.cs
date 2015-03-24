@@ -76,7 +76,7 @@ namespace Paradiso
 
                 foreach (var ss in selectedseats)
                 {
-                    var patron = (from mslp in context.movies_schedule_list_patron
+                    var patron = (from mslp in context.movies_schedule_list_patron_view
                                    where mslp.id == ss.movies_schedule_list_patron_id
                                    select mslp).SingleOrDefault();
                     if (patron != null)
@@ -94,9 +94,10 @@ namespace Paradiso
                             SeatKey = ss.cinema_seat_id,
                             SeatName = seatname.sn.ToString(),
                             PatronKey = ss.movies_schedule_list_patron_id,
-                            PatronName = patron.patron.name,
-                            SeatColor = (int) patron.patron.seat_color,
-                            Price = (decimal) patron.price
+                            PatronName = patron.patron_name,
+                            SeatColor = (int) patron.patron_seat_color,
+                            Price = (decimal) patron.price,
+                            BasePrice = (decimal) patron.base_price
                         });
                     }
                 }
@@ -272,7 +273,7 @@ namespace Paradiso
                                 decimal amusementtax = 0;
                                 if (taxes.with_amusement == 1)
                                 {
-                                    amusementtax = patronSeatModel.Price * 0.2302m;
+                                    amusementtax = patronSeatModel.BasePrice * 0.2302m;
                                 }
 
                                 decimal culturaltax = 0;
@@ -294,6 +295,7 @@ namespace Paradiso
                                 mslrs.ticket_id = t.id;
                                 mslrs.patron_id = patronSeatModel.PatronKey;
                                 mslrs.price = (float)patronSeatModel.Price;
+                                mslrs.base_price = (float)patronSeatModel.BasePrice;
                                 mslrs.amusement_tax_amount = (float)amusementtax;
                                 mslrs.cultural_tax_amount = (float)culturaltax;
                                 mslrs.vat_amount = (float)vattax;

@@ -172,7 +172,7 @@ namespace Paradiso
                                 _movie_schedule_list_item.Available = 0;
 
 
-                            var price = (from mslp in context.movies_schedule_list_patron
+                            var price = (from mslp in context.movies_schedule_list_patron_view
                                          where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
                                          select mslp.price).FirstOrDefault();
                             if (price != null)
@@ -446,7 +446,7 @@ namespace Paradiso
                 if (MovieSchedule.Available < 0)
                     MovieSchedule.Available = 0;
 
-                var price = (from mslp in context.movies_schedule_list_patron
+                var price = (from mslp in context.movies_schedule_list_patron_view
                              where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
                              select mslp.price).FirstOrDefault();
                 if (price != null)
@@ -455,7 +455,7 @@ namespace Paradiso
                 }
                 else
                 {
-                    var price2 = (from mslp in context.movies_schedule_list_patron
+                    var price2 = (from mslp in context.movies_schedule_list_patron_view
                                  where mslp.movies_schedule_list_id == this.Key 
                                  select mslp.price).FirstOrDefault();
                     if (price2 != null)
@@ -489,17 +489,18 @@ namespace Paradiso
                 Patrons = new ObservableCollection<PatronModel>();
                 if (MovieScheduleList.SeatType == 1) //for reserved seating only
                     Patrons.Add(null);
-                var _patrons = (from mslp in context.movies_schedule_list_patron
+                var _patrons = (from mslp in context.movies_schedule_list_patron_view
                                 where mslp.movies_schedule_list_id == this.Key
-                                orderby mslp.is_default descending, mslp.patron.name
+                                orderby mslp.is_default descending, mslp.patron_name
                                 select new
                                 {
                                     key = mslp.id,
                                     patronkey = mslp.patron_id,
-                                    patroncode = mslp.patron.code,
-                                    patronname = mslp.patron.name,
+                                    patroncode = mslp.patron_code,
+                                    patronname = mslp.patron_name,
                                     price = mslp.price,
-                                    seatcolor = mslp.patron.seat_color,
+                                    baseprice = mslp.base_price,
+                                    seatcolor = mslp.patron_seat_color,
                                     isdefault = mslp.is_default
                                 }).ToList();
                 if (_patrons.Count > 0)
@@ -515,6 +516,7 @@ namespace Paradiso
                             Code = defaultPatron.patroncode,
                             Name = defaultPatron.patronname,
                             Price = (decimal)defaultPatron.price,
+                            BasePrice = (decimal) defaultPatron.baseprice,
                             SeatColor = (int)defaultPatron.seatcolor
                         });
                     }
@@ -530,6 +532,7 @@ namespace Paradiso
                             Code = _patron.patroncode,
                             Name = _patron.patronname,
                             Price = (decimal)_patron.price,
+                            BasePrice = (decimal) _patron.baseprice,
                             SeatColor = (int)_patron.seatcolor
                         });
                     }
@@ -545,6 +548,7 @@ namespace Paradiso
                             Code = _patron.patroncode,
                             Name = _patron.patronname,
                             Price = (decimal)_patron.price,
+                            BasePrice = (decimal) _patron.baseprice,
                             SeatColor = (int)_patron.seatcolor
                         });
                     }
@@ -634,12 +638,14 @@ namespace Paradiso
                                     string strPatronName = string.Empty;
                                     int intSeatColor = 0;
                                     decimal decPrice = 0;
+                                    decimal decBasePrice = 0;
                                     foreach (var p in Patrons)
                                     {
                                         if (p != null && p.Key == seatModel.PatronKey)
                                         {
                                             strPatronName = p.Name;
                                             decPrice = p.Price;
+                                            decBasePrice = p.BasePrice;
                                             intSeatColor = p.SeatColor;
                                             break;
                                         }
@@ -652,6 +658,7 @@ namespace Paradiso
                                         seatModel.PatronKey,
                                         strPatronName,
                                         decPrice,
+                                        decBasePrice,
                                         (DateTime)ss.reserved_date,
                                         intSeatColor
                                     ));
@@ -857,7 +864,7 @@ namespace Paradiso
                             {
                                 //get default patron key
                                 int intPatronKey = 0;
-                                var _patron = (from mslp in context.movies_schedule_list_patron
+                                var _patron = (from mslp in context.movies_schedule_list_patron_view
                                      where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
                                      select mslp.id).FirstOrDefault();
 
@@ -867,7 +874,7 @@ namespace Paradiso
                                 }
                                 else //for compatibility
                                 {
-                                    var _patron2 = (from mslp in context.movies_schedule_list_patron
+                                    var _patron2 = (from mslp in context.movies_schedule_list_patron_view
                                                    where mslp.movies_schedule_list_id == this.Key
                                                    select mslp.id).FirstOrDefault();
                                     if (_patron2 != 0)
