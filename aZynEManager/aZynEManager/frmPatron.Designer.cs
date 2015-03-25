@@ -50,8 +50,10 @@
             this.txtposition = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.txtlgu = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.cmbAuth = new System.Windows.Forms.ComboBox();
+            this.cbxDiscount = new System.Windows.Forms.CheckBox();
+            this.dgvOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.cbxpromo = new System.Windows.Forms.CheckBox();
-            this.lbllgu = new System.Windows.Forms.Label();
             this.cbxproducer = new System.Windows.Forms.CheckBox();
             this.cbxgross = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -73,6 +75,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.lbllgu = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
@@ -87,6 +90,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdinance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -98,7 +102,7 @@
             this.cbxlgu.AutoSize = true;
             this.cbxlgu.BackColor = System.Drawing.Color.Transparent;
             this.cbxlgu.ForeColor = System.Drawing.Color.White;
-            this.cbxlgu.Location = new System.Drawing.Point(73, 180);
+            this.cbxlgu.Location = new System.Drawing.Point(15, 186);
             this.cbxlgu.Name = "cbxlgu";
             this.cbxlgu.Size = new System.Drawing.Size(94, 17);
             this.cbxlgu.TabIndex = 7;
@@ -160,7 +164,7 @@
             this.groupBox1.Controls.Add(this.dgvResult);
             this.groupBox1.Location = new System.Drawing.Point(3, -2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(532, 407);
+            this.groupBox1.Size = new System.Drawing.Size(532, 477);
             this.groupBox1.TabIndex = 311;
             this.groupBox1.TabStop = false;
             // 
@@ -178,7 +182,7 @@
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(522, 388);
+            this.dgvResult.Size = new System.Drawing.Size(522, 458);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -193,7 +197,7 @@
             this.txtcnt.BackColor = System.Drawing.Color.Transparent;
             this.txtcnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcnt.ForeColor = System.Drawing.Color.Black;
-            this.txtcnt.Location = new System.Drawing.Point(539, 387);
+            this.txtcnt.Location = new System.Drawing.Point(539, 457);
             this.txtcnt.Name = "txtcnt";
             this.txtcnt.Size = new System.Drawing.Size(38, 13);
             this.txtcnt.TabIndex = 314;
@@ -206,7 +210,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(550, 300);
+            this.label18.Location = new System.Drawing.Point(550, 384);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(73, 9);
             this.label18.TabIndex = 310;
@@ -218,7 +222,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(103, 111);
+            this.label11.Location = new System.Drawing.Point(134, 153);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(39, 15);
             this.label11.TabIndex = 275;
@@ -271,7 +275,7 @@
             // grpcontrol
             // 
             this.grpcontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpcontrol.Location = new System.Drawing.Point(625, 298);
+            this.grpcontrol.Location = new System.Drawing.Point(625, 367);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -431,7 +435,7 @@
             // grpfilter
             // 
             this.grpfilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpfilter.Location = new System.Drawing.Point(683, 298);
+            this.grpfilter.Location = new System.Drawing.Point(683, 367);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -515,7 +519,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(536, 296);
+            this.label17.Location = new System.Drawing.Point(536, 379);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 309;
@@ -537,10 +541,11 @@
             this.txtlgu.BackColor = System.Drawing.Color.White;
             this.txtlgu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtlgu.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtlgu.Location = new System.Drawing.Point(224, 177);
+            this.txtlgu.Location = new System.Drawing.Point(550, 413);
             this.txtlgu.Name = "txtlgu";
-            this.txtlgu.Size = new System.Drawing.Size(72, 20);
+            this.txtlgu.Size = new System.Drawing.Size(69, 20);
             this.txtlgu.TabIndex = 8;
+            this.txtlgu.Visible = false;
             this.txtlgu.TextChanged += new System.EventHandler(this.txtlgu_TextChanged);
             this.txtlgu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtlgu_KeyPress);
             this.txtlgu.Leave += new System.EventHandler(this.txtlgu_Leave);
@@ -553,8 +558,10 @@
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.cmbAuth);
+            this.kryptonGroup1.Panel.Controls.Add(this.cbxDiscount);
+            this.kryptonGroup1.Panel.Controls.Add(this.dgvOrdinance);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxpromo);
-            this.kryptonGroup1.Panel.Controls.Add(this.lbllgu);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxproducer);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxgross);
             this.kryptonGroup1.Panel.Controls.Add(this.label7);
@@ -562,14 +569,13 @@
             this.kryptonGroup1.Panel.Controls.Add(this.pictureBox4);
             this.kryptonGroup1.Panel.Controls.Add(this.label4);
             this.kryptonGroup1.Panel.Controls.Add(this.btncolor);
+            this.kryptonGroup1.Panel.Controls.Add(this.cbxlgu);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxcultural);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxamusement);
-            this.kryptonGroup1.Panel.Controls.Add(this.cbxlgu);
             this.kryptonGroup1.Panel.Controls.Add(this.label11);
             this.kryptonGroup1.Panel.Controls.Add(this.pictureBox1);
             this.kryptonGroup1.Panel.Controls.Add(this.label6);
             this.kryptonGroup1.Panel.Controls.Add(this.txtposition);
-            this.kryptonGroup1.Panel.Controls.Add(this.txtlgu);
             this.kryptonGroup1.Panel.Controls.Add(this.pictureBox2);
             this.kryptonGroup1.Panel.Controls.Add(this.label3);
             this.kryptonGroup1.Panel.Controls.Add(this.txtprice);
@@ -583,7 +589,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.label2);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.kryptonGroup1.Size = new System.Drawing.Size(315, 289);
+            this.kryptonGroup1.Size = new System.Drawing.Size(315, 355);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -593,6 +599,50 @@
             this.kryptonGroup1.StateCommon.Border.Rounding = 5;
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 0;
+            // 
+            // cmbAuth
+            // 
+            this.cmbAuth.BackColor = System.Drawing.Color.White;
+            this.cmbAuth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbAuth.FormattingEnabled = true;
+            this.cmbAuth.Location = new System.Drawing.Point(114, 107);
+            this.cmbAuth.Name = "cmbAuth";
+            this.cmbAuth.Size = new System.Drawing.Size(181, 21);
+            this.cmbAuth.TabIndex = 303;
+            this.cmbAuth.Visible = false;
+            // 
+            // cbxDiscount
+            // 
+            this.cbxDiscount.AutoSize = true;
+            this.cbxDiscount.BackColor = System.Drawing.Color.Transparent;
+            this.cbxDiscount.ForeColor = System.Drawing.Color.White;
+            this.cbxDiscount.Location = new System.Drawing.Point(15, 111);
+            this.cbxDiscount.Name = "cbxDiscount";
+            this.cbxDiscount.Size = new System.Drawing.Size(93, 17);
+            this.cbxDiscount.TabIndex = 302;
+            this.cbxDiscount.Text = "With Discount";
+            this.cbxDiscount.UseVisualStyleBackColor = false;
+            this.cbxDiscount.Visible = false;
+            // 
+            // dgvOrdinance
+            // 
+            this.dgvOrdinance.AllowUserToAddRows = false;
+            this.dgvOrdinance.AllowUserToDeleteRows = false;
+            this.dgvOrdinance.AllowUserToResizeRows = false;
+            this.dgvOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOrdinance.ColumnHeadersHeight = 4;
+            this.dgvOrdinance.Location = new System.Drawing.Point(10, 209);
+            this.dgvOrdinance.Name = "dgvOrdinance";
+            this.dgvOrdinance.RowHeadersVisible = false;
+            this.dgvOrdinance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrdinance.Size = new System.Drawing.Size(286, 96);
+            this.dgvOrdinance.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
+            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dgvOrdinance.TabIndex = 32;
             // 
             // cbxpromo
             // 
@@ -606,24 +656,12 @@
             this.cbxpromo.Text = "Is a Promotion";
             this.cbxpromo.UseVisualStyleBackColor = false;
             // 
-            // lbllgu
-            // 
-            this.lbllgu.AutoSize = true;
-            this.lbllgu.BackColor = System.Drawing.Color.Transparent;
-            this.lbllgu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbllgu.ForeColor = System.Drawing.Color.White;
-            this.lbllgu.Location = new System.Drawing.Point(177, 181);
-            this.lbllgu.Name = "lbllgu";
-            this.lbllgu.Size = new System.Drawing.Size(34, 13);
-            this.lbllgu.TabIndex = 299;
-            this.lbllgu.Text = "Value";
-            // 
             // cbxproducer
             // 
             this.cbxproducer.AutoSize = true;
             this.cbxproducer.BackColor = System.Drawing.Color.Transparent;
             this.cbxproducer.ForeColor = System.Drawing.Color.White;
-            this.cbxproducer.Location = new System.Drawing.Point(73, 255);
+            this.cbxproducer.Location = new System.Drawing.Point(153, 326);
             this.cbxproducer.Name = "cbxproducer";
             this.cbxproducer.Size = new System.Drawing.Size(148, 17);
             this.cbxproducer.TabIndex = 10;
@@ -635,7 +673,7 @@
             this.cbxgross.AutoSize = true;
             this.cbxgross.BackColor = System.Drawing.Color.Transparent;
             this.cbxgross.ForeColor = System.Drawing.Color.White;
-            this.cbxgross.Location = new System.Drawing.Point(73, 231);
+            this.cbxgross.Location = new System.Drawing.Point(15, 326);
             this.cbxgross.Name = "cbxgross";
             this.cbxgross.Size = new System.Drawing.Size(136, 17);
             this.cbxgross.TabIndex = 9;
@@ -648,7 +686,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(103, 208);
+            this.label7.Location = new System.Drawing.Point(134, 308);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 15);
             this.label7.TabIndex = 295;
@@ -660,9 +698,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox3.Location = new System.Drawing.Point(165, 215);
+            this.pictureBox3.Location = new System.Drawing.Point(188, 315);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(130, 3);
+            this.pictureBox3.Size = new System.Drawing.Size(110, 3);
             this.pictureBox3.TabIndex = 294;
             this.pictureBox3.TabStop = false;
             // 
@@ -672,9 +710,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox4.Location = new System.Drawing.Point(10, 215);
+            this.pictureBox4.Location = new System.Drawing.Point(10, 315);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(80, 3);
+            this.pictureBox4.Size = new System.Drawing.Size(110, 3);
             this.pictureBox4.TabIndex = 293;
             this.pictureBox4.TabStop = false;
             // 
@@ -707,7 +745,7 @@
             this.cbxcultural.AutoSize = true;
             this.cbxcultural.BackColor = System.Drawing.Color.Transparent;
             this.cbxcultural.ForeColor = System.Drawing.Color.White;
-            this.cbxcultural.Location = new System.Drawing.Point(73, 156);
+            this.cbxcultural.Location = new System.Drawing.Point(166, 167);
             this.cbxcultural.Name = "cbxcultural";
             this.cbxcultural.Size = new System.Drawing.Size(107, 17);
             this.cbxcultural.TabIndex = 6;
@@ -719,7 +757,7 @@
             this.cbxamusement.AutoSize = true;
             this.cbxamusement.BackColor = System.Drawing.Color.Transparent;
             this.cbxamusement.ForeColor = System.Drawing.Color.White;
-            this.cbxamusement.Location = new System.Drawing.Point(73, 132);
+            this.cbxamusement.Location = new System.Drawing.Point(15, 167);
             this.cbxamusement.Name = "cbxamusement";
             this.cbxamusement.Size = new System.Drawing.Size(127, 17);
             this.cbxamusement.TabIndex = 5;
@@ -732,9 +770,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(165, 118);
+            this.pictureBox1.Location = new System.Drawing.Point(188, 160);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(130, 3);
+            this.pictureBox1.Size = new System.Drawing.Size(110, 3);
             this.pictureBox1.TabIndex = 274;
             this.pictureBox1.TabStop = false;
             // 
@@ -744,9 +782,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(10, 118);
+            this.pictureBox2.Location = new System.Drawing.Point(10, 160);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(80, 3);
+            this.pictureBox2.Size = new System.Drawing.Size(110, 3);
             this.pictureBox2.TabIndex = 263;
             this.pictureBox2.TabStop = false;
             // 
@@ -868,14 +906,29 @@
             this.label2.TabIndex = 301;
             this.label2.Text = "*";
             // 
+            // lbllgu
+            // 
+            this.lbllgu.AutoSize = true;
+            this.lbllgu.BackColor = System.Drawing.Color.Transparent;
+            this.lbllgu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbllgu.ForeColor = System.Drawing.Color.White;
+            this.lbllgu.Location = new System.Drawing.Point(541, 400);
+            this.lbllgu.Name = "lbllgu";
+            this.lbllgu.Size = new System.Drawing.Size(34, 13);
+            this.lbllgu.TabIndex = 315;
+            this.lbllgu.Text = "Value";
+            this.lbllgu.Visible = false;
+            // 
             // frmPatron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 407);
+            this.ClientSize = new System.Drawing.Size(857, 477);
+            this.Controls.Add(this.lbllgu);
             this.Controls.Add(this.grpcontrol);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtcnt);
+            this.Controls.Add(this.txtlgu);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.grpfilter);
             this.Controls.Add(this.label17);
@@ -886,6 +939,7 @@
             this.Name = "frmPatron";
             this.Opacity = 0.98D;
             this.Text = "Patron Information";
+            this.Load += new System.EventHandler(this.frmPatron_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
@@ -901,6 +955,7 @@
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdinance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -952,8 +1007,11 @@
         private System.Windows.Forms.CheckBox cbxamusement;
         private System.Windows.Forms.CheckBox cbxproducer;
         private System.Windows.Forms.CheckBox cbxgross;
-        internal System.Windows.Forms.Label lbllgu;
         private System.Windows.Forms.CheckBox cbxpromo;
         internal System.Windows.Forms.Label label2;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvOrdinance;
+        internal System.Windows.Forms.Label lbllgu;
+        private System.Windows.Forms.CheckBox cbxDiscount;
+        internal System.Windows.Forms.ComboBox cmbAuth;
     }
 }

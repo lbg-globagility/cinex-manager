@@ -18,6 +18,7 @@ namespace aZynEManager
         MySqlConnection myconn;
         clscommon m_clscom = null;
         DataTable m_dt = new DataTable();
+        DataTable m_orddt = new DataTable();//3.23.2015
         //melvin
         int m_val = 0;
         int m_dot = 0;
@@ -41,6 +42,7 @@ namespace aZynEManager
             grpfilter.Visible = false;
 
             dgvResult.ClearSelection();
+            dgvOrdinance.ClearSelection();//3.26.2015
 
             setnormal();
         }
@@ -58,6 +60,14 @@ namespace aZynEManager
             sbqry.Append("order by a.name asc");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
+
+            //3.23.2015
+            sbqry = new StringBuilder();
+            sbqry.Append("select a.ordinance_no, a.amount_val, a.id ");
+            sbqry.Append("from ordinance_tbl a ");
+            sbqry.Append("order by a.ordinance_no asc");
+            m_orddt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            setDataGridViewII(m_orddt);
         }
 
         public void refreshpatrons()
@@ -86,6 +96,32 @@ namespace aZynEManager
                 dgvResult.Columns[3].HeaderText = "Unit Price";
                 dgvResult.Columns[4].Width = iwidth;
                 dgvResult.Columns[4].HeaderText = "Position";
+            }
+        }
+
+        public void setDataGridViewII(DataTable dt)
+        {
+            this.dgvOrdinance.DataSource = null;
+            //if (dt.Rows.Count > 0)
+            //    this.dgvOrdinance.DataSource = dt;
+            this.dgvOrdinance.Columns.Clear();
+            if (dt.Rows.Count > 0)
+            {
+                DataGridViewCheckBoxColumn cbx = new DataGridViewCheckBoxColumn();
+                cbx.Width = 30;
+
+                int iwidth = (dgvOrdinance.Width) / 2;
+                dgvOrdinance.DataSource = dt;
+                dgvOrdinance.ColumnHeadersHeight = 25;
+                dgvOrdinance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                dgvOrdinance.Columns[0].Width = iwidth - 15;
+                dgvOrdinance.Columns[0].HeaderText = "Ordinance No";
+                dgvOrdinance.Columns[1].Width = iwidth - 40;
+                dgvOrdinance.Columns[1].HeaderText = "Value";
+                dgvOrdinance.Columns[2].Width = 0;
+                dgvOrdinance.Columns[2].HeaderText = "ID";
+                dgvOrdinance.Columns.Insert(0, cbx);
+                
             }
         }
 
@@ -120,6 +156,8 @@ namespace aZynEManager
 
             dgvResult.Enabled = true;
             grpcontrol.Enabled = true;
+
+            dgvOrdinance.Enabled = true;//3.23.2015
 
             txtcnt.Text = String.Format("Count: {0:#,##0}", dgvResult.RowCount);
         }
@@ -377,6 +415,10 @@ namespace aZynEManager
                         myconn.Close();
                     }
 
+                    //3.24.2015 added new record to patrons_ordinance
+                    insertPatronOrdinanceCheck(myconn, dgvOrdinance, intid);
+
+
                     m_clscom.AddATrail(m_frmM.m_userid, "PATRON_ADD", "PATRONS",
                             Environment.MachineName.ToString(), "ADDED NEW PATRON INFO: NAME=" + this.txtname.Text
                             + " | ID=" + intid.ToString(), m_frmM._connection);
@@ -400,6 +442,28 @@ namespace aZynEManager
 
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
+            }
+        }
+
+        public void insertPatronOrdinanceCheck(MySqlConnection myconn, DataGridView dgv, int intid)
+        {
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                if (dgv[0, i].Value != null)
+                {
+                    if ((bool)dgv[0, i].Value)
+                    {
+                        StringBuilder sqry = new StringBuilder();
+                        sqry.Append(String.Format("insert into patrons_ordinance values(0,{0},{1})",
+                            intid, dgv[3, i].Value.ToString()));
+
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                }
             }
         }
 
@@ -529,6 +593,25 @@ namespace aZynEManager
                     return;
                 }
 
+                //validate patron being used by another table 3.24.2015
+                sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_schedule_list_patron where patron_id = @patronid");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.Parameters.AddWithValue("@patronid", intid);
+                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+
+                if (rowCount > 0)
+                {
+                    setnormal();
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't update this patrons record, \n\rit is already being used by another table.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 StringBuilder strqry = new StringBuilder();
                 strqry.Append(String.Format("update patrons set code = '{0}'", txtcode.Text.Trim()));
                 strqry.Append(String.Format(", name = '{0}'", txtname.Text.Trim()));
@@ -554,6 +637,29 @@ namespace aZynEManager
                     cmd = new MySqlCommand(strqry.ToString(), myconn);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
+
+
+                    //3.24.2015 added new record to patrons_ordinance (start)
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("select count(*) from patrons_ordinance where patron_id = {0}", intid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    int rowCount2 = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
+
+                    if (rowCount2 > 0)
+                    {
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from patrons_ordinance where patron_id = {0}", intid));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                    insertPatronOrdinanceCheck(myconn, dgvOrdinance, intid);
+                    //3.24.2015 added new record to patrons_ordinance (end)
 
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -685,25 +791,32 @@ namespace aZynEManager
 
         private void cbxlgu_CheckedChanged(object sender, EventArgs e)
         {
+            //if (cbxlgu.Checked == true)
+            //{
+            //    lbllgu.Visible = true;
+            //    txtlgu.Text = "0.00";
+            //    txtlgu.Visible = true;
+            //    txtlgu.SelectAll();
+            //    txtlgu.Focus();
+            //}
+            //else
+            //{
+            //    lbllgu.Visible = false;
+            //    txtlgu.Text = "0.00";
+            //    txtlgu.Visible = false;
+            //}
+
             if (cbxlgu.Checked == true)
-            {
-                lbllgu.Visible = true;
-                txtlgu.Text = "0.00";
-                txtlgu.Visible = true;
-                txtlgu.SelectAll();
-                txtlgu.Focus();
-            }
+                dgvOrdinance.Enabled = true;
             else
-            {
-                lbllgu.Visible = false;
-                txtlgu.Text = "0.00";
-                txtlgu.Visible = false;
-            }
+                dgvOrdinance.Enabled = false;
+
         }
 
         private void dgvResult_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataTable dt = new DataTable();
+            
             KryptonDataGridView dgv = sender as KryptonDataGridView;
             if (dgv == null)
                 return;
@@ -742,6 +855,37 @@ namespace aZynEManager
 
                     btncolor.SelectedColor = clscommon.From0BGR(intcolor);//m_clscom.UIntToColor(intcolor);//Color.FromArgb(intcolor);
                 }
+
+                //3.23.2015
+                setCheck(dgvOrdinance, false);
+
+                myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+
+                DataTable dt2 = new DataTable();
+                sqry = new StringBuilder();
+                sqry.Append("select ordinance_id from patrons_ordinance where patron_id = @patid");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = myconn;
+                if(cmd.Connection.State == ConnectionState.Closed)
+                    cmd.Connection.Open();
+                cmd.CommandText = sqry.ToString();
+                cmd.Parameters.AddWithValue("@patid", strid);
+                MySqlDataReader rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        int intid = Convert.ToInt32(rd[0].ToString());
+                        for (int i = 0; i < dgvOrdinance.Rows.Count; i++)
+                        {
+                            if (intid == Convert.ToInt32(dgvOrdinance[3, i].Value.ToString()))
+                                dgvOrdinance[0, i].Value = (object)true;
+                        }
+                    }
+                }
+                rd.Close();
+                cmd.Dispose();
             }
         }
 
@@ -873,6 +1017,22 @@ namespace aZynEManager
                 // Swallow this invalid key and beep
                 e.Handled = true;
                 //    MessageBeep();
+            }
+        }
+
+        private void frmPatron_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void setCheck(DataGridView dgv, bool boolchk)
+        {
+            int cnt = 0;
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                dgv[0, i].Value = (object)boolchk;
+                if (boolchk)
+                    cnt += 1;
             }
         }
     }

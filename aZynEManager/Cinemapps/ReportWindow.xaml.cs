@@ -611,6 +611,19 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP20_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RP19 report = new RP19(RP20StartDate.SelectedDate);
+                report.PreviewReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void ReportSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -748,6 +761,46 @@ namespace Cinemapps
                     }
                 }
 
+            }
+        }
+
+        private void PrintRP22_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP21StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP21EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP21");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void PrintRP21_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP21StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP21EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP21");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
             }
         }
     }

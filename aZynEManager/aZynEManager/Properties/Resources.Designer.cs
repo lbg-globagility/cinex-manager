@@ -483,6 +483,16 @@ namespace aZynEManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ordinance {
+            get {
+                object obj = ResourceManager.GetObject("ordinance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap plusblue24 {
             get {
                 object obj = ResourceManager.GetObject("plusblue24", resourceCulture);

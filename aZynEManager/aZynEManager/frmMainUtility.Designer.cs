@@ -36,6 +36,7 @@
             this.btnTitle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCinema = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pnlClose = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -259,7 +260,7 @@
             this.btnselect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.btnselect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnselect.Location = new System.Drawing.Point(12, 294);
+            this.btnselect.Location = new System.Drawing.Point(23, 260);
             this.btnselect.Name = "btnselect";
             this.btnselect.Size = new System.Drawing.Size(96, 60);
             this.btnselect.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -348,6 +349,54 @@
             this.btnCinema.Values.Text = "Cinema";
             this.btnCinema.Click += new System.EventHandler(this.btnCinema_Click);
             // 
+            // btnOrdinance
+            // 
+            this.btnOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOrdinance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOrdinance.Location = new System.Drawing.Point(10, 354);
+            this.btnOrdinance.Name = "btnOrdinance";
+            this.btnOrdinance.Size = new System.Drawing.Size(283, 60);
+            this.btnOrdinance.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.btnOrdinance.StateCommon.Back.Color2 = System.Drawing.Color.Salmon;
+            this.btnOrdinance.StateCommon.Back.ColorAngle = 20F;
+            this.btnOrdinance.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnOrdinance.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
+            this.btnOrdinance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOrdinance.StateCommon.Border.Rounding = 1;
+            this.btnOrdinance.StateCommon.Border.Width = 3;
+            this.btnOrdinance.StateCommon.Content.AdjacentGap = 10;
+            this.btnOrdinance.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnOrdinance.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnOrdinance.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnOrdinance.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnOrdinance.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrdinance.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnOrdinance.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnOrdinance.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnOrdinance.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnOrdinance.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, -1, -1);
+            this.btnOrdinance.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.OrangeRed;
+            this.btnOrdinance.StateCommon.Content.ShortText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnOrdinance.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrdinance.StateCommon.Content.ShortText.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias;
+            this.btnOrdinance.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnOrdinance.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnOrdinance.StateTracking.Border.Color1 = System.Drawing.Color.Black;
+            this.btnOrdinance.StateTracking.Border.Color2 = System.Drawing.Color.Black;
+            this.btnOrdinance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOrdinance.StateTracking.Border.Rounding = 1;
+            this.btnOrdinance.StateTracking.Border.Width = 3;
+            this.btnOrdinance.TabIndex = 40;
+            this.btnOrdinance.Values.ExtraText = "local\r\nordinances";
+            this.btnOrdinance.Values.Image = global::aZynEManager.Properties.Resources.ordinance;
+            this.btnOrdinance.Values.Text = "Ordinance";
+            this.btnOrdinance.Click += new System.EventHandler(this.btnOrdinance_Click);
+            // 
             // pnlClose
             // 
             this.pnlClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -367,7 +416,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 358);
+            this.ClientSize = new System.Drawing.Size(304, 422);
+            this.Controls.Add(this.btnOrdinance);
             this.Controls.Add(this.btnCinema);
             this.Controls.Add(this.btnPatrons);
             this.Controls.Add(this.btnClass);
@@ -394,5 +444,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnTitle;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCinema;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnOrdinance;
     }
 }

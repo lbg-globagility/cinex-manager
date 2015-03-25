@@ -199,6 +199,15 @@ namespace aZynEManager
             pnlClose.BackgroundImage = Properties.Resources.buttonclose1;
         }
 
+        private void btnOrdinance_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmLocalOrdinance frmordinance = new frmLocalOrdinance();
+            frmordinance.frmInit(m_frmM, m_clscom);
+            frmordinance.ShowDialog();
+            frmordinance.Dispose();
+        }
+
 
     }
 }

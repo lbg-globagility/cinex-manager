@@ -424,7 +424,33 @@ namespace aZynEManager
             }
         }
 
+        //public void populateOrdinanceSummary(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
+        //{
+        //    try
+        //    {
+        //        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+        //        MySqlConnection myconn = new MySqlConnection(sConnString);
+                
+        //        StringBuilder sQuery = new StringBuilder();
 
+        //        DateTime dt = startdate;
+        //        do
+        //        {
+        //            sQuery = new StringBuilder();
+        //            sQuery.Append("");
+
+        //            dt = dt.AddDays(1);
+        //        }
+        //        while (startdate > enddate);
+
+
+
+        //        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+        //    }
+        //    catch
+        //    {
+        //    }
+        //}
 
         public void populateTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
         {

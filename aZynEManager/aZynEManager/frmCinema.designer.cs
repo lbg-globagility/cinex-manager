@@ -44,11 +44,9 @@
             this.btnclear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.label17 = new System.Windows.Forms.Label();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.btnaddsound = new System.Windows.Forms.Button();
             this.dgvpatrons = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.cmbsounds = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtcapacity = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,22 +61,28 @@
             this.btnrevoke = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnclear2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnaddsound = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -498,25 +502,6 @@
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 320;
             // 
-            // btnaddsound
-            // 
-            this.btnaddsound.BackColor = System.Drawing.Color.Transparent;
-            this.btnaddsound.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnaddsound.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Peru;
-            this.btnaddsound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnaddsound.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnaddsound.ForeColor = System.Drawing.Color.White;
-            this.btnaddsound.Image = global::aZynEManager.Properties.Resources.add1;
-            this.btnaddsound.Location = new System.Drawing.Point(279, 29);
-            this.btnaddsound.Name = "btnaddsound";
-            this.btnaddsound.Size = new System.Drawing.Size(18, 18);
-            this.btnaddsound.TabIndex = 2;
-            this.btnaddsound.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnaddsound.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.btnaddsound, "Add Sound System");
-            this.btnaddsound.UseVisualStyleBackColor = false;
-            this.btnaddsound.Click += new System.EventHandler(this.btnaddsound_Click);
-            // 
             // dgvpatrons
             // 
             this.dgvpatrons.AllowUserToAddRows = false;
@@ -560,18 +545,6 @@
             this.label11.Size = new System.Drawing.Size(102, 15);
             this.label11.TabIndex = 275;
             this.label11.Text = "   Patron Pricing   ";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(14, 90);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
-            this.pictureBox2.TabIndex = 263;
-            this.pictureBox2.TabStop = false;
             // 
             // label3
             // 
@@ -875,6 +848,37 @@
             this.btnclear2.Values.Text = "clear";
             this.btnclear2.Click += new System.EventHandler(this.btnclear2_Click);
             // 
+            // btnaddsound
+            // 
+            this.btnaddsound.BackColor = System.Drawing.Color.Transparent;
+            this.btnaddsound.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnaddsound.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Peru;
+            this.btnaddsound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnaddsound.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnaddsound.ForeColor = System.Drawing.Color.White;
+            this.btnaddsound.Image = global::aZynEManager.Properties.Resources.add1;
+            this.btnaddsound.Location = new System.Drawing.Point(279, 29);
+            this.btnaddsound.Name = "btnaddsound";
+            this.btnaddsound.Size = new System.Drawing.Size(18, 18);
+            this.btnaddsound.TabIndex = 2;
+            this.btnaddsound.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnaddsound.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnaddsound, "Add Sound System");
+            this.btnaddsound.UseVisualStyleBackColor = false;
+            this.btnaddsound.Click += new System.EventHandler(this.btnaddsound_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox2.Location = new System.Drawing.Point(14, 90);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
+            this.pictureBox2.TabIndex = 263;
+            this.pictureBox2.TabStop = false;
+            // 
             // frmCinema
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -898,21 +902,25 @@
             this.Load += new System.EventHandler(this.frmCinema_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).EndInit();
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

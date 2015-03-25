@@ -82,6 +82,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>obj\Debug\Interop.VSPrinter7Lib.dll</HintPath>
     </Reference>
+    <Reference Include="KP-ImageViewerV2">
+      <HintPath>..\..\..\..\..\installer\image viewer\KpImageViewerV2_151_demo\KP-ImageViewerV2.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -156,6 +159,12 @@
     </Compile>
     <Compile Include="frmDistributor.Designer.cs">
       <DependentUpon>frmDistributor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLocalOrdinance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLocalOrdinance.Designer.cs">
+      <DependentUpon>frmLocalOrdinance.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -259,6 +268,12 @@
     <Compile Include="frmUserLevel.designer.cs">
       <DependentUpon>frmUserLevel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageViewer.designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListViewSorter.cs" />
     <Compile Include="PopedCotainer.cs">
       <SubType>UserControl</SubType>
@@ -274,6 +289,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThumbnailController.cs" />
+    <Compile Include="ThumbnailFlowLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="ContextMenuCalendarItem.resx">
       <DependentUpon>ContextMenuCalendarItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDistributor.resx">
       <DependentUpon>frmDistributor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLocalOrdinance.resx">
+      <DependentUpon>frmLocalOrdinance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -342,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUserLevel.resx">
       <DependentUpon>frmUserLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PopedCotainer.resx">
       <DependentUpon>PopedCotainer.cs</DependentUpon>
@@ -572,6 +597,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cinema-manager-icon.ico" />
+    <None Include="Resources\ordinance.png" />
     <None Include="Resources\print_32x32.png" />
     <None Include="Resources\save_32x32.png" />
     <None Include="Resources\bg2.png" />
