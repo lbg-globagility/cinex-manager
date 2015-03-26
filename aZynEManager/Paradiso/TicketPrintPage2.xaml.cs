@@ -567,8 +567,8 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
                 if (Ticket.OrdinancePrice > 0m)
                 {
-                    print.DrawText(-1, print.Row + 340, print.Column, "Ordinance:", false);
-                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(-1, print.Row + 340, print.Column + 15, "Ordinance:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
@@ -629,8 +629,8 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
                 if (Ticket.OrdinancePrice > 0m)
                 {
-                    print.DrawText(-1, print.Row + 340, print.Column, "Ordinance Tax:", false);
-                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(-1, print.Row + 340, print.Column + 15, "Ordinance Tax:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
