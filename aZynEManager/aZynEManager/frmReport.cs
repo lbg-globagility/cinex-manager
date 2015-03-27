@@ -153,6 +153,8 @@ namespace aZynEManager
                         // RMB 11.21.2014 added sql query for the > 0 values visible only
                         sqry.Append(") table1 where QTY > 0");*/
 
+
+                        //3.26.2015 for update sa opis
                         sqry.Append("select d.id user, f.code, f.name PATRON, i.name CINEMA, b.base_price PRICE,  ");
                         sqry.Append("count(b.cinema_seat_id) QTY, sum(b.base_price) TOTALSALES, h.movie_date,  ");
                         sqry.Append("d.userid, j.system_value, k.name reportname ");
@@ -929,7 +931,7 @@ namespace aZynEManager
                         break;
                 }
 
-                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd.AddDays(-1));
+                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd);
                 //MessageBox.Show(sqry.ToString());
 
                 rdlViewer1.SourceRdl = xmlfile;
@@ -1047,7 +1049,7 @@ namespace aZynEManager
                                                     if (node5.Name == "TableRows")
                                                     {
                                                         foreach (XmlNode node6 in node5.ChildNodes)
-                                                        {
+                               {
                                                             if (node6.Name == "TableRow")
                                                             {
                                                                 foreach (XmlNode node7 in node6.ChildNodes)
@@ -1055,9 +1057,9 @@ namespace aZynEManager
                                                                     if (node7.Name == "TableCells")
                                                                     {
                                                                         foreach (XmlNode node8 in node7.ChildNodes)
-                                                                        {
+                                                                                                 {
                                                                             if (node8.Name == "TableCell")
-                                                                            {
+                                                                                                     {
                                                                                 foreach (XmlNode node9 in node8.ChildNodes)
                                                                                 {
                                                                                     if (node9.Name == "ReportItems")
@@ -1065,7 +1067,7 @@ namespace aZynEManager
                                                                                         foreach (XmlNode node10 in node9.ChildNodes)
                                                                                         {
                                                                                             if (node10.FirstChild.InnerText == "txtfrdatetodate")
-                                                                                                node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd);
+                                                                                                node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd.AddDays(-1));
                                                                                         }
                                                                                     }
                                                                                 }
