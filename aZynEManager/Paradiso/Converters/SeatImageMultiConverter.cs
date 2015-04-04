@@ -87,13 +87,18 @@ namespace Paradiso
                         }
                     }
 
-                    BitmapSource i = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                                   bmp.GetHbitmap(),
-                                   IntPtr.Zero,
-                                   System.Windows.Int32Rect.Empty,
-                                   BitmapSizeOptions.FromEmptyOptions());
+                    try
+                    {
 
-                    return i;
+                        BitmapSource i = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                                       bmp.GetHbitmap(),
+                                       IntPtr.Zero,
+                                       System.Windows.Int32Rect.Empty,
+                                       BitmapSizeOptions.FromEmptyOptions());
+
+                        return i;
+                    }
+                    catch { }
                 }
             }
             /*

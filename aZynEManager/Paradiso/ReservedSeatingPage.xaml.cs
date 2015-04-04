@@ -327,7 +327,7 @@ namespace Paradiso
                 }
 
 
-                if (MovieSchedule.Available == 0 && MovieSchedule.SeatType != 3) //except unlimited seating
+                if (MovieSchedule.Available == 0 && MovieSchedule.Reserved == 0 && MovieSchedule.SeatType != 3) //except unlimited seating
                 {
                     MovieSchedule.IsEnabled = false;
                 }
@@ -508,10 +508,12 @@ namespace Paradiso
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
 
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

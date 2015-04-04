@@ -411,10 +411,12 @@ namespace Paradiso
             if (TotalAmountPaid.Focusable)
                 Keyboard.Focus(TotalAmountPaid);
 
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
         }
 
         private void Page_PreviewKeyDown(object sender, KeyEventArgs e)

@@ -88,7 +88,7 @@ namespace Paradiso
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                ParadisoObjectManager.GetInstance().MessageBox(ex);
             }
 
         }
@@ -132,11 +132,12 @@ namespace Paradiso
             Version.Text = ParadisoObjectManager.GetInstance().Version;
             if (UserName.Focusable)
                 Keyboard.Focus(UserName);
-
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
         }
     }
 }

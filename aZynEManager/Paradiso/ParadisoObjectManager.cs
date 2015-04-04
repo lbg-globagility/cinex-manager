@@ -139,6 +139,14 @@ namespace Paradiso
             }
         }
 
+        public void MessageBox(Exception ex)
+        {
+            if (ex.InnerException != null)
+                System.Windows.MessageBox.Show(ex.InnerException.Message.ToString());
+            else
+                System.Windows.MessageBox.Show(ex.Message.ToString());
+        }
+
         public string GetTerminalConfigValue(string _strHeader, string strDefault)
         {
             string strDefaultValue = this.GetConfigValue(_strHeader, strDefault);

@@ -113,7 +113,13 @@ namespace Paradiso
         {
             this.UpdateDashboard();
 
-            if (e.Content != null &&  e.Content.ToString() == "Paradiso.MovieCalendarPage")
+            MainFrame.NavigationService.RemoveBackEntry();
+
+            string strContent = string.Empty;
+            if (e.Content != null)
+                strContent = e.Content.ToString();
+            
+            if (strContent == "Paradiso.MovieCalendarPage")
             {
                 ScreeningDate.IsEnabled = true;
             }

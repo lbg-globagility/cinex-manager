@@ -462,7 +462,7 @@ namespace Paradiso
                         MovieSchedule.Price = (decimal)price2;
                 }
 
-                if (MovieSchedule.Available <= 0 && MovieSchedule.SeatType != 3) //except unlimited seating
+                if (MovieSchedule.Available <= 0 && MovieSchedule.Reserved == 0 && MovieSchedule.SeatType != 3) //except unlimited seating
                 {
                     MovieSchedule.IsEnabled = false;
                 }
@@ -685,17 +685,20 @@ namespace Paradiso
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
 
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
 
             IsReadOnly = false;
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
 
             DateTime now = paradisoObjectManager.CurrentDate;
-            if (!MovieSchedule.IsEnabled && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now)
+            if (!MovieSchedule.IsEnabled && (MovieSchedule.Available > 0  || (MovieSchedule.Available == 0 && MovieSchedule.Reserved > 0)) 
+                && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now)
             {
                 //get previous 
                 if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate ||

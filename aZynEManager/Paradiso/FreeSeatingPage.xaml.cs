@@ -173,7 +173,6 @@ namespace Paradiso
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;
 
-
                             var price = (from mslp in context.movies_schedule_list_patron_view
                                          where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
                                          select mslp.price).FirstOrDefault();
@@ -668,11 +667,13 @@ namespace Paradiso
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
-
+            */
+           
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
             IsReadOnly = false;

@@ -1050,10 +1050,12 @@ namespace Paradiso
                 Keyboard.Focus(ORNumberInput);
             }
 
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
 
             if (ParadisoObjectManager.GetInstance().RunOnce)
             {

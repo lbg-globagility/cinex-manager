@@ -16,6 +16,8 @@ using Paradiso.Model;
 using System.ComponentModel;
 using System.Windows.Threading;
 using System.Collections;
+using System.Data.SqlClient;
+using System.Data.Entity;
 
 namespace Paradiso
 {
@@ -164,9 +166,20 @@ namespace Paradiso
                              -update periodically
                              */
 
+
+
                             var patrons = (from mslrs in context.movies_schedule_list_reserved_seat
                                            where mslrs.movies_schedule_list_id == _movie_schedule_list.mslkey &&  mslrs.status != 2
                                            select mslrs.cinema_seat_id).Count();
+
+                            int tmpreservedseats = 0;
+                            if (_movie_schedule_list_item.SeatType == 1)
+                            {
+                                tmpreservedseats = (from mcths in context.movies_schedule_list_house_seat
+                                                    where mcths.movies_schedule_list_id == _movie_schedule_list.mslkey 
+                                                    && (mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED "))
+                                                    select mcths.cinema_seat_id).Count();
+                            }
 
                             //reserved
                             var reserved = 0;
@@ -189,19 +202,63 @@ namespace Paradiso
                             //booked - already purchased  and is not voided
                             
                             _movie_schedule_list_item.Booked = (int) patrons;
+                            _movie_schedule_list_item.Reserved = (int)tmpreservedseats;
                             _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;
+                            
+                            /*
+                            //SELECT patron_id, amount_val, in_pesovalue FROM patrons_ordinance b, ordinance_tbl c WHERE ordinance_id = c.id AND ( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
+                            var p_view = (from po in context.patrons_ordinance
+                                     where (
+                                     (po.ordinance_tbl.with_enddate == 0 &&
+                                        (
+                                         (po.ordinance_tbl.effective_date.Year > dtScreenDate.Year) ||
+                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month < dtScreenDate.Month) ||
+                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month == dtScreenDate.Month && po.ordinance_tbl.effective_date.Day <= dtScreenDate.Day)
+                                        )
+                                     )
+                                     ||
+                                     (po.ordinance_tbl.with_enddate == 1 &&
+                                        (
+                                         (po.ordinance_tbl.effective_date.Year > dtScreenDate.Year) ||
+                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month < dtScreenDate.Month) ||
+                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month == dtScreenDate.Month && po.ordinance_tbl.effective_date.Day <= dtScreenDate.Day)
+                                        )
+                                        &&
+                                        (
+                                         (po.ordinance_tbl.end_date.Year < dtScreenDate.Year) ||
+                                         (po.ordinance_tbl.end_date.Year == dtScreenDate.Year && po.ordinance_tbl.end_date.Month > dtScreenDate.Month) ||
+                                         (po.ordinance_tbl.end_date.Year == dtScreenDate.Year && po.ordinance_tbl.end_date.Month == dtScreenDate.Month && po.ordinance_tbl.end_date.Day >= dtScreenDate.Day)
+                                        )
 
+                                     )
 
-                            var price = (from mslp in context.movies_schedule_list_patron_view
+                                     //end
+                                     )
+                                     select new { patron_id = po.patron_id, amount_val = po.ordinance_tbl.amount_val, in_pesovalue = po.ordinance_tbl.in_pesovalue });
+                            var r = from p in context.movies_schedule_list_patron from j in p_view.Where(x=> x.patron_id == p.patron_id).DefaultIfEmpty() 
+                                     select new {
+                                         id = p.id,
+                                         mslid = p.movies_schedule_list_id,
+                                         patron_id = p.patron_id,
+                                         price = p.price,
+                                         isdefault = p.is_default,
+                                         //ordinance_val = j.patron_id == null
+                                     };
+
+                            */
+
+                            var price = (from mslp in context.movies_schedule_list_patron //movies_schedule_list_patron_view
                                          where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
                                          select mslp.price).FirstOrDefault();
                             if (price != null)
                                 _movie_schedule_list_item.Price = (decimal)price;
 
 
-                            if (_movie_schedule_list_item.Available <= 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
+                            if (_movie_schedule_list_item.Available <= 0 
+                                && _movie_schedule_list_item.Reserved == 0 
+                                && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
                             {
                                 _movie_schedule_list_item.IsEnabled = false;
                             }
@@ -308,7 +365,7 @@ namespace Paradiso
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                ParadisoObjectManager.GetInstance().MessageBox(ex);
             }
 
             if (!blnIsClear)
@@ -407,10 +464,12 @@ namespace Paradiso
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //MovieScheduleListItemsListView
+            /*
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
+            */
 
             //checks for terminated session
             if (ParadisoObjectManager.GetInstance().RunOnce)
