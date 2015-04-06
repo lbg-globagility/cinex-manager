@@ -169,6 +169,17 @@ namespace aZynEManager
                 cmd.Dispose();
                 //RMB 11.11.2014 for collection start date END
 
+                //RMB 04.06.2015 for accreditation start date START
+                sqry = new StringBuilder();
+                sqry.Append(String.Format("update config_table set system_value = '{0}' ", m_clscom.m_clscon.CinemaAccreditationNo));
+                sqry.Append(String.Format("where system_code = '{0}' ", "018"));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                //RMB 04.06.2015 for accreditation start date END
+
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
 

@@ -43,6 +43,8 @@ namespace aZynEManager
         //RMB 11.11.2014 added new variables
         public double _gttoday = 0;
         public double _gtyesterday = 0;
+        public string m_companynm = String.Empty;
+        public clsConfig m_clsconfig;
 
         public frmReport()
         {
@@ -85,6 +87,7 @@ namespace aZynEManager
         {
             m_frmM = frm;
             m_clscom = cls;
+            m_clsconfig = m_clscom.m_clscon;
             //MessageBox.Show(module + "-" + account);
             //return;
             frmInitDbase(reportcode);
@@ -923,15 +926,26 @@ namespace aZynEManager
                         sqry.Append("and a.status = 1 ");
                         sqry.Append("and h.system_code='001' ");
                         sqry.Append("and g.id = 21 ");
-                        sqry.Append(String.Format("and c.movie_date > '{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append(String.Format("and c.movie_date >= '{0:yyyy/MM/dd}' ",_dtStart));
                         sqry.Append(String.Format("and c.movie_date < '{0:yyyy/MM/dd}' ", _dtEnd));
                         sqry.Append("group by d.title,c.movie_date ");
                         sqry.Append("order by d.title,c.movie_date asc");
 
                         break;
+                    case "RP22":
+                        DateTime firstDayOfMonth = new DateTime(_dtStart.Year, _dtStart.Month, 1);
+                        DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+                        m_clscom.refreshTable(m_frmM,"tmp_bir_msr",m_frmM._connection);
+                        m_clscom.populateBIRmsr(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
+                        _dtStart = firstDayOfMonth;
+                        _dtEnd = lastDayOfMonth.AddDays(1);
+
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}'",m_frmM.m_usercode));
+                        break;
                 }
 
-                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd);
+                xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                 //MessageBox.Show(sqry.ToString());
 
                 rdlViewer1.SourceRdl = xmlfile;
@@ -947,11 +961,34 @@ namespace aZynEManager
             }
         }
 
-        static string GetXmlString(string strFile, string sQry, string sConnString, string cine, string code, DateTime _dtStart, DateTime _dtEnd)
+        static string GetXmlString(string strFile, string sQry, string sConnString, string cine, string code, DateTime _dtStart, DateTime _dtEnd, clsConfig clscon)
         {
             clscommon clscom = new clscommon();
-            double gttoday = clscom.calculateTotalCollection(sConnString, _dtStart);
-            double gtyesterday = clscom.calculateTotalCollection(sConnString, _dtStart.AddDays(-1));
+            double gttoday = 0;
+            double gtyesterday = 0;
+            DataTable m_dtconfig = new DataTable();
+            string companyname = String.Empty;
+            string companyaddress = String.Empty;
+            string tin = String.Empty;
+            string accreditation = String.Empty;
+            string permitno = String.Empty;
+            string serialno = String.Empty;
+
+            if (code == "RP16")
+            {
+                gttoday = clscom.calculateTotalCollection(sConnString, _dtStart);
+                gtyesterday = clscom.calculateTotalCollection(sConnString, _dtStart.AddDays(-1));
+            }
+            else if(code == "RP22")
+            {
+                companyname = clscon.CinemaName + " (" + clscon.CinemaAddress + ")";
+                companyaddress = clscon.CinemaAddress2;
+                tin = clscon.TIN;
+                accreditation = clscon.CinemaAccreditationNo;
+                permitno = clscon.PN;
+                serialno = clscon.CinemaSerialNo;
+            }
+
             XmlDocument xmlDoc = new XmlDocument();
             if (File.Exists(strFile))
             {
@@ -1049,7 +1086,7 @@ namespace aZynEManager
                                                     if (node5.Name == "TableRows")
                                                     {
                                                         foreach (XmlNode node6 in node5.ChildNodes)
-                               {
+                                                        {
                                                             if (node6.Name == "TableRow")
                                                             {
                                                                 foreach (XmlNode node7 in node6.ChildNodes)
@@ -1068,6 +1105,18 @@ namespace aZynEManager
                                                                                         {
                                                                                             if (node10.FirstChild.InnerText == "txtfrdatetodate")
                                                                                                 node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd.AddDays(-1));
+                                                                                            else if (node10.FirstChild.InnerText == "txtcompany")
+                                                                                                node10.FirstChild.InnerText = companyname;
+                                                                                            else if (node10.FirstChild.InnerText == "txtaddress")
+                                                                                                node10.FirstChild.InnerText = companyaddress;
+                                                                                            else if (node10.FirstChild.InnerText == "txttin")
+                                                                                                node10.FirstChild.InnerText = tin;
+                                                                                            else if (node10.FirstChild.InnerText == "txtaccreditation")
+                                                                                                node10.FirstChild.InnerText = accreditation;
+                                                                                            else if (node10.FirstChild.InnerText == "txtpermit")
+                                                                                                node10.FirstChild.InnerText = permitno;
+                                                                                            else if (node10.FirstChild.InnerText == "txtserial")
+                                                                                                node10.FirstChild.InnerText = serialno;
                                                                                         }
                                                                                     }
                                                                                 }

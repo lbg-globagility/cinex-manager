@@ -16,6 +16,7 @@ namespace aZynEManager
         MySqlConnection myconn;
         public DataSet m_ds = new DataSet();
         public clscommon m_clscom = null;
+  
 
         private bool drag = false;
         private System.Drawing.Point start_point = new System.Drawing.Point(0, 0);
