@@ -39,6 +39,16 @@ namespace Paradiso
 
         public TicketPrintPage()
         {
+            this.Initialize(true);
+        }
+
+        public TicketPrintPage(bool blnIsReset)
+        {
+            this.Initialize(blnIsReset);
+        }
+
+        public void Initialize(bool blnIsReset)
+        {
             InitializeComponent();
 
             Ticket = new TicketModel();

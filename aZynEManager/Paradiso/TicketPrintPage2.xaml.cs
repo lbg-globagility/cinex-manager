@@ -39,6 +39,16 @@ namespace Paradiso
 
         public TicketPrintPage2()
         {
+            this.Initialize(false);
+        }
+
+        public TicketPrintPage2(bool blnIsReset)
+        {
+            this.Initialize(blnIsReset);
+        }
+
+        public void Initialize(bool blnIsReset)
+        {
             InitializeComponent();
 
             Ticket = new TicketModel();
@@ -51,7 +61,8 @@ namespace Paradiso
             Users = new ObservableCollection<UserModel>();
             this.PopulateUsers();
 
-            this.Reset();
+            if (blnIsReset)
+                this.Reset();
 
             this.DataContext = this;
 

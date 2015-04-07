@@ -355,12 +355,12 @@ namespace Paradiso
 
                         if (blnIsTicketFormatB)
                         {
-                            TicketPrintPage2 ticketPrintPage = new TicketPrintPage2();
+                            TicketPrintPage2 ticketPrintPage = new TicketPrintPage2(false);
                             ticketPrintPage.PrintTickets(ornumbers);
                         }
                         else
                         {
-                            TicketPrintPage ticketPrintPage = new TicketPrintPage();
+                            TicketPrintPage ticketPrintPage = new TicketPrintPage(false);
                             ticketPrintPage.PrintTickets(ornumbers);
                         }
                         if (NavigationService != null) 
