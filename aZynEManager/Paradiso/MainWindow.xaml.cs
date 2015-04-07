@@ -113,7 +113,11 @@ namespace Paradiso
         {
             this.UpdateDashboard();
 
-            MainFrame.NavigationService.RemoveBackEntry();
+            try
+            {
+                MainFrame.NavigationService.RemoveBackEntry();
+            }
+            catch { }
 
             string strContent = string.Empty;
             if (e.Content != null)

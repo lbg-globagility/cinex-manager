@@ -950,7 +950,9 @@ namespace Paradiso
                             }
 
                             if (IsUpdated)
+                            {
                                 this.UpdateMovieSchedule();
+                            }
 
                         }
                     }
