@@ -30,7 +30,20 @@
         </Canvas.Background>
         <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontSize="14" TextBlock.FontFamily="Arial" TextBlock.FontWeight="Bold">
-                <TextBlock Margin="5" TextBlock.FontSize="26" TextBlock.FontFamily="Arial Narrow" FontWeight="Normal">CASH TENDER</TextBlock>
+                <TextBlock Margin="5" TextBlock.FontSize="26" TextBlock.FontFamily="Arial Narrow" FontWeight="Normal">AMOUNT TENDER</TextBlock>
+                <TabControl SelectionChanged="TabControl_SelectionChanged" Name="PaymentMode">
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Name="CashLabel" Foreground="Black" Background="Gray" Padding="5">Cash/Gift Certificate</TextBlock>
+                        </TabItem.Header>
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Name="CreditLabel" Foreground="Black" Padding="5">Credit Card</TextBlock>
+                        </TabItem.Header>
+                    </TabItem>
+                </TabControl>
+
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Width="300" Background="White">
                         <Border BorderBrush="Gray" BorderThickness="1" Margin="5, 0, 0, 0">
@@ -63,14 +76,44 @@
                         </DockPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Width="300" >
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="2, 0, 2, 0" Height="24">
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="2, 0, 5, 0" Height="24">
                             <TextBlock Margin="10,0" Padding="2">Total Amount Paid</TextBlock>
                         </Border>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="2">
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="2, 2, 5, 2">
                             <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Background="White" Foreground="Black" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
                         </Border>
-                        <DockPanel Margin="0,25,35,25">
-                            <Grid Background="LightGray" Height="200" Width="200" HorizontalAlignment="Right">
+                        <DockPanel Name="NumPad">
+                            <DockPanel DockPanel.Dock="Bottom"  Margin="5,0,5,0">
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="2, 0, 5, 0" Height="24" DockPanel.Dock="Top">
+                                    <TextBlock Margin="10,0" Padding="2">Gift Certificate</TextBlock>
+                                </Border>
+                                <StackPanel DockPanel.Dock="Bottom">
+                                    <Button Name="AddGiftCertificate" HorizontalAlignment="Right" Margin="0, 0, 5, 0" Width="75" Height="23" Click="AddGiftCertificate_Click">Add</Button>
+                                </StackPanel>
+                                <DockPanel>
+                                    <DockPanel Margin="5,0,0,0" DockPanel.Dock="Bottom">
+                                        <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedGiftCertificateList.Total, StringFormat='PHP #,##0.00'}"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock FontSize="14" FontWeight="Normal">Total:</TextBlock>
+                                            <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedGiftCerticateList.GiftCertificates.Count}"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <ListView ItemsSource="{Binding SelectedGiftCertificateList.GiftCertificates}" Width="310" MaxHeight="200">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Name="RemoveGiftCertificate" Click="RemoveGiftCertificate_Click"  BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="RemoveGiftCertificate_PreviewKeyDown">
+                                                        <Image Source="/Paradiso;component/Images/delete-icon.png" Width="20" Height="20" />
+                                                    </Button>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Width="200" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding Amount, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </DockPanel>
+                            </DockPanel>
+                            <Grid Background="LightGray" Height="200" Width="200" HorizontalAlignment="Right" Margin="0,5,35,5" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*" />
                                     <RowDefinition Height="1*" />
@@ -100,18 +143,21 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="5,0,0,0">
-                            <TextBlock Width="295" TextAlignment="Center" Padding="2">Total Amount Due</TextBlock>
-                        </Border>
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="2,0,0,0">
-                            <TextBlock Width="282" Margin="10,0,0,0" Padding="2" >Change</TextBlock>
-                        </Border>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
-                        <TextBlock Width="300" Margin="0,0,0,0" TextAlignment="Right" FontSize="32" Name="Change"/>
-                    </StackPanel>                        
+                    <DockPanel>
+                        <StackPanel Orientation="Vertical" Name="ChangeLabel" DockPanel.Dock="Right" Margin="2,0,5,0">
+                            <Border BorderBrush="Gray" BorderThickness="1" >
+                                <TextBlock Width="282" Margin="10,0,0,0" Padding="2">Change</TextBlock>
+                            </Border>
+                            <TextBlock Width="300" Margin="0,0,0,0" TextAlignment="Right" FontSize="32" Name="Change"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="5,0,5,0">
+                            <Border BorderBrush="Gray" BorderThickness="1"  >
+                                <TextBlock Width="295" TextAlignment="Center" Padding="2">Total Amount Due</TextBlock>
+                            </Border>
+                            <TextBlock Width="300" TextAlignment="Center" FontSize="32" Name="TotalAmountDue" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                        </StackPanel>
+                    </DockPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
                     <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />

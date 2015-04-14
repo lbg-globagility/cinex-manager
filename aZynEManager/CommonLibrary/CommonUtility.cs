@@ -66,7 +66,7 @@ namespace CommonLibrary
                 */
 
                 string strConnectionString =
-                    string.Format(@"metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;provider=MySql.Data.MySqlClient;provider connection string= ""server={1};port={2};user id={3};persistsecurityinfo=True;database={4};password={5};""",
+                    string.Format(@"metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;provider=MySql.Data.MySqlClient;provider connection string= ""server={1};port={2};user id={3};persistsecurityinfo=True;database={4};password={5};Convert Zero Datetime=true;""",
                         strModelName, strServer, intPort, strUserId, strDatabase, strPassword
                     );
 

@@ -999,7 +999,6 @@ namespace Paradiso
                             ContextMenu cm = this.FindResource("cmUnReserve") as ContextMenu;
                             cm.PlacementTarget = sender as Canvas;
 
-
                             cm.DataContext = reservedSeats;
                             cm.IsOpen = true;
                         }
@@ -1020,7 +1019,8 @@ namespace Paradiso
                 e.Handled = true;
             }
             catch //(Exception ex) 
-            { }
+            {
+            }
             StartTimer();
             this.setFocus();
         }
@@ -1078,7 +1078,7 @@ namespace Paradiso
                     window.KeyDown -= Page_PreviewKeyDown;
                 StopTimer();
 
-                SelectedPatronSeatList.Dispose();
+                //SelectedPatronSeatList.Dispose(); //memory leak
                 if (NavigationService != null) 
                     NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }

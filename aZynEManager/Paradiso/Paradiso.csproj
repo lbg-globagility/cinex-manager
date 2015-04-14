@@ -120,6 +120,16 @@
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
     <Compile Include="Converters\SeatNameMultiConverter.cs" />
+    <Compile Include="GiftCertificateWindow.xaml.cs">
+      <DependentUpon>GiftCertificateWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GiftCertificateListModel.cs" />
+    <Compile Include="Model\GiftCertificateModel.cs" />
+    <Compile Include="ParadisoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParadisoModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
@@ -167,11 +177,6 @@
       <DependentUpon>MovieCalendarPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NotifyingDateTime.cs" />
-    <Compile Include="ParadisoModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParadisoModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="PatronWindow.xaml.cs">
       <DependentUpon>PatronWindow.xaml</DependentUpon>
     </Compile>
@@ -203,6 +208,10 @@
     </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="GiftCertificateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,12 +303,12 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\app.manifest" />
-    <None Include="packages.config" />
     <EntityDeploy Include="ParadisoModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ParadisoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Properties\app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\paradisoEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

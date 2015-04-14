@@ -24,13 +24,14 @@ namespace Paradiso
     {
         public int MovieTimeKey { get; set; }
         public PatronSeatListModel SelectedPatronSeatList { get; set; }
-
+        public GiftCertificateListModel SelectedGiftCertificateList { get; set; }
 
         public TenderAmountPage()
         {
             InitializeComponent();
 
             SelectedPatronSeatList = new PatronSeatListModel();
+            SelectedGiftCertificateList = new GiftCertificateListModel();
 
             this.UpdatePatronSeats();
 
@@ -164,13 +165,52 @@ namespace Paradiso
         private void Confirm()
         {
             //checks if change is valid
-            decimal decChange = AmountChange;
-            if (decChange < 0)
+            decimal decCashAmount = 0;
+            decimal.TryParse(TotalAmountPaid.Text, out decCashAmount);
+            decimal decChange = (decCashAmount + SelectedGiftCertificateList.Total) - SelectedPatronSeatList.Total;
+            
+            decimal decCreditAmount = 0;
+            int intPaymentMode = 1;
+
+            if (PaymentMode.SelectedIndex == 1) //credit
             {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.MessageText.Text = "Amount Paid is less than Amount Due.";
-                messageWindow.ShowDialog();
-                return;
+                intPaymentMode = 4;
+                decCashAmount = 0;
+                SelectedGiftCertificateList.GiftCertificates.Clear();
+                decCreditAmount = SelectedPatronSeatList.Total;
+            }
+            else
+            {
+                if (decCashAmount == 0 && SelectedGiftCertificateList.GiftCertificates.Count > 0)
+                    intPaymentMode = 2;
+                else if (SelectedGiftCertificateList.GiftCertificates.Count > 0)
+                    intPaymentMode += 2;
+            }
+
+            //validation for cash / gift certificate
+            if (intPaymentMode == 1 || intPaymentMode == 2 || intPaymentMode == 3)
+            {
+                if (decChange < 0)
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Amount Paid is less than Amount Due.";
+                    messageWindow.ShowDialog();
+                    return;
+                }
+                if (SelectedGiftCertificateList.GiftCertificates.Count > 0 && decCashAmount >= SelectedPatronSeatList.Total)
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Please remove the gift certificates since cash amount can compensate for the total amount to be paid.";
+                    messageWindow.ShowDialog();
+                    return;
+                }
+                if (decCashAmount > 0 && SelectedGiftCertificateList.Total >= SelectedPatronSeatList.Total)
+                {
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Please remove the cash amount since total gift certificate amount can compensate for the total amount to be paid.";
+                    messageWindow.ShowDialog();
+                    return;
+                }
             }
 
 
@@ -211,13 +251,26 @@ namespace Paradiso
                     {
                         try
                         {
+                            //save session information
+                            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                            var s = new session();
+                            s.session_id = strSessionId;
+                            s.payment_mode = intPaymentMode;
+                            s.cash_amount = (float)decCashAmount;
+                            s.gift_certificate_amount = (float)SelectedGiftCertificateList.Total;
+                            s.credit_amount = (float)SelectedPatronSeatList.Total;
+
+                            context.sessions.AddObject(s);
+                            context.SaveChanges();
+
                             //one ticket for whole transaction
                             ticket t = new ticket();
                             t.movies_schedule_list_id = MovieTimeKey;
                             t.user_id = ParadisoObjectManager.GetInstance().UserId;
                             t.terminal = System.Environment.MachineName;
                             t.ticket_datetime = ParadisoObjectManager.GetInstance().CurrentDate;
-                            t.session_id = ParadisoObjectManager.GetInstance().SessionId;
+                            t.session_id = strSessionId;
                             t.status = 1;
 
                             context.tickets.AddObject(t);
@@ -312,7 +365,6 @@ namespace Paradiso
                                 context.SaveChanges(); //System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
                             }
 
-                            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
                             //remove entry from movies_sc
                             var m = (from mslsh in context.movies_schedule_list_house_seat
@@ -323,6 +375,30 @@ namespace Paradiso
                                 context.movies_schedule_list_house_seat.DeleteObject(_mslsh);
                                 context.SaveChanges();
                             }
+
+
+                            //save gift certificate list
+                            if (SelectedGiftCertificateList.GiftCertificates.Count > 0)
+                            {
+                                foreach (GiftCertificateModel gc in SelectedGiftCertificateList.GiftCertificates)
+                                {
+                                    var sgc = new session_gift_certificate();
+                                    sgc.session_id = strSessionId;
+                                    sgc.gift_certificate_id = gc.Id;
+                                    context.session_gift_certificate.AddObject(sgc);
+                                    context.SaveChanges();
+
+                                    //update
+                                    var _gc = (from __gc in context.gift_certificate where __gc.id == gc.Id select __gc).FirstOrDefault();
+                                    if (_gc != null)
+                                    {
+                                        _gc.isexpired = 1;
+                                        context.SaveChanges();
+                                    }
+                                }
+                            }
+
+                            //update gift certificate
 
                             transaction.Complete();
                             success = true;
@@ -382,8 +458,17 @@ namespace Paradiso
             {
                 decimal decChange = 0;
                 decimal decPaid = 0;
+                decimal decGiftCertificates = 0;
+                
                 decimal.TryParse(TotalAmountPaid.Text, out decPaid);
-                decChange = decPaid - SelectedPatronSeatList.Total;
+                if (decGiftCertificates == 0)
+                    decChange = decPaid - SelectedPatronSeatList.Total;
+                else
+                {
+                    decChange = (decPaid + SelectedGiftCertificateList.Total) - SelectedPatronSeatList.Total;
+                    if (decChange > 0) 
+                        decChange = 0; //no more change
+                }
                 return decChange;
             }
         }
@@ -426,5 +511,70 @@ namespace Paradiso
                 this.Confirm();
             }
         }
-    }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int intIndex = -1;
+            try
+            {
+                intIndex = ((TabControl)sender).SelectedIndex;
+                if (intIndex == 1)
+                {
+                    CashLabel.Background = Brushes.White;
+                    CreditLabel.Background = Brushes.Gray;
+
+                    TotalAmountPaid.Text = string.Format("{0:#,##0.00}", SelectedPatronSeatList.Total);
+                    TotalAmountPaid.IsReadOnly = true;
+                    NumPad.Visibility = System.Windows.Visibility.Collapsed;
+                    ChangeLabel.Visibility = System.Windows.Visibility.Collapsed;
+                    Change.Visibility = System.Windows.Visibility.Collapsed;
+                    clearButton.Visibility = System.Windows.Visibility.Hidden;
+                    SelectedGiftCertificateList.GiftCertificates.Clear();
+                }
+                else
+                {
+                    CashLabel.Background = Brushes.Gray;
+                    CreditLabel.Background = Brushes.White;
+                    TotalAmountPaid.Text = string.Empty;
+                    TotalAmountPaid.IsReadOnly = false;
+                    NumPad.Visibility = System.Windows.Visibility.Visible;
+                    ChangeLabel.Visibility = System.Windows.Visibility.Visible;
+                    Change.Visibility = System.Windows.Visibility.Visible;
+                    clearButton.Visibility = System.Windows.Visibility.Visible;
+                    SelectedGiftCertificateList.GiftCertificates.Clear();
+                }
+            }
+            catch { }
+            //MessageBox.Show(intIndex.ToString());
+        }
+        
+        private void RemoveGiftCertificate_Click(object sender, RoutedEventArgs e)
+        {
+            GiftCertificateModel giftCerticateModel = (GiftCertificateModel)((Button)sender).DataContext;
+            if (giftCerticateModel != null)
+                SelectedGiftCertificateList.RemoveGiftCertificate(giftCerticateModel.Name);
+        }
+
+        private void RemoveGiftCertificate_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void AddGiftCertificate_Click(object sender, RoutedEventArgs e)
+        {
+            GiftCertificateWindow window = new GiftCertificateWindow();
+            window.GiftCertificates = SelectedGiftCertificateList.GiftCertificates;
+            window.TotalAmount = SelectedPatronSeatList.Total;
+            decimal decCashAmount = 0;
+            decimal.TryParse(TotalAmountPaid.Text, out decCashAmount);
+            window.CashAmount = decCashAmount;
+            window.ShowDialog();
+            if (window.GiftCertificate != null)
+            {
+                //sample
+                SelectedGiftCertificateList.AddGiftCertificate(window.GiftCertificate);
+                //SelectedGiftCertificateList.GiftCertificates.Add(new GiftCertificateModel(1, "DEMO", 100, true, new DateTime()));
+            }
+        }
+}
 }

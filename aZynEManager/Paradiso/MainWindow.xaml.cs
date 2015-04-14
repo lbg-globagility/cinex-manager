@@ -113,15 +113,19 @@ namespace Paradiso
         {
             this.UpdateDashboard();
 
-            try
-            {
-                MainFrame.NavigationService.RemoveBackEntry();
-            }
-            catch { }
 
             string strContent = string.Empty;
             if (e.Content != null)
                 strContent = e.Content.ToString();
+            if (strContent != "Paradiso.TenderAmountPage") //option to go back
+            {
+                try
+                {
+                    while (MainFrame.NavigationService.CanGoBack)
+                        MainFrame.NavigationService.RemoveBackEntry();
+                }
+                catch { }
+            }
             
             if (strContent == "Paradiso.MovieCalendarPage")
             {
