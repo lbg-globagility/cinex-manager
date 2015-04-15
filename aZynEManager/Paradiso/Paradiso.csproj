@@ -130,6 +130,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParadisoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Result1.cs" />
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>

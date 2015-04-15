@@ -207,83 +207,9 @@ namespace Paradiso
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;
                             
-                            //SELECT patron_id, amount_val, in_pesovalue FROM patrons_ordinance b, ordinance_tbl c WHERE ordinance_id = c.id AND ( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
-                            
-                            //get all valid ordinance for the day
-                            /*
-                            var po_view = (from po in context.patrons_ordinance where (
-                                     (po.ordinance_tbl.with_enddate == 0 &&
-                                        (
-                                         (po.ordinance_tbl.effective_date.Year > dtScreenDate.Year) ||
-                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month < dtScreenDate.Month) ||
-                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month == dtScreenDate.Month && po.ordinance_tbl.effective_date.Day <= dtScreenDate.Day)
-                                        )
-                                     )
-                                     ||
-                                     (po.ordinance_tbl.with_enddate == 1 &&
-                                        (
-                                         (po.ordinance_tbl.effective_date.Year > dtScreenDate.Year) ||
-                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month < dtScreenDate.Month) ||
-                                         (po.ordinance_tbl.effective_date.Year == dtScreenDate.Year && po.ordinance_tbl.effective_date.Month == dtScreenDate.Month && po.ordinance_tbl.effective_date.Day <= dtScreenDate.Day)
-                                        )
-                                        &&
-                                        (
-                                         (po.ordinance_tbl.end_date.Year < dtScreenDate.Year) ||
-                                         (po.ordinance_tbl.end_date.Year == dtScreenDate.Year && po.ordinance_tbl.end_date.Month > dtScreenDate.Month) ||
-                                         (po.ordinance_tbl.end_date.Year == dtScreenDate.Year && po.ordinance_tbl.end_date.Month == dtScreenDate.Month && po.ordinance_tbl.end_date.Day >= dtScreenDate.Day)
-                                        )
-
-                                     )
-                            
-                                          )
-                            select new { patron_id = po.patron_id, amount_val = po.ordinance_tbl.amount_val, in_pesovalue = po.ordinance_tbl.in_pesovalue}); //.ToList();
-                            
-                            
-                            var mslpo_view = (from p in context.movies_schedule_list_patron 
-                                    from j in po_view.Where(x=> x.patron_id == p.patron_id).DefaultIfEmpty()
-                                    where p.movies_schedule_list_id == _movie_schedule_list.mslkey && p.is_default == 1
-                                    select new {
-                                         id = p.id,
-                                         mslid = p.movies_schedule_list_id,
-                                         patron_id = p.patron_id,
-                                         price = p.price,
-                                         isdefault = p.is_default,
-                                         ordinance_val = (j.patron_id == null ? 0 : (j.in_pesovalue == 1 ? j.amount_val : (p.price * j.amount_val)))
-                                     }
-                                     ).ToList();
-
-                            */
-                            /*
-                            var mslp_view = (from k in mslpo_view
-                                             join l in context.patrons on k.patron_id equals l.id
-                                             group k by k.id into m
-                                             select new
-                                             {
-                                                 id = m.Key,
-                                                 movies_schedule_list_id = m.Min(x=>x.mslid),
-                                                 patron_id = m.Min(x=>x.mslid),
-                                                 base_price = m.Min(x=>x.price),
-                                                 is_default = m.Min(x=>x.isdefault),
-                                                 price = m.Min(x=>x.price) + m.Sum(x=>x.ordinance_val)
-                                             }
-                                             ).ToList();
-                            */
-                            /*
-                            var mslp_price = (from k in mslpo_view
-                                              join l in context.patrons on k.patron_id equals l.id
-                                              group k by k.id into m
-                                              select m.Min(x => x.price) + m.Sum(x => x.ordinance_val)
-                                             ).FirstOrDefault();
-                            if (mslp_price != null)
-                                _movie_schedule_list_item.Price = (decimal) mslp_price;
-                            */
-                            
-                            var price = (from mslp in context.movies_schedule_list_patron_view
-                                         where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
-                                         select mslp.price).FirstOrDefault();
-                            if (price != null)
-                                _movie_schedule_list_item.Price = (decimal)price;
-                            
+                            var _patrons = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_default({0}, {1});", _movie_schedule_list.mslkey, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                            if (_patrons != null && _patrons.Count > 0)
+                                _movie_schedule_list_item.Price = (decimal) _patrons[0].price;
 
                             if (_movie_schedule_list_item.Available <= 0 
                                 && _movie_schedule_list_item.Reserved == 0 

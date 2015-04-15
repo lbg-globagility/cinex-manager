@@ -15,6 +15,7 @@ using Paradiso.Model;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Transactions;
+using System.Data.Objects;
 
 namespace Paradiso
 {
@@ -172,12 +173,9 @@ namespace Paradiso
                                 _movie_schedule_list_item.Available = 0;
 
 
-                            var price = (from mslp in context.movies_schedule_list_patron_view
-                                         where mslp.movies_schedule_list_id == _movie_schedule_list.mslkey && mslp.is_default == 1
-                                         select mslp.price).FirstOrDefault();
-                            if (price != null)
-                                _movie_schedule_list_item.Price = (decimal)price;
-
+                            var results = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_default({0}, {1});", _movie_schedule_list.mslkey, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                            if (results != null && results.Count() > 0)
+                                _movie_schedule_list_item.Price = (decimal)results[0].price;
 
                             if (_movie_schedule_list_item.Available <= 0 && _movie_schedule_list_item.SeatType != 3) //except unlimited seating
                             {
@@ -446,21 +444,18 @@ namespace Paradiso
                 if (MovieSchedule.Available < 0)
                     MovieSchedule.Available = 0;
 
-                var price = (from mslp in context.movies_schedule_list_patron_view
-                             where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
-                             select mslp.price).FirstOrDefault();
-                if (price != null)
+                var results = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_default({0}, {1});", this.Key, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                if (results != null && results.Count() > 0)
                 {
-                    MovieSchedule.Price = (decimal)price;
+                    MovieSchedule.Price = (decimal)results[0].price;
                 }
                 else
                 {
-                    var price2 = (from mslp in context.movies_schedule_list_patron_view
-                                 where mslp.movies_schedule_list_id == this.Key 
-                                 select mslp.price).FirstOrDefault();
-                    if (price2 != null)
-                        MovieSchedule.Price = (decimal)price2;
+                    var results1 = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_first({0}, {1});", this.Key, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                    if (results1 != null && results1.Count() > 0)
+                        MovieSchedule.Price = (decimal)results1[0].price;
                 }
+
 
                 if (MovieSchedule.Available <= 0 && MovieSchedule.Reserved == 0 && MovieSchedule.SeatType != 3) //except unlimited seating
                 {
@@ -489,67 +484,55 @@ namespace Paradiso
                 Patrons = new ObservableCollection<PatronModel>();
                 if (MovieScheduleList.SeatType == 1) //for reserved seating only
                     Patrons.Add(null);
-                var _patrons = (from mslp in context.movies_schedule_list_patron_view
-                                where mslp.movies_schedule_list_id == this.Key
-                                orderby mslp.is_default descending, mslp.patron_name
-                                select new
-                                {
-                                    key = mslp.id,
-                                    patronkey = mslp.patron_id,
-                                    patroncode = mslp.patron_code,
-                                    patronname = mslp.patron_name,
-                                    price = mslp.price,
-                                    baseprice = mslp.base_price,
-                                    seatcolor = mslp.patron_seat_color,
-                                    isdefault = mslp.is_default
-                                }).ToList();
-                if (_patrons.Count > 0)
+
+                var _patrons = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid({0}, {1});", this.Key, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                if (_patrons != null && _patrons.Count() > 0)
                 {
                     //get default
-                    var defaultPatron = _patrons.Where(x => x.isdefault == 1).FirstOrDefault();
+                    var defaultPatron = _patrons.Where(x => x.is_default == 1).FirstOrDefault();
                     if (defaultPatron != null)
                     {
                         Patrons.Add(new PatronModel()
                         {
-                            Key = defaultPatron.key,
-                            PatronKey = defaultPatron.patronkey,
-                            Code = defaultPatron.patroncode,
-                            Name = defaultPatron.patronname,
+                            Key = defaultPatron.id,
+                            PatronKey = defaultPatron.patron_id,
+                            Code = defaultPatron.patron_code,
+                            Name = defaultPatron.patron_name,
                             Price = (decimal)defaultPatron.price,
-                            BasePrice = (decimal) defaultPatron.baseprice,
-                            SeatColor = (int)defaultPatron.seatcolor
+                            BasePrice = (decimal)defaultPatron.base_price,
+                            SeatColor = (int)defaultPatron.patron_seat_color
                         });
                     }
 
-                    var regPatrons = _patrons.Where(x => x.isdefault != 1 && x.patronname.StartsWith("REG")).ToList();
+                    var regPatrons = _patrons.Where(x => x.is_default != 1 && x.patron_name.StartsWith("REG")).ToList();
 
                     foreach (var _patron in regPatrons)
                     {
                         Patrons.Add(new PatronModel()
                         {
-                            Key = _patron.key,
-                            PatronKey = _patron.patronkey,
-                            Code = _patron.patroncode,
-                            Name = _patron.patronname,
+                            Key = _patron.id,
+                            PatronKey = _patron.patron_id,
+                            Code = _patron.patron_code,
+                            Name = _patron.patron_name,
                             Price = (decimal)_patron.price,
-                            BasePrice = (decimal) _patron.baseprice,
-                            SeatColor = (int)_patron.seatcolor
+                            BasePrice = (decimal)_patron.base_price,
+                            SeatColor = (int)_patron.patron_seat_color
                         });
                     }
 
-                    var otherPatrons = _patrons.Where(x => x.isdefault != 1 && !x.patronname.StartsWith("REG")).ToList();
+                    var otherPatrons = _patrons.Where(x => x.is_default != 1 && !x.patron_name.StartsWith("REG")).ToList();
 
                     foreach (var _patron in otherPatrons)
                     {
                         Patrons.Add(new PatronModel()
                         {
-                            Key = _patron.key,
-                            PatronKey = _patron.patronkey,
-                            Code = _patron.patroncode,
-                            Name = _patron.patronname,
+                            Key = _patron.id,
+                            PatronKey = _patron.patron_id,
+                            Code = _patron.patron_code,
+                            Name = _patron.patron_name,
                             Price = (decimal)_patron.price,
-                            BasePrice = (decimal) _patron.baseprice,
-                            SeatColor = (int)_patron.seatcolor
+                            BasePrice = (decimal)_patron.base_price,
+                            SeatColor = (int)_patron.patron_seat_color
                         });
                     }
                 }
@@ -867,26 +850,18 @@ namespace Paradiso
                             {
                                 //get default patron key
                                 int intPatronKey = 0;
-                                var _patron = (from mslp in context.movies_schedule_list_patron_view
-                                     where mslp.movies_schedule_list_id == this.Key && mslp.is_default == 1
-                                     select mslp.id).FirstOrDefault();
 
-                                if (_patron != 0)
+                                var results = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_default({0}, {1});", this.Key, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                                if (results != null && results.Count() > 0)
                                 {
-                                    intPatronKey = (int) _patron;
+                                    intPatronKey = results[0].id;
                                 }
                                 else //for compatibility
                                 {
-                                    var _patron2 = (from mslp in context.movies_schedule_list_patron_view
-                                                   where mslp.movies_schedule_list_id == this.Key
-                                                   select mslp.id).FirstOrDefault();
-                                    if (_patron2 != 0)
-                                    {
-                                        intPatronKey = (int)_patron2;
-                                    }
+                                    var results1 = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_mslid_first({0}, {1});", this.Key, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                                    if (results1 != null && results1.Count() > 0)
+                                        intPatronKey = results1[0].id;
                                 }
-
-
 
                                 //taken seats
                                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat

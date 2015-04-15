@@ -77,10 +77,8 @@ namespace Paradiso
 
                 foreach (var ss in selectedseats)
                 {
-                    var patron = (from mslp in context.movies_schedule_list_patron_view
-                                   where mslp.id == ss.movies_schedule_list_patron_id
-                                   select mslp).SingleOrDefault();
-                    if (patron != null)
+                    var patrons = context.ExecuteStoreQuery<Result1>("CALL retrieve_movies_schedule_list_patron_id({0}, {1});", ss.movies_schedule_list_patron_id, ParadisoObjectManager.GetInstance().ScreeningDate).ToList();
+                    if (patrons != null && patrons.Count > 0)
                     {
                         if (MovieTimeKey == 0)
                             MovieTimeKey = ss.movies_schedule_list_id;
@@ -95,10 +93,10 @@ namespace Paradiso
                             SeatKey = ss.cinema_seat_id,
                             SeatName = seatname.sn.ToString(),
                             PatronKey = ss.movies_schedule_list_patron_id,
-                            PatronName = patron.patron_name,
-                            SeatColor = (int) patron.patron_seat_color,
-                            Price = (decimal) patron.price,
-                            BasePrice = (decimal) patron.base_price
+                            PatronName = patrons[0].patron_name,
+                            SeatColor = (int) patrons[0].patron_seat_color,
+                            Price = (decimal) patrons[0].price,
+                            BasePrice = (decimal) patrons[0].base_price
                         });
                     }
                 }

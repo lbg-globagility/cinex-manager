@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="paradisoModelStoreContainer">
           <EntitySet Name="a_trail" EntityType="paradisoModel.Store.a_trail" store:Type="Tables" Schema="azynema" />
           <EntitySet Name="application" EntityType="paradisoModel.Store.application" store:Type="Tables" Schema="azynema" />
@@ -1135,8 +1135,23 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="CurrentDateTime" ReturnType="datetime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema" />
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="retrieve_movies_schedule_list_patron_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+          <Parameter Name="p_id" Type="int" Mode="In" />
+          <Parameter Name="movie_date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="retrieve_movies_schedule_list_patron_mslid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+          <Parameter Name="mlsid" Type="int" Mode="In" />
+          <Parameter Name="movie_date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="retrieve_movies_schedule_list_patron_mslid_default" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+          <Parameter Name="mlsid" Type="int" Mode="In" />
+          <Parameter Name="movie_date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="retrieve_movies_schedule_list_patron_mslid_first" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+          <Parameter Name="mlsid" Type="int" Mode="In" />
+          <Parameter Name="movie_date" Type="datetime" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="paradisoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
