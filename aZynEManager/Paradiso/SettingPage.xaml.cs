@@ -83,6 +83,17 @@ namespace Paradiso
                 }
             }
 
+            GC_CC.SelectedIndex = -1;
+            string strGC_CC = pom.GetConfigValue("SHOW GC/CC", "No");
+            for (int l = 0; l < GC_CC.Items.Count; l++)
+            {
+                if (((ComboBoxItem)GC_CC.Items[l]).Content.Equals(strGC_CC))
+                {
+                    GC_CC.SelectedIndex = l;
+                    break;
+                }
+            }
+
             Config7.Text = pom.GetConfigValue("SERVER SERIAL", string.Empty);
             Config8.Text = pom.GetConfigValue("MIN", string.Empty);
             Config9.Text = pom.GetConfigValue("STARTROW", "17");
@@ -140,6 +151,9 @@ namespace Paradiso
 
             if (ORNumberFormat.SelectedValue != null)
                 pom.SaveConfigValue("OR_NUMBER_FORMAT", ((ComboBoxItem)ORNumberFormat.SelectedValue).Content.ToString());
+            
+            if (GC_CC.SelectedValue != null)
+                pom.SaveConfigValue("SHOW GC/CC", ((ComboBoxItem)GC_CC.SelectedValue).Content.ToString());
 
             if (ClientTicketFormat.SelectedValue != null)
                 pom.SaveConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), ((ComboBoxItem) ClientTicketFormat.SelectedValue).Content.ToString());

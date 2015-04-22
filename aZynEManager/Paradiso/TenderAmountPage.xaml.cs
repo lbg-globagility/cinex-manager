@@ -494,6 +494,12 @@ namespace Paradiso
             if (TotalAmountPaid.Focusable)
                 Keyboard.Focus(TotalAmountPaid);
 
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("SHOW GC/CC", "No") == "Yes")
+            {
+                PaymentMode.Visibility = System.Windows.Visibility.Visible;
+                GiftCertificatePanel.Visibility = System.Windows.Visibility.Visible;
+            }
+
             /*
             while (NavigationService.CanGoBack)
             {

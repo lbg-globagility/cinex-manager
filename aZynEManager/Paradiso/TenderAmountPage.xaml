@@ -31,7 +31,7 @@
         <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontSize="14" TextBlock.FontFamily="Arial" TextBlock.FontWeight="Bold">
                 <TextBlock Margin="5" TextBlock.FontSize="26" TextBlock.FontFamily="Arial Narrow" FontWeight="Normal">AMOUNT TENDER</TextBlock>
-                <TabControl SelectionChanged="TabControl_SelectionChanged" Name="PaymentMode">
+                <TabControl SelectionChanged="TabControl_SelectionChanged" Name="PaymentMode" Visibility="Collapsed">
                     <TabItem>
                         <TabItem.Header>
                             <TextBlock Name="CashLabel" Foreground="Black" Background="Gray" Padding="5">Cash/Gift Certificate</TextBlock>
@@ -83,7 +83,7 @@
                             <TextBox Width="300" FontSize="32"  Text="" TextAlignment="Right" Background="White" Foreground="Black" Name="TotalAmountPaid" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TotalAmountPaid_TextChanged" />
                         </Border>
                         <DockPanel Name="NumPad">
-                            <DockPanel DockPanel.Dock="Bottom"  Margin="5,0,5,0">
+                            <DockPanel DockPanel.Dock="Bottom"  Margin="5,0,5,0" Name="GiftCertificatePanel" Visibility="Collapsed">
                                 <Border BorderBrush="Gray" BorderThickness="1" Margin="2, 0, 5, 0" Height="24" DockPanel.Dock="Top">
                                     <TextBlock Margin="10,0" Padding="2">Gift Certificate</TextBlock>
                                 </Border>
