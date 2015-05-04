@@ -238,7 +238,7 @@ namespace aZynEManager
 
                     //cinema address
                     sbqry = new StringBuilder();
-                    sbqry.Append("[system_code] = '038'");
+                    sbqry.Append("[system_code] = '019'");
                     foundRows = dt.Select(sbqry.ToString());
                     if (foundRows.Count() > 0)
                     {

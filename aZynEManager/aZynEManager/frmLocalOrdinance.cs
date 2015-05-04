@@ -428,7 +428,7 @@ namespace aZynEManager
 
                 DateTime dateend = new DateTime();
                 int intenddate = 0;//with end date 1-true 0-false
-                if (this.cbxcancel.Checked)
+                if (this.cbxcancel.Checked == true)
                 {
                     if (dtend.Text == "" || dtend.Value == null)
                     {
@@ -437,7 +437,10 @@ namespace aZynEManager
                         return;
                     }
                     else
+                    {
                         dateend = dtend.Value;
+                        intenddate = 1;
+                    }
                 }
 
                 int intpeso = 0;//in peso value 1-true 0-false(pectage)

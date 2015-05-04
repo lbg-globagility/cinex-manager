@@ -941,7 +941,7 @@ namespace aZynEManager
                         _dtEnd = lastDayOfMonth.AddDays(1);
 
                         sqry = new StringBuilder();
-                        sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}'",m_frmM.m_usercode));
+                        sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}' order by or_date asc", m_frmM.m_usercode));
                         break;
                 }
 

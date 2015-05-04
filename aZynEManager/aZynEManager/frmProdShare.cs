@@ -455,7 +455,7 @@ namespace aZynEManager
                     if (ans == System.Windows.Forms.DialogResult.Yes)
                     {
                         StringBuilder sbqry = new StringBuilder();
-                        sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date ");
+                        sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date, a.day_count ");
                         sbqry.Append("from movies_distributor a ");
                         sbqry.Append("left join movies b on a.movie_id = b.id ");
                         sbqry.Append("left join distributor c on b.dist_id = c.id ");
@@ -989,7 +989,7 @@ namespace aZynEManager
             if (m_dt.Rows.Count == 0)
             {
                 StringBuilder sbqry = new StringBuilder();
-                sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date ");
+                sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date, a.day_count ");
                 sbqry.Append("from movies_distributor a ");
                 sbqry.Append("left join movies b on a.movie_id = b.id ");
                 sbqry.Append("inner join distributor c on b.dist_id = c.id");
