@@ -943,6 +943,151 @@ namespace aZynEManager
                         sqry = new StringBuilder();
                         sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}' order by or_date asc", m_frmM.m_usercode));
                         break;
+
+                    case "RP14":
+                        m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
+
+                        //query on the date if what movie_distributir value to use
+                        MySqlConnection myconn = new MySqlConnection(m_frmM._connection);
+                        StringBuilder smdqry = new StringBuilder();
+                        smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ",_intMovieID));
+                        smdqry.Append(String.Format("effective_date = '{0:yyyy-MM-dd}'", _dtStart));
+                        DataTable dt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                        if(dt.Rows.Count == 0)
+                        {
+                            smdqry = new StringBuilder();
+                            smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ",_intMovieID));
+                            smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' order by effective_date desc limit 1",_dtStart));
+                            dt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+                            if (dt.Rows.Count > 0)
+                            {
+                                DateTime effdate = new DateTime();
+                                int addday = 0;
+                                foreach (DataRow dr in dt.Rows)
+                                {
+                                    DateTime dateout = new DateTime();
+                                    if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                        effdate = dateout;
+                                    addday = Convert.ToInt32(dr["day_count"].ToString());
+                                }
+                                if (effdate.AddDays(addday - 1) < _dtStart)
+                                {
+                                    dt = new DataTable();
+                                }
+
+                                if (_dtEnd > effdate.AddDays(addday - 1))
+                                {
+                                    smdqry = new StringBuilder();
+                                    smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                    smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                    DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                    dt.Merge(newdt);
+                                    
+                                }
+                            }
+                        }
+                        else if (dt.Rows.Count > 0)
+                        {
+                            DateTime effdate = new DateTime();
+                            int addday = 0;
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                DateTime dateout = new DateTime();
+                                if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                    effdate = dateout;
+                                addday = Convert.ToInt32(dr["day_count"].ToString());
+                            }
+                            if (effdate.AddDays(addday - 1) < _dtStart)
+                            {
+                                dt = new DataTable();
+                            }
+
+                            if (_dtEnd > effdate.AddDays(addday - 1))
+                            {
+                                smdqry = new StringBuilder();
+                                smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                dt.Merge(newdt);
+
+                            }
+                        }
+
+                        if(dt.Rows.Count > 0)
+                        {
+                            DataView dv = dt.AsDataView();
+                            dv.Sort = "effective_date asc";
+                            dt = dv.ToTable();
+
+                            DateTime tempdate = _dtStart;
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                DateTime stDate = new DateTime();
+                                DateTime edDate = new DateTime();
+                                DateTime effdate = new DateTime();
+                                DateTime effenddate = new DateTime();
+                                DateTime dateout = new DateTime();
+                                double shareperc = 0;
+                                if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                    effdate = dateout;
+
+                                int intout = 0;
+                                int intdays = 0;
+                                if (int.TryParse(dr["day_count"].ToString(), out intout))
+                                    effenddate = effdate.AddDays(intout - 1);
+
+                                double dblout = 0;
+                                if(double.TryParse(dr["share_perc"].ToString(), out dblout))
+                                    shareperc = dblout;
+
+                                int intid = 0;
+                                if (int.TryParse(dr["id"].ToString(), out intout))
+                                    intid = intout;
+
+                                if (effdate < tempdate)
+                                {
+                                    //start date range with effdate
+                                    stDate = tempdate;
+                                    if (effenddate < _dtEnd)
+                                    {
+                                        edDate = effenddate; //use effenddate
+                                        tempdate = effenddate.AddDays(1);
+                                    }
+                                    else if (effenddate >= _dtEnd)
+                                    {
+                                        edDate = _dtEnd;//use _enddate
+                                    }
+                                }
+                                else
+                                {
+                                    if (effdate >= tempdate)
+                                    {
+                                        stDate = tempdate;//start date range with _dtStart
+                                        if (effenddate < _dtEnd)
+                                        {
+                                            edDate = effenddate; //use effenddate
+                                            tempdate = effenddate.AddDays(1);
+                                        }
+                                        else if (effenddate >= _dtEnd)
+                                        {
+                                            edDate = _dtEnd;//use _enddate
+                                        }
+                                    }
+                                }
+                                //MessageBox.Show("startdate: " + String.Format("{0:d-MMM-yyyy}", stDate) + "   enddate: " + String.Format("{0:d-MMM-yyyy}", edDate));
+                                m_clscom.populateAccountingTbl(m_frmM.m_usercode, "tmp_accounting", m_frmM._connection, stDate, edDate, _intMovieID, effdate, shareperc, intid);
+                            }
+                        }
+
+                        sqry = new StringBuilder();
+                        sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
+                        sqry.Append("FROM tmp_accounting a, config_table g, report h ");
+                        sqry.Append("WHERE g.system_code = '001' ");
+                        sqry.Append("AND h.id = 14");
+                        break;
                 }
 
                 xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
@@ -987,6 +1132,7 @@ namespace aZynEManager
                 accreditation = clscon.CinemaAccreditationNo;
                 permitno = clscon.PN;
                 serialno = clscon.CinemaSerialNo;
+                _dtEnd = _dtEnd.AddDays(-1);
             }
 
             XmlDocument xmlDoc = new XmlDocument();
@@ -1104,19 +1250,19 @@ namespace aZynEManager
                                                                                         foreach (XmlNode node10 in node9.ChildNodes)
                                                                                         {
                                                                                             if (node10.FirstChild.InnerText == "txtfrdatetodate")
-                                                                                                node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd.AddDays(-1));
+                                                                                                node10.FirstChild.InnerText = "From: " + String.Format("{0:MMM dd, yyyy}", _dtStart) + " to " + String.Format("{0:MMM dd, yyyy}", _dtEnd);//_dtEnd.AddDays(-1));
                                                                                             else if (node10.FirstChild.InnerText == "txtcompany")
                                                                                                 node10.FirstChild.InnerText = companyname;
                                                                                             else if (node10.FirstChild.InnerText == "txtaddress")
                                                                                                 node10.FirstChild.InnerText = companyaddress;
                                                                                             else if (node10.FirstChild.InnerText == "txttin")
-                                                                                                node10.FirstChild.InnerText = tin;
+                                                                                                node10.FirstChild.InnerText = "TIN No.: " + tin.ToString();
                                                                                             else if (node10.FirstChild.InnerText == "txtaccreditation")
-                                                                                                node10.FirstChild.InnerText = accreditation;
+                                                                                                node10.FirstChild.InnerText = "Accreditation No.: " + accreditation.ToString();
                                                                                             else if (node10.FirstChild.InnerText == "txtpermit")
-                                                                                                node10.FirstChild.InnerText = permitno;
+                                                                                                node10.FirstChild.InnerText = "Permit No.: " + permitno.ToString();
                                                                                             else if (node10.FirstChild.InnerText == "txtserial")
-                                                                                                node10.FirstChild.InnerText = serialno;
+                                                                                                node10.FirstChild.InnerText = "Server Serial No.: " + serialno.ToString();
                                                                                         }
                                                                                     }
                                                                                 }

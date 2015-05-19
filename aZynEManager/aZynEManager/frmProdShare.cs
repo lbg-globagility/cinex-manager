@@ -411,6 +411,104 @@ namespace aZynEManager
                     return;
                 }
 
+                //validate for the days covered
+                sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and effective_date between '{0}' and '{1}'", dtdate.Value.Date.AddDays((intday - 1) * -1).ToString("yyyy-MM-dd"), dtdate.Value.Date.AddDays(intday - 1).ToString("yyyy-MM-dd")));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+
+                if (rowCount > 0)
+                {
+                    //setnormal();
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't add this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                //validate from other days before new effective date
+                DateTime testdate = new DateTime();
+                int testint = -1;
+                sqry = new StringBuilder();
+                sqry.Append("select effective_date, day_count from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and effective_date < '{0}' ", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append("order by effective_date desc limit 1");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                MySqlDataReader rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(rd["effective_date"].ToString(), out dateout))
+                            testdate = dateout;
+
+                        int intout = -1;
+                        if (int.TryParse(rd["day_count"].ToString(), out intout))
+                            testint = intout;
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                if (testint != -1)
+                {
+                    if(testdate.AddDays(testint - 1) >= dtdate.Value.Date)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't add this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                //validate from other days after new effective date
+                testdate = new DateTime();
+                testint = -1;
+                sqry = new StringBuilder();
+                sqry.Append("select effective_date, day_count from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and effective_date > '{0}' ", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append("order by effective_date asc limit 1");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(rd["effective_date"].ToString(), out dateout))
+                            testdate = dateout;
+
+                        int intout = -1;
+                        if (int.TryParse(rd["day_count"].ToString(), out intout))
+                            testint = intout;
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                if (testint != -1)
+                {
+                    if (dtdate.Value.Date.AddDays(intday - 1) >= testdate)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't add this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }                
+
                 //insert value for the movies table
                 sqry = new StringBuilder();
                 sqry.Append(String.Format("insert into movies_distributor value(0,{0},{1},'{2}',{3})",
@@ -589,7 +687,6 @@ namespace aZynEManager
                 if (dgvResult.SelectedRows.Count == 1)
                     intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
                
-
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies_distributor ");
@@ -607,9 +704,112 @@ namespace aZynEManager
                     setnormal();
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Cannot find the movies.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Can't update this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
+                //validate for the days covered
+                sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and id != {0} ", intid));
+                sqry.Append(String.Format("and effective_date between '{0}' and '{1}'", 
+                    dtdate.Value.Date.AddDays((Convert.ToInt32(txtdaycnt.Text) - 1) * -1).ToString("yyyy-MM-dd"), 
+                    dtdate.Value.Date.AddDays(Convert.ToInt32(txtdaycnt.Text) - 1).ToString("yyyy-MM-dd")));
+                
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.Dispose();
+
+                if (rowCount > 0)
+                {
+                    if (myconn.State == ConnectionState.Open)
+                        myconn.Close();
+                    MessageBox.Show("Can't update this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                //validate from other days before new effective date
+                DateTime testdate = new DateTime();
+                int testint = -1;
+                sqry = new StringBuilder();
+                sqry.Append("select effective_date, day_count from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and id != {0} ", intid));
+                sqry.Append(String.Format("and effective_date < '{0}' ", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append("order by effective_date desc limit 1");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                MySqlDataReader rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(rd["effective_date"].ToString(), out dateout))
+                            testdate = dateout;
+
+                        int intout = -1;
+                        if (int.TryParse(rd["day_count"].ToString(), out intout))
+                            testint = intout;
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+                if (testint != -1)
+                {
+                    if (testdate.AddDays(testint - 1) >= dtdate.Value.Date)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't add this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                //validate from other days after new effective date
+                testdate = new DateTime();
+                testint = -1;
+                sqry = new StringBuilder();
+                sqry.Append("select effective_date, day_count from movies_distributor ");
+                sqry.Append(String.Format("where movie_id = {0} ", cmbtitle.SelectedValue));
+                sqry.Append(String.Format("and id != {0} ", intid));
+                sqry.Append(String.Format("and effective_date > '{0}' ", dtdate.Value.Date.ToString("yyyy-MM-dd")));
+                sqry.Append("order by effective_date asc limit 1");
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                cmd = new MySqlCommand(sqry.ToString(), myconn);
+                rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dateout = new DateTime();
+                        if (DateTime.TryParse(rd["effective_date"].ToString(), out dateout))
+                            testdate = dateout;
+
+                        int intout = -1;
+                        if (int.TryParse(rd["day_count"].ToString(), out intout))
+                            testint = intout;
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                if (testint != -1)
+                {
+                    if (dtdate.Value.Date.AddDays(Convert.ToInt32(txtdaycnt.Text) - 1) >= testdate)
+                    {
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't add this record, \n\rthe effective date is covered by other records.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }    
+
 
                 StringBuilder strqry = new StringBuilder();
                 strqry.Append("update movies_distributor set");
@@ -1041,7 +1241,7 @@ namespace aZynEManager
         }
 
         private void txtdaycnt_TextChanged(object sender, EventArgs e)
-        {
+       {
             //melvin 10-24-2014 for limiting number only
             if (!(txtdaycnt.Text == ""))
             {

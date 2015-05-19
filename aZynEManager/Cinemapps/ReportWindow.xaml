@@ -370,6 +370,36 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP14_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Cinema Accounting Report (RP14)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales and per Movie for a specified date with Taxation and Share details over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP14StartDate" SelectedDateChanged="RP09StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP14EndDate" SelectedDateChanged="RP14EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>Movie</Label>
+                            <ComboBox Name="RP14Movie" Width="150" IsEnabled="False">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            
             <!--Melvin 11/18/2014 -->
             <ListViewItem>
                 <DockPanel Margin="4">

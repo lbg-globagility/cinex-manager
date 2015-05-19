@@ -39,8 +39,8 @@ namespace aZynEManager
         public DataTable m_dtpatrons = new DataTable();
 
         public string m_usernm;
-        public string m_usercode;
-        public int m_userid = -1;//99;//
+        public string m_usercode = "";//"ADMIN";//
+        public int m_userid = -1;//1;//
         public bool boolAppAtTest = false;//true;//
 
         

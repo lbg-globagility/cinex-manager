@@ -803,5 +803,77 @@ namespace Cinemapps
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
+        private void PrintRP14_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int intMovieId = -1;
+                if (RP14Movie.SelectedValue != null)
+                {
+                    if (RP14Movie.SelectedValue is Movie)
+                    {
+                        Movie movie = (Movie)RP14Movie.SelectedValue;
+                        intMovieId = movie.Id;
+                    }
+                }
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP14StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP14EndDate.SelectedDate;
+                    frmreport._intMovieID = intMovieId;
+                    frmreport.frmInit(main, main.m_clscom, "RP14");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void UpdateRP14Movie()
+        {
+            if (RP14Movie == null || RP14Movie == null)
+                return;
+
+            RP14Movie.Items.Clear();
+            if (RP14StartDate.SelectedDate == null || RP14EndDate.SelectedDate == null)
+            {
+                RP14Movie.IsEnabled = false;
+            }
+            else
+            {
+                RP14Movie.IsEnabled = true;
+
+                using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+                {
+                    using (MySqlCommand command = new MySqlCommand("retrieve_movies2", connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("?_movie_date1", RP14StartDate.SelectedDate);
+                        command.Parameters.AddWithValue("?_movie_date2", RP14EndDate.SelectedDate);
+
+                        MySqlDataReader reader = command.ExecuteReader();
+
+                        //get elements
+                        while (reader.Read())
+                        {
+                            RP14Movie.Items.Add(new ExcelReports.Movie(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void RP14EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateRP14Movie();
+        }
     }
 }
