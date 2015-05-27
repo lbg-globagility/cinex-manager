@@ -82,7 +82,8 @@ namespace Paradiso
             {
                 System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 Version version = assembly.GetName().Version;
-                return string.Format("v {0}", version.ToString());
+
+                return string.Format("v 1.0 build {0}", version.ToString().Replace(".", string.Empty));
             }
         }
 
