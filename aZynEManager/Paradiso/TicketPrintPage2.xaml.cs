@@ -390,6 +390,72 @@ namespace Paradiso
                     Ticket.SeatName = t.seatname;
                     Ticket.IsHandicapped = t.ishandicapped;
                     Ticket.SeatType = t.seattype;
+
+                    //retrieve payment mode
+                    var _s = (from s in context.sessions
+                              where s.session_id == t.session
+                              select new { paymentmode = s.payment_mode, cash = s.cash_amount, gc = s.gift_certificate_amount, cc = s.credit_amount }).FirstOrDefault();
+                    if (_s != null)
+                    {
+                        Ticket.PaymentMode = _s.paymentmode;
+                        if ((_s.paymentmode & 2) == 2) //has gc
+                        {
+                            if ((_s.paymentmode & 1) == 1) //cash and gc combination
+                            {
+                                var t2 = (from mslrs in context.movies_schedule_list_reserved_seat
+                                          where mslrs.ticket.session_id == t.session
+                                          select new { price = mslrs.price, ornumber = mslrs.or_number }).ToList();
+                                if (t2.Count() > 0)
+                                {
+                                    decimal decTotalPrice = (decimal)t2.Sum(item => item.price);
+                                    string strMaxORNumber = t2.Max(item => item.ornumber);
+                                    int intCount = t2.Count();
+
+
+                                    decimal decCash = (decimal)_s.cash;
+                                    decimal decGC = decTotalPrice - decCash;
+                                    decimal decCashDiv = (decimal)Math.Floor(((float)decCash / intCount) * 100) / 100;
+                                    decimal decGCDiv = (decimal)Math.Floor(((float)decGC / intCount) * 100) / 100;
+
+                                    if (strMaxORNumber == t.ornumber)
+                                    {
+                                        decimal _decCashDiv = decCashDiv + (decCash - (decCashDiv * intCount));
+                                        decimal _decGCDiv = decGCDiv + (decGC - (decGCDiv * intCount));
+
+                                        Ticket.Cash = _decCashDiv;
+                                        Ticket.GiftCertificate= _decGCDiv;
+                                        Ticket.CreditCard = 0;
+
+                                    }
+                                    else
+                                    {
+                                        Ticket.Cash = decCashDiv;
+                                        Ticket.GiftCertificate = decGCDiv;
+                                        Ticket.CreditCard = 0;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Ticket.Cash = 0;
+                                Ticket.CreditCard = 0;
+                                Ticket.GiftCertificate = (decimal)t.price;
+                            }
+                        }
+                        else if ((_s.paymentmode & 1) == 1) //cash
+                        {
+                            Ticket.Cash = (decimal)t.price;
+                            Ticket.CreditCard = 0;
+                            Ticket.GiftCertificate = 0;
+                        }
+                        else if ((_s.paymentmode & 4) == 4) //credit
+                        {
+                            Ticket.Cash = 0;
+                            Ticket.CreditCard = (decimal)t.price;
+                            Ticket.GiftCertificate = 0;
+                        }
+
+                    }
                 }
             }
         }
@@ -541,7 +607,7 @@ namespace Paradiso
                 print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
                 print.DrawText(-1, print.Row + 250, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
                 print.DrawText(2, print.Row, print.Column, Ticket.MovieCode, true);
-                print.DrawText(-1, print.Row + 325, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
+                print.DrawText(0, print.Row + 310, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
 
                 int intx1a = print.Row;
                 int inty1a = print.Column;
@@ -559,7 +625,7 @@ namespace Paradiso
                 print.Column += 10;
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
-                print.DrawText(-1, print.Row + 45, print.Column, Ticket.PatronCode, true);
+                print.DrawText(-1, print.Row + 45, print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode , true);
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
 
                 int intx2a = print.Row + 135;
@@ -574,12 +640,12 @@ namespace Paradiso
                 
                 //totals
                 //right align?
-                print.DrawText(-1, print.Row + 340, print.Column, "Amount:", false);
-                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
+                print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
                 if (Ticket.OrdinancePrice > 0m)
                 {
-                    print.DrawText(-1, print.Row + 340, print.Column + 15, "Ordinance:", false);
-                    print.DrawText(-1, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
@@ -589,10 +655,29 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 340, print.Column + 30, "vt:", false);
                 print.DrawText(-1, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.VatTax), false);
                 */
-                print.DrawText(-1, print.Row + 340, print.Column + 45, "", false);
-                print.DrawText(-1, print.Row + 340, print.Column + 60, "", false);
-                print.DrawText(-2, print.Row + 340, print.Column + 85, "Total", false);
-                print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                if (Ticket.PaymentMode == 3)
+                {
+                    print.DrawText(0, print.Row + 310, print.Column + 50, "CSH", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 50, string.Format("{0:0.00}", Ticket.Cash), false);
+                    print.DrawText(0, print.Row + 310, print.Column + 65, "GC", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 65, string.Format("{0:0.00}", Ticket.GiftCertificate), false);
+
+                    print.DrawText(-2, print.Row + 310, print.Column + 85, "Total", false);
+                    print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                }
+                else
+                {
+                    string strPaymentMode = "CSH";
+                    if ((Ticket.PaymentMode & 1) == 1)
+                        strPaymentMode = "CSH";
+                    else if ((Ticket.PaymentMode & 2) == 2)
+                        strPaymentMode = "GC";
+                    else if ((Ticket.PaymentMode & 4) == 4)
+                        strPaymentMode = "CC";
+
+                    print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
+                    print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                }
 
                 print.DrawText(0, print.Row, print.Column, Ticket.SeatTypeName, true);
                 print.DrawText(2, print.Row, print.Column, "ADMIT ONE", true);
@@ -626,7 +711,7 @@ namespace Paradiso
                 print.DrawText(2, print.Row, print.Column + 5, string.Format("{0}", Ticket.CinemaNumber), false);
                 print.DrawText(-1, print.Row + 25, print.Column + 5, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), false);
                 print.DrawText(-1, print.Row + 25, print.Column + 17, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), false);
-                print.DrawText(-1, print.Row + 25, print.Column + 29, Ticket.PatronCode, false);
+                print.DrawText(-1, print.Row + 25, print.Column + 29, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, false);
 
                 print.DrawText(-1, print.Row, print.Column + 58, "SEAT NO:", false);
                 if (Ticket.SeatName.Length == 2)
@@ -636,12 +721,12 @@ namespace Paradiso
 
                 //totals
                 //right align?
-                print.DrawText(-1, print.Row + 340, print.Column, "Amount:", false);
-                print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
+                print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
                 if (Ticket.OrdinancePrice > 0m)
                 {
-                    print.DrawText(-1, print.Row + 340, print.Column + 15, "Ordinance Tax:", false);
-                    print.DrawText(-1, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
@@ -653,8 +738,35 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 340, print.Column + 45, "", false);
                 print.DrawText(-1, print.Row + 340, print.Column + 60, "", false);
                 */
-                print.DrawText(-2, print.Row + 340, print.Column + 85, "Total", false);
+
+                if (Ticket.PaymentMode == 3)
+                {
+                    print.DrawText(0, print.Row + 310, print.Column + 50, "CSH", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 50, string.Format("{0:0.00}", Ticket.Cash), false);
+                    print.DrawText(0, print.Row + 310, print.Column + 65, "GC", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 65, string.Format("{0:0.00}", Ticket.GiftCertificate), false);
+
+                    print.DrawText(-2, print.Row + 310, print.Column + 85, "Total", false);
+                    print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                }
+                else
+                {
+                    string strPaymentMode = "CSH";
+                    if ((Ticket.PaymentMode & 1) == 1)
+                        strPaymentMode = "CSH";
+                    else if ((Ticket.PaymentMode & 2) == 2)
+                        strPaymentMode = "GC";
+                    else if ((Ticket.PaymentMode & 4) == 4)
+                        strPaymentMode = "CC";
+
+                    print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
+                    print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                }
+
+                /*
+                print.DrawText(-2, print.Row + 310, print.Column + 85, "Total", false);
                 print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
+                */
 
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Vat Reg Tin#: {0}", Ticket.TIN), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("A#: {0}", Ticket.AccreditationNumber), true);
@@ -669,7 +781,7 @@ namespace Paradiso
                 else
                     print.DrawText(-1, print.Row + 125, print.Column, " ", true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Sess. # {0}", Ticket.SessionName), true);
-                print.DrawText(-1, print.Row + 125, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
+                print.DrawText(0, print.Row + 125, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
 
 

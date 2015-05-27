@@ -53,6 +53,11 @@ namespace Paradiso.Model
 
         private bool blnIsHandicapped = false;
 
+        private int intPaymentMode = 0;
+        private decimal decCash = 0;
+        private decimal decCC = 0;
+        private decimal decGC = 0;
+
         public TicketModel()
         {
             this.Clear();
@@ -603,6 +608,58 @@ namespace Paradiso.Model
                 {
                     strPOSNumber = value;
                     NotifyPropertyChanged("POSNumber");
+                }
+            }
+        }
+
+        public int PaymentMode
+        {
+            get { return intPaymentMode; }
+            set
+            {
+                if (value != intPaymentMode)
+                {
+                    intPaymentMode = value;
+                    NotifyPropertyChanged("PaymentMode");
+                }
+            }
+        }
+
+        public decimal Cash
+        {
+            get { return decCash; }
+            set
+            {
+                if (value != decCash)
+                {
+                    decCash = value;
+                    NotifyPropertyChanged("Cash");
+                }
+            }
+        }
+
+        public decimal CreditCard
+        {
+            get { return decCC; }
+            set
+            {
+                if (value != decCC)
+                {
+                    decCC = value;
+                    NotifyPropertyChanged("CreditCard");
+                }
+            }
+        }
+
+        public decimal GiftCertificate
+        {
+            get { return decGC; }
+            set
+            {
+                if (value != decGC)
+                {
+                    decGC = value;
+                    NotifyPropertyChanged("GiftCertificate");
                 }
             }
         }
