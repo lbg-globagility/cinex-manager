@@ -50,6 +50,9 @@
             this.txtposition = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.txtlgu = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.cmbprices = new System.Windows.Forms.ComboBox();
+            this.dtstart = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
             this.cmbAuth = new System.Windows.Forms.ComboBox();
             this.cbxDiscount = new System.Windows.Forms.CheckBox();
             this.dgvOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
@@ -75,6 +78,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.lbllgu = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -506,7 +510,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(8, 83);
+            this.label6.Location = new System.Drawing.Point(8, 106);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 272;
@@ -530,7 +534,7 @@
             this.txtposition.BackColor = System.Drawing.Color.White;
             this.txtposition.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtposition.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtposition.Location = new System.Drawing.Point(224, 81);
+            this.txtposition.Location = new System.Drawing.Point(224, 104);
             this.txtposition.Name = "txtposition";
             this.txtposition.Size = new System.Drawing.Size(72, 20);
             this.txtposition.TabIndex = 4;
@@ -558,6 +562,9 @@
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.cmbprices);
+            this.kryptonGroup1.Panel.Controls.Add(this.dtstart);
+            this.kryptonGroup1.Panel.Controls.Add(this.label5);
             this.kryptonGroup1.Panel.Controls.Add(this.cmbAuth);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxDiscount);
             this.kryptonGroup1.Panel.Controls.Add(this.dgvOrdinance);
@@ -587,6 +594,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.label16);
             this.kryptonGroup1.Panel.Controls.Add(this.label15);
             this.kryptonGroup1.Panel.Controls.Add(this.label2);
+            this.kryptonGroup1.Panel.Controls.Add(this.label10);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Size = new System.Drawing.Size(315, 355);
@@ -600,13 +608,49 @@
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 0;
             // 
+            // cmbprices
+            // 
+            this.cmbprices.BackColor = System.Drawing.Color.White;
+            this.cmbprices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbprices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbprices.FormattingEnabled = true;
+            this.cmbprices.Location = new System.Drawing.Point(73, 52);
+            this.cmbprices.Name = "cmbprices";
+            this.cmbprices.Size = new System.Drawing.Size(59, 21);
+            this.cmbprices.TabIndex = 309;
+            this.cmbprices.SelectedIndexChanged += new System.EventHandler(this.cmbprices_SelectedIndexChanged);
+            // 
+            // dtstart
+            // 
+            this.dtstart.CustomFormat = "h:mm";
+            this.dtstart.Enabled = false;
+            this.dtstart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtstart.Location = new System.Drawing.Point(211, 52);
+            this.dtstart.Name = "dtstart";
+            this.dtstart.ShowUpDown = true;
+            this.dtstart.Size = new System.Drawing.Size(85, 20);
+            this.dtstart.TabIndex = 307;
+            this.dtstart.Value = new System.DateTime(2014, 6, 4, 0, 0, 0, 0);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(8, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 13);
+            this.label5.TabIndex = 305;
+            this.label5.Text = "Base Price";
+            // 
             // cmbAuth
             // 
             this.cmbAuth.BackColor = System.Drawing.Color.White;
             this.cmbAuth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbAuth.FormattingEnabled = true;
-            this.cmbAuth.Location = new System.Drawing.Point(114, 107);
+            this.cmbAuth.Location = new System.Drawing.Point(114, 130);
             this.cmbAuth.Name = "cmbAuth";
             this.cmbAuth.Size = new System.Drawing.Size(181, 21);
             this.cmbAuth.TabIndex = 303;
@@ -617,7 +661,7 @@
             this.cbxDiscount.AutoSize = true;
             this.cbxDiscount.BackColor = System.Drawing.Color.Transparent;
             this.cbxDiscount.ForeColor = System.Drawing.Color.White;
-            this.cbxDiscount.Location = new System.Drawing.Point(15, 111);
+            this.cbxDiscount.Location = new System.Drawing.Point(15, 134);
             this.cbxDiscount.Name = "cbxDiscount";
             this.cbxDiscount.Size = new System.Drawing.Size(93, 17);
             this.cbxDiscount.TabIndex = 302;
@@ -649,7 +693,7 @@
             this.cbxpromo.AutoSize = true;
             this.cbxpromo.BackColor = System.Drawing.Color.Transparent;
             this.cbxpromo.ForeColor = System.Drawing.Color.White;
-            this.cbxpromo.Location = new System.Drawing.Point(180, 57);
+            this.cbxpromo.Location = new System.Drawing.Point(180, 80);
             this.cbxpromo.Name = "cbxpromo";
             this.cbxpromo.Size = new System.Drawing.Size(93, 17);
             this.cbxpromo.TabIndex = 300;
@@ -722,7 +766,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(177, 84);
+            this.label4.Location = new System.Drawing.Point(177, 106);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 292;
@@ -731,7 +775,7 @@
             // btncolor
             // 
             this.btncolor.DropDownOrientation = ComponentFactory.Krypton.Toolkit.VisualOrientation.Right;
-            this.btncolor.Location = new System.Drawing.Point(72, 77);
+            this.btncolor.Location = new System.Drawing.Point(72, 100);
             this.btncolor.Name = "btncolor";
             this.btncolor.SelectedColor = System.Drawing.Color.CornflowerBlue;
             this.btncolor.SelectedRect = new System.Drawing.Rectangle(0, 0, 16, 16);
@@ -794,7 +838,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(8, 57);
+            this.label3.Location = new System.Drawing.Point(8, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 87;
@@ -805,10 +849,10 @@
             this.txtprice.BackColor = System.Drawing.Color.White;
             this.txtprice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtprice.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtprice.Location = new System.Drawing.Point(73, 53);
+            this.txtprice.Location = new System.Drawing.Point(73, 76);
             this.txtprice.MaxLength = 10;
             this.txtprice.Name = "txtprice";
-            this.txtprice.Size = new System.Drawing.Size(66, 20);
+            this.txtprice.Size = new System.Drawing.Size(59, 20);
             this.txtprice.TabIndex = 2;
             this.txtprice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtprice.TextChanged += new System.EventHandler(this.txtprice_TextChanged);
@@ -876,7 +920,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(137, 55);
+            this.label16.Location = new System.Drawing.Point(137, 80);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(17, 24);
             this.label16.TabIndex = 283;
@@ -900,11 +944,23 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(293, 83);
+            this.label2.Location = new System.Drawing.Point(293, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 24);
             this.label2.TabIndex = 301;
             this.label2.Text = "*";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(135, 56);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(75, 13);
+            this.label10.TabIndex = 308;
+            this.label10.Text = "Effective Date";
             // 
             // lbllgu
             // 
@@ -1013,5 +1069,9 @@
         internal System.Windows.Forms.Label lbllgu;
         private System.Windows.Forms.CheckBox cbxDiscount;
         internal System.Windows.Forms.ComboBox cmbAuth;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.Label label10;
+        internal System.Windows.Forms.ComboBox cmbprices;
+        private System.Windows.Forms.DateTimePicker dtstart;
     }
 }

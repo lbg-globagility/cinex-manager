@@ -573,6 +573,29 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP23_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Monthly Sales Report by Transaction Type (RP23)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates Monthly Cinema Sales by Transaction Type</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP23StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
         </ListView>
     </DockPanel>
 </controls:MetroWindow >

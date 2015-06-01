@@ -208,6 +208,12 @@
     <Compile Include="frmPatron.Designer.cs">
       <DependentUpon>frmPatron.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPricescs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPricescs.Designer.cs">
+      <DependentUpon>frmPricescs.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProdShare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPatron.resx">
       <DependentUpon>frmPatron.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPricescs.resx">
+      <DependentUpon>frmPricescs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProdShare.resx">
       <DependentUpon>frmProdShare.cs</DependentUpon>

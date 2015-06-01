@@ -884,6 +884,469 @@ namespace aZynEManager
             }
         }
 
+        public void populatemsrtransaction(frmMain frm, string tbl, string sConnString, DateTime startdate, DateTime enddate)
+        {
+            try
+            {
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            MySqlConnection myconn = new MySqlConnection(frm._connection);
+            StringBuilder sQuery = new StringBuilder();
+            sQuery.Append("select z.Date ");
+            sQuery.Append("from ( ");
+            sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
+            sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
+            sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
+            sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
+            sQuery.Append(") z ");
+            sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
+            sQuery.Append("order by z.Date asc");
+            MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
+            MySqlDataReader rd = cmd.ExecuteReader();
+            ArrayList datecoll = new ArrayList();
+            if (rd.HasRows)
+            {
+                while (rd.Read())
+                {
+                    DateTime dtout = new DateTime();
+                    if (DateTime.TryParse(rd[0].ToString(), out dtout))
+                        datecoll.Add(dtout);
+                }
+            }
+            rd.Dispose();
+            cmd.Dispose();
+
+            StringBuilder finalsqry = new StringBuilder();
+            int cntr1 = 0;
+            foreach (DateTime recdate in datecoll)
+            {
+                finalsqry = new StringBuilder();
+                finalsqry.Append(String.Format("INSERT INTO {0} values(0, '{1:yyyy-MM-dd}', ", tbl, recdate));
+                cntr1 += 1;
+                StringBuilder newsqry = new StringBuilder();
+                newsqry.Append("select count(a.session_id) cnt, sum(a.cash_amount) total_cash, ");
+                newsqry.Append("sum(a.gift_certificate_amount) total_gc, sum(a.credit_amount) total_cc ");
+                newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, movies_schedule_list d, movies_schedule e ");
+                newsqry.Append("where a.session_id = b.session_id ");
+                newsqry.Append("and b.id = c.ticket_id ");
+                newsqry.Append("and c.status = 1 ");
+                newsqry.Append("and c.movies_schedule_list_id = d.id ");
+                newsqry.Append("and d.status = 1 ");
+                newsqry.Append("and d.movies_schedule_id = e.id ");
+                newsqry.Append(String.Format("and e.movie_date = '{0:yyyy-MM-dd}'", recdate));
+
+                MySqlCommand cmd1 = new MySqlCommand(newsqry.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlDataReader rd1 = cmd1.ExecuteReader();
+                if (rd1.HasRows)
+                {
+                    while (rd1.Read())
+                    {
+                        int totalcnt = 0;
+                        int intout = 0;
+                        if (!DBNull.Value.Equals(rd1[0]))
+                        {
+                            if (int.TryParse(rd1[0].ToString(), out intout))
+                                totalcnt = intout;
+                        }
+
+                        double totalcash = 0;
+                        double dblout = 0;
+                        if (!DBNull.Value.Equals(rd1[1]))
+                        {
+                            if (double.TryParse(rd1[1].ToString(), out dblout))
+                                totalcash = dblout;
+                        }
+
+                        double totalgc = 0;
+                        dblout = 0;
+                        if (!DBNull.Value.Equals(rd1[2]))
+                        {
+                            if (double.TryParse(rd1[2].ToString(), out dblout))
+                                totalgc = dblout;
+                        }
+
+                        double totalcc = 0;
+                        dblout = 0;
+                        if (!DBNull.Value.Equals(rd1[3]))
+                        {
+                            if (double.TryParse(rd1[3].ToString(), out dblout))
+                                totalcc = dblout;
+                        }
+
+                        finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", totalcnt, totalcash, totalgc, totalcc));
+                    }
+                    rd1.Close();
+                    cmd1.Dispose();
+                }
+                finalsqry.Append(String.Format("'{0}')",frm.m_usercode));
+                MySqlCommand cmd2 = new MySqlCommand(finalsqry.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd2.ExecuteNonQuery();
+                    cmd2.Dispose();
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+
+        public void populateBIRmsr2(frmMain frm, string tbl, string sConnString, DateTime startdate, DateTime enddate)
+        {
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                MySqlConnection myconn = new MySqlConnection(sConnString);
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select z.Date ");
+                sQuery.Append("from ( ");
+                sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
+                sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
+                sQuery.Append(") z ");
+                sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
+                sQuery.Append("order by z.Date asc");
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlDataReader rd = cmd.ExecuteReader();
+                ArrayList datecoll = new ArrayList();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dtout = new DateTime();
+                        if (DateTime.TryParse(rd[0].ToString(), out dtout))
+                            datecoll.Add(dtout);
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                string finalsqry = String.Empty;
+                int cntr = 0;
+                foreach (DateTime recdate in datecoll)
+                {
+                    //check for the config collection start date
+
+                    //for each date in arraylist
+                    finalsqry = String.Empty;
+                    finalsqry = String.Format("INSERT INTO {0} VALUES(0,", tbl);
+
+                    //accumulated or
+                    StringBuilder sqry = new StringBuilder();
+                    //sqry.Append("select min(b.or_number), max(b.or_number),count(b.or_number) ");
+                    //sqry.Append("from movies_schedule_list_reserved_seat b ");
+                    //sqry.Append("where b.movies_schedule_list_id ");
+                    //sqry.Append("in (select a.id from movies_schedule_list a ");
+                    //sqry.Append(String.Format("where a.start_time >= '{0:yyyy/MM/dd}' ", recdate));
+                    //sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ", recdate.AddDays(1)));
+                    //sqry.Append("and a.status = 1) and b.status = 1");
+
+                    sqry.Append("SELECT min(a.or_number), max(a.or_number),count(a.or_number) ");
+                    sqry.Append("FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, movies_schedule c ");
+                    sqry.Append(String.Format("WHERE c.movie_date = '{0:yyyy/MM/dd}' ",recdate));
+                    sqry.Append("AND b.movies_schedule_id = c.id ");
+                    sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                    sqry.Append(String.Format("AND b.start_time >= '{0:yyyy/MM/dd}' ",m_clscon.SystemCollectionStartDate));
+                    sqry.Append("AND a.status = 1 ");
+                    sqry.Append("AND b.status = 1");
+
+                    MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlDataReader rd1 = cmd1.ExecuteReader();
+                    string smin = "";
+                    string smax = "";
+                    int inttotalcnt = 0;
+                    if (rd1.HasRows)
+                    {
+                        while (rd1.Read())
+                        {
+                            if (!DBNull.Value.Equals(rd1[0]))
+                                smin = rd1[0].ToString();
+                            if (!DBNull.Value.Equals(rd1[1]))
+                                smax = rd1[1].ToString();
+                            int outcnt = 0;
+                            if (!DBNull.Value.Equals(rd1[2]))
+                            {
+                                if (int.TryParse(rd1[2].ToString(), out outcnt))
+                                inttotalcnt = outcnt;
+                            }
+                        }
+                    }
+                    rd1.Close();
+                    rd1.Dispose();
+                    cmd1.Dispose();
+
+                    if (inttotalcnt > 0)
+                    {
+                        cntr += 1;
+                        finalsqry = finalsqry + String.Format("'{0}',", cntr.ToString()); //insert cntr
+                    }
+                    else
+                        finalsqry = finalsqry + String.Format("'{0}',", ""); //insert cntr
+
+                    finalsqry = finalsqry + String.Format("'{0:yyyy/MM/dd}',", recdate); //insert date
+                    finalsqry = finalsqry + String.Format("'{0}',", smin); //insert OR BEGIN
+                    finalsqry = finalsqry + String.Format("'{0}',", smax); //insert OR END
+                    finalsqry = finalsqry + String.Format("{0},", inttotalcnt); //insert OR count
+
+                    //accumulated sales
+                    double dblbeg = 0, dblend = 0, dbltotal = 0, totaldiscount = 0;
+
+                    if (inttotalcnt > 0)
+                    {
+                        //yesterday
+                        sqry = new StringBuilder();
+                        sqry.Append("SELECT sum(a.base_price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");
+                        sqry.Append("WHERE a.status = 1 ");
+                        sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                        sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}' ", m_clscon.SystemCollectionStartDate));
+                        sqry.Append(String.Format("AND b.start_time < '{0:yyyy-MM-dd}' ", recdate)); // less than date today = yesterday
+                        sqry.Append("AND b.status = 1");
+
+                        try
+                        {
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            using (MySqlCommand cmd3 = new MySqlCommand(sqry.ToString(), myconn))
+                            {
+                                using (MySqlDataReader reader3 = cmd3.ExecuteReader())
+                                {
+                                    while (reader3.Read())
+                                    {
+                                        if (!DBNull.Value.Equals(reader3[0]))
+                                            dblbeg = Convert.ToDouble(reader3[0].ToString());
+                                    }
+                                    reader3.Close();
+                                }
+                                cmd3.Dispose();
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message);
+                        }
+
+                        //today
+                        sqry = new StringBuilder();
+                        sqry.Append("SELECT sum(a.base_price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");
+                        sqry.Append("WHERE a.status = 1 ");
+                        sqry.Append("AND a.movies_schedule_list_id = b.id ");
+                        sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}' ", m_clscon.SystemCollectionStartDate));
+                        sqry.Append(String.Format("AND b.start_time < '{0:yyyy-MM-dd}' ", recdate.AddDays(1)));//less than tomorrow = today
+                        sqry.Append("AND b.status = 1");
+
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        try
+                        {
+                            using (MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn))
+                            {
+                                using (MySqlDataReader reader4 = cmd4.ExecuteReader())
+                                {
+                                    while (reader4.Read())
+                                    {
+                                        if (!DBNull.Value.Equals(reader4[0]))
+                                            dblend = Convert.ToDouble(reader4[0].ToString());
+                                    }
+                                    reader4.Close();
+                                }
+                                cmd4.Dispose();
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message);
+                        }
+                    }
+
+                    if ((dblend > 0) && (dblend > 0))
+                        dbltotal = dblend - dblbeg;
+
+                    finalsqry = finalsqry + String.Format("{0},", dblbeg); //insert sales BEGIN
+                    finalsqry = finalsqry + String.Format("{0},", dblend); //insert sales END
+                    finalsqry = finalsqry + String.Format("{0},", dbltotal); //insert sales total
+
+                    //5.26.2015 compute for vatable sales and vat exempt sales
+                    //vat exmpt sales computation: sellingprice / 1.12 = vat_exempt_sales; discount = vat_exempt_sales * .20
+                    sqry = new StringBuilder();
+                    sqry.Append("SELECT sum(a.base_price) total, sum(f.price) total_base, ");
+                    sqry.Append("sum(f.price / 1.12) total_vat_exempt, ");
+                    sqry.Append("sum((f.price / 1.12) - (f.price - a.price)) total_discount, count(a.ticket_id) total_cnt ");
+                    sqry.Append("FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
+                    sqry.Append("movies_schedule_list_patron c, patrons d, movies_schedule e, ticket_prices f ");
+                    sqry.Append("WHERE a.status = 1 AND a.movies_schedule_list_id = b.id ");
+                    sqry.Append("AND b.status = 1 AND a.patron_id = c.id AND c.patron_id = d.id AND d.code LIKE '%SC%' ");
+                    sqry.Append(String.Format("AND b.movies_schedule_id = e.id AND movie_date = '{0:yyyy-MM-dd}' ", recdate));
+                    sqry.Append("AND d.base_price = f.id ");
+                    sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}'", m_clscon.SystemCollectionStartDate));
+                    //sqry.Append("SELECT sum(a.price) total, count(a.ticket) totalcnt,  FROM movies_schedule_list_reserved_seat a, movies_schedule_list b,  ");
+                    //sqry.Append("movies_schedule_list_patron c, patrons d, movies_schedule e ");
+                    //sqry.Append("WHERE a.status = 1 AND a.movies_schedule_list_id = b.id  ");
+                    //sqry.Append("AND b.status = 1 AND a.patron_id = c.id AND c.patron_id = d.id AND d.code LIKE '%SC%' ");
+                    //sqry.Append(String.Format("AND b.movies_schedule_id = e.id AND movie_date = '{0:yyyy-MM-dd}'", recdate));
+
+                    double vatablesales = 0;
+                    double vatexemptsales = 0;
+                    double sctotalsales = 0;
+                    double scdicount = 0;
+                    int sccount = 0;
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    try
+                    {
+                        using (MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn))
+                        {
+                            using (MySqlDataReader reader5 = cmd5.ExecuteReader())
+                            {
+                                double outsales = 0;
+                                double outsctotal = 0;
+                                double outscdiscount = 0;
+                                int outsccount = 0;
+                                while (reader5.Read())
+                                {
+                                    if (!DBNull.Value.Equals(reader5["total_vat_exempt"]))
+                                    {
+                                        if (double.TryParse(reader5["total_vat_exempt"].ToString(), out outsales))
+                                            vatexemptsales = outsales;
+                                    }
+                                    if (!DBNull.Value.Equals(reader5["total"]))
+                                    {
+                                        if (double.TryParse(reader5["total"].ToString(), out outsctotal))
+                                            sctotalsales = outsctotal;
+                                    }
+                                    if (!DBNull.Value.Equals(reader5["total_discount"]))
+                                    {
+                                        if (double.TryParse(reader5["total_discount"].ToString(), out outscdiscount))
+                                            scdicount = outscdiscount;
+                                    }
+                                    if (!DBNull.Value.Equals(reader5["total_cnt"]))
+                                    {
+                                        if (int.TryParse(reader5["total_cnt"].ToString(), out outsccount))
+                                            sccount = outsccount;
+                                    }
+                                }
+                                reader5.Close();
+                            }
+                            cmd5.Dispose();
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message);
+                    }
+
+                    totaldiscount += scdicount;
+
+                    vatablesales = dbltotal - sctotalsales;
+
+                    //vat sales
+                    finalsqry = finalsqry + String.Format("{0},", vatablesales); //insert vatable sales
+                    finalsqry = finalsqry + String.Format("{0},", vatexemptsales); //insert vat-exempt sales
+                    finalsqry = finalsqry + String.Format("{0},", "0"); //insert zero rated sales
+
+                    //vat 12% 
+                    double vat = 0, netsales = 0, tempnetsales = 0, twelvepercent = 0;
+
+                    if (vatexemptsales > 0)
+                        tempnetsales += vatexemptsales;
+
+                    if (dbltotal > 0)
+                        tempnetsales += vatablesales / 1.12;
+
+                    if (vatablesales > 0)
+                        twelvepercent = (vatablesales / 1.12);
+
+                    if (vatablesales > 0)
+                        vat = vatablesales - twelvepercent;
+
+                    finalsqry = finalsqry + String.Format("{0},", vat); //insert vat
+
+                    //5.28.2015 discount for PWD
+                    sqry = new StringBuilder();
+                    sqry.Append("SELECT sum(a.base_price) total, sum(f.price) total_base, ");
+                    sqry.Append("sum(f.price * 0.20) total_discount, count(a.ticket_id) total_cnt ");
+                    sqry.Append("FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
+                    sqry.Append("movies_schedule_list_patron c, patrons d, movies_schedule e, ticket_prices f ");
+                    sqry.Append("WHERE a.status = 1 AND a.movies_schedule_list_id = b.id ");
+                    sqry.Append("AND b.status = 1 AND a.patron_id = c.id AND c.patron_id = d.id AND d.code LIKE '%PWD%' ");
+                    sqry.Append(String.Format("AND b.movies_schedule_id = e.id AND movie_date = '{0:yyyy-MM-dd}' ", recdate));
+                    sqry.Append("AND d.base_price = f.id ");
+                    sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}'", m_clscon.SystemCollectionStartDate));
+
+                    double pwddicount = 0;
+                    int pwdcount = 0;
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    try
+                    {
+                        using (MySqlCommand cmd6 = new MySqlCommand(sqry.ToString(), myconn))
+                        {
+                            using (MySqlDataReader reader6 = cmd6.ExecuteReader())
+                            {
+                                double outpwddiscount = 0;
+                                int outpwdcount = 0;
+                                while (reader6.Read())
+                                {
+                                    if (!DBNull.Value.Equals(reader6["total_discount"]))
+                                    {
+                                        if (double.TryParse(reader6["total_discount"].ToString(), out outpwddiscount))
+                                            pwddicount = outpwddiscount;
+                                    }
+                                    if (!DBNull.Value.Equals(reader6["total_cnt"]))
+                                    {
+                                        if (int.TryParse(reader6["total_cnt"].ToString(), out outpwdcount))
+                                            pwdcount = outpwdcount;
+                                    }
+                                }
+                                reader6.Close();
+                            }
+                            cmd6.Dispose();
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message);
+                    }
+
+                    totaldiscount += pwddicount;
+
+                    //discount
+                    finalsqry = finalsqry + String.Format("{0},", scdicount); //discount SC
+                    finalsqry = finalsqry + String.Format("{0},", pwddicount); //discount PWD
+                    finalsqry = finalsqry + String.Format("{0},", "0"); //discount Employee/others
+
+                    //netsales
+                    if (tempnetsales > 0)
+                        netsales = tempnetsales - totaldiscount;
+                    else
+                        netsales = totaldiscount;
+                    finalsqry = finalsqry + String.Format("{0},", netsales); //NET SALES
+
+                    //userid
+                    finalsqry = finalsqry + String.Format("'{0}')", frm.m_usercode); //userid
+                    MySqlCommand cmd2 = new MySqlCommand(finalsqry.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd2.ExecuteNonQuery();
+                    cmd2.Dispose();
+                }
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch
+            {
+            }
+        }
         public void populateTableDaily(frmMain frm, String tbl, string sConnString, string sQuery)
         {
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
@@ -1019,7 +1482,7 @@ namespace aZynEManager
                 StringBuilder sQuery = new StringBuilder();
 
                 sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
-                sQuery.Append("a.price, sum(a.price) as gross_receipt, ");
+                sQuery.Append("a.base_price, sum(a.base_price) as gross_receipt, ");
                 sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id ");
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
@@ -1080,7 +1543,7 @@ namespace aZynEManager
                         }
                         if(dr[5].ToString() != "")
                         {
-                            grossreceipt = Convert.ToDouble(dr[5].ToString());
+                            grossreceipt = Convert.ToDouble(dr[5]);
                             finalsqry.Append(String.Format("{0},", grossreceipt));//gross_receipt
                         }
                         if (dr[6].ToString() != "")
@@ -1117,7 +1580,7 @@ namespace aZynEManager
                             deductions += amusementtax;
                         }
                         finalsqry.Append(String.Format("{0},", surchrg));//for surchrge
-                        deductions += surchrg;
+                        //deductions += surchrg; //remove deduction for surcharge for the whole report
 
                         //compute for ordinance
                         string patronid = "";
@@ -1143,12 +1606,12 @@ namespace aZynEManager
                         ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, cinemaid);
                        
                         finalsqry.Append(String.Format("{0},", ordinance));//for ordinance
-                        deductions += ordinance;
+                        //deductions += ordinance; //remove deduction for surcharge for the whole report
                         netamount = grossreceipt - deductions;
                         finalsqry.Append(String.Format("{0},", netamount));//net amount
                         finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date
                         finalsqry.Append(String.Format("{0},", share));//share
-                        shareamount = grossreceipt * (share/100);
+                        shareamount = netamount * (share / 100);
                         finalsqry.Append(String.Format("{0},", shareamount));//share amount
                         grossmargin = netamount - shareamount;
                         finalsqry.Append(String.Format("{0},", grossmargin));//gross margin

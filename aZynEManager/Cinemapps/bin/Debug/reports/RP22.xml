@@ -865,7 +865,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox17">
-                      <Value>Employee</Value>
+                      <Value>Others</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>

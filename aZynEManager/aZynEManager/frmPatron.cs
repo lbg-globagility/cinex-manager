@@ -19,6 +19,7 @@ namespace aZynEManager
         clscommon m_clscom = null;
         DataTable m_dt = new DataTable();
         DataTable m_orddt = new DataTable();//3.23.2015
+        DataTable m_ticketdt = new DataTable();//5.26.2015
         //melvin
         int m_val = 0;
         int m_dot = 0;
@@ -44,6 +45,22 @@ namespace aZynEManager
             dgvResult.ClearSelection();
             dgvOrdinance.ClearSelection();//3.26.2015
 
+            cmbprices.Items.Clear();
+            StringBuilder sqry = new StringBuilder();
+            sqry.Append("select id,price,effective_date from ticket_prices order by price asc");
+            m_ticketdt = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
+
+            sqry = new StringBuilder();
+            sqry.Append("select id,price from ticket_prices order by price asc");
+            DataTable dt = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
+            DataRow row = dt.NewRow();
+            row["id"] = "0";
+            row["price"] = 0;
+            dt.Rows.InsertAt(row, 0);
+            cmbprices.DataSource = dt;
+            cmbprices.DisplayMember = "price";
+            cmbprices.ValueMember = "id";
+
             setnormal();
         }
 
@@ -55,8 +72,13 @@ namespace aZynEManager
         public void refreshDGV()
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("select a.id, a.code, a.name, a.unit_price as unitprice, a.seat_position ");
-            sbqry.Append("from patrons a ");
+            //sbqry.Append("select a.id, a.code, a.name, a.unit_price as unitprice, a.seat_position ");
+            //sbqry.Append("from patrons a ");
+            //sbqry.Append("order by a.name asc");
+            sbqry.Append("select a.id, a.code, a.name, a.unit_price as unitprice, ");
+            sbqry.Append("a.seat_position, b.price as baseprice, b.effective_date ");
+            sbqry.Append("from patrons a, ticket_prices b ");
+            sbqry.Append("where a.base_price = b.id ");
             sbqry.Append("order by a.name asc");
             m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridView(m_dt);
@@ -158,6 +180,8 @@ namespace aZynEManager
             grpcontrol.Enabled = true;
 
             dgvOrdinance.Enabled = true;//3.23.2015
+            dtstart.Value = DateTime.Now;
+            cmbprices.SelectedIndex = 0;
 
             txtcnt.Text = String.Format("Count: {0:#,##0}", dgvResult.RowCount);
         }
@@ -387,7 +411,7 @@ namespace aZynEManager
                 //melvin 11-5-2014 for sql injection
 
                 sqry.Append("insert into patrons values(0,@code,@name,@price,@promo,@amusement,");
-                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu)");
+                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice)");
                
                 try
                 {
@@ -409,6 +433,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@color", clscommon.Get0BGR(btncolor.SelectedColor));
                         cmd.Parameters.AddWithValue("@position", txtposition.Text.Trim());
                         cmd.Parameters.AddWithValue("@lgu", txtlgu.Text.Trim());
+                        cmd.Parameters.AddWithValue("@baseprice",cmbprices.SelectedValue.ToString());
                         cmd.ExecuteNonQuery();
                         intid = Convert.ToInt32(cmd.LastInsertedId);
                         cmd.Dispose();
@@ -575,6 +600,7 @@ namespace aZynEManager
                 sqry.Append(String.Format(" and seat_color = {0}", clscommon.Get0BGR(btncolor.SelectedColor)));//Convert.ToInt32(btncolor.SelectedColor.ToArgb())));
                 sqry.Append(String.Format(" and seat_position = {0}", Convert.ToInt32(txtposition.Text.Trim())));
                 sqry.Append(String.Format(" and lgutax = {0} ", txtlgu.Text.Trim()));
+                sqry.Append(String.Format(" and base_price = {0} ", cmbprices.SelectedValue.ToString()));
                 sqry.Append(String.Format(" and id != {0} ", intid));
 
                 if (myconn.State == ConnectionState.Closed)
@@ -625,6 +651,7 @@ namespace aZynEManager
                 strqry.Append(String.Format(", seat_color = {0}", clscommon.Get0BGR(btncolor.SelectedColor)));//Convert.ToInt32(btncolor.SelectedColor.ToArgb())));
                 strqry.Append(String.Format(", seat_position = {0}", Convert.ToInt32(txtposition.Text.Trim())));
                 strqry.Append(String.Format(", lgutax = {0}", txtlgu.Text.Trim()));
+                strqry.Append(String.Format(", base_price = {0} ", cmbprices.SelectedValue.ToString()));
                 strqry.Append(String.Format(" where id = {0}", intid));
 
                 myconn = new MySqlConnection();
@@ -854,6 +881,12 @@ namespace aZynEManager
                     int intcolor = (Convert.ToInt32(dt.Rows[0]["seat_color"]));
 
                     btncolor.SelectedColor = clscommon.From0BGR(intcolor);//m_clscom.UIntToColor(intcolor);//Color.FromArgb(intcolor);
+
+                    if (m_ticketdt.Rows.Count > 0)
+                    {
+                        cmbprices.SelectedValue = dt.Rows[0]["base_price"];
+                        //dtstart.Value = Convert.ToDateTime(dt.Rows[0]["effective_date"].ToString());
+                    }
                 }
 
                 //3.23.2015
@@ -1033,6 +1066,29 @@ namespace aZynEManager
                 dgv[0, i].Value = (object)boolchk;
                 if (boolchk)
                     cnt += 1;
+            }
+        }
+
+        private void cmbprices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StringBuilder sqry = new StringBuilder();
+            if (cmbprices.SelectedValue != null && cmbprices.Text != "")
+            {
+                int intout = -1;
+                if(int.TryParse(cmbprices.SelectedValue.ToString(),out intout))
+                    sqry.Append(String.Format("[id] = {0}", intout));
+                //string val = cmbprices.SelectedValue.ToString();
+                
+                var foundRows = m_ticketdt.Select(sqry.ToString());
+                DataTable dt = new DataTable();
+                if (foundRows.Count() != 0)
+                    dt = foundRows.CopyToDataTable();
+
+                if (dt.Rows.Count > 0)
+                    dtstart.Value = Convert.ToDateTime(dt.Rows[0]["effective_date"].ToString());
+
+                if (cmbprices.SelectedIndex == 0)
+                    dtstart.Value = DateTime.Now;
             }
         }
     }

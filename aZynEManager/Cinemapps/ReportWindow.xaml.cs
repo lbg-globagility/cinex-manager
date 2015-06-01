@@ -784,6 +784,25 @@ namespace Cinemapps
             }
         }
 
+        private void PrintRP23_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP23StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP23");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void PrintRP21_Click(object sender, RoutedEventArgs e)
         {
             try

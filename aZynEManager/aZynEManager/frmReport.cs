@@ -936,7 +936,7 @@ namespace aZynEManager
                         DateTime firstDayOfMonth = new DateTime(_dtStart.Year, _dtStart.Month, 1);
                         DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
                         m_clscom.refreshTable(m_frmM,"tmp_bir_msr",m_frmM._connection);
-                        m_clscom.populateBIRmsr(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
+                        m_clscom.populateBIRmsr2(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
                         _dtStart = firstDayOfMonth;
                         _dtEnd = lastDayOfMonth.AddDays(1);
 
@@ -1086,7 +1086,30 @@ namespace aZynEManager
                         sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
                         sqry.Append("FROM tmp_accounting a, config_table g, report h ");
                         sqry.Append("WHERE g.system_code = '001' ");
-                        sqry.Append("AND h.id = 14");
+                        sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
+                        break;
+                    case "RP23":
+                        string stablenm = String.Empty;
+                        stablenm = "tmp_msr_transaction";
+                        firstDayOfMonth = new DateTime(_dtStart.Year, _dtStart.Month, 1);
+                        lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+                        m_clscom.refreshTable(m_frmM, stablenm, m_frmM._connection);
+                        m_clscom.populatemsrtransaction(m_frmM, stablenm, m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
+                        _dtStart = firstDayOfMonth;
+                        _dtEnd = lastDayOfMonth;
+                        
+                        sqry = new StringBuilder();
+                        sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
+                        sqry.Append(String.Format("FROM {0} a, config_table g, report h ", stablenm));
+                        sqry.Append(String.Format("WHERE userid = '{0}' ", m_frmM.m_usercode));
+                        sqry.Append("AND g.system_code = '001'");
+                        sqry.Append("AND h.id = 23 ");
+                        sqry.Append("ORDER BY report_date ASC");
+
+                        //sqry.Append(String.Format("SELECT * FROM {0} ", stablenm));
+                        //sqry.Append(String.Format("WHERE userid = '{0}' ", m_frmM.m_usercode));
+                        //sqry.Append("ORDER BY report_date ASC");
+
                         break;
                 }
 
