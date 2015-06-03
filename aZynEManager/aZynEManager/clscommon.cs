@@ -843,19 +843,20 @@ namespace aZynEManager
                     finalsqry = finalsqry + String.Format("{0},", dbltotal); //insert sales total
 
                     //vat sales
-                    finalsqry = finalsqry + String.Format("{0},", dbltotal); //insert vatable sales
-                    finalsqry = finalsqry + String.Format("{0},", "0"); //insert vat-exempt sales
+                    finalsqry = finalsqry + String.Format("{0},", "0"); //insert vatable sales
+                    finalsqry = finalsqry + String.Format("{0},", dbltotal); //insert vat-exempt sales
                     finalsqry = finalsqry + String.Format("{0},", "0"); //insert zero rated sales
 
-                    //vat 12% 
+                    /*//vat 12% //remarked 6.23.2015 for cinema is vat exmpt cause double taxation
                     double vat = 0,netsales = 0;
-                    if (dbltotal > 0)
+                    if (dbltotal > 0) 
                         netsales = dbltotal / 1.12;
 
                     if (netsales > 0)
-                        vat = dbltotal - netsales;
+                        vat = dbltotal - netsales;*/
+                    
 
-                    finalsqry = finalsqry + String.Format("{0},", vat); //insert vat
+                    finalsqry = finalsqry + String.Format("{0},", "0"); //insert vat 
 
                     //discount
                     finalsqry = finalsqry + String.Format("{0},", "0"); //discount SC
@@ -863,7 +864,7 @@ namespace aZynEManager
                     finalsqry = finalsqry + String.Format("{0},", "0"); //discount Employee
 
                     //netsales
-                    finalsqry = finalsqry + String.Format("{0},", netsales); //NET SALES
+                    finalsqry = finalsqry + String.Format("{0},", dbltotal); //NET SALES
 
                     //userid
                     finalsqry = finalsqry + String.Format("'{0}')", frm.m_usercode); //userid
@@ -925,8 +926,10 @@ namespace aZynEManager
                 finalsqry.Append(String.Format("INSERT INTO {0} values(0, '{1:yyyy-MM-dd}', ", tbl, recdate));
                 cntr1 += 1;
                 StringBuilder newsqry = new StringBuilder();
-                newsqry.Append("select count(a.session_id) cnt, sum(a.cash_amount) total_cash, ");
-                newsqry.Append("sum(a.gift_certificate_amount) total_gc, sum(a.credit_amount) total_cc ");
+                /*newsqry.Append("select table1.total_cnt, sum(table1.cash_amount) total_cash, ");
+                newsqry.Append("sum(table1.gift_certificate_amount) total_gc, sum(table1.credit_amount) total_cc ");
+                newsqry.Append("from (select count(a.session_id) total_cnt, a.cash_amount, ");
+                newsqry.Append("a.gift_certificate_amount, a.credit_amount ");
                 newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, movies_schedule_list d, movies_schedule e ");
                 newsqry.Append("where a.session_id = b.session_id ");
                 newsqry.Append("and b.id = c.ticket_id ");
@@ -934,7 +937,16 @@ namespace aZynEManager
                 newsqry.Append("and c.movies_schedule_list_id = d.id ");
                 newsqry.Append("and d.status = 1 ");
                 newsqry.Append("and d.movies_schedule_id = e.id ");
-                newsqry.Append(String.Format("and e.movie_date = '{0:yyyy-MM-dd}'", recdate));
+                newsqry.Append(String.Format("and e.movie_date = '{0:yyyy-MM-dd}' ", recdate));
+                newsqry.Append("group by a.session_id) table1 ");*/
+
+                newsqry.Append("select a.payment_mode, count(a.session_id) total_cnt, sum(c.base_price) cash_amount, a.gift_certificate_amount, ");
+                newsqry.Append("(sum(c.base_price) - a.gift_certificate_amount - cash_amount) credit_amount ");
+                newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, ");
+                newsqry.Append("movies_schedule_list d, movies_schedule e where a.session_id = b.session_id and b.id = c.ticket_id ");
+                newsqry.Append("and c.status = 1 and c.movies_schedule_list_id = d.id and d.status = 1 ");
+                newsqry.Append(String.Format("and d.movies_schedule_id = e.id and e.movie_date = '{0:yyyy-MM-dd}' ",recdate));
+                newsqry.Append("group by a.session_id");
 
                 MySqlCommand cmd1 = new MySqlCommand(newsqry.ToString(), myconn);
                 if (myconn.State == ConnectionState.Closed)
@@ -942,42 +954,85 @@ namespace aZynEManager
                 MySqlDataReader rd1 = cmd1.ExecuteReader();
                 if (rd1.HasRows)
                 {
+                    int totalcnt = 0;
+                    double totalcash = 0;
+                    double totalcc = 0;
+                    double totalgc = 0;
                     while (rd1.Read())
                     {
-                        int totalcnt = 0;
-                        int intout = 0;
+                        int inttransaction = 0;
+                        int outtransaction = 0;
                         if (!DBNull.Value.Equals(rd1[0]))
                         {
-                            if (int.TryParse(rd1[0].ToString(), out intout))
-                                totalcnt = intout;
+                            if (int.TryParse(rd1[0].ToString(), out outtransaction))
+                                inttransaction = outtransaction;
                         }
 
-                        double totalcash = 0;
-                        double dblout = 0;
+                        
+                        int intout = 0;
                         if (!DBNull.Value.Equals(rd1[1]))
                         {
-                            if (double.TryParse(rd1[1].ToString(), out dblout))
-                                totalcash = dblout;
+                            if (int.TryParse(rd1[1].ToString(), out intout))
+                                totalcnt += intout;
                         }
 
-                        double totalgc = 0;
-                        dblout = 0;
-                        if (!DBNull.Value.Equals(rd1[2]))
+                        
+                        double dblout = 0;
+                        if (inttransaction == 1)
                         {
-                            if (double.TryParse(rd1[2].ToString(), out dblout))
-                                totalgc = dblout;
+                            if (!DBNull.Value.Equals(rd1[2]))
+                            {
+                                if (double.TryParse(rd1[2].ToString(), out dblout))
+                                    totalcash += dblout;
+                            }
                         }
 
-                        double totalcc = 0;
-                        dblout = 0;
-                        if (!DBNull.Value.Equals(rd1[3]))
+                        if(inttransaction == 3)
                         {
-                            if (double.TryParse(rd1[3].ToString(), out dblout))
-                                totalcc = dblout;
+                            dblout = 0;
+                            if (!DBNull.Value.Equals(rd1[2]))
+                            {
+                                if (double.TryParse(rd1[2].ToString(), out dblout))
+                                    totalcash += dblout;
+                            }
+                            dblout = 0;
+                            if (!DBNull.Value.Equals(rd1[3]))
+                            {
+                                if (double.TryParse(rd1[3].ToString(), out dblout))
+                                {
+                                    totalgc += dblout;
+                                    totalcash -= dblout;
+                                }
+                            }
                         }
 
-                        finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", totalcnt, totalcash, totalgc, totalcc));
+                        if (inttransaction == 4)
+                        {
+                            dblout = 0;
+                            if (!DBNull.Value.Equals(rd1[4]))
+                            {
+                                if (double.TryParse(rd1[4].ToString(), out dblout))
+                                    totalcc = dblout;
+                            }
+                        }
+
+                        if (inttransaction == 2)
+                        {
+                            dblout = 0;
+                            if (!DBNull.Value.Equals(rd1[3]))
+                            {
+                                if (double.TryParse(rd1[3].ToString(), out dblout))
+                                    totalgc += dblout;
+                            }
+                            dblout = 0;
+                            if (!DBNull.Value.Equals(rd1[4]))
+                            {
+                                if (double.TryParse(rd1[4].ToString(), out dblout))
+                                    totalgc += dblout;
+                            }
+                        }
                     }
+                    finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", totalcnt, totalcash, totalgc, totalcc));
                     rd1.Close();
                     cmd1.Dispose();
                 }

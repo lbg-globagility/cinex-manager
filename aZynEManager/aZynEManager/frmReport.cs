@@ -936,7 +936,7 @@ namespace aZynEManager
                         DateTime firstDayOfMonth = new DateTime(_dtStart.Year, _dtStart.Month, 1);
                         DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
                         m_clscom.refreshTable(m_frmM,"tmp_bir_msr",m_frmM._connection);
-                        m_clscom.populateBIRmsr2(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
+                        m_clscom.populateBIRmsr(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
                         _dtStart = firstDayOfMonth;
                         _dtEnd = lastDayOfMonth.AddDays(1);
 

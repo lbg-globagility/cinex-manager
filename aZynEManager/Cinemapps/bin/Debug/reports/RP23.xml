@@ -82,19 +82,22 @@
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>1.375in</Width>
+            <Width>84.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>1.125in</Width>
+            <Width>72.6pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>109.8pt</Width>
+            <Width>94.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>116.0pt</Width>
+            <Width>98.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>121.5pt</Width>
+            <Width>84.6pt</Width>
+          </TableColumn>
+          <TableColumn >
+            <Width>94.3pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
@@ -125,7 +128,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>5</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -153,7 +156,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>5</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -184,7 +187,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>5</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -211,7 +214,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>5</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -323,6 +326,31 @@
                     <Textbox Name="Textbox7">
                       <Value>Credit Card</Value>
                       <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell >
+                  <ReportItems>
+                    <Textbox Name="Textbox1">
+                      <Value>Total</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
@@ -473,6 +501,29 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
+                <TableCell >
+                  <ReportItems>
+                    <Textbox Name="Textbox2">
+                      <Value>=Fields!total_cash.Value + Fields!total_gc.Value + Fields!total_cc.Value</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>8pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>#,##0.00</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
               </TableCells>
             </TableRow>
           </TableRows>
@@ -586,6 +637,30 @@
                       <Value>=Sum(Fields!total_cc.Value)</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>8pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>#,##0.00</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                        <BackgroundColor>Lightgrey</BackgroundColor>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell >
+                  <ReportItems>
+                    <Textbox Name="Textbox8">
+                      <Value>=Sum(Fields!total_cash.Value + Fields!total_gc.Value + Fields!total_cc.Value)</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <BorderStyle>
                           <Default>None</Default>
                           <Left>None</Left>
