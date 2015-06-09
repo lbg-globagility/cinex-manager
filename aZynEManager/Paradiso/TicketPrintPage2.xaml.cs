@@ -357,6 +357,8 @@ namespace Paradiso
                              patroncode = mslrs.movies_schedule_list_patron.patron.code,
                              price = mslrs.price,
                              baseprice = mslrs.base_price,
+                             ordinanceprice = mslrs.ordinance_price,
+                             surchargeprice = mslrs.surcharge_price,
                              ornumber = mslrs.or_number,
                              at = mslrs.amusement_tax_amount,
                              ct = mslrs.cultural_tax_amount,
@@ -378,6 +380,8 @@ namespace Paradiso
                     Ticket.PatronCode = t.patroncode;
                     Ticket.PatronPrice = (decimal) t.price;
                     Ticket.BasePrice = (decimal)t.baseprice;
+                    Ticket.OrdinancePrice = (decimal)t.ordinanceprice;
+                    Ticket.SurchargePrice = (decimal)t.surchargeprice;
                     Ticket.ORNumber = t.ornumber;
                     Ticket.AmusementTax = (decimal) t.at;
                     Ticket.CulturalTax = (decimal) t.ct;
@@ -472,6 +476,8 @@ namespace Paradiso
                 Ticket.PatronCode = t.PatronCode;
                 Ticket.PatronPrice = t.PatronPrice;
                 Ticket.BasePrice = t.BasePrice;
+                Ticket.OrdinancePrice = t.OrdinancePrice;
+                Ticket.SurchargePrice = t.SurchargePrice;
                 Ticket.ORNumber = t.ORNumber;
                 Ticket.AmusementTax = t.AmusementTax;
                 Ticket.CulturalTax = t.CulturalTax;
@@ -647,6 +653,11 @@ namespace Paradiso
                     print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
                     print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
                 }
+                if (Ticket.SurchargePrice > 0m)
+                {
+                    print.DrawText(0, print.Row + 310, print.Column + 30, "Sur. Tax:", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
+                }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
                 print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.CulturalTax), false);
@@ -727,6 +738,11 @@ namespace Paradiso
                 {
                     print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
                     print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                }
+                if (Ticket.SurchargePrice > 0m)
+                {
+                    print.DrawText(0, print.Row + 310, print.Column + 30, "Sur. Tax:", false);
+                    print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);

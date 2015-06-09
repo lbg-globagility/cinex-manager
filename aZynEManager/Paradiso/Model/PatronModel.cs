@@ -14,6 +14,8 @@ namespace Paradiso.Model
         private string strName;
         private decimal decPrice;
         private decimal decBasePrice;
+        private decimal decOrdinancePrice;
+        private decimal decSurchargePrice;
         private int intSeatColor;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -92,6 +94,32 @@ namespace Paradiso.Model
                 {
                     decBasePrice = value;
                     NotifyPropertyChanged("BasePrice");
+                }
+            }
+        }
+
+        public decimal OrdinancePrice
+        {
+            get { return decOrdinancePrice; }
+            set
+            {
+                if (value != decOrdinancePrice)
+                {
+                    decOrdinancePrice = value;
+                    NotifyPropertyChanged("OrdinancePrice");
+                }
+            }
+        }
+
+        public decimal SurchargePrice
+        {
+            get { return decSurchargePrice; }
+            set
+            {
+                if (value != decSurchargePrice)
+                {
+                    decSurchargePrice = value;
+                    NotifyPropertyChanged("SurchargePrice");
                 }
             }
         }

@@ -96,7 +96,9 @@ namespace Paradiso
                             PatronName = patrons[0].patron_name,
                             SeatColor = (int) patrons[0].patron_seat_color,
                             Price = (decimal) patrons[0].price,
-                            BasePrice = (decimal) patrons[0].base_price
+                            BasePrice = (decimal) patrons[0].base_price,
+                            OrdinancePrice = (decimal) patrons[0].ordinance_price,
+                            SurchargePrice = (decimal) patrons[0].surcharge_price
                         });
                     }
                 }
@@ -347,6 +349,8 @@ namespace Paradiso
                                 mslrs.patron_id = patronSeatModel.PatronKey;
                                 mslrs.price = (float)patronSeatModel.Price;
                                 mslrs.base_price = (float)patronSeatModel.BasePrice;
+                                mslrs.ordinance_price = (float)patronSeatModel.OrdinancePrice;
+                                mslrs.surcharge_price = (float)patronSeatModel.SurchargePrice;
                                 mslrs.amusement_tax_amount = (float)amusementtax;
                                 mslrs.cultural_tax_amount = (float)culturaltax;
                                 mslrs.vat_amount = (float)vattax;

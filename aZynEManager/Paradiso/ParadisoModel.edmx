@@ -201,14 +201,6 @@
             <End Role="patrons" EntitySet="patrons" />
             <End Role="patrons_ordinance" EntitySet="patrons_ordinance" />
           </AssociationSet>
-          <AssociationSet Name="fk_session_gift_certificate_gift_certificate" Association="paradisoModel.Store.fk_session_gift_certificate_gift_certificate">
-            <End Role="gift_certificate" EntitySet="gift_certificate" />
-            <End Role="session_gift_certificate" EntitySet="session_gift_certificate" />
-          </AssociationSet>
-          <AssociationSet Name="fk_session_gift_certificate_session" Association="paradisoModel.Store.fk_session_gift_certificate_session">
-            <End Role="session" EntitySet="session" />
-            <End Role="session_gift_certificate" EntitySet="session_gift_certificate" />
-          </AssociationSet>
           <AssociationSet Name="fk_ticket_movies_schedule_list1" Association="paradisoModel.Store.fk_ticket_movies_schedule_list1">
             <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
             <End Role="ticket" EntitySet="ticket" />
@@ -432,6 +424,8 @@
           <Property Name="or_number" Type="varchar" MaxLength="45" />
           <Property Name="void_user_id" Type="int" />
           <Property Name="void_datetime" Type="datetime" />
+          <Property Name="ordinance_price" Type="float" Nullable="false" />
+          <Property Name="surcharge_price" Type="float" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6035: The relationship 'fk_movies_movies_status1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
@@ -460,7 +454,7 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ordinance_no" Type="varchar" Nullable="false" MaxLength="225" />
           <Property Name="effective_date" Type="datetime" Nullable="false" />
-          <Property Name="end_date" Type="datetime" Nullable="false" />
+          <Property Name="end_date" Type="datetime" />
           <Property Name="with_enddate" Type="int" Nullable="false" />
           <Property Name="amount_val" Type="float" Nullable="false" />
           <Property Name="in_pesovalue" Type="int" Nullable="false" />
@@ -482,6 +476,7 @@
           <Property Name="seat_color" Type="int" />
           <Property Name="seat_position" Type="int" />
           <Property Name="lgutax" Type="float" />
+          <Property Name="base_price" Type="int" />
         </EntityType>
         <EntityType Name="patrons_ordinance">
           <Key>
@@ -1026,30 +1021,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_session_gift_certificate_gift_certificate">
-          <End Role="gift_certificate" Type="paradisoModel.Store.gift_certificate" Multiplicity="1" />
-          <End Role="session_gift_certificate" Type="paradisoModel.Store.session_gift_certificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="gift_certificate">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="session_gift_certificate">
-              <PropertyRef Name="gift_certificate_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_session_gift_certificate_session">
-          <End Role="session" Type="paradisoModel.Store.session" Multiplicity="1" />
-          <End Role="session_gift_certificate" Type="paradisoModel.Store.session_gift_certificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="session">
-              <PropertyRef Name="session_id" />
-            </Principal>
-            <Dependent Role="session_gift_certificate">
-              <PropertyRef Name="session_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_ticket_movies_schedule_list1">
           <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
           <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
@@ -1564,6 +1535,8 @@
           <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_mslp1" FromRole="movies_schedule_list_reserved_seat" ToRole="movies_schedule_list_patron" />
           <NavigationProperty Name="ticket" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_ticket1" FromRole="movies_schedule_list_reserved_seat" ToRole="ticket" />
           <NavigationProperty Name="user" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_users1" FromRole="movies_schedule_list_reserved_seat" ToRole="users" />
+          <Property Type="Single" Name="ordinance_price" Nullable="false" />
+          <Property Type="Single" Name="surcharge_price" Nullable="false" />
         </EntityType>
         <EntityType Name="movies_status">
           <Key>
@@ -1616,6 +1589,7 @@
           <NavigationProperty Name="cinema_patron" Relationship="paradisoModel.fk_cinema_patron_patrons1" FromRole="patrons" ToRole="cinema_patron" />
           <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_patrons1" FromRole="patrons" ToRole="movies_schedule_list_patron" />
           <NavigationProperty Name="patrons_ordinance" Relationship="paradisoModel.fk_patrons" FromRole="patrons" ToRole="patrons_ordinance" />
+          <Property Type="Int32" Name="base_price" />
         </EntityType>
         <EntityType Name="patrons_ordinance">
           <Key>
@@ -2468,6 +2442,8 @@
           <EntitySetMapping Name="movies_schedule_list_reserved_seat">
             <EntityTypeMapping TypeName="paradisoModel.movies_schedule_list_reserved_seat">
               <MappingFragment StoreEntitySet="movies_schedule_list_reserved_seat">
+                <ScalarProperty Name="surcharge_price" ColumnName="surcharge_price" />
+                <ScalarProperty Name="ordinance_price" ColumnName="ordinance_price" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="movies_schedule_list_id" ColumnName="movies_schedule_list_id" />
                 <ScalarProperty Name="cinema_seat_id" ColumnName="cinema_seat_id" />
@@ -2520,6 +2496,7 @@
           <EntitySetMapping Name="patrons">
             <EntityTypeMapping TypeName="paradisoModel.patron">
               <MappingFragment StoreEntitySet="patrons">
+                <ScalarProperty Name="base_price" ColumnName="base_price" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -2783,7 +2760,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ParadisoModel" ZoomLevel="48">
+      <Diagram Name="ParadisoModel" ZoomLevel="82">
         <EntityTypeShape EntityType="paradisoModel.a_trail" Width="1.5" PointX="3" PointY="9.125" Height="2.5571907552083335" IsExpanded="true" />
         <EntityTypeShape EntityType="paradisoModel.application" Width="1.5" PointX="5.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="paradisoModel.cinema" Width="1.5" PointX="1.5" PointY="35.75" Height="2.749492187499996" IsExpanded="true" />
