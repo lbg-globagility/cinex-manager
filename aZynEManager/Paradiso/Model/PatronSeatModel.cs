@@ -17,6 +17,9 @@ namespace Paradiso.Model
         private string strSeatName;
         private decimal decPrice;
         private decimal decBasePrice;
+        private decimal decOrdinancePrice;
+        private decimal decSurchargePrice;
+
         private DateTime dtReservedDate;
         
         private string strRemainingTime;
@@ -40,7 +43,7 @@ namespace Paradiso.Model
             catch { }
         }
 
-        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, decimal baseprice, DateTime reservedDate, int seatColor)
+        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, decimal baseprice, decimal ordinanceprice, decimal surchargeprice, DateTime reservedDate, int seatColor)
         {
             Key = key;
             SeatKey = seatKey;
@@ -49,6 +52,8 @@ namespace Paradiso.Model
             PatronName = patronName;
             Price = price;
             BasePrice = baseprice;
+            OrdinancePrice = ordinanceprice;
+            SurchargePrice = surchargeprice;
             ReservedDate = reservedDate;
             RemainingTime = RemainingTimeValue;
             SeatColor = seatColor;
@@ -194,6 +199,32 @@ namespace Paradiso.Model
                 {
                     decBasePrice = value;
                     NotifyPropertyChanged("BasePrice");
+                }
+            }
+        }
+
+        public decimal OrdinancePrice
+        {
+            get { return decOrdinancePrice; }
+            set
+            {
+                if (value != decOrdinancePrice)
+                {
+                    decOrdinancePrice = value;
+                    NotifyPropertyChanged("OrdinancePrice");
+                }
+            }
+        }
+
+        public decimal SurchargePrice
+        {
+            get { return decSurchargePrice; }
+            set
+            {
+                if (value != decSurchargePrice)
+                {
+                    decSurchargePrice = value;
+                    NotifyPropertyChanged("SurchargePrice");
                 }
             }
         }

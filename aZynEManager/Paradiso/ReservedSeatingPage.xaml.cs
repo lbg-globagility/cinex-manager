@@ -366,6 +366,8 @@ namespace Paradiso
                             Name = _patron.patron_name,
                             Price = (decimal)_patron.price,
                             BasePrice = (decimal)_patron.base_price,
+                            OrdinancePrice = (decimal) _patron.ordinance_price,
+                            SurchargePrice = (decimal) _patron.surcharge_price,
                             SeatColor = (int)_patron.patron_seat_color
                         });
                     }
@@ -453,6 +455,8 @@ namespace Paradiso
                                     int intSeatColor = 0;
                                     decimal decPrice = 0;
                                     decimal decBasePrice = 0;
+                                    decimal decOrdinancePrice = 0;
+                                    decimal decSurchargePrice = 0;
                                     foreach (var p in Patrons)
                                     {
                                         if (p != null && p.Key == seatModel.PatronKey)
@@ -460,6 +464,8 @@ namespace Paradiso
                                             strPatronName = p.Name;
                                             decPrice = p.Price;
                                             decBasePrice = p.BasePrice;
+                                            decOrdinancePrice = p.OrdinancePrice;
+                                            decSurchargePrice = p.SurchargePrice;
                                             intSeatColor = p.SeatColor;
                                             break;
                                         }
@@ -473,6 +479,8 @@ namespace Paradiso
                                         strPatronName,
                                         decPrice,
                                         decBasePrice,
+                                        decOrdinancePrice,
+                                        decSurchargePrice,
                                         (DateTime)ss.reserved_date,
                                         intSeatColor
                                     ));

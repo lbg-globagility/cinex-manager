@@ -32,6 +32,9 @@ namespace Paradiso.Model
         private decimal decPatronPrice = 0m;
         private decimal decBasePrice = 0m;
 
+        private decimal decOrdinancePrice = 0m;
+        private decimal decSurchargePrice = 0m;
+
         private int intSeatType = 0;
         private string strSeatType = string.Empty;
 
@@ -74,6 +77,8 @@ namespace Paradiso.Model
             PatronCode = string.Empty;
             PatronPrice = 0m;
             BasePrice = 0m;
+            OrdinancePrice = 0m;
+            SurchargePrice = 0m;
             SeatType = 0;
             Code = string.Empty;
             CulturalTax = 0;
@@ -317,7 +322,7 @@ namespace Paradiso.Model
                 {
                     decPatronPrice = value;
                     NotifyPropertyChanged("PatronPrice");
-                    NotifyPropertyChanged("OrdinancePrice");
+                    //NotifyPropertyChanged("OrdinancePrice");
                 }
             }
         }
@@ -331,19 +336,34 @@ namespace Paradiso.Model
                 {
                     decBasePrice = value;
                     NotifyPropertyChanged("BasePrice");
-                    NotifyPropertyChanged("OrdinancePrice");
+                    //NotifyPropertyChanged("OrdinancePrice");
                 }
             }
         }
 
         public decimal OrdinancePrice
         {
-            get
+            get { return decOrdinancePrice; }
+            set
             {
-                decimal decOrdinancePrice = this.PatronPrice - this.BasePrice;
-                if (decOrdinancePrice < 0m)
-                    decOrdinancePrice = 0m;
-                return decOrdinancePrice;
+                if (decOrdinancePrice != value)
+                {
+                    decOrdinancePrice = value;
+                    NotifyPropertyChanged("OrdinancePrice");
+                }
+            }
+        }
+
+        public decimal SurchargePrice
+        {
+            get { return decSurchargePrice; }
+            set
+            {
+                if (decSurchargePrice != value)
+                {
+                    decSurchargePrice = value;
+                    NotifyPropertyChanged("SurchargePrice");
+                }
             }
         }
 

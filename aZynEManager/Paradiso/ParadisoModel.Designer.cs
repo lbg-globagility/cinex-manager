@@ -6012,7 +6012,9 @@ namespace Paradiso
         /// <param name="cinema_seat_id">Initial value of the cinema_seat_id property.</param>
         /// <param name="ticket_id">Initial value of the ticket_id property.</param>
         /// <param name="patron_id">Initial value of the patron_id property.</param>
-        public static movies_schedule_list_reserved_seat Createmovies_schedule_list_reserved_seat(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id, global::System.Int32 ticket_id, global::System.Int32 patron_id)
+        /// <param name="ordinance_price">Initial value of the ordinance_price property.</param>
+        /// <param name="surcharge_price">Initial value of the surcharge_price property.</param>
+        public static movies_schedule_list_reserved_seat Createmovies_schedule_list_reserved_seat(global::System.Int32 id, global::System.Int32 movies_schedule_list_id, global::System.Int32 cinema_seat_id, global::System.Int32 ticket_id, global::System.Int32 patron_id, global::System.Single ordinance_price, global::System.Single surcharge_price)
         {
             movies_schedule_list_reserved_seat movies_schedule_list_reserved_seat = new movies_schedule_list_reserved_seat();
             movies_schedule_list_reserved_seat.id = id;
@@ -6020,6 +6022,8 @@ namespace Paradiso
             movies_schedule_list_reserved_seat.cinema_seat_id = cinema_seat_id;
             movies_schedule_list_reserved_seat.ticket_id = ticket_id;
             movies_schedule_list_reserved_seat.patron_id = patron_id;
+            movies_schedule_list_reserved_seat.ordinance_price = ordinance_price;
+            movies_schedule_list_reserved_seat.surcharge_price = surcharge_price;
             return movies_schedule_list_reserved_seat;
         }
 
@@ -6365,6 +6369,54 @@ namespace Paradiso
         private Nullable<global::System.DateTime> _void_datetime;
         partial void Onvoid_datetimeChanging(Nullable<global::System.DateTime> value);
         partial void Onvoid_datetimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Single ordinance_price
+        {
+            get
+            {
+                return _ordinance_price;
+            }
+            set
+            {
+                Onordinance_priceChanging(value);
+                ReportPropertyChanging("ordinance_price");
+                _ordinance_price = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ordinance_price");
+                Onordinance_priceChanged();
+            }
+        }
+        private global::System.Single _ordinance_price;
+        partial void Onordinance_priceChanging(global::System.Single value);
+        partial void Onordinance_priceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Single surcharge_price
+        {
+            get
+            {
+                return _surcharge_price;
+            }
+            set
+            {
+                Onsurcharge_priceChanging(value);
+                ReportPropertyChanging("surcharge_price");
+                _surcharge_price = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("surcharge_price");
+                Onsurcharge_priceChanged();
+            }
+        }
+        private global::System.Single _surcharge_price;
+        partial void Onsurcharge_priceChanging(global::System.Single value);
+        partial void Onsurcharge_priceChanged();
 
         #endregion
 
@@ -7500,6 +7552,30 @@ namespace Paradiso
         private Nullable<global::System.Single> _lgutax;
         partial void OnlgutaxChanging(Nullable<global::System.Single> value);
         partial void OnlgutaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> base_price
+        {
+            get
+            {
+                return _base_price;
+            }
+            set
+            {
+                Onbase_priceChanging(value);
+                ReportPropertyChanging("base_price");
+                _base_price = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("base_price");
+                Onbase_priceChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _base_price;
+        partial void Onbase_priceChanging(Nullable<global::System.Int32> value);
+        partial void Onbase_priceChanged();
 
         #endregion
 
