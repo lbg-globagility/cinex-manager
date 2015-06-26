@@ -208,6 +208,15 @@ namespace aZynEManager
             frmordinance.Dispose();
         }
 
+        private void btnSurcharge_Click(object sender, EventArgs e)
+        {
+            unselectButton();
+            frmSurcharge frmsurcharg = new frmSurcharge();
+            frmsurcharg.frmInit(m_frmM, m_clscom);
+            frmsurcharg.ShowDialog();
+            frmsurcharg.Dispose();
+        }
+
 
     }
 }

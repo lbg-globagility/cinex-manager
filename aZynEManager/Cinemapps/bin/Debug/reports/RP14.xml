@@ -4,14 +4,6 @@
   <Author>rogelio manahan betito</Author>
   <PageHeight>8.5in</PageHeight>
   <PageWidth>11in</PageWidth>
-  <DataSources>
-    <DataSource Name="DS1">
-      <ConnectionProperties>
-        <DataProvider>ODBC</DataProvider>
-        <ConnectString></ConnectString>
-      </ConnectionProperties>
-    </DataSource>
-  </DataSources>
   <Width>7.5in</Width>
   <TopMargin>.25in</TopMargin>
   <LeftMargin>.25in</LeftMargin>
@@ -19,14 +11,18 @@
   <BottomMargin>.25in</BottomMargin>
   <DataSets>
     <DataSet Name="Data">
-      <Query>
+      <Query >
         <DataSourceName>DS1</DataSourceName>
         <CommandText></CommandText>
       </Query>
-      <Fields>
+      <Fields >
         <Field Name="id">
           <DataField>id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cinema_name">
+          <DataField>cinema_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="dist_nm">
           <DataField>dist_nm</DataField>
@@ -129,6 +125,8 @@
           <BorderStyle>
             <Default>Solid</Default>
           </BorderStyle>
+          <BorderColor />
+          <BorderWidth />
         </Style>
         <TableColumns>
           <TableColumn>
@@ -143,10 +141,10 @@
           <TableColumn>
             <Width>57.2pt</Width>
           </TableColumn>
-          <TableColumn >
+          <TableColumn>
             <Width>46.4pt</Width>
           </TableColumn>
-          <TableColumn >
+          <TableColumn>
             <Width>46.4pt</Width>
           </TableColumn>
           <TableColumn>
@@ -177,7 +175,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>29.2pt</Height>
+              <Height>20.5pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -213,7 +211,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>23.6pt</Height>
+              <Height>14.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -248,7 +246,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>18.9pt</Height>
+              <Height>17.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -285,12 +283,12 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>17.3pt</Height>
+              <Height>16.6pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox34">
-                      <Value>=Fields!movie_nm.Value</Value>
+                      <Value>=Fields!cinema_name.Value</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
@@ -323,12 +321,13 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>14.3pt</Height>
+              <Height>2.5pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox38">
-                      <Value>=Fields!dist_nm.Value</Value>
+                      <Value>
+                      </Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
@@ -462,7 +461,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox1">
                       <Value>Surcharge</Value>
@@ -487,7 +486,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox20">
                       <Value>Ordinance</Value>
@@ -746,7 +745,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox2">
                       <Value>
@@ -772,7 +771,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox21">
                       <Value>
@@ -1001,13 +1000,13 @@
             <Header>
               <TableRows>
                 <TableRow>
-                  <Height>19.1pt</Height>
+                  <Height>15.0pt</Height>
                   <TableCells>
                     <TableCell>
                       <ColSpan>14</ColSpan>
                       <ReportItems>
                         <Textbox Name="Textbox22">
-                          <Value>=Fields!share_date_range.Value</Value>
+                          <Value>=Fields!movie_nm.Value &amp; ' * ' &amp; Fields!dist_nm.Value &amp; ' * ' &amp; '(' &amp; Fields!share_date_range.Value &amp; ')'</Value>
                           <Style>
                             <PaddingLeft>2pt</PaddingLeft>
                             <BorderStyle>
@@ -1017,13 +1016,14 @@
                               <Top>None</Top>
                               <Bottom>None</Bottom>
                             </BorderStyle>
-                            <FontWeight>Normal</FontWeight>
+                            <FontWeight>Bold</FontWeight>
                             <BorderColor />
                             <BorderWidth />
                             <FontStyle>Italic</FontStyle>
                             <FontSize>8pt</FontSize>
                             <TextAlign>Left</TextAlign>
                             <VerticalAlign>Bottom</VerticalAlign>
+                            <FontFamily>Segoe UI</FontFamily>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -1036,12 +1036,12 @@
             <Footer>
               <TableRows>
                 <TableRow>
-                  <Height>18.2pt</Height>
+                  <Height>14.3pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox27">
-                          <Value>Sub Total</Value>
+                          <Value>SubTotal</Value>
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -1151,7 +1151,7 @@
                         </Textbox>
                       </ReportItems>
                     </TableCell>
-                    <TableCell >
+                    <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox5">
                           <Value>=Sum(Fields!surcharge.Value)</Value>
@@ -1180,7 +1180,7 @@
                         </Textbox>
                       </ReportItems>
                     </TableCell>
-                    <TableCell >
+                    <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox25">
                           <Value>=Sum(Fields!ordinance.Value)</Value>
@@ -1437,10 +1437,23 @@
                   </TableCells>
                 </TableRow>
               </TableRows>
+              <RepeatOnNewPage>false</RepeatOnNewPage>
             </Footer>
             <Grouping Name="share_idGroup">
               <GroupExpressions>
+                <GroupExpression>=Fields!cinema_name.Value</GroupExpression>
                 <GroupExpression>=Fields!share_id.Value</GroupExpression>
+              </GroupExpressions>
+              <PageBreakAtStart>false</PageBreakAtStart>
+              <PageBreakAtEnd>false</PageBreakAtEnd>
+            </Grouping>
+          </TableGroup>
+          <TableGroup>
+            <Grouping Name="movie_group">
+              <PageBreakAtStart>false</PageBreakAtStart>
+              <PageBreakAtEnd>false</PageBreakAtEnd>
+              <GroupExpressions>
+                <GroupExpression>=Fields!movie_nm.Value</GroupExpression>
               </GroupExpressions>
             </Grouping>
           </TableGroup>
@@ -1448,7 +1461,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>12pt</Height>
+              <Height>14.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1546,7 +1559,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox3">
                       <Value>=Fields!surcharge.Value</Value>
@@ -1569,7 +1582,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox23">
                       <Value>=Fields!ordinance.Value</Value>
@@ -1885,7 +1898,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox4">
                       <Value>=Sum(Fields!surcharge.Value)</Value>
@@ -1909,7 +1922,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox24">
                       <Value>=Sum(Fields!ordinance.Value)</Value>
@@ -2126,7 +2139,7 @@
         <Top>4.0pt</Top>
       </Table>
     </ReportItems>
-    <Height>203.1pt</Height>
+    <Height>263.7pt</Height>
   </Body>
   <PageFooter>
     <Height>14pt</Height>
@@ -2149,4 +2162,13 @@
     <PrintOnFirstPage>true</PrintOnFirstPage>
     <PrintOnLastPage>true</PrintOnLastPage>
   </PageFooter>
+  <DataSources>
+    <DataSource Name="DS1">
+      <ConnectionProperties>
+        <DataProvider>ODBC</DataProvider>
+        <ConnectString></ConnectString>
+        <IntegratedSecurity>false</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
 </Report>

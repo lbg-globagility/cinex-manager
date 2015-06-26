@@ -250,6 +250,12 @@
     <Compile Include="frmSoundSystem.designer.cs">
       <DependentUpon>frmSoundSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSurcharge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSurcharge.Designer.cs">
+      <DependentUpon>frmSurcharge.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaskManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -361,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSoundSystem.resx">
       <DependentUpon>frmSoundSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSurcharge.resx">
+      <DependentUpon>frmSurcharge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskManager.resx">
       <DependentUpon>frmTaskManager.cs</DependentUpon>
@@ -606,6 +615,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cinema-manager-icon.ico" />
+    <None Include="Resources\surcharge2.png" />
+    <None Include="Resources\surcharge1.png" />
+    <None Include="Resources\surcharge.png" />
     <None Include="Resources\ordinance.png" />
     <None Include="Resources\print_32x32.png" />
     <None Include="Resources\save_32x32.png" />

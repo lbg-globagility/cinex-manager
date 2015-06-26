@@ -172,9 +172,9 @@
             this.cbxcancel.ForeColor = System.Drawing.Color.White;
             this.cbxcancel.Location = new System.Drawing.Point(202, 54);
             this.cbxcancel.Name = "cbxcancel";
-            this.cbxcancel.Size = new System.Drawing.Size(88, 17);
+            this.cbxcancel.Size = new System.Drawing.Size(96, 17);
             this.cbxcancel.TabIndex = 314;
-            this.cbxcancel.Text = "is cancelled?";
+            this.cbxcancel.Text = "with end date?";
             this.cbxcancel.UseVisualStyleBackColor = false;
             this.cbxcancel.CheckedChanged += new System.EventHandler(this.cbxcancel_CheckedChanged);
             // 

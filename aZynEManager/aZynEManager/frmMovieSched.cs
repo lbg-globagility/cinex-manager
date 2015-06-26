@@ -1058,7 +1058,7 @@ namespace aZynEManager
                         {
                             StringBuilder sqry = new StringBuilder();
 
-                            //RMB 11.14.2014 for is_default
+                            /*//RMB 11.14.2014 for is_default //remarked 6.9.2015
                             if(dgv[3, i].Value.ToString() == cmbpatron.SelectedValue.ToString())
                                 sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},1)",
                                     intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
@@ -1070,7 +1070,58 @@ namespace aZynEManager
                                 myconn.Open();
                             MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
                             cmd.ExecuteNonQuery();
-                            cmd.Dispose();
+                            cmd.Dispose();*/
+
+                            //check for existance to avoid double entry
+                            sqry = new StringBuilder();
+                            sqry.Append("select count(*) from movies_schedule_list_patron where ");
+                            sqry.Append(String.Format("movies_schedule_list_id = {0} and ", intid));
+                            sqry.Append(String.Format("patron_id = {0} and ", dgv[3, i].Value.ToString()));
+                            sqry.Append(String.Format("price = {0}", dgv[2, i].Value.ToString()));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd0 = new MySqlCommand(sqry.ToString(), myconn);
+                            int rowCount = 0;
+                            rowCount = Convert.ToInt32(cmd0.ExecuteScalar());
+                            cmd0.Dispose();
+                            if (rowCount == 0)
+                            {
+                                if (dgv[3, i].Value.ToString() == cmbpatron.SelectedValue.ToString())
+                                {
+                                    sqry = new StringBuilder();
+                                    sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},1)",
+                                        intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+                                }
+                                else
+                                {
+                                    sqry = new StringBuilder();
+                                    sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},0)",
+                                        intid, dgv[3, i].Value.ToString(), dgv[2, i].Value.ToString()));
+                                }
+
+                                if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                cmd.ExecuteNonQuery();
+                                cmd.Dispose();
+                            }
+                            else if (rowCount == 1)//for updates of is default 6.10.2015
+                            {
+                                sqry = new StringBuilder();
+                                if (dgv[3, i].Value.ToString() == cmbpatron.SelectedValue.ToString())
+                                    sqry.Append("update movies_schedule_list_patron set is_default = 1 where ");
+                                else
+                                    sqry.Append("update movies_schedule_list_patron set is_default = 0 where ");
+
+                                sqry.Append(String.Format("movies_schedule_list_id = {0} and ", intid));
+                                sqry.Append(String.Format("patron_id = {0} and ", dgv[3, i].Value.ToString()));
+                                sqry.Append(String.Format("price = {0}", dgv[2, i].Value.ToString()));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                                cmd.ExecuteNonQuery();
+                                cmd.Dispose();
+                            }
                         }
                     }
                 }
@@ -2202,15 +2253,58 @@ namespace aZynEManager
 
                                         if (rowCount > 0)
                                         {
+                                            //call all id of movies_schedule_list_patron //6.9.2015 start
+                                            string ids = String.Empty;
                                             sqry = new StringBuilder();
+                                            sqry.Append(String.Format("select a.id from movies_schedule_list_patron a where a.movies_schedule_list_id = {0}", dgvResult.SelectedRows[0].Cells[0].Value.ToString()));
+                                            if (myconn.State == ConnectionState.Closed)
+                                                myconn.Open();
+                                            MySqlCommand cmd33 = new MySqlCommand(sqry.ToString(), myconn);
+                                            MySqlDataReader reader = cmd33.ExecuteReader();
+                                            string[] movieschedpatronid = new string[(rowCount)];
+                                            int cntr = 0;
+                                            while (reader.Read())
+                                            {
+                                                movieschedpatronid[cntr] = reader["id"].ToString();
+                                                cntr += 1;
+                                            }
+                                            reader.Close();
+                                            cmd33.Dispose();
+
+                                            //for each rec in movies_schedule_list_reserved_seat check for patron id
+                                            foreach (string strval in movieschedpatronid)
+                                            {
+                                                sqry = new StringBuilder();
+                                                sqry.Append(String.Format("select count(*) from movies_schedule_list_reserved_seat where patron_id = {0}", strval));
+                                                MySqlCommand cmd43 = new MySqlCommand(sqry.ToString(), myconn);
+                                                int rowCount43 = 0;
+                                                rowCount43 = Convert.ToInt32(cmd43.ExecuteScalar());
+                                                cmd43.Dispose();
+
+                                                if (rowCount43 == 0)
+                                                {
+                                                    sqry = new StringBuilder();
+                                                    sqry.Append("delete from movies_schedule_list_patron ");
+                                                    sqry.Append(String.Format("where id = {0} ", strval));
+                                                    if (myconn.State == ConnectionState.Closed)
+                                                        myconn.Open();
+                                                    MySqlCommand cmd53 = new MySqlCommand(sqry.ToString(), myconn);
+                                                    cmd53.ExecuteNonQuery();
+                                                    cmd53.Dispose();
+                                                }
+                                            }
+
+                                            //6.9.2015 end
+
+                                            //remarked 6.9.2015 this one deletes all movies_schedule_list_patron
+                                            /*sqry = new StringBuilder();
                                             sqry.Append("delete from movies_schedule_list_patron ");
                                             sqry.Append(String.Format("where movies_schedule_list_id = {0} ", dgvResult.SelectedRows[0].Cells[0].Value.ToString()));
                                             if (myconn.State == ConnectionState.Closed)
                                                 myconn.Open();
                                             cmd = new MySqlCommand(sqry.ToString(), myconn);
-                                            cmd.ExecuteNonQuery();
+                                            cmd.ExecuteNonQuery();*/
                                         }
-
                                         tabinsertcheck(myconn, dgvpatrons, Convert.ToInt32(moviescheslistid));
                                     }
                                     catch

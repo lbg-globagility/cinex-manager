@@ -943,8 +943,171 @@ namespace aZynEManager
                         sqry = new StringBuilder();
                         sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}' order by or_date asc", m_frmM.m_usercode));
                         break;
-
                     case "RP14":
+                        m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
+
+                        //query for the movie id based on the cinema id and dates covered
+                        MySqlConnection myconn = new MySqlConnection(m_frmM._connection);
+                        StringBuilder smdqry = new StringBuilder();
+                        smdqry.Append(String.Format("select distinct(movie_id) movieid from movies_schedule where cinema_id = {0} and ",_intCinemaID));
+                        smdqry.Append(String.Format("movie_date between '{0:yyyy-MM-dd}' and '{1:yyyy-MM-dd}'", _dtStart, _dtEnd));
+                        DataTable testdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+                        if (testdt.Rows.Count > 0)
+                        {
+                            foreach (DataRow testdr in testdt.Rows)
+                            {
+                                _intMovieID = -1;
+                                int intout = 0;
+                                if (int.TryParse(testdr["movieid"].ToString(), out intout))
+                                    _intMovieID = intout;
+
+                                if (_intMovieID > -1)
+                                {
+                                    //query on the date if what movie_distributor value to use
+                                    myconn = new MySqlConnection(m_frmM._connection);
+                                    smdqry = new StringBuilder();
+                                    smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                    smdqry.Append(String.Format("effective_date = '{0:yyyy-MM-dd}'", _dtStart));
+                                    DataTable dt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                    if (dt.Rows.Count == 0)
+                                    {
+                                        smdqry = new StringBuilder();
+                                        smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                        smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' order by effective_date desc limit 1", _dtStart));
+                                        dt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+                                        if (dt.Rows.Count > 0)
+                                        {
+                                            DateTime effdate = new DateTime();
+                                            int addday = 0;
+                                            foreach (DataRow dr in dt.Rows)
+                                            {
+                                                DateTime dateout = new DateTime();
+                                                if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                                    effdate = dateout;
+                                                addday = Convert.ToInt32(dr["day_count"].ToString());
+                                            }
+                                            if (effdate.AddDays(addday - 1) < _dtStart)
+                                            {
+                                                dt = new DataTable();
+                                            }
+
+                                            if (_dtEnd > effdate.AddDays(addday - 1))
+                                            {
+                                                smdqry = new StringBuilder();
+                                                smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                                smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                                DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                                dt.Merge(newdt);
+
+                                            }
+                                        }
+                                    }
+                                    else if (dt.Rows.Count > 0)
+                                    {
+                                        DateTime effdate = new DateTime();
+                                        int addday = 0;
+                                        foreach (DataRow dr in dt.Rows)
+                                        {
+                                            DateTime dateout = new DateTime();
+                                            if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                                effdate = dateout;
+                                            addday = Convert.ToInt32(dr["day_count"].ToString());
+                                        }
+                                        if (effdate.AddDays(addday - 1) < _dtStart)
+                                        {
+                                            dt = new DataTable();
+                                        }
+
+                                        if (_dtEnd > effdate.AddDays(addday - 1))
+                                        {
+                                            smdqry = new StringBuilder();
+                                            smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                            smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                            DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                            dt.Merge(newdt);
+
+                                        }
+                                    }
+
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        DataView dv = dt.AsDataView();
+                                        dv.Sort = "effective_date asc";
+                                        dt = dv.ToTable();
+
+                                        DateTime tempdate = _dtStart;
+                                        foreach (DataRow dr in dt.Rows)
+                                        {
+                                            DateTime stDate = new DateTime();
+                                            DateTime edDate = new DateTime();
+                                            DateTime effdate = new DateTime();
+                                            DateTime effenddate = new DateTime();
+                                            DateTime dateout = new DateTime();
+                                            double shareperc = 0;
+                                            if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                                effdate = dateout;
+
+                                            intout = 0;
+                                            //int intdays = 0;
+                                            if (int.TryParse(dr["day_count"].ToString(), out intout))
+                                                effenddate = effdate.AddDays(intout - 1);
+
+                                            double dblout = 0;
+                                            if (double.TryParse(dr["share_perc"].ToString(), out dblout))
+                                                shareperc = dblout;
+
+                                            int intid = 0;
+                                            if (int.TryParse(dr["id"].ToString(), out intout))
+                                                intid = intout;
+
+                                            if (effdate < tempdate)
+                                            {
+                                                //start date range with effdate
+                                                stDate = tempdate;
+                                                if (effenddate < _dtEnd)
+                                                {
+                                                    edDate = effenddate; //use effenddate
+                                                    tempdate = effenddate.AddDays(1);
+                                                }
+                                                else if (effenddate >= _dtEnd)
+                                                {
+                                                    edDate = _dtEnd;//use _enddate
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (effdate >= tempdate)
+                                                {
+                                                    stDate = tempdate;//start date range with _dtStart
+                                                    if (effenddate < _dtEnd)
+                                                    {
+                                                        edDate = effenddate; //use effenddate
+                                                        tempdate = effenddate.AddDays(1);
+                                                    }
+                                                    else if (effenddate >= _dtEnd)
+                                                    {
+                                                        edDate = _dtEnd;//use _enddate
+                                                    }
+                                                }
+                                            }
+
+                                            m_clscom.populateAccountingTbl2(m_frmM.m_usercode, "tmp_accounting", m_frmM._connection, stDate, edDate, _intMovieID, effdate, shareperc, intid, _intCinemaID);
+                                        }
+                                    }
+                                }
+
+                                sqry = new StringBuilder();
+                                sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
+                                sqry.Append("FROM tmp_accounting a, config_table g, report h ");
+                                sqry.Append("WHERE g.system_code = '001' ");
+                                sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
+                            }
+                        }
+                        break;
+                    /*case "RP14": //first version by movie changes 6.26.2015
                         m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
 
                         //query on the date if what movie_distributir value to use
@@ -1087,7 +1250,7 @@ namespace aZynEManager
                         sqry.Append("FROM tmp_accounting a, config_table g, report h ");
                         sqry.Append("WHERE g.system_code = '001' ");
                         sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
-                        break;
+                        break;*/
                     case "RP23":
                         string stablenm = String.Empty;
                         stablenm = "tmp_msr_transaction";

@@ -152,7 +152,23 @@ namespace Cinemapps
                 }
             }
 
+            RP14Cinema.Items.Clear();
+            using (MySqlConnection connection = new MySqlConnection(CommonLibrary.CommonUtility.ConnectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand("retrieve_cinemas", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
 
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    //get elements
+                    while (reader.Read())
+                    {
+                        RP14Cinema.Items.Add(new ExcelReports.Cinema(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+            }
             //set default value for presentation only
             //RP01Teller.SelectedValue = "CHA";
             //RP01StartDate.SelectedDate = new DateTime(2006, 12, 1);
@@ -460,6 +476,14 @@ namespace Cinemapps
         {
             //this.UpdateRP08Movie();
             //RP06Cinema
+        }
+
+        private void RP14Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private void RP14StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
 
         private void RP02StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -827,7 +851,7 @@ namespace Cinemapps
         {
             try
             {
-                int intMovieId = -1;
+                /*int intMovieId = -1;
                 if (RP14Movie.SelectedValue != null)
                 {
                     if (RP14Movie.SelectedValue is Movie)
@@ -835,12 +859,22 @@ namespace Cinemapps
                         Movie movie = (Movie)RP14Movie.SelectedValue;
                         intMovieId = movie.Id;
                     }
+                }*/
+                int intCinemaId = 0;
+                if (RP14Cinema.SelectedValue != null)
+                {
+                    if (RP14Cinema.SelectedValue is Cinema)
+                    {
+                        Cinema cinema = (Cinema)RP14Cinema.SelectedValue;
+                        intCinemaId = cinema.Id;
+                    }
                 }
                 using (frmReport frmreport = new frmReport())
                 {
                     frmreport.setDate = (DateTime)RP14StartDate.SelectedDate;
                     frmreport.setEndDate = (DateTime)RP14EndDate.SelectedDate;
-                    frmreport._intMovieID = intMovieId;
+                    //frmreport._intMovieID = intMovieId;
+                    frmreport._intCinemaID = intCinemaId;
                     frmreport.frmInit(main, main.m_clscom, "RP14");
                     frmreport.ShowDialog();
                     frmreport.Dispose();
@@ -853,7 +887,7 @@ namespace Cinemapps
             }
         }
 
-        private void UpdateRP14Movie()
+        /*private void UpdateRP14Movie()
         {
             if (RP14Movie == null || RP14Movie == null)
                 return;
@@ -888,11 +922,11 @@ namespace Cinemapps
                 }
 
             }
-        }
+        }*/
 
         private void RP14EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateRP14Movie();
+            //UpdateRP14Movie();
         }
     }
 }

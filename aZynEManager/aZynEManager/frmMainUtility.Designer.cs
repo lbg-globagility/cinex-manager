@@ -37,6 +37,7 @@
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCinema = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnSurcharge = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pnlClose = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -397,6 +398,54 @@
             this.btnOrdinance.Values.Text = "Ordinance";
             this.btnOrdinance.Click += new System.EventHandler(this.btnOrdinance_Click);
             // 
+            // btnSurcharge
+            // 
+            this.btnSurcharge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSurcharge.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSurcharge.Location = new System.Drawing.Point(10, 417);
+            this.btnSurcharge.Name = "btnSurcharge";
+            this.btnSurcharge.Size = new System.Drawing.Size(283, 60);
+            this.btnSurcharge.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.btnSurcharge.StateCommon.Back.Color2 = System.Drawing.Color.Salmon;
+            this.btnSurcharge.StateCommon.Back.ColorAngle = 20F;
+            this.btnSurcharge.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
+            this.btnSurcharge.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
+            this.btnSurcharge.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSurcharge.StateCommon.Border.Rounding = 1;
+            this.btnSurcharge.StateCommon.Border.Width = 3;
+            this.btnSurcharge.StateCommon.Content.AdjacentGap = 10;
+            this.btnSurcharge.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnSurcharge.StateCommon.Content.Image.ImageV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSurcharge.StateCommon.Content.LongText.Color1 = System.Drawing.Color.Black;
+            this.btnSurcharge.StateCommon.Content.LongText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnSurcharge.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSurcharge.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnSurcharge.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnSurcharge.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnSurcharge.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSurcharge.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, -1, -1);
+            this.btnSurcharge.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.OrangeRed;
+            this.btnSurcharge.StateCommon.Content.ShortText.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Solid;
+            this.btnSurcharge.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSurcharge.StateCommon.Content.ShortText.Hint = ComponentFactory.Krypton.Toolkit.PaletteTextHint.AntiAlias;
+            this.btnSurcharge.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.btnSurcharge.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.btnSurcharge.StateTracking.Border.Color1 = System.Drawing.Color.Black;
+            this.btnSurcharge.StateTracking.Border.Color2 = System.Drawing.Color.Black;
+            this.btnSurcharge.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSurcharge.StateTracking.Border.Rounding = 1;
+            this.btnSurcharge.StateTracking.Border.Width = 3;
+            this.btnSurcharge.TabIndex = 41;
+            this.btnSurcharge.Values.ExtraText = "additional cinema\r\ncharges";
+            this.btnSurcharge.Values.Image = global::aZynEManager.Properties.Resources.surcharge2;
+            this.btnSurcharge.Values.Text = "Surcharge";
+            this.btnSurcharge.Click += new System.EventHandler(this.btnSurcharge_Click);
+            // 
             // pnlClose
             // 
             this.pnlClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -416,7 +465,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 422);
+            this.ClientSize = new System.Drawing.Size(304, 482);
+            this.Controls.Add(this.btnSurcharge);
             this.Controls.Add(this.btnOrdinance);
             this.Controls.Add(this.btnCinema);
             this.Controls.Add(this.btnPatrons);
@@ -445,5 +495,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnselect;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCinema;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOrdinance;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSurcharge;
     }
 }

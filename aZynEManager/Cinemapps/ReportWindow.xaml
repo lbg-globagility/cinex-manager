@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Reports" Height="390" Width="720" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+        Title="Reports" Height="390" Width="737" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,8 +12,8 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel>
-        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged">
+    <DockPanel Width="736">
+        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="696">
             <ListViewItem>
                 <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
@@ -389,11 +389,14 @@
                         </Label>
                         <StackPanel Orientation="Horizontal">
                             <Label>Start Date</Label>
-                            <DatePicker Name="RP14StartDate" SelectedDateChanged="RP09StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <DatePicker Name="RP14StartDate" SelectedDateChanged="RP14StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
                             <Label>End Date</Label>
                             <DatePicker Name="RP14EndDate" SelectedDateChanged="RP14EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>Movie</Label>
+                            <!--<Label>Movie</Label>
                             <ComboBox Name="RP14Movie" Width="150" IsEnabled="False">
+                            </ComboBox>-->
+                            <Label>Cinema</Label>
+                            <ComboBox Name="RP14Cinema" Width="150" SelectionChanged="RP14Cinema_SelectionChanged">
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>

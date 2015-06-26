@@ -976,6 +976,7 @@ namespace aZynEManager
                     }
                     else
                         dateend = dtend.Value;
+                    intenddate = 1;
                 }
 
                 int intpeso = 0;//in peso value 1-true 0-false(pectage)

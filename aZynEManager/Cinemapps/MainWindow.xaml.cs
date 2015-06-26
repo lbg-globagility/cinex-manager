@@ -266,8 +266,11 @@ namespace Cinemapps
                         main.UserName = userNm;
 
                         ////if logged in
-                        RightToLeftMarquee();
-                        LoggedUser.Text = "User Name: " + userNm;// +"  User Level: " + strleveldesc;
+                        LeftToRightMarquee();
+                        //LoggedUser.Text = "User Name: " + userNm;// +"  User Level: " + strleveldesc;
+
+                        //RightToLeftMarquee();
+                        //LoggedUser.Text = "To God Alone Be The Glory";// +"  User Level: " + strleveldesc;
 
                         MoviesTile.IsEnabled = true;
                         ReportsTile.IsEnabled = true;
@@ -573,15 +576,42 @@ namespace Cinemapps
             canvasrun = true;
         }
 
+        private void LeftToRightMarquee()
+        {
+            double height = canMain.ActualHeight - LoggedUser.ActualHeight;
+            LoggedUser.Margin = new Thickness(0, height / 2, 0, 0);
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            doubleAnimation.From = -LoggedUser.ActualWidth;
+            doubleAnimation.To = canMain.ActualWidth;
+            doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            doubleAnimation.AutoReverse = false;
+            doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:08"));
+
+            LoggedUser.BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+            LoggedUser.Text = "Logged User: " + main.UserName;
+            canvasrun = true;
+        }
+
         private void canMain_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            string suser = LoggedUser.Text;
             if (canvasrun)
             {
-                LoggedUser.BeginAnimation(Canvas.RightProperty, null);
+                double height = canMain.ActualHeight - LoggedUser.ActualHeight;
+                LoggedUser.Margin = new Thickness(0, height / 2, 0, 0);
+                DoubleAnimation doubleAnimation = new DoubleAnimation();
+                doubleAnimation.From = -LoggedUser.ActualWidth;
+                doubleAnimation.To = canMain.ActualWidth;
+                doubleAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                doubleAnimation.AutoReverse = false;
+                doubleAnimation.Duration = new Duration(TimeSpan.Parse("0:0:15"));
+
+                LoggedUser.Text = "TO GOD ALONE BE THE GLORY";
+                LoggedUser.BeginAnimation(Canvas.RightProperty, doubleAnimation);
                 canvasrun = false;
             }
             else
-                RightToLeftMarquee();
+                LeftToRightMarquee();
         }
 
         private void UserPassword_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)

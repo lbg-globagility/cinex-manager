@@ -588,7 +588,7 @@ namespace aZynEManager
             }
         }
 
-        double ordinancevalue(string sConnString, DateTime startdate, DateTime enddate, string patronid, string movieid)
+        double ordinancevalue(string sConnString, DateTime startdate, DateTime enddate, string patronid, string movieid, string cinemaid)
         {
             double ord_val = 0;
             MySqlConnection myconn = new MySqlConnection(sConnString);
@@ -628,8 +628,8 @@ namespace aZynEManager
                     finalsqry = new StringBuilder();
                     finalsqry.Append("select (aa.cnt * IF(g.patron_id IS NULL, 0, IF(g.in_pesovalue, g.amount_val, aa.cnt * g.amount_val))) ordinance_val from ");
                     finalsqry.Append("(select count(d.ticket_id) as cnt, c.patron_id ");
-                    finalsqry.Append("from movies_schedule a, movies_schedule_list b, "); 
-                    finalsqry.Append("movies_schedule_list_patron c, movies_schedule_list_reserved_seat d ");
+                    finalsqry.Append("from movies_schedule a, movies_schedule_list b, ");
+                    finalsqry.Append("movies_schedule_list_patron c, movies_schedule_list_reserved_seat d, cinema h ");// added cinema table 6.26.2015
                     finalsqry.Append(String.Format("where a.movie_date = '{0:yyyy-MM-dd}' ",recdate));
                     finalsqry.Append(String.Format("and a.movie_id = {0} ", movieid));
                     finalsqry.Append("and a.id = b.movies_schedule_id ");
@@ -637,6 +637,8 @@ namespace aZynEManager
                     finalsqry.Append("and d.patron_id = c.id ");
                     finalsqry.Append("and d.status = 1 ");
                     finalsqry.Append("and b.status = 1 ");
+                    finalsqry.Append("and a.cinema_id = h.id ");// added 6.26.2015
+                    finalsqry.Append(String.Format("and a.cinema_id = {0} ", cinemaid)); // added 6.26.2015
                     finalsqry.Append(String.Format("and c.patron_id = {0}) aa left outer join ",patronid));
                     finalsqry.Append("((SELECT e.patron_id, f.amount_val, f.in_pesovalue FROM patrons_ordinance e, ordinance_tbl f WHERE e.ordinance_id = f.id ");
                     finalsqry.Append(String.Format("AND ((f.with_enddate = 0 && '{0:yyyy-MM-dd}' >= f.effective_date) || (f.with_enddate = 1 && '{0:yyyy-MM-dd}' >= f.effective_date && '{0:yyyy-MM-dd}' <= f.end_date)))) g ", recdate));
@@ -1528,7 +1530,8 @@ namespace aZynEManager
             }
         }
 
-        public void populateAccountingTbl(string usercode, String tbl, string sConnString, DateTime startdate, DateTime enddate, int movieid, DateTime effdate, double share, int shareid)
+        //6.26.2015 added new parameter cinema id
+        public void populateAccountingTbl2(string usercode, String tbl, string sConnString, DateTime startdate, DateTime enddate, int movieid, DateTime effdate, double share, int shareid, int cinemaid)
         {
             try
             {
@@ -1537,26 +1540,25 @@ namespace aZynEManager
                 StringBuilder sQuery = new StringBuilder();
 
                 sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
-                sQuery.Append("a.base_price, sum(a.base_price) as gross_receipt, ");
-                sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id ");
+                sQuery.Append("a.price, sum(a.price) as gross_receipt, ");//change base_price to price 6.26.2015
+                sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name ");
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
-                //sQuery.Append("movies_distributor g, distributor h ");
-                sQuery.Append("distributor h ");
+                sQuery.Append("distributor h, cinema j ");
                 sQuery.Append("where a.movies_schedule_list_id = d.id ");
-                sQuery.Append(String.Format("and b.movie_date >= '{0:yyyy-MM-dd}' ",startdate));
-                sQuery.Append(String.Format("and b.movie_date < '{0:yyyy-MM-dd}' ",enddate.AddDays(1)));
-                sQuery.Append(String.Format("and b.movie_id = {0} ",movieid.ToString()));
+                sQuery.Append(String.Format("and b.movie_date >= '{0:yyyy-MM-dd}' ", startdate));
+                sQuery.Append(String.Format("and b.movie_date < '{0:yyyy-MM-dd}' ", enddate.AddDays(1)));
+                sQuery.Append(String.Format("and b.movie_id = {0} ", movieid.ToString()));
                 sQuery.Append("and d.movies_schedule_id = b.id ");
                 sQuery.Append("and d.status = 1 ");
                 sQuery.Append("and a.patron_id = e.id ");
                 sQuery.Append("and e.patron_id = f.id ");
                 sQuery.Append("and a.status = 1 ");
                 sQuery.Append("and c.id = b.movie_id ");
-                //sQuery.Append("and c.dist_id = g.id ");
-                //sQuery.Append("and h.id = c.dist_id ");
                 sQuery.Append("and c.dist_id = h.id ");
+                sQuery.Append("and b.cinema_id = j.id ");
+                sQuery.Append(String.Format("and b.cinema_id = {0} ",cinemaid));
                 sQuery.Append("group by e.patron_id");
 
                 DataTable dt = setDataTable(sQuery.ToString(), sConnString);
@@ -1583,6 +1585,173 @@ namespace aZynEManager
                         qtty = 0;
                         price = surchrg = ordinance = grossreceipt = deductions = culturaltax = amusementtax = netamount = shareamount = grossmargin = 0;
                         finalsqry.Append(String.Format("INSERT INTO {0} VALUES(0,", tbl));
+                        finalsqry.Append(String.Format("'{0}',", dr[10].ToString()));//cinema name
+                        finalsqry.Append(String.Format("'{0}',", dr[0].ToString()));//distributir name
+                        finalsqry.Append(String.Format("'{0}',", dr[1].ToString()));//movie name
+                        finalsqry.Append(String.Format("'{0}',", dr[2].ToString()));//patron_nm
+                        if (dr[3].ToString() != "")
+                        {
+                            qtty = Convert.ToInt32(dr[3].ToString());
+                            finalsqry.Append(String.Format("{0},", qtty));//qty
+                        }
+                        if (dr[4].ToString() != "")
+                        {
+                            price = Convert.ToDouble(dr[4].ToString());
+                            finalsqry.Append(String.Format("{0},", price));//price
+                        }
+                        if (dr[5].ToString() != "")
+                        {
+                            grossreceipt = Convert.ToDouble(dr[5]);
+                            finalsqry.Append(String.Format("{0},", grossreceipt));//gross_receipt
+                        }
+                        if (dr[6].ToString() != "")
+                        {
+                            if (Convert.ToInt32(dr[6].ToString()) == 0)//cultural tax
+                                finalsqry.Append(String.Format("{0},", "0"));//without cultural tax
+                            else
+                            {
+                                if (qtty > 0)
+                                {
+                                    culturaltax = qtty * 0.25;
+                                    finalsqry.Append(String.Format("{0},", culturaltax));//with cultural tax
+                                }
+                            }
+                            deductions += culturaltax;
+                        }
+                        if (dr[7].ToString() != "")
+                        {
+                            if (Convert.ToInt32(dr[7].ToString()) == 0)//amusement tax
+                            {
+                                finalsqry.Append(String.Format("{0},", "0"));//without amusement tax rate
+                                finalsqry.Append(String.Format("{0},", "0"));//without amusement tax
+                            }
+                            else
+                            {
+                                if (qtty > 0)
+                                {
+                                    double dblval = price * 0.0908;//wit amusement tax rate
+                                    amusementtax = qtty * dblval;
+                                    finalsqry.Append(String.Format("{0},", dblval));//with amusement tax rate
+                                    finalsqry.Append(String.Format("{0},", amusementtax));//with amusement tax
+                                }
+                            }
+                            deductions += amusementtax;
+                        }
+                        finalsqry.Append(String.Format("{0},", surchrg));//for surchrge
+                        deductions += surchrg; //deduction for surcharge for the whole report
+
+                        //compute for ordinance
+                        string patronid = "";
+                        if (!DBNull.Value.Equals(dr[8]))
+                        {
+                            if (dr[8].ToString() != "")
+                            {
+                                if (Convert.ToInt32(dr[8].ToString()) > 0)//patron id
+                                    patronid = dr[8].ToString();
+                            }
+                        }
+
+                        string strcinemaid = "";
+                        if (!DBNull.Value.Equals(dr[9]))
+                        {
+                            if (dr[9].ToString() != "")
+                            {
+                                if (Convert.ToInt32(dr[9].ToString()) > 0)//cinema id
+                                    strcinemaid = dr[9].ToString();
+                            }
+                        }
+
+                        ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, strcinemaid, cinemaid.ToString());
+
+                        finalsqry.Append(String.Format("{0},", ordinance));//for ordinance
+                        deductions += ordinance; // deduction for surcharge for the whole report
+                        netamount = grossreceipt - deductions;
+                        finalsqry.Append(String.Format("{0},", netamount));//net amount
+                        finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date
+                        finalsqry.Append(String.Format("{0},", share));//share
+                        shareamount = netamount * (share / 100);
+                        finalsqry.Append(String.Format("{0},", shareamount));//share amount
+                        grossmargin = netamount - shareamount;
+                        finalsqry.Append(String.Format("{0},", grossmargin));//gross margin
+                        finalsqry.Append(String.Format("{0},", shareid));
+                        finalsqry.Append(String.Format("'{0}',", sharedaterange));
+                        finalsqry.Append(String.Format("'{0}')", usercode));
+
+                        MySqlCommand cmd2 = new MySqlCommand(finalsqry.ToString(), myconn);
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd2.ExecuteNonQuery();
+                        cmd2.Dispose();
+                        finalsqry = new StringBuilder();
+                    }
+                }
+
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+            catch
+            {
+
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        public void populateAccountingTbl(string usercode, String tbl, string sConnString, DateTime startdate, DateTime enddate, int movieid, DateTime effdate, double share, int shareid)
+        {
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                MySqlConnection myconn = new MySqlConnection(sConnString);
+                StringBuilder sQuery = new StringBuilder();
+
+                sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
+                sQuery.Append("a.base_price, sum(a.base_price) as gross_receipt, ");
+                sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name ");
+                sQuery.Append("from movies_schedule_list_reserved_seat a, ");
+                sQuery.Append("movies_schedule_list_patron e, patrons f, ");
+                sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
+                sQuery.Append("distributor h, cinema j ");
+                sQuery.Append("where a.movies_schedule_list_id = d.id ");
+                sQuery.Append(String.Format("and b.movie_date >= '{0:yyyy-MM-dd}' ",startdate));
+                sQuery.Append(String.Format("and b.movie_date < '{0:yyyy-MM-dd}' ",enddate.AddDays(1)));
+                sQuery.Append(String.Format("and b.movie_id = {0} ",movieid.ToString()));
+                sQuery.Append("and d.movies_schedule_id = b.id ");
+                sQuery.Append("and d.status = 1 ");
+                sQuery.Append("and a.patron_id = e.id ");
+                sQuery.Append("and e.patron_id = f.id ");
+                sQuery.Append("and a.status = 1 ");
+                sQuery.Append("and c.id = b.movie_id ");
+                sQuery.Append("and c.dist_id = h.id ");
+                sQuery.Append("and b.cinema_id = j.id ");
+                sQuery.Append("group by e.patron_id");
+
+                DataTable dt = setDataTable(sQuery.ToString(), sConnString);
+
+                StringBuilder finalsqry = new StringBuilder();
+
+                if (dt.Rows.Count > 0)
+                {
+                    int qtty = 0;
+                    double price = 0;
+                    double surchrg = 0;
+                    double ordinance = 0;
+                    double grossreceipt = 0;
+                    double deductions = 0;
+                    double culturaltax = 0;
+                    double amusementtax = 0;
+                    double netamount = 0;
+                    double shareamount = 0;
+                    double grossmargin = 0;
+                    string sharedaterange = "From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        finalsqry = new StringBuilder();
+                        qtty = 0;
+                        price = surchrg = ordinance = grossreceipt = deductions = culturaltax = amusementtax = netamount = shareamount = grossmargin = 0;
+                        finalsqry.Append(String.Format("INSERT INTO {0} VALUES(0,", tbl));
+                        finalsqry.Append(String.Format("'{0}',", dr[10].ToString()));//cinema name
                         finalsqry.Append(String.Format("'{0}',",dr[0].ToString()));//distributir name
                         finalsqry.Append(String.Format("'{0}',", dr[1].ToString()));//movie name
                         finalsqry.Append(String.Format("'{0}',", dr[2].ToString()));//patron_nm
@@ -1635,7 +1804,7 @@ namespace aZynEManager
                             deductions += amusementtax;
                         }
                         finalsqry.Append(String.Format("{0},", surchrg));//for surchrge
-                        //deductions += surchrg; //remove deduction for surcharge for the whole report
+                        deductions += surchrg; //deduction for surcharge for the whole report
 
                         //compute for ordinance
                         string patronid = "";
@@ -1658,10 +1827,10 @@ namespace aZynEManager
                             }
                         }
 
-                        ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, cinemaid);
+                        ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, movieid.ToString(), cinemaid);// added cinemaid 6.26.2015
                        
                         finalsqry.Append(String.Format("{0},", ordinance));//for ordinance
-                        //deductions += ordinance; //remove deduction for surcharge for the whole report
+                        deductions += ordinance; // deduction for surcharge for the whole report
                         netamount = grossreceipt - deductions;
                         finalsqry.Append(String.Format("{0},", netamount));//net amount
                         finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date

@@ -50,12 +50,16 @@
             this.txtposition = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.txtlgu = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.cbxSurcharge = new System.Windows.Forms.CheckBox();
+            this.tabModule = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
+            this.pageOrdinance = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.dgvOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
+            this.pageSurcharge = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.dgvSurcharge = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.cmbprices = new System.Windows.Forms.ComboBox();
             this.dtstart = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbAuth = new System.Windows.Forms.ComboBox();
             this.cbxDiscount = new System.Windows.Forms.CheckBox();
-            this.dgvOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.cbxpromo = new System.Windows.Forms.CheckBox();
             this.cbxproducer = new System.Windows.Forms.CheckBox();
             this.cbxgross = new System.Windows.Forms.CheckBox();
@@ -79,6 +83,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.cmbAuth = new System.Windows.Forms.ComboBox();
             this.lbllgu = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
@@ -94,7 +99,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabModule)).BeginInit();
+            this.tabModule.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pageOrdinance)).BeginInit();
+            this.pageOrdinance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdinance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageSurcharge)).BeginInit();
+            this.pageSurcharge.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSurcharge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -106,7 +118,7 @@
             this.cbxlgu.AutoSize = true;
             this.cbxlgu.BackColor = System.Drawing.Color.Transparent;
             this.cbxlgu.ForeColor = System.Drawing.Color.White;
-            this.cbxlgu.Location = new System.Drawing.Point(15, 186);
+            this.cbxlgu.Location = new System.Drawing.Point(15, 161);
             this.cbxlgu.Name = "cbxlgu";
             this.cbxlgu.Size = new System.Drawing.Size(94, 17);
             this.cbxlgu.TabIndex = 7;
@@ -226,7 +238,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(134, 153);
+            this.label11.Location = new System.Drawing.Point(134, 128);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(39, 15);
             this.label11.TabIndex = 275;
@@ -562,12 +574,12 @@
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.cbxSurcharge);
+            this.kryptonGroup1.Panel.Controls.Add(this.tabModule);
             this.kryptonGroup1.Panel.Controls.Add(this.cmbprices);
             this.kryptonGroup1.Panel.Controls.Add(this.dtstart);
             this.kryptonGroup1.Panel.Controls.Add(this.label5);
-            this.kryptonGroup1.Panel.Controls.Add(this.cmbAuth);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxDiscount);
-            this.kryptonGroup1.Panel.Controls.Add(this.dgvOrdinance);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxpromo);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxproducer);
             this.kryptonGroup1.Panel.Controls.Add(this.cbxgross);
@@ -595,6 +607,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.label15);
             this.kryptonGroup1.Panel.Controls.Add(this.label2);
             this.kryptonGroup1.Panel.Controls.Add(this.label10);
+            this.kryptonGroup1.Panel.Controls.Add(this.cmbAuth);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Size = new System.Drawing.Size(315, 355);
@@ -607,6 +620,95 @@
             this.kryptonGroup1.StateCommon.Border.Rounding = 5;
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 0;
+            // 
+            // cbxSurcharge
+            // 
+            this.cbxSurcharge.AutoSize = true;
+            this.cbxSurcharge.BackColor = System.Drawing.Color.Transparent;
+            this.cbxSurcharge.ForeColor = System.Drawing.Color.White;
+            this.cbxSurcharge.Location = new System.Drawing.Point(166, 161);
+            this.cbxSurcharge.Name = "cbxSurcharge";
+            this.cbxSurcharge.Size = new System.Drawing.Size(100, 17);
+            this.cbxSurcharge.TabIndex = 329;
+            this.cbxSurcharge.Text = "With Surcharge";
+            this.cbxSurcharge.UseVisualStyleBackColor = false;
+            this.cbxSurcharge.CheckedChanged += new System.EventHandler(this.cbxSurcharge_CheckedChanged);
+            // 
+            // tabModule
+            // 
+            this.tabModule.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.tabModule.Button.ContextButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.tabModule.Location = new System.Drawing.Point(8, 178);
+            this.tabModule.Name = "tabModule";
+            this.tabModule.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
+            this.pageOrdinance,
+            this.pageSurcharge});
+            this.tabModule.SelectedIndex = 1;
+            this.tabModule.Size = new System.Drawing.Size(292, 127);
+            this.tabModule.StateCommon.Panel.Color1 = System.Drawing.Color.Transparent;
+            this.tabModule.StateCommon.Tab.Content.ShortText.Color1 = System.Drawing.Color.RoyalBlue;
+            this.tabModule.TabIndex = 328;
+            this.tabModule.Text = "kryptonNavigator1";
+            // 
+            // pageOrdinance
+            // 
+            this.pageOrdinance.Controls.Add(this.dgvOrdinance);
+            this.pageOrdinance.MinimumSize = new System.Drawing.Size(50, 50);
+            this.pageOrdinance.Name = "pageOrdinance";
+            this.pageOrdinance.Size = new System.Drawing.Size(290, 100);
+            this.pageOrdinance.StateCommon.Page.Color1 = System.Drawing.Color.DarkGray;
+            this.pageOrdinance.Text = "Ordinance";
+            this.pageOrdinance.ToolTipTitle = "Page ToolTip";
+            this.pageOrdinance.UniqueName = "6EED20D350EB47E66EED20D350EB47E6";
+            // 
+            // dgvOrdinance
+            // 
+            this.dgvOrdinance.AllowUserToAddRows = false;
+            this.dgvOrdinance.AllowUserToDeleteRows = false;
+            this.dgvOrdinance.AllowUserToResizeRows = false;
+            this.dgvOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvOrdinance.ColumnHeadersHeight = 4;
+            this.dgvOrdinance.Location = new System.Drawing.Point(2, 3);
+            this.dgvOrdinance.Name = "dgvOrdinance";
+            this.dgvOrdinance.RowHeadersVisible = false;
+            this.dgvOrdinance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrdinance.Size = new System.Drawing.Size(285, 94);
+            this.dgvOrdinance.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
+            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dgvOrdinance.TabIndex = 32;
+            // 
+            // pageSurcharge
+            // 
+            this.pageSurcharge.Controls.Add(this.dgvSurcharge);
+            this.pageSurcharge.MinimumSize = new System.Drawing.Size(50, 50);
+            this.pageSurcharge.Name = "pageSurcharge";
+            this.pageSurcharge.Size = new System.Drawing.Size(290, 100);
+            this.pageSurcharge.StateCommon.Page.Color1 = System.Drawing.Color.DarkGray;
+            this.pageSurcharge.Text = "Surcharge";
+            this.pageSurcharge.ToolTipTitle = "Page ToolTip";
+            this.pageSurcharge.UniqueName = "319739D022E3441A319739D022E3441A";
+            // 
+            // dgvSurcharge
+            // 
+            this.dgvSurcharge.AllowUserToAddRows = false;
+            this.dgvSurcharge.AllowUserToDeleteRows = false;
+            this.dgvSurcharge.AllowUserToResizeRows = false;
+            this.dgvSurcharge.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvSurcharge.ColumnHeadersHeight = 4;
+            this.dgvSurcharge.Location = new System.Drawing.Point(2, 3);
+            this.dgvSurcharge.Name = "dgvSurcharge";
+            this.dgvSurcharge.RowHeadersVisible = false;
+            this.dgvSurcharge.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSurcharge.Size = new System.Drawing.Size(285, 94);
+            this.dgvSurcharge.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.dgvSurcharge.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
+            this.dgvSurcharge.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dgvSurcharge.TabIndex = 329;
             // 
             // cmbprices
             // 
@@ -644,49 +746,18 @@
             this.label5.TabIndex = 305;
             this.label5.Text = "Base Price";
             // 
-            // cmbAuth
-            // 
-            this.cmbAuth.BackColor = System.Drawing.Color.White;
-            this.cmbAuth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbAuth.FormattingEnabled = true;
-            this.cmbAuth.Location = new System.Drawing.Point(114, 130);
-            this.cmbAuth.Name = "cmbAuth";
-            this.cmbAuth.Size = new System.Drawing.Size(181, 21);
-            this.cmbAuth.TabIndex = 303;
-            this.cmbAuth.Visible = false;
-            // 
             // cbxDiscount
             // 
             this.cbxDiscount.AutoSize = true;
             this.cbxDiscount.BackColor = System.Drawing.Color.Transparent;
             this.cbxDiscount.ForeColor = System.Drawing.Color.White;
-            this.cbxDiscount.Location = new System.Drawing.Point(15, 134);
+            this.cbxDiscount.Location = new System.Drawing.Point(201, 7);
             this.cbxDiscount.Name = "cbxDiscount";
             this.cbxDiscount.Size = new System.Drawing.Size(93, 17);
             this.cbxDiscount.TabIndex = 302;
             this.cbxDiscount.Text = "With Discount";
             this.cbxDiscount.UseVisualStyleBackColor = false;
             this.cbxDiscount.Visible = false;
-            // 
-            // dgvOrdinance
-            // 
-            this.dgvOrdinance.AllowUserToAddRows = false;
-            this.dgvOrdinance.AllowUserToDeleteRows = false;
-            this.dgvOrdinance.AllowUserToResizeRows = false;
-            this.dgvOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvOrdinance.ColumnHeadersHeight = 4;
-            this.dgvOrdinance.Location = new System.Drawing.Point(10, 209);
-            this.dgvOrdinance.Name = "dgvOrdinance";
-            this.dgvOrdinance.RowHeadersVisible = false;
-            this.dgvOrdinance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrdinance.Size = new System.Drawing.Size(286, 96);
-            this.dgvOrdinance.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
-            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
-            this.dgvOrdinance.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvOrdinance.TabIndex = 32;
             // 
             // cbxpromo
             // 
@@ -789,7 +860,7 @@
             this.cbxcultural.AutoSize = true;
             this.cbxcultural.BackColor = System.Drawing.Color.Transparent;
             this.cbxcultural.ForeColor = System.Drawing.Color.White;
-            this.cbxcultural.Location = new System.Drawing.Point(166, 167);
+            this.cbxcultural.Location = new System.Drawing.Point(166, 142);
             this.cbxcultural.Name = "cbxcultural";
             this.cbxcultural.Size = new System.Drawing.Size(107, 17);
             this.cbxcultural.TabIndex = 6;
@@ -801,7 +872,7 @@
             this.cbxamusement.AutoSize = true;
             this.cbxamusement.BackColor = System.Drawing.Color.Transparent;
             this.cbxamusement.ForeColor = System.Drawing.Color.White;
-            this.cbxamusement.Location = new System.Drawing.Point(15, 167);
+            this.cbxamusement.Location = new System.Drawing.Point(15, 142);
             this.cbxamusement.Name = "cbxamusement";
             this.cbxamusement.Size = new System.Drawing.Size(127, 17);
             this.cbxamusement.TabIndex = 5;
@@ -814,7 +885,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(188, 160);
+            this.pictureBox1.Location = new System.Drawing.Point(188, 135);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(110, 3);
             this.pictureBox1.TabIndex = 274;
@@ -826,7 +897,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(10, 160);
+            this.pictureBox2.Location = new System.Drawing.Point(10, 135);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(110, 3);
             this.pictureBox2.TabIndex = 263;
@@ -962,6 +1033,18 @@
             this.label10.TabIndex = 308;
             this.label10.Text = "Effective Date";
             // 
+            // cmbAuth
+            // 
+            this.cmbAuth.BackColor = System.Drawing.Color.White;
+            this.cmbAuth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbAuth.FormattingEnabled = true;
+            this.cmbAuth.Location = new System.Drawing.Point(117, 4);
+            this.cmbAuth.Name = "cmbAuth";
+            this.cmbAuth.Size = new System.Drawing.Size(181, 21);
+            this.cmbAuth.TabIndex = 303;
+            this.cmbAuth.Visible = false;
+            // 
             // lbllgu
             // 
             this.lbllgu.AutoSize = true;
@@ -1011,7 +1094,14 @@
             this.kryptonGroup1.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabModule)).EndInit();
+            this.tabModule.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pageOrdinance)).EndInit();
+            this.pageOrdinance.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdinance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageSurcharge)).EndInit();
+            this.pageSurcharge.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSurcharge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1073,5 +1163,10 @@
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.ComboBox cmbprices;
         private System.Windows.Forms.DateTimePicker dtstart;
+        private System.Windows.Forms.CheckBox cbxSurcharge;
+        private ComponentFactory.Krypton.Navigator.KryptonNavigator tabModule;
+        private ComponentFactory.Krypton.Navigator.KryptonPage pageOrdinance;
+        private ComponentFactory.Krypton.Navigator.KryptonPage pageSurcharge;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvSurcharge;
     }
 }

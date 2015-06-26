@@ -20,6 +20,7 @@ namespace aZynEManager
         DataTable m_dt = new DataTable();
         DataTable m_orddt = new DataTable();//3.23.2015
         DataTable m_ticketdt = new DataTable();//5.26.2015
+        DataTable m_surdt = new DataTable();//6.8.2015
         //melvin
         int m_val = 0;
         int m_dot = 0;
@@ -44,6 +45,7 @@ namespace aZynEManager
 
             dgvResult.ClearSelection();
             dgvOrdinance.ClearSelection();//3.26.2015
+            dgvSurcharge.ClearSelection();//6.8.2015
 
             cmbprices.Items.Clear();
             StringBuilder sqry = new StringBuilder();
@@ -90,6 +92,14 @@ namespace aZynEManager
             sbqry.Append("order by a.ordinance_no asc");
             m_orddt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
             setDataGridViewII(m_orddt);
+
+            //6.8.2015
+            sbqry = new StringBuilder();
+            sbqry.Append("select a.code, a.amount_val, a.id ");
+            sbqry.Append("from surcharge_tbl a ");
+            sbqry.Append("order by a.code asc");
+            m_surdt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
+            setDataGridViewIII(m_surdt);
         }
 
         public void refreshpatrons()
@@ -144,6 +154,29 @@ namespace aZynEManager
                 dgvOrdinance.Columns[2].HeaderText = "ID";
                 dgvOrdinance.Columns.Insert(0, cbx);
                 
+            }
+        }
+
+        public void setDataGridViewIII(DataTable dt)
+        {
+            this.dgvSurcharge.DataSource = null;
+            this.dgvSurcharge.Columns.Clear();
+            if (dt.Rows.Count > 0)
+            {
+                DataGridViewCheckBoxColumn cbx = new DataGridViewCheckBoxColumn();
+                cbx.Width = 30;
+
+                int iwidth = (dgvOrdinance.Width) / 2;
+                dgvSurcharge.DataSource = dt;
+                dgvSurcharge.ColumnHeadersHeight = 25;
+                dgvSurcharge.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                dgvSurcharge.Columns[0].Width = iwidth - 15;
+                dgvSurcharge.Columns[0].HeaderText = "Surcharge Code";
+                dgvSurcharge.Columns[1].Width = iwidth - 40;
+                dgvSurcharge.Columns[1].HeaderText = "Value";
+                dgvSurcharge.Columns[2].Width = 0;
+                dgvSurcharge.Columns[2].HeaderText = "ID";
+                dgvSurcharge.Columns.Insert(0, cbx);
             }
         }
 
@@ -443,6 +476,8 @@ namespace aZynEManager
                     //3.24.2015 added new record to patrons_ordinance
                     insertPatronOrdinanceCheck(myconn, dgvOrdinance, intid);
 
+                    //6.8.2015 added new record to patron_surcharge
+                    insertPatronSurchargeCheck(myconn, dgvSurcharge, intid);
 
                     m_clscom.AddATrail(m_frmM.m_userid, "PATRON_ADD", "PATRONS",
                             Environment.MachineName.ToString(), "ADDED NEW PATRON INFO: NAME=" + this.txtname.Text
@@ -480,6 +515,28 @@ namespace aZynEManager
                     {
                         StringBuilder sqry = new StringBuilder();
                         sqry.Append(String.Format("insert into patrons_ordinance values(0,{0},{1})",
+                            intid, dgv[3, i].Value.ToString()));
+
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public void insertPatronSurchargeCheck(MySqlConnection myconn, DataGridView dgv, int intid)
+        {
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                if (dgv[0, i].Value != null)
+                {
+                    if ((bool)dgv[0, i].Value)
+                    {
+                        StringBuilder sqry = new StringBuilder();
+                        sqry.Append(String.Format("insert into patrons_surcharge values(0,{0},{1})",
                             intid, dgv[3, i].Value.ToString()));
 
                         if (myconn.State == ConnectionState.Closed)
@@ -688,6 +745,28 @@ namespace aZynEManager
                     insertPatronOrdinanceCheck(myconn, dgvOrdinance, intid);
                     //3.24.2015 added new record to patrons_ordinance (end)
 
+                    //6.8.2015 added new record to patrons_surcharge (start)
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("select count(*) from patrons_surcharge where patron_id = {0}", intid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    cmd = new MySqlCommand(sqry.ToString(), myconn);
+                    int rowCount3 = Convert.ToInt32(cmd.ExecuteScalar());
+                    cmd.Dispose();
+
+                    if (rowCount3 > 0)
+                    {
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("delete from patrons_surcharge where patron_id = {0}", intid));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+                    insertPatronSurchargeCheck(myconn, dgvSurcharge, intid);
+                    //6.8.2015 added new record to patrons_surcharge (end)
+
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
@@ -834,9 +913,15 @@ namespace aZynEManager
             //}
 
             if (cbxlgu.Checked == true)
+            {
+                pageOrdinance.Enabled = true;
                 dgvOrdinance.Enabled = true;
+            }
             else
+            {
+                pageOrdinance.Enabled = false;
                 dgvOrdinance.Enabled = false;
+            }
 
         }
 
@@ -870,12 +955,14 @@ namespace aZynEManager
 
                 if (dt.Rows.Count > 0)
                 {
-                    if (dt.Rows[0]["with_promo"].ToString() == "1" ? cbxpromo.Checked = true : cbxpromo.Checked = false) ;
-                    if (dt.Rows[0]["with_amusement"].ToString() == "1" ? cbxamusement.Checked = true : cbxamusement.Checked = false) ;
-                    if (dt.Rows[0]["with_cultural"].ToString() == "1" ? cbxcultural.Checked = true : cbxcultural.Checked = false) ;
-                    if (dt.Rows[0]["with_citytax"].ToString() == "1" ? cbxlgu.Checked = true : cbxlgu.Checked = false) ;
-                    if (dt.Rows[0]["with_gross_margin"].ToString() == "1" ? cbxgross.Checked = true : cbxgross.Checked = false) ;
-                    if (dt.Rows[0]["with_prod_share"].ToString() == "1" ? cbxproducer.Checked = true : cbxproducer.Checked = false) ;
+                    bool boolok = false;//added 6.8.2015
+                    boolok = (dt.Rows[0]["with_promo"].ToString() == "1" ? cbxpromo.Checked = true : cbxpromo.Checked = false) ;
+                    boolok = (dt.Rows[0]["with_amusement"].ToString() == "1" ? cbxamusement.Checked = true : cbxamusement.Checked = false);
+                    boolok = (dt.Rows[0]["with_cultural"].ToString() == "1" ? cbxcultural.Checked = true : cbxcultural.Checked = false);
+                    boolok = (dt.Rows[0]["with_citytax"].ToString() == "1" ? cbxlgu.Checked = true : cbxlgu.Checked = false);
+                    boolok = (dt.Rows[0]["with_gross_margin"].ToString() == "1" ? cbxgross.Checked = true : cbxgross.Checked = false);
+                    boolok = (dt.Rows[0]["with_prod_share"].ToString() == "1" ? cbxproducer.Checked = true : cbxproducer.Checked = false);
+                    boolok = (dt.Rows[0]["with_surcharge"].ToString() == "1" ? cbxSurcharge.Checked = true : cbxSurcharge.Checked = false);//new for surcharge 6.8.2015
 
                     txtlgu.Text = dt.Rows[0]["with_citytax"].ToString();
                     int intcolor = (Convert.ToInt32(dt.Rows[0]["seat_color"]));
@@ -889,7 +976,7 @@ namespace aZynEManager
                     }
                 }
 
-                //3.23.2015
+                //3.23.2015 START
                 setCheck(dgvOrdinance, false);
 
                 myconn = new MySqlConnection();
@@ -919,6 +1006,41 @@ namespace aZynEManager
                 }
                 rd.Close();
                 cmd.Dispose();
+
+                //3.23.2015 END
+
+                //6.8.2015 START refresh the chx for surcharges
+                setCheck(dgvSurcharge, false);
+
+                myconn = new MySqlConnection();
+                myconn.ConnectionString = m_frmM._connection;
+
+                DataTable dt3 = new DataTable();
+                sqry = new StringBuilder();
+                sqry.Append("select surcharge_id from patrons_surcharge where patron_id = @patid");
+                MySqlCommand cmd3 = new MySqlCommand();
+                cmd3.Connection = myconn;
+                if(cmd3.Connection.State == ConnectionState.Closed)
+                    cmd3.Connection.Open();
+                cmd3.CommandText = sqry.ToString();
+                cmd3.Parameters.AddWithValue("@patid", strid);
+                MySqlDataReader rd3 = cmd3.ExecuteReader();
+                if (rd3.HasRows)
+                {
+                    while (rd3.Read())
+                    {
+                        int intid = Convert.ToInt32(rd3[0].ToString());
+                        for (int i = 0; i < dgvSurcharge.Rows.Count; i++)
+                        {
+                            if (intid == Convert.ToInt32(dgvSurcharge[3, i].Value.ToString()))
+                                dgvSurcharge[0, i].Value = (object)true;
+                        }
+                    }
+                }
+                rd3.Close();
+                cmd3.Dispose();
+
+                //3.23.2015 END
             }
         }
 
@@ -1089,6 +1211,20 @@ namespace aZynEManager
 
                 if (cmbprices.SelectedIndex == 0)
                     dtstart.Value = DateTime.Now;
+            }
+        }
+
+        private void cbxSurcharge_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxSurcharge.Checked == true)
+            {
+                pageSurcharge.Enabled = true;
+                dgvSurcharge.Enabled = true;
+            }
+            else
+            {
+                pageSurcharge.Enabled = false;
+                dgvSurcharge.Enabled = false;
             }
         }
     }
