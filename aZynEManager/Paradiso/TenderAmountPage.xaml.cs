@@ -437,6 +437,10 @@ namespace Paradiso
                             TicketPrintPage ticketPrintPage = new TicketPrintPage(false);
                             ticketPrintPage.PrintTickets(ornumbers);
                         }
+
+                        if (ParadisoObjectManager.GetInstance().ScreeningDate.Date > ParadisoObjectManager.GetInstance().CurrentDate.Date)
+                            ParadisoObjectManager.GetInstance().ScreeningDate = ParadisoObjectManager.GetInstance().CurrentDate;
+
                         if (NavigationService != null) 
                             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     }

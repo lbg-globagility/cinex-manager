@@ -160,6 +160,10 @@ namespace Paradiso
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.ClearSelection();
+
+            if (ParadisoObjectManager.GetInstance().ScreeningDate.Date > ParadisoObjectManager.GetInstance().CurrentDate.Date)
+                ParadisoObjectManager.GetInstance().ScreeningDate = ParadisoObjectManager.GetInstance().CurrentDate;
+
             ParadisoObjectManager.GetInstance().IsReservedMode = false;
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
