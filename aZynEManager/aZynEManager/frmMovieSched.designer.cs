@@ -752,7 +752,7 @@
             this.tabModule.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.pageMovies,
             this.pagePatrons});
-            this.tabModule.SelectedIndex = 1;
+            this.tabModule.SelectedIndex = 0;
             this.tabModule.Size = new System.Drawing.Size(298, 281);
             this.tabModule.StateCommon.Panel.Color1 = System.Drawing.Color.Transparent;
             this.tabModule.TabIndex = 356;

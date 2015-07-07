@@ -71,14 +71,17 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).BeginInit();
             this.grpValues.Panel.SuspendLayout();
             this.grpValues.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
             this.grpfilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
             this.grpcontrol.SuspendLayout();
             this.SuspendLayout();
@@ -172,6 +175,7 @@
             // 
             // grpValues.Panel
             // 
+            this.grpValues.Panel.Controls.Add(this.txtcode);
             this.grpValues.Panel.Controls.Add(this.txtdaycnt);
             this.grpValues.Panel.Controls.Add(this.label9);
             this.grpValues.Panel.Controls.Add(this.cmbDate);
@@ -185,7 +189,6 @@
             this.grpValues.Panel.Controls.Add(this.txtshare);
             this.grpValues.Panel.Controls.Add(this.label3);
             this.grpValues.Panel.Controls.Add(this.label1);
-            this.grpValues.Panel.Controls.Add(this.txtcode);
             this.grpValues.Panel.Controls.Add(this.Label8);
             this.grpValues.Panel.Controls.Add(this.label7);
             this.grpValues.Panel.Controls.Add(this.label5);
@@ -929,10 +932,10 @@
             this.Controls.Add(this.txtcnt);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.grpValues);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpfilter);
             this.Controls.Add(this.grpcontrol);
+            this.Controls.Add(this.grpValues);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProdShare";
@@ -941,15 +944,18 @@
             this.Load += new System.EventHandler(this.frmProdShare_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpValues.Panel)).EndInit();
             this.grpValues.Panel.ResumeLayout(false);
             this.grpValues.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpValues)).EndInit();
             this.grpValues.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovies)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).EndInit();
             this.grpfilter.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).EndInit();
             this.grpfilter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).EndInit();
             this.grpcontrol.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).EndInit();
             this.grpcontrol.ResumeLayout(false);

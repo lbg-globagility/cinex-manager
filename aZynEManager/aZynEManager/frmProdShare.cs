@@ -132,7 +132,7 @@ namespace aZynEManager
         public void refreshDGV(bool withCutOff)
         {
             StringBuilder sbqry = new StringBuilder();
-            sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date,a.day_count ");
+            sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc as share, a.effective_date,a.day_count, a.movie_id "); //added movieid 6.30.2015
             sbqry.Append("from movies_distributor a ");
             sbqry.Append("left join movies b on a.movie_id = b.id ");
             sbqry.Append("inner join distributor c on b.dist_id = c.id ");
@@ -219,7 +219,19 @@ namespace aZynEManager
                     cmbtitle.Items.Add(strname);
                    
                 }
-                cmbtitle.Text = strname;
+                //cmbtitle.Text = strname;
+
+                //6.30.2015start
+                for (int i = 0; i < cmbtitle.Items.Count; i++)
+                {
+                    DataRowView drv = (DataRowView)cmbtitle.Items[i];
+                    if (drv.Row["id"].ToString() == dgv.SelectedRows[0].Cells[0].Value.ToString())
+                    {
+                        cmbtitle.SelectedIndex = i;
+                        break;
+                    }
+                }
+                //6.30.2015 end
                 cmbtitle.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
@@ -994,10 +1006,12 @@ namespace aZynEManager
 
                     txtcode.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                     string strname = dgv.SelectedRows[0].Cells[2].Value.ToString();
+                    string intid = dgv.SelectedRows[0].Cells[7].Value.ToString();
                     for (int i = 0; i < cmbtitle.Items.Count; i++)
                     {
                         DataRowView drv = (DataRowView)cmbtitle.Items[i];
-                        if (drv.Row["title"].ToString().ToUpper() == strname.ToUpper())
+                        //if (drv.Row["id"].ToString().ToUpper() == strname.ToUpper())//changes title to id
+                        if (drv.Row["id"].ToString() == intid.ToString())
                         {
                             cmbtitle.SelectedIndex = i;
                             break;

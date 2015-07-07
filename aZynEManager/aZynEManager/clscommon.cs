@@ -1530,6 +1530,41 @@ namespace aZynEManager
             }
         }
 
+        //7.1.2015 start
+        String getDateRange(int movieid, DateTime dtstart, DateTime dtend, string sConnString)
+        {
+            MySqlConnection myconn = new MySqlConnection(sConnString);
+            StringBuilder strrange = new StringBuilder();
+            StringBuilder sqry = new StringBuilder();
+            sqry.Append(String.Format("select * from movies_distributor where movie_id = {0} ", movieid.ToString()));
+            sqry.Append(String.Format("and effective_date >= '{0:yyyy-MM-dd}' and effective_date < '{1:yyyy-MM-dd}'",dtstart,dtend));
+            MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
+            MySqlDataReader rd1 = cmd1.ExecuteReader();
+            if (rd1.HasRows)
+            {
+                while (rd1.Read())
+                {
+                    strrange.Append("From: "); 
+                    DateTime dtstartval = Convert.ToDateTime(rd1["effective_date"]);
+                    if (dtstart > dtstartval)
+                        strrange.Append(String.Format("{0:MM/dd/yyyy}", dtstart));
+                    else
+                        strrange.Append(String.Format("{0:MM/dd/yyyy}", dtstartval));
+
+                    strrange.Append(" To: ");
+                    DateTime dtendval = dtstartval.AddDays(Convert.ToInt32(rd1["day_count"]) - 1);
+                    if (dtend.AddDays(-1) < dtendval)
+                        strrange.Append(String.Format("{0:MM/dd/yyyy}", dtend.AddDays(-1)));
+                    else
+                        strrange.Append(String.Format("{0:MM/dd/yyyy}", dtendval));
+                }
+            }
+            return strrange.ToString();
+        }
+        //7.1.2015 end
+
         //6.26.2015 added new parameter cinema id
         public void populateAccountingTbl2(string usercode, String tbl, string sConnString, DateTime startdate, DateTime enddate, int movieid, DateTime effdate, double share, int shareid, int cinemaid)
         {
@@ -1578,7 +1613,7 @@ namespace aZynEManager
                     double netamount = 0;
                     double shareamount = 0;
                     double grossmargin = 0;
-                    string sharedaterange = "From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);
+                    string sharedaterange = getDateRange(movieid, startdate, enddate.AddDays(1), sConnString);//"From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);
                     foreach (DataRow dr in dt.Rows)
                     {
                         finalsqry = new StringBuilder();

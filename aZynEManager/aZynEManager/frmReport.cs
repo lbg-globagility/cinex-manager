@@ -1003,6 +1003,34 @@ namespace aZynEManager
 
                                             }
                                         }
+                                        else if (dt.Rows.Count == 0)
+                                        {
+                                            smdqry = new StringBuilder();
+                                            smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                            smdqry.Append(String.Format("effective_date > '{0:yyyy-MM-dd}' order by effective_date limit 1", _dtStart));
+                                            dt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+                                            if (dt.Rows.Count > 0)
+                                            {
+                                                DateTime effdate = new DateTime();
+                                                int addday = 0;
+                                                foreach (DataRow dr in dt.Rows)
+                                                {
+                                                    DateTime dateout = new DateTime();
+                                                    if (DateTime.TryParse(dr["effective_date"].ToString(), out dateout))
+                                                        effdate = dateout;
+                                                    addday = Convert.ToInt32(dr["day_count"].ToString());
+                                                }
+                                                if (_dtEnd >= effdate.AddDays(addday - 1))
+                                                {
+                                                    smdqry = new StringBuilder();
+                                                    smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
+                                                    smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                                    DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
+
+                                                    dt.Merge(newdt);
+                                                }
+                                            }
+                                        }
                                     }
                                     else if (dt.Rows.Count > 0)
                                     {
