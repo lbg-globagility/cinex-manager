@@ -588,6 +588,57 @@ namespace aZynEManager
             }
         }
 
+        double getsurchargeval(string sConnString, DateTime startdate, DateTime enddate, string patronid)
+        {
+            double ord_val = 0;
+            MySqlConnection myconn = new MySqlConnection(sConnString);
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select a.* from ordinance_tbl a, patrons_ordinance b ");
+                sQuery.Append(String.Format("where '{0:yyyy/MM/dd}' between a.effective_date and a.end_date ",startdate));
+                sQuery.Append(String.Format("and a.id = b.ordinance_id and b.patron_id = {0}", patronid));
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlDataReader rd = cmd.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        if (!DBNull.Value.Equals(rd["in_pesovalue"]))
+                        {
+                            if (rd["in_pesovalue"].ToString() == "1")
+                            {
+                                double dblout = 0;
+                                if (double.TryParse(rd["amount_val"].ToString(), out dblout))
+                                    ord_val += dblout;
+                            }
+                        }
+                        
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                Cursor.Current = Cursors.Default;
+
+                return ord_val;
+            }
+            catch
+            {
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                Cursor.Current = Cursors.Default;
+
+                return ord_val;
+            }
+            
+        }
+
         double ordinancevalue(string sConnString, DateTime startdate, DateTime enddate, string patronid, string movieid, string cinemaid)
         {
             double ord_val = 0;
@@ -1664,9 +1715,25 @@ namespace aZynEManager
                             {
                                 if (qtty > 0)
                                 {
-                                    double dblval = price * 0.0908;//wit amusement tax rate
-                                    amusementtax = qtty * dblval;
-                                    finalsqry.Append(String.Format("{0},", dblval));//with amusement tax rate
+                                    string strid = "";
+                                    if (!DBNull.Value.Equals(dr[8]))
+                                    {
+                                        if (dr[8].ToString() != "")
+                                        {
+                                            if (Convert.ToInt32(dr[8].ToString()) > 0)//patron id
+                                                strid = dr[8].ToString();
+                                        }
+                                    }
+                                    double intval = getsurchargeval(sConnString, startdate, enddate, strid);
+                                    //wit amusement tax rate
+                                    double taxrate = 0;
+                                    if(intval > 0)
+                                        taxrate = (price - 0.25 - intval) * 0.090909090909091;// price * 0.0908 remarked ver 1 7.8.2015
+                                    else
+                                        taxrate = (price - 0.25) * 0.090909090909091;// price * 0.0908 remarked ver 1 7.8.2015
+                                    amusementtax = qtty * taxrate;//remarked ver 1 7.8.2015
+                                    //amusementtax = ((grossreceipt - culturaltax) / 1.1) * 0.1; ver 2
+                                    finalsqry.Append(String.Format("{0},", taxrate));//with amusement tax rate
                                     finalsqry.Append(String.Format("{0},", amusementtax));//with amusement tax
                                 }
                             }
