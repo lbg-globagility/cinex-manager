@@ -56,9 +56,9 @@ namespace aZynEManager
             sqry.Append("select id,price from ticket_prices order by price asc");
             DataTable dt = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
             DataRow row = dt.NewRow();
-            row["id"] = "0";
-            row["price"] = 0;
-            dt.Rows.InsertAt(row, 0);
+            //row["id"] = "0";
+            //row["price"] = ;
+            //dt.Rows.InsertAt(row, 0);
             cmbprices.DataSource = dt;
             cmbprices.DisplayMember = "price";
             cmbprices.ValueMember = "id";
@@ -444,7 +444,7 @@ namespace aZynEManager
                 //melvin 11-5-2014 for sql injection
 
                 sqry.Append("insert into patrons values(0,@code,@name,@price,@promo,@amusement,");
-                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice)");
+                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice,@surcharge)");
                
                 try
                 {
@@ -467,6 +467,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@position", txtposition.Text.Trim());
                         cmd.Parameters.AddWithValue("@lgu", txtlgu.Text.Trim());
                         cmd.Parameters.AddWithValue("@baseprice",cmbprices.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@surcharge", Convert.ToInt32(cbxSurcharge.CheckState));
                         cmd.ExecuteNonQuery();
                         intid = Convert.ToInt32(cmd.LastInsertedId);
                         cmd.Dispose();
