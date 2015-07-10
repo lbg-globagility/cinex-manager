@@ -1627,7 +1627,8 @@ namespace aZynEManager
 
                 sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
                 sQuery.Append("a.price, sum(a.price) as gross_receipt, ");//change base_price to price 6.26.2015
-                sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name ");
+                sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name, ");
+                sQuery.Append("f.with_gross_margin, f.with_prod_share ");//added 7.10.2015 for excempting complimentary pass sample
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
@@ -1667,6 +1668,14 @@ namespace aZynEManager
                     string sharedaterange = getDateRange(movieid, startdate, enddate.AddDays(1), sConnString);//"From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);
                     foreach (DataRow dr in dt.Rows)
                     {
+                        amusementtax = 0;
+                        culturaltax = 0;
+                        shareamount = 0;
+                        grossmargin = 0;
+                        ordinance = 0;
+                        grossreceipt = 0;
+                        surchrg = 0;
+
                         finalsqry = new StringBuilder();
                         qtty = 0;
                         price = surchrg = ordinance = grossreceipt = deductions = culturaltax = amusementtax = netamount = shareamount = grossmargin = 0;
@@ -1769,12 +1778,49 @@ namespace aZynEManager
                         deductions += ordinance; // deduction for surcharge for the whole report
                         netamount = grossreceipt - deductions;
                         finalsqry.Append(String.Format("{0},", netamount));//net amount
-                        finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date
-                        finalsqry.Append(String.Format("{0},", share));//share
-                        shareamount = netamount * (share / 100);
-                        finalsqry.Append(String.Format("{0},", shareamount));//share amount
-                        grossmargin = netamount - shareamount;
-                        finalsqry.Append(String.Format("{0},", grossmargin));//gross margin
+
+                        //validate for with_prod_share
+                        bool boolprodshare = false;
+                        if (!DBNull.Value.Equals(dr[12]))
+                        {
+                            if (dr[12].ToString() != "")
+                            {
+                                if (Convert.ToInt32(dr[12].ToString()) == 1)//with_prod_share
+                                    boolprodshare = true;
+                            }
+                        }
+                        if (boolprodshare)//DISREGARD production share
+                        {
+                            finalsqry.Append(String.Format("'{0}',", "NULL"));//effective date
+                            finalsqry.Append(String.Format("{0},", "NULL"));//share
+                            finalsqry.Append(String.Format("{0},", "NULL"));//share amount
+                        }
+                        else
+                        {
+                            finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date
+                            finalsqry.Append(String.Format("{0},", share));//share
+                            shareamount = netamount * (share / 100);
+                            finalsqry.Append(String.Format("{0},", shareamount));//share amount
+                        }
+
+                        //validate for with_gross_margin
+                        bool boolgrossmargin = false;
+                        if (!DBNull.Value.Equals(dr[11]))
+                        {
+                            if (dr[11].ToString() != "")
+                            {
+                                if (Convert.ToInt32(dr[11].ToString()) == 1)//with_gross_margin
+                                    boolgrossmargin = true;
+                            }
+                        }
+                        if (boolgrossmargin)//DISREGARD gross margin share
+                            finalsqry.Append(String.Format("{0},", "NULL"));//gross margin
+                        else
+                        {
+                            grossmargin = netamount - shareamount;
+                            finalsqry.Append(String.Format("{0},", grossmargin));//gross margin
+                        }
+
                         finalsqry.Append(String.Format("{0},", shareid));
                         finalsqry.Append(String.Format("'{0}',", sharedaterange));
                         finalsqry.Append(String.Format("'{0}')", usercode));
