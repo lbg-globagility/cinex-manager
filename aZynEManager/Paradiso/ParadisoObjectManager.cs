@@ -78,6 +78,11 @@ namespace Paradiso
 
         public string Version
         {
+            get { return "v 1.0"; }
+        }
+
+        public string RealVersion
+        {
             get
             {
                 System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();

@@ -28,7 +28,7 @@ namespace Paradiso
 
             Version.Text = pom.Version;
 
-            SystemVersion.Text = pom.Version;
+            SystemVersion.Text = pom.RealVersion;
             TerminalName.Text = Environment.MachineName;
 
             //load configuration

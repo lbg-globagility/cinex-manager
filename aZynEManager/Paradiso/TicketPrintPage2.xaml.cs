@@ -655,7 +655,7 @@ namespace Paradiso
                 }
                 if (Ticket.SurchargePrice > 0m)
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 30, "Sur. Tax:", false);
+                    print.DrawText(0, print.Row + 310, print.Column + 30, "Surcharge:", false);
                     print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
                 /*
@@ -741,7 +741,7 @@ namespace Paradiso
                 }
                 if (Ticket.SurchargePrice > 0m)
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 30, "Sur. Tax:", false);
+                    print.DrawText(0, print.Row + 310, print.Column + 30, "Surcharge:", false);
                     print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
                 /*
