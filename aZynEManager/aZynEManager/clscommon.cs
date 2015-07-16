@@ -1777,7 +1777,7 @@ namespace aZynEManager
                         finalsqry.Append(String.Format("{0},", ordinance));//for ordinance
                         deductions += ordinance; // deduction for surcharge for the whole report
                         netamount = grossreceipt - deductions;
-                        finalsqry.Append(String.Format("{0},", netamount));//net amount
+                        //finalsqry.Append(String.Format("{0},", netamount));//net amount//moved to another location
 
                         //validate for with_prod_share
                         bool boolprodshare = false;
@@ -1789,6 +1789,22 @@ namespace aZynEManager
                                     boolprodshare = true;
                             }
                         }
+
+                        //validate for with_gross_margin
+                        bool boolgrossmargin = false;
+                        if (!DBNull.Value.Equals(dr[11]))
+                        {
+                            if (dr[11].ToString() != "")
+                            {
+                                if (Convert.ToInt32(dr[11].ToString()) == 1)//with_gross_margin
+                                    boolgrossmargin = true;
+                            }
+                        }
+                        if (boolgrossmargin)//DISREGARD gross margin share
+                            finalsqry.Append(String.Format("{0},", "NULL"));
+                        else
+                            finalsqry.Append(String.Format("{0},", netamount));
+
                         if (boolprodshare)//DISREGARD production share
                         {
                             finalsqry.Append(String.Format("'{0}',", "NULL"));//effective date
@@ -1802,17 +1818,7 @@ namespace aZynEManager
                             shareamount = netamount * (share / 100);
                             finalsqry.Append(String.Format("{0},", shareamount));//share amount
                         }
-
-                        //validate for with_gross_margin
-                        bool boolgrossmargin = false;
-                        if (!DBNull.Value.Equals(dr[11]))
-                        {
-                            if (dr[11].ToString() != "")
-                            {
-                                if (Convert.ToInt32(dr[11].ToString()) == 1)//with_gross_margin
-                                    boolgrossmargin = true;
-                            }
-                        }
+                        
                         if (boolgrossmargin)//DISREGARD gross margin share
                             finalsqry.Append(String.Format("{0},", "NULL"));//gross margin
                         else
