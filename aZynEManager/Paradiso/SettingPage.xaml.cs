@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace Paradiso
 {
@@ -36,7 +37,26 @@ namespace Paradiso
             Config2.Text = pom.GetConfigValue("CINEMA ADDRESS", string.Empty);
             Config3.Text = pom.GetConfigValue("CINEMA ADDRESS2", string.Empty);
             Config4.Text = pom.GetConfigValue("VIN", string.Empty);
+            Config12.Text = pom.GetConfigValue("SUPPLIER NAME", string.Empty);
+            Config13.Text = pom.GetConfigValue("SUPPLIER ADDRESS", string.Empty);
+            Config14.Text = pom.GetConfigValue("SUPPLIER TIN", string.Empty);
             Config5.Text = pom.GetConfigValue("ACCREDITATION", string.Empty);
+
+            //mm/dd/yyyy format
+            string strDateIssued = pom.GetConfigValue("DATE ISSUED", string.Empty);
+            DateTime dtDateIssued = DateTime.MinValue;
+            if (strDateIssued != string.Empty)
+                DateTime.TryParseExact(strDateIssued, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtDateIssued);
+            if (dtDateIssued != DateTime.MinValue)
+                Config15.SelectedDate = dtDateIssued;
+
+            string strValidDate = pom.GetConfigValue("VALID DATE", string.Empty);
+            DateTime dtValidDate = DateTime.MinValue;
+            if (strValidDate != string.Empty)
+                DateTime.TryParseExact(strValidDate, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtValidDate);
+            if (dtValidDate != DateTime.MinValue)
+                Config16.SelectedDate = dtValidDate;
+
             Config6.Text = pom.GetConfigValue("PN", string.Empty);
 
             Printer.SelectedIndex = -1;
@@ -134,7 +154,21 @@ namespace Paradiso
             pom.SaveConfigValue("CINEMA ADDRESS", Config2.Text.Trim());
             pom.SaveConfigValue("CINEMA ADDRESS2", Config3.Text.Trim());
             pom.SaveConfigValue("VIN", Config4.Text.Trim());
+            pom.SaveConfigValue("SUPPLIER NAME", Config12.Text.Trim());
+            pom.SaveConfigValue("SUPPLIER ADDRESS", Config13.Text.Trim());
+            pom.SaveConfigValue("SUPPLIER TIN", Config14.Text.Trim());
+
             pom.SaveConfigValue("ACCREDITATION", Config5.Text.Trim());
+
+            if (Config15.SelectedDate == null)
+                pom.SaveConfigValue("DATE ISSUED", string.Empty);
+            else
+                pom.SaveConfigValue("DATE ISSUED", string.Format(@"{0:MM\/dd\/yyy}", Config15.SelectedDate));
+            if (Config16.SelectedDate == null)
+                pom.SaveConfigValue("VALID DATE", string.Empty);
+            else
+                pom.SaveConfigValue("VALID DATE", string.Format(@"{0:MM\/dd\/yyy}", Config16.SelectedDate));
+
             pom.SaveConfigValue("PN", Config6.Text.Trim());
             pom.SaveConfigValue("SERVER SERIAL", Config7.Text.Trim());
             pom.SaveConfigValue("MIN", Config8.Text.Trim());
