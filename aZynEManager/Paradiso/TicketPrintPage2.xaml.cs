@@ -607,8 +607,8 @@ namespace Paradiso
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header2), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header3), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Vat Reg Tin#: {0}", Ticket.TIN)), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
-                print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
+                //print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
+                //print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
                 print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
                 print.DrawText(-1, print.Row + 250, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
@@ -642,8 +642,9 @@ namespace Paradiso
                 PrintLab.PTK_DrawRectangle((uint)intx1a, (uint)inty1a, 2, (uint)intx2a, (uint)inty2a);
                 PrintLab.PTK_DrawRectangle((uint)intx1b, (uint)inty1b, 2, (uint)intx2b, (uint)inty2b);
 
-                print.Column += 23;
-                
+                //print.Column += 23; 
+                print.Column += 8; //23 div 3
+
                 //totals
                 //right align?
                 print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
@@ -690,6 +691,8 @@ namespace Paradiso
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 }
 
+                print.DrawText(-1, print.Row + 400, print.Column + 100, "TAX EXEMPT", false);
+
                 print.DrawText(0, print.Row, print.Column, Ticket.SeatTypeName, true);
                 print.DrawText(2, print.Row, print.Column, "ADMIT ONE", true);
                 if (ParadisoObjectManager.GetInstance().GetTerminalConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
@@ -698,9 +701,16 @@ namespace Paradiso
                     print.DrawText(0, print.Row, print.Column, " ", true);
                 print.DrawText(0, print.Row, print.Column, string.Format("MTRCB RATING: {0}", Ticket.Rating), true);
 
-                print.Column += 15;
+                //print.Column += 15;
+                print.Column += 6;
+
                 print.DrawText(-1, print.Row, print.Column, string.Format("Sess. # {0}", Ticket.SessionName), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
+
+                print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
+                print.DrawText(-1, print.Row, print.Column, string.Format("Accreditation #: {0}", Ticket.Accreditation), true);
+                print.DrawText(-1, print.Row, print.Column, string.Format("PTU #: {0}", Ticket.PN), true);
+                print.DrawText(-1, print.Row, print.Column, "THIS INVOICE/RECEIPT SHALL BE VALID FOR FIVE (5) YEARS FROM THE DATE OF THE PERMIT TO USE.", true);
 
                 print.Column += 15;
                 //cutter
@@ -779,15 +789,19 @@ namespace Paradiso
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 }
 
+                print.DrawText(-1, print.Row + 310, print.Column + 100, "TAX EXEMPT", true);
+                print.DrawText(-1, print.Row + 310, print.Column + 114, string.Format("A#: {0}", Ticket.Accreditation), true);
+                print.DrawText(-1, print.Row + 310, print.Column + 126, string.Format("P#: {0}", Ticket.PN), true);
+
                 /*
                 print.DrawText(-2, print.Row + 310, print.Column + 85, "Total", false);
                 print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 */
 
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Vat Reg Tin#: {0}", Ticket.TIN), true);
-                print.DrawText(-1, print.Row + 125, print.Column, string.Format("A#: {0}", Ticket.AccreditationNumber), true);
+                //print.DrawText(-1, print.Row + 125, print.Column, string.Format("A#: {0}", Ticket.AccreditationNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("SS#: {0}", Ticket.ServerSerialNumber), true);
-                print.DrawText(-1, print.Row + 125, print.Column, string.Format("P#: {0}", Ticket.PN), true);
+                //print.DrawText(-1, print.Row + 125, print.Column, string.Format("P#: {0}", Ticket.PN), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("MIN: {0}", Ticket.MIN), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("POS # {0}", Ticket.POSNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, Ticket.SeatTypeName, true);
@@ -800,6 +814,8 @@ namespace Paradiso
                 print.DrawText(0, print.Row + 125, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
 
+                print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
+                print.DrawText(-1, print.Row + 125, print.Column, "THIS INVOICE/RECEIPT SHALL BE VALID FOR FIVE (5) YEARS FROM THE DATE OF THE PERMIT TO USE.", true);
 
                 print.Close();
 

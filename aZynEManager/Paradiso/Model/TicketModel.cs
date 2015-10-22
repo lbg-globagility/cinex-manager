@@ -15,14 +15,22 @@ namespace Paradiso.Model
         private string strHeader2 = "MUNTINLUPA CITY";
         private string strHeader3 = "HEADER 3";
 
+        private string strSupplierName = string.Empty;
+        private string strSupplierAddress = string.Empty;
+        private string strSupplierTIN = string.Empty;
+
         private string strAccreditationNumber = "XXX-XXXXXXXXX-XXXXXX-XXXXX";
-        //private string strPermitNumber = "XXXX-XXX-XXXXXX-XXX";
+        private string strDateIssued = string.Empty;
+        private string strValidDate = string.Empty;
+
+        //private string strPermitNumber = string.Empty; //"XXXX-XXX-XXXXXX-XXX";
+
         private string strServerSerialNumber = "XXXXXXXXXXX-X";
         private string strPOSNumber = "XXXXXXXX";
 
         private string strMIN = string.Empty;
         private string strTIN = "XXX-XXX-XXX-XXX";
-        private string strPN = "XXXX-XXX-XXXXX-XXX";
+        private string strPN = string.Empty; //"XXXX-XXX-XXXXX-XXX";
 
         private int intCinemaNumber = 0;
         private string strMovieCode = string.Empty;
@@ -61,6 +69,11 @@ namespace Paradiso.Model
         private decimal decCC = 0;
         private decimal decGC = 0;
 
+        private string strBuyerName = string.Empty;
+        private string strBuyerAddress = string.Empty;
+        private string strBuyerTIN = string.Empty;
+        private string strBuyerIDNum = string.Empty;
+
         public TicketModel()
         {
             this.Clear();
@@ -92,10 +105,20 @@ namespace Paradiso.Model
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
+
+            strSupplierName = ParadisoObjectManager.GetInstance().GetConfigValue("SUPPLIER NAME", string.Empty);
+            strSupplierAddress = ParadisoObjectManager.GetInstance().GetConfigValue("SUPPLIER ADDRESS", string.Empty);
+            strSupplierTIN = ParadisoObjectManager.GetInstance().GetConfigValue("SUPPLIER TIN", string.Empty); 
             strAccreditationNumber = ParadisoObjectManager.GetInstance().GetConfigValue("ACCREDITATION", string.Empty); //"XXX-XXXXXXXXX-XXXXXX-XXXXX");
-            //strPermitNumber = ParadisoObjectManager.GetInstance().GetConfigValue("PERMIT", "XXXX-XXX-XXXXXX-XXX");
+            strDateIssued = ParadisoObjectManager.GetInstance().GetConfigValue("DATE ISSUED", string.Empty);
+            strValidDate = ParadisoObjectManager.GetInstance().GetConfigValue("VALID DATE", string.Empty);
             strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL",  string.Empty); //"XXXXXXXXXXX-X");
             strPOSNumber = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), string.Empty);
+
+            strBuyerName = string.Empty;
+            strBuyerAddress = string.Empty;
+            strBuyerTIN = string.Empty;
+            strBuyerIDNum = string.Empty;
 
             IsVoid = false;
         }
@@ -578,6 +601,81 @@ namespace Paradiso.Model
             }
         }
 
+        public string SupplierName
+        {
+            get { return strSupplierName; }
+            set
+            {
+                if (value != strSupplierName)
+                {
+                    strSupplierName = value;
+                    NotifyPropertyChanged("SupplierName");
+                }
+            }
+        }
+
+        public string SupplierAddress
+        {
+            get { return strSupplierAddress; }
+            set
+            {
+                if (value != strSupplierAddress)
+                {
+                    strSupplierAddress = value;
+                    NotifyPropertyChanged("SupplierAddress");
+                }
+            }
+        }
+
+        public string SupplierTIN
+        {
+            get { return strSupplierTIN; }
+            set
+            {
+                if (value != strSupplierTIN)
+                {
+                    strSupplierTIN = value;
+                    NotifyPropertyChanged("SupplierTIN");
+                }
+            }
+        }
+
+        public string Supplier
+        {
+            get
+            {
+                StringBuilder strSupplier = new StringBuilder();
+                if (SupplierName != string.Empty)
+                    strSupplier.Append(SupplierName);
+
+                //do not display if no supplier name is set
+
+                if (SupplierAddress != string.Empty && strSupplier.Length > 0)
+                    strSupplier.Append(string.Format(", {0}", SupplierAddress));
+                
+                if (SupplierTIN != string.Empty && strSupplier.Length > 0)
+                    strSupplier.Append(string.Format(", TIN No. {0}", SupplierTIN));
+
+                return strSupplier.ToString();
+            }
+        }
+
+        public string Accreditation
+        {
+            get
+            {
+                StringBuilder strAccreditation = new StringBuilder();
+                if (AccreditationNumber != string.Empty)
+                    strAccreditation.Append(AccreditationNumber);
+                if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate != string.Empty)
+                    strAccreditation.Append(string.Format(" ({0}-{1})", DateIssued, ValidDate));
+                else if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate == string.Empty)
+                    strAccreditation.Append(string.Format(" ({0})", DateIssued));
+
+                return strAccreditation.ToString();
+            }
+        }
+
         public string AccreditationNumber
         {
             get { return strAccreditationNumber; }
@@ -591,20 +689,31 @@ namespace Paradiso.Model
             }
         }
 
-        /*
-        public string PermitNumber
+        public string DateIssued
         {
-            get { return strPermitNumber; }
+            get { return strDateIssued; }
             set
             {
-                if (value != strPermitNumber)
+                if (value != strDateIssued)
                 {
-                    strPermitNumber = value;
-                    NotifyPropertyChanged("PermitNumber");
+                    strDateIssued = value;
+                    NotifyPropertyChanged("DateIssued");
                 }
             }
         }
-        */
+
+        public string ValidDate
+        {
+            get { return strValidDate; }
+            set
+            {
+                if (value != strValidDate)
+                {
+                    strValidDate = value;
+                    NotifyPropertyChanged("ValidDate");
+                }
+            }
+        }
 
         public string ServerSerialNumber
         {
@@ -683,6 +792,7 @@ namespace Paradiso.Model
                 }
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
