@@ -37,6 +37,7 @@ namespace Paradiso.Model
         private string strRating = string.Empty;
         private DateTime dtStartTime;
         private string strPatronCode = string.Empty;
+        private string strPatronName = string.Empty;
         private decimal decPatronPrice = 0m;
         private decimal decBasePrice = 0m;
 
@@ -88,6 +89,7 @@ namespace Paradiso.Model
             Rating = string.Empty;
             StartTime = dtNow;
             PatronCode = string.Empty;
+            PatronName = string.Empty;
             PatronPrice = 0m;
             BasePrice = 0m;
             OrdinancePrice = 0m;
@@ -115,10 +117,10 @@ namespace Paradiso.Model
             strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL",  string.Empty); //"XXXXXXXXXXX-X");
             strPOSNumber = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), string.Empty);
 
-            strBuyerName = string.Empty;
-            strBuyerAddress = string.Empty;
-            strBuyerTIN = string.Empty;
-            strBuyerIDNum = string.Empty;
+            BuyerName = string.Empty;
+            BuyerAddress = string.Empty;
+            BuyerTIN = string.Empty;
+            BuyerIDNum = string.Empty;
 
             IsVoid = false;
         }
@@ -399,6 +401,20 @@ namespace Paradiso.Model
                 {
                     strPatronCode = value;
                     NotifyPropertyChanged("PatronCode");
+
+                }
+            }
+        }
+
+        public string PatronName
+        {
+            get { return strPatronName; }
+            set
+            {
+                if (strPatronName != value)
+                {
+                    strPatronName = value;
+                    NotifyPropertyChanged("PatronName");
 
                 }
             }
@@ -715,6 +731,70 @@ namespace Paradiso.Model
             }
         }
 
+        public string BuyerName
+        {
+            get { return strBuyerName; }
+            set
+            {
+                if (value != strBuyerName)
+                {
+                    strBuyerName = value;
+                    NotifyPropertyChanged("BuyerName");
+                }
+            }
+        }
+
+        public string BuyerAddress
+        {
+            get { return strBuyerAddress; }
+            set
+            {
+                if (value != strBuyerAddress)
+                {
+                    strBuyerAddress = value;
+                    NotifyPropertyChanged("BuyerAddress");
+                }
+            }
+        }
+
+        public string BuyerNameAddress
+        {
+            get
+            {
+                if (BuyerName != string.Empty && BuyerAddress != string.Empty)
+                    return string.Format("{0}, {1}", BuyerName, BuyerAddress);
+                else
+                    return BuyerName;
+
+            }
+        }
+
+        public string BuyerTIN
+        {
+            get { return strBuyerTIN; }
+            set
+            {
+                if (value != strBuyerTIN)
+                {
+                    strBuyerTIN = value;
+                    NotifyPropertyChanged("BuyerTIN");
+                }
+            }
+        }
+
+        public string BuyerIDNum
+        {
+            get { return strBuyerIDNum; }
+            set
+            {
+                if (value != strBuyerIDNum)
+                {
+                    strBuyerIDNum = value;
+                    NotifyPropertyChanged("BuyerIDNum");
+                }
+            }
+        }
+
         public string ServerSerialNumber
         {
             get { return strServerSerialNumber; }
@@ -793,6 +873,57 @@ namespace Paradiso.Model
             }
         }
 
+        public bool IsSC
+        {
+            get
+            {
+                return PatronName.IndexOf("SC ") != -1;
+            }
+        }
+
+        public bool IsPWD
+        {
+            get
+            {
+                return PatronName.IndexOf("PWD ") != -1;
+            }
+        }
+
+        public decimal DiscountRate
+        {
+            get
+            {
+                decimal decDiscountRate = 0;
+                if (IsSC || IsPWD)
+                {
+                    int idx0 = PatronName.LastIndexOf("(");
+                    int idx1 = PatronName.IndexOf("%)");
+                    if (idx0 != -1 && idx1 != -1)
+                    {
+                        decimal.TryParse(PatronName.Substring(idx0+1, idx1 - idx0 - 1), out decDiscountRate);
+                        decDiscountRate /= 100;
+                    }
+                }
+
+                return decDiscountRate;
+            }
+        }
+
+        public decimal FullPrice
+        {
+            get
+            {
+                return BasePrice / (1 - DiscountRate);
+            }
+        }
+
+        public decimal Discount
+        {
+            get
+            {
+                return FullPrice * DiscountRate;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

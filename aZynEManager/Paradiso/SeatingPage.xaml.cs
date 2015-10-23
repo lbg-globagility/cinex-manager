@@ -920,6 +920,16 @@ namespace Paradiso
                                         context.movies_schedule_list_house_seat.AddObject(mslhs);
                                         context.SaveChanges();
 
+                                        /*
+                                        //show buyer info
+                                        var window = Window.GetWindow(this);
+                                        BuyerWindow buyerWindow = new BuyerWindow();
+                                        if (window != null)
+                                            buyerWindow.Owner = window;
+                                        //insert code to set senior or pwd here
+                                        buyerWindow.ShowDialog();
+                                        */
+
                                         IsUpdated = true;
                                     }
                                     else if (Seat.SeatType == 2) //remove
@@ -1151,6 +1161,16 @@ namespace Paradiso
                                     context.movies_schedule_list_house_seat.AddObject(mslhs);
                                     context.SaveChanges();
 
+                                    /*
+                                    //show buyer info
+                                    var window = Window.GetWindow(this);
+                                    BuyerWindow buyerWindow = new BuyerWindow();
+                                    if (window != null)
+                                        buyerWindow.Owner = window;
+                                    //insert code to set senior or pwd here
+                                    buyerWindow.ShowDialog();
+                                    */
+
                                     IsUpdated = true;
                                 }
                                 else if (Seat.SeatType == 2) //update
@@ -1171,6 +1191,18 @@ namespace Paradiso
                                         }
 
                                         context.SaveChanges();
+
+                                        /*
+                                        //show buyer info
+                                        var window = Window.GetWindow(this);
+                                        BuyerWindow buyerWindow = new BuyerWindow();
+                                        if (window != null)
+                                            buyerWindow.Owner = window;
+                                        //insert code to set senior or pwd here
+                                        //load data if existing
+                                        buyerWindow.ShowDialog();
+                                        */
+
                                         IsUpdated = true;
                                     }
                                 }
@@ -1214,6 +1246,16 @@ namespace Paradiso
                                 };
                                 context.movies_schedule_list_house_seat.AddObject(mslhs);
                                 context.SaveChanges();
+
+                                /*
+                                //show buyer info
+                                var window = Window.GetWindow(this);
+                                BuyerWindow buyerWindow = new BuyerWindow();
+                                if (window != null)
+                                    buyerWindow.Owner = window;
+                                //insert code to set senior or pwd here
+                                buyerWindow.ShowDialog();
+                                */
 
                                 IsUpdated = true;
                             }

@@ -156,6 +156,7 @@ namespace Paradiso
                                            seattype = mslrs.movies_schedule_list.seat_type,
                                            startdate = mslrs.movies_schedule_list.start_time,
                                            patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                           patronname = mslrs.movies_schedule_list_patron.patron.name,
                                            patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                            seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                            price = mslrs.price,
@@ -193,6 +194,7 @@ namespace Paradiso
                                     SeatType = t.seattype,
                                     StartTime = t.startdate,
                                     PatronCode = t.patroncode,
+                                    PatronName = t.patronname,
                                     PatronPrice = (decimal)t.price,
                                     BasePrice = (decimal)t.baseprice,
                                     PatronDescription = t.patrondescription,
@@ -355,6 +357,7 @@ namespace Paradiso
                              seattype = mslrs.movies_schedule_list.seat_type,
                              startdate = mslrs.movies_schedule_list.start_time,
                              patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                             patronname = mslrs.movies_schedule_list_patron.patron.name,
                              price = mslrs.price,
                              baseprice = mslrs.base_price,
                              ordinanceprice = mslrs.ordinance_price,
@@ -378,6 +381,7 @@ namespace Paradiso
                     Ticket.Rating = t.rating;
                     Ticket.StartTime = t.startdate;
                     Ticket.PatronCode = t.patroncode;
+                    Ticket.PatronName = t.patronname;
                     Ticket.PatronPrice = (decimal) t.price;
                     Ticket.BasePrice = (decimal)t.baseprice;
                     Ticket.OrdinancePrice = (decimal)t.ordinanceprice;
@@ -474,6 +478,7 @@ namespace Paradiso
                 Ticket.Rating = t.Rating;
                 Ticket.StartTime = t.StartTime;
                 Ticket.PatronCode = t.PatronCode;
+                Ticket.PatronName = t.PatronName;
                 Ticket.PatronPrice = t.PatronPrice;
                 Ticket.BasePrice = t.BasePrice;
                 Ticket.OrdinancePrice = t.OrdinancePrice;
@@ -609,9 +614,10 @@ namespace Paradiso
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Vat Reg Tin#: {0}", Ticket.TIN)), true);
                 //print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
                 //print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
-                print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
+                //print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
                 print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
-                print.DrawText(-1, print.Row + 250, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
+                print.DrawText(-1, print.Row + 125, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), false);
+                print.DrawText(-1, print.Row + 300, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
                 print.DrawText(2, print.Row, print.Column, Ticket.MovieCode, true);
                 print.DrawText(0, print.Row + 310, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
 
@@ -647,17 +653,49 @@ namespace Paradiso
 
                 //totals
                 //right align?
-                print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
-                print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
-                if (Ticket.OrdinancePrice > 0m)
+                if ((Ticket.IsPWD || Ticket.IsSC) && Ticket.OrdinancePrice > 0m && Ticket.SurchargePrice > 0m) //make font smaller
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
-                    print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(-1, print.Row + 310, print.Column, "Amount:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
+                    print.DrawText(-1, print.Row + 310, print.Column + 12, Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 12, string.Format("({0:0.00})", Ticket.Discount), false);
+
+                    print.DrawText(-1, print.Row + 310, print.Column + 24, "Ord. Tax:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 24, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(-1, print.Row + 310, print.Column + 36, "Surcharge:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 36, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
-                if (Ticket.SurchargePrice > 0m)
+                else
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 30, "Surcharge:", false);
-                    print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
+                    print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
+                    int cidx = 0;
+                    if (Ticket.IsPWD || Ticket.IsSC)
+                    {
+                        print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
+                        cidx += 15;
+
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("({0:0.00})", Ticket.Discount), false);
+
+                        cidx += 15;
+                    }
+                    else
+                    {
+                        print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                        cidx += 15;
+                    }
+
+                    if (Ticket.OrdinancePrice > 0m)
+                    {
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, "Ord. Tax:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                        cidx += 15;
+                    }
+                    if (Ticket.SurchargePrice > 0m)
+                    {
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, "Surcharge:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
+                    }
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
@@ -691,7 +729,7 @@ namespace Paradiso
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 }
 
-                print.DrawText(-1, print.Row + 400, print.Column + 100, "TAX EXEMPT", false);
+                print.DrawText(-1, print.Row + 310, print.Column + 105, "VAT EXEMPT", false);
 
                 print.DrawText(0, print.Row, print.Column, Ticket.SeatTypeName, true);
                 print.DrawText(2, print.Row, print.Column, "ADMIT ONE", true);
@@ -742,17 +780,53 @@ namespace Paradiso
 
                 //totals
                 //right align?
-                print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
-                print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
-                if (Ticket.OrdinancePrice > 0m)
+                if ((Ticket.IsPWD || Ticket.IsSC) && Ticket.OrdinancePrice > 0m && Ticket.SurchargePrice > 0m) //make font smaller
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 15, "Ord. Tax:", false);
-                    print.DrawText(0, print.Row + 400, print.Column + 15, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    print.DrawText(-1, print.Row + 310, print.Column, "Amount:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
+                    
+                    print.DrawText(-1, print.Row + 310, print.Column, Ticket.IsPWD ? "PWD Discount:" :"SC Discount:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column, string.Format("({0:0.00})", Ticket.Discount), false);
+
+                    print.DrawText(-1, print.Row + 310, print.Column + 24, "Ord. Tax:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 24, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                    
+                    print.DrawText(-1, print.Row + 310, print.Column + 36, "Surcharge:", false);
+                    print.DrawText(-1, print.Row + 400, print.Column + 36, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
-                if (Ticket.SurchargePrice > 0m)
+                else
                 {
-                    print.DrawText(0, print.Row + 310, print.Column + 30, "Surcharge:", false);
-                    print.DrawText(0, print.Row + 400, print.Column + 30, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
+
+                    print.DrawText(0, print.Row + 310, print.Column, "Amount:", false);
+                    int cidx = 0;
+                    if (Ticket.IsPWD || Ticket.IsSC)
+                    {
+                        print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
+                        cidx += 15;
+                        
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("({0:0.00})", Ticket.Discount), false);
+
+                        cidx += 15;
+                    }
+                    else
+                    {
+                        print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
+                        cidx += 15;
+                    }
+
+                    if (Ticket.OrdinancePrice > 0m)
+                    {
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, "Ord. Tax:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
+                        cidx += 15;
+                    }
+
+                    if (Ticket.SurchargePrice > 0m)
+                    {
+                        print.DrawText(0, print.Row + 310, print.Column + cidx, "Surcharge:", false);
+                        print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
+                    }
                 }
                 /*
                 print.DrawText(-1, print.Row + 340, print.Column, "ct:", false);
@@ -784,14 +858,22 @@ namespace Paradiso
                         strPaymentMode = "GC";
                     else if ((Ticket.PaymentMode & 4) == 4)
                         strPaymentMode = "CC";
+                    
+                    //display buyer info
+                    print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
+                    print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN No. {0} : ", Ticket.BuyerTIN), false);
+                    if (Ticket.IsSC)
+                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID No. : {0}", Ticket.BuyerIDNum), false);
+                    else if (Ticket.IsPWD)
+                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID No. : {0}", Ticket.BuyerIDNum), false);
 
                     print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 }
 
-                print.DrawText(-1, print.Row + 310, print.Column + 100, "TAX EXEMPT", true);
-                print.DrawText(-1, print.Row + 310, print.Column + 114, string.Format("A#: {0}", Ticket.Accreditation), true);
-                print.DrawText(-1, print.Row + 310, print.Column + 126, string.Format("P#: {0}", Ticket.PN), true);
+                print.DrawText(-1, print.Row + 310, print.Column + 105, "VAT EXEMPT", false);
+                print.DrawText(-1, print.Row + 310, print.Column + 114, string.Format("A#: {0}", Ticket.Accreditation), false);
+                print.DrawText(-1, print.Row + 310, print.Column + 126, string.Format("P#: {0}", Ticket.PN), false);
 
                 /*
                 print.DrawText(-2, print.Row + 310, print.Column + 85, "Total", false);
@@ -815,7 +897,7 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
 
                 print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
-                print.DrawText(-1, print.Row + 125, print.Column, "THIS INVOICE/RECEIPT SHALL BE VALID FOR FIVE (5) YEARS FROM THE DATE OF THE PERMIT TO USE.", true);
+                print.DrawText(-1, print.Row, print.Column, "THIS INVOICE/RECEIPT SHALL BE VALID FOR FIVE (5) YEARS FROM THE DATE OF THE PERMIT TO USE.", true);
 
                 print.Close();
 
@@ -948,6 +1030,7 @@ namespace Paradiso
                                        seattype = mslrs.movies_schedule_list.seat_type,
                                        startdate = mslrs.movies_schedule_list.start_time,
                                        patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
                                        patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                        seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                        price = mslrs.price,
@@ -978,6 +1061,7 @@ namespace Paradiso
                                        seattype = mslrs.movies_schedule_list.seat_type,
                                        startdate = mslrs.movies_schedule_list.start_time,
                                        patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
                                        patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                        seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                        price = mslrs.price,
@@ -1012,6 +1096,7 @@ namespace Paradiso
                                        seattype = mslrs.movies_schedule_list.seat_type,
                                        startdate = mslrs.movies_schedule_list.start_time,
                                        patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
                                        patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                        seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                        price = mslrs.price,
@@ -1053,6 +1138,7 @@ namespace Paradiso
                                 SeatType = t.seattype,
                                 StartTime = t.startdate,
                                 PatronCode = t.patroncode,
+                                PatronName = t.patronname,
                                 PatronPrice = (decimal)t.price,
                                 PatronDescription = t.patrondescription,
                                 SeatName = t.seatname,
@@ -1100,6 +1186,7 @@ namespace Paradiso
                                        startdate = mslhs.movies_schedule_list.start_time,
                                        enddate = mslhs.movies_schedule_list.end_time,
                                        patroncode = mslhs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslhs.movies_schedule_list_patron.patron.name,
                                        patrondescription = mslhs.movies_schedule_list_patron.patron.name,
                                        seatname = mslhs.cinema_seat.col_name + mslhs.cinema_seat.row_name,
                                        price = mslhs.movies_schedule_list_patron.price,
@@ -1160,6 +1247,7 @@ namespace Paradiso
                             SeatType = t.seattype,
                             StartTime = t.startdate,
                             PatronCode = t.patroncode,
+                            PatronName = t.patronname,
                             PatronPrice = (decimal)t.price,
                             PatronDescription = t.patrondescription,
                             SeatName = t.seatname,
@@ -1286,6 +1374,7 @@ namespace Paradiso
                                            startdate = mslhs.movies_schedule_list.start_time,
                                            enddate = mslhs.movies_schedule_list.end_time,
                                            patroncode = mslhs.movies_schedule_list_patron.patron.code,
+                                           patronname = mslhs.movies_schedule_list_patron.patron.name,
                                            patrondescription = mslhs.movies_schedule_list_patron.patron.name,
                                            seatname = mslhs.cinema_seat.col_name + mslhs.cinema_seat.row_name,
                                            price = mslhs.movies_schedule_list_patron.price,
@@ -1331,6 +1420,7 @@ namespace Paradiso
                                 SeatType = t.seattype,
                                 StartTime = t.startdate,
                                 PatronCode = t.patroncode,
+                                PatronName = t.patronname,
                                 PatronPrice = (decimal)t.price,
                                 PatronDescription = t.patrondescription,
                                 SeatName = t.seatname,
@@ -1369,6 +1459,7 @@ namespace Paradiso
                                            seattype = mslrs.movies_schedule_list.seat_type,
                                            startdate = mslrs.movies_schedule_list.start_time,
                                            patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                           patronname = mslrs.movies_schedule_list_patron.patron.name,
                                            patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                            seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
                                            price = mslrs.price,
@@ -1397,6 +1488,7 @@ namespace Paradiso
                                 SeatType = t.seattype,
                                 StartTime = t.startdate,
                                 PatronCode = t.patroncode,
+                                PatronName = t.patronname,
                                 PatronPrice = (decimal)t.price,
                                 PatronDescription = t.patrondescription,
                                 SeatName = t.seatname,

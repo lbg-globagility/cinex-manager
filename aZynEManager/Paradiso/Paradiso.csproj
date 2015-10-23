@@ -115,6 +115,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Adorners\RubberbandAdorner.cs" />
+    <Compile Include="BuyerWindow.xaml.cs">
+      <DependentUpon>BuyerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CitizenPrint.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
@@ -123,6 +126,7 @@
     <Compile Include="GiftCertificateWindow.xaml.cs">
       <DependentUpon>GiftCertificateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Buyer.cs" />
     <Compile Include="Model\GiftCertificateListModel.cs" />
     <Compile Include="Model\GiftCertificateModel.cs" />
     <Compile Include="ParadisoModel.Designer.cs">
@@ -209,6 +213,10 @@
     </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="BuyerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GiftCertificateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
