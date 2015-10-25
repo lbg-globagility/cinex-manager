@@ -185,6 +185,19 @@ namespace Paradiso
                                     TicketDateTime = (DateTime)t.ticketdatetime
                                 });
 
+                                //get buyer information if 
+                                Buyer buyer = new Buyer();
+                                var _bi = (from __bi in context.buyer_info_reserved
+                                           where __bi.mslrs_id == t.id
+                                           select __bi).FirstOrDefault();
+                                if (_bi != null)
+                                {
+                                    buyer.Name = _bi.name;
+                                    buyer.Address = _bi.address;
+                                    buyer.TIN = _bi.tin;
+                                    buyer.IDNum = _bi.idnum;
+                                }
+
                                 TicketList.Tickets.Add(new TicketModel()
                                 {
                                     Id = t.id,
@@ -208,7 +221,11 @@ namespace Paradiso
                                     SessionName = t.session,
                                     CurrentTime = dtCurrentDateTime,
                                     IsVoid = t.isvoid,
-                                    IsSelected = false
+                                    IsSelected = false,
+                                    BuyerName = buyer.Name,
+                                    BuyerAddress = buyer.Address,
+                                    BuyerTIN = buyer.TIN,
+                                    BuyerIDNum = buyer.IDNum
                                 });
                             }
                         }
@@ -351,6 +368,7 @@ namespace Paradiso
                          where mslrs.or_number == strORNumber && mslrs.status == 1 
                          select new
                          {
+                             id = mslrs.id,
                              cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
                              moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
                              rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
@@ -398,6 +416,24 @@ namespace Paradiso
                     Ticket.SeatName = t.seatname;
                     Ticket.IsHandicapped = t.ishandicapped;
                     Ticket.SeatType = t.seattype;
+
+                    //retrieve buyer information
+                    Buyer buyer = new Buyer();
+                    var _bi = (from __bi in context.buyer_info_reserved
+                               where __bi.mslrs_id == t.id
+                               select __bi).FirstOrDefault();
+                    if (_bi != null)
+                    {
+                        buyer.Name = _bi.name;
+                        buyer.Address = _bi.address;
+                        buyer.TIN = _bi.tin;
+                        buyer.IDNum = _bi.idnum;
+                    }
+
+                    Ticket.BuyerName = buyer.Name;
+                    Ticket.BuyerAddress = buyer.Address;
+                    Ticket.BuyerTIN = buyer.TIN;
+                    Ticket.BuyerIDNum = buyer.IDNum;
 
                     //retrieve payment mode
                     var _s = (from s in context.sessions
@@ -495,6 +531,10 @@ namespace Paradiso
                 Ticket.SeatName = t.SeatName;
                 Ticket.IsHandicapped = t.IsHandicapped;
                 Ticket.SeatType = t.SeatType;
+                Ticket.BuyerName = t.BuyerName;
+                Ticket.BuyerAddress = t.BuyerAddress;
+                Ticket.BuyerTIN = t.BuyerTIN;
+                Ticket.BuyerIDNum = t.BuyerIDNum;
             }
         }
 
@@ -724,6 +764,14 @@ namespace Paradiso
                         strPaymentMode = "GC";
                     else if ((Ticket.PaymentMode & 4) == 4)
                         strPaymentMode = "CC";
+
+                    //display buyer info
+                    print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
+                    print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN No. {0} : ", Ticket.BuyerTIN), false);
+                    if (Ticket.IsSC)
+                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID No. : {0}", Ticket.BuyerIDNum), false);
+                    else if (Ticket.IsPWD)
+                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID No. : {0}", Ticket.BuyerIDNum), false);
 
                     print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);

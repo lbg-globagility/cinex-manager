@@ -25,8 +25,11 @@ namespace Paradiso.Model
         private string strRemainingTime;
         DispatcherTimer timer = new DispatcherTimer();
 
+        public Buyer BuyerInfo { get; set; }
+
         public PatronSeatModel()
         {
+            BuyerInfo = new Buyer();
         }
         
         //called only after application has exit
@@ -241,6 +244,15 @@ namespace Paradiso.Model
                 }
             }
         }
+
+        public bool IsSCPWD
+        {
+            get
+            {
+                return PatronName.IndexOf("SC ") != -1 || PatronName.IndexOf("PWD ") != -1;
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         

@@ -157,5 +157,14 @@ namespace Paradiso.Model
             return false;
             //return base.Equals(obj);
         }
+
+        public bool IsSCPWD
+        {
+            get
+            {
+                return Name.IndexOf("SC ") != -1 || Name.IndexOf("PWD ") != -1;
+            }
+        }
+
     }
 }

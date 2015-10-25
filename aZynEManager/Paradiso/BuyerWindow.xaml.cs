@@ -39,10 +39,26 @@ namespace Paradiso
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            BuyerInfo.IsCancelled = false;
             //validate first
+            if (BuyerInfo.IsSCPWD) //name and idnum is required
+            {
+                if (BuyerInfo.Name.Trim() == string.Empty)
+                {
+                    System.Windows.MessageBox.Show("Name is required.", string.Empty);
+                    return;
+                }
+                else if (BuyerInfo.IDNum.Trim() == string.Empty)
+                {
+                    System.Windows.MessageBox.Show("ID Number is required..", string.Empty);
+                    return;
+                }
+
+            }
+            BuyerInfo.IsCancelled = false;
             this.Close();
         }
+
+
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -50,6 +66,27 @@ namespace Paradiso
             {
                 IDNumLabel.Visibility = Visibility.Visible;
                 IDNum.Visibility = Visibility.Visible;
+                Cancel.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (BuyerInfo.IsSCPWD && BuyerInfo.IsCancelled)
+            {
+                if (BuyerInfo.Name.Trim() == string.Empty)
+                {
+                    e.Cancel = true;
+                    System.Windows.MessageBox.Show("Name is required.", string.Empty);
+                    return;
+                }
+                else if (BuyerInfo.IDNum.Trim() == string.Empty)
+                {
+                    e.Cancel = true;
+                    System.Windows.MessageBox.Show("ID Number is required..", string.Empty);
+                    return;
+                }
+                BuyerInfo.IsCancelled = false;
             }
         }
     }

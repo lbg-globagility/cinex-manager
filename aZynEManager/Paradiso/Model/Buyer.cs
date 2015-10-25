@@ -8,16 +8,30 @@ namespace Paradiso.Model
 {
     public class Buyer : INotifyPropertyChanged
     {
-        private string strName;
-        private string strAddress;
-        private string strTIN;
-        private string strIDNum;
+        private string strName = string.Empty;
+        private string strAddress = string.Empty;
+        private string strTIN = string.Empty;
+        private string strIDNum = string.Empty;
 
         private bool blnIsSCPWD = false;
 
         private bool blnIsCancelled = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Buyer()
+        {
+        }
+
+        public Buyer(Buyer buyer)
+        {
+            Name = buyer.Name;
+            Address = buyer.Address;
+            TIN = buyer.TIN;
+            IDNum = buyer.IDNum;
+            IsSCPWD = buyer.IsSCPWD;
+            IsCancelled = buyer.IsCancelled;
+        }
 
         public string Name
         {

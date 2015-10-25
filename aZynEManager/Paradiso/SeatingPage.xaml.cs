@@ -413,6 +413,8 @@ namespace Paradiso
                     reservedseats = (from mcths in context.movies_schedule_list_house_seat_free_view
                                      where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId
                                      select mcths.cinema_seat_id).ToList();
+
+                //add buyer info here
                 //selected seats 
                 var selectedseats = (from mcths in context.movies_schedule_list_house_seat_view
                                      where mcths.movies_schedule_list_id == this.Key && mcths.session_id == strSessionId
@@ -647,6 +649,7 @@ namespace Paradiso
                                         }
                                     }
 
+                                    //add buyer information here
                                     SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel(
                                         ss.id,
                                         seatModel.Key,
@@ -660,6 +663,8 @@ namespace Paradiso
                                         (DateTime)ss.reserved_date,
                                         intSeatColor
                                     ));
+
+
 
                                     seatModel.SeatColor = intSeatColor;
 
@@ -920,15 +925,19 @@ namespace Paradiso
                                         context.movies_schedule_list_house_seat.AddObject(mslhs);
                                         context.SaveChanges();
 
-                                        /*
-                                        //show buyer info
-                                        var window = Window.GetWindow(this);
-                                        BuyerWindow buyerWindow = new BuyerWindow();
-                                        if (window != null)
-                                            buyerWindow.Owner = window;
-                                        //insert code to set senior or pwd here
-                                        buyerWindow.ShowDialog();
-                                        */
+                                        //delete existing buyer information if any
+                                        var _bi = (from bi in context.buyer_info where bi.mslhs_id == mslhs.id select bi).FirstOrDefault();
+                                        if (_bi != null)
+                                        {
+                                            context.buyer_info.DeleteObject(_bi);
+                                            context.SaveChanges();
+                                        }
+                                        
+                                        //save new buyer information
+                                        buyer_info n_bi = new buyer_info();
+                                        n_bi.mslhs_id = mslhs.id;
+                                        context.buyer_info.AddObject(n_bi);
+                                        context.SaveChanges();
 
                                         IsUpdated = true;
                                     }
@@ -942,6 +951,14 @@ namespace Paradiso
                                         {
                                             context.movies_schedule_list_house_seat.DeleteObject(r);
                                             context.SaveChanges();
+
+                                            var _bi = (from bi in context.buyer_info where bi.mslhs_id == MovieSchedule.Key select bi).FirstOrDefault();
+                                            if (_bi != null)
+                                            {
+                                                context.buyer_info.DeleteObject(_bi);
+                                                context.SaveChanges();
+                                            }
+
                                             IsUpdated = true;
                                         }
                                     }
@@ -1108,9 +1125,10 @@ namespace Paradiso
             if (item != null)
             {
                 PatronModel _SelectedPatron = (PatronModel)item.Content;
+                int mslhs_id = -1;
 
                 string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
-                
+
                 if (IsReservedSeating)
                 {
                     {
@@ -1161,16 +1179,7 @@ namespace Paradiso
                                     context.movies_schedule_list_house_seat.AddObject(mslhs);
                                     context.SaveChanges();
 
-                                    /*
-                                    //show buyer info
-                                    var window = Window.GetWindow(this);
-                                    BuyerWindow buyerWindow = new BuyerWindow();
-                                    if (window != null)
-                                        buyerWindow.Owner = window;
-                                    //insert code to set senior or pwd here
-                                    buyerWindow.ShowDialog();
-                                    */
-
+                                    mslhs_id = mslhs.id;
                                     IsUpdated = true;
                                 }
                                 else if (Seat.SeatType == 2) //update
@@ -1184,24 +1193,23 @@ namespace Paradiso
                                         if (_SelectedPatron == null)
                                         {
                                             context.movies_schedule_list_house_seat.DeleteObject(r);
+                                            context.SaveChanges();
                                         }
                                         else //update reservation
                                         {
                                             r.movies_schedule_list_patron_id = _SelectedPatron.Key;
                                         }
 
-                                        context.SaveChanges();
+                                        //remove buyer information on update
+                                        var _bi = (from bi in context.buyer_info
+                                                   where bi.mslhs_id == MovieSchedule.Key
+                                                   select bi).FirstOrDefault();
+                                        if (_bi != null)
+                                        {
+                                            context.buyer_info.DeleteObject(_bi);
+                                            context.SaveChanges();
+                                        }
 
-                                        /*
-                                        //show buyer info
-                                        var window = Window.GetWindow(this);
-                                        BuyerWindow buyerWindow = new BuyerWindow();
-                                        if (window != null)
-                                            buyerWindow.Owner = window;
-                                        //insert code to set senior or pwd here
-                                        //load data if existing
-                                        buyerWindow.ShowDialog();
-                                        */
 
                                         IsUpdated = true;
                                     }
@@ -1246,26 +1254,59 @@ namespace Paradiso
                                 };
                                 context.movies_schedule_list_house_seat.AddObject(mslhs);
                                 context.SaveChanges();
-
-                                /*
-                                //show buyer info
-                                var window = Window.GetWindow(this);
-                                BuyerWindow buyerWindow = new BuyerWindow();
-                                if (window != null)
-                                    buyerWindow.Owner = window;
-                                //insert code to set senior or pwd here
-                                buyerWindow.ShowDialog();
-                                */
+                                mslhs_id = mslhs.id;
 
                                 IsUpdated = true;
                             }
                         }
                     }
                 }
+
+
+                if (IsUpdated)
+                {
+                    this.UpdateMovieSchedule();
+                    if (mslhs_id != -1)
+                    {
+                        if (_SelectedPatron.IsSCPWD)
+                        {
+                            //show buyer info
+                            var window = Window.GetWindow(this);
+                            BuyerWindow buyerWindow = new BuyerWindow();
+                            if (window != null)
+                                buyerWindow.Owner = window;
+                            buyerWindow.BuyerInfo.IsSCPWD = true;
+                            buyerWindow.ShowDialog();
+                            if (!buyerWindow.BuyerInfo.IsCancelled)
+                            {
+                                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                                {
+                                    var _bi = (from __bi in context.buyer_info
+                                               where __bi.mslhs_id == mslhs_id
+                                               select __bi).FirstOrDefault();
+                                    if (_bi != null)
+                                    {
+                                        context.buyer_info.DeleteObject(_bi);
+                                    }
+
+                                    buyer_info bi = new buyer_info()
+                                    {
+                                        mslhs_id = mslhs_id,
+                                        name = buyerWindow.BuyerInfo.Name,
+                                        address = buyerWindow.BuyerInfo.Address,
+                                        tin = buyerWindow.BuyerInfo.TIN,
+                                        idnum = buyerWindow.BuyerInfo.IDNum
+                                    };
+                                    context.buyer_info.AddObject(bi);
+                                    context.SaveChanges();
+
+                                }       
+                            }
+                        }
+                    }
+                }
             }
 
-            if (IsUpdated)
-                this.UpdateMovieSchedule();
             StartTimer();
             this.setFocus();
 
@@ -1546,6 +1587,76 @@ namespace Paradiso
                     NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));
                  */
             }
+        }
+
+        private void BuyerInfo_Click(object sender, RoutedEventArgs e)
+        {
+            StopTimer();
+
+            PatronSeatModel patronSeatModel = (PatronSeatModel)((Button)sender).DataContext;
+            //retrieve buyer info
+
+            //show buyer info
+            var window = Window.GetWindow(this);
+            BuyerWindow buyerWindow = new BuyerWindow();
+            if (window != null)
+                buyerWindow.Owner = window;
+            
+            //insert code to load patron info here
+
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var _bi = (from bi in context.buyer_info
+                           where bi.mslhs_id == patronSeatModel.Key
+                           select bi).FirstOrDefault();
+                if (_bi != null)
+                {
+                    buyerWindow.BuyerInfo.Name = _bi.name;
+                    buyerWindow.BuyerInfo.Address = _bi.address;
+                    buyerWindow.BuyerInfo.TIN = _bi.tin;
+                    buyerWindow.BuyerInfo.IDNum = _bi.idnum;
+                }
+            }
+
+
+            buyerWindow.BuyerInfo.IsSCPWD = patronSeatModel.IsSCPWD;
+            buyerWindow.ShowDialog();
+            if (!buyerWindow.BuyerInfo.IsCancelled)
+            {
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var _bi = (from bi in context.buyer_info
+                               where bi.mslhs_id == patronSeatModel.Key
+                               select bi).FirstOrDefault();
+                    if (_bi == null)
+                    {
+                        buyer_info bi = new buyer_info()
+                        {
+                            mslhs_id = patronSeatModel.Key,
+                            name = buyerWindow.BuyerInfo.Name,
+                            address = buyerWindow.BuyerInfo.Address,
+                            tin = buyerWindow.BuyerInfo.TIN,
+                            idnum = buyerWindow.BuyerInfo.IDNum
+                        };
+                        context.buyer_info.AddObject(bi);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        _bi.name = buyerWindow.BuyerInfo.Name;
+                        _bi.address = buyerWindow.BuyerInfo.Address;
+                        _bi.tin = buyerWindow.BuyerInfo.TIN;
+                        _bi.idnum = buyerWindow.BuyerInfo.IDNum;
+
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+
+            this.UpdateMovieSchedule();
+            StartTimer();
+            this.setFocus();
         }
     }
 }

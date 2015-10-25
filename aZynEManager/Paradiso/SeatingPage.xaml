@@ -281,6 +281,15 @@
                                 </Rectangle-->
                             </Button>
                             <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
+                            <Button Name="BuyerInfo" Click="BuyerInfo_Click"  BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Buyer">
+                                <Image Source="/Paradiso;component/Images/info-icon.png" Width="20" Height="20" />
+                                <!--Rectangle Width="10" Height="10">
+                                    <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
+                                    </Rectangle.Fill>
+                                </Rectangle-->
+                            </Button>
+
                             <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
                                 <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
                             </Grid>

@@ -85,7 +85,17 @@ namespace Paradiso
                         var seatname = (from cs in context.cinema_seat
                                         where cs.id == ss.cinema_seat_id
                                         select new { sn = cs.col_name + cs.row_name }).SingleOrDefault();
-                        
+
+
+                        Buyer buyer = new Buyer();
+                        var _bi = (from bi in context.buyer_info where bi.mslhs_id == ss.id select bi).FirstOrDefault();
+                        if (_bi != null)
+                        {
+                            buyer.Name = _bi.name;
+                            buyer.Address = _bi.address;
+                            buyer.TIN = _bi.tin;
+                            buyer.IDNum = _bi.idnum;
+                        }
 
                         SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()
                         {
@@ -98,8 +108,11 @@ namespace Paradiso
                             Price = (decimal) patrons[0].price,
                             BasePrice = (decimal) patrons[0].base_price,
                             OrdinancePrice = (decimal) patrons[0].ordinance_price,
-                            SurchargePrice = (decimal) patrons[0].surcharge_price
+                            SurchargePrice = (decimal) patrons[0].surcharge_price,
+                            BuyerInfo = new Buyer(buyer)
                         });
+
+
                     }
                 }
             }
@@ -363,8 +376,26 @@ namespace Paradiso
 
                                 context.movies_schedule_list_reserved_seat.AddObject(mslrs);
 
-
                                 context.SaveChanges(); //System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
+
+                                //save buyer information
+                                var _bi = (from __bi in context.buyer_info_reserved
+                                           where __bi.mslrs_id == mslrs.id
+                                           select __bi).FirstOrDefault();
+                                if (_bi != null)
+                                    context.buyer_info_reserved.DeleteObject(_bi);
+
+                                buyer_info_reserved bi = new buyer_info_reserved()
+                                {
+                                    mslrs_id = mslrs.id,
+                                    name = patronSeatModel.BuyerInfo.Name,
+                                    address = patronSeatModel.BuyerInfo.Address,
+                                    tin = patronSeatModel.BuyerInfo.TIN,
+                                    idnum = patronSeatModel.BuyerInfo.IDNum
+                                };
+                                context.buyer_info_reserved.AddObject(bi);
+
+                                context.SaveChanges();
                             }
 
 
