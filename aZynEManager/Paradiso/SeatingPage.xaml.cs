@@ -1266,6 +1266,7 @@ namespace Paradiso
                 if (IsUpdated)
                 {
                     this.UpdateMovieSchedule();
+                    /*
                     if (mslhs_id != -1)
                     {
                         if (_SelectedPatron.IsSCPWD)
@@ -1304,6 +1305,7 @@ namespace Paradiso
                             }
                         }
                     }
+                    */
                 }
             }
 
