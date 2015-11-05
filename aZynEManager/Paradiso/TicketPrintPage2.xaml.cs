@@ -651,7 +651,7 @@ namespace Paradiso
                 print.DrawText(1, print.Row, print.Column, print.CenterString(33, Ticket.Header1), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header2), true);
                 print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header3), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Vat Reg Tin#: {0}", Ticket.TIN)), true);
+                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Vat Reg TIN#: {0}", Ticket.TIN)), true);
                 //print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
                 //print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
                 //print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
@@ -659,7 +659,7 @@ namespace Paradiso
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), false);
                 print.DrawText(-1, print.Row + 300, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
                 print.DrawText(2, print.Row, print.Column, Ticket.MovieCode, true);
-                print.DrawText(0, print.Row + 310, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
+                print.DrawText(0, print.Row + 310, print.Column, string.Format("OR#: {0}", Ticket.ORNumber), true);
 
                 int intx1a = print.Row;
                 int inty1a = print.Column;
@@ -674,9 +674,9 @@ namespace Paradiso
                 else if (Ticket.SeatName.Length == 3)
                     print.DrawText(3, print.Row + 225, print.Column, Ticket.SeatName, false);
                 
-                print.Column += 10;
+                print.Column += 4;
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
-                print.DrawText(-1, print.Row + 45, print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
+                print.DrawText(0, print.Row + 45, print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
                 print.DrawText(-1, print.Row + 45, print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode , true);
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
 
@@ -766,12 +766,15 @@ namespace Paradiso
                         strPaymentMode = "CC";
 
                     //display buyer info
-                    print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
-                    print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN No. {0} : ", Ticket.BuyerTIN), false);
-                    if (Ticket.IsSC)
-                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID No. : {0}", Ticket.BuyerIDNum), false);
-                    else if (Ticket.IsPWD)
-                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID No. : {0}", Ticket.BuyerIDNum), false);
+                    if (Ticket.BuyerNameAddress != string.Empty)
+                    {
+                        print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
+                        print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN #: {0}", Ticket.BuyerTIN), false);
+                        if (Ticket.IsSC)
+                            print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID #: {0}", Ticket.BuyerIDNum), false);
+                        else if (Ticket.IsPWD)
+                            print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID #: {0}", Ticket.BuyerIDNum), false);
+                    }
 
                     print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
@@ -817,7 +820,7 @@ namespace Paradiso
 
                 print.DrawText(2, print.Row, print.Column + 5, string.Format("{0}", Ticket.CinemaNumber), false);
                 print.DrawText(-1, print.Row + 25, print.Column + 5, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), false);
-                print.DrawText(-1, print.Row + 25, print.Column + 17, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), false);
+                print.DrawText(0, print.Row + 25, print.Column + 17, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), false);
                 print.DrawText(-1, print.Row + 25, print.Column + 29, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, false);
 
                 print.DrawText(-1, print.Row, print.Column + 58, "SEAT NO:", false);
@@ -908,12 +911,15 @@ namespace Paradiso
                         strPaymentMode = "CC";
                     
                     //display buyer info
-                    print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
-                    print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN No. {0} : ", Ticket.BuyerTIN), false);
-                    if (Ticket.IsSC)
-                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID No. : {0}", Ticket.BuyerIDNum), false);
-                    else if (Ticket.IsPWD)
-                        print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID No. : {0}", Ticket.BuyerIDNum), false);
+                    if (Ticket.BuyerNameAddress != string.Empty)
+                    {
+                        print.DrawText(-1, print.Row + 310, print.Column + 48, Ticket.BuyerNameAddress, false);
+                        print.DrawText(-1, print.Row + 310, print.Column + 60, string.Format("TIN #: {0}", Ticket.BuyerTIN), false);
+                        if (Ticket.IsSC)
+                            print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("OSCA ID #: {0}", Ticket.BuyerIDNum), false);
+                        else if (Ticket.IsPWD)
+                            print.DrawText(-1, print.Row + 310, print.Column + 72, string.Format("PWD ID #: {0}", Ticket.BuyerIDNum), false);
+                    }
 
                     print.DrawText(-2, print.Row + 310, print.Column + 85, string.Format("{0} Total", strPaymentMode), false);
                     print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
@@ -928,7 +934,7 @@ namespace Paradiso
                 print.DrawText(-2, print.Row + 400, print.Column + 85, string.Format("{0:0.00}", Ticket.PatronPrice), false);
                 */
 
-                print.DrawText(-1, print.Row + 125, print.Column, string.Format("Vat Reg Tin#: {0}", Ticket.TIN), true);
+                print.DrawText(-1, print.Row + 125, print.Column, string.Format("Vat Reg TIN#: {0}", Ticket.TIN), true);
                 //print.DrawText(-1, print.Row + 125, print.Column, string.Format("A#: {0}", Ticket.AccreditationNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("SS#: {0}", Ticket.ServerSerialNumber), true);
                 //print.DrawText(-1, print.Row + 125, print.Column, string.Format("P#: {0}", Ticket.PN), true);
@@ -941,7 +947,7 @@ namespace Paradiso
                 else
                     print.DrawText(-1, print.Row + 125, print.Column, " ", true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("Sess. # {0}", Ticket.SessionName), true);
-                print.DrawText(0, print.Row + 125, print.Column, string.Format("Or#: {0}", Ticket.ORNumber), true);
+                print.DrawText(0, print.Row + 125, print.Column, string.Format("OR#: {0}", Ticket.ORNumber), true);
                 print.DrawText(-1, print.Row + 125, print.Column, string.Format("By:    {0}", Ticket.TellerCode), true);
 
                 print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
