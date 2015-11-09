@@ -461,7 +461,7 @@ namespace Paradiso
                         }
                     }
                 }
-                catch (Exception ex)
+                catch //(Exception ex)
                 {
                 }
 

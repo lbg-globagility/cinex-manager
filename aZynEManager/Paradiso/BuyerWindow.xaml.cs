@@ -54,6 +54,39 @@ namespace Paradiso
                 }
 
             }
+            //checks if buyer info is empty
+            if (BuyerInfo.IsEmpty)
+            {
+                BuyerInfo.Id = 1; //empty
+            }
+            else if (BuyerInfo.Id == 1)
+            {
+                //save new
+                BuyerInfo.Id = 0; 
+                //retrieve new id
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    buyer _b = new buyer()
+                    {
+                        lastname = BuyerInfo.LastName,
+                        firstname = BuyerInfo.FirstName,
+                        middleinitial = BuyerInfo.MiddleInitial,
+                        address = BuyerInfo.Address,
+                        municipality = BuyerInfo.Municipality,
+                        province = BuyerInfo.Province,
+                        tin = BuyerInfo.TIN,
+                        idnum = BuyerInfo.IDNum,
+                        isscpwd = BuyerInfo.IsSCPWD
+                    };
+
+                    context.buyers.AddObject(_b);
+
+                    context.SaveChanges();
+                    BuyerInfo.Id = _b.id;
+                }
+
+            }
+
             BuyerInfo.IsCancelled = false;
             this.Close();
         }
@@ -87,6 +120,58 @@ namespace Paradiso
                     return;
                 }
                 BuyerInfo.IsCancelled = false;
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerInfo.Id = 1;
+            BuyerInfo.LastName = string.Empty;
+            BuyerInfo.FirstName = string.Empty;
+            BuyerInfo.MiddleInitial = string.Empty;
+            BuyerInfo.Address = string.Empty;
+            BuyerInfo.Municipality = string.Empty;
+            BuyerInfo.Province = string.Empty;
+            BuyerInfo.TIN = string.Empty;
+            BuyerInfo.IDNum = string.Empty;
+            EnableBuyerEditing(true);
+        }
+
+        private void EnableBuyerEditing(bool blnIsEnabled)
+        {
+            LastName.IsEnabled = blnIsEnabled;
+            FirstName.IsEnabled = blnIsEnabled;
+            MiddleInitial.IsEnabled = blnIsEnabled;
+            Address.IsEnabled = blnIsEnabled;
+            Municipality.IsEnabled = blnIsEnabled;
+            Province.IsEnabled = blnIsEnabled;
+            TIN.IsEnabled = blnIsEnabled;
+            IDNum.IsEnabled = blnIsEnabled;
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            BuyerSearchWindow searchWindow = new BuyerSearchWindow();
+            var window = Window.GetWindow(this);
+
+            if (window != null)
+                searchWindow.Owner = window;
+            searchWindow.ShowDialog();
+            if (!searchWindow.IsCancelled)
+            {
+                if (searchWindow.SelectedBuyer != null)
+                {
+                    BuyerInfo.Id = searchWindow.SelectedBuyer.Id;
+                    BuyerInfo.LastName = searchWindow.SelectedBuyer.LastName;
+                    BuyerInfo.FirstName = searchWindow.SelectedBuyer.FirstName;
+                    BuyerInfo.MiddleInitial = searchWindow.SelectedBuyer.MiddleInitial;
+                    BuyerInfo.Address = searchWindow.SelectedBuyer.Address;
+                    BuyerInfo.Municipality = searchWindow.SelectedBuyer.Municipality;
+                    BuyerInfo.Province = searchWindow.SelectedBuyer.Province;
+                    BuyerInfo.TIN = searchWindow.SelectedBuyer.TIN;
+                    BuyerInfo.IDNum = searchWindow.SelectedBuyer.IDNum;
+                    EnableBuyerEditing(false);
+                }
             }
         }
     }

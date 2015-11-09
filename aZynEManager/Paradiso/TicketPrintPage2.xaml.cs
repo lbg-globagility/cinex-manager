@@ -192,10 +192,14 @@ namespace Paradiso
                                            select __bi).FirstOrDefault();
                                 if (_bi != null)
                                 {
-                                    buyer.Name = _bi.name;
-                                    buyer.Address = _bi.address;
-                                    buyer.TIN = _bi.tin;
-                                    buyer.IDNum = _bi.idnum;
+                                    buyer.LastName = _bi.buyer.lastname;
+                                    buyer.FirstName = _bi.buyer.firstname;
+                                    buyer.MiddleInitial = _bi.buyer.middleinitial;
+                                    buyer.Address = _bi.buyer.address;
+                                    buyer.Municipality = _bi.buyer.municipality;
+                                    buyer.Province = _bi.buyer.province;
+                                    buyer.TIN = _bi.buyer.tin;
+                                    buyer.IDNum = _bi.buyer.idnum;
                                 }
 
                                 TicketList.Tickets.Add(new TicketModel()
@@ -222,8 +226,12 @@ namespace Paradiso
                                     CurrentTime = dtCurrentDateTime,
                                     IsVoid = t.isvoid,
                                     IsSelected = false,
-                                    BuyerName = buyer.Name,
+                                    BuyerLastName = buyer.LastName,
+                                    BuyerFirstName = buyer.FirstName,
+                                    BuyerMiddleInitial = buyer.MiddleInitial,
                                     BuyerAddress = buyer.Address,
+                                    BuyerMunicipality = buyer.Municipality,
+                                    BuyerProvince = buyer.Province,
                                     BuyerTIN = buyer.TIN,
                                     BuyerIDNum = buyer.IDNum
                                 });
@@ -424,14 +432,22 @@ namespace Paradiso
                                select __bi).FirstOrDefault();
                     if (_bi != null)
                     {
-                        buyer.Name = _bi.name;
-                        buyer.Address = _bi.address;
-                        buyer.TIN = _bi.tin;
-                        buyer.IDNum = _bi.idnum;
+                        buyer.LastName = _bi.buyer.lastname;
+                        buyer.FirstName = _bi.buyer.firstname;
+                        buyer.MiddleInitial = _bi.buyer.middleinitial;
+                        buyer.Address = _bi.buyer.address;
+                        buyer.Municipality = _bi.buyer.municipality;
+                        buyer.Province = _bi.buyer.province;
+                        buyer.TIN = _bi.buyer.tin;
+                        buyer.IDNum = _bi.buyer.idnum;
                     }
 
-                    Ticket.BuyerName = buyer.Name;
+                    Ticket.BuyerLastName = buyer.LastName;
+                    Ticket.BuyerFirstName = buyer.FirstName;
+                    Ticket.BuyerMiddleInitial = buyer.MiddleInitial;
                     Ticket.BuyerAddress = buyer.Address;
+                    Ticket.BuyerMunicipality = buyer.Municipality;
+                    Ticket.BuyerProvince = buyer.Province;
                     Ticket.BuyerTIN = buyer.TIN;
                     Ticket.BuyerIDNum = buyer.IDNum;
 
@@ -531,8 +547,12 @@ namespace Paradiso
                 Ticket.SeatName = t.SeatName;
                 Ticket.IsHandicapped = t.IsHandicapped;
                 Ticket.SeatType = t.SeatType;
-                Ticket.BuyerName = t.BuyerName;
+                Ticket.BuyerLastName = t.BuyerLastName;
+                Ticket.BuyerFirstName = t.BuyerFirstName;
+                Ticket.BuyerMiddleInitial = t.BuyerMiddleInitial;
                 Ticket.BuyerAddress = t.BuyerAddress;
+                Ticket.BuyerMunicipality = t.BuyerMunicipality;
+                Ticket.BuyerProvince = t.BuyerProvince;
                 Ticket.BuyerTIN = t.BuyerTIN;
                 Ticket.BuyerIDNum = t.BuyerIDNum;
             }

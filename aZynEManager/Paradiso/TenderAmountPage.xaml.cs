@@ -91,10 +91,15 @@ namespace Paradiso
                         var _bi = (from bi in context.buyer_info where bi.mslhs_id == ss.id select bi).FirstOrDefault();
                         if (_bi != null)
                         {
-                            buyer.Name = _bi.name;
-                            buyer.Address = _bi.address;
-                            buyer.TIN = _bi.tin;
-                            buyer.IDNum = _bi.idnum;
+                            buyer.Id = _bi.buyer_id;
+                            buyer.LastName = _bi.buyer.lastname;
+                            buyer.FirstName = _bi.buyer.firstname;
+                            buyer.MiddleInitial = _bi.buyer.middleinitial;
+                            buyer.Address = _bi.buyer.address;
+                            buyer.Municipality = _bi.buyer.municipality;
+                            buyer.Province = _bi.buyer.province;
+                            buyer.TIN = _bi.buyer.tin;
+                            buyer.IDNum = _bi.buyer.idnum;
                         }
 
                         SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel()
@@ -388,10 +393,7 @@ namespace Paradiso
                                 buyer_info_reserved bi = new buyer_info_reserved()
                                 {
                                     mslrs_id = mslrs.id,
-                                    name = patronSeatModel.BuyerInfo.Name,
-                                    address = patronSeatModel.BuyerInfo.Address,
-                                    tin = patronSeatModel.BuyerInfo.TIN,
-                                    idnum = patronSeatModel.BuyerInfo.IDNum
+                                    buyer_id = patronSeatModel.BuyerInfo.Id
                                 };
                                 context.buyer_info_reserved.AddObject(bi);
 

@@ -70,8 +70,13 @@ namespace Paradiso.Model
         private decimal decCC = 0;
         private decimal decGC = 0;
 
-        private string strBuyerName = string.Empty;
+        private string strBuyerLastName = string.Empty;
+        private string strBuyerFirstName = string.Empty;
+        private string strBuyerMiddleInitial = string.Empty;
+
         private string strBuyerAddress = string.Empty;
+        private string strBuyerMunicipality = string.Empty;
+        private string strBuyerProvince = string.Empty;
         private string strBuyerTIN = string.Empty;
         private string strBuyerIDNum = string.Empty;
 
@@ -117,8 +122,12 @@ namespace Paradiso.Model
             strServerSerialNumber = ParadisoObjectManager.GetInstance().GetConfigValue("SERVER SERIAL",  string.Empty); //"XXXXXXXXXXX-X");
             strPOSNumber = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), string.Empty);
 
-            BuyerName = string.Empty;
+            BuyerLastName = string.Empty;
+            BuyerFirstName = string.Empty;
+            BuyerMiddleInitial = string.Empty;
             BuyerAddress = string.Empty;
+            BuyerMunicipality = string.Empty;
+            BuyerProvince = string.Empty;
             BuyerTIN = string.Empty;
             BuyerIDNum = string.Empty;
 
@@ -731,15 +740,41 @@ namespace Paradiso.Model
             }
         }
 
-        public string BuyerName
+        public string BuyerLastName
         {
-            get { return strBuyerName; }
+            get { return strBuyerLastName; }
             set
             {
-                if (value != strBuyerName)
+                if (value != strBuyerLastName)
                 {
-                    strBuyerName = value;
-                    NotifyPropertyChanged("BuyerName");
+                    strBuyerLastName = value;
+                    NotifyPropertyChanged("BuyerLastName");
+                }
+            }
+        }
+
+        public string BuyerFirstName
+        {
+            get { return strBuyerFirstName; }
+            set
+            {
+                if (value != strBuyerFirstName)
+                {
+                    strBuyerFirstName = value;
+                    NotifyPropertyChanged("BuyerFirstName");
+                }
+            }
+        }
+
+        public string BuyerMiddleInitial
+        {
+            get { return strBuyerMiddleInitial; }
+            set
+            {
+                if (value != strBuyerMiddleInitial)
+                {
+                    strBuyerMiddleInitial = value;
+                    NotifyPropertyChanged("BuyerMiddleInitial");
                 }
             }
         }
@@ -757,15 +792,79 @@ namespace Paradiso.Model
             }
         }
 
+        public string BuyerMunicipality
+        {
+            get { return strBuyerMunicipality; }
+            set
+            {
+                if (value != strBuyerMunicipality)
+                {
+                    strBuyerMunicipality = value;
+                    NotifyPropertyChanged("BuyerMunicipality");
+                }
+            }
+        }
+
+        public string BuyerProvince
+        {
+            get { return strBuyerProvince; }
+            set
+            {
+                if (value != strBuyerProvince)
+                {
+                    strBuyerProvince = value;
+                    NotifyPropertyChanged("BuyerProvince");
+                }
+            }
+        }
+
         public string BuyerNameAddress
         {
             get
             {
-                if (BuyerName != string.Empty && BuyerAddress != string.Empty)
-                    return string.Format("{0}, {1}", BuyerName, BuyerAddress);
-                else
-                    return BuyerName;
+                StringBuilder strBuyerNameAddress = new StringBuilder();
+                if (BuyerFirstName != string.Empty)
+                    strBuyerNameAddress.Append(BuyerFirstName);
+                if (BuyerMiddleInitial != string.Empty)
+                {
+                    if (strBuyerNameAddress.Length > 0)
+                        strBuyerNameAddress.Append(" ");
+                    strBuyerNameAddress.Append(BuyerMiddleInitial);
+                    if (!BuyerMiddleInitial.EndsWith("."))
+                        strBuyerNameAddress.Append(".");
+                }
 
+                if (BuyerLastName != string.Empty)
+                {
+                    if (strBuyerNameAddress.Length > 0)
+                        strBuyerNameAddress.Append(" ");
+                    strBuyerNameAddress.Append(BuyerLastName);
+                }
+
+                //address
+                if (strBuyerNameAddress.Length > 0)
+                    strBuyerNameAddress.Append(",");
+
+                if (BuyerAddress != string.Empty)
+                {
+                    if (strBuyerNameAddress.Length > 0)
+                        strBuyerNameAddress.Append(" ");
+                    strBuyerNameAddress.Append(BuyerAddress);
+                }
+                if (BuyerMunicipality != string.Empty)
+                {
+                    if (strBuyerNameAddress.Length > 0)
+                        strBuyerNameAddress.Append(" ");
+                    strBuyerNameAddress.Append(BuyerMunicipality);
+                }
+                if (BuyerProvince != string.Empty)
+                {
+                    if (strBuyerNameAddress.Length > 0)
+                        strBuyerNameAddress.Append(" ");
+                    strBuyerNameAddress.Append(BuyerProvince);
+                }
+
+                return strBuyerNameAddress.ToString();
             }
         }
 

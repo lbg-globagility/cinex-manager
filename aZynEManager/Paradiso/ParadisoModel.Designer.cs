@@ -53,6 +53,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_temp_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs_temp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs_temp), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_movies_schedule_list_house_seat", "movies_schedule_list_house_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_house_seat), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_mslrs", "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_reserved_seat), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
 
@@ -749,18 +751,18 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<patrons_ordinance_view> patrons_ordinance_view
+        public ObjectSet<buyer> buyers
         {
             get
             {
-                if ((_patrons_ordinance_view == null))
+                if ((_buyers == null))
                 {
-                    _patrons_ordinance_view = base.CreateObjectSet<patrons_ordinance_view>("patrons_ordinance_view");
+                    _buyers = base.CreateObjectSet<buyer>("buyers");
                 }
-                return _patrons_ordinance_view;
+                return _buyers;
             }
         }
-        private ObjectSet<patrons_ordinance_view> _patrons_ordinance_view;
+        private ObjectSet<buyer> _buyers;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -793,6 +795,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<buyer_info_reserved> _buyer_info_reserved;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> movies_schedule_list_patron_ordinance_surcharge_view
+        {
+            get
+            {
+                if ((_movies_schedule_list_patron_ordinance_surcharge_view == null))
+                {
+                    _movies_schedule_list_patron_ordinance_surcharge_view = base.CreateObjectSet<movies_schedule_list_patron_ordinance_surcharge_view>("movies_schedule_list_patron_ordinance_surcharge_view");
+                }
+                return _movies_schedule_list_patron_ordinance_surcharge_view;
+            }
+        }
+        private ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> _movies_schedule_list_patron_ordinance_surcharge_view;
 
         #endregion
 
@@ -1119,11 +1137,11 @@ namespace Paradiso
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the patrons_ordinance_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the buyers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTopatrons_ordinance_view(patrons_ordinance_view patrons_ordinance_view)
+        public void AddTobuyers(buyer buyer)
         {
-            base.AddObject("patrons_ordinance_view", patrons_ordinance_view);
+            base.AddObject("buyers", buyer);
         }
     
         /// <summary>
@@ -1140,6 +1158,14 @@ namespace Paradiso
         public void AddTobuyer_info_reserved(buyer_info_reserved buyer_info_reserved)
         {
             base.AddObject("buyer_info_reserved", buyer_info_reserved);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the movies_schedule_list_patron_ordinance_surcharge_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomovies_schedule_list_patron_ordinance_surcharge_view(movies_schedule_list_patron_ordinance_surcharge_view movies_schedule_list_patron_ordinance_surcharge_view)
+        {
+            base.AddObject("movies_schedule_list_patron_ordinance_surcharge_view", movies_schedule_list_patron_ordinance_surcharge_view);
         }
 
         #endregion
@@ -1517,6 +1543,331 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="buyer")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class buyer : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new buyer object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="lastname">Initial value of the lastname property.</param>
+        /// <param name="isscpwd">Initial value of the isscpwd property.</param>
+        public static buyer Createbuyer(global::System.Int32 id, global::System.String lastname, global::System.Boolean isscpwd)
+        {
+            buyer buyer = new buyer();
+            buyer.id = id;
+            buyer.lastname = lastname;
+            buyer.isscpwd = isscpwd;
+            return buyer;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String lastname
+        {
+            get
+            {
+                return _lastname;
+            }
+            set
+            {
+                OnlastnameChanging(value);
+                ReportPropertyChanging("lastname");
+                _lastname = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("lastname");
+                OnlastnameChanged();
+            }
+        }
+        private global::System.String _lastname;
+        partial void OnlastnameChanging(global::System.String value);
+        partial void OnlastnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String firstname
+        {
+            get
+            {
+                return _firstname;
+            }
+            set
+            {
+                OnfirstnameChanging(value);
+                ReportPropertyChanging("firstname");
+                _firstname = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("firstname");
+                OnfirstnameChanged();
+            }
+        }
+        private global::System.String _firstname;
+        partial void OnfirstnameChanging(global::System.String value);
+        partial void OnfirstnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String middleinitial
+        {
+            get
+            {
+                return _middleinitial;
+            }
+            set
+            {
+                OnmiddleinitialChanging(value);
+                ReportPropertyChanging("middleinitial");
+                _middleinitial = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("middleinitial");
+                OnmiddleinitialChanged();
+            }
+        }
+        private global::System.String _middleinitial;
+        partial void OnmiddleinitialChanging(global::System.String value);
+        partial void OnmiddleinitialChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String address
+        {
+            get
+            {
+                return _address;
+            }
+            set
+            {
+                OnaddressChanging(value);
+                ReportPropertyChanging("address");
+                _address = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("address");
+                OnaddressChanged();
+            }
+        }
+        private global::System.String _address;
+        partial void OnaddressChanging(global::System.String value);
+        partial void OnaddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String municipality
+        {
+            get
+            {
+                return _municipality;
+            }
+            set
+            {
+                OnmunicipalityChanging(value);
+                ReportPropertyChanging("municipality");
+                _municipality = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("municipality");
+                OnmunicipalityChanged();
+            }
+        }
+        private global::System.String _municipality;
+        partial void OnmunicipalityChanging(global::System.String value);
+        partial void OnmunicipalityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String province
+        {
+            get
+            {
+                return _province;
+            }
+            set
+            {
+                OnprovinceChanging(value);
+                ReportPropertyChanging("province");
+                _province = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("province");
+                OnprovinceChanged();
+            }
+        }
+        private global::System.String _province;
+        partial void OnprovinceChanging(global::System.String value);
+        partial void OnprovinceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tin
+        {
+            get
+            {
+                return _tin;
+            }
+            set
+            {
+                OntinChanging(value);
+                ReportPropertyChanging("tin");
+                _tin = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("tin");
+                OntinChanged();
+            }
+        }
+        private global::System.String _tin;
+        partial void OntinChanging(global::System.String value);
+        partial void OntinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String idnum
+        {
+            get
+            {
+                return _idnum;
+            }
+            set
+            {
+                OnidnumChanging(value);
+                ReportPropertyChanging("idnum");
+                _idnum = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("idnum");
+                OnidnumChanged();
+            }
+        }
+        private global::System.String _idnum;
+        partial void OnidnumChanging(global::System.String value);
+        partial void OnidnumChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean isscpwd
+        {
+            get
+            {
+                return _isscpwd;
+            }
+            set
+            {
+                OnisscpwdChanging(value);
+                ReportPropertyChanging("isscpwd");
+                _isscpwd = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("isscpwd");
+                OnisscpwdChanged();
+            }
+        }
+        private global::System.Boolean _isscpwd;
+        partial void OnisscpwdChanging(global::System.Boolean value);
+        partial void OnisscpwdChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_buyer", "buyer_info")]
+        public EntityCollection<buyer_info> buyer_info
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_buyer", "buyer_info");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_buyer", "buyer_info", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_reserved_buyer", "buyer_info_reserved")]
+        public EntityCollection<buyer_info_reserved> buyer_info_reserved
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer_info_reserved");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer_info_reserved", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="buyer_info")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1529,11 +1880,13 @@ namespace Paradiso
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="mslhs_id">Initial value of the mslhs_id property.</param>
-        public static buyer_info Createbuyer_info(global::System.Int32 id, global::System.Int32 mslhs_id)
+        /// <param name="buyer_id">Initial value of the buyer_id property.</param>
+        public static buyer_info Createbuyer_info(global::System.Int32 id, global::System.Int32 mslhs_id, global::System.Int32 buyer_id)
         {
             buyer_info buyer_info = new buyer_info();
             buyer_info.id = id;
             buyer_info.mslhs_id = mslhs_id;
+            buyer_info.buyer_id = buyer_id;
             return buyer_info;
         }
 
@@ -1598,103 +1951,69 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String name
+        public global::System.Int32 buyer_id
         {
             get
             {
-                return _name;
+                return _buyer_id;
             }
             set
             {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("name");
-                OnnameChanged();
+                Onbuyer_idChanging(value);
+                ReportPropertyChanging("buyer_id");
+                _buyer_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("buyer_id");
+                Onbuyer_idChanged();
             }
         }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String address
-        {
-            get
-            {
-                return _address;
-            }
-            set
-            {
-                OnaddressChanging(value);
-                ReportPropertyChanging("address");
-                _address = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("address");
-                OnaddressChanged();
-            }
-        }
-        private global::System.String _address;
-        partial void OnaddressChanging(global::System.String value);
-        partial void OnaddressChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String tin
-        {
-            get
-            {
-                return _tin;
-            }
-            set
-            {
-                OntinChanging(value);
-                ReportPropertyChanging("tin");
-                _tin = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("tin");
-                OntinChanged();
-            }
-        }
-        private global::System.String _tin;
-        partial void OntinChanging(global::System.String value);
-        partial void OntinChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String idnum
-        {
-            get
-            {
-                return _idnum;
-            }
-            set
-            {
-                OnidnumChanging(value);
-                ReportPropertyChanging("idnum");
-                _idnum = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("idnum");
-                OnidnumChanged();
-            }
-        }
-        private global::System.String _idnum;
-        partial void OnidnumChanging(global::System.String value);
-        partial void OnidnumChanged();
+        private global::System.Int32 _buyer_id;
+        partial void Onbuyer_idChanging(global::System.Int32 value);
+        partial void Onbuyer_idChanged();
 
         #endregion
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_buyer", "buyer")]
+        public buyer buyer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_buyer", "buyer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_buyer", "buyer").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<buyer> buyerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_buyer", "buyer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<buyer>("paradisoModel.fk_buyer_info_buyer", "buyer", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1753,11 +2072,13 @@ namespace Paradiso
         /// </summary>
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="mslrs_id">Initial value of the mslrs_id property.</param>
-        public static buyer_info_reserved Createbuyer_info_reserved(global::System.Int32 id, global::System.Int32 mslrs_id)
+        /// <param name="buyer_id">Initial value of the buyer_id property.</param>
+        public static buyer_info_reserved Createbuyer_info_reserved(global::System.Int32 id, global::System.Int32 mslrs_id, global::System.Int32 buyer_id)
         {
             buyer_info_reserved buyer_info_reserved = new buyer_info_reserved();
             buyer_info_reserved.id = id;
             buyer_info_reserved.mslrs_id = mslrs_id;
+            buyer_info_reserved.buyer_id = buyer_id;
             return buyer_info_reserved;
         }
 
@@ -1822,103 +2143,69 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String name
+        public global::System.Int32 buyer_id
         {
             get
             {
-                return _name;
+                return _buyer_id;
             }
             set
             {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("name");
-                OnnameChanged();
+                Onbuyer_idChanging(value);
+                ReportPropertyChanging("buyer_id");
+                _buyer_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("buyer_id");
+                Onbuyer_idChanged();
             }
         }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String address
-        {
-            get
-            {
-                return _address;
-            }
-            set
-            {
-                OnaddressChanging(value);
-                ReportPropertyChanging("address");
-                _address = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("address");
-                OnaddressChanged();
-            }
-        }
-        private global::System.String _address;
-        partial void OnaddressChanging(global::System.String value);
-        partial void OnaddressChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String tin
-        {
-            get
-            {
-                return _tin;
-            }
-            set
-            {
-                OntinChanging(value);
-                ReportPropertyChanging("tin");
-                _tin = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("tin");
-                OntinChanged();
-            }
-        }
-        private global::System.String _tin;
-        partial void OntinChanging(global::System.String value);
-        partial void OntinChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String idnum
-        {
-            get
-            {
-                return _idnum;
-            }
-            set
-            {
-                OnidnumChanging(value);
-                ReportPropertyChanging("idnum");
-                _idnum = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("idnum");
-                OnidnumChanged();
-            }
-        }
-        private global::System.String _idnum;
-        partial void OnidnumChanging(global::System.String value);
-        partial void OnidnumChanged();
+        private global::System.Int32 _buyer_id;
+        partial void Onbuyer_idChanging(global::System.Int32 value);
+        partial void Onbuyer_idChanged();
 
         #endregion
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_reserved_buyer", "buyer")]
+        public buyer buyer
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<buyer> buyerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<buyer>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<buyer>("paradisoModel.fk_buyer_info_reserved_buyer", "buyer", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6061,6 +6348,232 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="movies_schedule_list_patron_ordinance_surcharge_view")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class movies_schedule_list_patron_ordinance_surcharge_view : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new movies_schedule_list_patron_ordinance_surcharge_view object.
+        /// </summary>
+        /// <param name="patron_id">Initial value of the patron_id property.</param>
+        /// <param name="amount_val">Initial value of the amount_val property.</param>
+        /// <param name="in_pesovalue">Initial value of the in_pesovalue property.</param>
+        /// <param name="with_enddate">Initial value of the with_enddate property.</param>
+        /// <param name="effective_date">Initial value of the effective_date property.</param>
+        /// <param name="isordinance">Initial value of the isordinance property.</param>
+        public static movies_schedule_list_patron_ordinance_surcharge_view Createmovies_schedule_list_patron_ordinance_surcharge_view(global::System.Int32 patron_id, global::System.Single amount_val, global::System.Int32 in_pesovalue, global::System.Int32 with_enddate, global::System.DateTime effective_date, global::System.Int64 isordinance)
+        {
+            movies_schedule_list_patron_ordinance_surcharge_view movies_schedule_list_patron_ordinance_surcharge_view = new movies_schedule_list_patron_ordinance_surcharge_view();
+            movies_schedule_list_patron_ordinance_surcharge_view.patron_id = patron_id;
+            movies_schedule_list_patron_ordinance_surcharge_view.amount_val = amount_val;
+            movies_schedule_list_patron_ordinance_surcharge_view.in_pesovalue = in_pesovalue;
+            movies_schedule_list_patron_ordinance_surcharge_view.with_enddate = with_enddate;
+            movies_schedule_list_patron_ordinance_surcharge_view.effective_date = effective_date;
+            movies_schedule_list_patron_ordinance_surcharge_view.isordinance = isordinance;
+            return movies_schedule_list_patron_ordinance_surcharge_view;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 patron_id
+        {
+            get
+            {
+                return _patron_id;
+            }
+            set
+            {
+                if (_patron_id != value)
+                {
+                    Onpatron_idChanging(value);
+                    ReportPropertyChanging("patron_id");
+                    _patron_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("patron_id");
+                    Onpatron_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _patron_id;
+        partial void Onpatron_idChanging(global::System.Int32 value);
+        partial void Onpatron_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Single amount_val
+        {
+            get
+            {
+                return _amount_val;
+            }
+            set
+            {
+                if (_amount_val != value)
+                {
+                    Onamount_valChanging(value);
+                    ReportPropertyChanging("amount_val");
+                    _amount_val = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("amount_val");
+                    Onamount_valChanged();
+                }
+            }
+        }
+        private global::System.Single _amount_val;
+        partial void Onamount_valChanging(global::System.Single value);
+        partial void Onamount_valChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 in_pesovalue
+        {
+            get
+            {
+                return _in_pesovalue;
+            }
+            set
+            {
+                if (_in_pesovalue != value)
+                {
+                    Onin_pesovalueChanging(value);
+                    ReportPropertyChanging("in_pesovalue");
+                    _in_pesovalue = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("in_pesovalue");
+                    Onin_pesovalueChanged();
+                }
+            }
+        }
+        private global::System.Int32 _in_pesovalue;
+        partial void Onin_pesovalueChanging(global::System.Int32 value);
+        partial void Onin_pesovalueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 with_enddate
+        {
+            get
+            {
+                return _with_enddate;
+            }
+            set
+            {
+                if (_with_enddate != value)
+                {
+                    Onwith_enddateChanging(value);
+                    ReportPropertyChanging("with_enddate");
+                    _with_enddate = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("with_enddate");
+                    Onwith_enddateChanged();
+                }
+            }
+        }
+        private global::System.Int32 _with_enddate;
+        partial void Onwith_enddateChanging(global::System.Int32 value);
+        partial void Onwith_enddateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime effective_date
+        {
+            get
+            {
+                return _effective_date;
+            }
+            set
+            {
+                if (_effective_date != value)
+                {
+                    Oneffective_dateChanging(value);
+                    ReportPropertyChanging("effective_date");
+                    _effective_date = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("effective_date");
+                    Oneffective_dateChanged();
+                }
+            }
+        }
+        private global::System.DateTime _effective_date;
+        partial void Oneffective_dateChanging(global::System.DateTime value);
+        partial void Oneffective_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> end_date
+        {
+            get
+            {
+                return _end_date;
+            }
+            set
+            {
+                Onend_dateChanging(value);
+                ReportPropertyChanging("end_date");
+                _end_date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("end_date");
+                Onend_dateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _end_date;
+        partial void Onend_dateChanging(Nullable<global::System.DateTime> value);
+        partial void Onend_dateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 isordinance
+        {
+            get
+            {
+                return _isordinance;
+            }
+            set
+            {
+                if (_isordinance != value)
+                {
+                    OnisordinanceChanging(value);
+                    ReportPropertyChanging("isordinance");
+                    _isordinance = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("isordinance");
+                    OnisordinanceChanged();
+                }
+            }
+        }
+        private global::System.Int64 _isordinance;
+        partial void OnisordinanceChanging(global::System.Int64 value);
+        partial void OnisordinanceChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="movies_schedule_list_patron_ordinance_view")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -8118,6 +8631,30 @@ namespace Paradiso
         private Nullable<global::System.Int32> _base_price;
         partial void Onbase_priceChanging(Nullable<global::System.Int32> value);
         partial void Onbase_priceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> with_surcharge
+        {
+            get
+            {
+                return _with_surcharge;
+            }
+            set
+            {
+                Onwith_surchargeChanging(value);
+                ReportPropertyChanging("with_surcharge");
+                _with_surcharge = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("with_surcharge");
+                Onwith_surchargeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _with_surcharge;
+        partial void Onwith_surchargeChanging(Nullable<global::System.Int32> value);
+        partial void Onwith_surchargeChanged();
 
         #endregion
 
@@ -8381,121 +8918,6 @@ namespace Paradiso
 
         #endregion
 
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="patrons_ordinance_view")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class patrons_ordinance_view : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new patrons_ordinance_view object.
-        /// </summary>
-        /// <param name="patron_id">Initial value of the patron_id property.</param>
-        /// <param name="amount_val">Initial value of the amount_val property.</param>
-        /// <param name="in_pesovalue">Initial value of the in_pesovalue property.</param>
-        public static patrons_ordinance_view Createpatrons_ordinance_view(global::System.Int32 patron_id, global::System.Single amount_val, global::System.Int32 in_pesovalue)
-        {
-            patrons_ordinance_view patrons_ordinance_view = new patrons_ordinance_view();
-            patrons_ordinance_view.patron_id = patron_id;
-            patrons_ordinance_view.amount_val = amount_val;
-            patrons_ordinance_view.in_pesovalue = in_pesovalue;
-            return patrons_ordinance_view;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 patron_id
-        {
-            get
-            {
-                return _patron_id;
-            }
-            set
-            {
-                if (_patron_id != value)
-                {
-                    Onpatron_idChanging(value);
-                    ReportPropertyChanging("patron_id");
-                    _patron_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("patron_id");
-                    Onpatron_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _patron_id;
-        partial void Onpatron_idChanging(global::System.Int32 value);
-        partial void Onpatron_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Single amount_val
-        {
-            get
-            {
-                return _amount_val;
-            }
-            set
-            {
-                if (_amount_val != value)
-                {
-                    Onamount_valChanging(value);
-                    ReportPropertyChanging("amount_val");
-                    _amount_val = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("amount_val");
-                    Onamount_valChanged();
-                }
-            }
-        }
-        private global::System.Single _amount_val;
-        partial void Onamount_valChanging(global::System.Single value);
-        partial void Onamount_valChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 in_pesovalue
-        {
-            get
-            {
-                return _in_pesovalue;
-            }
-            set
-            {
-                if (_in_pesovalue != value)
-                {
-                    Onin_pesovalueChanging(value);
-                    ReportPropertyChanging("in_pesovalue");
-                    _in_pesovalue = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("in_pesovalue");
-                    Onin_pesovalueChanged();
-                }
-            }
-        }
-        private global::System.Int32 _in_pesovalue;
-        partial void Onin_pesovalueChanging(global::System.Int32 value);
-        partial void Onin_pesovalueChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>

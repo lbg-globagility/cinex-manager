@@ -936,6 +936,7 @@ namespace Paradiso
                                         //save new buyer information
                                         buyer_info n_bi = new buyer_info();
                                         n_bi.mslhs_id = mslhs.id;
+                                        n_bi.buyer_id = 1;
                                         context.buyer_info.AddObject(n_bi);
                                         context.SaveChanges();
 
@@ -1613,10 +1614,15 @@ namespace Paradiso
                            select bi).FirstOrDefault();
                 if (_bi != null)
                 {
-                    buyerWindow.BuyerInfo.Name = _bi.name;
-                    buyerWindow.BuyerInfo.Address = _bi.address;
-                    buyerWindow.BuyerInfo.TIN = _bi.tin;
-                    buyerWindow.BuyerInfo.IDNum = _bi.idnum;
+                    buyerWindow.BuyerInfo.Id = _bi.buyer_id;
+                    buyerWindow.BuyerInfo.LastName = _bi.buyer.lastname;
+                    buyerWindow.BuyerInfo.FirstName = _bi.buyer.firstname;
+                    buyerWindow.BuyerInfo.MiddleInitial = _bi.buyer.middleinitial;
+                    buyerWindow.BuyerInfo.Address = _bi.buyer.address;
+                    buyerWindow.BuyerInfo.Municipality = _bi.buyer.municipality;
+                    buyerWindow.BuyerInfo.Province = _bi.buyer.province;
+                    buyerWindow.BuyerInfo.TIN = _bi.buyer.tin;
+                    buyerWindow.BuyerInfo.IDNum = _bi.buyer.idnum;
                 }
             }
 
@@ -1627,29 +1633,49 @@ namespace Paradiso
             {
                 using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
+                    /*
+                    buyer _b = new buyer()
+                    {
+                        lastname = buyerWindow.BuyerInfo.LastName,
+                        firstname = buyerWindow.BuyerInfo.FirstName,
+                        middleinitial = buyerWindow.BuyerInfo.MiddleInitial,
+                        address = buyerWindow.BuyerInfo.Address,
+                        municipality = buyerWindow.BuyerInfo.Municipality,
+                        province = buyerWindow.BuyerInfo.Province,
+                        tin = buyerWindow.BuyerInfo.TIN,
+                        idnum = buyerWindow.BuyerInfo.IDNum,
+                        isscpwd = buyerWindow.BuyerInfo.IsSCPWD
+                    };
+                    if (buyerWindow.BuyerInfo.Id == 0)
+                    {
+                        context.buyers.AddObject(_b);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        var __b = (from b in context.buyers where b.id == buyerWindow.BuyerInfo.Id select b).SingleOrDefault();
+                        if (__b != null)
+                            _b = __b;
+                    }
+                    */
+
                     var _bi = (from bi in context.buyer_info
                                where bi.mslhs_id == patronSeatModel.Key
                                select bi).FirstOrDefault();
                     if (_bi == null)
                     {
+
                         buyer_info bi = new buyer_info()
                         {
                             mslhs_id = patronSeatModel.Key,
-                            name = buyerWindow.BuyerInfo.Name,
-                            address = buyerWindow.BuyerInfo.Address,
-                            tin = buyerWindow.BuyerInfo.TIN,
-                            idnum = buyerWindow.BuyerInfo.IDNum
+                            buyer_id = buyerWindow.BuyerInfo.Id
                         };
                         context.buyer_info.AddObject(bi);
                         context.SaveChanges();
                     }
                     else
                     {
-                        _bi.name = buyerWindow.BuyerInfo.Name;
-                        _bi.address = buyerWindow.BuyerInfo.Address;
-                        _bi.tin = buyerWindow.BuyerInfo.TIN;
-                        _bi.idnum = buyerWindow.BuyerInfo.IDNum;
-
+                        _bi.buyer_id = buyerWindow.BuyerInfo.Id;
                         context.SaveChanges();
                     }
                 }

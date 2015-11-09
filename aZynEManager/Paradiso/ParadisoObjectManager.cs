@@ -119,7 +119,7 @@ namespace Paradiso
                         currentDateTime = dbDate;
                     }
                 }
-                catch (Exception ex) { }
+                catch  { }
                 return currentDateTime;
             }
         }
