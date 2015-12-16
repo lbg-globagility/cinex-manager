@@ -27,6 +27,8 @@
             <l:FooterLineConverter x:Key="footerLine" />
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
+            <l:SeatLabelFontSizeConverter x:Key="seatLabelFontSize"/>
+            <l:SeatLabelForegroundConverter x:Key="seatLabelForeground"/>
             <l:SeatImageMultiConverter x:Key="seatImage"/>
             <l:TotalPatronSeatConverter x:Key="totalPatronSeat"/>
             <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
@@ -139,7 +141,7 @@
                                 </Image>
                                 <TextBlock
                                     TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
-                                    FontSize="16" Foreground="Black" FontWeight="Bold" FontFamily="Arial">
+                                    FontSize="{Binding Path=Height,  Converter={StaticResource seatLabelFontSize}}" Foreground="{Binding Path=TypeName,  Converter={StaticResource seatLabelForeground}}" FontWeight="Bold" FontFamily="Arial">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource seatName}">
                                                 <Binding Path="Name"/>

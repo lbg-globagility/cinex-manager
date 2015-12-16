@@ -28,14 +28,14 @@ namespace Paradiso
             {
                 strUri = @"/Paradiso;component/Images/screen.png";
             }
-            else if (intSeatType == 1)  //free
+            else if (intType == 1 && intSeatType == 1)  //free
             {
                 if (blnIsHandicapped)
                     strUri = @"/Paradiso;component/Images/seat-disabled.png";
                 else
                     strUri = @"/Paradiso;component/Images/seat-white.png";
             }
-            else  //if (intSeatType == 2) //selected
+            else  if (intType == 1) //if (intSeatType == 2) //selected
             {
                 byte[] bytes = BitConverter.GetBytes(intColor);
 

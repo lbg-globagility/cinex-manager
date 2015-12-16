@@ -28,7 +28,7 @@ namespace Paradiso.Model
         private int intY;
         private int intHeight;
         private int intWidth;
-        private int intType; //1 -seat, 2-screen
+        private int intType; //1 -seat, 2-screen, 3-label
 
         private int intSeatType; //1-available, 2-selected, 3-taken
 
@@ -171,6 +171,14 @@ namespace Paradiso.Model
             }
         }
 
+        public string TypeName
+        {
+            get
+            {
+                return string.Format("{0}|{1}", Type, Name);
+            }
+
+        }
         public bool IsHandicapped
         {
             get { return blnIsHandicapped; }

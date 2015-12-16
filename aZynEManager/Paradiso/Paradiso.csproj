@@ -123,6 +123,8 @@
     </Compile>
     <Compile Include="CitizenPrint.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\SeatLabelForegroundConverter.cs" />
+    <Compile Include="Converters\SeatLabelFontSizeConverter.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
     <Compile Include="Converters\SeatNameMultiConverter.cs" />
