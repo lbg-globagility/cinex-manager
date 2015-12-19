@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Paradiso
 {
-    public class PostekPrinter1
+    public class PostekPrinter1 : IPrint
     {
         private int intId = 0;
         public int Row { get; set; }
-        private int Column { get; set; }
+        public int Column { get; set; }
         
         public PostekPrinter1()
         {
@@ -115,6 +115,11 @@ namespace Paradiso
                 if (blnIsAddSpacing)
                     Row += intFontSpacing;
             }
+        }
+
+        public void DrawRectangle(uint px, uint py, uint thickness, uint pEx, uint pEy)
+        {
+            PrintLab.PTK_DrawRectangle(px, py, thickness, pEx, pEy);
         }
         
     }

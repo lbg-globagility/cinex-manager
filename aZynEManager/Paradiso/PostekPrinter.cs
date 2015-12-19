@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Paradiso
 {
-    public class PostekPrinter
+    public class PostekPrinter : IPrint
     {
         private int intId = 0;
         public int Row { get; set; }
@@ -51,6 +51,7 @@ namespace Paradiso
             PrintLab.ClosePort();
         }
 
+        /*
         public string CenterString(int intWidth, string _strData)
         {
             string data = _strData;
@@ -60,6 +61,7 @@ namespace Paradiso
                 data = string.Format("{0}{1}", "".PadLeft((intWidth - data.Length)/2, ' '), data);
             return data;
         }
+        */
 
         //0-left 1-right 2-center
         public void DrawText(int intFont, int intX, int intY, string _strData, bool blnIsAddSpacing)
@@ -154,6 +156,12 @@ namespace Paradiso
                 
             }
         }
+
+        public void DrawRectangle(uint px, uint py, uint thickness, uint pEx, uint pEy)
+        {
+            PrintLab.PTK_DrawRectangle(px, py, thickness, pEx, pEy);
+        }
+
  
         /*
         //0-left 1-right 2-center

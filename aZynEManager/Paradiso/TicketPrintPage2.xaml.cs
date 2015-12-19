@@ -604,6 +604,7 @@ namespace Paradiso
                 _print = true;
             }
 
+
             if (_print == true)
             {
                 foreach (var t in TicketList.Tickets)
@@ -655,12 +656,12 @@ namespace Paradiso
             }
         }
 
-        private void PrintRawTicket(string _printerName)
+        private void _PrintRawTicket(String _printerName, IPrint print)
         {
-            if (_printerName.ToUpper().StartsWith("POSTEK"))
+            //if (_printerName.ToUpper().StartsWith("POSTEK"))
             {
 
-                PostekPrinter print = new PostekPrinter();
+                //PostekPrinter print = new PostekPrinter();
                 print.Open(_printerName);
 
                 print.Column += 25;
@@ -668,10 +669,10 @@ namespace Paradiso
 
 
                 //PrintLab.PTK_DrawTextTrueTypeW(580, 0, 20, 0, "Arial Narrow", 3, 800, false, false, false, "A1", "ABCDEFGHIJ");
-                print.DrawText(1, print.Row, print.Column, print.CenterString(33, Ticket.Header1), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header2), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, Ticket.Header3), true);
-                print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Vat Reg TIN#: {0}", Ticket.TIN)), true);
+                print.DrawText(1, print.Row, print.Column, StringHelper.CenterString(33, Ticket.Header1), true);
+                print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(126, Ticket.Header2), true);
+                print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(126, Ticket.Header3), true);
+                print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(126, string.Format("Vat Reg TIN#: {0}", Ticket.TIN)), true);
                 //print.DrawText(-1, print.Row, print.Column, print.CenterString(126, string.Format("Accreditation #: {0}", Ticket.AccreditationNumber)), true);
                 //print.DrawText(-1, print.Row, print.Column, string.Format("Permit #: {0}", Ticket.PN), false);
                 //print.DrawText(-1, print.Row + 250, print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), true);
@@ -683,7 +684,7 @@ namespace Paradiso
 
                 int intx1a = print.Row;
                 int inty1a = print.Column;
-                
+
                 int intx1b = print.Row + 142;
                 int inty1b = print.Column;
 
@@ -693,11 +694,11 @@ namespace Paradiso
                     print.DrawText(3, print.Row + 275, print.Column, Ticket.SeatName, false);
                 else if (Ticket.SeatName.Length == 3)
                     print.DrawText(3, print.Row + 225, print.Column, Ticket.SeatName, false);
-                
+
                 print.Column += 4;
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
                 print.DrawText(0, print.Row + 45, print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
-                print.DrawText(-1, print.Row + 45, print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode , true);
+                print.DrawText(-1, print.Row + 45, print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, true);
                 print.DrawText(-1, print.Row + 45, print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
 
                 int intx2a = print.Row + 135;
@@ -705,8 +706,8 @@ namespace Paradiso
                 int intx2b = print.Row + 440;
                 int inty2b = print.Column + 10;
 
-                PrintLab.PTK_DrawRectangle((uint)intx1a, (uint)inty1a, 2, (uint)intx2a, (uint)inty2a);
-                PrintLab.PTK_DrawRectangle((uint)intx1b, (uint)inty1b, 2, (uint)intx2b, (uint)inty2b);
+                print.DrawRectangle((uint)intx1a, (uint)inty1a, 2, (uint)intx2a, (uint)inty2a);
+                print.DrawRectangle((uint)intx1b, (uint)inty1b, 2, (uint)intx2b, (uint)inty2b);
 
                 //print.Column += 23; 
                 print.Column += 8; //23 div 3
@@ -827,15 +828,15 @@ namespace Paradiso
 
                 int x1a = print.Row;
                 int y1a = print.Column + 2;
-                int x1b= print.Row;
+                int x1b = print.Row;
                 int y1b = print.Column + 50;
                 int x2a = print.Row + 120;
                 int y2a = print.Column + 55;
                 int x2b = print.Row + 120;
                 int y2b = print.Column + 130;
 
-                PrintLab.PTK_DrawRectangle((uint)x1a, (uint)y1a, 2, (uint)x2a, (uint)y2a);
-                PrintLab.PTK_DrawRectangle((uint)x1b, (uint)y1b, 2, (uint)x2b, (uint)y2b);
+                print.DrawRectangle((uint)x1a, (uint)y1a, 2, (uint)x2a, (uint)y2a);
+                print.DrawRectangle((uint)x1b, (uint)y1b, 2, (uint)x2b, (uint)y2b);
 
 
                 print.DrawText(2, print.Row, print.Column + 5, string.Format("{0}", Ticket.CinemaNumber), false);
@@ -855,13 +856,13 @@ namespace Paradiso
                 {
                     print.DrawText(-1, print.Row + 310, print.Column, "Amount:", false);
                     print.DrawText(-1, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
-                    
-                    print.DrawText(-1, print.Row + 310, print.Column, Ticket.IsPWD ? "PWD Discount:" :"SC Discount:", false);
+
+                    print.DrawText(-1, print.Row + 310, print.Column, Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
                     print.DrawText(-1, print.Row + 400, print.Column, string.Format("({0:0.00})", Ticket.Discount), false);
 
                     print.DrawText(-1, print.Row + 310, print.Column + 24, "Ord. Tax:", false);
                     print.DrawText(-1, print.Row + 400, print.Column + 24, string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
-                    
+
                     print.DrawText(-1, print.Row + 310, print.Column + 36, "Surcharge:", false);
                     print.DrawText(-1, print.Row + 400, print.Column + 36, string.Format("{0:0.00}", Ticket.SurchargePrice), false);
                 }
@@ -874,7 +875,7 @@ namespace Paradiso
                     {
                         print.DrawText(0, print.Row + 400, print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
                         cidx += 15;
-                        
+
                         print.DrawText(0, print.Row + 310, print.Column + cidx, Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
                         print.DrawText(0, print.Row + 400, print.Column + cidx, string.Format("({0:0.00})", Ticket.Discount), false);
 
@@ -929,7 +930,7 @@ namespace Paradiso
                         strPaymentMode = "GC";
                     else if ((Ticket.PaymentMode & 4) == 4)
                         strPaymentMode = "CC";
-                    
+
                     //display buyer info
                     if (Ticket.BuyerNameAddress != string.Empty)
                     {
@@ -976,6 +977,19 @@ namespace Paradiso
                 print.Close();
 
             }
+        }
+
+        private void PrintRawTicket(string _printerName)
+        {
+            IPrint print = (IPrint) new DummyPrinter(); //implement dummy printer
+
+            if (_printerName.ToUpper().StartsWith("POSTEK"))
+                print = (IPrint)new PostekPrinter();
+            else if (_printerName.ToUpper().StartsWith("CITIZEN"))
+                print = (IPrint)new CitizenPrinter(Ticket.ORNumber);
+
+            this._PrintRawTicket(_printerName, print);
+ 
         }
 
         //put this into thread or create progress so it will not appear to hang
