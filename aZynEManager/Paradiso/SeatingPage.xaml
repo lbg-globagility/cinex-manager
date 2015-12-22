@@ -72,36 +72,36 @@
         </Canvas.Background>
 
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
-            <StackPanel DockPanel.Dock="Left" Width="152" Margin="10, 5, 0, 0">
+            <StackPanel DockPanel.Dock="Left" Width="172" Margin="10, 5, 0, 0">
                 <StackPanel Background="#ffffff">
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding MovieSchedule.CinemaName}"/>
                     <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
-                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Time:</TextBlock>
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14">Time:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0" TextBlock.FontSize="14" TextBlock.FontWeight="Bold">
-                        <ComboBox Name="MovieScheduleComboBox" ItemsSource="{Binding Path=MovieSchedules}" SelectedItem="{Binding Path=MovieScheduleList, Mode=OneWay}" SelectionChanged="MovieScheduleComboBox_SelectionChanged"/>
+                        <ComboBox Name="MovieScheduleComboBox" ItemsSource="{Binding Path=MovieSchedules}" SelectedItem="{Binding Path=MovieScheduleList, Mode=OneWay}" SelectionChanged="MovieScheduleComboBox_SelectionChanged" FontSize="14" />
                         <!--TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}"/>
                         <TextBlock xml:space="preserve"> - </TextBlock>
                         <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}"/-->
                     </StackPanel>
-                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="12">Movie Price:</TextBlock>
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14">Movie Price:</TextBlock>
                     <TextBlock Name="Price" Margin="5,0,0,5" FontSize="14" FontWeight="Bold" Text="{Binding Path=MovieSchedule.Price, StringFormat='PHP #,#.00'}"/>
                 </StackPanel>
                 <StackPanel Background="#e0e0e0">
-                    <TextBlock Margin="5,5,5,10" FontSize="14" FontFamily="Arial" FontWeight="Bold">Seats</TextBlock>
+                    <TextBlock Margin="5,5,5,10" FontSize="16" FontFamily="Arial" FontWeight="Bold">Seats</TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Selected:</TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Selected:</TextBlock>
                         <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Selected}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Booked:</TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Booked:</TextBlock>
                         <TextBlock Name="SeatBooked" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Booked}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Reserved:</TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Reserved:</TextBlock>
                         <TextBlock Name="SeatReserved" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Reserved}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
-                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80">Available:</TextBlock>
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Available:</TextBlock>
                         <TextBlock Name="SeatAvailable" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Available}"/>
                     </StackPanel>
                 </StackPanel>
@@ -242,7 +242,22 @@
         </DockPanel>
         
         <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White" Name="PurchaseDetailsPanel" >
-            <TextBlock FontSize="14" FontWeight="Bold" Name="PurchaseDetailsText" PreviewMouseLeftButtonDown="PurchaseDetailsText_PreviewMouseLeftButtonDown" PreviewMouseMove="PurchaseDetailsText_PreviewMouseMove" PreviewMouseUp="PurchaseDetailsText_PreviewMouseUp">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
+                    <StackPanel Orientation="Horizontal">
+                        <DockPanel Name="PurchaseDetails3Panel">
+                            <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                                <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <Button Name="ShowDetails" Click="ShowDetails_Click" Content=">"/>
+                    </StackPanel>
+                    <Button Name="HideDetails" Visibility="Collapsed" Click="HideDetails_Click" Content="&lt;"/>
+                </StackPanel>
+                <StackPanel Name="PurchaseDetails2Panel" Visibility="Collapsed">
+                    <TextBlock FontSize="14" FontWeight="Bold" Name="PurchaseDetailsText" PreviewMouseLeftButtonDown="PurchaseDetailsText_PreviewMouseLeftButtonDown" PreviewMouseMove="PurchaseDetailsText_PreviewMouseMove" PreviewMouseUp="PurchaseDetailsText_PreviewMouseUp">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
@@ -269,49 +284,51 @@
                 <TextBlock.Text>
                     Ticket Purchase Details
                 </TextBlock.Text>
-            </TextBlock>
-            <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
-                                <Image Source="/Paradiso;component/Images/delete-icon.png" Width="20" Height="20" />
-                                <!--Rectangle Width="10" Height="10">
+                    </TextBlock>
+                    <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
+                                        <Image Source="/Paradiso;component/Images/delete-icon.png" Width="20" Height="20" />
+                                        <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
                                     </Rectangle.Fill>
                                 </Rectangle-->
-                            </Button>
-                            <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
-                            <Button Name="BuyerInfo" Click="BuyerInfo_Click"  BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Buyer">
-                                <Image Source="/Paradiso;component/Images/info-icon.png" Width="20" Height="20" />
-                                <!--Rectangle Width="10" Height="10">
+                                    </Button>
+                                    <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center"/>
+                                    <Button Name="BuyerInfo" Click="BuyerInfo_Click"  BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Buyer">
+                                        <Image Source="/Paradiso;component/Images/info-icon.png" Width="20" Height="20" />
+                                        <!--Rectangle Width="10" Height="10">
                                     <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_information_circle}" />
                                     </Rectangle.Fill>
                                 </Rectangle-->
-                            </Button>
+                                    </Button>
 
-                            <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
-                                <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
-                            </Grid>
-                            <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
-                            <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
+                                    <Grid  Width="150" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                        <TextBlock Text="{Binding PatronName}" VerticalAlignment="Center"  />
+                                    </Grid>
+                                    <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
+                                    <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                            <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
                         </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <DockPanel>
-                <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
-                    <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                    </DockPanel>
                 </StackPanel>
             </DockPanel>
 
         </StackPanel>
 
-        <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Horizontal" Margin="20">
+        <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Vertical" Margin="20">
             <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
             <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
             <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />

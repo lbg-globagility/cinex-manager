@@ -70,6 +70,11 @@ namespace Paradiso
                 strVersion = "x64";
             */
 
+            /*
+            Amellar.Common.EncryptUtilities.Encryption e = new Amellar.Common.EncryptUtilities.Encryption();
+            string _e = e.EncryptString("Am3L74rS");
+            */
+
             //sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
             sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.xml", strServer));
             //sparkle.ShowDiagnosticWindow = true;

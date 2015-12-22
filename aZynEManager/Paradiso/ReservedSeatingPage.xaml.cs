@@ -1125,5 +1125,20 @@ namespace Paradiso
             e.Handled = true;
         }
 
+        private void ShowDetails_Click(object sender, RoutedEventArgs e)
+        {
+            HideDetails.Visibility = System.Windows.Visibility.Visible;
+            ShowDetails.Visibility = System.Windows.Visibility.Collapsed;
+            PurchaseDetails2Panel.Visibility = System.Windows.Visibility.Visible;
+            PurchaseDetails3Panel.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void HideDetails_Click(object sender, RoutedEventArgs e)
+        {
+            HideDetails.Visibility = System.Windows.Visibility.Collapsed;
+            ShowDetails.Visibility = System.Windows.Visibility.Visible;
+            PurchaseDetails2Panel.Visibility = System.Windows.Visibility.Collapsed;
+            PurchaseDetails3Panel.Visibility = System.Windows.Visibility.Visible;
+        }
     }
 }
