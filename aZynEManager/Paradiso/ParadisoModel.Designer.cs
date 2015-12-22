@@ -2747,12 +2747,14 @@ namespace Paradiso
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="cinema_id">Initial value of the cinema_id property.</param>
         /// <param name="is_handicapped">Initial value of the is_handicapped property.</param>
-        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id, global::System.SByte is_handicapped)
+        /// <param name="is_disabled">Initial value of the is_disabled property.</param>
+        public static cinema_seat Createcinema_seat(global::System.Int32 id, global::System.Int32 cinema_id, global::System.SByte is_handicapped, global::System.SByte is_disabled)
         {
             cinema_seat cinema_seat = new cinema_seat();
             cinema_seat.id = id;
             cinema_seat.cinema_id = cinema_id;
             cinema_seat.is_handicapped = is_handicapped;
+            cinema_seat.is_disabled = is_disabled;
             return cinema_seat;
         }
 
@@ -3050,6 +3052,78 @@ namespace Paradiso
         private global::System.SByte _is_handicapped;
         partial void Onis_handicappedChanging(global::System.SByte value);
         partial void Onis_handicappedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String group_name
+        {
+            get
+            {
+                return _group_name;
+            }
+            set
+            {
+                Ongroup_nameChanging(value);
+                ReportPropertyChanging("group_name");
+                _group_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("group_name");
+                Ongroup_nameChanged();
+            }
+        }
+        private global::System.String _group_name;
+        partial void Ongroup_nameChanging(global::System.String value);
+        partial void Ongroup_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String section_name
+        {
+            get
+            {
+                return _section_name;
+            }
+            set
+            {
+                Onsection_nameChanging(value);
+                ReportPropertyChanging("section_name");
+                _section_name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("section_name");
+                Onsection_nameChanged();
+            }
+        }
+        private global::System.String _section_name;
+        partial void Onsection_nameChanging(global::System.String value);
+        partial void Onsection_nameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.SByte is_disabled
+        {
+            get
+            {
+                return _is_disabled;
+            }
+            set
+            {
+                Onis_disabledChanging(value);
+                ReportPropertyChanging("is_disabled");
+                _is_disabled = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("is_disabled");
+                Onis_disabledChanged();
+            }
+        }
+        private global::System.SByte _is_disabled;
+        partial void Onis_disabledChanging(global::System.SByte value);
+        partial void Onis_disabledChanged();
 
         #endregion
 

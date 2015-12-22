@@ -346,6 +346,9 @@
           <Property Name="col_name" Type="varchar" MaxLength="100" />
           <Property Name="object_type" Type="int" />
           <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
+          <Property Name="group_name" Type="varchar" MaxLength="100" />
+          <Property Name="section_name" Type="varchar" MaxLength="100" />
+          <Property Name="is_disabled" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="classification">
           <Key>
@@ -677,7 +680,7 @@
           <Property Name="status" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_free_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.movies_schedule_list_house_seat_free_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_house_seat_free_view">
           <Key>
@@ -696,7 +699,7 @@
           <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.movies_schedule_list_house_seat_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_house_seat_view">
           <Key>
@@ -715,7 +718,7 @@
           <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_ordinance_surcharge_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.movies_schedule_list_patron_ordinance_surcharge_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_patron_ordinance_surcharge_view">
           <Key>
@@ -735,7 +738,7 @@
           <Property Name="isordinance" Type="bigint" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_ordinance_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.movies_schedule_list_patron_ordinance_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_patron_ordinance_view">
           <Key>
@@ -751,7 +754,7 @@
           <Property Name="ordinance_val" Type="double" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.movies_schedule_list_patron_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="movies_schedule_list_patron_view">
           <Key>
@@ -772,7 +775,7 @@
           <Property Name="patron_seat_color" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'def.azynema.or_numbers_unpublished_movies_schedule_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      warning 6002: The table/view 'def.azynema_fsm.or_numbers_unpublished_movies_schedule_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="or_numbers_unpublished_movies_schedule_view">
           <Key>
@@ -1505,6 +1508,9 @@
           <NavigationProperty Name="cinema" Relationship="paradisoModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
           <NavigationProperty Name="movies_schedule_list_house_seat" Relationship="paradisoModel.fk_movies_schedule_list_house_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_house_seat" />
           <NavigationProperty Name="movies_schedule_list_reserved_seat" Relationship="paradisoModel.fk_movies_schedule_list_reserved_seat_cinema_seat1" FromRole="cinema_seat" ToRole="movies_schedule_list_reserved_seat" />
+          <Property Type="String" Name="group_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="section_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="SByte" Name="is_disabled" Nullable="false" />
         </EntityType>
         <EntityType Name="classification">
           <Key>
@@ -2530,6 +2536,9 @@
           <EntitySetMapping Name="cinema_seat">
             <EntityTypeMapping TypeName="paradisoModel.cinema_seat">
               <MappingFragment StoreEntitySet="cinema_seat">
+                <ScalarProperty Name="is_disabled" ColumnName="is_disabled" />
+                <ScalarProperty Name="section_name" ColumnName="section_name" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
                 <ScalarProperty Name="x1" ColumnName="x1" />

@@ -404,6 +404,9 @@ namespace Paradiso
                                          select mcths.cinema_seat_id).Count();
                 }
 
+                int disabledseats = 0;
+                disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _movie_schedule_list.cinemakey && cs.is_disabled == 1 select cs.id).Count();
+
 
                 //reserved seats from other sessions
                 var reservedseats = (from mcths in context.movies_schedule_list_house_seat_view
@@ -444,8 +447,8 @@ namespace Paradiso
                 */
                 MovieSchedule.Selected = selectedseats.Count;
                 MovieSchedule.Booked = takenseats.Count;
-                MovieSchedule.Reserved = tmpreservedseats; //reservedseats.Count;
-                MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - selectedseats.Count);
+                MovieSchedule.Reserved = tmpreservedseats + disabledseats; //reservedseats.Count;
+                MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - disabledseats - selectedseats.Count);
                 if (MovieSchedule.Available < 0)
                     MovieSchedule.Available = 0;
 
@@ -579,7 +582,8 @@ namespace Paradiso
                         Height = (int)seat.y2 - (int)seat.y1,
                         Type = (int) seat.object_type,
                         SeatType = 1,
-                        IsHandicapped = (seat.is_handicapped == 1) ? true : false
+                        IsHandicapped = (seat.is_handicapped == 1) ? true : false,
+                        IsDisabled = (seat.is_disabled == 1) ? true : false
                     };
 
                     //get seat type
@@ -674,6 +678,9 @@ namespace Paradiso
                             }
                         }
                     }
+
+                    if (seatModel.IsDisabled && seatModel.SeatColor == 0)
+                        seatModel.SeatColor = 8421504;
                     
                     Seats.Add(seatModel);
                 }
@@ -754,6 +761,9 @@ namespace Paradiso
                     SeatModel seatModel = (SeatModel)(seatCanvas).DataContext;
                     if (seatModel.Type == 1)
                     {
+                        if (seatModel.IsDisabled)
+                            return;
+
                         if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
                         {
                             Seat = seatModel;
@@ -820,6 +830,9 @@ namespace Paradiso
                 SeatModel seatModel = (SeatModel)(seatCanvas).DataContext;
                 if (seatModel.Type == 1)
                 {
+                    if (seatModel.IsDisabled)
+                        return;
+
                     if (seatModel.SeatType == 1 || seatModel.SeatType == 2) //available
                     {
                         Seat = seatModel;
@@ -977,6 +990,8 @@ namespace Paradiso
                     else if (seatModel.SeatType == 3)
                     {
                         if (!ParadisoObjectManager.GetInstance().HasRights("RESERVE"))
+                            return;
+                        if (seatModel.IsDisabled)
                             return;
 
                         string strSessionId = string.Empty;

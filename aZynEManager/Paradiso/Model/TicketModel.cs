@@ -823,9 +823,9 @@ namespace Paradiso.Model
             get
             {
                 StringBuilder strBuyerNameAddress = new StringBuilder();
-                if (BuyerFirstName != string.Empty)
+                if (BuyerFirstName != null && BuyerFirstName != string.Empty)
                     strBuyerNameAddress.Append(BuyerFirstName);
-                if (BuyerMiddleInitial != string.Empty)
+                if (BuyerMiddleInitial != null && BuyerMiddleInitial != string.Empty)
                 {
                     if (strBuyerNameAddress.Length > 0)
                         strBuyerNameAddress.Append(" ");
@@ -834,7 +834,7 @@ namespace Paradiso.Model
                         strBuyerNameAddress.Append(".");
                 }
 
-                if (BuyerLastName != string.Empty)
+                if (BuyerLastName != null && BuyerLastName != string.Empty)
                 {
                     if (strBuyerNameAddress.Length > 0)
                         strBuyerNameAddress.Append(" ");
@@ -845,19 +845,19 @@ namespace Paradiso.Model
                 if (strBuyerNameAddress.Length > 0)
                     strBuyerNameAddress.Append(",");
 
-                if (BuyerAddress != string.Empty)
+                if (BuyerAddress != null && BuyerAddress != string.Empty)
                 {
                     if (strBuyerNameAddress.Length > 0)
                         strBuyerNameAddress.Append(" ");
                     strBuyerNameAddress.Append(BuyerAddress);
                 }
-                if (BuyerMunicipality != string.Empty)
+                if (BuyerMunicipality != null && BuyerMunicipality != string.Empty)
                 {
                     if (strBuyerNameAddress.Length > 0)
                         strBuyerNameAddress.Append(" ");
                     strBuyerNameAddress.Append(BuyerMunicipality);
                 }
-                if (BuyerProvince != string.Empty)
+                if (BuyerProvince != null && BuyerProvince != string.Empty)
                 {
                     if (strBuyerNameAddress.Length > 0)
                         strBuyerNameAddress.Append(" ");

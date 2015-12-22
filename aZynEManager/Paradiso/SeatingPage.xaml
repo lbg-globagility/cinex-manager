@@ -198,6 +198,7 @@
                                                 <Binding Path="SeatType"/>
                                                 <Binding Path="SeatColor"/>
                                                 <Binding Path="IsHandicapped"/>
+                                                <Binding Path="IsDisabled"/>
                                         </MultiBinding>
                                         </Image.Source>
                                     </Image>
@@ -208,6 +209,7 @@
                                                 <Binding Path="Name"/>
                                                 <Binding Path="SeatType"/>
                                                 <Binding Path="IsHandicapped"/>
+                                                <Binding Path="IsDisabled"/>
                                         </MultiBinding>
                                     </TextBlock.Text>                                    
                                   <!--TextBlock.Effect>

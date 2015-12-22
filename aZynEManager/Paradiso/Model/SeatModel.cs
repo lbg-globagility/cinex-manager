@@ -39,6 +39,8 @@ namespace Paradiso.Model
 
         private bool blnIsHandicapped = false;
 
+        private bool blnIsDisabled = false;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int Key
@@ -188,6 +190,19 @@ namespace Paradiso.Model
                 {
                     blnIsHandicapped = value;
                     NotifyPropertyChanged("IsHandicapped");
+                }
+            }
+        }
+
+        public bool IsDisabled
+        {
+            get { return blnIsDisabled; }
+            set
+            {
+                if (value != blnIsDisabled)
+                {
+                    blnIsDisabled = value;
+                    NotifyPropertyChanged("IsDisabled");
                 }
             }
         }

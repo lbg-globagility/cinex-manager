@@ -18,7 +18,10 @@ namespace Paradiso
             bool blnIsHandicapped = false;
             if (values[2] is bool)
                 blnIsHandicapped = (bool)values[2];
-            if (intType == 3 || blnIsHandicapped)
+            bool blnIsDisabled = false;
+            if (values[3] is bool)
+                blnIsDisabled = (bool)values[3];
+            if (intType == 3 || blnIsHandicapped || blnIsDisabled)
                 return string.Empty;
             else
                 return strName;

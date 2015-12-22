@@ -21,10 +21,20 @@ namespace Paradiso
             bool blnIsHandicapped = false;
             if (values.Count() >= 4 && values[3] is bool)
                 blnIsHandicapped = (bool)values[3];
+            bool blnIsDisabled = false;
+            if (values.Count() >= 5 && values[4] is bool)
+                blnIsDisabled = (bool)values[4];
 
             string strUri = string.Empty;
 
-            if (intType == 2)
+            if (blnIsDisabled)
+            {
+                if (blnIsHandicapped)
+                    strUri = @"/Paradiso;component/Images/seat-gray-disabled.png";
+                else
+                    strUri = @"/Paradiso;component/Images/seat-gray.png";
+            }
+            else if (intType == 2)
             {
                 strUri = @"/Paradiso;component/Images/screen.png";
             }

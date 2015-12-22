@@ -643,7 +643,16 @@ namespace Paradiso
 
                             ParadisoObjectManager.GetInstance().Log("PRINT", "TICKET|REPRINT", string.Format("REPRINT {0}.", Ticket.ORNumber));
                         }
-                        catch { }
+                        catch (Exception ex) 
+                        {
+                            MessageWindow messageWindow = new MessageWindow();
+                            if (ex.InnerException != null)
+                                messageWindow.MessageText.Text = ex.InnerException.Message.ToString();
+                            else
+                                messageWindow.MessageText.Text = ex.Message.ToString();
+                            messageWindow.ShowDialog();
+                            return;
+                        }
 
                     }
                 }
@@ -987,7 +996,11 @@ namespace Paradiso
                 print = (IPrint)new PostekPrinter();
             else if (_printerName.ToUpper().StartsWith("CITIZEN"))
                 print = (IPrint)new CitizenPrinter(Ticket.ORNumber);
-
+            else
+            {
+                throw new Exception("Printer not supported.");
+            }
+            
             this._PrintRawTicket(_printerName, print);
  
         }
