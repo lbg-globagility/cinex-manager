@@ -135,6 +135,7 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="1" Name="Void" Click="Void_Click" Background="Black" ToolTip="Void" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
@@ -154,6 +155,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
+                    <Button Name="PrintTest" Click="PrintTest_Click" Visibility="Collapsed" >Test</Button>
                 </Grid>
             </StackPanel>
             <Border>

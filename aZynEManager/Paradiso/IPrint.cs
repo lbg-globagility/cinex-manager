@@ -17,5 +17,10 @@ namespace Paradiso
         int Row { set; get; }
         int Column { set; get; }
 
+        int GetFont1Length();
+        int GetFont_1Length();
+
+        int AddColumn(int _column);
+        int AddRow(int _row);
     }
 }

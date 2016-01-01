@@ -26,5 +26,11 @@ namespace Paradiso
         {
 
         }
+
+        public int GetFont1Length() { return 0; }
+        public int GetFont_1Length() { return 0; }
+
+        public int AddColumn(int _column) { return 0; }
+        public int AddRow(int _row) { return 0; }
     }
 }

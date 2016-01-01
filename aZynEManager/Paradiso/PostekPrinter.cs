@@ -23,6 +23,11 @@ namespace Paradiso
             Column = 10;
         }
 
+        public int GetFont1Length() { return 33; }
+        public int GetFont_1Length() { return 126; }
+
+        public int AddColumn(int _column) { return Column + _column; }
+        public int AddRow(int _row) { return Row + _row; }
 
         public void Open(string strPrinterName)
         {

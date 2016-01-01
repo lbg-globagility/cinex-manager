@@ -27,6 +27,9 @@ namespace Paradiso
         public List<FontInfo> fontInfos;
         public bool IsAddSpacingOnColumn { get; set; }
 
+        private int MaxRow = 760;
+        private int MaxColumn = 600;
+
         public CitizenPrinter(string strORNumber)
         {
             ORNumber = strORNumber;
@@ -41,12 +44,13 @@ namespace Paradiso
             Column = 10;
 
 
-            string strIsAddSpacingOnColumn = ParadisoObjectManager.GetInstance().GetConfigValue("ADD_SPACING_ON_COLUMN", "yes");
-            IsAddSpacingOnColumn = (strIsAddSpacingOnColumn == "yes");
+            string strIsAddSpacingOnColumn = ParadisoObjectManager.GetInstance().GetConfigValue("ADD_SPACING_ON_COLUMN", "no");
+            IsAddSpacingOnColumn = (strIsAddSpacingOnColumn == "no");
 
             fontInfos = new List<FontInfo>();
             char[] delimeter = new char[] { '|' };
-            string[] defaultFontInfos = new string[] {"-1|0|A08|8", "0|0|A10|10", "-2|0|A12|12", "1|0|A18|18", "2|0|A24|24", "3|0|A30|30"};
+            //string[] defaultFontInfos = new string[] {"-1|44|A06|14", "0|33|A08|16", "-2|26|A10|20", "1|22|A12|20", "2|15|A18|36", "3|11|A24|48"};
+            string[] defaultFontInfos = new string[] { "-1|0|A06|20", "0|0|A08|33", "-2|0|A10|40", "1|0|A12|10", "2|15|A18|56", "3|0|A24|78" };
             
             int _font = 0;
             int _columnCount = 0;
@@ -84,6 +88,12 @@ namespace Paradiso
 
             
         }
+        
+        public int GetFont1Length() { return 28; }
+        public int GetFont_1Length() { return 88; }
+
+        public int AddColumn(int _column) { return Column + _column; }
+        public int AddRow(int _row) { return Row + _row; }
 
         //move to interface
         public void Open(string strPrinterName)
@@ -91,9 +101,10 @@ namespace Paradiso
             PrinterName = strPrinterName;
             m_strPrint = new StringBuilder();
             
-            //this.SetUnitsToMetric();
-            this.SetUnitsToInch();
-            this.SetMaxLabelLength(600);
+            this.SetUnitsToMetric();
+            //this.SetUnitsToInch();
+            //this.SetPaperLengthContinuousPaper(600);
+            //this.SetMaxLabelLength(600);
             //missing implementation for gap
 
             this.StartLabelFormatMode();
@@ -105,6 +116,11 @@ namespace Paradiso
         {
             this.EndLabelFormatModeAndPrint();
             RawPrinterHelper.SendStringToPrinter(ORNumber, PrinterName, m_strPrint.ToString());
+        }
+
+        public void Text(string strFontPoint, int intX, int intY, string strData)
+        {   
+            this.AppendPrint(string.Format("2911{0}{1:0000}{2:0000}{3}", strFontPoint, intX, intY, strData));
         }
 
         public void DrawText(int intFont, int intX, int intY, string _strData, bool blnIsAddSpacing)
@@ -121,103 +137,19 @@ namespace Paradiso
                     strData = strData.Substring(0, fi._columnCount);
             }
 
-            this.AppendPrint(string.Format("1911{0}{1:0000}{2:0000}{3}", fi._fontPoint, intX, intY, strData));
+            
+            this.Text(fi._fontPoint, MaxRow - intX,  MaxColumn - (intY + fi._spacing), strData);
 
             if (blnIsAddSpacing)
-            {  
-                if (IsAddSpacingOnColumn)
-                    Column += fi._spacing;
-                else
-                    Row += fi._spacing;
-            }
-
-            /*
-            string strFontPoint = string.Empty;
-            int intFontSpacing = 0;
-            if (intFont == -1) //8pt
             {
-                intFontSpacing = 8;
-                //strFontPoint = "A08";
+                Column = AddColumn(fi._spacing);
             }
-            else if (intFont == 0) //10pt
-            {
-                intFontSpacing = 10;
-                //strFontPoint = "A10";
-            }
-            else if (intFont == -2) //12pt
-            {
-                intFontSpacing = 12;
-                //strFontPoint = "A12";
-            }
-            else if (intFont == 1) //18pt
-            {
-                intFontSpacing = 18;
-                //strFontPoint = "A18";
-            }
-            else if (intFont == 2) //24pt
-            {
-                intFontSpacing = 24;
-                //strFontPoint = "A24";
-            }
-            else if (intFont == 3) //30pt
-            {
-                intFontSpacing = 30;
-                //strFontPoint = "A30";
-            }
-            strFontPoint = string.Format("A{0:00}", intFontSpacing);
-            */
-
-            /*
-            fontInfo.Add(new FontInfo() { _columnCount = 40, _fontPoint = "A06", _spacing = 7 }); //0
-            fontInfo.Add(new FontInfo() { _columnCount = 34, _fontPoint = "A08", _spacing = 9 }); //1
-            fontInfo.Add(new FontInfo() { _columnCount = 28, _fontPoint = "A10", _spacing = 12 }); //2
-            fontInfo.Add(new FontInfo() { _columnCount = 24, _fontPoint = "A12", _spacing = 14 }); //3
-            if (intFont == -1)
-            {
-                intFontHeight = 15;
-                intFontSpacing = 12; //?
-                intColumnCount = 100; //?
-            }
-            else if (intFont == 0)
-            {
-                intFontHeight = 20;
-                intFontSpacing = 18; //?
-                intColumnCount = 50;
-            }
-            else if (intFont == -2) //14pt
-            {
-                intFontHeight = 25;
-                intFontSpacing = 21; //?
-                intColumnCount = 20;
-            }
-            else if (intFont == 1) //18pt
-            {
-                intFontHeight = 35;
-                intFontSpacing = 28;
-                intColumnCount = 27;
-            }
-            else if (intFont == 2) 30pt
-            {
-                intFontHeight = 50;
-                intFontSpacing = 43; //?
-                intColumnCount = 19;
-            }
-            else if (intFont == 3) 36pt
-            {
-                intFontHeight = 60;
-                intFontSpacing = 55; //?
-                intColumnCount = 8; //?
-            }
-            
-            if (strData.Length > intColumnCount)
-                strData = strData.Substring(0, intColumnCount);
-            */
-
         }
 
         public void DrawRectangle(uint px, uint py, uint thickness, uint pEx, uint pEy)
         {
-            this.AppendPrint(string.Format("1x11000{0:0000}{1:0000}B{2:000}{3:000}003003", px, py, pEx-px+1, pEy-py+1));
+            //no implementation yet
+            //this.AppendPrint(string.Format("1x11000{0:0000}{1:0000}B{2:000}{3:000}003003", px, py, pEx-px+1, pEy-py+1));
         }
 
         private void AppendPrint(string strValue)
@@ -243,6 +175,11 @@ namespace Paradiso
         private void SetMaxLabelLength(int intLength)
         {
             this.AppendPrint(string.Format("M{0:0000}", intLength));
+        }
+
+        private void SetPaperLengthContinuousPaper(int intLength)
+        {
+            this.AppendPrintSoh(string.Format("c{0:0000}", intLength));
         }
 
         private void StartLabelFormatMode()
