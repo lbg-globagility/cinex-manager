@@ -181,6 +181,9 @@ namespace Paradiso
                                                     select mcths.cinema_seat_id).Count();
                             }
 
+                            int disabledseats = 0;
+                            disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _movie_schedule_list_item.CinemaKey && cs.is_disabled == 1 select cs.id).Count();
+
                             //reserved
                             var reserved = 0;
                             if (_movie_schedule_list_item.SeatType == 1) //reserved
@@ -202,8 +205,8 @@ namespace Paradiso
                             //booked - already purchased  and is not voided
                             
                             _movie_schedule_list_item.Booked = (int) patrons;
-                            _movie_schedule_list_item.Reserved = (int)tmpreservedseats;
-                            _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
+                            _movie_schedule_list_item.Reserved = (int) (tmpreservedseats + disabledseats);
+                            _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved - disabledseats);
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;
                             
