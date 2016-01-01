@@ -57,8 +57,6 @@ namespace Paradiso
             if (dtValidDate != DateTime.MinValue)
                 Config16.SelectedDate = dtValidDate;
 
-            Config6.Text = pom.GetConfigValue("PN", string.Empty);
-
             Printer.SelectedIndex = -1;
             string strPrinter = pom.GetConfigValue("PRINTER", "POSTEK");
             for (int i = 0; i < Printer.Items.Count; i++)
@@ -115,7 +113,6 @@ namespace Paradiso
             }
 
             Config7.Text = pom.GetConfigValue("SERVER SERIAL", string.Empty);
-            Config8.Text = pom.GetConfigValue("MIN", string.Empty);
             Config9.Text = pom.GetConfigValue("STARTROW", "17");
 
             ClientTicketFormat.SelectedIndex = -1;
@@ -144,6 +141,9 @@ namespace Paradiso
                 }
             }
 
+            Config6.Text = pom.GetConfigValue(string.Format("PN_{0}", Environment.MachineName), string.Empty);
+            Config8.Text = pom.GetConfigValue(string.Format("MIN_{0}", Environment.MachineName), string.Empty);
+
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -169,9 +169,7 @@ namespace Paradiso
             else
                 pom.SaveConfigValue("VALID DATE", string.Format(@"{0:MM\/dd\/yyy}", Config16.SelectedDate));
 
-            pom.SaveConfigValue("PN", Config6.Text.Trim());
             pom.SaveConfigValue("SERVER SERIAL", Config7.Text.Trim());
-            pom.SaveConfigValue("MIN", Config8.Text.Trim());
             pom.SaveConfigValue("STARTROW", Config9.Text.Trim());
             
             if (OfficialReceipt.SelectedValue != null)
@@ -199,7 +197,10 @@ namespace Paradiso
                 pom.SaveConfigValue(string.Format("POS_NO_{0}", Environment.MachineName), Config10.Text.Trim());
             if (Config11.Text.Trim() != string.Empty)
                 pom.SaveConfigValue(string.Format("STARTROW_{0}", Environment.MachineName), Config11.Text.Trim());
-            
+
+            pom.SaveConfigValue(string.Format("PN_{0}", Environment.MachineName), Config6.Text.Trim());
+            pom.SaveConfigValue(string.Format("MIN_{0}", Environment.MachineName), Config8.Text.Trim());
+
             NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 

@@ -108,8 +108,8 @@ namespace Paradiso.Model
             SessionName = string.Empty;
             SerialNumber = string.Empty;
             TIN = ParadisoObjectManager.GetInstance().TIN;
-            PN = ParadisoObjectManager.GetInstance().PN;
-            MIN = ParadisoObjectManager.GetInstance().MIN;
+            PN = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("PN_{0}", Environment.MachineName), string.Empty); 
+            MIN = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("MIN_{0}", Environment.MachineName), string.Empty);
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
