@@ -720,15 +720,15 @@ namespace Paradiso
         private void _PrintRawTicket(String _printerName, IPrint print, bool blnIsCinemaCopy)
         {
             print.Open(_printerName);
-            print.Column = print.AddColumn(10);
+            print.Column = print.AddColumn(2);
 
             print.DrawText(1, print.Row, print.Column, StringHelper.CenterString(print.GetFont1Length(), Ticket.Header1), true);
             print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), Ticket.Header2), true);
             print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), Ticket.Header3), true);
             print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), string.Format("Vat Reg TIN#: {0}", Ticket.TIN)), true);
             print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
-            print.DrawText(-1, print.AddRow(275), print.Column, string.Format("Server Serial#: {0}", Ticket.ServerSerialNumber), false);
-            print.DrawText(-1, print.AddRow(510), print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
+            print.DrawText(-1, print.AddRow(275), print.Column, string.Format("SS#: {0}", Ticket.ServerSerialNumber), false);
+            print.DrawText(-1, print.AddRow(460), print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
             
             print.DrawText(2, print.Row, print.Column, Ticket.MovieCode, true);
             print.DrawText(0, print.AddRow(470), print.Column, string.Format("OR#: {0}", Ticket.ORNumber), true);
@@ -743,7 +743,7 @@ namespace Paradiso
             if (Ticket.SeatName.Length == 2)
                 print.DrawText(3, print.AddRow(415), print.Column, Ticket.SeatName, false);
             else if (Ticket.SeatName.Length == 3)
-                print.DrawText(3, print.AddRow(365), print.Column, Ticket.SeatName, false);
+                print.DrawText(3, print.AddRow(385), print.Column, Ticket.SeatName, false);
 
             print.Column = print.AddColumn(4);
             print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
@@ -860,7 +860,8 @@ namespace Paradiso
             //print.Column += 15;
             print.Column = print.AddColumn(3);
 
-            print.DrawText(-1, print.Row, print.Column, string.Format("Sess. # {0}  By:  {1}  PTU #: {2}", Ticket.SessionName, Ticket.TellerCode, Ticket.PN), true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("Sess. # {0}  By:  {1}", Ticket.SessionName, Ticket.TellerCode), true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("PTU #: {0}", Ticket.PN), true);
 
             print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
             print.DrawText(-1, print.Row, print.Column, string.Format("TIN No.: {0}    A #: {1}", Ticket.SupplierTIN, Ticket.Accreditation), true);
