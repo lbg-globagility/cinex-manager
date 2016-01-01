@@ -312,6 +312,22 @@ namespace Paradiso
             }
         }
 
+
+        public string MIN
+        {
+            get
+            {
+                string strMIN = string.Empty; 
+                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                {
+                    var tin = (from h in context.config_table where h.system_desc == "MIN" select h.system_value).SingleOrDefault();
+                    if (tin != null && tin != string.Empty)
+                        strMIN = tin.ToString();
+                }
+                return strMIN;
+            }
+        }
+
         public bool HasRights(string strModuleCode)
         {
             bool blnHasRights = false;

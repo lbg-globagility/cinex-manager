@@ -109,6 +109,7 @@ namespace Paradiso.Model
             SerialNumber = string.Empty;
             TIN = ParadisoObjectManager.GetInstance().TIN;
             PN = ParadisoObjectManager.GetInstance().PN;
+            MIN = ParadisoObjectManager.GetInstance().MIN;
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
@@ -677,10 +678,10 @@ namespace Paradiso.Model
 
                 if (SupplierAddress != string.Empty && strSupplier.Length > 0)
                     strSupplier.Append(string.Format(", {0}", SupplierAddress));
-                
+                /*
                 if (SupplierTIN != string.Empty && strSupplier.Length > 0)
                     strSupplier.Append(string.Format(", TIN No. {0}", SupplierTIN));
-
+                */
                 return strSupplier.ToString();
             }
         }
