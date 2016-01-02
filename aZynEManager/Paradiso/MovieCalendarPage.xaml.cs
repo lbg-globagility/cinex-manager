@@ -182,7 +182,7 @@ namespace Paradiso
                             }
 
                             int disabledseats = 0;
-                            disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _movie_schedule_list_item.CinemaKey && cs.is_disabled == 1 select cs.id).Count();
+                            disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _cinema.cinema_key && cs.is_disabled == 1 select cs.id).Count();
 
                             //reserved
                             var reserved = 0;
