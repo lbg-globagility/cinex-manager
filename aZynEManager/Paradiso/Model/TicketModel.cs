@@ -1013,7 +1013,7 @@ namespace Paradiso.Model
         {
             get
             {
-                return BasePrice / (1 - DiscountRate);
+                return BasePrice / DiscountRate;
             }
         }
 
@@ -1021,7 +1021,7 @@ namespace Paradiso.Model
         {
             get
             {
-                return FullPrice * DiscountRate;
+                return FullPrice * (1-DiscountRate);
             }
         }
 
