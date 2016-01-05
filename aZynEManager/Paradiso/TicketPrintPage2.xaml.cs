@@ -862,7 +862,7 @@ namespace Paradiso
             //print.Column = print.AddColumn(3);
 
             print.DrawText(0, print.Row, print.Column, string.Format("MTRCB RATING: {0}", Ticket.Rating), false);
-            if (ParadisoObjectManager.GetInstance().GetTerminalConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
                 print.DrawText(0, print.AddRow(410), print.Column, "OFFICIAL RECEIPT", true);
             else
                 print.DrawText(0, print.AddRow(410), print.Column, " ", true);

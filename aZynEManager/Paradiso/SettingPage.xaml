@@ -132,11 +132,11 @@
                         </ComboBox>
                         <TextBlock Grid.Row="24" Grid.Column="0">Ticket Starting Column</TextBlock>
                         <TextBox Grid.Row="24" Grid.Column="1" Name="Config11"/>
-                        <TextBlock Grid.Row="25" Grid.Column="0">Official Receipt</TextBlock>
+                        <!--TextBlock Grid.Row="25" Grid.Column="0">Official Receipt</TextBlock>
                         <ComboBox Grid.Row="25" Grid.Column="1" Name="ClientOfficialReceipt" ItemsSource="{Binding}">
                             <ComboBoxItem Content="Yes" />
                             <ComboBoxItem Content="No" IsSelected="True" />
-                        </ComboBox>
+                        </ComboBox-->
 
                         <TextBlock Grid.Row="26" Grid.Column="0">Permit #</TextBlock>
                         <TextBox Grid.Row="26" Grid.Column="1" Name="Config6"/>
