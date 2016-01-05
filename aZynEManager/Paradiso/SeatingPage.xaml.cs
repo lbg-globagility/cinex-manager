@@ -115,6 +115,7 @@ namespace Paradiso
                                                          mslkey = msl.id,
                                                          moviekey = msl.movies_schedule.movie_id,
                                                          moviename = msl.movies_schedule.movie.title,
+                                                         cinemakey = msl.movies_schedule.cinema.id,
                                                          capacity = msl.movies_schedule.cinema.capacity,
                                                          duration = msl.movies_schedule.movie.duration,
                                                          rating = msl.movies_schedule.movie.mtrcb.name,
@@ -166,9 +167,12 @@ namespace Paradiso
                                             select mcths.cinema_seat_id).Count();
                             }
 
+                            int disabledseats = 0;
+                            disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _movie_schedule_list.cinemakey && cs.is_disabled == 1 select cs.id).Count();
+
                             _movie_schedule_list_item.Booked = (int)patrons;
-                            _movie_schedule_list_item.Reserved = (int)reserved;
-                            _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved);
+                            _movie_schedule_list_item.Reserved = (int) ( reserved + disabledseats);
+                            _movie_schedule_list_item.Available = (int)(capacity - patrons - reserved - disabledseats);
                             if (_movie_schedule_list_item.Available < 0)
                                 _movie_schedule_list_item.Available = 0;
 
@@ -262,8 +266,16 @@ namespace Paradiso
                 var selectedseats = (from mslhsv in context.movies_schedule_list_house_seat_view
                                      where mslhsv.movies_schedule_list_id == this.Key && mslhsv.session_id == strSessionId
                                      select mslhsv.id).ToList();
+                if (IsAllowReserve) //beyond bounds (would result to zero yield)
+                {
+                    selectedseats = (from mslhs in context.movies_schedule_list_house_seat
+                                     where mslhs.movies_schedule_list_id == this.Key && mslhs.session_id == strSessionId
+                                     select mslhs.id).ToList();
+                }
+
                 if (selectedseats != null)
                 {
+
                     foreach (var sid in selectedseats)
                     {
                         var selectedseat = (from mslhs in context.movies_schedule_list_house_seat

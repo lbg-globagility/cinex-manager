@@ -50,7 +50,7 @@ namespace Paradiso
             fontInfos = new List<FontInfo>();
             char[] delimeter = new char[] { '|' };
             //string[] defaultFontInfos = new string[] {"-1|44|A06|14", "0|33|A08|16", "-2|26|A10|20", "1|22|A12|20", "2|15|A18|36", "3|11|A24|48"};
-            string[] defaultFontInfos = new string[] { "-1|0|A06|20", "0|0|A08|33", "-2|0|A10|40", "1|0|A12|10", "2|15|A18|56", "3|0|A24|78", "4|0|A10|18", "5|33|A14|50", "6|80|A06|20" };
+            string[] defaultFontInfos = new string[] { "-1|0|A06|20", "0|0|A08|33", "-2|0|A10|40", "1|0|A12|10", "2|15|A18|56", "3|0|A24|78", "4|0|A10|18", "5|25|A14|50", "6|80|A06|20" };
             
             int _font = 0;
             int _columnCount = 0;
