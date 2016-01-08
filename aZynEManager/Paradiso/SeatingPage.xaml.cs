@@ -223,22 +223,42 @@ namespace Paradiso
             this.DataContext = this;
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000 * Constants.ReservedSeatingUiInterval);
+
+            timer.Interval = TimeSpan.FromMilliseconds(1000 * ReservedSeatingInterval); // Constants.ReservedSeatingUiInterval);
             StartTimer();
 
             Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
+        public int ReservedSeatingInterval
+        {
+            get
+            {
+                int intReservedSeatingInterval = 0;
+                string strReservedSeatingInterval =  ParadisoObjectManager.GetInstance().GetConfigValue("RESERVED_SEATING_INTERVAL", "0");
+                int.TryParse(strReservedSeatingInterval, out intReservedSeatingInterval);
+                if (intReservedSeatingInterval < 0)
+                    intReservedSeatingInterval = 0;
+                return intReservedSeatingInterval;
+            }
+        }
+
         public void StartTimer()
         {
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            if (ReservedSeatingInterval > 0)
+            {
+                timer.Tick += new EventHandler(timer_Tick);
+                timer.Start();
+            }
         }
 
         public void StopTimer()
         {
-            timer.Stop();
-            timer.Tick -= new EventHandler(timer_Tick);
+            if (ReservedSeatingInterval > 0)
+            {
+                timer.Stop();
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
         }
 
         public int Key 
@@ -314,8 +334,222 @@ namespace Paradiso
 
         void timer_Tick(object sender, EventArgs e)
         {
-            this.UpdateMovieSchedule();
-            this.setFocus();
+            if (ReservedSeatingInterval > 0)
+            {
+                this.UpdateMovieSchedule();
+                this.setFocus();
+            }
+        }
+
+        //updates only seat
+        private void UpdateMovieScheduleSeat(int seatKey)
+        {
+            blnIsUpdating = true;
+            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            {
+                var _movie_schedule_list = (from msl in context.movies_schedule_list
+                                            where msl.id == this.Key && msl.status == 1
+                                            select new
+                                            {
+                                                mslkey = msl.id,
+                                                cinemakey = msl.movies_schedule.cinema_id,
+                                                cinemaname = msl.movies_schedule.cinema.name,
+                                                moviekey = msl.movies_schedule.movie_id,
+                                                moviename = msl.movies_schedule.movie.title,
+                                                duration = msl.movies_schedule.movie.duration,
+                                                rating = msl.movies_schedule.movie.mtrcb.name,
+                                                starttime = msl.start_time,
+                                                endtime = msl.end_time,
+                                                seattype = msl.seat_type,
+                                                laytime = msl.laytime,
+                                                capacity = msl.movies_schedule.cinema.capacity
+                                            }).FirstOrDefault();
+                if (_movie_schedule_list == null)
+                {
+                    blnIsUpdating = false;
+                    //prompt error message
+                    MessageWindow messageWindow = new MessageWindow();
+                    messageWindow.MessageText.Text = "Movie Schedule is invalid.";
+                    messageWindow.ShowDialog();
+
+                    var window = Window.GetWindow(this);
+                    if (window != null)
+                        window.KeyDown -= Page_PreviewKeyDown;
+                    StopTimer();
+
+                    SelectedPatronSeatList.Dispose();
+                    if (NavigationService != null)
+                        NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    return;
+                }
+
+                string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+                //update statistics
+                var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
+                                  where mslrs.movies_schedule_list_id == this.Key && mslrs.status != 2
+                                  select new { mslrs.cinema_seat_id, mslrs.movies_schedule_list_patron.patron.seat_color }).ToList();
+
+                int tmpreservedseats = 0;
+                tmpreservedseats = (from mcths in context.movies_schedule_list_house_seat
+                    where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId
+                    && (mcths.notes == "RESERVED" || mcths.notes.StartsWith("RESERVED "))
+                    select mcths.cinema_seat_id).Count();
+
+                int disabledseats = 0;
+                disabledseats = (from cs in context.cinema_seat where cs.cinema_id == _movie_schedule_list.cinemakey && cs.is_disabled == 1 select cs.id).Count();
+
+
+                //reserved seats from other sessions
+                var reservedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                                     where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId
+                                     select mcths.cinema_seat_id).ToList();
+
+                //add buyer info here
+                //selected seats 
+                var selectedseats = (from mcths in context.movies_schedule_list_house_seat_view
+                                     where mcths.movies_schedule_list_id == this.Key && mcths.session_id == strSessionId
+                                     select new
+                                     {
+                                         mcths.id,
+                                         mcths.cinema_seat_id,
+                                         mcths.movies_schedule_list_patron_id,
+                                         mcths.reserved_date
+                                     }).ToList();
+
+                MovieSchedule.Selected = selectedseats.Count;
+                MovieSchedule.Booked = takenseats.Count;
+                MovieSchedule.Reserved = tmpreservedseats + disabledseats; //reservedseats.Count;
+                MovieSchedule.Available = (int)(_movie_schedule_list.capacity - takenseats.Count - reservedseats.Count - disabledseats - selectedseats.Count);
+                if (MovieSchedule.Available < 0)
+                    MovieSchedule.Available = 0;
+
+                //removes patron seats on list
+                int _patronSeatsCount = SelectedPatronSeatList.PatronSeats.Count;
+                if (_patronSeatsCount > 0)
+                {
+                    for (int _j = 0; _j < _patronSeatsCount; _j++)
+                    {
+                        if (SelectedPatronSeatList.PatronSeats[_j].SeatKey == seatKey)
+                        {
+                            SelectedPatronSeatList.PatronSeats.RemoveAt(_j);
+                            break;
+                        }
+                    }
+                }
+
+                //update color of the seat selected
+                int _seatsCount = Seats.Count;
+                if (_seatsCount > 0)
+                {
+                    for (int _i = 0; _i < _seatsCount; _i++)
+                    {
+                        if (Seats[_i].Key == seatKey)
+                        {
+                            //make it available
+                            Seats[_i].SeatType = 1;
+
+                            if (takenseats.Count > 0 && IsReservedSeating)
+                            {
+                                var takenseat = takenseats.Where(t => t.cinema_seat_id == seatKey).ToList();
+                                if (takenseat.Count > 0)
+                                {
+                                    //if (takenseats.IndexOf(seat.id) != -1)
+                                    Seats[_i].SeatType = 3;
+                                    Seats[_i].SeatColor = (int)takenseat[0].seat_color;
+                                }
+                            }
+
+                            if (Seats[_i].SeatType == 1)
+                            {
+                                if (reservedseats.Count > 0 && IsReservedSeating)
+                                {
+                                    if (reservedseats.IndexOf(seatKey) != -1)
+                                    {
+                                        //retrieve reserved seat
+                                        Seats[_i].SeatType = 3;
+                                        var seatcolor = (from mcths in context.movies_schedule_list_house_seat
+                                                         where mcths.movies_schedule_list_id == this.Key && mcths.session_id != strSessionId && mcths.cinema_seat_id == seatKey
+                                                         orderby mcths.reserved_date descending
+                                                         select new { mcths.movies_schedule_list_patron.patron.seat_color, mcths.notes }).FirstOrDefault();
+                                        if (seatcolor != null)
+                                        {
+                                            int intSeatColor = (int)seatcolor.seat_color;
+                                            string strNotes = string.Empty;
+                                            if (seatcolor.notes != null)
+                                                strNotes = seatcolor.notes.ToString();
+                                            if (strNotes == "RESERVED" || strNotes.StartsWith("RESERVED "))
+                                                Seats[_i].SeatColor = 8421504;
+                                            else
+                                                Seats[_i].SeatColor = intSeatColor;
+                                        }
+                                    }
+                                }
+
+
+                                if (Seats[_i].SeatType == 1 && selectedseats.Count > 0)
+                                {
+                                    //TODO please find a better function to set patron key
+                                    foreach (var ss in selectedseats)
+                                    {
+                                        if (ss.cinema_seat_id == seatKey)
+                                        {
+                                            Seats[_i].SeatType = 2;
+                                            Seats[_i].PatronKey = ss.movies_schedule_list_patron_id;
+
+                                            string strPatronName = string.Empty;
+                                            int intSeatColor = 0;
+                                            decimal decPrice = 0;
+                                            decimal decBasePrice = 0;
+                                            decimal decOrdinancePrice = 0;
+                                            decimal decSurchargePrice = 0;
+                                            foreach (var p in Patrons)
+                                            {
+                                                if (p != null && p.Key == Seats[_i].PatronKey)
+                                                {
+                                                    strPatronName = p.Name;
+                                                    decPrice = p.Price;
+                                                    decBasePrice = p.BasePrice;
+                                                    decOrdinancePrice = p.OrdinancePrice;
+                                                    decSurchargePrice = p.SurchargePrice;
+                                                    intSeatColor = p.SeatColor;
+                                                    break;
+                                                }
+                                            }
+
+                                            SelectedPatronSeatList.PatronSeats.Add(new PatronSeatModel(
+                                                ss.id,
+                                                Seats[_i].Key,
+                                                Seats[_i].Name,
+                                                Seats[_i].PatronKey,
+                                                strPatronName,
+                                                decPrice,
+                                                decBasePrice,
+                                                decOrdinancePrice,
+                                                decSurchargePrice,
+                                                (DateTime)ss.reserved_date,
+                                                intSeatColor
+                                            ));
+
+                                            Seats[_i].SeatColor = intSeatColor;
+
+                                            if (IsReservedSeating)
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (Seats[_i].IsDisabled && Seats[_i].SeatColor == 0)
+                                Seats[_i].SeatColor = 8421504;
+                            
+
+                            break;
+                        }
+                    }
+                }
+            }
+            blnIsUpdating = false;
         }
 
         private void UpdateMovieSchedule()
@@ -994,7 +1228,8 @@ namespace Paradiso
 
                             if (IsUpdated)
                             {
-                                this.UpdateMovieSchedule();
+                                //this.UpdateMovieSchedule();
+                                this.UpdateMovieScheduleSeat(seatModel.Key);
                             }
 
                         }
@@ -1293,7 +1528,10 @@ namespace Paradiso
 
                 if (IsUpdated)
                 {
-                    this.UpdateMovieSchedule();
+                    if (IsReservedSeating)
+                        this.UpdateMovieScheduleSeat(Seat.Key);
+                    else
+                        this.UpdateMovieSchedule();
                     /*
                     if (mslhs_id != -1)
                     {
