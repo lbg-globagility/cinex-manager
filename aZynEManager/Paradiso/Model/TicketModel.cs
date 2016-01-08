@@ -61,6 +61,8 @@ namespace Paradiso.Model
 
         private string strPatronDescription = string.Empty;
         private string strSeatName = string.Empty;
+        private string strGroupName = string.Empty;
+        private string strSectionName = string.Empty;
         private bool blnIsSelected = false;
 
         private bool blnIsHandicapped = false;
@@ -596,6 +598,32 @@ namespace Paradiso.Model
                     strSeatName = value;
                     UpdateSeatTypeName();
                     NotifyPropertyChanged("SeatName");
+                }
+            }
+        }
+
+        public string GroupName
+        {
+            get { return strGroupName; }
+            set
+            {
+                if (value != strGroupName)
+                {
+                    strGroupName = value;
+                    NotifyPropertyChanged("GroupName");
+                }
+            }
+        }
+
+        public string SectionName
+        {
+            get { return strSectionName; }
+            set
+            {
+                if (value != strSectionName)
+                {
+                    strSectionName = value;
+                    NotifyPropertyChanged("SectionName");
                 }
             }
         }

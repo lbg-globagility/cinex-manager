@@ -161,6 +161,8 @@ namespace Paradiso
                                            patronname = mslrs.movies_schedule_list_patron.patron.name,
                                            patrondescription = mslrs.movies_schedule_list_patron.patron.name,
                                            seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                           groupname = mslrs.cinema_seat.group_name,
+                                           sectionname = mslrs.cinema_seat.section_name,
                                            price = mslrs.price,
                                            baseprice = mslrs.base_price,
                                            ornumber = mslrs.or_number,
@@ -218,6 +220,8 @@ namespace Paradiso
                                     BasePrice = (decimal)t.baseprice,
                                     PatronDescription = t.patrondescription,
                                     SeatName = t.seatname,
+                                    GroupName = t.groupname,
+                                    SectionName = t.sectionname,
                                     ORNumber = t.ornumber,
                                     AmusementTax = (decimal)t.at,
                                     CulturalTax = (decimal)t.ct,
@@ -399,6 +403,8 @@ namespace Paradiso
                              session = mslrs.ticket.session_id,
                              isvoid = (mslrs.void_datetime != null),
                              seatname = mslrs.cinema_seat.col_name +  mslrs.cinema_seat.row_name,
+                             groupname = mslrs.cinema_seat.group_name,
+                             sectionname = mslrs.cinema_seat.section_name,
                              ishandicapped = (mslrs.cinema_seat.is_handicapped == 1) ? true : false
 
                          }).FirstOrDefault();
@@ -424,6 +430,8 @@ namespace Paradiso
                     Ticket.CurrentTime = ParadisoObjectManager.GetInstance().CurrentDate;
                     Ticket.IsVoid = t.isvoid;
                     Ticket.SeatName = t.seatname;
+                    Ticket.GroupName = t.groupname;
+                    Ticket.SectionName = t.sectionname;
                     Ticket.IsHandicapped = t.ishandicapped;
                     Ticket.SeatType = t.seattype;
 
@@ -547,6 +555,8 @@ namespace Paradiso
                 Ticket.CurrentTime = ParadisoObjectManager.GetInstance().CurrentDate;
                 Ticket.IsVoid = t.IsVoid;
                 Ticket.SeatName = t.SeatName;
+                Ticket.GroupName = t.GroupName;
+                Ticket.SectionName = t.SectionName;
                 Ticket.IsHandicapped = t.IsHandicapped;
                 Ticket.SeatType = t.SeatType;
                 Ticket.BuyerLastName = t.BuyerLastName;
@@ -742,12 +752,36 @@ namespace Paradiso
 
             print.DrawText(3, print.Row, print.AddColumn(10), string.Format("{0}", Ticket.CinemaNumber), false);
             print.DrawText(-1, print.AddRow(285), print.Column, "SEAT NO:", false);
-            print.DrawText(0, print.AddRow(490), print.Column, string.Format("OR#: {0}", Ticket.ORNumber), false);
+            print.DrawText(0, print.AddRow(490), print.AddColumn(-10), string.Format("OR#: {0}", Ticket.ORNumber), false);
 
-            if (Ticket.SeatName.Length == 2)
-                print.DrawText(3, print.AddRow(415), print.AddColumn(10), Ticket.SeatName, false);
-            else if (Ticket.SeatName.Length == 3)
-                print.DrawText(3, print.AddRow(385), print.AddColumn(10), Ticket.SeatName, false);
+            if (!String.IsNullOrEmpty(Ticket.GroupName) || !String.IsNullOrEmpty(Ticket.SectionName))
+            {
+                print.DrawText(3, print.AddRow(350), print.AddColumn(20), Ticket.SeatName, false);
+                int _idx = 0;
+                if (Ticket.SeatName.Length == 3)
+                    _idx += 30;
+                /*
+                else if (Ticket.SeatName.Length == 3)
+                {
+                }
+                */
+                if (!String.IsNullOrEmpty(Ticket.GroupName) && !String.IsNullOrEmpty(Ticket.SectionName)) //two liner
+                {
+                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(30), Ticket.GroupName, false);
+                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(50), Ticket.SectionName, false);
+                }
+                else if (!String.IsNullOrEmpty(Ticket.GroupName)) //one liner
+                {
+                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(35), Ticket.GroupName, false);
+                }
+            }
+            else
+            {
+                if (Ticket.SeatName.Length == 2)
+                    print.DrawText(3, print.AddRow(415), print.AddColumn(20), Ticket.SeatName, false);
+                else if (Ticket.SeatName.Length == 3)
+                    print.DrawText(3, print.AddRow(385), print.AddColumn(20), Ticket.SeatName, false);
+            }
 
             print.Column = print.AddColumn(4);
             print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
