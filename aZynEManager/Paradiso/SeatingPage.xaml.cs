@@ -985,6 +985,16 @@ namespace Paradiso
                 confirmButton.Visibility = Visibility.Collapsed;
                 IsReadOnly = true;
             }
+
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            if (screenHeight < SeatItemsControl.ActualHeight ||
+                screenWidth < SeatItemsControl.ActualWidth)
+            {
+                SeatItemsControl.Height = SeatItemsControl.ActualHeight;
+                SeatItemsControl.Width = SeatItemsControl.ActualWidth;
+            }
+
         }
 
         private void SeatCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)

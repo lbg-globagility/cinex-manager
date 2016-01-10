@@ -106,92 +106,92 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="5,5,10,5" >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas IsItemsHost="True" Name="BlankCanvas" MouseLeftButtonDown="BlankCanvas_MouseLeftButtonDown"  MouseRightButtonUp="BlankCanvas_MouseRightButtonUp">
-                            <!--Canvas.Background>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="5,5,10,5" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas IsItemsHost="True" Name="BlankCanvas" MouseLeftButtonDown="BlankCanvas_MouseLeftButtonDown"  MouseRightButtonUp="BlankCanvas_MouseRightButtonUp">
+                                <!--Canvas.Background>
                                 <ImageBrush ImageSource="/Paradiso;component/Images/carpet-bg-2.jpg" />
                             </Canvas.Background-->
-                            <Canvas.ContextMenu>
-                                <ContextMenu Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}" >
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Visibility="Hidden"/>
-                                        <TextBlock DockPanel.Dock="Top">Patrons</TextBlock>
-                                        <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
-                                            <ListView.ItemContainerStyle>
-                                                <Style TargetType="ListViewItem">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                </Style>
-                                            </ListView.ItemContainerStyle>
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <DockPanel Margin="10" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
-                                                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
-                                                        <TextBlock Text="{Binding Name}" FontSize="14"/>
-                                                        <TextBlock>B</TextBlock>
-                                                    </DockPanel>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                    </DockPanel>
-                                </ContextMenu>
-                            </Canvas.ContextMenu>
-                        </Canvas>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-                <ItemsControl.ItemContainerStyle>
-                    <Style>
-                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown" MouseRightButtonDown="SeatCanvas_MouseRightButtonDown">
-                            <Canvas.ContextMenu>
-                                <ContextMenu>
-                                    <DockPanel>
-                                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5" Visibility="{Binding Path=IsReservedSeating, Converter={StaticResource movieScheduleListVisibility}}">
-                                            <TextBlock FontSize="16">Seat Selected:</TextBlock>
-                                            <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Seat.Name}"/>
-                                        </StackPanel>
-                                        <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Free Seating</TextBlock>
+                                <Canvas.ContextMenu>
+                                    <ContextMenu Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}" >
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Visibility="Hidden"/>
+                                            <TextBlock DockPanel.Dock="Top">Patrons</TextBlock>
+                                            <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel Margin="10" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                                            <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Name}" FontSize="14"/>
+                                                            <TextBlock>B</TextBlock>
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </DockPanel>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Template>
+                        <ControlTemplate>
+                            <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                            <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown" MouseRightButtonDown="SeatCanvas_MouseRightButtonDown">
+                                <Canvas.ContextMenu>
+                                    <ContextMenu>
+                                        <DockPanel>
+                                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5" Visibility="{Binding Path=IsReservedSeating, Converter={StaticResource movieScheduleListVisibility}}">
+                                                <TextBlock FontSize="16">Seat Selected:</TextBlock>
+                                                <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Seat.Name}"/>
+                                            </StackPanel>
+                                            <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Free Seating</TextBlock>
 
-                                        <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
-                                            <ListView.ItemContainerStyle>
-                                                <Style TargetType="ListViewItem">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                </Style>
-                                            </ListView.ItemContainerStyle>
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate >
-                                                    <DockPanel Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
-                                                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold" Padding="5"/>
-                                                        <TextBlock Text="{Binding Name}" FontSize="14" Padding="5"/>
-                                                    </DockPanel>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                    </DockPanel>
-                                </ContextMenu>
-                            </Canvas.ContextMenu>
-                            <Grid>
-                                <!--Grid.Background>
+                                            <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate >
+                                                        <DockPanel Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                                            <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold" Padding="5"/>
+                                                            <TextBlock Text="{Binding Name}" FontSize="14" Padding="5"/>
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </DockPanel>
+                                    </ContextMenu>
+                                </Canvas.ContextMenu>
+                                <Grid>
+                                    <!--Grid.Background>
                                     <MultiBinding Converter="{StaticResource seatColorMulti}">
                                         <Binding Path="Type"/>
                                         <Binding Path="SeatColor"/>
                                     </MultiBinding>
                                 </Grid.Background-->
-                                <Image Name="SeatIcon" Width="{Binding Width}" >
+                                    <Image Name="SeatIcon" Width="{Binding Width}" >
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource seatImage}">
                                                 <Binding Path="Type"/>
@@ -199,10 +199,10 @@
                                                 <Binding Path="SeatColor"/>
                                                 <Binding Path="IsHandicapped"/>
                                                 <Binding Path="IsDisabled"/>
-                                        </MultiBinding>
+                                            </MultiBinding>
                                         </Image.Source>
                                     </Image>
-                                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
                                     FontSize="{Binding Path=Height,  Converter={StaticResource seatLabelFontSize}}" Foreground="{Binding Path=TypeName,  Converter={StaticResource seatLabelForeground}}" FontWeight="Bold" FontFamily="Arial">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource seatName}">
@@ -220,15 +220,16 @@
                                       Opacity="1"
                                      BlurRadius="0.0"/>
                                   </TextBlock.Effect-->
-                                </TextBlock>
-                            </Grid>
+                                    </TextBlock>
+                                </Grid>
 
-                            <!--TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="5" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" /-->
-                            
-                        </Canvas>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                <!--TextBlock Canvas.Left="{Binding Path=Name,  Converter={StaticResource seatLabelLeftCanvas}}" Canvas.Top="5" FontSize="16" Foreground="White" FontWeight="Bold" FontFamily="Arial Narrow" Text="{Binding Name}" /-->
+
+                            </Canvas>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
 
             <!--ScrollViewer Canvas.Left="0" Canvas.Top="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 20, 10, 40" >
                 <Canvas Name="SeatCanvas">

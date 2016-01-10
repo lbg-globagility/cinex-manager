@@ -71,8 +71,8 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 5, 10, 5">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 5, 10, 5">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas IsItemsHost="True" Name="BlankCanvas">
@@ -167,7 +167,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-
+            </ScrollViewer>
             <!--ScrollViewer Canvas.Left="0" Canvas.Top="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 20, 10, 40" >
                 <Canvas Name="SeatCanvas">
                     <Canvas.Background>

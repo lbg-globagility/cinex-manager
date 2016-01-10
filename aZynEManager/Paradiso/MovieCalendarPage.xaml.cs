@@ -429,6 +429,15 @@ namespace Paradiso
             }
             */
 
+            //double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            //double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            if (MainCanvas.ActualHeight < MovieCalendarListBox.ActualHeight ||
+                MainCanvas.ActualWidth < MovieCalendarListBox.ActualWidth)
+            {
+                MainCanvas.Height = MovieCalendarListBox.ActualHeight;
+                MainCanvas.Width = MovieCalendarListBox.ActualWidth;
+            }
+
             //checks for terminated session
             if (ParadisoObjectManager.GetInstance().RunOnce)
             {
