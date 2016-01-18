@@ -128,6 +128,7 @@
     <Compile Include="Converters\SeatLabelFontSizeConverter.cs" />
     <Compile Include="Converters\FooterLineConverter.cs" />
     <Compile Include="Converters\MovieScheduleListVisibilityConverter.cs" />
+    <Compile Include="Converters\SeatLabelPaddingConverter.cs" />
     <Compile Include="Converters\SeatNameMultiConverter.cs" />
     <Compile Include="DummyPrinter.cs" />
     <Compile Include="GiftCertificateWindow.xaml.cs">

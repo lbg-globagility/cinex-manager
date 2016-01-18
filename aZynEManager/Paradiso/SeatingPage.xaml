@@ -62,6 +62,7 @@
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
             <l:SeatLabelFontSizeConverter x:Key="seatLabelFontSize"/>
+            <l:SeatLabelPaddingConverter x:Key="seatLabelPadding"/>
             <l:SeatLabelForegroundConverter x:Key="seatLabelForeground"/>
             <l:SeatImageMultiConverter x:Key="seatImage"/>
             <l:TotalPatronSeatConverter x:Key="totalPatronSeat"/>
@@ -202,7 +203,7 @@
                                             </MultiBinding>
                                         </Image.Source>
                                     </Image>
-                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" Padding="{Binding Path=Height, Converter={StaticResource seatLabelPadding}}" Height="{Binding Height}"
                                     FontSize="{Binding Path=Height,  Converter={StaticResource seatLabelFontSize}}" Foreground="{Binding Path=TypeName,  Converter={StaticResource seatLabelForeground}}" FontWeight="Bold" FontFamily="Arial">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource seatName}">

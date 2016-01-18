@@ -28,6 +28,7 @@
             <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
             <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
             <l:SeatLabelFontSizeConverter x:Key="seatLabelFontSize"/>
+            <l:SeatLabelPaddingConverter x:Key="seatLabelPadding"/>
             <l:SeatLabelForegroundConverter x:Key="seatLabelForeground"/>
             <l:SeatImageMultiConverter x:Key="seatImage"/>
             <l:TotalPatronSeatConverter x:Key="totalPatronSeat"/>
@@ -40,7 +41,7 @@
         <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel DockPanel.Dock="Left" Width="165" Margin="10, 5, 0, 0">
                 <StackPanel Background="#ffffff">
-                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding MovieSchedule.CinemaName}"/>
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding MovieSchedule.CinemaName}" />
                     <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
                     <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14">Time:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold" >
@@ -141,7 +142,7 @@
                                     </Image.Source>
                                 </Image>
                                 <TextBlock
-                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="0,7,0,0" Height="{Binding Height}"
+                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="{Binding Path=Height, Converter={StaticResource seatLabelPadding}}" Height="{Binding Height}"
                                     FontSize="{Binding Path=Height,  Converter={StaticResource seatLabelFontSize}}" Foreground="{Binding Path=TypeName,  Converter={StaticResource seatLabelForeground}}" FontWeight="Bold" FontFamily="Arial">
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{StaticResource seatName}">
