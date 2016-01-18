@@ -599,8 +599,11 @@ namespace Paradiso
                 int _laytime = _movie_schedule_list.laytime;
                 if (_laytime == 0)
                     _laytime = 30;
-                if (_movie_schedule_list.starttime.AddMinutes(_laytime) < dtNow)
+                //if (_movie_schedule_list.starttime.AddMinutes(_laytime) < dtNow)
+                //    IsEllapsed = true;
+                if (_movie_schedule_list.starttime < dtNow)
                     IsEllapsed = true;
+
                 if (IsEllapsed && !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
                 {
                     blnIsUpdating = false;
