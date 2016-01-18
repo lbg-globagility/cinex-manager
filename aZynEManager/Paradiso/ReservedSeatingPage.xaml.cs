@@ -587,15 +587,21 @@ namespace Paradiso
 
                             if (takenseats > 0 || reservedseats > 0) //seat already taken?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat has already been taken.";
+                                messageWindow.ShowDialog();
                             }
                             else if (Seat.SeatType == 1 && selectedseats > 0) //available but already selected?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat has already been selected.";
+                                messageWindow.ShowDialog();
                             }
                             else if (Seat.SeatType == 2 && selectedseats == 0) //selected but already expired?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat reservation has expired.";
+                                messageWindow.ShowDialog();
                             }
                             else
                             {
@@ -845,15 +851,21 @@ namespace Paradiso
 
                             if (takenseats > 0 || reservedseats > 0) //seat already taken?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat has already been taken.";
+                                messageWindow.ShowDialog();
                             }
                             else if (Seat.SeatType == 1 && selectedseats > 0) //available but already selected?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat has already been selected.";
+                                messageWindow.ShowDialog();
                             }
                             else if (Seat.SeatType == 2 && selectedseats == 0) //selected but already expired?
                             {
-
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = "Seat reservation has expired.";
+                                messageWindow.ShowDialog();
                             }
                             else
                             {
@@ -1156,6 +1168,15 @@ namespace Paradiso
             ShowDetails.Visibility = System.Windows.Visibility.Visible;
             PurchaseDetails2Panel.Visibility = System.Windows.Visibility.Collapsed;
             PurchaseDetails3Panel.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void refreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopTimer();
+            Cursor = Cursors.Wait;
+            this.UpdateMovieSchedule();
+            Cursor = Cursors.Arrow;
+            StartTimer();
         }
     }
 }
