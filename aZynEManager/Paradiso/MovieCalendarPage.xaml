@@ -28,7 +28,7 @@
                 <l:ScreenTimeColorMultiConverter x:Key="screenTimeColor" />
                 <l:ScreenTimeColorConverter x:Key="screenTimeForeColor" />
                 <DataTemplate x:Key="screenTimeTemplate">
-                    <TextBlock Foreground="{Binding Path=IsEllapsed, Converter={StaticResource screenTimeForeColor}}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="16" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
+                    <TextBlock Foreground="{Binding Path=IsEllapsed, Converter={StaticResource screenTimeForeColor}}" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Arial" FontSize="26" FontWeight="Bold" Padding="10,0,10,0" Text="{Binding Path=StartTime, Converter={StaticResource screenDateToTime}}"  MouseDown="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave">
                                             <TextBlock.Background>
                                                     <MultiBinding Converter="{StaticResource screenTimeColor}">
                                                         <Binding Path="IsEnabled"/>
