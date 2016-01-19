@@ -222,13 +222,16 @@ namespace Paradiso
                             }
                             else
                             {
+                                int _laytime = _movie_schedule_list.laytime;
+                                if (_laytime == 0)
+                                    _laytime = 30;
                                 if (dtNow < _movie_schedule_list.starttime)
                                 {
                                     _movie_schedule_list_item.IsEnabled = true;
                                     if (movieScheduleItem.SelectedMovieScheduleListItem == null)
                                         movieScheduleItem.SelectedMovieScheduleListItem = _movie_schedule_list_item;
                                 }
-                                else if (dtNow < _movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime)) //_movie_schedule_list.endtime ) //allow already running
+                                else if (dtNow < _movie_schedule_list.starttime.AddMinutes(_laytime)) //_movie_schedule_list.endtime ) //allow already running
                                 {
                                     _movie_schedule_list_item.IsEnabled = true;
                                 }

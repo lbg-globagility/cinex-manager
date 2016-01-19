@@ -596,7 +596,10 @@ namespace Paradiso
 
                 //checks if movie already expired
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
-                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                int _laytime = _movie_schedule_list.laytime;
+                if (_laytime == 0)
+                    _laytime = 30;
+                if (_movie_schedule_list.starttime.AddMinutes(_laytime) < dtNow)
                     IsEllapsed = true;
                 if (IsEllapsed && !ParadisoObjectManager.GetInstance().HasRights("PRIORDATE"))
                 {
@@ -633,8 +636,12 @@ namespace Paradiso
 
 
                     MovieSchedule.SeatType = _movie_schedule_list.seattype;
-                    MovieSchedule.LayTime = _movie_schedule_list.laytime;
+                    if (_movie_schedule_list.laytime == 0)
+                        MovieSchedule.LayTime = 30;
+                    else
+                        MovieSchedule.LayTime = _movie_schedule_list.laytime;
                 }
+
 
                 //taken seats
                 var takenseats = (from mslrs in context.movies_schedule_list_reserved_seat
@@ -954,7 +961,7 @@ namespace Paradiso
 
             DateTime now = paradisoObjectManager.CurrentDate;
             if (!MovieSchedule.IsEnabled && (MovieSchedule.Available > 0  || (MovieSchedule.Available == 0 && MovieSchedule.Reserved > 0)) 
-                && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now)
+                && !MovieSchedule.IsEllapsed && MovieSchedule.EndTime > now && (MovieSchedule.LayTime > 0 && now < MovieSchedule.StartTime.AddMinutes(MovieSchedule.LayTime)))
             {
                 //get previous 
                 if (paradisoObjectManager.HasRights("PRIORDATE") && (paradisoObjectManager.CurrentDate.Date == paradisoObjectManager.ScreeningDate ||
