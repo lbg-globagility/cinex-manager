@@ -750,7 +750,7 @@ namespace Paradiso
             int intx1b = print.AddRow(142);
             int inty1b = print.Column;
 
-            print.DrawText(3, print.Row, print.AddColumn(10), string.Format("{0}", Ticket.CinemaNumber), false);
+            print.DrawText(2, print.Row, print.AddColumn(10), string.Format("{0}", Ticket.CinemaNumber), false);
             print.DrawText(-1, print.AddRow(285), print.Column, "SEAT NO:", false);
             print.DrawText(0, print.AddRow(490), print.AddColumn(-10), string.Format("OR#: {0}", Ticket.ORNumber), false);
 
@@ -784,10 +784,10 @@ namespace Paradiso
             }
 
             print.Column = print.AddColumn(4);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
-            print.DrawText(-1, print.AddRow(85), print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, true);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
+            print.DrawText(-1, print.AddRow(75), print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
+            print.DrawText(-2, print.AddRow(75), print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
+            print.DrawText(-1, print.AddRow(75), print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, true);
+            print.DrawText(-1, print.AddRow(75), print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
 
             int intx2a = print.AddRow(135);
             int inty2a = print.AddColumn(10);
