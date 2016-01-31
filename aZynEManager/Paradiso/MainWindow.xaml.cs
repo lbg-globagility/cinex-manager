@@ -158,9 +158,15 @@ namespace Paradiso
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             Dashboard.ContextMenu.IsOpen = false;
+            //perform logout
+            ParadisoObjectManager.GetInstance().Log("LOGIN", "TICKET|LOGOUT",
+                string.Format("LOGOUT OK-{0} ({1})", ParadisoObjectManager.GetInstance().UserLogInName, ParadisoObjectManager.GetInstance().SessionId));
+
             ParadisoObjectManager.GetInstance().UserId = 0;
+            ParadisoObjectManager.GetInstance().UserLogInName = string.Empty;
             ParadisoObjectManager.GetInstance().UserName = string.Empty;
             ParadisoObjectManager.GetInstance().SetNewSessionId();
+
             MainFrame.Source = new Uri("LoginPage.xaml", UriKind.Relative);
            
         }
@@ -203,6 +209,17 @@ namespace Paradiso
                 MainFrame.NavigationService.Refresh();
             }
 
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //perform logout
+            try
+            {
+                ParadisoObjectManager.GetInstance().Log("LOGIN", "TICKET|LOGOUT",
+                    string.Format("LOGOUT OK-{0} ({1})", ParadisoObjectManager.GetInstance().UserLogInName, ParadisoObjectManager.GetInstance().SessionId));
+            }
+            catch { }
         }
     }
 }

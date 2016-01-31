@@ -56,6 +56,7 @@ namespace Paradiso
             strPassword = encryption.EncryptString(strPassword);
 
             ParadisoObjectManager paradisoObjectManager = ParadisoObjectManager.GetInstance();
+            DateTime dtCurrent = paradisoObjectManager.CurrentDate;
 
             try
             {
@@ -66,7 +67,33 @@ namespace Paradiso
 
                     if (username != null)
                     {
+                        //get last trail for LOGIN 
+                        var trail = (from at in context.a_trail
+                                     where at.user.userid == strUserName && at.module_code == 42 && at.tr_date.Year == dtCurrent.Year &&
+                                     at.tr_date.Month == dtCurrent.Month && at.tr_date.Day == dtCurrent.Day
+                                     orderby at.id descending
+                                     select
+                                         new { at.computer_name, at.aff_table_layer }).FirstOrDefault();
+
+                        //checks if already logged in on different machine on same date
+                        if (trail != null)
+                        {
+                            if (trail.aff_table_layer == "TICKET|LOGIN" && trail.computer_name != string.Format("{0}", Environment.MachineName.ToString()))
+                            {
+                                MessageWindow messageWindow = new MessageWindow();
+                                messageWindow.MessageText.Text = string.Format("Teller is already logged in at terminal {0}.", trail.computer_name);
+                                messageWindow.ShowDialog();
+                                UserName.Text = string.Empty;
+                                Password.Clear();
+                                if (UserName.Focusable)
+                                    Keyboard.Focus(UserName);
+                                return;
+                            }
+                        }
+                        
+
                         paradisoObjectManager.UserId = username.id;
+                        paradisoObjectManager.UserLogInName = strUserName;
                         paradisoObjectManager.UserName = string.Format("{0} {1}. {2}", username.fname, username.mname, username.lname);
                         
                         paradisoObjectManager.SessionId = paradisoObjectManager.NewSessionId;
