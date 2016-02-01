@@ -342,8 +342,13 @@ namespace Paradiso
 
             return blnHasRights;
         }
-
+        
         public void Log(string strModuleCode, string strAffectTables, string strDetails)
+        {
+            this.Log(this.UserId, strModuleCode, strAffectTables, strDetails);
+        }
+
+        public void Log(int intUserId, string strModuleCode, string strAffectTables, string strDetails)
         {
             DateTime dtCurrentDate = this.CurrentDate;
             using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
@@ -354,7 +359,7 @@ namespace Paradiso
 
                 a_trail trail = new a_trail()
                 {
-                    user_id = this.UserId,
+                    user_id = intUserId,
                     module_code = module_id,
                     tr_date = this.CurrentDate,
                     aff_table_layer = strAffectTables,

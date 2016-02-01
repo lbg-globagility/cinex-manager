@@ -127,6 +127,7 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -152,7 +153,14 @@
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
-                <Button Grid.Column="2" Name="Settings" Click="Settings_Click" ToolTip="Settings" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                <Button Grid.Column="2" Name="Teller" Click="Teller_Click" ToolTip="Teller" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                    <Rectangle Width="20" Height="20">
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_user}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Grid.Column="3" Name="Settings" Click="Settings_Click" ToolTip="Settings" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
                     <Rectangle Width="20" Height="20">
                         <Rectangle.Fill>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />

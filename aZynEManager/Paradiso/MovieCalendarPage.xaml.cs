@@ -63,6 +63,12 @@ namespace Paradiso
             else
                 Reserved.Visibility = Visibility.Hidden;
             Unreserved.Visibility = Visibility.Hidden;
+
+            if (paradisoObjectManager.HasRights("ENDTELLERSESSION"))
+                Teller.Visibility = Visibility.Visible;
+            else
+                Teller.Visibility = Visibility.Collapsed;
+
             if (paradisoObjectManager.HasRights("SETTINGS"))
                 Settings.Visibility = Visibility.Visible;
             else
@@ -668,6 +674,16 @@ namespace Paradiso
             //checks grant
             
             NavigationService.GetNavigationService(this).Navigate(new SettingPage());
+        }
+        
+        private void Teller_Click(object sender, RoutedEventArgs e)
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
+            NavigationService.GetNavigationService(this).Navigate(new EndTellerSessionPage());
         }
 
     }

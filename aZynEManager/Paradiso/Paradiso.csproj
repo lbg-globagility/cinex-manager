@@ -131,6 +131,9 @@
     <Compile Include="Converters\SeatLabelPaddingConverter.cs" />
     <Compile Include="Converters\SeatNameMultiConverter.cs" />
     <Compile Include="DummyPrinter.cs" />
+    <Compile Include="EndTellerSessionPage.xaml.cs">
+      <DependentUpon>EndTellerSessionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GiftCertificateWindow.xaml.cs">
       <DependentUpon>GiftCertificateWindow.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BuyerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EndTellerSessionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
