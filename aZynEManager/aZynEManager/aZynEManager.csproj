@@ -75,7 +75,7 @@
     <Reference Include="ComponentFactory.Krypton.Ribbon, Version=2.8.5.0, Culture=neutral, PublicKeyToken=ca7912ff32f9150d, processorArchitecture=MSIL" />
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=2.8.5.0, Culture=neutral, PublicKeyToken=65a84d45e882d207, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\library\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\..\..\..\installed programs\fyiReporting RDL Project 4.1\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Interop.VSPrinter7Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,8 +96,17 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="RdlAsp">
+      <HintPath>..\..\..\..\..\installed programs\fyiReporting RDL Project 4.1\RdlAsp.dll</HintPath>
+    </Reference>
+    <Reference Include="RdlCri">
+      <HintPath>..\..\..\..\..\installed programs\fyiReporting RDL Project 4.1\RdlCri.dll</HintPath>
+    </Reference>
+    <Reference Include="RdlEngine">
+      <HintPath>..\..\..\..\..\installed programs\fyiReporting RDL Project 4.1\RdlEngine.dll</HintPath>
+    </Reference>
     <Reference Include="RdlViewer">
-      <HintPath>..\..\library\RdlViewer.dll</HintPath>
+      <HintPath>..\..\..\..\..\installed programs\fyiReporting RDL Project 4.1\RdlViewer.DLL</HintPath>
     </Reference>
     <Reference Include="rtaGlassEffectsLib">
       <HintPath>..\..\library\rtaGlassEffectsLib.dll</HintPath>
@@ -364,6 +373,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSked.resx">
       <DependentUpon>frmSked.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSoundSystem.resx">
       <DependentUpon>frmSoundSystem.cs</DependentUpon>

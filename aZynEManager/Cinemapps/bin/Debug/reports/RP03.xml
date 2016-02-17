@@ -14,8 +14,7 @@
     <DataSet Name="Data">
       <Query>
         <DataSourceName>DS1</DataSourceName>
-        <CommandText>
-        </CommandText>
+        <CommandText></CommandText>
       </Query>
       <Fields>
         <Field Name="name">
@@ -93,7 +92,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>20.6pt</Height>
+              <Height>14.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -102,11 +101,20 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
                           <Bottom>None</Bottom>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
                         <FontFamily>Microsoft Sans Serif</FontFamily>
@@ -126,16 +134,23 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
-                          <Left>Solid</Left>
+                          <Default>None</Default>
+                          <Left>None</Left>
                           <Bottom>None</Bottom>
                           <Right>None</Right>
+                          <Top >None</Top>
                         </BorderStyle>
                         <FontWeight>Lighter</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>4pt</PaddingLeft>
                       </Style>
@@ -150,15 +165,23 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
                           <Left>None</Left>
                           <Bottom>None</Bottom>
+                          <Right >None</Right>
+                          <Top >None</Top>
                         </BorderStyle>
                         <FontWeight>Lighter</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -167,7 +190,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>19.1pt</Height>
+              <Height>12.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -176,17 +199,26 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
                           <Top>None</Top>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>15pt</PaddingLeft>
                         <FontFamily>Microsoft Sans Serif</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -199,16 +231,24 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
                           <Right>None</Right>
                           <Top>None</Top>
+                          <Left >None</Left>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <FontWeight>Lighter</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <PaddingLeft>4pt</PaddingLeft>
                       </Style>
                     </Textbox>
@@ -221,15 +261,24 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
                           <Left>None</Left>
                           <Top>None</Top>
+                          <Right >None</Right>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -237,7 +286,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>22.8pt</Height>
+              <Height>22.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -246,16 +295,26 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
-                          <Default>Solid</Default>
-                          <Right>Solid</Right>
+                          <Default>None</Default>
+                          <Right>None</Right>
+                          <Left >None</Left>
+                          <Top >Solid</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextDecoration>None</TextDecoration>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <FontSize>11pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>15pt</PaddingLeft>
+                        <PaddingBottom >5pt</PaddingBottom>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -264,7 +323,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>19.0pt</Height>
+              <Height>12.6pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -276,13 +335,20 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
-                        <TextDecoration>Underline</TextDecoration>
+                        <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BackgroundColor>Lightgrey</BackgroundColor>
+                        <BackgroundColor>
+                        </BackgroundColor>
                         <FontStyle>Normal</FontStyle>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -297,12 +363,19 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
-                        <TextDecoration>Underline</TextDecoration>
+                        <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BackgroundColor>Lightgrey</BackgroundColor>
-                        <FontSize>10pt</FontSize>
+                        <BackgroundColor>
+                        </BackgroundColor>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -318,12 +391,19 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
-                        <TextDecoration>Underline</TextDecoration>
+                        <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BackgroundColor>Lightgrey</BackgroundColor>
-                        <FontSize>10pt</FontSize>
+                        <BackgroundColor>
+                        </BackgroundColor>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -338,12 +418,19 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
-                        <TextDecoration>Underline</TextDecoration>
+                        <TextDecoration>None</TextDecoration>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BackgroundColor>Lightgrey</BackgroundColor>
-                        <FontSize>10pt</FontSize>
+                        <BackgroundColor>
+                        </BackgroundColor>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -356,7 +443,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>19.5pt</Height>
+              <Height>13.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -365,14 +452,24 @@
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <PaddingLeft>5pt</PaddingLeft>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -380,19 +477,32 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="title">
-                      <Value>=Fields!title.Value</Value>
+                      <Value>=Replace(Trim(Fields!title.Value),"\n","")</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <PaddingLeft>5pt</PaddingLeft>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
+                        <TextAlign>Left</TextAlign>
                       </Style>
+                      <HideDuplicates>
+                      </HideDuplicates>
                     </Textbox>
                   </ReportItems>
                   <ColSpan>4</ColSpan>
@@ -404,17 +514,27 @@
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <PaddingLeft>2pt</PaddingLeft>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingRight>5pt</PaddingRight>
                         <Format>#,##0</Format>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -426,16 +546,26 @@
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
                         <PaddingRight>5pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -444,11 +574,11 @@
             </TableRow>
           </TableRows>
         </Details>
-        <Left>35.8pt</Left>
+        <Left>35pt</Left>
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>19.8pt</Height>
+              <Height>15.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -458,11 +588,18 @@
                           <Default>Solid</Default>
                           <Right>None</Right>
                           <Bottom>None</Bottom>
+                          <Left >None</Left>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <FontStyle>Normal</FontStyle>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
@@ -487,12 +624,19 @@
                           <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                         <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <CanGrow>true</CanGrow>
                       <CanShrink>false</CanShrink>
@@ -511,8 +655,15 @@
                           <Right>None</Right>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -529,8 +680,15 @@
                           <Right>None</Right>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -545,9 +703,17 @@
                           <Default>Solid</Default>
                           <Left>None</Left>
                           <Bottom>None</Bottom>
+                          <Right >None</Right>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -555,7 +721,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>15.8pt</Height>
+              <Height>12.7pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -566,15 +732,22 @@
                           <Default>Solid</Default>
                           <Right>None</Right>
                           <Top>None</Top>
+                          <Left >None</Left>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <FontWeight>Bold</FontWeight>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
                         <FontFamily>Verdana</FontFamily>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -593,14 +766,20 @@
                           <Left>None</Left>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <FontWeight>Bold</FontWeight>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <FontFamily>Verdana</FontFamily>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -616,11 +795,18 @@
                           <Right>None</Right>
                           <Top>None</Top>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <CanGrow>true</CanGrow>
                     </Textbox>
@@ -638,8 +824,15 @@
                           <Right>None</Right>
                           <Top>None</Top>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -656,8 +849,15 @@
                           <Right>None</Right>
                           <Top>None</Top>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -672,9 +872,17 @@
                           <Default>Solid</Default>
                           <Left>None</Left>
                           <Top>None</Top>
+                          <Right >None</Right>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -682,7 +890,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>37.2pt</Height>
+              <Height>36.2pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -690,13 +898,25 @@
                       <Value>MANAGER  ____________________________</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >None</Top>
+                          <Bottom >None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
+                        <FontSize>8pt</FontSize>
+                        <PaddingBottom >10pt</PaddingBottom>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -734,7 +954,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>dsn=localhost;</ConnectString>
+        <ConnectString></ConnectString>
         <IntegratedSecurity>false</IntegratedSecurity>
       </ConnectionProperties>
     </DataSource>

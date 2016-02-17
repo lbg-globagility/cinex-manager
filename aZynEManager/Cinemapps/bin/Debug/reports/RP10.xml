@@ -24,6 +24,10 @@
         <CommandText></CommandText>
       </Query>
       <Fields>
+        <Field Name="cinema_id">
+          <DataField>cinema_id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="cinema_name">
           <DataField>cinema_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -103,7 +107,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>20.6pt</Height>
+              <Height>14.4pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -124,7 +128,7 @@
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
                         <FontFamily>Times New Roman</FontFamily>
-                        <FontSize>16pt</FontSize>
+                        <FontSize>11pt</FontSize>
                       </Style>
                       <CanGrow>true</CanGrow>
                     </Textbox>
@@ -134,7 +138,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>19.8pt</Height>
+              <Height>12.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -152,7 +156,7 @@
                         <FontWeight>Bolder</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>12pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
                       </Style>
@@ -163,7 +167,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>11.3pt</Height>
+              <Height>5.6pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -190,7 +194,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>17.9pt</Height>
+              <Height>12.4pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -211,7 +215,7 @@
                         <FontFamily>Segoe UI</FontFamily>
                         <PaddingLeft>10pt</PaddingLeft>
                         <VerticalAlign>Top</VerticalAlign>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -220,7 +224,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>23.0pt</Height>
+              <Height>11.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -245,6 +249,7 @@
                         </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -272,6 +277,7 @@
                         </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -299,6 +305,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -326,6 +333,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -353,6 +361,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -380,6 +389,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -394,7 +404,7 @@
             <Header>
               <TableRows>
                 <TableRow>
-                  <Height>15.0pt</Height>
+                  <Height>9.5pt</Height>
                   <TableCells>
                     <TableCell>
                       <ColSpan>6</ColSpan>
@@ -414,6 +424,7 @@
                             <BorderColor />
                             <BorderWidth />
                             <VerticalAlign>Middle</VerticalAlign>
+                            <FontSize>9pt</FontSize>
                           </Style>
                           <CanGrow>true</CanGrow>
                         </Textbox>
@@ -427,7 +438,7 @@
             <Footer>
               <TableRows>
                 <TableRow>
-                  <Height>19.0pt</Height>
+                  <Height>12.7pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -439,7 +450,7 @@
                               <Left>None</Left>
                               <Right>None</Right>
                               <Top>Dashed</Top>
-                              <Bottom>Dashed</Bottom>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
                             <BorderColor>
                               <Default>Lightgrey</Default>
@@ -453,6 +464,7 @@
                             <VerticalAlign>Middle</VerticalAlign>
                             <FontWeight>Bold</FontWeight>
                             <PaddingRight>30pt</PaddingRight>
+                            <FontSize>9pt</FontSize>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -469,7 +481,7 @@
                               <Left>None</Left>
                               <Right>None</Right>
                               <Top>Dashed</Top>
-                              <Bottom>Dashed</Bottom>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
                             <PaddingRight>10pt</PaddingRight>
                             <TextAlign>Right</TextAlign>
@@ -484,6 +496,7 @@
                             <VerticalAlign>Middle</VerticalAlign>
                             <Format>#,##0</Format>
                             <FontWeight>Bolder</FontWeight>
+                            <FontSize>10pt</FontSize>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -499,7 +512,7 @@
                               <Left>None</Left>
                               <Right>None</Right>
                               <Top>Dashed</Top>
-                              <Bottom>Dashed</Bottom>
+                              <Bottom>None</Bottom>
                             </BorderStyle>
                             <PaddingRight>10pt</PaddingRight>
                             <TextAlign>Right</TextAlign>
@@ -514,6 +527,7 @@
                             <VerticalAlign>Middle</VerticalAlign>
                             <Format>#,##0.00</Format>
                             <FontWeight>Bolder</FontWeight>
+                            <FontSize>10pt</FontSize>
                           </Style>
                         </Textbox>
                       </ReportItems>
@@ -521,12 +535,21 @@
                   </TableCells>
                 </TableRow>
               </TableRows>
+              <RepeatOnNewPage>false</RepeatOnNewPage>
             </Footer>
             <Grouping Name="cinema_nameGroup">
               <GroupExpressions>
                 <GroupExpression>=Fields!cinema_name.Value</GroupExpression>
               </GroupExpressions>
+              <PageBreakAtStart>false</PageBreakAtStart>
+              <PageBreakAtEnd>false</PageBreakAtEnd>
             </Grouping>
+            <Sorting>
+              <SortBy>
+                <SortExpression>=Fields!cinema_id.Value</SortExpression>
+                <Direction>Ascending</Direction>
+              </SortBy>
+            </Sorting>
           </TableGroup>
           <TableGroup>
             <Grouping Name="movie_title">
@@ -540,7 +563,7 @@
               <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>15.2pt</Height>
+                  <Height>7.4pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -564,7 +587,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox55">
-                          <Value>=Fields!title.Value</Value>
+                          <Value>=Replace(Trim(Fields!title.Value),"\n"," ")</Value>
                           <Style>
                             <BorderStyle>
                               <Default>None</Default>
@@ -578,6 +601,7 @@
                             <TextAlign>Left</TextAlign>
                             <VerticalAlign>Middle</VerticalAlign>
                             <FontStyle>Italic</FontStyle>
+                            <FontSize>9pt</FontSize>
                           </Style>
                           <CanGrow>true</CanGrow>
                         </Textbox>
@@ -592,7 +616,7 @@
               <RepeatOnNewPage>true</RepeatOnNewPage>
               <TableRows>
                 <TableRow>
-                  <Height>19.8pt</Height>
+                  <Height>11.1pt</Height>
                   <TableCells>
                     <TableCell>
                       <ReportItems>
@@ -613,9 +637,9 @@
                             <FontWeight>Bold</FontWeight>
                             <FontSize>9pt</FontSize>
                             <BackgroundColor>Ghostwhite</BackgroundColor>
-                            <PaddingRight>30pt</PaddingRight>
+                            <PaddingRight>10pt</PaddingRight>
                           </Style>
-                          <Value>Sub-Total:</Value>
+                          <Value>Sub-Total</Value>
                         </Textbox>
                       </ReportItems>
                       <ColSpan>4</ColSpan>
@@ -637,7 +661,7 @@
                             <VerticalAlign>Middle</VerticalAlign>
                             <Format>#,##0</Format>
                             <FontWeight>Bold</FontWeight>
-                            <FontSize>9pt</FontSize>
+                            <FontSize>10pt</FontSize>
                             <BackgroundColor>Ghostwhite</BackgroundColor>
                             <PaddingRight>10pt</PaddingRight>
                           </Style>
@@ -659,7 +683,7 @@
                             <BorderColor />
                             <BorderWidth />
                             <FontWeight>Bold</FontWeight>
-                            <FontSize>9pt</FontSize>
+                            <FontSize>10pt</FontSize>
                             <TextAlign>Right</TextAlign>
                             <VerticalAlign>Middle</VerticalAlign>
                             <Format>#,##0.00</Format>
@@ -679,7 +703,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>16.7pt</Height>
+              <Height>10.5pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -739,7 +763,7 @@
                         <BorderWidth />
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -763,7 +787,7 @@
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -786,7 +810,7 @@
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
                       </Style>
@@ -820,7 +844,7 @@
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -832,7 +856,7 @@
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>20.5pt</Height>
+              <Height>20.2pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -852,8 +876,9 @@
                         <BorderWidth />
                         <FontWeight>Bolder</FontWeight>
                         <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <PaddingRight>30pt</PaddingRight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -870,7 +895,7 @@
                         </BorderStyle>
                         <PaddingRight>10pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -881,6 +906,7 @@
                         <BorderWidth />
                         <Format>#,##0</Format>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -896,7 +922,7 @@
                         </BorderStyle>
                         <PaddingRight>10pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -907,6 +933,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -915,7 +942,7 @@
             </TableRow>
           </TableRows>
         </Footer>
-        <Left>14.4pt</Left>
+        <Left>20.8pt</Left>
         <Top>3.2pt</Top>
       </Table>
     </ReportItems>

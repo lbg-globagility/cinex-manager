@@ -524,7 +524,7 @@ namespace aZynEManager
                     finalsqry = finalsqry + String.Format("'{0:yyyy/MM/dd}',", recdate); //insert date
 
                     StringBuilder sbqry = new StringBuilder();
-                    sbqry.Append("SELECT * FROM cinema ORDER BY in_order");
+                    sbqry.Append("SELECT * FROM cinema ORDER BY in_order ASC");
                     DataTable dtable = setDataTable(sbqry.ToString(), sConnString);
                     if (dtable.Rows.Count > 0)
                     {
@@ -551,20 +551,20 @@ namespace aZynEManager
                             if (myconn.State == ConnectionState.Closed)
                                 myconn.Open();
                             MySqlDataReader rd1 = cmd1.ExecuteReader();
-                            int inttotal = 0;
+                            double dbltotal = 0; // //1.7.2016 changes int to double
                             if (rd1.HasRows)
                             {
                                 while (rd1.Read())
                                 {
-                                    int intout = 0;
-                                    if (int.TryParse(rd1[0].ToString(), out intout))
-                                        inttotal = intout;
+                                    double dblout = 0; //1.7.2016 changes int to double
+                                    if (double.TryParse(rd1[0].ToString(), out dblout))
+                                        dbltotal = dblout;
                                 }
                             }
                             rd1.Dispose();
                             cmd1.Dispose();
-                            
-                            finalquery2 = String.Format("{0},{1},'{2}')", cinemaid, inttotal, frm.m_usercode); //insert total
+
+                            finalquery2 = String.Format("{0},{1},'{2}')", cinemaid, dbltotal, frm.m_usercode); //insert total//1.7.2016 changes int to double
 
                             //insert final query
                             MySqlCommand cmd2 = new MySqlCommand(finalsqry + finalquery2, myconn);
@@ -826,7 +826,7 @@ namespace aZynEManager
                     {
                         //yesterday
                         sqry = new StringBuilder();
-                        sqry.Append("SELECT sum(a.price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");
+                        sqry.Append("SELECT sum(a.base_price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");//change price to base_price 1.7.2016 
                         sqry.Append("WHERE a.status = 1 ");
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}' ", m_clscon.SystemCollectionStartDate));
@@ -858,7 +858,7 @@ namespace aZynEManager
 
                         //today
                         sqry = new StringBuilder();
-                        sqry.Append("SELECT sum(a.price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");
+                        sqry.Append("SELECT sum(a.base_price) total FROM movies_schedule_list_reserved_seat a, movies_schedule_list b ");//change price to base_price 1.7.2016 
                         sqry.Append("WHERE a.status = 1 ");
                         sqry.Append("AND a.movies_schedule_list_id = b.id ");
                         sqry.Append(String.Format("AND b.start_time >= '{0:yyyy-MM-dd}' ", m_clscon.SystemCollectionStartDate));
@@ -940,157 +940,170 @@ namespace aZynEManager
 
         public void populatemsrtransaction(frmMain frm, string tbl, string sConnString, DateTime startdate, DateTime enddate)
         {
-            try
-            {
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
             MySqlConnection myconn = new MySqlConnection(frm._connection);
-            StringBuilder sQuery = new StringBuilder();
-            sQuery.Append("select z.Date ");
-            sQuery.Append("from ( ");
-            sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
-            sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
-            sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
-            sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
-            sQuery.Append(") z ");
-            sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
-            sQuery.Append("order by z.Date asc");
-            MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
-            if (myconn.State == ConnectionState.Closed)
-                myconn.Open();
-            MySqlDataReader rd = cmd.ExecuteReader();
-            ArrayList datecoll = new ArrayList();
-            if (rd.HasRows)
+            try
             {
-                while (rd.Read())
-                {
-                    DateTime dtout = new DateTime();
-                    if (DateTime.TryParse(rd[0].ToString(), out dtout))
-                        datecoll.Add(dtout);
-                }
-            }
-            rd.Dispose();
-            cmd.Dispose();
-
-            StringBuilder finalsqry = new StringBuilder();
-            int cntr1 = 0;
-            foreach (DateTime recdate in datecoll)
-            {
-                finalsqry = new StringBuilder();
-                finalsqry.Append(String.Format("INSERT INTO {0} values(0, '{1:yyyy-MM-dd}', ", tbl, recdate));
-                cntr1 += 1;
-                StringBuilder newsqry = new StringBuilder();
-                /*newsqry.Append("select table1.total_cnt, sum(table1.cash_amount) total_cash, ");
-                newsqry.Append("sum(table1.gift_certificate_amount) total_gc, sum(table1.credit_amount) total_cc ");
-                newsqry.Append("from (select count(a.session_id) total_cnt, a.cash_amount, ");
-                newsqry.Append("a.gift_certificate_amount, a.credit_amount ");
-                newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, movies_schedule_list d, movies_schedule e ");
-                newsqry.Append("where a.session_id = b.session_id ");
-                newsqry.Append("and b.id = c.ticket_id ");
-                newsqry.Append("and c.status = 1 ");
-                newsqry.Append("and c.movies_schedule_list_id = d.id ");
-                newsqry.Append("and d.status = 1 ");
-                newsqry.Append("and d.movies_schedule_id = e.id ");
-                newsqry.Append(String.Format("and e.movie_date = '{0:yyyy-MM-dd}' ", recdate));
-                newsqry.Append("group by a.session_id) table1 ");*/
-
-                newsqry.Append("select a.payment_mode, count(a.session_id) total_cnt, sum(c.base_price) cash_amount, a.gift_certificate_amount, ");
-                newsqry.Append("(sum(c.base_price) - a.gift_certificate_amount - cash_amount) credit_amount ");
-                newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, ");
-                newsqry.Append("movies_schedule_list d, movies_schedule e where a.session_id = b.session_id and b.id = c.ticket_id ");
-                newsqry.Append("and c.status = 1 and c.movies_schedule_list_id = d.id and d.status = 1 ");
-                newsqry.Append(String.Format("and d.movies_schedule_id = e.id and e.movie_date = '{0:yyyy-MM-dd}' ",recdate));
-                newsqry.Append("group by a.session_id");
-
-                MySqlCommand cmd1 = new MySqlCommand(newsqry.ToString(), myconn);
+            
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select z.Date ");
+                sQuery.Append("from ( ");
+                sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
+                sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
+                sQuery.Append(") z ");
+                sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
+                sQuery.Append("order by z.Date asc");
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
-                MySqlDataReader rd1 = cmd1.ExecuteReader();
-                if (rd1.HasRows)
+                MySqlDataReader rd = cmd.ExecuteReader();
+                ArrayList datecoll = new ArrayList();
+                if (rd.HasRows)
                 {
-                    int totalcnt = 0;
-                    double totalcash = 0;
-                    double totalcc = 0;
-                    double totalgc = 0;
-                    while (rd1.Read())
+                    while (rd.Read())
                     {
-                        int inttransaction = 0;
-                        int outtransaction = 0;
-                        if (!DBNull.Value.Equals(rd1[0]))
+                        DateTime dtout = new DateTime();
+                        if (DateTime.TryParse(rd[0].ToString(), out dtout))
+                            datecoll.Add(dtout);
+                    }
+                }
+                rd.Close();
+                rd.Dispose();
+                cmd.Dispose();
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+
+                StringBuilder finalsqry = new StringBuilder();
+                int cntr1 = 0;
+                foreach (DateTime recdate in datecoll)
+                {
+                    finalsqry = new StringBuilder();
+                    finalsqry.Append(String.Format("INSERT INTO {0} values(0, '{1:yyyy-MM-dd}', ", tbl, recdate));
+                    cntr1 += 1;
+                    StringBuilder newsqry = new StringBuilder();
+                    /*newsqry.Append("select table1.total_cnt, sum(table1.cash_amount) total_cash, ");
+                    newsqry.Append("sum(table1.gift_certificate_amount) total_gc, sum(table1.credit_amount) total_cc ");
+                    newsqry.Append("from (select count(a.session_id) total_cnt, a.cash_amount, ");
+                    newsqry.Append("a.gift_certificate_amount, a.credit_amount ");
+                    newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, movies_schedule_list d, movies_schedule e ");
+                    newsqry.Append("where a.session_id = b.session_id ");
+                    newsqry.Append("and b.id = c.ticket_id ");
+                    newsqry.Append("and c.status = 1 ");
+                    newsqry.Append("and c.movies_schedule_list_id = d.id ");
+                    newsqry.Append("and d.status = 1 ");
+                    newsqry.Append("and d.movies_schedule_id = e.id ");
+                    newsqry.Append(String.Format("and e.movie_date = '{0:yyyy-MM-dd}' ", recdate));
+                    newsqry.Append("group by a.session_id) table1 ");*/
+
+                    newsqry.Append("select a.payment_mode, count(a.session_id) total_cnt, sum(c.base_price) cash_amount, a.gift_certificate_amount, ");
+                    newsqry.Append("(sum(c.base_price) - a.gift_certificate_amount - cash_amount) credit_amount ");
+                    newsqry.Append("from session a, ticket b, movies_schedule_list_reserved_seat c, ");
+                    newsqry.Append("movies_schedule_list d, movies_schedule e where a.session_id = b.session_id and b.id = c.ticket_id ");
+                    newsqry.Append("and c.status = 1 and c.movies_schedule_list_id = d.id and d.status = 1 ");
+                    newsqry.Append(String.Format("and d.movies_schedule_id = e.id and e.movie_date = '{0:yyyy-MM-dd}' ",recdate));
+                    newsqry.Append("group by a.session_id");
+
+                    MySqlCommand cmd1 = new MySqlCommand(newsqry.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlDataReader rd1 = cmd1.ExecuteReader();
+                    if (rd1.HasRows)
+                    {
+                        int totalcnt = 0;
+                        double totalcash = 0;
+                        double totalcc = 0;
+                        double totalgc = 0;
+                        while (rd1.Read())
                         {
-                            if (int.TryParse(rd1[0].ToString(), out outtransaction))
-                                inttransaction = outtransaction;
-                        }
+                            int inttransaction = 0;
+                            int outtransaction = 0;
+                            if (!DBNull.Value.Equals(rd1[0]))
+                            {
+                                if (int.TryParse(rd1[0].ToString(), out outtransaction))
+                                    inttransaction = outtransaction;
+                            }
 
                         
-                        int intout = 0;
-                        if (!DBNull.Value.Equals(rd1[1]))
-                        {
-                            if (int.TryParse(rd1[1].ToString(), out intout))
-                                totalcnt += intout;
-                        }
+                            int intout = 0;
+                            if (!DBNull.Value.Equals(rd1[1]))
+                            {
+                                if (int.TryParse(rd1[1].ToString(), out intout))
+                                    totalcnt += intout;
+                            }
 
                         
-                        double dblout = 0;
-                        if (inttransaction == 1)
-                        {
-                            if (!DBNull.Value.Equals(rd1[2]))
+                            double dblout = 0;
+                            if (inttransaction == 1)
                             {
-                                if (double.TryParse(rd1[2].ToString(), out dblout))
-                                    totalcash += dblout;
-                            }
-                        }
-
-                        if(inttransaction == 3)
-                        {
-                            dblout = 0;
-                            if (!DBNull.Value.Equals(rd1[2]))
-                            {
-                                if (double.TryParse(rd1[2].ToString(), out dblout))
-                                    totalcash += dblout;
-                            }
-                            dblout = 0;
-                            if (!DBNull.Value.Equals(rd1[3]))
-                            {
-                                if (double.TryParse(rd1[3].ToString(), out dblout))
+                                if (!DBNull.Value.Equals(rd1[2]))
                                 {
-                                    totalgc += dblout;
-                                    totalcash -= dblout;
+                                    if (double.TryParse(rd1[2].ToString(), out dblout))
+                                        totalcash += dblout;
+                                }
+                            }
+
+                            if(inttransaction == 3)
+                            {
+                                dblout = 0;
+                                if (!DBNull.Value.Equals(rd1[2]))
+                                {
+                                    if (double.TryParse(rd1[2].ToString(), out dblout))
+                                        totalcash += dblout;
+                                }
+                                dblout = 0;
+                                if (!DBNull.Value.Equals(rd1[3]))
+                                {
+                                    if (double.TryParse(rd1[3].ToString(), out dblout))
+                                    {
+                                        totalgc += dblout;
+                                        totalcash -= dblout;
+                                    }
+                                }
+                            }
+
+                            if (inttransaction == 4)
+                            {
+                                dblout = 0;
+                                if (!DBNull.Value.Equals(rd1[4]))
+                                {
+                                    if (double.TryParse(rd1[4].ToString(), out dblout))
+                                        totalcc = dblout;
+                                }
+                            }
+
+                            if (inttransaction == 2)
+                            {
+                                dblout = 0;
+                                if (!DBNull.Value.Equals(rd1[3]))
+                                {
+                                    if (double.TryParse(rd1[3].ToString(), out dblout))
+                                        totalgc += dblout;
+                                }
+                                dblout = 0;
+                                if (!DBNull.Value.Equals(rd1[4]))
+                                {
+                                    if (double.TryParse(rd1[4].ToString(), out dblout))
+                                        totalgc += dblout;
                                 }
                             }
                         }
-
-                        if (inttransaction == 4)
-                        {
-                            dblout = 0;
-                            if (!DBNull.Value.Equals(rd1[4]))
-                            {
-                                if (double.TryParse(rd1[4].ToString(), out dblout))
-                                    totalcc = dblout;
-                            }
-                        }
-
-                        if (inttransaction == 2)
-                        {
-                            dblout = 0;
-                            if (!DBNull.Value.Equals(rd1[3]))
-                            {
-                                if (double.TryParse(rd1[3].ToString(), out dblout))
-                                    totalgc += dblout;
-                            }
-                            dblout = 0;
-                            if (!DBNull.Value.Equals(rd1[4]))
-                            {
-                                if (double.TryParse(rd1[4].ToString(), out dblout))
-                                    totalgc += dblout;
-                            }
-                        }
+                        finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", totalcnt, totalcash, totalgc, totalcc));
+                        rd1.Close();
+                        rd1.Dispose();
+                        cmd1.Dispose();
                     }
-                    finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", totalcnt, totalcash, totalgc, totalcc));
-                    rd1.Close();
-                    cmd1.Dispose();
-                }
-                finalsqry.Append(String.Format("'{0}')",frm.m_usercode));
-                MySqlCommand cmd2 = new MySqlCommand(finalsqry.ToString(), myconn);
+                    else// added 1.5.2016
+                        finalsqry.Append(String.Format("{0}, {1}, {2}, {3},", 0, 0, 0, 0)); // added 1.5.2016
+
+                    rd1.Close();//added 1.5.2016
+                    rd1.Dispose();//added 1.5.2016
+                    cmd1.Dispose();//added 1.5.2016
+
+                    finalsqry.Append(String.Format("'{0}')",frm.m_usercode));
+                    MySqlCommand cmd2 = new MySqlCommand(finalsqry.ToString(), myconn);
                     if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd2.ExecuteNonQuery();
@@ -1099,6 +1112,8 @@ namespace aZynEManager
             }
             catch(Exception err)
             {
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
                 MessageBox.Show(err.Message);
             }
         }
@@ -1526,7 +1541,7 @@ namespace aZynEManager
                         int qtty = 0;
                         double amt = 0;
                         sQuery = new StringBuilder();
-                        sQuery.Append("select f.id cinema_id, d.movie_id,count(b.ticket_id) qtty,sum(b.price) amt from movies_schedule_list_reserved_seat b, ");
+                        sQuery.Append("select f.id cinema_id, d.movie_id,count(b.ticket_id) qtty,sum(b.base_price) amt from movies_schedule_list_reserved_seat b, ");//1.7.2016 changed price to base_price
                         sQuery.Append("movies_schedule_list c, movies_schedule d, cinema f ");
                         sQuery.Append(String.Format("where b.movies_schedule_list_id = {0} ", schedid));
                         sQuery.Append("and b.movies_schedule_list_id = c.id ");
@@ -1626,9 +1641,11 @@ namespace aZynEManager
                 StringBuilder sQuery = new StringBuilder();
 
                 sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
-                sQuery.Append("a.price, sum(a.price) as gross_receipt, ");//change base_price to price 6.26.2015
+                sQuery.Append("a.base_price, sum(a.base_price) as gross_receipt, ");// returned to base_price 1.7.2016//change base_price to price 6.26.2015
                 sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name, ");
-                sQuery.Append("f.with_gross_margin, f.with_prod_share ");//added 7.10.2015 for excempting complimentary pass sample
+                sQuery.Append("f.with_gross_margin, f.with_prod_share, ");//added 7.10.2015 for excempting complimentary pass sample
+                sQuery.Append("sum(a.ordinance_price) as ord_sum, sum(a.surcharge_price) as sur_sum, "); // added for surcharge and ordinance 1.7.2016
+                sQuery.Append("b.movie_date "); //added 2.6.2016
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
@@ -1665,9 +1682,29 @@ namespace aZynEManager
                     double netamount = 0;
                     double shareamount = 0;
                     double grossmargin = 0;
-                    string sharedaterange = getDateRange(movieid, startdate, enddate.AddDays(1), sConnString);//"From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);
+                    string sharedaterange = "";// "From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);//getDateRange(movieid, startdate, enddate.AddDays(1), sConnString);//edited 2.4.2016
+
+                    DateTime newstartdate = startdate;
+                    DateTime newenddate = enddate;
+
                     foreach (DataRow dr in dt.Rows)
                     {
+                        if (Convert.ToDateTime(dr[15]) > startdate)
+                        {
+                            if (Convert.ToDateTime(dr[15]) >= newstartdate)
+                                newstartdate = Convert.ToDateTime(dr[15]);
+                            else
+                                newenddate = Convert.ToDateTime(dr[15]);
+                        }
+                        else
+                        {
+                            if (Convert.ToDateTime(dr[15]) >= newstartdate)
+                                newstartdate = Convert.ToDateTime(dr[15]);
+                            else
+                                newenddate = Convert.ToDateTime(dr[15]);
+                        }
+
+
                         amusementtax = 0;
                         culturaltax = 0;
                         shareamount = 0;
@@ -1748,8 +1785,6 @@ namespace aZynEManager
                             }
                             deductions += amusementtax;
                         }
-                        finalsqry.Append(String.Format("{0},", surchrg));//for surchrge
-                        deductions += surchrg; //deduction for surcharge for the whole report
 
                         //compute for ordinance
                         string patronid = "";
@@ -1771,11 +1806,29 @@ namespace aZynEManager
                                     strcinemaid = dr[9].ToString();
                             }
                         }
+                        
+                        //remarked 1.7.2016
+                        //ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, strcinemaid, cinemaid.ToString());
+                        if (!DBNull.Value.Equals(dr[13]))
+                        {
+                            if (dr[13].ToString() != "")
+                                ordinance = Convert.ToDouble(dr[13].ToString());
+                        }
 
-                        ordinance = ordinancevalue(sConnString, startdate, enddate, patronid, strcinemaid, cinemaid.ToString());
+                        //1.6.2016 compute for surcharge
+                        //surchrg = surchargevalue(sConnString, startdate, enddate, patronid, strcinemaid, cinemaid.ToString());
+                        if (!DBNull.Value.Equals(dr[14]))
+                        {
+                            if (dr[14].ToString() != "")
+                                surchrg = Convert.ToDouble(dr[14].ToString());
+                        }
+
+                        finalsqry.Append(String.Format("{0},", surchrg));//for surchrge
+                        //deductions += surchrg; //remarked 1.7.2016 //deduction for surcharge for the whole report
+
 
                         finalsqry.Append(String.Format("{0},", ordinance));//for ordinance
-                        deductions += ordinance; // deduction for surcharge for the whole report
+                        //deductions += ordinance;//remarked 1.7.2016 // deduction for surcharge for the whole report
                         netamount = grossreceipt - deductions;
                         //finalsqry.Append(String.Format("{0},", netamount));//net amount//moved to another location
 
@@ -1828,6 +1881,8 @@ namespace aZynEManager
                         }
 
                         finalsqry.Append(String.Format("{0},", shareid));
+                        //2.6.2016
+                        sharedaterange = "From: " + String.Format("{0:MM/dd/yyyy}", newstartdate) + " To: " + String.Format("{0:MM/dd/yyyy}", newenddate);
                         finalsqry.Append(String.Format("'{0}',", sharedaterange));
                         finalsqry.Append(String.Format("'{0}')", usercode));
 
@@ -2015,6 +2070,96 @@ namespace aZynEManager
             {
 
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        double surchargevalue(string sConnString, DateTime startdate, DateTime enddate, string patronid, string movieid, string cinemaid)
+        {
+            double sur_val = 0;
+            MySqlConnection myconn = new MySqlConnection(sConnString);
+            try
+            {
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+                StringBuilder sQuery = new StringBuilder();
+                sQuery.Append("select z.Date ");
+                sQuery.Append("from ( ");
+                sQuery.Append("select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date ");
+                sQuery.Append("from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b ");
+                sQuery.Append("cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c ");
+                sQuery.Append(") z ");
+                sQuery.Append(String.Format("where z.Date between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' ", startdate, enddate));
+                sQuery.Append("order by z.Date asc");
+                MySqlCommand cmd = new MySqlCommand(sQuery.ToString(), myconn);
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlDataReader rd = cmd.ExecuteReader();
+                ArrayList datecoll = new ArrayList();
+                if (rd.HasRows)
+                {
+                    while (rd.Read())
+                    {
+                        DateTime dtout = new DateTime();
+                        if (DateTime.TryParse(rd[0].ToString(), out dtout))
+                            datecoll.Add(dtout);
+                    }
+                }
+                rd.Dispose();
+                cmd.Dispose();
+
+                StringBuilder finalsqry = new StringBuilder();
+                foreach (DateTime recdate in datecoll)
+                {
+                    finalsqry = new StringBuilder();
+                    finalsqry.Append("select (aa.cnt * IF(g.patron_id IS NULL, 0, IF(g.in_pesovalue, g.amount_val, aa.cnt * g.amount_val))) surcharge_val from ");
+                    finalsqry.Append("(select count(d.ticket_id) as cnt, c.patron_id ");
+                    finalsqry.Append("from movies_schedule a, movies_schedule_list b, ");
+                    finalsqry.Append("movies_schedule_list_patron c, movies_schedule_list_reserved_seat d, cinema h ");
+                    finalsqry.Append(String.Format("where a.movie_date = '{0:yyyy-MM-dd}' ", recdate));
+                    finalsqry.Append(String.Format("and a.movie_id = {0} ", movieid));
+                    finalsqry.Append("and a.id = b.movies_schedule_id ");
+                    finalsqry.Append("and b.id = c.movies_schedule_list_id ");
+                    finalsqry.Append("and d.patron_id = c.id ");
+                    finalsqry.Append("and d.status = 1 ");
+                    finalsqry.Append("and b.status = 1 ");
+                    finalsqry.Append("and a.cinema_id = h.id ");
+                    finalsqry.Append(String.Format("and a.cinema_id = {0} ", cinemaid)); 
+                    finalsqry.Append(String.Format("and c.patron_id = {0}) aa left outer join ", patronid));
+                    finalsqry.Append("((SELECT e.patron_id, f.amount_val, f.in_pesovalue FROM patrons_surcharge e, surcharge_tbl f WHERE e.surcharge_id = f.id ");
+                    finalsqry.Append(String.Format("AND ((f.with_enddate = 0 && '{0:yyyy-MM-dd}' >= f.effective_date) || (f.with_enddate = 1 && '{0:yyyy-MM-dd}' >= f.effective_date && '{0:yyyy-MM-dd}' <= f.end_date)))) g ", recdate));
+                    finalsqry.Append("ON aa.patron_id = g.patron_id ");
+
+                    cmd = new MySqlCommand(finalsqry.ToString(), myconn);
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlDataReader rd1 = cmd.ExecuteReader();
+                    if (rd1.HasRows)
+                    {
+                        while (rd1.Read())
+                        {
+                            double dblout = 0;
+                            if (double.TryParse(rd1[0].ToString(), out dblout))
+                                sur_val += dblout;
+                        }
+                    }
+                    rd1.Dispose();
+                    cmd.Dispose();
+                }
+
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+
+                Cursor.Current = Cursors.Default;
+
+                return sur_val;
+            }
+            catch
+            {
+                if (myconn.State == ConnectionState.Open)
+                    myconn.Close();
+                Cursor.Current = Cursors.Default;
+
+                return sur_val;
             }
         }
     }

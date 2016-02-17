@@ -16,6 +16,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using CommonLibrary;
 using aZynEManager;
+using System.IO;
 
 namespace Cinemapps
 {
@@ -639,8 +640,16 @@ namespace Cinemapps
         {
             try
             {
-                RP19 report = new RP19(RP20StartDate.SelectedDate);
-                report.PreviewReport();
+                //RP20 report = new RP19(RP20StartDate.SelectedDate);
+                //report.PreviewReport();
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP20StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP20EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP20");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -927,6 +936,608 @@ namespace Cinemapps
         private void RP14EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             //UpdateRP14Movie();
+        }
+
+        private void PreviewRP14_Click(object sender, RoutedEventArgs e)
+        {
+            int intCinemaId = 0;
+            if (RP14Cinema.SelectedValue != null)
+            {
+                if (RP14Cinema.SelectedValue is Cinema)
+                {
+                    Cinema cinema = (Cinema)RP14Cinema.SelectedValue;
+                    intCinemaId = cinema.Id;
+                }
+            }
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport.setDate = (DateTime)RP14StartDate.SelectedDate;
+                frmreport.setEndDate = (DateTime)RP14EndDate.SelectedDate;
+                frmreport._intCinemaID = intCinemaId;
+                frmreport.frmInit(main, main.m_clscom, "RP14");
+                frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                frmreport.rdlViewer1.Rebuild();
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp14." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                frmreport.Dispose();
+                try
+                {
+                    System.Diagnostics.Process.Start(strfilenm);
+                }
+                catch (Exception) { }
+            }
+
+        }
+
+        private void PreviewRP08_Click(object sender, RoutedEventArgs e)
+        {
+            int intCinemaId = 0;
+            int intMovieId = 0;
+            if (RP08Cinema.SelectedValue != null)
+            {
+                if (RP08Cinema.SelectedValue is Cinema)
+                {
+                    Cinema cinema = (Cinema)RP08Cinema.SelectedValue;
+                    intCinemaId = cinema.Id;
+                }
+            }
+            if (RP08Movie.SelectedValue != null)
+            {
+                if (RP08Movie.SelectedValue is Movie)
+                {
+                    Movie movie = (Movie)RP08Movie.SelectedValue;
+                    intMovieId = movie.Id;
+                }
+            }
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport.setDate = (DateTime)RP08StartDate.SelectedDate;
+                frmreport._intCinemaID = intCinemaId;
+                frmreport._intMovieID = intMovieId;
+                frmreport.frmInit(main, main.m_clscom, "RP08");
+                frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                frmreport.rdlViewer1.Rebuild();
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp08." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                frmreport.Dispose();
+                try
+                {
+                    System.Diagnostics.Process.Start(strfilenm);
+                }
+                catch (Exception) { }
+            }
+
+        }
+
+        private void PreviewRP10_Click(object sender, RoutedEventArgs e)
+        {
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport.setDate = (DateTime)RP10StartDate.SelectedDate;
+                frmreport.setEndDate = (DateTime)RP10EndDate.SelectedDate;
+                frmreport.frmInit(main, main.m_clscom, "RP10");
+                frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                frmreport.rdlViewer1.Rebuild();
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp10." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                frmreport.Dispose();
+                try
+                {
+                    System.Diagnostics.Process.Start(strfilenm);
+                }
+                catch (Exception) { }
+            }
+
+        }
+
+        // added 2.12.2016
+        private void ExcelRP01_Click(object sender, RoutedEventArgs e)
+        {
+            using (frmReport frmreport = new frmReport())
+            {
+                if (RP01Teller.SelectedValue == null || RP01Teller.SelectedValue.ToString() == "")
+                {
+                    MessageBox.Show("Please select a teller from the list.");
+                    return;
+                }
+
+                frmreport.setDate = (DateTime)RP01StartDate.SelectedDate;
+                frmreport.account = RP01Teller.SelectedValue.ToString();
+                frmreport.frmInit(main, main.m_clscom, "RP01");
+                frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                frmreport.rdlViewer1.Rebuild();
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp01." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                frmreport.Dispose();
+                try
+                {
+                    System.Diagnostics.Process.Start(strfilenm);
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private void ExcelRP02_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP02EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP02");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp02." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP04_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP04StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP04");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp04." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP05_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP05StartDate.SelectedDate;
+                    frmreport.setDistCode = RP05Distributor.SelectedValue.ToString();
+                    frmreport.frmInit(main, main.m_clscom, "RP05");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp05." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP06_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    int intCinemaId = -1;
+                    if (RP06Cinema.SelectedValue != null)
+                    {
+                        if (RP06Cinema.SelectedValue is Cinema)
+                        {
+                            Cinema cinema = (Cinema)RP06Cinema.SelectedValue;
+                            intCinemaId = cinema.Id;
+                        }
+                    }
+
+                    frmreport._intCinemaID = intCinemaId;
+                    frmreport._dtStart = (DateTime)RP06StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP06");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp06." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP07_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP07StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP07");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp07." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP09_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP09StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP09EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP09");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp09." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP11_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP11StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP11EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP11");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp11." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP12_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP12StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP12");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp12." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP13_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP13StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP13");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp13." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP15_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP15StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP15EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP15");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp15." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP16_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP16StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP16");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp16." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP17_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP17StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP17EndDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP17");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp17." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP20_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP20StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP20EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP20");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp20." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP21_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP21StartDate.SelectedDate;
+                    frmreport.setEndDate = (DateTime)RP21EndDate.SelectedDate.Value.AddDays(1);
+                    frmreport.frmInit(main, main.m_clscom, "RP21");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp21." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP22_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP22StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP22");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp22." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP23_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP23StartDate.SelectedDate;
+                    frmreport.frmInit(main, main.m_clscom, "RP23");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp23." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, "xlsx");
+                    frmreport.Dispose();
+                    try
+                    {
+                        System.Diagnostics.Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
     }
 }

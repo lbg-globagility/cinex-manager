@@ -29,49 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReport));
-            this.rdlViewer1 = new fyiReporting.RdlViewer.RdlViewer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnSaveas = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
             this.cmbZoom = new System.Windows.Forms.ComboBox();
+            this.rdlViewer1 = new fyiReporting.RdlViewer.RdlViewer();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // rdlViewer1
-            // 
-            this.rdlViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.rdlViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(243)))), ((int)(((byte)(238)))));
-            this.rdlViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.rdlViewer1.Folder = null;
-            this.rdlViewer1.HighlightAll = false;
-            this.rdlViewer1.HighlightAllColor = System.Drawing.Color.Fuchsia;
-            this.rdlViewer1.HighlightCaseSensitive = false;
-            this.rdlViewer1.HighlightItemColor = System.Drawing.Color.Aqua;
-            //this.rdlViewer1.HighlightPageItem = null;
-            this.rdlViewer1.HighlightText = null;
-            this.rdlViewer1.Location = new System.Drawing.Point(0, 61);
-            this.rdlViewer1.Name = "rdlViewer1";
-            this.rdlViewer1.PageCurrent = 1;
-            this.rdlViewer1.Parameters = null;
-            this.rdlViewer1.ReportName = null;
-            this.rdlViewer1.ScrollMode = fyiReporting.RdlViewer.ScrollModeEnum.Continuous;
-            this.rdlViewer1.SelectTool = false;
-            this.rdlViewer1.ShowFindPanel = false;
-            this.rdlViewer1.ShowParameterPanel = false;
-            this.rdlViewer1.ShowWaitDialog = true;
-            this.rdlViewer1.Size = new System.Drawing.Size(905, 489);
-            this.rdlViewer1.SourceFile = null;
-            this.rdlViewer1.SourceRdl = null;
-            this.rdlViewer1.TabIndex = 246;
-            this.rdlViewer1.Text = "RdlViewer1";
-            this.rdlViewer1.UseTrueMargins = true;
-            this.rdlViewer1.Zoom = 1.053922F;
-            this.rdlViewer1.ZoomMode = fyiReporting.RdlViewer.ZoomEnum.FitWidth;
-            this.rdlViewer1.Click += new System.EventHandler(this.rdlViewer1_Click);
             // 
             // groupBox1
             // 
@@ -161,6 +127,39 @@
             this.cmbZoom.TabIndex = 40;
             this.cmbZoom.SelectedIndexChanged += new System.EventHandler(this.cmbZoom_SelectedIndexChanged);
             // 
+            // rdlViewer1
+            // 
+            this.rdlViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.rdlViewer1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.rdlViewer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.rdlViewer1.Folder = null;
+            this.rdlViewer1.HighlightAll = false;
+            this.rdlViewer1.HighlightAllColor = System.Drawing.Color.Fuchsia;
+            this.rdlViewer1.HighlightCaseSensitive = false;
+            this.rdlViewer1.HighlightItemColor = System.Drawing.Color.Aqua;
+            this.rdlViewer1.HighlightPageItem = null;
+            this.rdlViewer1.HighlightText = null;
+            this.rdlViewer1.Location = new System.Drawing.Point(0, 58);
+            this.rdlViewer1.Name = "rdlViewer1";
+            this.rdlViewer1.PageCurrent = 1;
+            this.rdlViewer1.Parameters = null;
+            this.rdlViewer1.ReportName = null;
+            this.rdlViewer1.ScrollMode = fyiReporting.RdlViewer.ScrollModeEnum.Continuous;
+            this.rdlViewer1.SelectTool = false;
+            this.rdlViewer1.ShowFindPanel = false;
+            this.rdlViewer1.ShowParameterPanel = false;
+            this.rdlViewer1.ShowWaitDialog = false;
+            this.rdlViewer1.Size = new System.Drawing.Size(904, 479);
+            this.rdlViewer1.SourceFile = null;
+            this.rdlViewer1.SourceRdl = null;
+            this.rdlViewer1.TabIndex = 246;
+            this.rdlViewer1.Text = "rdlViewer1";
+            this.rdlViewer1.UseTrueMargins = true;
+            this.rdlViewer1.Zoom = 1.052735F;
+            this.rdlViewer1.ZoomMode = fyiReporting.RdlViewer.ZoomEnum.FitWidth;
+            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,7 +173,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmReport";
             this.Text = "Reports";
-            this.Load += new System.EventHandler(this.frmReport_Load);
             this.Resize += new System.EventHandler(this.frmReport_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -184,13 +182,13 @@
 
         #endregion
 
-        internal fyiReporting.RdlViewer.RdlViewer rdlViewer1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Button btnSaveas;
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.ComboBox cmbZoom;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        public fyiReporting.RdlViewer.RdlViewer rdlViewer1;
 
 
     }

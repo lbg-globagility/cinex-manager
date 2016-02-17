@@ -136,10 +136,10 @@
             <Width>60.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>51.3pt</Width>
+            <Width>59.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>32.4pt</Width>
+            <Width>33.2pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>61.3pt</Width>
@@ -154,7 +154,7 @@
             <Width>40.4pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>50.6pt</Width>
+            <Width>52.2pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>39.0pt</Width>
@@ -627,11 +627,14 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -645,11 +648,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -662,11 +670,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -679,11 +692,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -696,11 +714,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -713,11 +736,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -730,11 +758,16 @@
                         <TextAlign>Left</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -748,9 +781,12 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -766,10 +802,13 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -784,10 +823,13 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -802,10 +844,13 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -821,10 +866,13 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -838,10 +886,15 @@
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>7pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -854,10 +907,15 @@
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -870,10 +928,15 @@
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor >
+                          <Bottom>Black</Bottom>
+                        </BorderColor>
+                        <BorderWidth  />
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -888,10 +951,13 @@
                         <BorderStyle>
                           <Default>Solid</Default>
                           <Top>None</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <BorderColor />
+                        <BorderColor>
+                          <Bottom >Black</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                       </Style>
                     </Textbox>
@@ -915,13 +981,21 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>2pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -934,13 +1008,21 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <TextAlign>Right</TextAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -953,13 +1035,21 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <TextAlign>Right</TextAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -967,20 +1057,28 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="or_total">
-                      <Value>=iif(Fields!or_total.Value &gt; 0,Fields!or_total.Value,"")</Value>
+                      <Value>=Fields!or_total.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>0pt</PaddingRight>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <Format>#,##0</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -988,20 +1086,28 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="sales_beg">
-                      <Value>=iif(Fields!sales_beg.Value &gt; 0, Fields!sales_beg.Value, "")</Value>
+                      <Value>=Fields!sales_beg.Value</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1009,20 +1115,28 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="sales_end">
-                      <Value>=iif(Fields!sales_end.Value &gt; 0, Fields!sales_end.Value, "")</Value>
+                      <Value>=Fields!sales_end.Value</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1030,20 +1144,28 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="sales_total">
-                      <Value>=iif(Fields!sales_total.Value &gt; 0, Fields!sales_total.Value, "")</Value>
+                      <Value>=Fields!sales_total.Value</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1055,14 +1177,22 @@
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>2pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <PaddingLeft>0pt</PaddingLeft>
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1075,15 +1205,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1096,15 +1234,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1117,15 +1263,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1138,15 +1292,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1159,15 +1321,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1180,15 +1350,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1201,15 +1379,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
                         <Format>#,##0.00</Format>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1222,15 +1408,23 @@
                       <Style>
                         <BorderStyle>
                           <Default>Solid</Default>
+                          <Top >None</Top>
                         </BorderStyle>
                         <PaddingRight>1pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <BorderColor />
+                        <BorderColor>
+                          <Default >Lightgrey</Default>
+                          <Left >Lightgrey</Left>
+                          <Right >Lightgrey</Right>
+                          <Top >Lightgrey</Top>
+                          <Bottom >Lightgrey</Bottom>
+                        </BorderColor>
                         <BorderWidth />
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1244,23 +1438,31 @@
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>10.7pt</Height>
+              <Height>24.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox1">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1272,16 +1474,24 @@
                     <Textbox Name="Textbox2">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1293,16 +1503,24 @@
                     <Textbox Name="Textbox4">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1314,16 +1532,24 @@
                     <Textbox Name="Textbox19">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1335,16 +1561,24 @@
                     <Textbox Name="Textbox21">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1356,16 +1590,24 @@
                     <Textbox Name="Textbox23">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1377,16 +1619,24 @@
                     <Textbox Name="Textbox25">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1398,16 +1648,24 @@
                     <Textbox Name="Textbox26">
                       <Style>
                         <BorderStyle>
-                          <Default>Solid</Default>
+                          <Default>None</Default>
+                          <Left >None</Left>
+                          <Right >None</Right>
+                          <Top >Solid</Top>
+                          <Bottom >Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <VerticalAlign >Bottom</VerticalAlign>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>
                       </Value>
@@ -1419,25 +1677,29 @@
                     <Textbox Name="Textbox28">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!vat_sales.Value) = 0,"0.00", Format(Sum(Fields!vat_sales.Value),"N2"))</Value>
                     </Textbox>
@@ -1448,25 +1710,29 @@
                     <Textbox Name="Textbox29">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!vat_exempt_sales.Value) = 0, "0.00",Format(Sum(Fields!vat_exempt_sales.Value),"N2"))</Value>
                     </Textbox>
@@ -1477,25 +1743,29 @@
                     <Textbox Name="Textbox35">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!zero_rated_sales.Value) = 0,"0.00",Format(Sum(Fields!zero_rated_sales.Value),"N2"))</Value>
                     </Textbox>
@@ -1506,25 +1776,29 @@
                     <Textbox Name="Textbox36">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!vat.Value) = 0,"0.00",Format(Sum(Fields!vat.Value),"N2"))</Value>
                     </Textbox>
@@ -1535,25 +1809,29 @@
                     <Textbox Name="Textbox38">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!disc_cs.Value) = 0,"0.00",Format(Sum(Fields!disc_cs.Value),"N2"))</Value>
                     </Textbox>
@@ -1564,25 +1842,29 @@
                     <Textbox Name="Textbox39">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!disc_pwd.Value) = 0,"0.00",Format(Sum(Fields!disc_pwd.Value),"N2"))</Value>
                     </Textbox>
@@ -1593,25 +1875,29 @@
                     <Textbox Name="Textbox41">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!disc_employee.Value) = 0,"0.00",Format(Sum(Fields!disc_employee.Value),"N2"))</Value>
                     </Textbox>
@@ -1622,25 +1908,29 @@
                     <Textbox Name="Textbox42">
                       <Style>
                         <BorderStyle>
-                          <Default>Double</Default>
-                          <Left>Solid</Left>
-                          <Right>Solid</Right>
-                          <Top>Double</Top>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
                           <Bottom>Solid</Bottom>
                         </BorderStyle>
                         <BorderColor>
-                          <Default>Black</Default>
-                          <Left>Black</Left>
-                          <Right>Black</Right>
-                          <Top>Black</Top>
-                          <Bottom>Black</Bottom>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
                         </BorderColor>
-                        <BorderWidth />
-                        <FontSize>7pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderWidth>
+                          <Bottom >2pt</Bottom>
+                        </BorderWidth>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <TextAlign>Right</TextAlign>
                         <PaddingRight>1pt</PaddingRight>
                         <Format>#,##0.00</Format>
+                        <FontFamily >Arial Narrow</FontFamily>
+                        <PaddingBottom >2pt</PaddingBottom>
                       </Style>
                       <Value>=iif(Sum(Fields!net_sales.Value) = 0,"0.00",Format(Sum(Fields!net_sales.Value),"N2"))</Value>
                     </Textbox>
@@ -1652,7 +1942,7 @@
         </Footer>
       </Table>
     </ReportItems>
-    <Height>144.7pt</Height>
+    <Height>178.9pt</Height>
   </Body>
   <PageFooter>
     <Height>14pt</Height>

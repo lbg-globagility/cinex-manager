@@ -217,49 +217,49 @@
             <Width>113.4pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>57.4pt</Width>
+            <Width>37.9pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>36.2pt</Width>
           </TableColumn>
           <TableColumn>
+            <Width>43.3pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>36.1pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>43.6pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>35.8pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>43.4pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>35.9pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>43.7pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>36.4pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>43.3pt</Width>
+          </TableColumn>
+          <TableColumn>
             <Width>36.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>34.6pt</Width>
+            <Width>43.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>40.5pt</Width>
+            <Width>36.3pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>36.8pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>36.6pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>32.6pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>41.3pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>34.3pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>39.2pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>35.4pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>39.1pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>33.5pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>38.8pt</Width>
+            <Width>43.5pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>33.2pt</Width>
@@ -268,7 +268,7 @@
             <Width>41.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>43.2pt</Width>
+            <Width>37.5pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>55.8pt</Width>
@@ -295,7 +295,7 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>16pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <FontFamily>Times New Roman</FontFamily>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
@@ -555,7 +555,7 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>12pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <FontFamily>Segoe UI</FontFamily>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
@@ -797,7 +797,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>31.2pt</Height>
+              <Height>20.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -815,11 +815,11 @@
                         <FontWeight>Bold</FontWeight>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <FontFamily>Arial</FontFamily>
                         <VerticalAlign>Bottom</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
-                        <PaddingBottom>5pt</PaddingBottom>
+                        <PaddingBottom>3pt</PaddingBottom>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1058,7 +1058,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>28.9pt</Height>
+              <Height>12.4pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1079,7 +1079,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>10pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <FontFamily>Arial</FontFamily>
                         <VerticalAlign>Bottom</VerticalAlign>
                       </Style>
@@ -1091,7 +1091,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox54">
-                      <Value>=Fields!movie1.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie1.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1099,7 +1099,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1120,7 +1120,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox56">
-                      <Value>=Fields!movie2.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie2.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1128,7 +1128,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1149,7 +1149,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox58">
-                      <Value>=Fields!movie3.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie3.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1157,7 +1157,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1177,7 +1177,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox60">
-                      <Value>=Fields!movie4.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie4.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1185,7 +1185,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1206,7 +1206,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox62">
-                      <Value>=Fields!movie5.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie5.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1214,7 +1214,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1235,7 +1235,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox64">
-                      <Value>=Fields!movie6.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie6.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1243,7 +1243,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1264,7 +1264,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox66">
-                      <Value>=Fields!movie7.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie7.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1272,7 +1272,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1292,7 +1292,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox68">
-                      <Value>=Fields!movie8.Value</Value>
+                      <Value>=Replace(Trim(Fields!movie8.Value),"\n"," ")</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1300,7 +1300,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <BorderColor>
                           <Default>Lightgrey</Default>
                           <Left>Lightgrey</Left>
@@ -1321,8 +1321,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox70">
-                      <Value>
-                      </Value>
+                      <Value>Total</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1340,6 +1339,7 @@
                         </BorderColor>
                         <BorderWidth />
                         <FontFamily>Arial</FontFamily>
+                        <VerticalAlign >Bottom</VerticalAlign>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1373,7 +1373,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>17.3pt</Height>
+              <Height>9.5pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1623,7 +1623,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox50">
-                      <Value>Total Quantity</Value>
+                      <Value>Quantity</Value>
                       <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -1677,7 +1677,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>20.6pt</Height>
+              <Height>11.2pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -2213,7 +2213,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>19.0pt</Height>
+              <Height>8.8pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -2231,7 +2231,7 @@
                         <PaddingLeft>2pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
@@ -2255,7 +2255,7 @@
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
                       </Style>
@@ -2275,14 +2275,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
-                        <FontSize>7pt</FontSize>
+                        <PaddingRight>0pt</PaddingRight>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2300,13 +2300,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2324,14 +2325,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
-                        <FontSize>7pt</FontSize>
+                        <PaddingRight>0pt</PaddingRight>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2349,13 +2350,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2373,14 +2375,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
-                        <FontSize>7pt</FontSize>
+                        <PaddingRight>0pt</PaddingRight>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2398,13 +2400,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2422,14 +2425,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
-                        <FontSize>7pt</FontSize>
+                        <PaddingRight>0pt</PaddingRight>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2447,13 +2450,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2470,13 +2474,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2493,13 +2498,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2516,13 +2522,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2539,13 +2546,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2562,13 +2570,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2585,13 +2594,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2608,13 +2618,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2631,13 +2642,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft >0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -2661,11 +2673,11 @@ iif(Len(Convert.ToString(Fields!qty8.Value)) &lt;= 0,0,iif(Fields!qty8.Value &gt
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                       </Style>
@@ -2691,11 +2703,11 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
                       </Style>
@@ -2707,11 +2719,11 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
           </TableRows>
         </Details>
         <Left>12.8pt</Left>
-        <Top>25.6pt</Top>
+        <Top>14.4pt</Top>
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>.2in</Height>
+              <Height>11.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -2737,7 +2749,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <Format>#,##0.00</Format>
                         <PaddingRight>5pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>9pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>TOTAL</Value>
                       <CanGrow>true</CanGrow>
@@ -2767,9 +2779,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty1.Value)) &lt;= 0,0,iif(Fields!qty1.Value &gt; 0,Fields!qty1.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2798,9 +2810,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales1.Value)) &lt;= 0,0,iif(Fields!sales1.Value &gt; 0,Fields!sales1.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2829,9 +2841,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty2.Value)) &lt;= 0,0,iif(Fields!qty2.Value &gt; 0,Fields!qty2.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2860,9 +2872,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales2.Value)) &lt;= 0,0,iif(Fields!sales2.Value &gt; 0,Fields!sales2.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2891,9 +2903,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty3.Value)) &lt;= 0,0,iif(Fields!qty3.Value &gt; 0,Fields!qty3.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2922,9 +2934,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales3.Value)) &lt;= 0,0,iif(Fields!sales3.Value &gt; 0,Fields!sales3.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2953,9 +2965,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty4.Value)) &lt;= 0,0,iif(Fields!qty4.Value &gt; 0,Fields!qty4.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -2984,9 +2996,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales4.Value)) &lt;= 0,0,iif(Fields!sales4.Value &gt; 0,Fields!sales4.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3015,9 +3027,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty5.Value)) &lt;= 0,0,iif(Fields!qty5.Value &gt; 0,Fields!qty5.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3046,9 +3058,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales5.Value)) &lt;= 0,0,iif(Fields!sales5.Value &gt; 0,Fields!sales5.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3077,9 +3089,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty6.Value)) &lt;= 0,0,iif(Fields!qty6.Value &gt; 0,Fields!qty6.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3108,9 +3120,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales6.Value)) &lt;= 0,0,iif(Fields!sales6.Value &gt; 0,Fields!sales6.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3139,9 +3151,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty7.Value)) &lt;= 0,0,iif(Fields!qty7.Value &gt; 0,Fields!qty7.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3170,9 +3182,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales7.Value)) &lt;= 0,0,iif(Fields!sales7.Value &gt; 0,Fields!sales7.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3201,9 +3213,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty8.Value)) &lt;= 0,0,iif(Fields!qty8.Value &gt; 0,Fields!qty8.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3232,9 +3244,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value &gt; 0,Fields!sales8.Value,0)))</Value>
                       <CanGrow>true</CanGrow>
@@ -3263,9 +3275,9 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!qty1.Value)) &lt;= 0,0,iif(Fields!qty1.Value &gt; 0,Fields!qty1.Value,0)) +
 iif(Len(Convert.ToString(Fields!qty2.Value)) &lt;= 0,0,iif(Fields!qty2.Value &gt; 0,Fields!qty2.Value,0)) +
@@ -3301,9 +3313,9 @@ iif(Len(Convert.ToString(Fields!qty8.Value)) &lt;= 0,0,iif(Fields!qty8.Value &gt
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0.00</Format>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                       <Value>=sum(iif(Len(Convert.ToString(Fields!sales1.Value)) &lt;= 0,0,iif(Fields!sales1.Value &gt; 0,Fields!sales1.Value,0)) +
 iif(Len(Convert.ToString(Fields!sales2.Value)) &lt;= 0,0,iif(Fields!sales2.Value &gt; 0,Fields!sales2.Value,0)) +
@@ -3320,7 +3332,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>.2in</Height>
+              <Height>9.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -3705,7 +3717,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>.2in</Height>
+              <Height>4.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -4090,7 +4102,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>.2in</Height>
+              <Height>8.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -4240,7 +4252,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>.2in</Height>
+              <Height>12.1pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -4258,7 +4270,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
@@ -4282,7 +4294,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
@@ -4309,7 +4321,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                         <Format>#,##0</Format>
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -4331,7 +4343,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>0.0000</Format>
@@ -4397,7 +4409,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
       </Table>
       <Line Name="Line1">
         <Height>-0.68pt</Height>
-        <Width>840pt</Width>
+        <Width>840.00pt</Width>
         <Style>
           <BorderStyle>
             <Default>Solid</Default>
@@ -4408,7 +4420,7 @@ iif(Len(Convert.ToString(Fields!sales8.Value)) &lt;= 0,0,iif(Fields!sales8.Value
           <BorderWidth />
         </Style>
         <Left>9.9pt</Left>
-        <Top>61.4pt</Top>
+        <Top>50.2pt</Top>
       </Line>
     </ReportItems>
     <Height>304.1pt</Height>

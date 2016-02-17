@@ -35,6 +35,8 @@
             this.btnEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtdetails = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.cbxpesos = new System.Windows.Forms.CheckBox();
             this.lbllgu = new System.Windows.Forms.Label();
             this.txtval = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -45,13 +47,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvResult = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.label11 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtcode = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.txtsymbol = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtdetails = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol.Panel)).BeginInit();
             this.grpcontrol.Panel.SuspendLayout();
@@ -276,6 +276,29 @@
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 325;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(7, 65);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 13);
+            this.label4.TabIndex = 327;
+            this.label4.Text = "Details";
+            // 
+            // txtdetails
+            // 
+            this.txtdetails.BackColor = System.Drawing.Color.White;
+            this.txtdetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdetails.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtdetails.Location = new System.Drawing.Point(97, 28);
+            this.txtdetails.Multiline = true;
+            this.txtdetails.Name = "txtdetails";
+            this.txtdetails.Size = new System.Drawing.Size(199, 51);
+            this.txtdetails.TabIndex = 326;
+            // 
             // cbxpesos
             // 
             this.cbxpesos.AutoSize = true;
@@ -297,7 +320,7 @@
             this.lbllgu.BackColor = System.Drawing.Color.Transparent;
             this.lbllgu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbllgu.ForeColor = System.Drawing.Color.White;
-            this.lbllgu.Location = new System.Drawing.Point(9, 110);
+            this.lbllgu.Location = new System.Drawing.Point(9, 137);
             this.lbllgu.Name = "lbllgu";
             this.lbllgu.Size = new System.Drawing.Size(34, 13);
             this.lbllgu.TabIndex = 316;
@@ -345,7 +368,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(8, 134);
+            this.label3.Location = new System.Drawing.Point(8, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 287;
@@ -368,7 +391,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(8, 87);
+            this.label2.Location = new System.Drawing.Point(8, 89);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 285;
@@ -407,6 +430,18 @@
             this.label11.Size = new System.Drawing.Size(105, 15);
             this.label11.TabIndex = 275;
             this.label11.Text = "   Surcharge List   ";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox2.Location = new System.Drawing.Point(14, 160);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
+            this.pictureBox2.TabIndex = 263;
+            this.pictureBox2.TabStop = false;
             // 
             // label1
             // 
@@ -486,41 +521,6 @@
             this.txtsymbol.Size = new System.Drawing.Size(15, 15);
             this.txtsymbol.TabIndex = 325;
             this.txtsymbol.Text = "P";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(7, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 327;
-            this.label4.Text = "Details";
-            // 
-            // txtdetails
-            // 
-            this.txtdetails.BackColor = System.Drawing.Color.White;
-            this.txtdetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtdetails.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtdetails.Location = new System.Drawing.Point(97, 28);
-            this.txtdetails.Multiline = true;
-            this.txtdetails.Name = "txtdetails";
-            this.txtdetails.Size = new System.Drawing.Size(199, 51);
-            this.txtdetails.TabIndex = 326;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(14, 160);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
-            this.pictureBox2.TabIndex = 263;
-            this.pictureBox2.TabStop = false;
             // 
             // frmSurcharge
             // 

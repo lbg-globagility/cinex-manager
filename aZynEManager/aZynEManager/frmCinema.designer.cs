@@ -44,9 +44,11 @@
             this.btnclear = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.label17 = new System.Windows.Forms.Label();
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.btnaddsound = new System.Windows.Forms.Button();
             this.dgvpatrons = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.cmbsounds = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtcapacity = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -61,8 +63,9 @@
             this.btnrevoke = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btngrant = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnclear2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnaddsound = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.rbtnDefault = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.rbtnAll = new ComponentFactory.Krypton.Toolkit.KryptonRadioButton();
+            this.btnDefault = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpcontrol)).BeginInit();
@@ -78,11 +81,11 @@
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).BeginInit();
             this.grpgrant.Panel.SuspendLayout();
             this.grpgrant.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -476,6 +479,9 @@
             // 
             // kryptonGroup1.Panel
             // 
+            this.kryptonGroup1.Panel.Controls.Add(this.btnDefault);
+            this.kryptonGroup1.Panel.Controls.Add(this.rbtnDefault);
+            this.kryptonGroup1.Panel.Controls.Add(this.rbtnAll);
             this.kryptonGroup1.Panel.Controls.Add(this.btnaddsound);
             this.kryptonGroup1.Panel.Controls.Add(this.dgvpatrons);
             this.kryptonGroup1.Panel.Controls.Add(this.cmbsounds);
@@ -502,6 +508,25 @@
             this.kryptonGroup1.StateCommon.Border.Width = 3;
             this.kryptonGroup1.TabIndex = 320;
             // 
+            // btnaddsound
+            // 
+            this.btnaddsound.BackColor = System.Drawing.Color.Transparent;
+            this.btnaddsound.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnaddsound.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Peru;
+            this.btnaddsound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnaddsound.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnaddsound.ForeColor = System.Drawing.Color.White;
+            this.btnaddsound.Image = global::aZynEManager.Properties.Resources.add1;
+            this.btnaddsound.Location = new System.Drawing.Point(279, 29);
+            this.btnaddsound.Name = "btnaddsound";
+            this.btnaddsound.Size = new System.Drawing.Size(18, 18);
+            this.btnaddsound.TabIndex = 2;
+            this.btnaddsound.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnaddsound.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnaddsound, "Add Sound System");
+            this.btnaddsound.UseVisualStyleBackColor = false;
+            this.btnaddsound.Click += new System.EventHandler(this.btnaddsound_Click);
+            // 
             // dgvpatrons
             // 
             this.dgvpatrons.AllowUserToAddRows = false;
@@ -511,11 +536,11 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvpatrons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvpatrons.Location = new System.Drawing.Point(4, 105);
+            this.dgvpatrons.Location = new System.Drawing.Point(4, 96);
             this.dgvpatrons.Name = "dgvpatrons";
             this.dgvpatrons.RowHeadersVisible = false;
             this.dgvpatrons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvpatrons.Size = new System.Drawing.Size(299, 227);
+            this.dgvpatrons.Size = new System.Drawing.Size(299, 236);
             this.dgvpatrons.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvpatrons.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvpatrons.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -540,11 +565,23 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(103, 83);
+            this.label11.Location = new System.Drawing.Point(103, 78);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(102, 15);
             this.label11.TabIndex = 275;
             this.label11.Text = "   Patron Pricing   ";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox2.Location = new System.Drawing.Point(14, 85);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
+            this.pictureBox2.TabIndex = 263;
+            this.pictureBox2.TabStop = false;
             // 
             // label3
             // 
@@ -565,7 +602,7 @@
             this.txtcapacity.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtcapacity.Location = new System.Drawing.Point(98, 52);
             this.txtcapacity.Name = "txtcapacity";
-            this.txtcapacity.Size = new System.Drawing.Size(60, 20);
+            this.txtcapacity.Size = new System.Drawing.Size(46, 20);
             this.txtcapacity.TabIndex = 3;
             this.txtcapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtcapacity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcapacity_KeyPress);
@@ -622,7 +659,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(156, 53);
+            this.label16.Location = new System.Drawing.Point(143, 53);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(17, 24);
             this.label16.TabIndex = 283;
@@ -848,36 +885,45 @@
             this.btnclear2.Values.Text = "clear";
             this.btnclear2.Click += new System.EventHandler(this.btnclear2_Click);
             // 
-            // btnaddsound
+            // rbtnDefault
             // 
-            this.btnaddsound.BackColor = System.Drawing.Color.Transparent;
-            this.btnaddsound.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnaddsound.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Peru;
-            this.btnaddsound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnaddsound.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnaddsound.ForeColor = System.Drawing.Color.White;
-            this.btnaddsound.Image = global::aZynEManager.Properties.Resources.add1;
-            this.btnaddsound.Location = new System.Drawing.Point(279, 29);
-            this.btnaddsound.Name = "btnaddsound";
-            this.btnaddsound.Size = new System.Drawing.Size(18, 18);
-            this.btnaddsound.TabIndex = 2;
-            this.btnaddsound.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnaddsound.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.btnaddsound, "Add Sound System");
-            this.btnaddsound.UseVisualStyleBackColor = false;
-            this.btnaddsound.Click += new System.EventHandler(this.btnaddsound_Click);
+            this.rbtnDefault.Location = new System.Drawing.Point(209, 53);
+            this.rbtnDefault.Name = "rbtnDefault";
+            this.rbtnDefault.Size = new System.Drawing.Size(62, 20);
+            this.rbtnDefault.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.rbtnDefault.TabIndex = 285;
+            this.rbtnDefault.Values.Text = "Default";
+            this.rbtnDefault.CheckedChanged += new System.EventHandler(this.rbtnDefault_CheckedChanged);
             // 
-            // pictureBox2
+            // rbtnAll
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Yellow;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(14, 90);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(280, 3);
-            this.pictureBox2.TabIndex = 263;
-            this.pictureBox2.TabStop = false;
+            this.rbtnAll.Checked = true;
+            this.rbtnAll.Location = new System.Drawing.Point(161, 53);
+            this.rbtnAll.Name = "rbtnAll";
+            this.rbtnAll.Size = new System.Drawing.Size(36, 20);
+            this.rbtnAll.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
+            this.rbtnAll.TabIndex = 284;
+            this.rbtnAll.Values.Text = "All";
+            this.rbtnAll.CheckedChanged += new System.EventHandler(this.rbtnAll_CheckedChanged);
+            // 
+            // btnDefault
+            // 
+            this.btnDefault.BackColor = System.Drawing.Color.Transparent;
+            this.btnDefault.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnDefault.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Peru;
+            this.btnDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDefault.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDefault.ForeColor = System.Drawing.Color.White;
+            this.btnDefault.Image = global::aZynEManager.Properties.Resources.add1;
+            this.btnDefault.Location = new System.Drawing.Point(279, 53);
+            this.btnDefault.Name = "btnDefault";
+            this.btnDefault.Size = new System.Drawing.Size(18, 18);
+            this.btnDefault.TabIndex = 286;
+            this.btnDefault.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDefault.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnDefault, "Update Default Patrons");
+            this.btnDefault.UseVisualStyleBackColor = false;
+            this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
             // frmCinema
             // 
@@ -916,11 +962,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvpatrons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant.Panel)).EndInit();
             this.grpgrant.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpgrant)).EndInit();
             this.grpgrant.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -961,5 +1007,8 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btngrant;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnclear2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnseats;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnDefault;
+        private ComponentFactory.Krypton.Toolkit.KryptonRadioButton rbtnAll;
+        private System.Windows.Forms.Button btnDefault;
     }
 }

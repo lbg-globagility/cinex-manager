@@ -130,70 +130,70 @@
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>63.2pt</Width>
+            <Width>49.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>100.8pt</Width>
+            <Width>138.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>33.5pt</Width>
+            <Width>25.6pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>40.5pt</Width>
+            <Width>46.9pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>34.7pt</Width>
+            <Width>25.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>40.8pt</Width>
+            <Width>47.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>33.4pt</Width>
+            <Width>25.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>39.7pt</Width>
+            <Width>46.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>31.9pt</Width>
+            <Width>25.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>39.2pt</Width>
+            <Width>47.3pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>32.7pt</Width>
+            <Width>25.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>39.6pt</Width>
+            <Width>46.8pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>34.5pt</Width>
+            <Width>25.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>40.6pt</Width>
+            <Width>47.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>31.6pt</Width>
+            <Width>25.4pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>42.5pt</Width>
+            <Width>47.3pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>32.1pt</Width>
+            <Width>25.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>43.6pt</Width>
+            <Width>46.7pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>51.4pt</Width>
+            <Width>42.8pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>76.5pt</Width>
+            <Width>69.9pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
           <TableRows>
             <TableRow>
-              <Height>19.8pt</Height>
+              <Height>11.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -217,7 +217,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>16pt</FontSize>
+                        <FontSize>11pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Times New Roman</FontFamily>
                         <PaddingLeft>10pt</PaddingLeft>
@@ -240,7 +240,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Normal</FontWeight>
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -258,7 +258,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>19.0pt</Height>
+              <Height>11.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -282,7 +282,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>12pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Segoe UI</FontFamily>
                         <PaddingLeft>10pt</PaddingLeft>
@@ -313,7 +313,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>10pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Arial</FontFamily>
                         <PaddingLeft>0pt</PaddingLeft>
@@ -325,7 +325,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>25.6pt</Height>
+              <Height>5.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -384,9 +384,10 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>10pt</FontSize>
-                        <VerticalAlign>Top</VerticalAlign>
+                        <FontSize>8pt</FontSize>
+                        <VerticalAlign>Bottom</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -395,7 +396,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>18.5pt</Height>
+              <Height>14.7pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -415,7 +416,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -440,7 +441,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -457,7 +458,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -482,7 +483,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -507,7 +508,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -532,7 +533,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -557,7 +558,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -582,7 +583,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -607,7 +608,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -633,7 +634,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Bottom</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -658,7 +659,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Bottom</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -675,7 +676,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>19.2pt</Height>
+              <Height>14.3pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -695,7 +696,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -719,7 +720,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -728,7 +729,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox4">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -743,7 +744,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                     </Textbox>
@@ -767,7 +768,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                       </Style>
                       <CanGrow>true</CanGrow>
@@ -777,14 +778,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox6">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -809,7 +810,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -827,14 +828,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox8">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -859,7 +860,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -877,14 +878,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox10">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -909,7 +910,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -927,14 +928,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox12">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -963,7 +964,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -981,14 +982,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox14">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1017,7 +1018,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1035,14 +1036,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox16">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1067,7 +1068,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1085,14 +1086,14 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox18">
-                      <Value>Quantity</Value>
+                      <Value>Qty</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1117,7 +1118,7 @@
                           <Default>Solid</Default>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1143,7 +1144,7 @@
                           <Top>None</Top>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Top</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1169,7 +1170,7 @@
                           <Top>None</Top>
                         </BorderStyle>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>7pt</FontSize>
+                        <FontSize>8pt</FontSize>
                         <VerticalAlign>Top</VerticalAlign>
                         <BorderColor>
                           <Default>Lightgrey</Default>
@@ -1191,7 +1192,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>24.1pt</Height>
+              <Height>12.6pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -1206,13 +1207,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Normal</FontWeight>
+                        <FontFamily>Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1220,7 +1222,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="title">
-                      <Value>=Fields!title.Value</Value>
+                      <Value>=Replace(Trim(Fields!title.Value),"\n"," ")</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -1230,14 +1232,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>7pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontWeight>Normal</FontWeight>
                         <FontStyle>Italic</FontStyle>
+                        <FontFamily>Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1246,7 +1249,7 @@
                   <ReportItems>
                     <Textbox Name="screening1_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening1_quantity.Value)) &lt;= 0,0,iif(Fields!screening1_quantity.Value &gt; 0,Fields!screening1_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1255,13 +1258,13 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <BorderColor />
                         <BorderWidth />
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
                         <Format>#,##0</Format>
                       </Style>
@@ -1281,14 +1284,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1306,14 +1310,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                     </Textbox>
@@ -1332,14 +1336,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1348,7 +1353,7 @@
                   <ReportItems>
                     <Textbox Name="screening3_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening3_quantity.Value)) &lt;= 0,0,iif(Fields!screening3_quantity.Value &gt; 0,Fields!screening3_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1357,14 +1362,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                     </Textbox>
@@ -1383,14 +1388,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1399,7 +1405,7 @@
                   <ReportItems>
                     <Textbox Name="screening4_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening4_quantity.Value)) &lt;= 0,0,iif(Fields!screening4_quantity.Value &gt; 0,Fields!screening4_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1408,14 +1414,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                     </Textbox>
@@ -1434,14 +1440,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1450,7 +1457,7 @@
                   <ReportItems>
                     <Textbox Name="screening5_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening5_quantity.Value)) &lt;= 0,0,iif(Fields!screening5_quantity.Value &gt; 0,Fields!screening5_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1459,14 +1466,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                       <Visibility>
@@ -1489,14 +1496,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                       <Visibility>
                         <Hidden>
@@ -1509,7 +1517,7 @@
                   <ReportItems>
                     <Textbox Name="screening6_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening6_quantity.Value)) &lt;= 0,0,iif(Fields!screening6_quantity.Value &gt; 0,Fields!screening6_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1518,14 +1526,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                       <Visibility>
@@ -1548,14 +1556,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1564,7 +1573,7 @@
                   <ReportItems>
                     <Textbox Name="screening7_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening7_quantity.Value)) &lt;= 0,0,iif(Fields!screening7_quantity.Value &gt; 0,Fields!screening7_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1573,14 +1582,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
                       </Style>
                     </Textbox>
@@ -1599,14 +1608,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1615,7 +1625,7 @@
                   <ReportItems>
                     <Textbox Name="screening8_quantity">
                       <Value>=iif(Len(Convert.ToString(Fields!screening8_quantity.Value)) &lt;= 0,0,iif(Fields!screening8_quantity.Value &gt; 0,Fields!screening8_quantity.Value,0))</Value>
-                      <CanGrow>true</CanGrow>
+                      <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -1624,14 +1634,14 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingLeft>0pt</PaddingLeft>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1649,14 +1659,15 @@
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1680,15 +1691,17 @@ iif(Len(Convert.ToString(Fields!screening8_quantity.Value)) &lt;= 0,0,iif(Fields
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
+                      <CanGrow>false</CanGrow>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -1711,14 +1724,15 @@ iif(Len(Convert.ToString(Fields!screening8_amount.Value)) &lt;= 0,0,iif(Fields!s
                           <Top>None</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <PaddingRight>5pt</PaddingRight>
+                        <PaddingRight>0pt</PaddingRight>
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <Format>#,##0.00</Format>
+                        <PaddingLeft>0pt</PaddingLeft>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1728,7 +1742,641 @@ iif(Len(Convert.ToString(Fields!screening8_amount.Value)) &lt;= 0,0,iif(Fields!s
           </TableRows>
         </Details>
         <Left>8.8pt</Left>
-        <Top>0.0pt</Top>
+        <Top>29.6pt</Top>
+        <TableGroups>
+          <TableGroup>
+            <Grouping Name="sumtotal">
+              <PageBreakAtStart>false</PageBreakAtStart>
+              <PageBreakAtEnd>false</PageBreakAtEnd>
+              <GroupExpressions>
+                <GroupExpression>=Fields!movie_date.Value</GroupExpression>
+              </GroupExpressions>
+            </Grouping>
+            <Footer>
+              <RepeatOnNewPage>false</RepeatOnNewPage>
+              <TableRows>
+                <TableRow>
+                  <Height>.2in</Height>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox32">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <PaddingRight>10pt</PaddingRight>
+                          </Style>
+                          <Value>Total</Value>
+                        </Textbox>
+                      </ReportItems>
+                      <ColSpan>2</ColSpan>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox36">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening1_quantity.Value)) &lt;= 0,0,iif(Fields!screening1_quantity.Value &gt; 0,Fields!screening1_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox38">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening1_amount.Value)) &lt;= 0,0,iif(Fields!screening1_amount.Value &gt; 0,Fields!screening1_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox40">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening2_quantity.Value)) &lt;= 0,0,iif(Fields!screening2_quantity.Value &gt; 0,Fields!screening2_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox43">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening2_amount.Value)) &lt;= 0,0,iif(Fields!screening2_amount.Value &gt; 0,Fields!screening2_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox45">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening3_quantity.Value)) &lt;= 0,0,iif(Fields!screening3_quantity.Value &gt; 0,Fields!screening3_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox46">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening3_amount.Value)) &lt;= 0,0,iif(Fields!screening3_amount.Value &gt; 0,Fields!screening3_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox47">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening4_quantity.Value)) &lt;= 0,0,iif(Fields!screening4_quantity.Value &gt; 0,Fields!screening4_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox48">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening4_amount.Value)) &lt;= 0,0,iif(Fields!screening4_amount.Value &gt; 0,Fields!screening4_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox49">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening5_quantity.Value)) &lt;= 0,0,iif(Fields!screening5_quantity.Value &gt; 0,Fields!screening5_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox50">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening5_amount.Value)) &lt;= 0,0,iif(Fields!screening5_amount.Value &gt; 0,Fields!screening5_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox51">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening6_quantity.Value)) &lt;= 0,0,iif(Fields!screening6_quantity.Value &gt; 0,Fields!screening6_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox52">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening6_amount.Value)) &lt;= 0,0,iif(Fields!screening6_amount.Value &gt; 0,Fields!screening6_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox53">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening7_quantity.Value)) &lt;= 0,0,iif(Fields!screening7_quantity.Value &gt; 0,Fields!screening7_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox54">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening7_amount.Value)) &lt;= 0,0,iif(Fields!screening7_amount.Value &gt; 0,Fields!screening7_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox55">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening8_quantity.Value)) &lt;= 0,0,iif(Fields!screening8_quantity.Value &gt; 0,Fields!screening8_quantity.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox56">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening8_amount.Value)) &lt;= 0,0,iif(Fields!screening8_amount.Value &gt; 0,Fields!screening8_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox57">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <FontSize>10pt</FontSize>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening1_quantity.Value)) &lt;= 0,0,iif(Fields!screening1_quantity.Value &gt; 0,Fields!screening1_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening2_quantity.Value)) &lt;= 0,0,iif(Fields!screening2_quantity.Value &gt; 0,Fields!screening2_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening3_quantity.Value)) &lt;= 0,0,iif(Fields!screening3_quantity.Value &gt; 0,Fields!screening3_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening4_quantity.Value)) &lt;= 0,0,iif(Fields!screening4_quantity.Value &gt; 0,Fields!screening4_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening5_quantity.Value)) &lt;= 0,0,iif(Fields!screening5_quantity.Value &gt; 0,Fields!screening5_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening6_quantity.Value)) &lt;= 0,0,iif(Fields!screening6_quantity.Value &gt; 0,Fields!screening6_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening7_quantity.Value)) &lt;= 0,0,iif(Fields!screening7_quantity.Value &gt; 0,Fields!screening7_quantity.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening8_quantity.Value)) &lt;= 0,0,iif(Fields!screening8_quantity.Value &gt; 0,Fields!screening8_quantity.Value,0)) )</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Textbox58">
+                          <Style>
+                            <BorderStyle>
+                              <Default>None</Default>
+                              <Left>None</Left>
+                              <Right>None</Right>
+                              <Top>Solid</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <BorderColor>
+                              <Default>Lightgrey</Default>
+                              <Left>Lightgrey</Left>
+                              <Right>Lightgrey</Right>
+                              <Top>Lightgrey</Top>
+                              <Bottom>Lightgrey</Bottom>
+                            </BorderColor>
+                            <BorderWidth>
+                              <Top>2pt</Top>
+                            </BorderWidth>
+                            <FontFamily>Arial Narrow</FontFamily>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Bottom</VerticalAlign>
+                            <Format>#,##0.00</Format>
+                            <PaddingRight>0pt</PaddingRight>
+                          </Style>
+                          <Value>=Sum(iif(Len(Convert.ToString(Fields!screening1_amount.Value)) &lt;= 0,0,iif(Fields!screening1_amount.Value &gt; 0,Fields!screening1_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening2_amount.Value)) &lt;= 0,0,iif(Fields!screening2_amount.Value &gt; 0,Fields!screening2_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening3_amount.Value)) &lt;= 0,0,iif(Fields!screening3_amount.Value &gt; 0,Fields!screening3_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening4_amount.Value)) &lt;= 0,0,iif(Fields!screening4_amount.Value &gt; 0,Fields!screening4_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening5_amount.Value)) &lt;= 0,0,iif(Fields!screening5_amount.Value &gt; 0,Fields!screening5_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening6_amount.Value)) &lt;= 0,0,iif(Fields!screening6_amount.Value &gt; 0,Fields!screening6_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening7_amount.Value)) &lt;= 0,0,iif(Fields!screening7_amount.Value &gt; 0,Fields!screening7_amount.Value,0)) +
+iif(Len(Convert.ToString(Fields!screening8_amount.Value)) &lt;= 0,0,iif(Fields!screening8_amount.Value &gt; 0,Fields!screening8_amount.Value,0)))</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                </TableRow>
+              </TableRows>
+            </Footer>
+          </TableGroup>
+        </TableGroups>
       </Table>
     </ReportItems>
     <Height>158.1pt</Height>

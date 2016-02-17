@@ -316,6 +316,8 @@ namespace Cinemapps
 
                         break;
                     }
+                    rd.Close(); // 1.5.2016
+                    cmd.Dispose();
                 }
                 else
                 {
@@ -331,6 +333,7 @@ namespace Cinemapps
             }
             catch
             {
+                
                 if (myconn != null)
                 {
                     if (myconn.State == ConnectionState.Open)

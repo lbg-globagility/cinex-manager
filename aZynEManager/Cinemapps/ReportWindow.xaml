@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Reports" Height="390" Width="737" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+        Title="Reports" Height="390" Width="787" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,8 +12,8 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Width="736">
-        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="696">
+    <DockPanel Width="786">
+        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="746">
             <ListViewItem>
                 <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
@@ -39,6 +39,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP01_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click">Print
                     </Button>
                     <StackPanel>
@@ -66,6 +68,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP02_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP02_Click">Print
                     </Button>
                     <StackPanel>
@@ -119,6 +123,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP04_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP04_Click">Print
                     </Button>
                     <StackPanel>
@@ -143,6 +149,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP05_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP05_Click">Print
                     </Button>
                     <StackPanel>
@@ -170,6 +178,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP06_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PreviewRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP06_Click">Print
                     </Button>
                     <StackPanel>
@@ -197,6 +207,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP07_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PreviewRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP07_Click">Print
                     </Button>
                     <StackPanel>
@@ -224,6 +236,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP08_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP08_Click">Print
                     </Button>
                     <StackPanel>
@@ -254,6 +268,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP09_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP09_Click">Print
                     </Button>
                     <StackPanel>
@@ -280,6 +296,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP10_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP10_Click">Print
                     </Button>
                     <StackPanel>
@@ -306,6 +324,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP11_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP11_Click">Print
                     </Button>
                     <StackPanel>
@@ -332,6 +352,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP12_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click">Print
                     </Button>
                     <StackPanel>
@@ -356,6 +378,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP13_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP13_Click">Print
                     </Button>
                     <StackPanel>
@@ -379,6 +403,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="PreviewRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP14_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP14_Click">Print
                     </Button>
                     <StackPanel>
@@ -413,6 +439,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP15_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click">Print
                     </Button>
                     <StackPanel>
@@ -440,6 +468,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP16_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click">Print
                     </Button>
                     <StackPanel>
@@ -463,6 +493,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP17_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP17_Click">Print
                     </Button>
                     <StackPanel>
@@ -489,12 +521,12 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="5" Name="PrintRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP19_Click">Print
+                    <Button Margin="5" Name="PrintRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP19_Click">Excel
                     </Button>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">CSV Dump of Daily Sales (RP19)</TextBlock>
+                        <TextBlock FontWeight="Bold">Excel Dump of Daily Sales (RP19)</TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates CSV dump and displays Daily Cinema Sales</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates excel dump and displays Daily Cinema Sales</TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
                             <Label>Start Date</Label>
@@ -512,6 +544,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP20_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP20_Click">Print
                     </Button>
                     <StackPanel>
@@ -537,6 +571,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP21_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP21_Click">Print
                     </Button>
                     <StackPanel>
@@ -562,6 +598,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP22_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP22_Click">Print
                     </Button>
                     <StackPanel>
@@ -585,6 +623,8 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" Name="ExcelRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP23_Click">Excel
+                    </Button>
                     <Button Margin="5" Name="PrintRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP23_Click">Print
                     </Button>
                     <StackPanel>

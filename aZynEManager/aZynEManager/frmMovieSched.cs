@@ -24,6 +24,8 @@ namespace aZynEManager
         DataTable m_dtmovies = new DataTable();
         DataTable m_dtpatrons = new DataTable();
         bool boolresultclick = false;
+        DataTable new_dtpatron = new DataTable(); // 12.28.2015
+
         //string cntrol = String.Empty;
 
         public frmMovieSched()
@@ -34,6 +36,13 @@ namespace aZynEManager
             calview.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
             calview.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
             calview.DaySelectedTextColor = calsked.ForeColor;
+
+            DataColumn dc1 = new_dtpatron.Columns.Add("id"); // 12.28.2015
+            DataColumn dc2 = new_dtpatron.Columns.Add("patron"); // 12.28.2015
+            DataRow dr = new_dtpatron.NewRow(); // 12.28.2015
+            dr["id"] = 0; // 12.28.2015
+            dr["patron"] = ""; // 12.28.2015
+            new_dtpatron.Rows.InsertAt(dr, 0); // 12.28.2015
         }
 
         private void frmMovieSched_Load(object sender, EventArgs e)
@@ -216,12 +225,12 @@ namespace aZynEManager
             cmbCinema.DataSource = null;
             DataTable dt = new DataTable();
             string sqry = "[id] > -1";
-            m_dtcinema = m_clscom.setDataTable("select * from cinema order by name asc", m_frmM._connection);
+            m_dtcinema = m_clscom.setDataTable("select * from cinema order by in_order asc", m_frmM._connection);
 
             if (m_dtcinema.Rows.Count > 0)
             {
                 DataView dv = m_dtcinema.AsDataView();
-                dv.Sort = "name asc";
+                dv.Sort = "in_order asc";
                 dt = dv.ToTable();
 
                 DataRow row = dt.NewRow();
@@ -404,8 +413,10 @@ namespace aZynEManager
                     dgvpatrons.Columns.Clear();
                     sbqry.Append("select b.name, a.price, a.patron_id as id ");
                     sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                    sbqry.Append("left join cinema_patron_default c on c.patron_id = b.id ");//added 2.12.2016 for the default patrons per cinema
                     sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
                     sbqry.Append("and b.name is not null ");
+                    sbqry.Append(String.Format("and c.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));//added 2.12.2016 for the default patrons per cinema
                     sbqry.Append("order by a.id asc");
                     m_dtpatrons = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                     setDataGridViewIII(m_dtpatrons, dgvpatrons);
@@ -418,7 +429,7 @@ namespace aZynEManager
                 sbqry.Append(String.Format("where a.cinema_id = {0} ", cmbCinema.SelectedValue.ToString()));
                 sbqry.Append("and b.name is not null ");
                 sbqry.Append("order by a.id asc");
-                setDefaultPatron(sbqry.ToString());
+                //setDefaultPatron(sbqry.ToString());//remarked 12.28.2015
             }
             else
                 txtLabel.Values.Text = "";
@@ -581,8 +592,10 @@ namespace aZynEManager
                             sbqry = new StringBuilder();
                             sbqry.Append("select b.name, a.price, a.patron_id as id ");
                             sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                            sbqry.Append("left join cinema_patron_default c on c.patron_id = b.id ");//added 2.12.2016 for the default patrons per cinema
                             sbqry.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
                             sbqry.Append("and b.name is not null ");
+                            sbqry.Append(String.Format("and c.cinema_id = {0} ", cinemaid));//added 2.12.2016 for the default patrons per cinema
                             sbqry.Append("order by a.id asc");
                             m_dtpatrons = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                             setDataGridViewIII(m_dtpatrons, dgvpatrons);
@@ -594,7 +607,7 @@ namespace aZynEManager
                             sbqry.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
                             sbqry.Append("and b.name is not null ");
                             sbqry.Append("order by a.id asc");
-                            setDefaultPatron(sbqry.ToString());
+                            //setDefaultPatron(sbqry.ToString());//remarked 12.28.2015
                         }
                     }
                 }
@@ -874,6 +887,41 @@ namespace aZynEManager
                     MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
                     cmd5.ExecuteNonQuery();
                     cmd5.Dispose();
+
+                    //2.15.2016 added for the initial values of movies_distributor start
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("select count(*) from movies_distributor where movie_id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd6 = new MySqlCommand(sqry.ToString(), myconn);
+                    int rowCount2 = Convert.ToInt32(cmd6.ExecuteScalar());
+                    cmd6.Dispose();
+
+                    if (rowCount2 == 0)
+                    {
+                        try
+                        {
+                            StringBuilder qry1 = new StringBuilder();
+                            qry1.Append(String.Format("(select b.share_perc from movies b where b.id = {0})", movieid));
+
+                            StringBuilder qry2 = new StringBuilder();
+                            qry2.Append("(select min(b.movie_date) ");
+                            qry2.Append(String.Format("from movies_schedule b where b.movie_id = {0})", movieid));
+
+                            sqry = new StringBuilder();
+                            sqry.Append(String.Format("insert into movies_distributor values (0,{0},{1},{2},{3})",
+                                movieid, qry1.ToString(), qry2.ToString(), "7"));
+
+                            MySqlCommand cmd7 = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd7.ExecuteNonQuery();
+                            cmd7.Dispose();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("An error have occured while inserting the initial movie producer's share", "Movie Distributor");
+                        }
+                    }
+                    //2.15.2016 added for the initial values of movies_distributor end
 
                     setnormal();
                     cmbCinema.SelectedValue = cinemaid;
@@ -1394,6 +1442,8 @@ namespace aZynEManager
             {
                 DataGridViewCheckBoxColumn cbx = new DataGridViewCheckBoxColumn();
                 cbx.Width = 30;
+                cbx.TrueValue = true;
+                cbx.FalseValue = false;
 
                 //dgv.DataSource = dt;
                 int iwidth = dgv.Width / 3;
@@ -1862,8 +1912,10 @@ namespace aZynEManager
                     StringBuilder sqry = new StringBuilder();
                     sqry.Append("select b.name, a.price, a.patron_id as id ");
                     sqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                    sqry.Append("left join cinema_patron_default c on c.patron_id = b.id ");//2.12.2016 cinema_patron_default
                     sqry.Append(String.Format("where a.cinema_id = {0} ", intout));
                     sqry.Append("and b.name is not null ");
+                    sqry.Append(String.Format("and c.cinema_id = {0} ", intout));//2.12.2016 cinema_patron_default
                     sqry.Append("and a.patron_id not in (");
                     sqry.Append("select c.patron_id ");
                     sqry.Append("from movies_schedule_list_patron c ");
@@ -1886,8 +1938,10 @@ namespace aZynEManager
                         StringBuilder sbqry1 = new StringBuilder();
                         sbqry1.Append("select b.name, a.price, a.patron_id as id ");
                         sbqry1.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                        sbqry1.Append("left join cinema_patron_default c on c.patron_id = b.id ");//2.12.2016 cinema_patron_default
                         sbqry1.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
                         sbqry1.Append("and b.name is not null ");
+                        sbqry1.Append(String.Format("and c.cinema_id = {0} ", cinemaid));//2.12.2016 cinema_patron_default
                         sbqry1.Append("order by a.id asc");
                         m_dtpatrons = m_clscom.setDataTable(sbqry1.ToString(), m_frmM._connection);
                         setDataGridViewIII(m_dtpatrons, dgvpatrons);
@@ -2604,6 +2658,88 @@ namespace aZynEManager
             cmbpatron.ValueMember = "id";
             cmbpatron.DisplayMember = "patron";
         }
+
+        private void dgvpatrons_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+            int introw = e.RowIndex;
+
+            setPatronDefault(dgv,introw);
+        }
+
+        public void setPatronDefault(KryptonDataGridView dgv, int introw)
+        {
+            DataRow dr = new_dtpatron.NewRow();
+            if (dgv == null)
+                return;
+            if (dgvpatrons.Rows.Count > 0)
+            {
+                
+                string sname = dgvpatrons.Rows[introw].Cells[1].Value.ToString(); // dgvpatrons.CurrentCell.RowIndex to introw 2.15.2016
+                string sprice = dgvpatrons.Rows[introw].Cells[2].Value.ToString();// dgvpatrons.CurrentCell.RowIndex to introw 2.15.2016
+                string sid = dgvpatrons.Rows[introw].Cells[3].Value.ToString();// dgvpatrons.CurrentCell.RowIndex to introw 2.15.2016
+
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dgvpatrons.Rows[introw].Cells[0];// dgvpatrons.CurrentCell.RowIndex to introw 2.15.2016
+                /*dgvpatrons.BeginEdit(true);
+                if (chk.Value == chk.FalseValue || chk.Value == null)
+                {
+                    chk.Value = chk.TrueValue;
+                }
+                else
+                {
+                    chk.Value = chk.FalseValue;
+                }
+                dgvpatrons.EndEdit();*/
+
+                if (dgvpatrons.Rows[introw].Cells[0].Value != null)// dgvpatrons.CurrentCell.RowIndex to introw 2.15.2016
+                {
+                    if ((bool)chk.Value) //((bool)dgvpatrons.Rows[dgvpatrons.CurrentCell.RowIndex].Cells[0].Value)
+                    {
+                        dr = new_dtpatron.NewRow();
+                        if (sid != "")
+                        {
+                            dr["id"] = Convert.ToInt32(sid);
+                            dr["patron"] = sname + "(" + sprice + ")";
+                        }
+                        new_dtpatron.Rows.Add(dr);
+                    }
+                    else
+                    {
+                        for (int i = new_dtpatron.Rows.Count - 1; i >= 0; i--)
+                        {
+                            DataRow drdel = new_dtpatron.Rows[i];
+                            if (drdel["id"].ToString() == sid)
+                                drdel.Delete();
+                        }
+                    }
+                }
+            }
+
+
+            DataView dv = new_dtpatron.AsDataView();
+            dv.Sort = "patron asc";
+            new_dtpatron = dv.ToTable();
+
+            cmbpatron.DataSource = new_dtpatron;
+            cmbpatron.ValueMember = "id";
+            cmbpatron.DisplayMember = "patron";
+        }
+
+        private void dgvpatrons_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+           // KryptonDataGridView dgv = sender as KryptonDataGridView;
+            //setPatronDefault(dgv);
+            int introw = e.RowIndex;
+            if (dgvpatrons.Rows.Count > 0)
+            {
+                KryptonDataGridView dgv = sender as KryptonDataGridView;
+                if (dgvpatrons.Rows[dgvpatrons.CurrentCell.RowIndex].Cells[0].GetType() == typeof(DataGridViewCheckBoxCell))
+                {
+                    setPatronDefault(dgv, introw);
+                }
+            }
+        }
+
 
     }
 }

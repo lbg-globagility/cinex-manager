@@ -1110,5 +1110,157 @@ namespace aZynEManager
         {
 
         }
+
+        private void rbtnDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            int cinemaid = -1;
+            MySqlConnection myconn = new MySqlConnection();
+            myconn.ConnectionString = m_frmM._connection;
+            if (rbtnDefault.Checked == true)
+            {
+                setCheck(dgvpatrons, false);
+                if (dgvResult.SelectedRows.Count > 0)
+                {
+                    cinemaid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+                    /*StringBuilder sbqry = new StringBuilder();
+                    sbqry.Append("select b.name, a.price, a.patron_id as id ");
+                    sbqry.Append("from cinema_patron a left join patrons b on a.patron_id = b.id ");
+                    sbqry.Append("left join cinema_patron_default c on a.patron_id = c.patron_id ");
+                    sbqry.Append(String.Format("where a.cinema_id = {0} ", cinemaid));
+                    sbqry.Append("and b.name is not null ");
+                    sbqry.Append(String.Format("and c.cinema_id = {0} ", cinemaid));
+                    sbqry.Append("order by a.id asc");
+                    DataTable dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);*/
+
+                    StringBuilder sqry2 = new StringBuilder();
+                    for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                    {
+                        int rowCount = -1;
+                        int intmid = 0;
+                        int intout = -1;
+                        if (int.TryParse(dgvpatrons[3, i].Value.ToString(), out intout))
+                            intmid = intout;
+
+                        if (intmid > 0)
+                        {
+                            sqry2 = new StringBuilder();
+                            sqry2.Append(String.Format("select count(*) from cinema_patron_default a where a.cinema_id = {0}", cinemaid));
+                            sqry2.Append(String.Format(" and a.patron_id = {0}", intmid));
+                            if (myconn != null)
+                            {
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                MySqlCommand cmd = new MySqlCommand(sqry2.ToString(), myconn);
+                                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                                cmd.Dispose();
+                            }
+
+                            if (rowCount > 0)
+                                dgvpatrons[0, i].Value = (object)true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void rbtnAll_CheckedChanged(object sender, EventArgs e)
+        {
+            int cinemaid = -1;
+            MySqlConnection myconn = new MySqlConnection();
+            myconn.ConnectionString = m_frmM._connection;
+            if (rbtnAll.Checked == true)
+            {
+                setCheck(dgvpatrons, false);
+                if (dgvResult.SelectedRows.Count > 0)
+                {
+                    cinemaid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+                    StringBuilder sqry2 = new StringBuilder();
+                    for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                    {
+                        int rowCount = -1;
+                        int intmid = 0;
+                        int intout = -1;
+                        if (int.TryParse(dgvpatrons[3, i].Value.ToString(), out intout))
+                            intmid = intout;
+
+                        if (intmid > 0)
+                        {
+                            sqry2 = new StringBuilder();
+                            sqry2.Append(String.Format("select count(*) from cinema_patron a where a.cinema_id = {0}", cinemaid));
+                            sqry2.Append(String.Format(" and a.patron_id = {0}", intmid));
+                            if (myconn != null)
+                            {
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                MySqlCommand cmd = new MySqlCommand(sqry2.ToString(), myconn);
+                                rowCount = Convert.ToInt32(cmd.ExecuteScalar());
+                                cmd.Dispose();
+                            }
+
+                            if (rowCount > 0)
+                                dgvpatrons[0, i].Value = (object)true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnDefault_Click(object sender, EventArgs e)
+        {
+            MySqlConnection myconn = new MySqlConnection();
+            myconn.ConnectionString = m_frmM._connection;
+
+            if (rbtnDefault.Checked == false)
+            {
+                MessageBox.Show("Please set the default patrons by selecting the default radio button", this.Text);
+                return;
+            }
+
+            if (rbtnDefault.Checked == true)
+            {
+                int cinemaid = -1;
+                if (dgvResult.SelectedRows.Count > 0)
+                {
+                    cinemaid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
+                    StringBuilder sqry = new StringBuilder();
+                    MySqlCommand cmd = new MySqlCommand();
+                    sqry = new StringBuilder();
+                    try
+                    {
+                        sqry.Append(String.Format("delete from cinema_patron_default where cinema_id = {0}", cinemaid));
+                        if (myconn != null)
+                        {
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            cmd = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd.ExecuteNonQuery();
+                            cmd.Dispose();
+                        }
+                    }
+                    catch
+                    {
+                    }
+                    for (int i = 0; i < dgvpatrons.Rows.Count; i++)
+                    {
+                        if (dgvpatrons[0, i].Value != null)
+                        {
+                            if ((bool)dgvpatrons[0, i].Value)
+                            {
+                                StringBuilder sqry2 = new StringBuilder();
+                                sqry2.Append(String.Format("insert into cinema_patron_default values(0,{0},{1})",
+                                    cinemaid, dgvpatrons[3, i].Value.ToString()));
+
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                MySqlCommand cmd2 = new MySqlCommand(sqry2.ToString(), myconn);
+                                cmd2.ExecuteNonQuery();
+                                cmd2.Dispose();
+                            }
+                        }
+                    }
+                    MessageBox.Show("Done updating the default patrons the selected cinema", this.Text);
+                }
+            }
+        }
     }
 }

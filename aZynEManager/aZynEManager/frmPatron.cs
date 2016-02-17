@@ -214,7 +214,8 @@ namespace aZynEManager
 
             dgvOrdinance.Enabled = true;//3.23.2015
             dtstart.Value = DateTime.Now;
-            cmbprices.SelectedIndex = 0;
+            if(cmbprices.Items.Count > 0)
+                cmbprices.SelectedIndex = 0;
 
             txtcnt.Text = String.Format("Count: {0:#,##0}", dgvResult.RowCount);
         }
@@ -687,8 +688,44 @@ namespace aZynEManager
                 rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
+                StringBuilder strqry = new StringBuilder();
                 if (rowCount > 0)
                 {
+                    /*2.5.2016 update to allow editing of patron name and seat color*/
+                    strqry = new StringBuilder();
+                    strqry.Append(String.Format("update patrons set name = '{0}'", txtname.Text.Trim()));
+                    strqry.Append(String.Format(", seat_color = {0}", clscommon.Get0BGR(btncolor.SelectedColor)));//Convert.ToInt32(btncolor.SelectedColor.ToArgb())));
+                    strqry.Append(String.Format(" where id = {0}", intid));
+
+                    myconn = new MySqlConnection();
+                    myconn.ConnectionString = m_frmM._connection;
+                    try
+                    {
+                        //update the movies table
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(strqry.ToString(), myconn);
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
+                        refreshpatrons();
+                        refreshDGV();
+                        setnormal();
+                        chkButton(false);
+                        setnormal();
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        return;
+                    }
+                    catch
+                    {
+                        setnormal();
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                    }
+
+
+
                     setnormal();
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
@@ -696,7 +733,7 @@ namespace aZynEManager
                     return;
                 }
 
-                StringBuilder strqry = new StringBuilder();
+                strqry = new StringBuilder();
                 strqry.Append(String.Format("update patrons set code = '{0}'", txtcode.Text.Trim()));
                 strqry.Append(String.Format(", name = '{0}'", txtname.Text.Trim()));
                 strqry.Append(String.Format(", unit_price = {0}", txtprice.Text.Trim()));

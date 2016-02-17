@@ -1299,16 +1299,56 @@ namespace aZynEManager
                 rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
+                StringBuilder strqry = new StringBuilder();
                 if (rowCount > 0)
                 {
-                    setnormal();
+                    /*2.5.2016*/
+                    strqry = new StringBuilder();
+                    strqry.Append("update movies set title=@title,");
+                    strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));
+                    strqry.Append(String.Format(" duration = {0},",totaltime));
+                    //strqry.Append(String.Format(" dist_id = {0},", cmbdistributor.SelectedValue));
+                    strqry.Append(String.Format(" rating_id = {0} ", cmbrating.SelectedValue));
+                    strqry.Append(String.Format(" where id = {0}", intid));
+
+                    try
+                    {
+                        //update the movies table
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        cmd = new MySqlCommand(strqry.ToString(), myconn);
+                        cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
+                        cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+
+                        m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_EDIT", "MOVIES|MOVIES_CLASS",
+                        Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" +
+                        this.txtcode.Text.Replace("'", "''")
+                        + " | ID=" + intid.ToString(), m_frmM._connection);
+
+                        refreshDGV(true);
+
+                        setnormal();
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        return;
+                    }
+                    catch (MySqlException err)
+                    {
+                        setnormal();
+                        if (myconn.State == ConnectionState.Open)
+                            myconn.Close();
+                        MessageBox.Show("Can't connect to the contact table." + err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
                     MessageBox.Show("Can't update this record, \n\rit is already being used by the system.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                StringBuilder strqry = new StringBuilder();
+                strqry = new StringBuilder();
                 //melvin 10-4-2014
                 strqry.Append("update movies set code=@code, title=@title,");
                 strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));

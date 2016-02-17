@@ -113,7 +113,7 @@
         <Header>
           <TableRows>
             <TableRow>
-              <Height>28.9pt</Height>
+              <Height>19.4pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -132,7 +132,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <FontFamily>Times New Roman</FontFamily>
-                        <FontSize>16pt</FontSize>
+                        <FontSize>11pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
                       </Style>
@@ -143,7 +143,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>14.9pt</Height>
+              <Height>10.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -170,7 +170,7 @@
                         <FontFamily>Segoe UI</FontFamily>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
-                        <FontSize>12pt</FontSize>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -179,7 +179,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>37.7pt</Height>
+              <Height>20.5pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -199,7 +199,7 @@
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>10pt</PaddingLeft>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -208,7 +208,7 @@
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>29.2pt</Height>
+              <Height>22.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -229,6 +229,7 @@
                         </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -252,6 +253,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -275,6 +277,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -298,6 +301,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -321,6 +325,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -344,6 +349,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -367,6 +373,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -390,6 +397,7 @@
                           <Bottom>Lightgrey</Bottom>
                         </BorderColor>
                         <BorderWidth />
+                        <FontSize>8pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -402,7 +410,7 @@
         <Details>
           <TableRows>
             <TableRow>
-              <Height>23.8pt</Height>
+              <Height>9.7pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -422,6 +430,7 @@
                         <BorderWidth />
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -429,7 +438,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="movietitle">
-                      <Value>=Fields!movietitle.Value</Value>
+                      <Value>=Replace(Trim(Fields!movietitle.Value),"\n", " ")</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -445,7 +454,7 @@
                         <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <FontFamily>Arial Narrow</FontFamily>
-                        <FontSize>11pt</FontSize>
+                        <FontSize>10pt</FontSize>
                         <FontStyle>Italic</FontStyle>
                       </Style>
                     </Textbox>
@@ -469,6 +478,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -492,6 +502,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -515,6 +526,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -538,6 +550,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -561,6 +574,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -584,6 +598,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>0.0000</Format>
+                        <FontSize>10pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -597,7 +612,7 @@
         <Footer>
           <TableRows>
             <TableRow>
-              <Height>22.3pt</Height>
+              <Height>17.0pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -607,14 +622,17 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <FontWeight>Bold</FontWeight>
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>GRAND TOTAL</Value>
                     </Textbox>
@@ -629,16 +647,19 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>=sum(Fields!screen.Value)</Value>
                     </Textbox>
@@ -652,16 +673,19 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>=sum(Fields!seattaken.Value)</Value>
                     </Textbox>
@@ -675,16 +699,19 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <TextAlign>Right</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>=sum(Fields!seattotal.Value)</Value>
                     </Textbox>
@@ -698,15 +725,18 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingRight>10pt</PaddingRight>
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>=sum(Fields!totalprice.Value)</Value>
                     </Textbox>
@@ -720,15 +750,18 @@
                           <Default>None</Default>
                           <Left>None</Left>
                           <Right>None</Right>
-                          <Top>None</Top>
+                          <Top>Solid</Top>
                           <Bottom>None</Bottom>
                         </BorderStyle>
-                        <BorderColor />
+                        <BorderColor>
+                          <Top>Lightgrey</Top>
+                        </BorderColor>
                         <BorderWidth />
                         <Format>0.0000</Format>
                         <VerticalAlign>Middle</VerticalAlign>
                         <PaddingRight>10pt</PaddingRight>
                         <FontWeight>Bold</FontWeight>
+                        <FontSize>9pt</FontSize>
                       </Style>
                       <Value>=(sum(Fields!seattaken.Value)/sum(Fields!seattotal.Value)) * 100</Value>
                     </Textbox>
