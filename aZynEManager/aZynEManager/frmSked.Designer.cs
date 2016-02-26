@@ -46,6 +46,7 @@
             this.btnsked = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnselect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.copyAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpfilter.Panel)).BeginInit();
             this.grpfilter.Panel.SuspendLayout();
@@ -101,9 +102,10 @@
             this.toolRefresh,
             this.toolStripSeparator1,
             this.toolCopy,
+            this.copyAllToolStripMenuItem,
             this.toolPaste});
             this.MenuRefresh.Name = "MenuRefresh";
-            this.MenuRefresh.Size = new System.Drawing.Size(153, 98);
+            this.MenuRefresh.Size = new System.Drawing.Size(153, 120);
             // 
             // toolRefresh
             // 
@@ -364,6 +366,13 @@
             this.btnselect.Values.Text = "unselect";
             this.btnselect.Visible = false;
             // 
+            // copyAllToolStripMenuItem
+            // 
+            this.copyAllToolStripMenuItem.Name = "copyAllToolStripMenuItem";
+            this.copyAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyAllToolStripMenuItem.Text = "Copy All";
+            this.copyAllToolStripMenuItem.Click += new System.EventHandler(this.copyAllToolStripMenuItem_Click);
+            // 
             // frmSked
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,5 +427,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem toolCopy;
         private System.Windows.Forms.ToolStripMenuItem toolPaste;
+        private System.Windows.Forms.ToolStripMenuItem copyAllToolStripMenuItem;
     }
 }

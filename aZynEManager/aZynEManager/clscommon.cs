@@ -1645,7 +1645,8 @@ namespace aZynEManager
                 sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name, ");
                 sQuery.Append("f.with_gross_margin, f.with_prod_share, ");//added 7.10.2015 for excempting complimentary pass sample
                 sQuery.Append("sum(a.ordinance_price) as ord_sum, sum(a.surcharge_price) as sur_sum, "); // added for surcharge and ordinance 1.7.2016
-                sQuery.Append("b.movie_date "); //added 2.6.2016
+                sQuery.Append("b.movie_date, "); //added 2.6.2016
+                sQuery.Append("a.price ");//2.23.2016 list(16)
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
@@ -1673,6 +1674,7 @@ namespace aZynEManager
                 {
                     int qtty = 0;
                     double price = 0;
+                    double baseprice = 0; //2.23.2016
                     double surchrg = 0;
                     double ordinance = 0;
                     double grossreceipt = 0;
@@ -1715,22 +1717,28 @@ namespace aZynEManager
 
                         finalsqry = new StringBuilder();
                         qtty = 0;
-                        price = surchrg = ordinance = grossreceipt = deductions = culturaltax = amusementtax = netamount = shareamount = grossmargin = 0;
+                        baseprice = price = surchrg = ordinance = grossreceipt = deductions = culturaltax = amusementtax = netamount = shareamount = grossmargin = 0;
                         finalsqry.Append(String.Format("INSERT INTO {0} VALUES(0,", tbl));
                         finalsqry.Append(String.Format("'{0}',", dr[10].ToString()));//cinema name
-                        finalsqry.Append(String.Format("'{0}',", dr[0].ToString()));//distributir name
-                        finalsqry.Append(String.Format("'{0}',", dr[1].ToString()));//movie name
-                        finalsqry.Append(String.Format("'{0}',", dr[2].ToString()));//patron_nm
+                        finalsqry.Append(String.Format("'{0}',", dr[0].ToString().Replace("'", "''")));//distributir name // handle apostrophe 2.26.2016
+                        finalsqry.Append(String.Format("'{0}',", dr[1].ToString().Replace("'", "''")));//movie name //handle apostrophe 2.26.2016
+                        finalsqry.Append(String.Format("'{0}',", dr[2].ToString().Replace("'", "''")));//patron_nm //handle apostrophe 2.26.2016
                         if (dr[3].ToString() != "")
                         {
                             qtty = Convert.ToInt32(dr[3].ToString());
                             finalsqry.Append(String.Format("{0},", qtty));//qty
                         }
                         if (dr[4].ToString() != "")
-                        {
-                            price = Convert.ToDouble(dr[4].ToString());
-                            finalsqry.Append(String.Format("{0},", price));//price
+                        {//change price to baseprice 2.23.2016
+                            baseprice = Convert.ToDouble(dr[4].ToString());
+                            finalsqry.Append(String.Format("{0},", baseprice));//price
                         }
+
+                        /*added price of the ticket per patron start 2.23.2016*/
+                        if (dr[16].ToString() != "")
+                            price = Convert.ToDouble(dr[16].ToString());
+                        /*end 2.23.2016*/
+
                         if (dr[5].ToString() != "")
                         {
                             grossreceipt = Convert.ToDouble(dr[5]);
@@ -1770,13 +1778,17 @@ namespace aZynEManager
                                                 strid = dr[8].ToString();
                                         }
                                     }
-                                    double intval = getsurchargeval(sConnString, startdate, enddate, strid);
+                                    /*needed intval with value if the basis is the price*/
+                                    //double intval = getsurchargeval(sConnString, startdate, enddate, strid);//remarked 2.23.2016
+                                    /*if thebasis is a base_price then intval shoul be 0*/
+                                    //double intval = 0;//remarked 2.23.2016
                                     //wit amusement tax rate
                                     double taxrate = 0;
-                                    if(intval > 0)
+                                    /*if(intval > 0) remarked 2.23.2016
                                         taxrate = (price - 0.25 - intval) * 0.090909090909091;// price * 0.0908 remarked ver 1 7.8.2015
-                                    else
-                                        taxrate = (price - 0.25) * 0.090909090909091;// price * 0.0908 remarked ver 1 7.8.2015
+                                    else*/
+                                    if(baseprice > 0)
+                                        taxrate = (baseprice - 0.25) * 0.090909090909091;//change price to baseprice 2.23.2016 // price * 0.0908 remarked ver 1 7.8.2015
                                     amusementtax = qtty * taxrate;//remarked ver 1 7.8.2015
                                     //amusementtax = ((grossreceipt - culturaltax) / 1.1) * 0.1; ver 2
                                     finalsqry.Append(String.Format("{0},", taxrate));//with amusement tax rate

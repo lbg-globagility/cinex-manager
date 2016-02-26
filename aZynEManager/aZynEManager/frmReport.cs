@@ -777,8 +777,8 @@ namespace aZynEManager
                         sqry.Append(String.Format("and e.id = {0} ", _intCinemaID));
                         sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
                         sqry.Append("group by c.name");*/
-                        sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) QTY, a.price PRICE, ");
-                        sqry.Append("IFNULL(SUM(a.price), 0) SALES, min(d.start_time) START_TIME, max(d.end_time) END_TIME, ");
+                        sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) QTY, a.base_price PRICE, ");//changed price to base_price 2.26.2016
+                        sqry.Append("IFNULL(SUM(a.base_price), 0) SALES, min(d.start_time) START_TIME, max(d.end_time) END_TIME, ");//changed price to base_price 2.26.2016
                         sqry.Append("f.system_value SYSTEM_VAL, g.name REPORT_NAME, e.name CINEMA_NAME, h.TITLE ");
                         sqry.Append("FROM movies_schedule_list_reserved_seat a, movies_schedule_list_patron b, patrons c, ");
                         sqry.Append("movies_schedule_list d, cinema e, config_table f, report g, movies h, movies_schedule i ");
@@ -989,8 +989,9 @@ namespace aZynEManager
                         sqry.Append(String.Format("select * from tmp_bir_msr where userid = '{0}' order by or_date asc", m_frmM.m_usercode));
                         break;
                     case "RP14":
-                        /*version 2*/
-                        m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
+                        /* this version need to fill the movies distributor_share table*/
+                        /*version 2 table based reference for film share */
+                        /*m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
                         MySqlConnection myconn = new MySqlConnection(m_frmM._connection);
                         StringBuilder smdqry = new StringBuilder();
                         smdqry.Append(String.Format("select distinct(movie_id) movieid from movies_schedule where cinema_id = {0} and ",_intCinemaID));
@@ -999,7 +1000,6 @@ namespace aZynEManager
                         if (testdt.Rows.Count > 0)
                         {
                             DateTime tempdate = _dtStart;
-                            //int intmovieid = -1;
                             foreach (DataRow testdr in testdt.Rows)
                             {
                                 
@@ -1008,9 +1008,6 @@ namespace aZynEManager
                                 if (int.TryParse(testdr["movieid"].ToString(), out intout))
                                     _intMovieID = intout;
 
-                                //if(intmovieid != _intMovieID)
-                                //    tempdate = 
-                                //intmovieid = _intMovieID;
                                 if (_intMovieID > -1)
                                 {
                                     myconn = new MySqlConnection(m_frmM._connection);
@@ -1068,26 +1065,6 @@ namespace aZynEManager
                                                         intid = intout;
                                                 }
                                             }
-
-                                            /*if (effdate < tempdate)
-                                            {
-                                                //start date range with effdate
-                                                stDate = tempdate;
-                                                if (effenddate < _dtEnd)
-                                                {
-                                                    edDate = effenddate; //use effenddate
-                                                    tempdate = effenddate.AddDays(1);
-                                                }
-                                                else if (effenddate >= _dtEnd)
-                                                {
-                                                    edDate = _dtEnd;//use _enddate
-                                                    tempdate = effenddate.AddDays(1);//added 2.4.2016
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (effdate >= tempdate)
-                                                {*/
                                             if (effdate <= _dtStart && effenddate > _dtStart || effdate <= _dtEnd)
                                             {
 
@@ -1103,8 +1080,6 @@ namespace aZynEManager
                                                 else if (effenddate >= _dtEnd)
                                                     edDate = _dtEnd;//use _enddate
                                                 tempdate = effenddate.AddDays(1);
-                                                //}
-                                                //}
 
                                                 m_clscom.populateAccountingTbl2(m_frmM.m_usercode, "tmp_accounting", m_frmM._connection, stDate, edDate, _intMovieID, effdate, shareperc, intid, _intCinemaID);
                                             }
@@ -1126,9 +1101,10 @@ namespace aZynEManager
                             sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
                         }
 
-                        break;
+                        break; */
                         /* version 1 working with update 2.2.2016*/
-                        /*m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
+                        /* this version need to fill the movies distributor table*/
+                        m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
 
                         //query for the movie id based on the cinema id and dates covered
                         MySqlConnection myconn = new MySqlConnection(m_frmM._connection);
@@ -1180,7 +1156,8 @@ namespace aZynEManager
                                             {
                                                 smdqry = new StringBuilder();
                                                 smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
-                                                smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                                //smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));//remarked2.22.2016
+                                                smdqry.Append(String.Format("effective_date <= '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
                                                 DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
 
                                                 dt.Merge(newdt);
@@ -1208,7 +1185,8 @@ namespace aZynEManager
                                                 {
                                                     smdqry = new StringBuilder();
                                                     smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
-                                                    smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                                    //smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));//remarked 2.22.2016
+                                                    smdqry.Append(String.Format("effective_date <= '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
                                                     DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
 
                                                     dt.Merge(newdt);
@@ -1236,7 +1214,8 @@ namespace aZynEManager
                                         {
                                             smdqry = new StringBuilder();
                                             smdqry.Append(String.Format("select * from movies_distributor where movie_id = {0} and ", _intMovieID));
-                                            smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
+                                            //smdqry.Append(String.Format("effective_date < '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));//remarked 2.22.2016
+                                            smdqry.Append(String.Format("effective_date <= '{0:yyyy-MM-dd}' and effective_date > '{1:yyyy-MM-dd}'", _dtEnd, effdate));
                                             DataTable newdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
 
                                             dt.Merge(newdt);
@@ -1317,9 +1296,9 @@ namespace aZynEManager
                                 sqry.Append("WHERE g.system_code = '001' ");
                                 sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
                             }
-                        }*/
-                        /*break;
-                    case "RP14": //first version by movie changes 6.26.2015
+                        }
+                        break;
+                    /*case "RP14": //first version by movie changes 6.26.2015
                         m_clscom.refreshTable(m_frmM, "tmp_accounting", m_frmM._connection);
 
                         //query on the date if what movie_distributir value to use
@@ -1461,8 +1440,8 @@ namespace aZynEManager
                         sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
                         sqry.Append("FROM tmp_accounting a, config_table g, report h ");
                         sqry.Append("WHERE g.system_code = '001' ");
-                        sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));*/
-                        break;
+                        sqry.Append(String.Format("AND h.id = 14 AND a.userid = '{0}'", m_frmM.m_usercode));
+                        break;*/
                     case "RP23":
                         string stablenm = String.Empty;
                         stablenm = "tmp_msr_transaction";

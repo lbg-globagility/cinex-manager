@@ -180,6 +180,8 @@ namespace aZynEManager
                 dgv.Columns[5].HeaderText = "Effective Date";
                 dgv.Columns[6].Width = 0;
                 dgv.Columns[6].HeaderText = "Days Cover";
+                dgv.Columns[7].Width = 0;
+                dgv.Columns[7].HeaderText = "Movie ID";
             }
         }
 
@@ -219,6 +221,11 @@ namespace aZynEManager
                     cmbtitle.Items.Add(strname);
                    
                 }
+
+                //added 2.18.2016
+                dgvResult.DataSource = null;
+                //end 2.18.2016
+
                 //cmbtitle.Text = strname;
 
                 //6.30.2015start
@@ -228,6 +235,17 @@ namespace aZynEManager
                     if (drv.Row["id"].ToString() == dgv.SelectedRows[0].Cells[0].Value.ToString())
                     {
                         cmbtitle.SelectedIndex = i;
+
+                        //11.28.2016 added
+                        string strid = dgv.SelectedRows[0].Cells[0].Value.ToString();
+                        StringBuilder sqry = new StringBuilder();
+                        sqry.Append(String.Format("[movie_id] = {0}", strid));
+                        var foundRows = m_dt.Select(sqry.ToString());
+                        if (foundRows.Count() > 0)
+                        {
+                            setDataGridView(dgvResult, foundRows.CopyToDataTable());
+                        }//end 2.18.2016
+
                         break;
                     }
                 }
@@ -565,7 +583,8 @@ namespace aZynEManager
                     if (ans == System.Windows.Forms.DialogResult.Yes)
                     {
                         StringBuilder sbqry = new StringBuilder();
-                        sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date, a.day_count ");
+                        //sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date, a.day_count ");//remarked 2.22.2016
+                        sbqry.Append("select a.id, b.code, b.title, c.name as distributor, a.share_perc, a.effective_date, a.day_count, a.movie_id ");
                         sbqry.Append("from movies_distributor a ");
                         sbqry.Append("left join movies b on a.movie_id = b.id ");
                         sbqry.Append("left join distributor c on b.dist_id = c.id ");
@@ -606,6 +625,8 @@ namespace aZynEManager
             txtcode.Text = "";
             cmbtitle.SelectedIndex = 0;
             txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
+
+            setDataGridView(dgvResult, m_dt);//Added 2.18.2016
             
         }
 

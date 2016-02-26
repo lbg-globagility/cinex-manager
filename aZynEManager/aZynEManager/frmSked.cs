@@ -28,6 +28,8 @@ namespace aZynEManager
         int hitCalendar = -1;//1.4.2016
         StringBuilder copyQry = new StringBuilder(); // 1.4.2016
         MySqlConnection myconn = new MySqlConnection(); //1.14.2016
+        Boolean copyAll = false; // 2.18.2016
+        DateTime copyAllDate = new DateTime();//2.18.2016
 
         public frmSked()
         {
@@ -465,9 +467,31 @@ namespace aZynEManager
             }
         }
 
-        private void toolPaste_Click(object sender, EventArgs e)//1.14.2016
+        private void toolPaste_Click(object sender, EventArgs e)
         {
-            if (copyQry.ToString() == "")
+            if (copyAll == true)
+            {//2.18.2016
+                StringBuilder sqry = new StringBuilder();
+                DialogResult ans = MessageBox.Show("You are about to add \n\rall day movie schedule, continue?",
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (ans == System.Windows.Forms.DialogResult.Yes)
+                {
+                    for (int i = 0; i < m_dtcinema.Rows.Count; i++)
+                    {
+                        int cinemaid = Convert.ToInt32(m_dtcinema.Rows[i]["id"].ToString());
+                        sqry = new StringBuilder();
+                        sqry.Append("select b.id as movieschedid, b.cinema_id, b.movie_id, b.movie_date, a.id as movieschedlistid from movies_schedule_list a ");
+                        sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
+                        sqry.Append("left join movies c on b.movie_id = c.id ");
+                        sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
+                        sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", copyAllDate)));
+                        sqry.Append("order by c.code, a.start_time asc");
+
+                        pasteSched(cinemaid, sqry.ToString(), hitDate);
+                    }
+                }
+            }//1.14.2016
+            else if (copyQry.ToString() == "")
             {
                 MessageBox.Show("Please copy a movie schedule first.", this.Text);
                 return;
@@ -475,176 +499,11 @@ namespace aZynEManager
             else
             {
                 DialogResult ans = MessageBox.Show("You are about to add \n\rthe copied movie schedule, continue?",
-                        this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (ans == System.Windows.Forms.DialogResult.Yes)
-                {
-                    int movieschedid = -1;
-                    int cinemaid = -1;
-                    int movieid = -1;
-                    DateTime moviedate = new DateTime();
-                    int movieschedlistid = -1;
-
-                    MySqlConnection myconn = new MySqlConnection();
-                    myconn.ConnectionString = m_frmM._connection;
-                    if (myconn.State == ConnectionState.Closed)
-                        myconn.Open();
-                    DataTable dt = new DataTable();
-                    dt = m_clscom.setDataTable(copyQry.ToString(), m_frmM._connection);
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        string firsttitle = String.Empty;
-                        cinemaid = (int)dr["cinema_id"];
-                        movieid = (int)dr["movie_id"];
-                        moviedate = Convert.ToDateTime(dr["movie_date"].ToString());
-                        movieschedid = (int)dr["movieschedid"];
-                        movieschedlistid = (int)dr["movieschedlistid"];
-
-                        StringBuilder sqry = new StringBuilder();
-                        sqry.Append("select count(*) from movies_schedule ");
-                        sqry.Append(String.Format("where movie_date = '{0}' ", hitDate.Date.ToString("yyyy-MM-dd")));
-                        sqry.Append(String.Format("and cinema_id = {0} ", hitCalendar));
-                        sqry.Append(String.Format("and movie_id = {0}", movieid));
-                        if (myconn.State == ConnectionState.Closed)
-                            myconn.Open();
-                        MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
-                        int rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
-                        cmd2.Dispose();
-
-                        int newmovieschedid = -1;
-                        if (rowCount > 0)
-                        {
-                            sqry = new StringBuilder();
-                            sqry.Append("select a.id from movies_schedule a ");
-                            sqry.Append(String.Format("where a.movie_date = '{0}' ", hitDate.Date.ToString("yyyy-MM-dd")));
-                            sqry.Append(String.Format("and a.cinema_id = {0} ", hitCalendar));
-                            sqry.Append(String.Format("and a.movie_id = {0}", movieid));
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd3 = new MySqlCommand(sqry.ToString(), myconn);
-                            MySqlDataReader reader3 = cmd3.ExecuteReader();
-                            while (reader3.Read())
-                            {
-                                newmovieschedid = Convert.ToInt32(reader3["id"].ToString());
-                            }
-                            reader3.Close();
-                            cmd3.Dispose();
-                        }
-                        else
-                        {
-                            sqry = new StringBuilder();
-                            sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
-                                hitCalendar, movieid, hitDate.Date.ToString("yyyy-MM-dd")));
-                            try
-                            {
-                                if (myconn.State == ConnectionState.Closed)
-                                    myconn.Open();
-                                MySqlCommand cmd0 = new MySqlCommand(sqry.ToString(), myconn);
-                                cmd0.ExecuteNonQuery();
-
-                                newmovieschedid = Convert.ToInt32(cmd0.LastInsertedId.ToString());
-                                cmd0.Dispose();
-                            }
-                            catch (Exception err)
-                            {
-                                MessageBox.Show(err.ToString());
-                                return;
-                            }
-                        }
-
-                        int newmoviescheslistid =  -1;
-                        if(newmovieschedid > 0)
-                        {
-                            DateTime curtimestart = new DateTime();
-                            DateTime curtimeend = new DateTime();
-                            int intval = -1;
-                            sqry = new StringBuilder();
-                            sqry.Append("select a.* from movies_schedule_list a ");
-                            sqry.Append(String.Format("where a.id = {0}", movieschedlistid));
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn);
-                            MySqlDataReader reader4 = cmd4.ExecuteReader();
-                            while (reader4.Read())
-                            {
-                                DateTime stdate = Convert.ToDateTime(reader4["start_time"].ToString());
-                                curtimestart = new DateTime(hitDate.Year, hitDate.Month, hitDate.Day, stdate.Hour, stdate.Minute, 0);
-                                DateTime enddate = Convert.ToDateTime(reader4["end_time"].ToString());
-                                curtimeend = new DateTime(hitDate.Year, hitDate.Month, hitDate.Day, enddate.Hour, enddate.Minute, 0);
-                                intval = Convert.ToInt32(reader4["seat_type"].ToString());
-                            }
-                            reader4.Close();
-                            cmd4.Dispose();
-
-                            //validate for existing sched 1.5.2016
-                            sqry = new StringBuilder();
-                            sqry.Append("select count(*) from movies_schedule_list ");
-                            sqry.Append(String.Format("where movies_schedule_id = '{0}' ", newmovieschedid));
-                            sqry.Append(String.Format("and start_time <= '{0: yyyy-MM-dd HH:mm:00}' ", curtimestart));
-                            sqry.Append(String.Format("and end_time >= '{0: yyyy-MM-dd HH:mm:00}'", curtimestart));
-                            if (myconn.State == ConnectionState.Closed)
-                                myconn.Open();
-                            MySqlCommand cmd44 = new MySqlCommand(sqry.ToString(), myconn);
-                            int rowCount44 = Convert.ToInt32(cmd44.ExecuteScalar());
-                            cmd44.Dispose();
-
-                            if (rowCount44 == 0)
-                            {
-                                sqry = new StringBuilder();
-                                sqry.Append("select count(*) from movies_schedule_list ");
-                                sqry.Append(String.Format("where movies_schedule_id = '{0}' ", newmovieschedid));
-                                sqry.Append(String.Format("and start_time <= '{0: yyyy-MM-dd HH:mm:00}' ", curtimeend));
-                                sqry.Append(String.Format("and end_time >= '{0: yyyy-MM-dd HH:mm:00}'", curtimeend));
-                                if (myconn.State == ConnectionState.Closed)
-                                    myconn.Open();
-                                MySqlCommand cmd444 = new MySqlCommand(sqry.ToString(), myconn);
-                                int rowCount444 = Convert.ToInt32(cmd444.ExecuteScalar());
-                                cmd444.Dispose();
-
-                                if (rowCount444 == 0)
-                                {
-                                    sqry = new StringBuilder();
-                                    sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3},0,1)",
-                                        newmovieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
-                                    if (myconn.State == ConnectionState.Closed)
-                                        myconn.Open();
-                                    MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
-                                    cmd1.ExecuteNonQuery();
-                                    newmoviescheslistid = Convert.ToInt32(cmd1.LastInsertedId.ToString());
-                                    cmd1.Dispose();
-                                }
-                            }
-                        }
-
-                        if (newmoviescheslistid > 0)
-                        {
-                            sqry = new StringBuilder();
-                            sqry.Append("select a.* from movies_schedule_list_patron a ");
-                            sqry.Append(String.Format("where a.movies_schedule_list_id = {0}", movieschedlistid));
-                            DataTable movieschedlistpatrons = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
-                            if (movieschedlistpatrons.Rows.Count > 0)
-                            {
-                                foreach (DataRow row in movieschedlistpatrons.Rows)
-                                {
-                                    int patronid = Convert.ToInt32(row["patron_id"].ToString());
-                                    double ticketprice = Convert.ToDouble(row["price"].ToString());
-                                    int isdefault = Convert.ToInt32(row["is_default"].ToString());
-
-                                    sqry = new StringBuilder();
-                                    sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},{3})",
-                                        newmoviescheslistid, patronid, ticketprice, isdefault));
-
-                                    if (myconn.State == ConnectionState.Closed)
-                                        myconn.Open();
-                                    MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
-                                    cmd5.ExecuteNonQuery();
-                                    cmd5.Dispose();
-                                }
-                            }
-                        }
-                    }
-                    refreshCal();
-                }
+                    pasteSched(hitCalendar, copyQry.ToString(),hitDate);
             }
+
         }
 
         public void refreshCal()
@@ -680,5 +539,188 @@ namespace aZynEManager
             }
         }
 
+        private void copyAllToolStripMenuItem_Click(object sender, EventArgs e)//2.18.2016
+        {
+            try
+            {
+                copyAll = true;
+                copyAllDate = hitDate;
+            }
+            catch (Exception err)
+            {
+                copyAll = false;
+                copyAllDate = new DateTime();
+                MessageBox.Show(err.Message);
+            }
+        }
+        
+        public void pasteSched(int inttargetcinema, string strqry, DateTime pasteDate)
+        {
+            int movieschedid = -1;
+            int cinemaid = -1;
+            int movieid = -1;
+            DateTime moviedate = new DateTime();
+            int movieschedlistid = -1;
+
+            MySqlConnection myconn = new MySqlConnection();
+            myconn.ConnectionString = m_frmM._connection;
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
+            DataTable dt = new DataTable();
+            dt = m_clscom.setDataTable(strqry, m_frmM._connection);
+            foreach (DataRow dr in dt.Rows)
+            {
+                string firsttitle = String.Empty;
+                cinemaid = (int)dr["cinema_id"];
+                movieid = (int)dr["movie_id"];
+                moviedate = Convert.ToDateTime(dr["movie_date"].ToString());
+                movieschedid = (int)dr["movieschedid"];
+                movieschedlistid = (int)dr["movieschedlistid"];
+
+                StringBuilder sqry = new StringBuilder();
+                sqry.Append("select count(*) from movies_schedule ");
+                sqry.Append(String.Format("where movie_date = '{0}' ", pasteDate.Date.ToString("yyyy-MM-dd")));
+                sqry.Append(String.Format("and cinema_id = {0} ", inttargetcinema));
+                sqry.Append(String.Format("and movie_id = {0}", movieid));
+                if (myconn.State == ConnectionState.Closed)
+                    myconn.Open();
+                MySqlCommand cmd2 = new MySqlCommand(sqry.ToString(), myconn);
+                int rowCount = Convert.ToInt32(cmd2.ExecuteScalar());
+                cmd2.Dispose();
+
+                int newmovieschedid = -1;
+                if (rowCount > 0)
+                {
+                    sqry = new StringBuilder();
+                    sqry.Append("select a.id from movies_schedule a ");
+                    sqry.Append(String.Format("where a.movie_date = '{0}' ", pasteDate.Date.ToString("yyyy-MM-dd")));
+                    sqry.Append(String.Format("and a.cinema_id = {0} ", inttargetcinema));
+                    sqry.Append(String.Format("and a.movie_id = {0}", movieid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd3 = new MySqlCommand(sqry.ToString(), myconn);
+                    MySqlDataReader reader3 = cmd3.ExecuteReader();
+                    while (reader3.Read())
+                    {
+                        newmovieschedid = Convert.ToInt32(reader3["id"].ToString());
+                    }
+                    reader3.Close();
+                    cmd3.Dispose();
+                }
+                else
+                {
+                    sqry = new StringBuilder();
+                    sqry.Append(String.Format("insert into movies_schedule value(0,{0},{1},'{2}')",
+                        inttargetcinema, movieid, pasteDate.Date.ToString("yyyy-MM-dd")));
+                    try
+                    {
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd0 = new MySqlCommand(sqry.ToString(), myconn);
+                        cmd0.ExecuteNonQuery();
+
+                        newmovieschedid = Convert.ToInt32(cmd0.LastInsertedId.ToString());
+                        cmd0.Dispose();
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.ToString());
+                        return;
+                    }
+                }
+
+                int newmoviescheslistid =  -1;
+                if(newmovieschedid > 0)
+                {
+                    DateTime curtimestart = new DateTime();
+                    DateTime curtimeend = new DateTime();
+                    int intval = -1;
+                    sqry = new StringBuilder();
+                    sqry.Append("select a.* from movies_schedule_list a ");
+                    sqry.Append(String.Format("where a.id = {0}", movieschedlistid));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd4 = new MySqlCommand(sqry.ToString(), myconn);
+                    MySqlDataReader reader4 = cmd4.ExecuteReader();
+                    while (reader4.Read())
+                    {
+                        DateTime stdate = Convert.ToDateTime(reader4["start_time"].ToString());
+                        curtimestart = new DateTime(hitDate.Year, hitDate.Month, hitDate.Day, stdate.Hour, stdate.Minute, 0);
+                        DateTime enddate = Convert.ToDateTime(reader4["end_time"].ToString());
+                        curtimeend = new DateTime(hitDate.Year, hitDate.Month, hitDate.Day, enddate.Hour, enddate.Minute, 0);
+                        intval = Convert.ToInt32(reader4["seat_type"].ToString());
+                    }
+                    reader4.Close();
+                    cmd4.Dispose();
+
+                    //validate for existing sched 1.5.2016
+                    sqry = new StringBuilder();
+                    sqry.Append("select count(*) from movies_schedule_list ");
+                    sqry.Append(String.Format("where movies_schedule_id = '{0}' ", newmovieschedid));
+                    sqry.Append(String.Format("and start_time <= '{0: yyyy-MM-dd HH:mm:00}' ", curtimestart));
+                    sqry.Append(String.Format("and end_time >= '{0: yyyy-MM-dd HH:mm:00}'", curtimestart));
+                    if (myconn.State == ConnectionState.Closed)
+                        myconn.Open();
+                    MySqlCommand cmd44 = new MySqlCommand(sqry.ToString(), myconn);
+                    int rowCount44 = Convert.ToInt32(cmd44.ExecuteScalar());
+                    cmd44.Dispose();
+
+                    if (rowCount44 == 0)
+                    {
+                        sqry = new StringBuilder();
+                        sqry.Append("select count(*) from movies_schedule_list ");
+                        sqry.Append(String.Format("where movies_schedule_id = '{0}' ", newmovieschedid));
+                        sqry.Append(String.Format("and start_time <= '{0: yyyy-MM-dd HH:mm:00}' ", curtimeend));
+                        sqry.Append(String.Format("and end_time >= '{0: yyyy-MM-dd HH:mm:00}'", curtimeend));
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd444 = new MySqlCommand(sqry.ToString(), myconn);
+                        int rowCount444 = Convert.ToInt32(cmd444.ExecuteScalar());
+                        cmd444.Dispose();
+
+                        if (rowCount444 == 0)
+                        {
+                            sqry = new StringBuilder();
+                            sqry.Append(String.Format("insert into movies_schedule_list value(0,{0},'{1}','{2}',{3},0,1)",
+                                newmovieschedid, String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimestart), String.Format("{0: yyyy-MM-dd HH:mm:00}", curtimeend), intval));
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd1 = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd1.ExecuteNonQuery();
+                            newmoviescheslistid = Convert.ToInt32(cmd1.LastInsertedId.ToString());
+                            cmd1.Dispose();
+                        }
+                    }
+                }
+
+                if (newmoviescheslistid > 0)
+                {
+                    sqry = new StringBuilder();
+                    sqry.Append("select a.* from movies_schedule_list_patron a ");
+                    sqry.Append(String.Format("where a.movies_schedule_list_id = {0}", movieschedlistid));
+                    DataTable movieschedlistpatrons = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
+                    if (movieschedlistpatrons.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in movieschedlistpatrons.Rows)
+                        {
+                            int patronid = Convert.ToInt32(row["patron_id"].ToString());
+                            double ticketprice = Convert.ToDouble(row["price"].ToString());
+                            int isdefault = Convert.ToInt32(row["is_default"].ToString());
+
+                            sqry = new StringBuilder();
+                            sqry.Append(String.Format("insert into movies_schedule_list_patron values(0,{0},{1},{2},{3})",
+                                newmoviescheslistid, patronid, ticketprice, isdefault));
+
+                            if (myconn.State == ConnectionState.Closed)
+                                myconn.Open();
+                            MySqlCommand cmd5 = new MySqlCommand(sqry.ToString(), myconn);
+                            cmd5.ExecuteNonQuery();
+                            cmd5.Dispose();
+                        }
+                    }
+                }
+            }
+            refreshCal();
+        }
     }
 }

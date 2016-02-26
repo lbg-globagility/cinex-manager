@@ -104,6 +104,8 @@ namespace aZynEManager
 
             calsked.Enabled = true;
             txtintermision.Text = m_frmM.m_clscom.m_clscon.MovieIntermissionTime.ToString();
+
+            cmbpatron.DataSource = null;//2.18.2016
         }
 
         private void addScreeningSched(string strcinemaid, DateTime dtstart)
@@ -918,10 +920,44 @@ namespace aZynEManager
                         }
                         catch
                         {
-                            MessageBox.Show("An error have occured while inserting the initial movie producer's share", "Movie Distributor");
+                            MessageBox.Show("An error have occured while \n adding the initial movie producer's share", "Movie Distributor");
                         }
-                    }
-                    //2.15.2016 added for the initial values of movies_distributor end
+                    }//2.15.2016 added for the initial values of movies_distributor end
+                    else//2.18.2016 added recor for movies_distributor start
+                    {
+                        //need to find out the new sched date > last sched date + day_count
+                        sqry = new StringBuilder();
+                        sqry.Append(String.Format("select datediff(date_add(max(effective_date),interval day_count day),'{0:yyyy-MM-dd HH:mm:ss}') ", datestart.Value));
+                        sqry.Append("from movies_distributor ");
+                        sqry.Append(String.Format("where movie_id = {0} ",movieid));
+                        sqry.Append("order by effective_date desc limit 1");
+
+                        if (myconn.State == ConnectionState.Closed)
+                            myconn.Open();
+                        MySqlCommand cmd8 = new MySqlCommand(sqry.ToString(), myconn);
+                        int rowCount8 = Convert.ToInt32(cmd8.ExecuteScalar());
+                        cmd8.Dispose();
+
+                        if (rowCount8 <= 0)
+                        {
+                            try
+                            {
+                                sqry = new StringBuilder();
+                                sqry.Append("insert into movies_distributor ");
+                                sqry.Append("select '0',a.movie_id,a.share_perc,date_add(max(a.effective_date),interval a.day_count day),a.day_count ");
+                                sqry.Append(String.Format("from movies_distributor a where a.movie_id = {0}", movieid));
+                                if (myconn.State == ConnectionState.Closed)
+                                    myconn.Open();
+                                MySqlCommand cmd7 = new MySqlCommand(sqry.ToString(), myconn);
+                                cmd7.ExecuteNonQuery();
+                                cmd7.Dispose();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("An error have occured while adding \n the movie producer's share record", "Movie Distributor");
+                            }
+                        }
+                    }//2.18.2016 added recor for movies_distributor start
 
                     setnormal();
                     cmbCinema.SelectedValue = cinemaid;
@@ -2664,7 +2700,8 @@ namespace aZynEManager
             KryptonDataGridView dgv = sender as KryptonDataGridView;
             int introw = e.RowIndex;
 
-            setPatronDefault(dgv,introw);
+            if(introw > -1)
+                setPatronDefault(dgv,introw);
         }
 
         public void setPatronDefault(KryptonDataGridView dgv, int introw)
@@ -2695,13 +2732,16 @@ namespace aZynEManager
                 {
                     if ((bool)chk.Value) //((bool)dgvpatrons.Rows[dgvpatrons.CurrentCell.RowIndex].Cells[0].Value)
                     {
+
                         dr = new_dtpatron.NewRow();
                         if (sid != "")
                         {
                             dr["id"] = Convert.ToInt32(sid);
                             dr["patron"] = sname + "(" + sprice + ")";
                         }
-                        new_dtpatron.Rows.Add(dr);
+                        var foundRows = new_dtpatron.Select(String.Format("[id]={0}",sid));
+                        if (foundRows.Count() == 0)
+                            new_dtpatron.Rows.Add(dr);
                     }
                     else
                     {
