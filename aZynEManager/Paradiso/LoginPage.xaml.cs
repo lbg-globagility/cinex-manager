@@ -70,7 +70,7 @@ namespace Paradiso
                         //get last trail for LOGIN 
                         var trail = (from at in context.a_trail
                                      where at.user.userid == strUserName && at.module_code == 42 && at.tr_date.Year == dtCurrent.Year &&
-                                     at.tr_date.Month == dtCurrent.Month && at.tr_date.Day == dtCurrent.Day
+                                     at.tr_date.Month == dtCurrent.Month && at.tr_date.Day == dtCurrent.Day && at.module_code == 42  //modify if login module id has been replaced
                                      orderby at.id descending
                                      select
                                          new { at.computer_name, at.aff_table_layer }).FirstOrDefault();

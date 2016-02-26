@@ -25,6 +25,7 @@
         <DockPanel Name="TellerSessionPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" >
             <DockPanel>
                 <StackPanel  HorizontalAlignment="Center" DockPanel.Dock="Bottom" Margin="0, 20" Orientation="Horizontal">
+                    <Button Width="80" Name="Refresh" Click="Refresh_Click">Refresh</Button>
                     <Button Width="80" Name="EndSession" Click="EndSession_Click">End Session</Button>
                     <Button Width="80" Name="Cancel" Click="Cancel_Click">Cancel</Button>
                 </StackPanel>

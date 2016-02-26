@@ -45,7 +45,7 @@ namespace Paradiso
                 {
                     var trail = (from at in context.a_trail
                                  where at.tr_date.Year == dtCurrent.Year && at.tr_date.Month == dtCurrent.Month
-                                     && at.tr_date.Day == dtCurrent.Day
+                                     && at.tr_date.Day == dtCurrent.Day && at.module_code == 42 //hack
                                  group at by at.user_id into g
                                  select new { g.Key, MaxId = g.Max(x => x.id) }).ToList()
                                  ;
@@ -102,6 +102,11 @@ namespace Paradiso
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.LoadTellerSessions();
         }
     }
 }
