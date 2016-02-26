@@ -76,9 +76,10 @@ namespace Paradiso
             */
 
             //sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo_{1}.xml", strServer, strVersion));
-            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.xml", strServer));
+            sparkle = new Sparkle(string.Format("http://{0}/cinex/versioninfo.php", strServer));
             //sparkle.ShowDiagnosticWindow = true;
             //sparkle.EnableSilentMode = true;
+            //sparkle.EnableServiceMode = true;
             sparkle.StartLoop(true, true, new TimeSpan(0, 15, 0));
         }
 

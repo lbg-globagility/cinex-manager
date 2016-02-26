@@ -32,7 +32,7 @@ namespace AppLimit.NetSparkle
                 // build the command line
                 installerCMD = "msiexec /i \"" + tempName + "\"";
 
-                if (sparkle.EnableServiceMode)
+                //if (sparkle.EnableServiceMode)
                 {
                     installerCMD += " /qn";
                 }
