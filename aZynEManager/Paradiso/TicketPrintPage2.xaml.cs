@@ -363,7 +363,7 @@ namespace Paradiso
 
                 }
 
-                this.Search(ORNumberInput.Text.Trim());
+                this.Search(ORNumberInput.Text.Trim(), false);
 
                 MessageWindow _messageWindow = new MessageWindow();
                 _messageWindow.MessageText.Text = string.Format("Successfully voided ticket(s).");
@@ -669,7 +669,7 @@ namespace Paradiso
                     }
                 }
 
-                this.Search(ORNumberInput.Text.Trim());
+                this.Search(ORNumberInput.Text.Trim(), false);
 
                 MessageWindow _messageWindow = new MessageWindow();
                 _messageWindow.MessageText.Text = string.Format("Successfully printed ticket(s).");
@@ -1039,7 +1039,7 @@ namespace Paradiso
         }
 
 
-        private void Search(string strSearch)
+        private void Search(string strSearch, bool promptNotFound)
         {
             if ((strSearch == string.Empty && SelectedUser.Key == 0) || 
                 (strSearch == string.Empty && SelectedUser.Key != 0 && chkSessionOnly.IsChecked == false))
@@ -1207,7 +1207,7 @@ namespace Paradiso
                         }
                     }
 
-                    if (tickets.Count == 0)
+                    if (tickets.Count == 0 && promptNotFound)
                     {
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No ticket(s) found.";
@@ -1315,7 +1315,7 @@ namespace Paradiso
                         });
                     }
 
-                    if (TicketSessions.Count == 0)
+                    if (TicketSessions.Count == 0 && promptNotFound)
                     {
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "No ticket(s) found.";
@@ -1327,7 +1327,7 @@ namespace Paradiso
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            this.Search(ORNumberInput.Text.Trim());
+            this.Search(ORNumberInput.Text.Trim(), true);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -1623,14 +1623,14 @@ namespace Paradiso
         private void chkSessionOnly_Checked(object sender, RoutedEventArgs e)
         {
             Print.Visibility = System.Windows.Visibility.Collapsed;
-            this.Search(ORNumberInput.Text.Trim());
+            this.Search(ORNumberInput.Text.Trim(), true);
         }
 
         private void chkSessionOnly_Unchecked(object sender, RoutedEventArgs e)
         {
             if (ParadisoObjectManager.GetInstance().HasRights("REPRINT"))
                 Print.Visibility = System.Windows.Visibility.Visible;
-            this.Search(ORNumberInput.Text.Trim());
+            this.Search(ORNumberInput.Text.Trim(), true);
         }
     }
 }
