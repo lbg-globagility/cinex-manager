@@ -9,7 +9,7 @@ using Paradiso.Helpers;
 
 namespace Paradiso.Model
 {
-    public class TicketListModel : INotifyPropertyChanged
+    public class TicketListModel : INotifyPropertyChanged, IDisposable
     {
         public MyObservableCollection<TicketModel> Tickets { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -21,6 +21,17 @@ namespace Paradiso.Model
             Tickets.CollectionChanged += new NotifyCollectionChangedEventHandler(Tickets_CollectionChanged);
             Tickets.ChildElementPropertyChanged += new MyObservableCollection<TicketModel>.ChildElementPropertyChangedEventHandler(Tickets_ChildElementPropertyChanged);
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Tickets.Clear();
+            Tickets.CollectionChanged -= Tickets_CollectionChanged;
+            Tickets.ChildElementPropertyChanged -= Tickets_ChildElementPropertyChanged;
+        }
+
+        #endregion
 
         void Tickets_ChildElementPropertyChanged(MyObservableCollection<TicketModel>.ChildElementPropertyChangedEventArgs e)
         {
@@ -62,6 +73,7 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
 
     }
 }

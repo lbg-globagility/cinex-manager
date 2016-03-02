@@ -20,7 +20,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for TenderAmountPage.xaml
     /// </summary>
-    public partial class TenderAmountPage : Page
+    public partial class TenderAmountPage : Page, IDisposable
     {
         public int MovieTimeKey { get; set; }
         public PatronSeatListModel SelectedPatronSeatList { get; set; }
@@ -40,6 +40,15 @@ namespace Paradiso
             Version.Text = ParadisoObjectManager.GetInstance().Version;
         }
 
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            SelectedPatronSeatList.Dispose();
+            SelectedGiftCertificateList.Dispose();
+        }
+
+        #endregion
         private void UpdatePatronSeats()
         {
             SelectedPatronSeatList.PatronSeats.Clear();
@@ -170,8 +179,27 @@ namespace Paradiso
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            //get session id
+            //determine if free seating
+            //NavigationService.GoBack();
+            this.Dispose();
+            this.GoBack();
 
-            NavigationService.GoBack();
+        }
+
+        private void GoBack()
+        {
+
+            if (ParadisoObjectManager.GetInstance().IsReservedMode)
+            {
+                if (ParadisoObjectManager.GetInstance().CurrentMovieSchedule != null)
+                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+            }
+            else
+            {
+                if (ParadisoObjectManager.GetInstance().CurrentMovieSchedule != null)
+                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+            }
         }
 
 
@@ -243,7 +271,9 @@ namespace Paradiso
                 messageWindow.MessageText.Text = "Seating reservation has expired.";
                 messageWindow.ShowDialog();
 
-                NavigationService.GoBack();
+                this.Dispose();
+
+                this.GoBack();
                 return;
             }
 
@@ -475,8 +505,12 @@ namespace Paradiso
                             ticketPrintPage.PrintTickets(ornumbers);
                         }
 
+                        ornumbers.Clear();
+
                         if (ParadisoObjectManager.GetInstance().ScreeningDate.Date > ParadisoObjectManager.GetInstance().CurrentDate.Date)
                             ParadisoObjectManager.GetInstance().ScreeningDate = ParadisoObjectManager.GetInstance().CurrentDate;
+
+                        this.Dispose();
 
                         if (NavigationService != null) 
                             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
@@ -607,19 +641,22 @@ namespace Paradiso
 
         private void AddGiftCertificate_Click(object sender, RoutedEventArgs e)
         {
-            GiftCertificateWindow window = new GiftCertificateWindow();
-            window.GiftCertificates = SelectedGiftCertificateList.GiftCertificates;
-            window.TotalAmount = SelectedPatronSeatList.Total;
-            decimal decCashAmount = 0;
-            decimal.TryParse(TotalAmountPaid.Text, out decCashAmount);
-            window.CashAmount = decCashAmount;
-            window.ShowDialog();
-            if (window.GiftCertificate != null)
+            using (GiftCertificateWindow window = new GiftCertificateWindow())
             {
-                //sample
-                SelectedGiftCertificateList.AddGiftCertificate(window.GiftCertificate);
-                //SelectedGiftCertificateList.GiftCertificates.Add(new GiftCertificateModel(1, "DEMO", 100, true, new DateTime()));
+                window.GiftCertificates = SelectedGiftCertificateList.GiftCertificates;
+                window.TotalAmount = SelectedPatronSeatList.Total;
+                decimal decCashAmount = 0;
+                decimal.TryParse(TotalAmountPaid.Text, out decCashAmount);
+                window.CashAmount = decCashAmount;
+                window.ShowDialog();
+                if (window.GiftCertificate != null)
+                {
+                    //sample
+                    SelectedGiftCertificateList.AddGiftCertificate(window.GiftCertificate);
+                    //SelectedGiftCertificateList.GiftCertificates.Add(new GiftCertificateModel(1, "DEMO", 100, true, new DateTime()));
+                }
+                window.Close();
             }
         }
-}
+    }
 }

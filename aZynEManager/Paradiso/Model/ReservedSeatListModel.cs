@@ -9,7 +9,7 @@ using Paradiso.Helpers;
 
 namespace Paradiso.Model
 {
-    public class ReservedSeatListModel : INotifyPropertyChanged
+    public class ReservedSeatListModel : INotifyPropertyChanged, IDisposable
     {
         private string strName;
         private string strNotes;
@@ -77,5 +77,16 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            ReservedSeats.Clear();
+            ReservedSeats.CollectionChanged -= ReservedSeats_CollectionChanged;
+            ReservedSeats.ChildElementPropertyChanged -= ReservedSeats_ChildElementPropertyChanged;
+        }
+
+        #endregion
     }
 }

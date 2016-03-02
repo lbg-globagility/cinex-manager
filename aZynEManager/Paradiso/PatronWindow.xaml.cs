@@ -19,7 +19,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for PatronWindow.xaml
     /// </summary>
-    public partial class PatronWindow : MetroWindow
+    public partial class PatronWindow : MetroWindow, IDisposable
     {
         public MovieScheduleListModel MovieSchedule { get; set; }
         public SeatModel Seat { get; set; }
@@ -131,5 +131,14 @@ namespace Paradiso
         }
 
 
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Patrons.Clear();
+        }
+
+        #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for GiftCertificateWindow.xaml
     /// </summary>
-    public partial class GiftCertificateWindow : Window
+    public partial class GiftCertificateWindow : Window, IDisposable
     {
         public GiftCertificateModel GiftCertificate { get; set;}
         public ObservableCollection<GiftCertificateModel> GiftCertificates { get; set; }
@@ -127,5 +127,14 @@ namespace Paradiso
         {
             GiftCertificateName.Focus();
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            GiftCertificates.Clear();
+        }
+
+        #endregion
     }
 }

@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Transactions;
 
+//already deprecated
 namespace Paradiso
 {
     /// <summary>

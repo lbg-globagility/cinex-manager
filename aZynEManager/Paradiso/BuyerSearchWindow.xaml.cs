@@ -19,7 +19,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for BuyerSearchWindow.xaml
     /// </summary>
-    public partial class BuyerSearchWindow : MetroWindow
+    public partial class BuyerSearchWindow : MetroWindow, IDisposable
     {
         private Buyer buyer;
         private bool blnIsCancelled = true;
@@ -115,5 +115,15 @@ namespace Paradiso
             }
         }
 
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (Buyers.Count > 0)
+            Buyers.Clear();
+        }
+
+        #endregion
     }
 }

@@ -23,7 +23,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for TicketPrintPage.xaml
     /// </summary>
-    public partial class TicketPrintPage2 : Page
+    public partial class TicketPrintPage2 : Page, IDisposable
     {
         public TicketModel Ticket { get; set;}
 
@@ -46,6 +46,19 @@ namespace Paradiso
         {
             this.Initialize(blnIsReset);
         }
+
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Users.Clear();
+            TicketSessions.Clear();
+            TicketList.Dispose();
+            CancelledORNumbers.Clear();
+        }
+
+        #endregion
 
         public void Initialize(bool blnIsReset)
         {
@@ -257,6 +270,8 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "You don't have access for this page.";
                 messageWindow.ShowDialog();
+
+                this.Dispose();
 
                 NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
@@ -577,6 +592,8 @@ namespace Paradiso
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "You don't have access for this page.";
                 messageWindow.ShowDialog();
+
+                this.Dispose();
 
                 NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
@@ -1035,6 +1052,8 @@ namespace Paradiso
 
         private void CancelPrint_Click(object sender, RoutedEventArgs e)
         {
+            this.Dispose();
+
             NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 

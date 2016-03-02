@@ -20,7 +20,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for EndTellerSessionPage.xaml
     /// </summary>
-    public partial class EndTellerSessionPage : Page
+    public partial class EndTellerSessionPage : Page, IDisposable
     {
 
         public ObservableCollection<TicketSessionModel> TellerSessions { get; set; }
@@ -96,6 +96,8 @@ namespace Paradiso
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            this.Dispose();
+
             NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 
@@ -108,5 +110,14 @@ namespace Paradiso
         {
             this.LoadTellerSessions();
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            TellerSessions.Clear();
+        }
+
+        #endregion
     }
 }

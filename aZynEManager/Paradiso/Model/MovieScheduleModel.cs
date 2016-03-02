@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Paradiso.Model
 {
-    public class MovieScheduleModel : INotifyPropertyChanged
+    public class MovieScheduleModel : INotifyPropertyChanged, IDisposable
     {
         private int intKey;
         private int intNumber;
@@ -93,5 +93,14 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            movieScheduleListItems.Clear();
+        }
+
+        #endregion
     }
 }

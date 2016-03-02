@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Printing;
+using Paradiso.Model;
 
 namespace Paradiso
 {
@@ -21,6 +22,8 @@ namespace Paradiso
         private bool _IsReservedMode { get; set; }
         public bool RunOnce { get; set; }
 
+        public MovieScheduleListModel CurrentMovieSchedule { get; set; }
+
         private static ParadisoObjectManager instance;
 
         /// <summary>
@@ -34,6 +37,8 @@ namespace Paradiso
             UserLogInName = string.Empty;
             _IsReservedMode = false;
             RunOnce = true;
+
+            CurrentMovieSchedule = new MovieScheduleListModel();
         }
 
         public DateTime ScreeningDate

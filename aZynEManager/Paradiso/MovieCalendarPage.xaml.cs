@@ -24,7 +24,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for MovieCalendarPage1.xaml
     /// </summary>
-    public partial class MovieCalendarPage : Page
+    public partial class MovieCalendarPage : Page, IDisposable
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
@@ -496,11 +496,8 @@ namespace Paradiso
                     {
                         MessageBox.Show("You have pending transactions for the day. Select the transactions to void.");
                         //open 
-                        if (timer != null)
-                        {
-                            timer.Stop();
-                            timer.Tick -= new EventHandler(timer_Tick);
-                        }
+                        this.Dispose();
+
                         bool blnIsTicketFormatB = false;
                         if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
                             blnIsTicketFormatB = true;
@@ -551,11 +548,9 @@ namespace Paradiso
             if (dataContext != null && dataContext is MovieScheduleListModel)
             {
                 MovieScheduleListModel msli = (MovieScheduleListModel)dataContext;
-                if (timer != null)
-                {
-                    timer.Stop();
-                    timer.Tick -= new EventHandler(timer_Tick);
-                }
+
+                this.StopTimer();
+
                 if (ParadisoObjectManager.GetInstance().IsReservedMode)
                 {
                     //verify if msli is valid
@@ -564,6 +559,7 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "Reservation can only be done on reserved seating.";
                         messageWindow.ShowDialog();
+                        ParadisoObjectManager.GetInstance().CurrentMovieSchedule = null;
 
                         return;
                     }
@@ -572,14 +568,20 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "Reservation cannot be done on ellapsed screen times.";
                         messageWindow.ShowDialog();
-
+                        ParadisoObjectManager.GetInstance().CurrentMovieSchedule = null;
                         return;
                     }
 
+                    this.Dispose();
+
+                    ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
                     NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
                 }
                 else //if (msli.SeatType == 1)
                 {
+                    this.Dispose();
+
+                    ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
                     NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 }
                 /*
@@ -633,11 +635,8 @@ namespace Paradiso
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (timer != null)
-            {
-                timer.Stop();
-                timer.Tick -= new EventHandler(timer_Tick);
-            }
+            this.Dispose();
+
             bool blnIsTicketFormatB = false;
             if (ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "A") == "B")
                 blnIsTicketFormatB = true;
@@ -666,11 +665,7 @@ namespace Paradiso
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            if (timer != null)
-            {
-                timer.Stop();
-                timer.Tick -= new EventHandler(timer_Tick);
-            }
+            this.Dispose();
             //checks grant
             
             NavigationService.GetNavigationService(this).Navigate(new SettingPage());
@@ -678,13 +673,33 @@ namespace Paradiso
         
         private void Teller_Click(object sender, RoutedEventArgs e)
         {
-            if (timer != null)
-            {
-                timer.Stop();
-                timer.Tick -= new EventHandler(timer_Tick);
-            }
+            this.Dispose();
+
             NavigationService.GetNavigationService(this).Navigate(new EndTellerSessionPage());
         }
 
+        private void StopTimer()
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= timer_Tick;
+            }
+        }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            this.StopTimer();
+            if (movieScheduleItems.Count > 0)
+            {
+                foreach (var msi in movieScheduleItems)
+                    msi.Dispose();
+                movieScheduleItems.Clear();
+            }
+        }
+
+        #endregion
     }
 }

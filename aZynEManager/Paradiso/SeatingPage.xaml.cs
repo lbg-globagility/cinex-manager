@@ -22,7 +22,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for SeatingPage.xaml
     /// </summary>
-    public partial class SeatingPage : Page
+    public partial class SeatingPage : Page, IDisposable
     {
         public MovieScheduleListModel MovieScheduleList { get; set; }
 
@@ -55,6 +55,32 @@ namespace Paradiso
         private UIElement elementBeingDragged;
         private bool IsEllapsed = false;
         private bool IsAllowReserve = false;
+
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            if (MovieScheduleComboBox != null)
+                MovieScheduleComboBox.SelectionChanged -= MovieScheduleComboBox_SelectionChanged;
+
+            if (MovieSchedules.Count > 0)
+                MovieSchedules.Clear();
+            if (Patrons.Count > 0)
+                Patrons.Clear();
+            if (Seats.Count > 0)
+                Seats.Clear();
+
+            var window = Window.GetWindow(this);
+            if (window != null)
+                window.KeyDown -= Page_PreviewKeyDown;
+            StopTimer();
+
+
+            SelectedPatronSeatList.Dispose();
+        }
+
+        #endregion
 
         public SeatingPage(MovieScheduleListModel movieScheduleListModel) 
         {
@@ -320,14 +346,10 @@ namespace Paradiso
                 ParadisoObjectManager.GetInstance().ScreeningDate = ParadisoObjectManager.GetInstance().CurrentDate;
 
             ParadisoObjectManager.GetInstance().SetNewSessionId();
+            
+            this.Dispose();
 
-            var window = Window.GetWindow(this);
-            if (window != null)
-                window.KeyDown -= Page_PreviewKeyDown;
-            StopTimer();
-
-            SelectedPatronSeatList.Dispose();
-            if (NavigationService != null) 
+            if (NavigationService != null)
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
         }
 
@@ -583,12 +605,8 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is invalid.";
                     messageWindow.ShowDialog();
 
-                    var window = Window.GetWindow(this);
-                    if (window != null)
-                        window.KeyDown -= Page_PreviewKeyDown;
-                    StopTimer();
+                    this.Dispose();
 
-                    SelectedPatronSeatList.Dispose();
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -611,12 +629,8 @@ namespace Paradiso
                     messageWindow.MessageText.Text = "Movie Schedule is already expired.";
                     messageWindow.ShowDialog();
 
-                    var window = Window.GetWindow(this);
-                    if (window != null)
-                        window.KeyDown -= Page_PreviewKeyDown;
-                    StopTimer();
+                    this.Dispose();
 
-                    SelectedPatronSeatList.Dispose();
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
                     return;
@@ -1305,7 +1319,7 @@ namespace Paradiso
                             ContextMenu cm = this.FindResource("cmUnReserve") as ContextMenu;
                             cm.PlacementTarget = sender as Canvas;
 
-                            cm.DataContext = reservedSeats;
+                            cm.DataContext = reservedSeats; //memory leak here
                             cm.IsOpen = true;
                         }
                     }
@@ -1378,13 +1392,8 @@ namespace Paradiso
             }
             else
             {
-                //call payment
-                var window = Window.GetWindow(this);
-                if (window != null)
-                    window.KeyDown -= Page_PreviewKeyDown;
-                StopTimer();
+                this.Dispose();
 
-                //SelectedPatronSeatList.Dispose(); //memory leak
                 if (NavigationService != null) 
                     NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
             }
@@ -1874,12 +1883,10 @@ namespace Paradiso
                 //clear all
                 this.ClearSelection();
 
-                var window = Window.GetWindow(this);
-                if (window != null)
-                    window.KeyDown -= Page_PreviewKeyDown;
-                StopTimer();
-                
-                SelectedPatronSeatList.Dispose();
+                this.Dispose();
+
+
+                ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
 
                 //if (msli.SeatType == 1)
                     NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
@@ -1978,6 +1985,7 @@ namespace Paradiso
                     }
                 }
             }
+            buyerWindow.Close();
 
 
             this.UpdateMovieSchedule();

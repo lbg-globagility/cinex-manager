@@ -123,15 +123,12 @@ namespace Paradiso
             string strContent = string.Empty;
             if (e.Content != null)
                 strContent = e.Content.ToString();
-            if (strContent != "Paradiso.TenderAmountPage") //option to go back
+            try
             {
-                try
-                {
-                    while (MainFrame.NavigationService.CanGoBack)
-                        MainFrame.NavigationService.RemoveBackEntry();
-                }
-                catch { }
+                while (MainFrame.NavigationService.CanGoBack)
+                    MainFrame.NavigationService.RemoveBackEntry();
             }
+            catch { }
             
             if (strContent == "Paradiso.MovieCalendarPage")
             {

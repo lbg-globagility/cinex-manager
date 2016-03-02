@@ -151,27 +151,32 @@ namespace Paradiso
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            BuyerSearchWindow searchWindow = new BuyerSearchWindow();
-            var window = Window.GetWindow(this);
-
-            if (window != null)
-                searchWindow.Owner = window;
-            searchWindow.ShowDialog();
-            if (!searchWindow.IsCancelled)
+            using (BuyerSearchWindow searchWindow = new BuyerSearchWindow())
             {
-                if (searchWindow.SelectedBuyer != null)
+
+                var window = Window.GetWindow(this);
+
+                if (window != null)
+                    searchWindow.Owner = window;
+                searchWindow.ShowDialog();
+                if (!searchWindow.IsCancelled)
                 {
-                    BuyerInfo.Id = searchWindow.SelectedBuyer.Id;
-                    BuyerInfo.LastName = searchWindow.SelectedBuyer.LastName;
-                    BuyerInfo.FirstName = searchWindow.SelectedBuyer.FirstName;
-                    BuyerInfo.MiddleInitial = searchWindow.SelectedBuyer.MiddleInitial;
-                    BuyerInfo.Address = searchWindow.SelectedBuyer.Address;
-                    BuyerInfo.Municipality = searchWindow.SelectedBuyer.Municipality;
-                    BuyerInfo.Province = searchWindow.SelectedBuyer.Province;
-                    BuyerInfo.TIN = searchWindow.SelectedBuyer.TIN;
-                    BuyerInfo.IDNum = searchWindow.SelectedBuyer.IDNum;
-                    EnableBuyerEditing(false);
+                    if (searchWindow.SelectedBuyer != null)
+                    {
+                        BuyerInfo.Id = searchWindow.SelectedBuyer.Id;
+                        BuyerInfo.LastName = searchWindow.SelectedBuyer.LastName;
+                        BuyerInfo.FirstName = searchWindow.SelectedBuyer.FirstName;
+                        BuyerInfo.MiddleInitial = searchWindow.SelectedBuyer.MiddleInitial;
+                        BuyerInfo.Address = searchWindow.SelectedBuyer.Address;
+                        BuyerInfo.Municipality = searchWindow.SelectedBuyer.Municipality;
+                        BuyerInfo.Province = searchWindow.SelectedBuyer.Province;
+                        BuyerInfo.TIN = searchWindow.SelectedBuyer.TIN;
+                        BuyerInfo.IDNum = searchWindow.SelectedBuyer.IDNum;
+                        EnableBuyerEditing(false);
+                    }
                 }
+
+                searchWindow.Close();
             }
         }
     }

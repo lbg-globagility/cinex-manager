@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Paradiso.Model
 {
-    public class GiftCertificateListModel : INotifyPropertyChanged
+    public class GiftCertificateListModel : INotifyPropertyChanged, IDisposable
     {
         public ObservableCollection<GiftCertificateModel> GiftCertificates { get; set; }
 
@@ -72,5 +72,19 @@ namespace Paradiso.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        #region IDisposable Members
+
+        void IDisposable.Dispose()
+        {
+            GiftCertificates.Clear();
+            try
+            {
+                GiftCertificates.CollectionChanged -= (sender, e) => NotifyPropertyChanged("Total");
+            }
+            catch { }
+        }
+
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ using Paradiso.Helpers;
 
 namespace Paradiso.Model
 {
-    public class PatronQuantityListModel : INotifyPropertyChanged
+    public class PatronQuantityListModel : INotifyPropertyChanged, IDisposable
     {
         public MyObservableCollection<PatronQuantityModel> Patrons { get; set; }
 
@@ -64,5 +64,16 @@ namespace Paradiso.Model
             }
         }
 
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            Patrons.Clear();
+            Patrons.CollectionChanged -= Patrons_CollectionChanged;
+            Patrons.ChildElementPropertyChanged -= Patrons_ChildElementPropertyChanged;
+        }
+
+        #endregion
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace Paradiso.Model
 {
-    public class PatronSeatListModel : INotifyPropertyChanged
+    public class PatronSeatListModel : INotifyPropertyChanged, IDisposable
     {
         public ObservableCollection<PatronSeatModel> PatronSeats { get; set; }
 
