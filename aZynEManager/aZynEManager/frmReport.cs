@@ -248,10 +248,12 @@ namespace aZynEManager
                         _dtEnd.AddDays(-1);*/
                         //sqry.Append(String.Format("set @startdate:= '{0:yyyy/MM/dd}'; ",));
                         //sqry.Append(String.Format("set @enddate:= '{0:yyyy/MM/dd}'; ", ));
-                        sqry.Append("select moviecode, movietitle, dayshown, sum(screen) screen, sum(seattaken) seattaken,  ");
+                        //sqry.Append("select moviecode, movietitle, dayshown, sum(screen) screen, sum(seattaken) seattaken,  ");//remarked 3.9.2016
+                        sqry.Append("select moviecode, movietitle, sum(dayshown) as dayshown, sum(screen) screen, sum(seattaken) seattaken,  ");
                         sqry.Append("sum(seattotal) seattotal, sum(totalprice) totalprice, ((sum(seattaken)/sum(seattotal)) * 100) util, ");
                         sqry.Append("system_value, reportname ");
-                        sqry.Append(String.Format("from (select e.code moviecode, e.title movietitle, (DATEDIFF('{0:yyyy/MM/dd}','{1:yyyy/MM/dd}') + 1) dayshown, count(distinct(c.id)) screen, ", _dtEnd, _dtStart));
+                        //sqry.Append(String.Format("from (select e.code moviecode, e.title movietitle, (DATEDIFF('{0:yyyy/MM/dd}','{1:yyyy/MM/dd}') + 1) dayshown, count(distinct(c.id)) screen, ", _dtEnd, _dtStart));//remarked 3.9.2016
+                        sqry.Append(String.Format("from (select e.code moviecode, e.title movietitle, count(distinct(d.movie_date)) as dayshown, count(distinct(c.id)) screen, ", _dtEnd, _dtStart));
                         sqry.Append("count(b.cinema_seat_id) seattaken, f.capacity * count(distinct(c.id)) seattotal, ");
                         sqry.Append("sum(b.base_price) totalprice, j.system_value, k.name reportname ");
                         sqry.Append("from movies_schedule_list_reserved_seat b, movies_schedule_list c, ");
@@ -1496,7 +1498,7 @@ namespace aZynEManager
 
                 rdlViewer1.SourceRdl = xmlfile;
                 rdlViewer1.Rebuild();
-               // MessageBox.Show(xmlfile.ToString());
+                //MessageBox.Show(xmlfile.ToString());
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
             }
             catch (Exception err)

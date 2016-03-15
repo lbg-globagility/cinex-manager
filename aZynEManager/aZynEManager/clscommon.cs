@@ -1645,8 +1645,8 @@ namespace aZynEManager
                 sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name, ");
                 sQuery.Append("f.with_gross_margin, f.with_prod_share, ");//added 7.10.2015 for excempting complimentary pass sample
                 sQuery.Append("sum(a.ordinance_price) as ord_sum, sum(a.surcharge_price) as sur_sum, "); // added for surcharge and ordinance 1.7.2016
-                sQuery.Append("b.movie_date, "); //added 2.6.2016
-                sQuery.Append("a.price ");//2.23.2016 list(16)
+                sQuery.Append("min(b.movie_date), max(b.movie_date), ");//updated 3.11.2016 min(col[15]) and max(col[16]) //added 2.6.2016
+                sQuery.Append("a.price ");//3.11.2016 moved to (col[17]) //2.23.2016 list(16)
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
@@ -1686,12 +1686,42 @@ namespace aZynEManager
                     double grossmargin = 0;
                     string sharedaterange = "";// "From: " + String.Format("{0:MM/dd/yyyy}", startdate) + " To: " + String.Format("{0:MM/dd/yyyy}", enddate);//getDateRange(movieid, startdate, enddate.AddDays(1), sConnString);//edited 2.4.2016
 
-                    DateTime newstartdate = startdate;
-                    DateTime newenddate = enddate;
-
+                    /*compute for the strt date and the enddate*/
+                    DateTime newstartdate = new DateTime();// startdate;
+                    DateTime newenddate = new DateTime(); // enddate;
+                    DateTime tmpmindate = new DateTime();
+                    DateTime tmpmaxdate = new DateTime();
+                    int cntr = 0;
                     foreach (DataRow dr in dt.Rows)
                     {
-                        if (Convert.ToDateTime(dr[15]) > startdate)
+                        tmpmindate = Convert.ToDateTime(dr[15]);
+                        if (tmpmindate >= startdate)
+                        {
+                            if (cntr > 0)
+                            {
+                                if (tmpmindate <= newstartdate)
+                                    newstartdate = tmpmindate;
+                            }
+                            else
+                                newstartdate = tmpmindate;
+                        }
+
+                        tmpmaxdate = Convert.ToDateTime(dr[16]);
+                        if (tmpmaxdate <= enddate)
+                        {
+                            if (cntr > 0)
+                            {
+                                if (tmpmaxdate >= newenddate)
+                                    newenddate = tmpmaxdate;
+                            }
+                            else
+                                newenddate = tmpmaxdate;
+                        }
+                        cntr += 1;
+                    }
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        /*if (Convert.ToDateTime(dr[15]) > startdate)
                         {
                             if (Convert.ToDateTime(dr[15]) >= newstartdate)
                                 newstartdate = Convert.ToDateTime(dr[15]);
@@ -1702,10 +1732,9 @@ namespace aZynEManager
                         {
                             if (Convert.ToDateTime(dr[15]) >= newstartdate)
                                 newstartdate = Convert.ToDateTime(dr[15]);
-                            else
+                           else
                                 newenddate = Convert.ToDateTime(dr[15]);
-                        }
-
+                        }*///remarked 3.11.2016
 
                         amusementtax = 0;
                         culturaltax = 0;
@@ -1734,9 +1763,10 @@ namespace aZynEManager
                             finalsqry.Append(String.Format("{0},", baseprice));//price
                         }
 
+                        /*updated to row[17] 3.11.2016*/
                         /*added price of the ticket per patron start 2.23.2016*/
-                        if (dr[16].ToString() != "")
-                            price = Convert.ToDouble(dr[16].ToString());
+                        if (dr[17].ToString() != "")
+                            price = Convert.ToDouble(dr[17].ToString());
                         /*end 2.23.2016*/
 
                         if (dr[5].ToString() != "")
@@ -1906,7 +1936,6 @@ namespace aZynEManager
                         finalsqry = new StringBuilder();
                     }
                 }
-
 
                 if (myconn.State == ConnectionState.Open)
                     myconn.Close();
