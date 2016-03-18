@@ -85,9 +85,7 @@ namespace Paradiso
             SelectedPatronSeatList = new PatronSeatListModel();
             Seat = new SeatModel();
             
-            this.UpdateMovieSchedule();
             
-
             this.DataContext = this;
             
             timer = new DispatcherTimer();
@@ -95,6 +93,8 @@ namespace Paradiso
             StartTimer();
 
             Version.Text = ParadisoObjectManager.GetInstance().Version;
+
+
         }
 
 
@@ -102,7 +102,7 @@ namespace Paradiso
 
         public void Dispose()
         {
-            if (Patrons.Count > 0)
+            if (Patrons != null && Patrons.Count > 0)
                 Patrons.Clear();
             if (Seats.Count > 0)
                 Seats.Clear();
@@ -241,7 +241,11 @@ namespace Paradiso
 
                 //checks if movie already expired
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
-                if (_movie_schedule_list.starttime.AddMinutes(_movie_schedule_list.laytime) < dtNow)
+                int laytime = _movie_schedule_list.laytime;
+                if (laytime < 30)
+                    laytime = 30;
+
+                if (_movie_schedule_list.starttime.AddMinutes(laytime) < dtNow)
                 {
                     blnIsUpdating = false;
                     MessageWindow messageWindow = new MessageWindow();
@@ -525,6 +529,8 @@ namespace Paradiso
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Page_PreviewKeyDown;
+            
+            this.UpdateMovieSchedule();
 
             /*
             while (NavigationService.CanGoBack)
@@ -541,6 +547,8 @@ namespace Paradiso
                 SeatItemsControl.Height = SeatItemsControl.ActualHeight;
                 SeatItemsControl.Width = SeatItemsControl.ActualWidth;
             }
+
+
         }
 
         private void SeatIcon_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1169,6 +1177,7 @@ namespace Paradiso
             this.dragStartPoint = new Point?(e.GetPosition(this));
             e.Handled = true;
         }
+
         private void ShowDetails_Click(object sender, RoutedEventArgs e)
         {
             HideDetails.Visibility = System.Windows.Visibility.Visible;
