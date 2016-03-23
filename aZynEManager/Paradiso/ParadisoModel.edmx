@@ -1241,6 +1241,9 @@
           <Parameter Name="mlsid" Type="int" Mode="In" />
           <Parameter Name="movie_date" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="retrieve_movie_schedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+          <Parameter Name="p_movie_date" Type="datetime" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>

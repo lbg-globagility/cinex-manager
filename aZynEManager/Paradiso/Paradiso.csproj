@@ -148,6 +148,7 @@
       <DependentUpon>ParadisoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Result1.cs" />
+    <Compile Include="Result2.cs" />
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
