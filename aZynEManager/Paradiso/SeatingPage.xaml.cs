@@ -321,15 +321,31 @@ namespace Paradiso
 
                 if (selectedseats != null)
                 {
-
-                    foreach (var sid in selectedseats)
+                    if (selectedseats.Count != SelectedPatronSeatList.PatronSeats.Count)
                     {
-                        var selectedseat = (from mslhs in context.movies_schedule_list_house_seat
-                                            where mslhs.id == sid
-                                            select mslhs).FirstOrDefault();
-                        if (selectedseat != null)
+                        foreach (var sid in SelectedPatronSeatList.PatronSeats)
                         {
-                            context.movies_schedule_list_house_seat.DeleteObject(selectedseat);
+                            var selectedseat = (from mslhs in context.movies_schedule_list_house_seat
+                                                where mslhs.id == sid.Key
+                                                select mslhs).FirstOrDefault();
+                            if (selectedseat != null)
+                            {
+                                context.movies_schedule_list_house_seat.DeleteObject(selectedseat);
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        foreach (var sid in selectedseats)
+                        {
+                            var selectedseat = (from mslhs in context.movies_schedule_list_house_seat
+                                                where mslhs.id == sid
+                                                select mslhs).FirstOrDefault();
+                            if (selectedseat != null)
+                            {
+                                context.movies_schedule_list_house_seat.DeleteObject(selectedseat);
+                            }
                         }
                     }
 
