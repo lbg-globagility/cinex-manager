@@ -39,7 +39,9 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Left">
+            <controls:MetroProgressBar Name="progressBar2" Height="20" Width="Auto" Grid.Row="0" Grid.Column="1" Margin="20,0" BorderBrush="Black" BorderThickness="1"></controls:MetroProgressBar>
+
+            <StackPanel Grid.Row="0" Grid.Column="0"  Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Left">
                 <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="OR Number/Session Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                 <ComboBox Name="UsersComboBox" Margin="5,0,0,0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" Width="120" />
                 <CheckBox Style="{x:Null}" Height="16" Name="chkSessionOnly" Checked="chkSessionOnly_Checked" Unchecked="chkSessionOnly_Unchecked" />
@@ -58,10 +60,6 @@
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <Label Name="progressName1" Foreground="Black" VerticalContentAlignment="Top" Visibility="Hidden">0%</Label>
-                    <controls:MetroProgressBar Name="progressBar1" Height="20" Width="100" Visibility="Collapsed"></controls:MetroProgressBar>
-                </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" DockPanel.Dock="Left">
