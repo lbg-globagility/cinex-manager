@@ -39,7 +39,6 @@ namespace Paradiso
         public ObservableCollection<string> CancelledORNumbers { get; set; }
 
         private BackgroundWorker worker;
-        private string error;
 
         public TicketPrintPage2()
         {
@@ -107,7 +106,7 @@ namespace Paradiso
 
             worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
-            worker.WorkerSupportsCancellation = true;
+            //worker.WorkerSupportsCancellation = true;
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
             worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
             worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
@@ -115,11 +114,18 @@ namespace Paradiso
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            string error = string.Empty;
+            if (e.Result != null)
+                error = e.Result.ToString();
+
             if (error == string.Empty)
             {
+                progressName1.Content = "Please wait. Updating Search Results...";
                 this.Search(ORNumberInput.Text.Trim(), false);
                 error = "Successfully voided ticket(s).";
             }
+            progressName1.Visibility = System.Windows.Visibility.Hidden;
+
             MessageWindow _messageWindow = new MessageWindow();
             _messageWindow.MessageText.Text = error;
             _messageWindow.ShowDialog();
@@ -130,23 +136,23 @@ namespace Paradiso
         {
             //throw new NotImplementedException();
             progressBar1.Value = e.ProgressPercentage;
-            progressName1.Content = string.Format("{0:0}", e.ProgressPercentage);
+            progressName1.Content = string.Format("{0:0}%", e.ProgressPercentage);
         }
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             bool _blnIsSession = (bool)e.Argument;
-            int max = TicketList.Tickets.Count;
+            var _t = TicketList.Tickets.Where(x => x.IsSelected == true).ToList();
+
+            int max = _t.Count;
             int _idx = 0;
-            error = "";
-            foreach (var t in TicketList.Tickets)
+            string error = "";
+            foreach (var t in _t)
             {
                 _idx++;
-                int percentage = (_idx * 100) / max;
-                (sender as BackgroundWorker).ReportProgress(percentage);
+                int percentage = (int) (_idx * 100/ max);
+                worker.ReportProgress(percentage);
 
-                if (!t.IsSelected)
-                    continue;
                 if (_blnIsSession == true)
                 {
                     try
@@ -222,7 +228,7 @@ namespace Paradiso
                 }
 
             }
-
+            e.Result = error;
         }
 
         private void PopulateUsers() 
@@ -414,8 +420,12 @@ namespace Paradiso
             if (window.IsYes)
             {
                 progressBar1.Minimum = 0;
-                progressBar1.Maximum = TicketList.Tickets.Count;
                 progressBar1.Value = 0;
+                TicketSessions.Clear();
+                TicketList.Tickets.Clear();
+                progressName1.Content = "0%";
+                progressName1.Visibility = System.Windows.Visibility.Visible;
+
                 worker.RunWorkerAsync(chkSessionOnly.IsChecked);
 /*
                 foreach (var t in TicketList.Tickets)
@@ -1102,7 +1112,7 @@ namespace Paradiso
         }
 
         //put this into thread or create progress so it will not appear to hang
-        public void PrintTickets(List<string> tickets)
+        public void PrintTickets(string[] tickets)
         {
             PrintDialog dialog = new PrintDialog();
             bool? _print = false;

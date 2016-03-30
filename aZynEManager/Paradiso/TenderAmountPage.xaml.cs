@@ -497,12 +497,12 @@ namespace Paradiso
                         if (blnIsTicketFormatB)
                         {
                             TicketPrintPage2 ticketPrintPage = new TicketPrintPage2(false);
-                            ticketPrintPage.PrintTickets(ornumbers);
+                            ticketPrintPage.PrintTickets(ornumbers.ToArray());
                         }
                         else
                         {
                             TicketPrintPage ticketPrintPage = new TicketPrintPage(false);
-                            ticketPrintPage.PrintTickets(ornumbers);
+                            ticketPrintPage.PrintTickets(ornumbers.ToArray());
                         }
 
                         ornumbers.Clear();

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:l="clr-namespace:Paradiso"
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
 	Title="TicketPrintPage" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
@@ -57,9 +58,9 @@
                         </Rectangle.Fill>
                     </Rectangle>
                 </Button>
-                <StackPanel>
-                    <Label Name="progressName1" Visibility="Hidden">0%</Label>
-                    <ProgressBar  Name="progressBar1" Visibility="Hidden" Width="100" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" VerticalContentAlignment="Stretch" />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label Name="progressName1" Foreground="Black" VerticalContentAlignment="Top" Visibility="Hidden">0%</Label>
+                    <controls:MetroProgressBar Name="progressBar1" Height="20" Width="100" Visibility="Collapsed"></controls:MetroProgressBar>
                 </StackPanel>
             </StackPanel>
 

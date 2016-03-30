@@ -668,7 +668,7 @@ namespace Paradiso
         }
 
         //put this into thread or create progress so it will not appear to hang
-        public void PrintTickets(List<string> tickets)
+        public void PrintTickets(string[] tickets)
         {
             PrintDialog dialog = new PrintDialog();
             bool? _print = false;
