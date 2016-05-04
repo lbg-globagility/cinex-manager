@@ -192,11 +192,10 @@ namespace Paradiso
             }
 
             bool blnIsORNumber = false;
-            /*
             //checks if format is ornumber or session
-            if (chkSessionOnly.IsChecked == false)
+            if (!so.isSessionOnly)
             {
-                if (strSearch.All(Char.IsDigit))
+                if (strSearch.All(Char.IsDigit) && !strSearch.StartsWith("201"))
                 {
                     int _orNumber = 0;
                     if (int.TryParse(strSearch, out _orNumber) && _orNumber > 0)
@@ -216,7 +215,7 @@ namespace Paradiso
                     }
                 }
             }
-            */
+
             Dispatcher.Invoke((Action)(()=>
                 TicketSessions.Clear()
             ));
