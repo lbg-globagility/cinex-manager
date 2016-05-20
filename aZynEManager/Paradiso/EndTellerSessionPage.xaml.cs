@@ -40,7 +40,7 @@ namespace Paradiso
             DateTime dtCurrent = ParadisoObjectManager.GetInstance().CurrentDate;
             try
             {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var trail = (from at in context.a_trail
                                  where at.tr_date.Year == dtCurrent.Year && at.tr_date.Month == dtCurrent.Month

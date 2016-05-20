@@ -44,7 +44,7 @@ namespace Paradiso
             {
 
                 Buyers.Clear();
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
 
                     var results = (from b in context.buyers

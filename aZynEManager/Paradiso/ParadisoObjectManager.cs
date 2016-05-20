@@ -119,21 +119,21 @@ namespace Paradiso
                 DateTime currentDateTime = DateTime.Now;
                 try
                 {
-                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                     {
                         var n = context.CreateQuery<DateTime>("CurrentDateTime()");
                         DateTime dbDate = n.AsEnumerable().First();
                         currentDateTime = dbDate;
                     }
                 }
-                catch  { }
+                catch (Exception ex) { }
                 return currentDateTime;
             }
         }
 
         public void SaveConfigValue(string strHeader, string strValue)
         {
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var ct = (from h in context.config_table where h.system_desc == strHeader select h).SingleOrDefault();
                 if (ct == null)
@@ -169,7 +169,7 @@ namespace Paradiso
         public string GetConfigValue(string _strHeader, string strDefault)
         {
             string strHeader = strDefault;
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var header = (from h in context.config_table where h.system_desc == _strHeader select h.system_value).SingleOrDefault();
                 if (header != null && header != string.Empty)
@@ -242,7 +242,7 @@ namespace Paradiso
             get
             {
                 bool blnIsReserveUnreservedSeats = false;
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     string strReserveUnreservedSeats = string.Empty;
                     var reserve = (from h in context.config_table where h.system_desc == "REMOVE RESERVED" select h.system_value).SingleOrDefault();
@@ -260,7 +260,7 @@ namespace Paradiso
             get
             {
                 bool blnIsPrintWithoutPreview = false;
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     string strIsPrintWithoutPreview = string.Empty;
                     var printwopreview = (from h in context.config_table where h.system_desc == "PRINT WITHOUT PREVIEW" select h.system_value).SingleOrDefault();
@@ -294,7 +294,7 @@ namespace Paradiso
             get
             {
                 string strTIN = string.Empty; //"XXX-XXX-XXX-XXX";
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var tin = (from h in context.config_table where h.system_desc == "TIN" select h.system_value).SingleOrDefault();
                     if (tin != null && tin != string.Empty)
@@ -309,7 +309,7 @@ namespace Paradiso
             get
             {
                 string strPN = string.Empty; // "XXXX-XXX-XXXXX-XXX";
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var tin = (from h in context.config_table where h.system_desc == "PN" select h.system_value).SingleOrDefault();
                     if (tin != null && tin != string.Empty)
@@ -325,7 +325,7 @@ namespace Paradiso
             get
             {
                 string strMIN = string.Empty; 
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var tin = (from h in context.config_table where h.system_desc == "MIN" select h.system_value).SingleOrDefault();
                     if (tin != null && tin != string.Empty)
@@ -338,7 +338,7 @@ namespace Paradiso
         public bool HasRights(string strModuleCode)
         {
             bool blnHasRights = false;
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var has_rights = (from u in context.user_rights where u.user_id == this.UserId && u.system_module.module_code == strModuleCode && u.system_module.module_group == "TICKET" select u).SingleOrDefault();
                 if (has_rights != null)
@@ -356,7 +356,7 @@ namespace Paradiso
         public void Log(int intUserId, string strModuleCode, string strAffectTables, string strDetails)
         {
             DateTime dtCurrentDate = this.CurrentDate;
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var module_id = (from s in context.system_module where s.module_code == strModuleCode && s.module_group == "TICKET" select s.id).SingleOrDefault();
                 if (module_id == 0)

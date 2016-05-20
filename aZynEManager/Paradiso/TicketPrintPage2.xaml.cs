@@ -223,7 +223,7 @@ namespace Paradiso
             ));
 
             //search ornumber or session number
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 if (so.isSessionOnly == false)
                 {
@@ -588,7 +588,7 @@ namespace Paradiso
                 {
                     try
                     {
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
 
                             var _mslhs = (from mslhs in context.movies_schedule_list_house_seat
@@ -629,7 +629,7 @@ namespace Paradiso
 
                     try
                     {
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
 
                             var _mslrs = (from mslrs in context.movies_schedule_list_reserved_seat
@@ -666,7 +666,7 @@ namespace Paradiso
         {
             Users.Clear();
             Users.Add(new UserModel() { Key = 0, Name = "ALL" });
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var users = (from u in context.users
                              where u.system_code == 2 && u.status == 1
@@ -690,7 +690,7 @@ namespace Paradiso
             CancelledORNumbers.Clear();
             try
             {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     var ornumbers = (from o in context.or_numbers_unpublished_movies_schedule_view
                                      select
@@ -708,7 +708,7 @@ namespace Paradiso
                 TicketList.Tickets.Clear();
 
                 //search ornumber or session number
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     foreach (string strSearch in CancelledORNumbers)
                     {
@@ -865,7 +865,7 @@ namespace Paradiso
                     {
                         try
                         {
-                            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                             {
 
                                 var _mslhs = (from mslhs in context.movies_schedule_list_house_seat
@@ -912,7 +912,7 @@ namespace Paradiso
 
                         try
                         {
-                            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                             {
 
                                 var _mslrs = (from mslrs in context.movies_schedule_list_reserved_seat
@@ -959,7 +959,7 @@ namespace Paradiso
             //Ticket = new TicketModel();
 
             Ticket.Clear();
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var t = (from mslrs in context.movies_schedule_list_reserved_seat
                          where mslrs.or_number == strORNumber && mslrs.status == 1 
@@ -1734,7 +1734,7 @@ namespace Paradiso
             {
                 bool blnRunOnce = true;
 
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     if (chkSessionOnly.IsChecked == true)
                     {

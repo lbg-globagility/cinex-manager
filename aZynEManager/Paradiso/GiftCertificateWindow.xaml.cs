@@ -53,7 +53,7 @@ namespace Paradiso
                 else
                 {
                     DateTime dtCurrentDate = ParadisoObjectManager.GetInstance().CurrentDate;
-                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                     {
                         var gc = (from _gc in context.gift_certificate where _gc.name == strGiftCertificateName select _gc).FirstOrDefault();
                         if (gc == null)

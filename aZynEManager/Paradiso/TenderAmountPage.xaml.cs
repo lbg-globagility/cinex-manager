@@ -55,7 +55,7 @@ namespace Paradiso
             string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
             this.MovieTimeKey = 0;
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
 
                 
@@ -294,7 +294,7 @@ namespace Paradiso
             if (!messageYesNoWindow.IsYes)
             {
                 //real saving is done here
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     //begin transaction
                     bool success = false;

@@ -59,7 +59,7 @@ namespace Paradiso
 
             try
             {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
 
                     var username = (from u in context.users where u.userid == strUserName && u.user_password == strPassword && u.system_code == 2 && u.status == 1 select new { u.id, u.lname, u.fname, u.mname }).FirstOrDefault();

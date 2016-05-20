@@ -19,7 +19,10 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_a_trail_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "a_trail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.a_trail), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_movies_schedule_list_house_seat", "movies_schedule_list_house_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_house_seat), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_mslrs", "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_reserved_seat), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_cinema_patron_cinema1", "cinema", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.cinema), "cinema_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.cinema_patron), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_cinema_seat_cinema1", "cinema", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.cinema), "cinema_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.cinema_seat), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_cinema_sound_system1", "sound_system", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.sound_system), "cinema", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.cinema), true)]
@@ -29,7 +32,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_cinema_seat1", "cinema_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.cinema_seat), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_class_classification1", "classification", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.classification), "movies_class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_class), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_distributor1", "distributor", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.distributor), "movies", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movie), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_session_gift_certificate_gift_certificate", "gift_certificate", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.gift_certificate), "session_gift_certificate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.session_gift_certificate), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_class_movies1", "movies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movie), "movies_class", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_class), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_distributor_movies1", "movies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movie), "movies_distributor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_distributor), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_mtrcb1", "mtrcb", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.mtrcb), "movies", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movie), true)]
@@ -43,20 +45,16 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_patron_patrons1", "patrons", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.patron), "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_patron), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_mslp1", "movies_schedule_list_patron", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_patron), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_ticket1", "ticket", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.ticket), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Paradiso.user), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_ordinance_tbl", "ordinance_tbl", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.ordinance_tbl), "patrons_ordinance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.patrons_ordinance), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_patrons", "patrons", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.patron), "patrons_ordinance", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.patrons_ordinance), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_session_gift_certificate_session", "session", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.session), "session_gift_certificate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.session_gift_certificate), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_ticket_session", "session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Paradiso.session), "ticket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.ticket), true)]
 [assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_system_module1", "system_module", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.system_module), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_ticket_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "ticket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.ticket), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_temp_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs_temp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs_temp), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_users1", "users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_buyer", "buyer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.buyer), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_movies_schedule_list_house_seat", "movies_schedule_list_house_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_house_seat), "buyer_info", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info), true)]
-[assembly: EdmRelationshipAttribute("paradisoModel", "fk_buyer_info_reserved_mslrs", "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.movies_schedule_list_reserved_seat), "buyer_info_reserved", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.buyer_info_reserved), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_a_trail_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "a_trail", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.a_trail), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Paradiso.user), "movies_schedule_list_reserved_seat", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.movies_schedule_list_reserved_seat), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_ticket_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "ticket", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.ticket), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_logs_temp_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_logs_temp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_logs_temp), true)]
+[assembly: EdmRelationshipAttribute("paradisoModel", "fk_user_rights_users1", "user", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Paradiso.user), "user_rights", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Paradiso.user_rights), true)]
 
 #endregion
 
@@ -67,32 +65,32 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class paradisoEntities : ObjectContext
+    public partial class azynemaEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new paradisoEntities object using the connection string found in the 'paradisoEntities' section of the application configuration file.
+        /// Initializes a new azynemaEntities object using the connection string found in the 'azynemaEntities' section of the application configuration file.
         /// </summary>
-        public paradisoEntities() : base("name=paradisoEntities", "paradisoEntities")
+        public azynemaEntities() : base("name=azynemaEntities", "azynemaEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new paradisoEntities object.
+        /// Initialize a new azynemaEntities object.
         /// </summary>
-        public paradisoEntities(string connectionString) : base(connectionString, "paradisoEntities")
+        public azynemaEntities(string connectionString) : base(connectionString, "azynemaEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new paradisoEntities object.
+        /// Initialize a new azynemaEntities object.
         /// </summary>
-        public paradisoEntities(EntityConnection connection) : base(connection, "paradisoEntities")
+        public azynemaEntities(EntityConnection connection) : base(connection, "azynemaEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -143,6 +141,54 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<buyer> buyers
+        {
+            get
+            {
+                if ((_buyers == null))
+                {
+                    _buyers = base.CreateObjectSet<buyer>("buyers");
+                }
+                return _buyers;
+            }
+        }
+        private ObjectSet<buyer> _buyers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<buyer_info> buyer_info
+        {
+            get
+            {
+                if ((_buyer_info == null))
+                {
+                    _buyer_info = base.CreateObjectSet<buyer_info>("buyer_info");
+                }
+                return _buyer_info;
+            }
+        }
+        private ObjectSet<buyer_info> _buyer_info;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<buyer_info_reserved> buyer_info_reserved
+        {
+            get
+            {
+                if ((_buyer_info_reserved == null))
+                {
+                    _buyer_info_reserved = base.CreateObjectSet<buyer_info_reserved>("buyer_info_reserved");
+                }
+                return _buyer_info_reserved;
+            }
+        }
+        private ObjectSet<buyer_info_reserved> _buyer_info_reserved;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<cinema> cinemas
         {
             get
@@ -171,6 +217,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<cinema_patron> _cinema_patron;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<cinema_patron_default> cinema_patron_default
+        {
+            get
+            {
+                if ((_cinema_patron_default == null))
+                {
+                    _cinema_patron_default = base.CreateObjectSet<cinema_patron_default>("cinema_patron_default");
+                }
+                return _cinema_patron_default;
+            }
+        }
+        private ObjectSet<cinema_patron_default> _cinema_patron_default;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -655,22 +717,6 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<user> users
-        {
-            get
-            {
-                if ((_users == null))
-                {
-                    _users = base.CreateObjectSet<user>("users");
-                }
-                return _users;
-            }
-        }
-        private ObjectSet<user> _users;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<movies_schedule_list_house_seat_free_view> movies_schedule_list_house_seat_free_view
         {
             get
@@ -699,6 +745,22 @@ namespace Paradiso
             }
         }
         private ObjectSet<movies_schedule_list_house_seat_view> _movies_schedule_list_house_seat_view;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> movies_schedule_list_patron_ordinance_surcharge_view
+        {
+            get
+            {
+                if ((_movies_schedule_list_patron_ordinance_surcharge_view == null))
+                {
+                    _movies_schedule_list_patron_ordinance_surcharge_view = base.CreateObjectSet<movies_schedule_list_patron_ordinance_surcharge_view>("movies_schedule_list_patron_ordinance_surcharge_view");
+                }
+                return _movies_schedule_list_patron_ordinance_surcharge_view;
+            }
+        }
+        private ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> _movies_schedule_list_patron_ordinance_surcharge_view;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -751,66 +813,34 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<buyer> buyers
+        public ObjectSet<patrons_ordinance_view> patrons_ordinance_view
         {
             get
             {
-                if ((_buyers == null))
+                if ((_patrons_ordinance_view == null))
                 {
-                    _buyers = base.CreateObjectSet<buyer>("buyers");
+                    _patrons_ordinance_view = base.CreateObjectSet<patrons_ordinance_view>("patrons_ordinance_view");
                 }
-                return _buyers;
+                return _patrons_ordinance_view;
             }
         }
-        private ObjectSet<buyer> _buyers;
+        private ObjectSet<patrons_ordinance_view> _patrons_ordinance_view;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<buyer_info> buyer_info
+        public ObjectSet<user> users
         {
             get
             {
-                if ((_buyer_info == null))
+                if ((_users == null))
                 {
-                    _buyer_info = base.CreateObjectSet<buyer_info>("buyer_info");
+                    _users = base.CreateObjectSet<user>("users");
                 }
-                return _buyer_info;
+                return _users;
             }
         }
-        private ObjectSet<buyer_info> _buyer_info;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<buyer_info_reserved> buyer_info_reserved
-        {
-            get
-            {
-                if ((_buyer_info_reserved == null))
-                {
-                    _buyer_info_reserved = base.CreateObjectSet<buyer_info_reserved>("buyer_info_reserved");
-                }
-                return _buyer_info_reserved;
-            }
-        }
-        private ObjectSet<buyer_info_reserved> _buyer_info_reserved;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> movies_schedule_list_patron_ordinance_surcharge_view
-        {
-            get
-            {
-                if ((_movies_schedule_list_patron_ordinance_surcharge_view == null))
-                {
-                    _movies_schedule_list_patron_ordinance_surcharge_view = base.CreateObjectSet<movies_schedule_list_patron_ordinance_surcharge_view>("movies_schedule_list_patron_ordinance_surcharge_view");
-                }
-                return _movies_schedule_list_patron_ordinance_surcharge_view;
-            }
-        }
-        private ObjectSet<movies_schedule_list_patron_ordinance_surcharge_view> _movies_schedule_list_patron_ordinance_surcharge_view;
+        private ObjectSet<user> _users;
 
         #endregion
 
@@ -833,6 +863,30 @@ namespace Paradiso
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the buyers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTobuyers(buyer buyer)
+        {
+            base.AddObject("buyers", buyer);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the buyer_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTobuyer_info(buyer_info buyer_info)
+        {
+            base.AddObject("buyer_info", buyer_info);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the buyer_info_reserved EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTobuyer_info_reserved(buyer_info_reserved buyer_info_reserved)
+        {
+            base.AddObject("buyer_info_reserved", buyer_info_reserved);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the cinemas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTocinemas(cinema cinema)
@@ -846,6 +900,14 @@ namespace Paradiso
         public void AddTocinema_patron(cinema_patron cinema_patron)
         {
             base.AddObject("cinema_patron", cinema_patron);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the cinema_patron_default EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTocinema_patron_default(cinema_patron_default cinema_patron_default)
+        {
+            base.AddObject("cinema_patron_default", cinema_patron_default);
         }
     
         /// <summary>
@@ -1089,14 +1151,6 @@ namespace Paradiso
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTousers(user user)
-        {
-            base.AddObject("users", user);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the movies_schedule_list_house_seat_free_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTomovies_schedule_list_house_seat_free_view(movies_schedule_list_house_seat_free_view movies_schedule_list_house_seat_free_view)
@@ -1110,6 +1164,14 @@ namespace Paradiso
         public void AddTomovies_schedule_list_house_seat_view(movies_schedule_list_house_seat_view movies_schedule_list_house_seat_view)
         {
             base.AddObject("movies_schedule_list_house_seat_view", movies_schedule_list_house_seat_view);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the movies_schedule_list_patron_ordinance_surcharge_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTomovies_schedule_list_patron_ordinance_surcharge_view(movies_schedule_list_patron_ordinance_surcharge_view movies_schedule_list_patron_ordinance_surcharge_view)
+        {
+            base.AddObject("movies_schedule_list_patron_ordinance_surcharge_view", movies_schedule_list_patron_ordinance_surcharge_view);
         }
     
         /// <summary>
@@ -1137,35 +1199,19 @@ namespace Paradiso
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the buyers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the patrons_ordinance_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTobuyers(buyer buyer)
+        public void AddTopatrons_ordinance_view(patrons_ordinance_view patrons_ordinance_view)
         {
-            base.AddObject("buyers", buyer);
+            base.AddObject("patrons_ordinance_view", patrons_ordinance_view);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the buyer_info EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddTobuyer_info(buyer_info buyer_info)
+        public void AddTousers(user user)
         {
-            base.AddObject("buyer_info", buyer_info);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the buyer_info_reserved EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTobuyer_info_reserved(buyer_info_reserved buyer_info_reserved)
-        {
-            base.AddObject("buyer_info_reserved", buyer_info_reserved);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the movies_schedule_list_patron_ordinance_surcharge_view EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTomovies_schedule_list_patron_ordinance_surcharge_view(movies_schedule_list_patron_ordinance_surcharge_view movies_schedule_list_patron_ordinance_surcharge_view)
-        {
-            base.AddObject("movies_schedule_list_patron_ordinance_surcharge_view", movies_schedule_list_patron_ordinance_surcharge_view);
+            base.AddObject("users", user);
         }
 
         #endregion
@@ -1395,16 +1441,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_a_trail_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_a_trail_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -1416,13 +1462,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_a_trail_users1", "users", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_a_trail_users1", "user", value);
                 }
             }
         }
@@ -2734,6 +2780,111 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="cinema_patron_default")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class cinema_patron_default : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new cinema_patron_default object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        public static cinema_patron_default Createcinema_patron_default(global::System.Int32 id)
+        {
+            cinema_patron_default cinema_patron_default = new cinema_patron_default();
+            cinema_patron_default.id = id;
+            return cinema_patron_default;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> cinema_id
+        {
+            get
+            {
+                return _cinema_id;
+            }
+            set
+            {
+                Oncinema_idChanging(value);
+                ReportPropertyChanging("cinema_id");
+                _cinema_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cinema_id");
+                Oncinema_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _cinema_id;
+        partial void Oncinema_idChanging(Nullable<global::System.Int32> value);
+        partial void Oncinema_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> patron_id
+        {
+            get
+            {
+                return _patron_id;
+            }
+            set
+            {
+                Onpatron_idChanging(value);
+                ReportPropertyChanging("patron_id");
+                _patron_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("patron_id");
+                Onpatron_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _patron_id;
+        partial void Onpatron_idChanging(Nullable<global::System.Int32> value);
+        partial void Onpatron_idChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="cinema_seat")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3824,32 +3975,6 @@ namespace Paradiso
         #endregion
 
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_session_gift_certificate_gift_certificate", "session_gift_certificate")]
-        public EntityCollection<session_gift_certificate> session_gift_certificate
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<session_gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "session_gift_certificate");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<session_gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "session_gift_certificate", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>
@@ -5524,6 +5649,28 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_movies_schedule_list_house_seat", "buyer_info")]
+        public EntityCollection<buyer_info> buyer_info
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_movies_schedule_list_house_seat", "buyer_info");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_movies_schedule_list_house_seat", "buyer_info", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_house_seat_cinema_seat1", "cinema_seat")]
         public cinema_seat cinema_seat
         {
@@ -5628,28 +5775,6 @@ namespace Paradiso
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<movies_schedule_list_patron>("paradisoModel.fk_movies_schedule_list_house_seat_mslp1", "movies_schedule_list_patron", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_movies_schedule_list_house_seat", "buyer_info")]
-        public EntityCollection<buyer_info> buyer_info
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_movies_schedule_list_house_seat", "buyer_info");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info>("paradisoModel.fk_buyer_info_movies_schedule_list_house_seat", "buyer_info", value);
                 }
             }
         }
@@ -7536,6 +7661,28 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_reserved_mslrs", "buyer_info_reserved")]
+        public EntityCollection<buyer_info_reserved> buyer_info_reserved
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_mslrs", "buyer_info_reserved");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_mslrs", "buyer_info_reserved", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_cinema_seat1", "cinema_seat")]
         public cinema_seat cinema_seat
         {
@@ -7688,16 +7835,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_movies_schedule_list_reserved_seat_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -7709,35 +7856,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "users", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_buyer_info_reserved_mslrs", "buyer_info_reserved")]
-        public EntityCollection<buyer_info_reserved> buyer_info_reserved
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_mslrs", "buyer_info_reserved");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<buyer_info_reserved>("paradisoModel.fk_buyer_info_reserved_mslrs", "buyer_info_reserved", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_movies_schedule_list_reserved_seat_users1", "user", value);
                 }
             }
         }
@@ -8113,17 +8238,15 @@ namespace Paradiso
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="ordinance_no">Initial value of the ordinance_no property.</param>
         /// <param name="effective_date">Initial value of the effective_date property.</param>
-        /// <param name="end_date">Initial value of the end_date property.</param>
         /// <param name="with_enddate">Initial value of the with_enddate property.</param>
         /// <param name="amount_val">Initial value of the amount_val property.</param>
         /// <param name="in_pesovalue">Initial value of the in_pesovalue property.</param>
-        public static ordinance_tbl Createordinance_tbl(global::System.Int32 id, global::System.String ordinance_no, global::System.DateTime effective_date, global::System.DateTime end_date, global::System.Int32 with_enddate, global::System.Single amount_val, global::System.Int32 in_pesovalue)
+        public static ordinance_tbl Createordinance_tbl(global::System.Int32 id, global::System.String ordinance_no, global::System.DateTime effective_date, global::System.Int32 with_enddate, global::System.Single amount_val, global::System.Int32 in_pesovalue)
         {
             ordinance_tbl ordinance_tbl = new ordinance_tbl();
             ordinance_tbl.id = id;
             ordinance_tbl.ordinance_no = ordinance_no;
             ordinance_tbl.effective_date = effective_date;
-            ordinance_tbl.end_date = end_date;
             ordinance_tbl.with_enddate = with_enddate;
             ordinance_tbl.amount_val = amount_val;
             ordinance_tbl.in_pesovalue = in_pesovalue;
@@ -8212,9 +8335,9 @@ namespace Paradiso
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime end_date
+        public Nullable<global::System.DateTime> end_date
         {
             get
             {
@@ -8229,8 +8352,8 @@ namespace Paradiso
                 Onend_dateChanged();
             }
         }
-        private global::System.DateTime _end_date;
-        partial void Onend_dateChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _end_date;
+        partial void Onend_dateChanging(Nullable<global::System.DateTime> value);
         partial void Onend_dateChanged();
     
         /// <summary>
@@ -8997,6 +9120,121 @@ namespace Paradiso
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="patrons_ordinance_view")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class patrons_ordinance_view : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new patrons_ordinance_view object.
+        /// </summary>
+        /// <param name="patron_id">Initial value of the patron_id property.</param>
+        /// <param name="amount_val">Initial value of the amount_val property.</param>
+        /// <param name="in_pesovalue">Initial value of the in_pesovalue property.</param>
+        public static patrons_ordinance_view Createpatrons_ordinance_view(global::System.Int32 patron_id, global::System.Single amount_val, global::System.Int32 in_pesovalue)
+        {
+            patrons_ordinance_view patrons_ordinance_view = new patrons_ordinance_view();
+            patrons_ordinance_view.patron_id = patron_id;
+            patrons_ordinance_view.amount_val = amount_val;
+            patrons_ordinance_view.in_pesovalue = in_pesovalue;
+            return patrons_ordinance_view;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 patron_id
+        {
+            get
+            {
+                return _patron_id;
+            }
+            set
+            {
+                if (_patron_id != value)
+                {
+                    Onpatron_idChanging(value);
+                    ReportPropertyChanging("patron_id");
+                    _patron_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("patron_id");
+                    Onpatron_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _patron_id;
+        partial void Onpatron_idChanging(global::System.Int32 value);
+        partial void Onpatron_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Single amount_val
+        {
+            get
+            {
+                return _amount_val;
+            }
+            set
+            {
+                if (_amount_val != value)
+                {
+                    Onamount_valChanging(value);
+                    ReportPropertyChanging("amount_val");
+                    _amount_val = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("amount_val");
+                    Onamount_valChanged();
+                }
+            }
+        }
+        private global::System.Single _amount_val;
+        partial void Onamount_valChanging(global::System.Single value);
+        partial void Onamount_valChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 in_pesovalue
+        {
+            get
+            {
+                return _in_pesovalue;
+            }
+            set
+            {
+                if (_in_pesovalue != value)
+                {
+                    Onin_pesovalueChanging(value);
+                    ReportPropertyChanging("in_pesovalue");
+                    _in_pesovalue = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("in_pesovalue");
+                    Onin_pesovalueChanged();
+                }
+            }
+        }
+        private global::System.Int32 _in_pesovalue;
+        partial void Onin_pesovalueChanging(global::System.Int32 value);
+        partial void Onin_pesovalueChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="paradisoModel", Name="person")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -9609,28 +9847,6 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_session_gift_certificate_session", "session_gift_certificate")]
-        public EntityCollection<session_gift_certificate> session_gift_certificate
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<session_gift_certificate>("paradisoModel.fk_session_gift_certificate_session", "session_gift_certificate");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<session_gift_certificate>("paradisoModel.fk_session_gift_certificate_session", "session_gift_certificate", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_ticket_session", "ticket")]
         public EntityCollection<ticket> tickets
         {
@@ -9758,86 +9974,6 @@ namespace Paradiso
         #endregion
 
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_session_gift_certificate_gift_certificate", "gift_certificate")]
-        public gift_certificate gift_certificate
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "gift_certificate").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "gift_certificate").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<gift_certificate> gift_certificateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "gift_certificate");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<gift_certificate>("paradisoModel.fk_session_gift_certificate_gift_certificate", "gift_certificate", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_session_gift_certificate_session", "session")]
-        public session session
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<session>("paradisoModel.fk_session_gift_certificate_session", "session").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<session>("paradisoModel.fk_session_gift_certificate_session", "session").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<session> sessionReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<session>("paradisoModel.fk_session_gift_certificate_session", "session");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<session>("paradisoModel.fk_session_gift_certificate_session", "session", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>
@@ -10445,16 +10581,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_ticket_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_ticket_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -10466,13 +10602,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_ticket_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_ticket_users1", "users", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_ticket_users1", "user", value);
                 }
             }
         }
@@ -11319,16 +11455,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_logs_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_logs_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -11340,13 +11476,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_logs_users1", "users", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_logs_users1", "user", value);
                 }
             }
         }
@@ -11548,16 +11684,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_logs_temp_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_logs_temp_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -11569,13 +11705,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "users", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_logs_temp_users1", "user", value);
                 }
             }
         }
@@ -11737,16 +11873,16 @@ namespace Paradiso
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_rights_users1", "users")]
+        [EdmRelationshipNavigationPropertyAttribute("paradisoModel", "fk_user_rights_users1", "user")]
         public user user
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "users").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "user").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "users").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "user").Value = value;
             }
         }
         /// <summary>
@@ -11758,13 +11894,13 @@ namespace Paradiso
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "users");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<user>("paradisoModel.fk_user_rights_users1", "user");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_rights_users1", "users", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<user>("paradisoModel.fk_user_rights_users1", "user", value);
                 }
             }
         }

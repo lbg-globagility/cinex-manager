@@ -101,7 +101,7 @@ namespace Paradiso
 
             try
             {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     int _movie_schedule_id = (from msl in context.movies_schedule_list
                                        where msl.id == MovieSchedule.Key
@@ -260,7 +260,7 @@ namespace Paradiso
         {
             string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var selectedseats = (from mslhsv in context.movies_schedule_list_house_seat_view
                                      where mslhsv.movies_schedule_list_id == this.Key && mslhsv.session_id == strSessionId
@@ -311,7 +311,7 @@ namespace Paradiso
         private void UpdateMovieSchedule()
         {
             blnIsUpdating = true;
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 //checks if movie schedule exists
                 var _movie_schedule_list = (from msl in context.movies_schedule_list
@@ -717,7 +717,7 @@ namespace Paradiso
                         //get selected patron
                         if (seatModel.SeatType == 2)
                         {
-                            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                             {
                                 string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
@@ -755,7 +755,7 @@ namespace Paradiso
                         //verify if reserved
                         ReservedSeatListModel reservedSeats = new ReservedSeatListModel();
 
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
                             var sessionid = (from mcths in context.movies_schedule_list_house_seat_view
                                              where mcths.cinema_seat_id == seatModel.Key && mcths.movies_schedule_list_id == MovieSchedule.Key &&
@@ -830,7 +830,7 @@ namespace Paradiso
 
             PatronSeatModel patronSeatModel = (PatronSeatModel)((Button)sender).DataContext;
 
-            using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+            using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
                 var ps = (from mslhs in context.movies_schedule_list_house_seat
                           where mslhs.id == patronSeatModel.Key
@@ -903,7 +903,7 @@ namespace Paradiso
                 if (IsReservedSeating)
                 {
                     {
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
                             //selected seats 
 
@@ -997,7 +997,7 @@ namespace Paradiso
                     else
                     {
 
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
                             //get screen object type
                             var screen_seat_id = (from cs in context.cinema_seat where cs.cinema_id == MovieSchedule.CinemaKey && cs.object_type == 2 select cs.id).First();
@@ -1211,7 +1211,7 @@ namespace Paradiso
                 string strException = string.Empty;
                 bool success = false;
 
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
 
                     using (TransactionScope transaction = new TransactionScope())
@@ -1325,7 +1325,7 @@ namespace Paradiso
                     int intCount =  Math.Abs(intDelta);
                     if (intDelta != 0)
                     {
-                        using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                        using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                         {
                             if (intDelta > 0) //add 
                             {

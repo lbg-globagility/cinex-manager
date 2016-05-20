@@ -98,7 +98,7 @@ namespace Paradiso
                 movieScheduleItems.Clear();
             try
             {
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     //get all cinemas
 
@@ -470,7 +470,7 @@ namespace Paradiso
                 try
                 {
                     //MessageBox.Show(strCurrentSessionId);
-                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                     {
                         var _mslhs = (from mslsh in context.movies_schedule_list_house_seat
                                       where mslsh.reserved_date.Value.Year == dtNow.Year &&

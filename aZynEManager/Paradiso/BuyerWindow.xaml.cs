@@ -64,7 +64,7 @@ namespace Paradiso
                 //save new
                 BuyerInfo.Id = 0; 
                 //retrieve new id
-                using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
                     buyer _b = new buyer()
                     {

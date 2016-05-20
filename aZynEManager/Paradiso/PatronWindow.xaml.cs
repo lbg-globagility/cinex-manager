@@ -47,7 +47,7 @@ namespace Paradiso
             {
                 SelectedPatron = (PatronModel) item.Content;
                 {
-                    using (var context = new paradisoEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
+                    using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                     {
                         //TODO checks if seat is already taken
                         //TODO checks if seat is already reserved
