@@ -1,0 +1,111 @@
+//view
+CREATE VIEW movies_schedule_list_patron_ordinance_surcharge_view AS 
+SELECT patron_id, amount_val, in_pesovalue, with_enddate, effective_date, end_date, 1 isordinance FROM patrons_ordinance, ordinance_tbl  WHERE ordinance_id = ordinance_tbl.id
+UNION
+SELECT patron_id, amount_val, in_pesovalue, with_enddate, effective_date, end_date, 0 FROM patrons_surcharge, surcharge_tbl  WHERE surcharge_id = surcharge_tbl.id;
+
+
+//sample query
+SELECT id, movies_schedule_list_id, patron_id, price base_price, is_default, price + SUM(ordinance_val) + SUM(surcharge_val) price,
+SUM(ordinance_val) ordinance_price, SUM(surcharge_val) surcharge_price FROM (
+SELECT a.*,  IF(d.patron_id IS NULL, 0, IF (isordinance = 0, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) ordinance_val,
+IF(d.patron_id IS NULL, 0, IF (isordinance = 1, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) surcharge_val
+ FROM movies_schedule_list_patron a
+LEFT OUTER JOIN 
+(
+SELECT patron_id, amount_val, in_pesovalue, isordinance FROM movies_schedule_list_patron_ordinance_surcharge_view WHERE
+  ((with_enddate = 0 && '2015-07-08' >= effective_date) || (with_enddate = 1 && '2015-07-08' >= effective_date && '2015-07-08' <= end_date))
+) d  ON a.patron_id = d.patron_id WHERE id = 24903) e GROUP BY id;
+
+//stored procedure
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retrieve_movies_schedule_list_patron_id`(_id INT, movie_date DATETIME)
+BEGIN
+
+SELECT f.*, g.code patron_code, g.name patron_name, g.seat_color patron_seat_color  FROM (
+SELECT id, movies_schedule_list_id, patron_id, price base_price, is_default, price + SUM(ordinance_val) + SUM(surcharge_val) price,
+SUM(ordinance_val) ordinance_price, SUM(surcharge_val) surcharge_price FROM (
+SELECT a.*, IF(d.patron_id IS NULL, 0, IF (isordinance = 0, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) ordinance_val,
+IF(d.patron_id IS NULL, 0, IF (isordinance = 1, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) surcharge_val FROM movies_schedule_list_patron a
+LEFT OUTER JOIN 
+(SELECT patron_id, amount_val, in_pesovalue, isordinance FROM movies_schedule_list_patron_ordinance_surcharge_view WHERE ( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
+) d ON a.patron_id = d.patron_id WHERE a.id = _id) e
+GROUP BY id) f, patrons g WHERE f.patron_id = g.id;
+
+END
+
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retrieve_movies_schedule_list_patron_mslid`(mlsid INT, movie_date DATETIME)
+BEGIN
+
+SELECT f.*, g.code patron_code, g.name patron_name, g.seat_color patron_seat_color  FROM (
+SELECT id, movies_schedule_list_id, patron_id, price base_price, is_default, price + SUM(ordinance_val) + SUM(surcharge_val) price,
+SUM(ordinance_val) ordinance_price, SUM(surcharge_val) surcharge_price FROM (
+SELECT a.*, IF(d.patron_id IS NULL, 0, IF (isordinance = 0, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) ordinance_val,
+IF(d.patron_id IS NULL, 0, IF (isordinance = 1, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) surcharge_val FROM movies_schedule_list_patron a
+LEFT OUTER JOIN 
+(SELECT patron_id, amount_val, in_pesovalue, isordinance FROM movies_schedule_list_patron_ordinance_surcharge_view WHERE 
+( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
+) d ON a.patron_id = d.patron_id WHERE a.movies_schedule_list_id = mlsid) e
+GROUP BY id) f, patrons g WHERE f.patron_id = g.id ORDER BY is_default DESC, patron_name;
+
+END
+
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retrieve_movies_schedule_list_patron_mslid_default`(mlsid INT, movie_date DATETIME)
+BEGIN
+SELECT f.*, g.code patron_code, g.name patron_name, g.seat_color patron_seat_color  FROM (
+SELECT id, movies_schedule_list_id, patron_id, price base_price, is_default, price + SUM(ordinance_val) + SUM(surcharge_val) price,
+SUM(ordinance_val) ordinance_price, SUM(surcharge_val) surcharge_price FROM (
+SELECT a.*, IF(d.patron_id IS NULL, 0, IF (isordinance = 0, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) ordinance_val,
+IF(d.patron_id IS NULL, 0, IF (isordinance = 1, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) surcharge_val FROM movies_schedule_list_patron a
+LEFT OUTER JOIN 
+(SELECT patron_id, amount_val, in_pesovalue, isordinance FROM movies_schedule_list_patron_ordinance_surcharge_view WHERE ( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
+) d ON a.patron_id = d.patron_id WHERE a.movies_schedule_list_id = mlsid AND is_default = 1) e
+GROUP BY id) f, patrons g WHERE f.patron_id = g.id;
+
+END
+
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retrieve_movies_schedule_list_patron_mslid_first`(mlsid INT, movie_date DATETIME)
+BEGIN
+
+SELECT f.*, g.code patron_code, g.name patron_name, g.seat_color patron_seat_color  FROM (
+SELECT id, movies_schedule_list_id, patron_id, price base_price, is_default, price + SUM(ordinance_val) + SUM(surcharge_val) price,
+SUM(ordinance_val) ordinance_price, SUM(surcharge_val) surcharge_price FROM (
+SELECT a.*, IF(d.patron_id IS NULL, 0, IF (isordinance = 0, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) ordinance_val,
+IF(d.patron_id IS NULL, 0, IF (isordinance = 1, 0, IF(in_pesovalue, amount_val, a.price * amount_val))) surcharge_val FROM movies_schedule_list_patron a
+LEFT OUTER JOIN 
+(SELECT patron_id, amount_val, in_pesovalue, isordinance FROM movies_schedule_list_patron_ordinance_surcharge_view WHERE ( (with_enddate = 0 && movie_date >= effective_date) || (with_enddate = 1 && movie_date >= effective_date && movie_date <= end_date))
+) d ON a.patron_id = d.patron_id WHERE a.movies_schedule_list_id = mlsid) e
+GROUP BY id) f, patrons g WHERE f.patron_id = g.id LIMIT 1;
+
+END
+
+//table modifications
+ALTER TABLE `azynema`.`movies_schedule_list_reserved_seat` 
+ADD COLUMN `ordinance_price` FLOAT NOT NULL DEFAULT 0 AFTER `void_datetime`,
+ADD COLUMN `surcharge_price` FLOAT NOT NULL DEFAULT 0 AFTER `ordinance_price`;

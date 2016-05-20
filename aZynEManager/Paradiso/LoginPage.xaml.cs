@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Amellar.Common.EncryptUtilities;
 
@@ -18,7 +17,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for LoginPage1.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class LoginPage : UserControl, IDisposable   
     {
         public LoginPage()
         {
@@ -100,9 +99,14 @@ namespace Paradiso
 
                         paradisoObjectManager.Log("LOGIN", "TICKET|LOGIN", string.Format("LOGIN OK-{0} ({1})", strUserName, paradisoObjectManager.SessionId));
 
+                        /*
                         if (NavigationService != null) 
                             //NavigationService.Navigate(new Uri("TenderCreditPage.xaml", UriKind.Relative));
                             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                        */
+
+                        MainWindow window = (MainWindow)Window.GetWindow(this);
+                        window.SwitchContent("MovieCalendarPage.xaml");
                     }
                     else
                     {
@@ -166,5 +170,14 @@ namespace Paradiso
             }
             */
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            GC.Collect();
+        }
+
+        #endregion
     }
 }

@@ -25,6 +25,7 @@ namespace Paradiso
     public partial class MainWindow : MetroWindow
     {
         private Sparkle sparkle;
+        public string Content { get; set; }
 
         public MainWindow()
         {
@@ -83,7 +84,67 @@ namespace Paradiso
             sparkle.StartLoop(true, true, new TimeSpan(0, 15, 0));
         }
 
+        public void SwitchContent(string _content)
+        {
+            if (_content == "LoginPage.xaml")
+            {
+                this.SwitchContent(_content, new LoginPage());
+            }
+            else if (_content == "MovieCalendarPage.xaml")
+            {
+                this.SwitchContent(_content, new MovieCalendarPage());
+            }
+            else if (_content == "TicketPrintPage2.xaml")
+            {
+                this.SwitchContent(_content, new TicketPrintPage2());
+            }
+            else if (_content == "SettingPage.xaml")
+            {
+                this.SwitchContent(_content,  new SettingPage());
+            }
+            else if (_content == "ReservedSeatingPage.xaml")
+            {
+                this.SwitchContent(_content, new ReservedSeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+            }
+            else if (_content == "SeatingPage.xaml")
+            {
+                this.SwitchContent(_content, new SeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+            }
+            else if (_content == "EndTellerSessionPage.xaml")
+            {
+                this.SwitchContent(_content, new EndTellerSessionPage());
+            }
+            else if (_content == "TenderAmountPage.xaml")
+            {
+                this.SwitchContent(_content, new TenderAmountPage());
+            }
+        }
+        /*
+        public void SwitchContent(string _content, Model.MovieScheduleListModel model)
+        {
+            if (_content == "ReservedSeatingPage.xaml")
+            {
+                this.SwitchContent(_content, new ReservedSeatingPage(model));
+            }
+            else if (_content == "SeatingPage.xaml")
+            {
+                this.SwitchContent(_content, new SeatingPage(model));
+            }
+        }
+        */
 
+        public void SwitchContent(string _content, object _c)
+        {
+            if (MainContent.Content != null)
+            {
+                ((IDisposable)MainContent.Content).Dispose();
+                MainContent.Content = null;
+            }
+            Content = _content;
+
+            MainContent.Content = _c;
+            this.UpdateDashboard();
+        }
 
         private void UpdateDashboard()
         {
@@ -107,14 +168,23 @@ namespace Paradiso
                 Dashboard.Visibility = System.Windows.Visibility.Visible;
             }
 
+            ScreeningDate.IsEnabled = (Content == "MovieCalendarPage.xaml");
+
+            GC.Collect();
+            Memory.Text = string.Format("{0:0}", GC.GetTotalMemory(true) / (1024 * 1024));
+
             //CurrentDateTime.Text = string.Format("{0:MMMM dd, yyyy, ddd hh:mmtt}", paradisoObjectManager.CurrentDate).ToUpper();
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //ParadisoObjectManager.GetInstance().GetPrinterPort(ParadisoObjectManager.GetInstance().DefaultPrinterName);
+
+            this.SwitchContent("LoginPage.xaml");
+           
         }
 
+        /*
         private void Frame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             this.UpdateDashboard();
@@ -139,7 +209,10 @@ namespace Paradiso
                 ScreeningDate.IsEnabled = false;
             }
 
+            //long totalMemory2 = GC.GetTotalMemory(true);
+
         }
+        */
 
         private void UserPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -165,7 +238,8 @@ namespace Paradiso
             ParadisoObjectManager.GetInstance().UserName = string.Empty;
             ParadisoObjectManager.GetInstance().SetNewSessionId();
 
-            MainFrame.Source = new Uri("LoginPage.xaml", UriKind.Relative);
+            this.SwitchContent("LoginPage.xaml");
+            //MainFrame.Source = new Uri("LoginPage.xaml", UriKind.Relative);
            
         }
 
@@ -198,13 +272,9 @@ namespace Paradiso
                 ScreeningDate.Value = screeningDate;
             }
 
-            if (oldScreeningDate != ParadisoObjectManager.GetInstance().ScreeningDate && MainFrame.Source != null &&
-
-                (MainFrame.Source.ToString() == "MovieCalendarPage.xaml" || MainFrame.Source.ToString() == "Paradiso;component/MovieCalendarPage.xaml"))
+            if (oldScreeningDate != ParadisoObjectManager.GetInstance().ScreeningDate && Content == "MovieCalendarPage.xaml")
             {
-                //MainFrame.Source = null;
-                //MainFrame.Source = new Uri("MovieCalendarPage.xaml", UriKind.Relative);
-                MainFrame.NavigationService.Refresh();
+                this.SwitchContent(Content);
             }
 
         }

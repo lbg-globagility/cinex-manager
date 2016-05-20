@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Paradiso.Model;
@@ -24,7 +23,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for MovieCalendarPage1.xaml
     /// </summary>
-    public partial class MovieCalendarPage : Page, IDisposable
+    public partial class MovieCalendarPage : UserControl, IDisposable
     {
         private ObservableCollection<MovieScheduleModel> movieScheduleItems;
         private int intColumnCount = 1;
@@ -513,11 +512,15 @@ namespace Paradiso
                             blnIsTicketFormatB = true;
 
                         ParadisoObjectManager.GetInstance().RunOnce = true;
+
+                        MainWindow win = (MainWindow) Window.GetWindow(this);
+                        win.SwitchContent("TicketPrintPage2.xaml");
+                        /*
                         if (blnIsTicketFormatB)
                             NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage2());
                         else
                             NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
-
+                        */
                     }
                     else
                     {
@@ -583,14 +586,18 @@ namespace Paradiso
                     this.Dispose();
 
                     ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
-                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
+                    //NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(msli));
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("ReservedSeatingPage.xaml");
                 }
                 else //if (msli.SeatType == 1)
                 {
                     this.Dispose();
 
                     ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
-                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("SeatingPage.xaml");
+                    //NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 }
                 /*
                 else
@@ -651,10 +658,14 @@ namespace Paradiso
             if (ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), "A") == "B")
                 blnIsTicketFormatB = true;
 
+            MainWindow win = (MainWindow) Window.GetWindow(this);
+            win.SwitchContent("TicketPrintPage2.xaml");
+            /*
             if (blnIsTicketFormatB)
                 NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage2());
             else
                 NavigationService.GetNavigationService(this).Navigate(new TicketPrintPage());
+            */
         }
 
         private void Reserved_Click(object sender, RoutedEventArgs e)
@@ -675,15 +686,19 @@ namespace Paradiso
         {
             this.Dispose();
             //checks grant
-            
-            NavigationService.GetNavigationService(this).Navigate(new SettingPage());
+
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("SettingPage.xaml");
+            //NavigationService.GetNavigationService(this).Navigate(new SettingPage());
         }
         
         private void Teller_Click(object sender, RoutedEventArgs e)
         {
             this.Dispose();
 
-            NavigationService.GetNavigationService(this).Navigate(new EndTellerSessionPage());
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("EndTellerSessionPage.xaml");
+            //NavigationService.GetNavigationService(this).Navigate(new EndTellerSessionPage());
         }
 
         private void StopTimer()

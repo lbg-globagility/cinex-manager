@@ -34,10 +34,14 @@
                 </Popup-->
                 <Line X1="10" Y1="14" X2="10" Y2="35" Stroke="White" StrokeThickness="2"></Line>
                 <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
+                <StackPanel Width="60">
+                    <TextBlock x:Name="Memory" Margin="0,5,0,0"  TextAlignment="Center" Text="000" FontSize="28" FontWeight="Bold" />
+                </StackPanel>
             </StackPanel>
             <xctk:DateTimePicker VerticalAlignment="Center" Margin="20,0" Background="Transparent" Foreground="LightYellow" FontSize="20" TextAlignment="Center" Name="ScreeningDate" Format="Custom" FormatString="MMMM dd, yyyy" TimeFormat="Custom" TimePickerVisibility="Collapsed" ShowButtonSpinner="False" AutoCloseCalendar="True" ValueChanged="ScreeningDate_ValueChanged" AllowSpin="False" ClipValueToMinMax ="True"/>
             <!--TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock-->
         </DockPanel>
-        <Frame Name="MainFrame" JournalOwnership="OwnsJournal" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" />
+        <ContentControl Name="MainContent"></ContentControl>
+        <!--Frame Name="MainFrame" JournalOwnership="OwnsJournal" Source="LoginPage.xaml" NavigationUIVisibility="Hidden" Margin="5" Navigated="Frame_Navigated" /-->
     </DockPanel>    
 </controls:MetroWindow>

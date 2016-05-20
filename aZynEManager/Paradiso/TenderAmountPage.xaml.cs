@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using Paradiso.Model;
@@ -20,7 +19,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for TenderAmountPage.xaml
     /// </summary>
-    public partial class TenderAmountPage : Page, IDisposable
+    public partial class TenderAmountPage : UserControl, IDisposable
     {
         public int MovieTimeKey { get; set; }
         public PatronSeatListModel SelectedPatronSeatList { get; set; }
@@ -193,12 +192,20 @@ namespace Paradiso
             if (ParadisoObjectManager.GetInstance().IsReservedMode)
             {
                 if (ParadisoObjectManager.GetInstance().CurrentMovieSchedule != null)
-                    NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+                {
+                    //NavigationService.GetNavigationService(this).Navigate(new ReservedSeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("ReservedSeatingPage.xaml");
+                }
             }
             else
             {
                 if (ParadisoObjectManager.GetInstance().CurrentMovieSchedule != null)
-                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+                {
+                    //NavigationService.GetNavigationService(this).Navigate(new SeatingPage(ParadisoObjectManager.GetInstance().CurrentMovieSchedule));
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("SeatingPage.xaml");
+                }
             }
         }
 
@@ -512,8 +519,12 @@ namespace Paradiso
 
                         this.Dispose();
 
+                        MainWindow win = (MainWindow)Window.GetWindow(this);
+                        win.SwitchContent("MovieCalendarPage.xaml");
+                        /*
                         if (NavigationService != null) 
                             NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                         */
                     }
                     else
                     {

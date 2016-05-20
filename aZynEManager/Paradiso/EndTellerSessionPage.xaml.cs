@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Collections.ObjectModel;
@@ -20,7 +19,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for EndTellerSessionPage.xaml
     /// </summary>
-    public partial class EndTellerSessionPage : Page, IDisposable
+    public partial class EndTellerSessionPage : UserControl, IDisposable
     {
 
         public ObservableCollection<TicketSessionModel> TellerSessions { get; set; }
@@ -97,8 +96,10 @@ namespace Paradiso
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Dispose();
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
 
-            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+            //NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

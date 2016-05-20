@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Windows.Threading;
@@ -22,7 +21,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for ReservedSeatingPage.xaml
     /// </summary>
-    public partial class ReservedSeatingPage : Page, IDisposable
+    public partial class ReservedSeatingPage : UserControl, IDisposable
     {
         public MovieScheduleListModel MovieScheduleList { get; set; }
         
@@ -190,8 +189,12 @@ namespace Paradiso
 
             this.Dispose();
 
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
+            /*
             if (NavigationService != null)
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+            */
         }
 
 
@@ -234,8 +237,12 @@ namespace Paradiso
 
                     this.Dispose();
 
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    */
                     return;
                 }
 
@@ -254,8 +261,12 @@ namespace Paradiso
 
                     this.Dispose();
 
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    */
                     return;
                 }
 
@@ -809,8 +820,12 @@ namespace Paradiso
 
                     this.Dispose();
 
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                     */
                 }
                 else
                 {

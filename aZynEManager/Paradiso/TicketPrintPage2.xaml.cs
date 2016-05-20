@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Threading;
@@ -24,7 +23,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for TicketPrintPage.xaml
     /// </summary>
-    public partial class TicketPrintPage2 : Page, IDisposable
+    public partial class TicketPrintPage2 : UserControl, IDisposable
     {
         public TicketModel Ticket { get; set;}
 
@@ -834,7 +833,9 @@ namespace Paradiso
 
                 this.Dispose();
 
-                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+                MainWindow win = (MainWindow)Window.GetWindow(this);
+                win.SwitchContent("MovieCalendarPage.xaml");
+                //NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
             }
 
@@ -1162,7 +1163,9 @@ namespace Paradiso
 
                 this.Dispose();
 
-                NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+                MainWindow win = (MainWindow)Window.GetWindow(this);
+                win.SwitchContent("MovieCalendarPage.xaml");
+                //NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
                 return;
             }
 
@@ -1617,7 +1620,9 @@ namespace Paradiso
         {
             this.Dispose();
 
-            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
+            //NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
         }
 
         private struct SearchOptions

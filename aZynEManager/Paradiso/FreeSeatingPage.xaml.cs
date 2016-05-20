@@ -9,7 +9,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Windows.Threading;
@@ -1286,10 +1285,13 @@ namespace Paradiso
                 if (window != null)
                     window.KeyDown -= Page_PreviewKeyDown;
                 StopTimer();
+                MainWindow win = (MainWindow) Window.GetWindow(this);
                 if (msli.SeatType == 1)
-                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                    win.SwitchContent("SeatingPage.xaml", new SeatingPage(msli));
+                    //NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 else
-                    NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));
+                    win.SwitchContent("FreeSeatingPage.xaml", new ReservedSeatingPage(msli));
+                    //NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));
             }
         }
 

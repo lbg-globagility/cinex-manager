@@ -13,10 +13,17 @@ namespace Paradiso
 
         private DateTime _now;
 
+        private DateTime _local;
+        private TimeSpan _timespan;
+        private int _loop = 0;
+        private int _maxloop = 20;
+
         public NotifyingDateTime()
         {
 
             _now = ParadisoObjectManager.GetInstance().CurrentDate;
+            _local = new DateTime();
+            _timespan = _now - new DateTime();
 
             DispatcherTimer timer = new DispatcherTimer();
 
@@ -48,7 +55,20 @@ namespace Paradiso
 
         void timer_Tick(object sender, EventArgs e)
         {
-            Now = ParadisoObjectManager.GetInstance().CurrentDate;
+            _loop++;
+            if (_loop > _maxloop)
+            {
+                _loop = 0;
+                _now = ParadisoObjectManager.GetInstance().CurrentDate;
+                _local = new DateTime();
+                _timespan = _now - new DateTime();
+            }
+            else
+            {
+                Now = new DateTime().Add(_timespan);
+            }
+            
+            //Now = ParadisoObjectManager.GetInstance().CurrentDate;
         }
     }
 }

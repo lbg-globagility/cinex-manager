@@ -1,0 +1,243 @@
+2.1.7.0	4/22/2015	Added option to show GC/CC payments on amount tender page.
+	4/15/2015	Ticket price is now based on screening date.
+	4/14/2015	Fixed cancel Tender Amount crashes application. Added Credit Card and Gift Certificate interface (will add later option to disable it).
+2.1.6.0	4/7/2015	Updated assembly version to 2.1.6.0.
+	4/7/2015	"Corrected bug, cancelled ors for unpublished schedules should no be loaded when printing or."
+	4/4/2015	Moved removing back entry on navigation event. Display inner exception if any on error. Allow to unreserve seats for full seats.
+2.1.5.0	3/26/2015	Fixed layout on print out on ticket.
+	3/24/2015	Added Ordinance Tax on ticket printout. Prevents searching ors without text for non-session types.
+	3/24/2015	Added base price and ordinance on saving ticket.
+2.1.4.0	3/18/2015	Added WiX Toolset.
+	3/18/2015	Added OR Number Format B.
+2.1.3.0	3/13/2015	Added check if host is reachable.
+	3/12/2015	Set to next version. Updated Sparkle url.
+	3/12/2015	Prompts void ticket (if has rights) on terminated transactions (usually caused by system logouts).
+	3/12/2015	Removed JournalEntry for frame to free up memory.
+	2/16/2015	Fixed memory leaks for dispatch timer and collection changed.
+2.1.2.0	12/18/2014	Corrected ending time for movies that occupy two dates.
+	12/18/2014	Allow to reserve seats for elapsed screen times between dates. Automatically corrects improper end time for movie on schedule.
+2.1.1.0	12/2/2014	Removed x86 and x64 version. Changed behavior of software updater. Exits application when user opts not to install update. Automatically runs installer after download.
+	12/1/2014	Set adjustment in ticket. Added Official Receipt setting.
+	12/1/2014	Increased rectangle width for seat number in ticket printout.
+	11/28/2014	Added SettingPage. Must add SETTINGS rights to view page.
+2.1.0.0	11/28/2014	Added version number. Added box in ticket b format. Removed ct/at/vt and replaced with amount. Centered text in ticket.
+	11/28/2014	Set default values to empty for ticket.
+	11/27/2014	Removed OFFICIAL RECEIPT in actual printout of ticket. Added preview for Ticket Format B.
+	11/26/2014	Added option to void running sessions.
+	11/26/2014	Added Ticket Format B. Must set 'TICKET_FORMAT' to 'B' in configuration to enable feature.
+2.0.0.0	11/24/2014	Added NetSparkle software updater.
+1.0.0.0	11/21/2014	Allow to select specific seats when unreserving seats.
+	11/21/2014	"GUARANTEED SEATING to RESERVED SEATING, FREE SEATING (LIMITED) to FREE SEATING (GUARANTEED). Ticket layout modifications as emailed by Zai."
+	11/20/2014	Search ticket now filters correctly. Can filter session number/ornumber and teller correctly.
+	11/20/2014	Allow to configure starting row of printer by machine. Added seat number at bottom of ticket (adjacent to session number).
+	11/19/2014	Added Screening Time. Order by Date/time transacted.
+	11/19/2014	"Sort patron names. Hierarchy - default, regular, others."
+	11/19/2014	"Corrected bug when reserving seat, incorrect patron displayed. Show movie title instead of movie code in ticket. Added SeatName in bottom part of ticket. Allow to reserve seating even screening is already running."
+	11/19/2014	Set search by OR Number or by Teller. Set ticket movie code to title in printout.
+	11/19/2014	Catches error in print. Do not show print dialog on printing of new tickets.
+	11/19/2014	Adjusted printer size.
+	11/19/2014	Corrected display for trimmed text in printing.
+	11/19/2014	Added support for printing POSTEK printer. Fixed bug in printing Ticket where no ticket has been selected you can still print. Allow direct printing. Added additional information in ticket to be used for final layout.
+	11/13/2014	"Added Left Click to Select default patron, right click to display selection of patrons in Reserved Seating."
+	11/13/2014	Added User field in search for Ticketing void and reprint.
+	11/12/2014	Removed unwanted dependencies.
+	11/12/2014	Added Highlight on OR Number selection in Void and Reprint page.
+	11/12/2014	Added Cinema Name in Seating page.
+	11/12/2014	Fixed revert problem will branch to another repository so that no conflicts may occur.
+	11/12/2014	Reverted to older version. Please make sure you check the files you commit.
+	11/12/2014	Corrected color assignment for seats.
+	11/12/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/12/2014	Added FreeSeating Page (not integrated and working at the moment).
+	11/12/2014	Allow to reserved seats for voided tickets.
+	11/11/2014	add rp04
+	11/11/2014	add rp13
+	11/11/2014	add rp13
+	11/11/2014	add rp13
+	11/11/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/11/2014	UPDATE REPORTS
+	11/11/2014	Updates ticket preview when or number is selected in Ticket page.
+	11/11/2014	Added Seat Name and IsHandicapped in Ticket print out.
+	11/11/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/11/2014	Unpublished tickets will now automatically show in Ticket module.
+	11/10/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/10/2014	update report rp09
+	11/10/2014	Correct invalid rights for void ticket.
+	11/10/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/10/2014	Modified search option for reprinting and voiding of tickets.
+	11/10/2014	update frmreports
+	11/10/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/10/2014	update rp01 and add rp08 in system
+	11/10/2014	update rp01 and add the rp08 in system
+	11/10/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/10/2014	UPDATED REPORTS
+	11/10/2014	Hide seat name for disabled seats (PWD).
+	11/7/2014	add RP08
+	11/7/2014	REPORT UPDATE
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	Sample test for reports.
+	11/7/2014	Include reports folder in git.
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	UPDATE
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	add RP12
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	Corrected reserved seating statistics on Seating page.
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	Added Booked in Seating page. Removed void tickets in statistics.
+	11/7/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/7/2014	add RP01 and RP05
+	11/7/2014	Allow to change screen times.
+	11/7/2014	Additional info added for reserved seating.
+	11/7/2014	Set Reserved Seating page assets same as Seating page. Set seat color to gray if reserved seat.
+	11/6/2014	Updated assets for Cinema Manager in Seat creation page. Show inner exception message on error if any. Removed X mark on taken/reserved seats.
+	11/6/2014	editing of user
+	11/6/2014	Updated assets. Not yet done.
+	11/6/2014	"Fixed improper push, reverted to correct version. Please verify your changes before pushing your changes."
+	11/6/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/6/2014	Allow to add disabled seats (PWD) - no labels in Cinema Manager. Corrected incorrect maximum row number shown when creating new seat. Removed unused files.
+	11/6/2014	update error
+	11/6/2014	"Update error in patron, distributor"
+	11/6/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/6/2014	Added Remarks on MTRCB Ratings. Set configuration to 192.168.0.150.
+	11/4/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/4/2014	update edit movies allow quote character and add active and inactive user
+	11/3/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/3/2014	Allow text wrapping. Added obfuscation in generating release version for Ticketing application.
+	11/3/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/3/2014	add security in sql injection for movies
+	11/3/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/3/2014	updated movie sched module
+	11/3/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	11/3/2014	fix error in editing movie share
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	updated movie sched patrons
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	"For unplished movie schedules, displays list of or numbers to be cancelled in ticket module."
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	fix error in creating new user
+	10/31/2014	updated the movie list classifications
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	OR Number not incremented when tendering multiple tickets. Crashes when two or more patrons are set for a schedule.
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	update error in scheduling
+	10/31/2014	Added validation to disable reservation for already ellapsed screen times.
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	Fixed bug wherein timer still running even if you switch to different page (critical).
+	10/31/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/31/2014	NEW UPDATES
+	10/31/2014	Change font color tor red for disabled/ellapsed screen time in movie schedule list.
+	10/31/2014	Changed layout of cash tender based on mockup.
+	10/31/2014	Added option when unreserving seats to delete or retain seats. Can be configured in Cinema Manager.
+	10/31/2014	Added Ticket Printer configuration in Cinema Manager.
+	10/30/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/30/2014	update error in movies scheduling
+	10/30/2014	Add option to print using Windows printer instead of Citizen printer (yet to be configured in Cinema Manager). Added validation to prevent navigation if invalid.
+	10/30/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/30/2014	Markup.IStyle.Connector.Connect error on binding in WPF problem. Causes crash on certain machines. Removed unwanted packages.
+	10/30/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/30/2014	"update grant user, fix errors, add refresh in schedule etc"
+	10/30/2014	Only allow users with active status to log in.
+	10/30/2014	Updated release version for Cinema Ticketing System.
+	10/30/2014	Added missing resource. Update gitignore.
+	10/30/2014	Corrected Movie Price in Seating Page. Seats shows color of patron selected.
+	10/29/2014	Verify if movie schedule is reserved when reserving seats. Reduced spacing of cinema seats. Switched row and column names. Set same layout as reserved seating.
+	10/29/2014	Changed filtering of movie schedules. Renamed Patron to Free Seating.
+	10/29/2014	Set status to 1 for published movie schedules. Updates reservation seats periodically.
+	10/29/2014	"Adjusted screen height in Cinema Seat setup. Added TIN, and PN on Configuration. Removed unwanted class diagram file."
+	10/29/2014	Allow enter key to move to password element in login page.
+	10/29/2014	Removed Grid lines (not working) and adjusted height of canvas based on screen size.
+	10/28/2014	allow cinema manager in granting tickets
+	10/28/2014	new update
+	10/28/2014	Set initial window state as maximized. Allow users to login with system code is zero. Do not display unpublished movie schedules.
+	10/28/2014	Retrieve TIN and PN from settings in database.
+	10/28/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/28/2014	"Disables selection if no more available seats for reserved and free limited seating. Seats display assigned color of patron if selected (no graphics yet, just a box)."
+	10/28/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	10/28/2014	fix errors
+	10/13/2014	Fix errors
+	10/10/2014	updated and merged for beta version
+	10/8/2014	Replaced delete icon in Seating page.
+	10/8/2014	Removed unwanted footer. Corrected seat color display. Added seat color in details for Seating and Tender Amount page. List of tickets becomes scrollable when there are too many.
+	10/8/2014	Remove Key down listener on main window when navigating to other page in Seating page. Changed layout of Tender Amount page - rearranged elements and added list of tickets tendered. Allow enter key to submit form.
+	10/8/2014	Allow enter key to confirm patron selection on seating page.
+	10/8/2014	Update assets c/o Ryan.
+	10/8/2014	"Adjusted layout based on proposed mockup by Ryan. Added config_table in entity framework model. Set title, header and subheader of system. Added color in patron selection."
+	9/17/2014	Fixed reprint ticket prompts no accessed. Enabled login in Cinema Manager.
+	9/17/2014	Merged program with Liloy.
+	9/17/2014	Adjusted printing layout for ticket.
+	9/9/2014	Added logout option when clicking username in header.
+	9/8/2014	Set Free Seating interface same as Reserved Seating.
+	9/5/2014	Set as context menu selection of patron instead of window in reserved seating.
+	9/5/2014	Added countdown timer for reservation of seats.
+	9/5/2014	Removed classes that are no longer used. Renamed classes to its final names.
+	9/5/2014	Added logs. Set reprint as threaded. Set operations to transactional.
+	9/5/2014	Added Void ticket implementation in Print Ticket page. Minor changed of layout in Tender Amount page.
+	9/3/2014	Removed docs folder (taking space). Allow enter key on login. Added trail and rights support.
+	8/18/2014	Added Cinema Seat add/edit feature in Cinema in Cinema Administrator Application.
+	8/14/2014	Added Print ticket functionality on transaction and reprint ticket.
+	8/13/2014	"Added Ticket module (not yet functional, preview only). Removed unwanted files from previous version."
+	8/13/2014	Corrected bug when saving transaction. Added implementation for taxes and or number generation.
+	8/12/2014	Added Tender Amount Page (still has issues with free seating).
+	8/12/2014	Added Free Seating interface (not yet transactional).
+	1/6/2007	Added ticket purchase details.
+	1/6/2007	Updated assets. Reserved seats selection fully working.
+	8/7/2014	Revised layout. Includes major revisions on operations.
+	8/1/2014	Allow multiple movies in one cinema. Highlighting of screen time changes movie descriptions and seats statistics.
+	8/1/2014	Changed layout for cinema ticketing (not yet fully functional).
+	7/11/2014	Set window as Metro.
+	7/10/2014	Add name and capacity as parameter for seat window assignment.
+	7/10/2014	Corrected patrons displayed in ticketing application.
+	7/10/2014	Saves transaction for ticketing (no computation for taxes and generation of or number).
+	7/9/2014	"Removed Seat from main exe to library, successfully called but not yet fully functional."
+	7/9/2014	Merged final version c/o Liloy.
+	7/8/2014	Added RP18 report.
+	7/8/2014	Added RP16 report.
+	7/7/2014	Added RP17 report.
+	7/7/2014	Added footer for RP13. Added RP19 report. Moved procedures to another directory.
+	7/7/2014	Added RP13 and RP19 reports.
+	7/1/2014	Added RP12 report.
+	7/1/2014	Added RP10 report.
+	7/1/2014	Addedd RP09 report.
+	7/1/2014	Added RP05 and RP08 reports.
+	6/30/2014	Added RP03 and RP04 reports. Correct RP02 invalid total sales being displayed.
+	6/30/2014	Cinemapps uses unified database. Added report for movie sales.
+	6/26/2014	Converted all entity framework calls based on schema azynema.
+	6/26/2014	Finalized database migration. Some tables were ignored since it is not yet used.
+	6/25/2014	"Updated configuration, MySQL model and database script for migration."
+	6/25/2014	Updated connection string usage.
+	6/23/2014	Set default solution to Cinemapps.
+	6/23/2014	Corrected invalid connection call.
+	6/23/2014	Merged Winforms and WPF. Still has some issues with connection.
+	6/20/2014	Added functional Ticketing page.
+	6/18/2014	Replaced all MessageBox with custom Message window. Added Extended WPF toolkit. Updated azynema.sql c/o Liloy.
+	6/18/2014	Finalized images. Corrected generic layout.
+	6/18/2014	Added Cinema Ticketing application.
+	6/18/2014	Moved cinema-terminal.pdf from images to doc folder.
+	6/6/2014	Added new images. Added Paradiso - Cinema Terminal project.
+	6/6/2014	Converted Cinema loading to Entity Framework.
+	6/5/2014	Merge branch 'master' of 192.168.0.159:azyne/azyne
+	6/5/2014	new ver july 5 2014
+	6/5/2014	Updated interface design for Cinema Seat.
+	6/4/2014	Set default icon for application. Set .NET framework to 4 for ExcelReport library.
+	6/4/2014	Added powerpoint files and executable files in doc folder.
+	6/4/2014	"Added assets for main windows. Clicking Administration shows Seat reservation. Loads data, but not fully working."
+	6/4/2014	Added stored procedure retrieve_tellers. Prompts error on no record on RP01 report.
+	6/4/2014	Added docs folder (for reference only). Include screen caps and reports.
+	6/4/2014	Make reports visible on Cinemapps solution. Added RP01 report.
+	6/3/2014	"Set target framework to .NET 4.0. Added WPF Project Cinemapps-  would place Seat reservation later (Set as startup project to view form). Added Excel Report, connects to MGI database (Additional stored procedures are required - see database folder)."
+	6/2/2014	cinema project
+	12/23/2006	Added seat color as background when selected in reservation.
+	10/27/2014	Replaced document name with OR number when printing ticket. Disable entry for already ellapsed schedules within the day if you have PRIORDATE rights.
+	10/27/2014	Changed layout of Cinema selection based on mockup of Ryan.
+	10/27/2014	Allow Screening Date to be selected (if has rights PRIORDATE and ADVANCEDATE). Prior Dates can only be viewed.
+	10/27/2014	Changed time format displayed.
+	10/27/2014	Changed logo image.
+	12/23/2006	Allow raw printing for multiple tickets.
+	10/23/2014	"Added ""THIS SERVES AS AN OFFICIAL RECEIPT"" in ticket print out (Will have to test actual print)."
+	10/23/2014	"Used raw printing in ticket. Works fine now, missing box."
+	10/20/2014	Added Unreserve seat feature.
+	12/23/2006	Added reservation (no payment) of customer by manager. Added new rights RESERVE. No rubberband selection yet. No unlocking option yet on reserved seats (finalizing work flow).
+	10/17/2014	Changed layout of Ticket Print Page. Set package MahApps to target .NET 4.0 instead of 4.5.
+	10/16/2014	Allow Ticket Purchase Details panel to be moved.

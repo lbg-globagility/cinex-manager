@@ -1,12 +1,12 @@
-﻿<Page x:Class="Paradiso.SeatingPage"
+﻿<UserControl x:Class="Paradiso.SeatingPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       xmlns:l="clr-namespace:Paradiso"
-      mc:Ignorable="d" Title="SeatingPage" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
-    <Page.Resources>
+      mc:Ignorable="d" SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
@@ -52,7 +52,7 @@
 
         </ResourceDictionary>
         
-    </Page.Resources>
+    </UserControl.Resources>
     <Canvas Name="MainCanvas">
         <Canvas.Resources>
             <l:SeatColorConverter x:Key="seatColor" />
@@ -347,4 +347,4 @@
         <TextBlock Canvas.Bottom="10" Canvas.Left="10" Foreground="White" FontSize="10" Name="Version"/>
         <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
     </Canvas>
-</Page>
+</UserControl>

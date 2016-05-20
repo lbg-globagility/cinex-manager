@@ -9,7 +9,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+//using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Paradiso.Model;
 using System.Windows.Threading;
@@ -22,7 +22,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for SeatingPage.xaml
     /// </summary>
-    public partial class SeatingPage : Page, IDisposable
+    public partial class SeatingPage : UserControl, IDisposable
     {
         public MovieScheduleListModel MovieScheduleList { get; set; }
 
@@ -365,8 +365,12 @@ namespace Paradiso
             
             this.Dispose();
 
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
+            /*
             if (NavigationService != null)
                 NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+             */
         }
 
 
@@ -416,8 +420,13 @@ namespace Paradiso
                     StopTimer();
 
                     SelectedPatronSeatList.Dispose();
+                    
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null)
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    */
                     return;
                 }
 
@@ -623,8 +632,12 @@ namespace Paradiso
 
                     this.Dispose();
 
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                    */
                     return;
                 }
 
@@ -647,8 +660,12 @@ namespace Paradiso
 
                     this.Dispose();
 
+                    MainWindow win = (MainWindow)Window.GetWindow(this);
+                    win.SwitchContent("MovieCalendarPage.xaml");
+                    /*
                     if (NavigationService != null) 
                         NavigationService.Navigate(new Uri("MovieCalendarPage.xaml", UriKind.Relative));
+                     */
                     return;
                 }
 
@@ -1409,9 +1426,8 @@ namespace Paradiso
             else
             {
                 this.Dispose();
-
-                if (NavigationService != null) 
-                    NavigationService.Navigate(new Uri("TenderAmountPage.xaml", UriKind.Relative));
+                MainWindow win = (MainWindow)Window.GetWindow(this);
+                win.SwitchContent("TenderAmountPage.xaml");
             }
         }
 
@@ -1903,9 +1919,11 @@ namespace Paradiso
 
 
                 ParadisoObjectManager.GetInstance().CurrentMovieSchedule = new MovieScheduleListModel(msli);
+                MainWindow win = (MainWindow)Window.GetWindow(this);
+                win.SwitchContent("SeatingPage.xaml");
 
                 //if (msli.SeatType == 1)
-                    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
+                //    NavigationService.GetNavigationService(this).Navigate(new SeatingPage(msli));
                 /*
                 else
                     NavigationService.GetNavigationService(this).Navigate(new FreeSeatingPage(msli));

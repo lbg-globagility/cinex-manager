@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 
@@ -19,7 +18,7 @@ namespace Paradiso
     /// <summary>
     /// Interaction logic for SettingPage.xaml
     /// </summary>
-    public partial class SettingPage : Page
+    public partial class SettingPage : UserControl, IDisposable
     {
         public SettingPage()
         {
@@ -204,12 +203,23 @@ namespace Paradiso
             pom.SaveConfigValue(string.Format("PN_{0}", Environment.MachineName), Config6.Text.Trim());
             pom.SaveConfigValue(string.Format("MIN_{0}", Environment.MachineName), Config8.Text.Trim());
 
-            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GetNavigationService(this).Navigate(new MovieCalendarPage());
+            MainWindow win = (MainWindow)Window.GetWindow(this);
+            win.SwitchContent("MovieCalendarPage.xaml");
         }
+
+        #region IDisposable Members
+
+        public void Dispose()
+        {
+            GC.Collect();
+        }
+
+        #endregion
     }
 }
