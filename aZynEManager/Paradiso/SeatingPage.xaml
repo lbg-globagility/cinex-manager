@@ -165,7 +165,10 @@
                                                 <TextBlock FontSize="16">Seat Selected:</TextBlock>
                                                 <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Seat.Name}"/>
                                             </StackPanel>
-                                            <TextBlock DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">Free Seating</TextBlock>
+                                            <DockPanel DockPanel.Dock="Top" Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}">
+                                                <TextBox DockPanel.Dock="Right" Foreground="White" MaxLength="3" Text="{Binding PatronCount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="TextBox_PreviewTextInput"></TextBox>
+                                                <TextBlock Foreground="White" VerticalAlignment="Center">Free Seating</TextBlock>
+                                            </DockPanel>
 
                                             <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
                                                 <ListView.ItemContainerStyle>

@@ -300,8 +300,11 @@
             <DockPanel.Resources>
                 <l:SeatColorConverter x:Key="seatColor1" />
             </DockPanel.Resources>
+            <DockPanel DockPanel.Dock="Top" >
+                <TextBox DockPanel.Dock="Right" Foreground="White" MaxLength="2">1</TextBox>
+                <TextBlock Foreground="White" VerticalAlignment="Center">Free Seating</TextBlock>
+            </DockPanel>
             
-            <TextBlock DockPanel.Dock="Top" Foreground="White">Free Seating</TextBlock>
             <ListView ItemsSource="{Binding Patrons}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
