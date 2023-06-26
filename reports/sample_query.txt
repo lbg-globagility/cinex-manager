@@ -1,0 +1,6 @@
+select a.id, a.movies_schedule_id from movies_schedule_list a where a.start_time > '2014/11/23' and a.start_time < '2014/11/24' and status = 1 order by a.movies_schedule_id, a.start_time
+
+
+select f.id cinema_id, d.movie_id,count(b.ticket_id) qtty,sum(b.price) amt from movies_schedule_list_reserved_seat b, movies_schedule_list c, movies_schedule d, cinema f where b.movies_schedule_list_id = 186 and b.movies_schedule_list_id = c.id and c.movies_schedule_id = d.id and d.cinema_id = f.id and b.status = 1
+
+insert into tmp_screening values(0,1,358,1,21,4607,'2014/11/23','LILOY')

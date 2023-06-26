@@ -1,0 +1,7 @@
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\bin\x86\Debug\EncryptionProvider.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\bin\x86\Debug\EncryptionProvider.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\x86\Debug\EncryptionProvider.Properties.Resources.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\x86\Debug\EncryptionProvider.csproj.GenerateResource.Cache
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\x86\Debug\EncryptionProvider.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\x86\Debug\EncryptionProvider.pdb
+D:\development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\x86\Debug\EncryptionProvider.csproj.CoreCompileInputs.cache

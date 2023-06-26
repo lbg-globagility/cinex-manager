@@ -1,0 +1,12 @@
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\bin\Debug\EncryptionProvider.dll
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\bin\Debug\EncryptionProvider.pdb
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\obj\Debug\EncryptionProvider.Properties.Resources.resources
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\obj\Debug\EncryptionProvider.csproj.GenerateResource.Cache
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\obj\Debug\EncryptionProvider.dll
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\EncryptionProvider\obj\Debug\EncryptionProvider.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\bin\Debug\EncryptionProvider.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\bin\Debug\EncryptionProvider.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.Properties.Resources.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.csproj.GenerateResource.Cache
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.pdb

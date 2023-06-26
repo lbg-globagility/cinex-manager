@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description>total gross</Description>
+  <Author>rogelio betito</Author>
+  <PageHeight>11in</PageHeight>
+  <PageWidth>8.5in</PageWidth>
+  <Width>7.5in</Width>
+  <TopMargin>.10in</TopMargin>
+  <LeftMargin>.05in</LeftMargin>
+  <RightMargin>.25in</RightMargin>
+  <BottomMargin>.10in</BottomMargin>
+  <DataSets>
+    <DataSet Name="Data">
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>SELECT 
+MAX(CASE WHEN system_desc = 'CINEMA NAME' THEN system_value END) cinema_name,
+MAX(CASE WHEN system_desc = 'CINEMA ADDRESS' THEN system_value END) cinema_addr,
+MAX(CASE WHEN system_desc = 'CINEMA ADDRESS2' THEN system_value END) cinema_addr2,
+MAX(CASE WHEN system_desc = 'TIN' THEN system_value END) tin,
+MAX(CASE WHEN system_desc = 'MIN_TICKETBOOTH02' THEN system_value END) ticket_min,
+MAX(CASE WHEN system_desc = 'POS_NO_TICKETBOOTH02' THEN system_value END) ticket_posno,
+MAX(CASE WHEN system_desc = 'ACCREDITATION' THEN system_value END) accreditation,
+MAX(CASE WHEN system_desc = 'PN_TICKETBOOTH02' THEN system_value END) ticket_ptu
+FROM azynema_fora2.config_table</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="cinema_name">
+          <DataField>cinema_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cinema_addr">
+          <DataField>cinema_addr</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cinema_addr2">
+          <DataField>cinema_addr2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="tin">
+          <DataField>tin</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ticket_min">
+          <DataField>ticket_min</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ticket_posno">
+          <DataField>ticket_posno</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="accreditation">
+          <DataField>accreditation</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ticket_ptu">
+          <DataField>ticket_ptu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Data3">
+      <Query >
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>SELECT COUNT(a.id) z_cnt, SUM(a.price) price, SUM(a.base_price) base_price,
+SUM(a.amusement_tax_amount) amusement_tax_amount, SUM(a.cultural_tax_amount) cultural_tax_amount,
+SUM(a.vat_amount) vat_amount,MIN(a.or_number) min_or_number,MAX(or_number) max_or_number,
+SUM(a.surcharge_price) surcharge_price,
+b.terminal,b.ticket_datetime,
+COUNT(DISTINCT(b.session_id))session_cnt,b.status,d.code,
+SUM(CASE WHEN d.name LIKE 'SC -%' THEN 1 ELSE 0 END) sc_cnt,
+(MAX(CASE WHEN d.name = 'REG' THEN a.price END) * 0.2) * SUM(CASE WHEN d.name LIKE 'SC -%' THEN 1 ELSE 0 END) sc_sum,
+SUM(CASE WHEN d.name LIKE 'PWD%' THEN 1 ELSE 0 END) pwd_cnt,
+(MAX(CASE WHEN d.name = 'REG' THEN a.price END) * 0.2) * SUM(CASE WHEN d.name LIKE 'PWD%' THEN 1 ELSE 0 END) pwd_sum,
+concat(e.lname, ', ', e.fname) username 
+FROM movies_schedule_list_reserved_seat a, ticket b, 
+movies_schedule_list_patron c, patrons d, users e
+WHERE a.ticket_id = b.id 
+AND a.patron_id = c.id
+AND c.patron_id = d.id
+AND b.user_id = e.id
+AND b.status = 1
+AND b.ticket_datetime BETWEEN '2018-03-19' AND '2018-03-20'
+AND b.terminal = 'TICKETBOOTH02'</CommandText>
+      </Query>
+      <Fields >
+        <Field Name="z_cnt">
+          <DataField>z_cnt</DataField>
+          <TypeName>System.Int64</TypeName>
+        </Field>
+        <Field Name="price">
+          <DataField>price</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="base_price">
+          <DataField>base_price</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="amusement_tax_amount">
+          <DataField>amusement_tax_amount</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="cultural_tax_amount">
+          <DataField>cultural_tax_amount</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="vat_amount">
+          <DataField>vat_amount</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="min_or_number">
+          <DataField>min_or_number</DataField>
+          <TypeName>System.String</TypeName>
+        </Field>
+        <Field Name="max_or_number">
+          <DataField>max_or_number</DataField>
+          <TypeName>System.String</TypeName>
+        </Field>
+        <Field Name="surcharge_price">
+          <DataField>surcharge_price</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="terminal">
+          <DataField>terminal</DataField>
+          <TypeName>System.String</TypeName>
+        </Field>
+        <Field Name="ticket_datetime">
+          <DataField>ticket_datetime</DataField>
+          <TypeName>System.DateTime</TypeName>
+        </Field>
+        <Field Name="session_cnt">
+          <DataField>session_cnt</DataField>
+          <TypeName>System.Int64</TypeName>
+        </Field>
+        <Field Name="status">
+          <DataField>status</DataField>
+          <TypeName>System.Int32</TypeName>
+        </Field>
+        <Field Name="code">
+          <DataField>code</DataField>
+          <TypeName>System.String</TypeName>
+        </Field>
+        <Field Name="sc_cnt">
+          <DataField>sc_cnt</DataField>
+          <TypeName>System.Decimal</TypeName>
+        </Field>
+        <Field Name="sc_sum">
+          <DataField>sc_sum</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="pwd_cnt">
+          <DataField>pwd_cnt</DataField>
+          <TypeName>System.Decimal</TypeName>
+        </Field>
+        <Field Name="pwd_sum">
+          <DataField>pwd_sum</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+        <Field Name="username">
+          <DataField>username</DataField>
+          <TypeName>System.String</TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Data4" >
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>select count(a.id),sum(price) init_balance
+from movies_schedule_list_reserved_seat a, ticket b
+where a.ticket_id = b.id
+and b.terminal = 'TICKETBOOTH02'
+and b.ticket_datetime &lt; '2018-03-19'
+and a.status = 1
+and b.status = 1</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="count(a.id)">
+          <DataField>count(a.id)</DataField>
+          <TypeName>System.Int64</TypeName>
+        </Field>
+        <Field Name="init_balance">
+          <DataField>init_balance</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Data5" >
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText>select count(a.id),sum(price) end_balance
+from movies_schedule_list_reserved_seat a, ticket b
+where a.ticket_id = b.id
+and b.terminal = 'TICKETBOOTH02'
+and b.ticket_datetime &lt; '2018-03-20'
+and a.status = 1
+and b.status = 1</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="count(a.id)">
+          <DataField>count(a.id)</DataField>
+          <TypeName>System.Int64</TypeName>
+        </Field>
+        <Field Name="end_balance">
+          <DataField>end_balance</DataField>
+          <TypeName>System.Double</TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <PageHeader>
+    <Height>0.0pt</Height>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <Body>
+    <Height>657.6pt</Height>
+    <ReportItems>
+      <List Name="List1">
+        <Height>117.23pt</Height>
+        <Width>214.47pt</Width>
+        <Left>3.76pt</Left>
+        <Top>4.61pt</Top>
+        <ReportItems>
+          <Textbox Name="Textbox1">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>=UCase(Fields!cinema_name.Value)</Value>
+            <Left>2.1pt</Left>
+            <Top>1.2pt</Top>
+            <Style>
+              <FontSize>8pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox2" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>=UCase(Fields!cinema_addr.Value)</Value>
+            <Left>2.4pt</Left>
+            <Top>13.5pt</Top>
+            <Style>
+              <FontSize>8pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox3" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>=UCase(Fields!cinema_addr2.Value)</Value>
+            <Left>2.0pt</Left>
+            <Top>25.7pt</Top>
+            <Style>
+              <FontSize>8pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox4" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="VAT Reg. TIN:" + UCase(Fields!tin.Value)</Value>
+            <Left>2.3pt</Left>
+            <Top>38.3pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="MIN:" + UCase(Fields!ticket_min.Value)</Value>
+            <Left>2.4pt</Left>
+            <Top>50.5pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="POS No.:" + UCase(Fields!ticket_posno.Value)</Value>
+            <Left>2.3pt</Left>
+            <Top>62.5pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox7" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Accreditation No.:" + UCase(Fields!accreditation.Value)</Value>
+            <Left>2.5pt</Left>
+            <Top>74.6pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox8" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="PTU No.:" + UCase(Fields!ticket_ptu.Value)</Value>
+            <Left>2.4pt</Left>
+            <Top>87.0pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox10" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>Z-Reading Report</Value>
+            <Left>2.6pt</Left>
+            <Top>102.4pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <DataSetName>Data</DataSetName>
+      </List>
+      <List Name="List2">
+        <Height>109.17pt</Height>
+        <Width>213.73pt</Width>
+        <Left>3.80pt</Left>
+        <Top>121.30pt</Top>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+        <DataSetName>Data3</DataSetName>
+        <ReportItems>
+          <Line Name="Line1">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>3.8pt</Left>
+            <Top>0.6pt</Top>
+          </Line>
+          <Textbox Name="Textbox11" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>AMOUNT TOTALS [Cashier-Reading]</Value>
+            <Left>1.6pt</Left>
+            <Top>3.7pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox12" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Transaction Date; " + Format(Fields!ticket_datetime.Value,'MM/dd/yyyy')</Value>
+            <Left>1.8pt</Left>
+            <Top>16.0pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox13" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Cashier: " +  UCase(Fields!username.Value)</Value>
+            <Left>2.6pt</Left>
+            <Top>29.1pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Line Name="Line2" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>2.4pt</Left>
+            <Top>41.6pt</Top>
+          </Line>
+          <Textbox Name="Textbox14" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>Tender Reconciliation</Value>
+            <Left>2.6pt</Left>
+            <Top>44.8pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox15" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Z-Counter No.          : " + Fields!terminal.Value</Value>
+            <Left>2.6pt</Left>
+            <Top>57.2pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox16" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Beginning OR No.   : " + Fields!min_or_number.Value</Value>
+            <Left>2.6pt</Left>
+            <Top>69.6pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox17" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Ending OR No.        : " + Fields!max_or_number.Value</Value>
+            <Left>2.6pt</Left>
+            <Top>82.3pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox18" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>208.40pt</Width>
+            <Value>="Total No. of ORs     : " + Fields!z_cnt.Value</Value>
+            <Left>2.6pt</Left>
+            <Top>94.3pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Line Name="Line3" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>3.2pt</Left>
+            <Top>107.4pt</Top>
+          </Line>
+        </ReportItems>
+      </List>
+      <List Name="List3" >
+        <Height>15.13pt</Height>
+        <Width>213.80pt</Width>
+        <Left>3.7pt</Left>
+        <Top>232.0pt</Top>
+        <ReportItems>
+          <Textbox Name="Textbox19" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>BEGINNING BALANCE</Value>
+            <Left>2.6pt</Left>
+            <Top>1.10pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox20" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!init_balance.Value</Value>
+            <Left>107.9pt</Left>
+            <Top>1.1pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+        <DataSetName>Data4</DataSetName>
+      </List>
+      <List Name="List4" >
+        <Height>15.13pt</Height>
+        <Width>213.80pt</Width>
+        <Left>4.0pt</Left>
+        <Top>245.2pt</Top>
+        <ReportItems>
+          <Textbox Name="Textbox21" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>ENDING BALANCE </Value>
+            <Left>2.6pt</Left>
+            <Top>0.0pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox22" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!end_balance.Value</Value>
+            <Left>107.90pt</Left>
+            <Top>0.0pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+        <DataSetName>Data5</DataSetName>
+      </List>
+      <List Name="List5" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+        <Height>109.17pt</Height>
+        <Width>213.73pt</Width>
+        <Left>3.50pt</Left>
+        <Top>259.80pt</Top>
+        <Style>
+          <BorderStyle />
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+        <DataSetName>Data3</DataSetName>
+        <ReportItems>
+          <Line Name="Line4">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>3.8pt</Left>
+            <Top>0.6pt</Top>
+          </Line>
+          <Textbox Name="Textbox23" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.48pt</Height>
+            <Width>87.91pt</Width>
+            <Value>CASH</Value>
+            <Left>2.60pt</Left>
+            <Top>3.70pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Line Name="Line5" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>2.4pt</Left>
+            <Top>35.2pt</Top>
+          </Line>
+          <Line Name="Line6" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>3.2pt</Left>
+            <Top>89.0pt</Top>
+          </Line>
+          <Textbox Name="Textbox31" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.48pt</Height>
+            <Width>30pt</Width>
+            <Value>=Fields!session_cnt.Value</Value>
+            <Left>99.0pt</Left>
+            <Top>3.5pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Center</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0</Format>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox32" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>90.00pt</Width>
+            <Value>=Fields!price.Value</Value>
+            <Left>120.90pt</Left>
+            <Top>3.5pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+          <Line Name="Line7" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>0.00pt</Height>
+            <Width>206.22pt</Width>
+            <Style>
+              <BorderStyle>
+                <Default>Dashed</Default>
+              </BorderStyle>
+              <BorderColor />
+              <BorderWidth />
+            </Style>
+            <Left>2.6pt</Left>
+            <Top>17.9pt</Top>
+          </Line>
+          <Textbox Name="Textbox24" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.48pt</Height>
+            <Width>87.91pt</Width>
+            <Value>TOTAL AMOUNT</Value>
+            <Left>2.6pt</Left>
+            <Top>19.8pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox25" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>90.00pt</Width>
+            <Value>=Fields!price.Value</Value>
+            <Left>120.90pt</Left>
+            <Top>19.6pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox26" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>Add : SC Discount</Value>
+            <Left>2.6pt</Left>
+            <Top>38.4pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!sc_sum.Value</Value>
+            <Left>107.90pt</Left>
+            <Top>38.40pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox28" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>Add : PWD Discount</Value>
+            <Left>2.6pt</Left>
+            <Top>50.4pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox29" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>Total : Discount</Value>
+            <Left>2.6pt</Left>
+            <Top>62.4pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox30" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>102.29pt</Width>
+            <Value>GROSS AMOUNT </Value>
+            <Left>2.6pt</Left>
+            <Top>74.8pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Left</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox33" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!pwd_sum.Value</Value>
+            <Left>107.90pt</Left>
+            <Top>50.40pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox34" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!sc_sum.Value + Fields!pwd_sum.Value</Value>
+            <Left>107.90pt</Left>
+            <Top>62.40pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox35" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+            <Height>12.50pt</Height>
+            <Width>103.00pt</Width>
+            <Value>=Fields!sc_sum.Value + Fields!pwd_sum.Value + Fields!price.Value</Value>
+            <Left>107.90pt</Left>
+            <Top>74.80pt</Top>
+            <Style>
+              <FontSize>9pt</FontSize>
+              <BorderStyle />
+              <BorderColor />
+              <BorderWidth />
+              <FontFamily>Times New Roman</FontFamily>
+              <TextAlign>Right</TextAlign>
+              <VerticalAlign>Middle</VerticalAlign>
+              <Format >#,##0.00</Format>
+            </Style>
+          </Textbox>
+        </ReportItems>
+      </List>
+    </ReportItems>
+  </Body>
+  <PageFooter>
+    <Height>14pt</Height>
+    <ReportItems>
+      <Textbox Name="Textbox9">
+        <Top>1pt</Top>
+        <Left>10pt</Left>
+        <Height>12pt</Height>
+        <Width>3in</Width>
+        <Value>=Globals!PageNumber + ' of ' + Globals!TotalPages</Value>
+        <Style>
+          <FontSize>10pt</FontSize>
+          <FontWeight>Normal</FontWeight>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <DataSources>
+    <DataSource Name="DS1">
+      <ConnectionProperties>
+        <DataProvider>ODBC</DataProvider>
+        <ConnectString>dsn=localhost;</ConnectString>
+        <IntegratedSecurity>false</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+</Report>

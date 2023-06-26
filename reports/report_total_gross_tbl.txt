@@ -1,0 +1,10 @@
+CREATE TABLE `azynema`.`tmp_total_gross` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `report_date` DATETIME NOT NULL,
+  `cinema1_gross` FLOAT NOT NULL DEFAULT 0,
+  `cinema2_gross` FLOAT NOT NULL DEFAULT 0,
+  `cinema3_gross` FLOAT NOT NULL DEFAULT 0,
+  `cinema4_gross` FLOAT NOT NULL DEFAULT 0,
+  `total_gross` FLOAT NOT NULL DEFAULT 0,
+  `userid` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));

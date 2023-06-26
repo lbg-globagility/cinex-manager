@@ -1,0 +1,15 @@
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\RdlViewer.csprojResolveAssemblyReference.cache
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DataSourcePassword.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DialogMessages.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DialogWait.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.Resources.Strings.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.PageDrawing.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.RdlViewer.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.RdlViewerFind.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DataSourcePassword.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DialogMessages.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.DialogWait.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.Resources.Strings.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.RdlViewer.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\fyiReporting.RdlViewer.RdlViewerFind.ru-RU.resources
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlViewer\obj\x64\Debug\RdlViewer.csproj.GenerateResource.Cache

@@ -1,0 +1,46 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3fc01432-826f-4ed5-b6ef-b97887b18b08": {
+      "ProjectGuid": "3fc01432-826f-4ed5-b6ef-b97887b18b08",
+      "DisplayName": "Cinemapps",
+      "ColorIndex": 0
+    },
+    "f16a2bd2-3593-494f-9ff9-df09302e7d94": {
+      "ProjectGuid": "f16a2bd2-3593-494f-9ff9-df09302e7d94",
+      "DisplayName": "aZynEManager",
+      "ColorIndex": 1
+    },
+    "3afcb573-4b60-40bb-9876-9bb69573e6e5": {
+      "ProjectGuid": "3afcb573-4b60-40bb-9876-9bb69573e6e5",
+      "DisplayName": "CommonLibrary",
+      "ColorIndex": 2
+    },
+    "eb833d79-9d87-48ec-b396-79aace685253": {
+      "ProjectGuid": "eb833d79-9d87-48ec-b396-79aace685253",
+      "DisplayName": "EncryptUtilities",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "ae661a37-f582-4390-9e06-900e276ced26": {
+      "ProjectGuid": "ae661a37-f582-4390-9e06-900e276ced26",
+      "DisplayName": "ExcelReports",
+      "ColorIndex": 4
+    },
+    "c97e91f4-b310-44e2-9b6c-96775395722d": {
+      "ProjectGuid": "c97e91f4-b310-44e2-9b6c-96775395722d",
+      "DisplayName": "RdlEngine",
+      "ColorIndex": 5
+    },
+    "d99145b1-cb6c-41f5-ba86-723325145fb5": {
+      "ProjectGuid": "d99145b1-cb6c-41f5-ba86-723325145fb5",
+      "DisplayName": "RdlViewer",
+      "ColorIndex": 6
+    }
+  },
+  "NextColorIndex": 7
+}

@@ -1,0 +1,7 @@
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\bin\Release\CommonLibrary.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\bin\Release\CommonLibrary.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\bin\Release\EncryptUtilities.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\bin\Release\EncryptUtilities.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\obj\Release\CommonLibrary.csprojResolveAssemblyReference.cache
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\obj\Release\CommonLibrary.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\CommonLibrary\obj\Release\CommonLibrary.pdb

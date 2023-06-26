@@ -1,0 +1,18 @@
+CREATE TABLE `azynema`.`tmp_dailysummary` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(225) NULL,
+  `start_time` DATETIME NULL,
+  `end_time` DATETIME NULL,
+  `patron_nm` VARCHAR(225) NULL,
+  `price` FLOAT NULL,
+  `unit` INT NULL,
+  `total_price` FLOAT NULL,
+  `min_or` VARCHAR(225) NULL,
+  `max_or` VARCHAR(225) NULL,
+  `movies_schedule_list_id` INT NULL,
+  `userid` VARCHAR(225) NULL,
+  PRIMARY KEY (`id`));
+
+
+ALTER TABLE `azynema`.`tmp_dailysummary` 
+ADD COLUMN `screening` INT NULL AFTER `movies_schedule_list_id`;

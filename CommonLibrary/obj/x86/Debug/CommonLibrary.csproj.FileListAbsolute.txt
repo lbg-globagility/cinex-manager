@@ -1,0 +1,8 @@
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\bin\x86\Debug\CommonLibrary.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\bin\x86\Debug\CommonLibrary.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\bin\x86\Debug\EncryptUtilities.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\bin\x86\Debug\EncryptUtilities.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\obj\x86\Debug\CommonLibrary.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\obj\x86\Debug\CommonLibrary.pdb
+D:\development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\obj\x86\Debug\CommonLibrary.csproj.CoreCompileInputs.cache
+D:\development\cinexfromgit64bit\azyne\aZynEManager\CommonLibrary\obj\x86\Debug\CommonLibrary.csproj.CopyComplete
