@@ -127,7 +127,7 @@ namespace CommonLibrary
 
                 var strPort = ConfigurationManager.AppSettings["Port"];
 
-                string strConnectionString = string.Format("Driver={{{0}}};Server={1};Database={2};Uid={3};Pwd={4};Option={5};Port={6};", strDriver, strServer, strDatabase, strUserId, strPassword, "3", strPort);
+                string strConnectionString = string.Format(format: "Driver={{{0}}};Server={1};Database={2};Uid={3};Pwd={4};Option={5};Port={6};", strDriver, strServer, strDatabase, strUserId, strPassword, "3", strPort);
                 return strConnectionString;
             }
         }
