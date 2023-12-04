@@ -25,7 +25,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <PublishUrl>http://localhost/EncryptUtilities/</PublishUrl>
+    <PublishUrl>http://127.0.0.1/EncryptUtilities/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>

@@ -734,7 +734,7 @@
     <DataSource Name="DS1">
       <ConnectionProperties>
         <DataProvider>ODBC</DataProvider>
-        <ConnectString>dsn=localhost;</ConnectString>
+        <ConnectString>dsn=127.0.0.1;</ConnectString>
         <IntegratedSecurity>false</IntegratedSecurity>
       </ConnectionProperties>
     </DataSource>

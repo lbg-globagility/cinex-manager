@@ -24,9 +24,8 @@ namespace CommonLibrary
         public static string EntityConnectionString(string strModelName)
         {
             {
-                //    <add name="paradisoEntities" connectionString="metadata=res://*/ParadisoModel.csdl|res://*/ParadisoModel.ssdl|res://*/ParadisoModel.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=localhost;user id=root;persistsecurityinfo=True;database=cinema&quot;" providerName="System.Data.EntityClient"/>
                 string strServer = string.Empty;
-                int intPort = 3306;
+                int intPort = 3309;
                 string strDatabase = string.Empty;
                 string strUserId = string.Empty;
                 string strPassword = string.Empty;
@@ -86,7 +85,7 @@ namespace CommonLibrary
             get
             {
                 string strServer = string.Empty;
-                int intPort = 3306;
+                int intPort = 3309;
                 string strDatabase = string.Empty;
                 string strUserId = string.Empty;
                 string strPassword = string.Empty;

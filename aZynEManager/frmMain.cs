@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using CommonLibrary;
+using Amellar.Common.EncryptUtilities;
 
 namespace aZynEManager
 {
@@ -18,14 +19,13 @@ namespace aZynEManager
         private bool draggable = true;
         private string exclude_list = "";
         private Panel _activePanel = null;
-        //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","localhost", "3306", "azynema", "root", "");
+        //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};","127.0.0.1", "3306", "azynema", "root", "");
         //public string _connection = String.Format("Server={0};Port={1};Database={2};Uid={3};Pwd={4};", "192.168.0.218", "3306", "cinema", "as-admi_mvie1", "G23ticketV5");
 
         //supporting background and line color
         public Color _linecolor = Color.CornflowerBlue;
-        public Color _backcolor = Color.CornflowerBlue;
 
-        
+        public Color _backcolor = Color.CornflowerBlue;
 
         //form of the main modules
         //frmMainMovie frmmovie = null;
@@ -43,8 +43,6 @@ namespace aZynEManager
         public int m_userid = -1;//1;//
         public bool boolAppAtTest = false;// true;//
 
-        
-
         public frmMain()
         {
             InitializeComponent();
@@ -58,23 +56,22 @@ namespace aZynEManager
 
             _activePanel = pnlControl;
 
-            if(m_clscom == null)
+            if (m_clscom == null)
                 m_clscom = new clscommon();
 
             m_clscom.initConfig(this);
         }
 
-        
-
         #region MouseDragControl
+
         protected override void OnControlAdded(ControlEventArgs e)
         {
             //
             //Add Mouse Event Handlers for each control added into the form,
             //if Draggable property of the form is set to true and the control
             //name is not in the ExcludeList.Exclude list is the comma separated
-            //list of the Controls for which you do not require the mouse handler 
-            //to be added. For Example a button.  
+            //list of the Controls for which you do not require the mouse handler
+            //to be added. For Example a button.
             //
             if (this.Draggable && (this.ExcludeList.IndexOf(e.Control.Name) == -1))
             {
@@ -84,23 +81,26 @@ namespace aZynEManager
             }
             base.OnControlAdded(e);
         }
-        void Form_MouseDown(object sender, MouseEventArgs e)
+
+        private void Form_MouseDown(object sender, MouseEventArgs e)
         {
             //
-            //On Mouse Down set the flag drag=true and 
+            //On Mouse Down set the flag drag=true and
             //Store the clicked point to the start_point variable
             //
             this.drag = true;
             this.start_point = new System.Drawing.Point(e.X, e.Y);
         }
-        void Form_MouseUp(object sender, MouseEventArgs e)
+
+        private void Form_MouseUp(object sender, MouseEventArgs e)
         {
             //
             //Set the drag flag = false;
             //
             this.drag = false;
         }
-        void Form_MouseMove(object sender, MouseEventArgs e)
+
+        private void Form_MouseMove(object sender, MouseEventArgs e)
         {
             //
             //If drag = true, drag the form
@@ -114,6 +114,7 @@ namespace aZynEManager
                 this.Location = p3;
             }
         }
+
         public string ExcludeList
         {
             set
@@ -125,6 +126,7 @@ namespace aZynEManager
                 return this.exclude_list.Trim();
             }
         }
+
         public bool Draggable
         {
             set
@@ -136,7 +138,8 @@ namespace aZynEManager
                 return this.draggable;
             }
         }
-        #endregion
+
+        #endregion MouseDragControl
 
         public Color SkinLineColor
         {
@@ -155,7 +158,6 @@ namespace aZynEManager
             this.Close();
             this.Dispose();
         }
-
 
         private void pnlClose_MouseHover(object sender, EventArgs e)
         {
@@ -208,19 +210,16 @@ namespace aZynEManager
             _activePanel.Hide();
 
             m_dtcontact = m_clscom.setDataTable("select * from people order by id asc", _connection);
-            m_dtdistributor = m_clscom.setDataTable("select * from distributor order by name asc",_connection);
+            m_dtdistributor = m_clscom.setDataTable("select * from distributor order by name asc", _connection);
             m_dtrating = m_clscom.setDataTable("select * from mtrcb order by id asc", _connection);
-            m_dtclassification = m_clscom.setDataTable("select * from classification order by description asc",_connection);
+            m_dtclassification = m_clscom.setDataTable("select * from classification order by description asc", _connection);
 
             frmMainMovie frmmovie = new frmMainMovie();
             frmmovie.setSkin(_backcolor, _linecolor);
-            frmmovie.frmInit(this,m_clscom);
+            frmmovie.frmInit(this, m_clscom);
             frmmovie.ShowDialog();
             frmmovie.Dispose();
-
         }
-
-        
 
         private void frmMain_MouseDown(object sender, MouseEventArgs e)
         {
@@ -238,6 +237,7 @@ namespace aZynEManager
         }
 
         #region the skinColors
+
         private void blueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SkinLineColor = Color.CornflowerBlue;
@@ -318,7 +318,8 @@ namespace aZynEManager
                     Item.Checked = false;
             }
         }
-        #endregion
+
+        #endregion the skinColors
 
         private void pnlUtility_Click(object sender, EventArgs e)
         {
@@ -331,20 +332,14 @@ namespace aZynEManager
 
         private void pnlReport_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void pnlDescription_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
         }
-
-
-
     }
 }
