@@ -680,6 +680,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cinema-manager-icon.ico" />
+    <Content Include="ICSharpCode.SharpZipLib.dll" />
+    <Content Include="KP-ImageViewerV2.dll" />
+    <Content Include="rtaGlassEffectsLib.dll" />
     <None Include="Resources\surcharge2.png" />
     <None Include="Resources\surcharge1.png" />
     <None Include="Resources\surcharge.png" />
