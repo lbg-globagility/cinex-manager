@@ -1169,6 +1169,8 @@
     <EmbeddedResource Include="Resources\Strings.ru-RU.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ICSharpCode.SharpZipLib.dll" />
+    <Content Include="itextsharp.dll" />
     <Content Include="System.Data.SQLite.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
