@@ -1,0 +1,8 @@
+D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.pdb

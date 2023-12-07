@@ -1,0 +1,8 @@
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\DataProviders\bin\Debug\DataProviders.dll
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\DataProviders\bin\Debug\DataProviders.pdb
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\DataProviders\obj\Debug\DataProviders.dll
+D:\downloads\My-FyiReporting-master\My-FyiReporting-master\DataProviders\obj\Debug\DataProviders.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\Debug\DataProviders.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\Debug\DataProviders.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\Debug\DataProviders.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\Debug\DataProviders.pdb
