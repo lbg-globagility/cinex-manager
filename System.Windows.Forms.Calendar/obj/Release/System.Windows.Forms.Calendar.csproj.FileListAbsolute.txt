@@ -1,5 +1,0 @@
-D:\Development\cinexfromgit\azyne\aZynEManager\System.Windows.Forms.Calendar\bin\Release\System.Windows.Forms.Calendar.dll
-D:\Development\cinexfromgit\azyne\aZynEManager\System.Windows.Forms.Calendar\bin\Release\System.Windows.Forms.Calendar.pdb
-D:\Development\cinexfromgit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\Release\System.Windows.Forms.Calendar.dll
-D:\Development\cinexfromgit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\Release\System.Windows.Forms.Calendar.pdb
-D:\Development\cinexfromgit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\Release\System.Windows.Forms.Calendar.csprojResolveAssemblyReference.cache

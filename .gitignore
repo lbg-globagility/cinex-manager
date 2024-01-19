@@ -21,3 +21,9 @@ Cinemapps/obj/Debug
 DataProviders/obj/x86/Debug
 RdlEngine/obj/x86/Debug
 RdlViewer/obj/x86/Debug
+CinemaCustomControlLibrary/obj
+CommonLibrary/obj
+EncryptionProvider/obj
+EncryptUtilities/obj
+ExcelReports/obj
+System.Windows.Forms.Calendar/obj
