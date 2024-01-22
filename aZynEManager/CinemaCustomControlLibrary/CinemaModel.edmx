@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="cinemaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="cinemaModelStoreContainer">
+          <EntitySet Name="cinema" EntityType="cinemaModel.Store.cinema" store:Type="Tables" Schema="azynema" />
+          <EntitySet Name="cinema_seat" EntityType="cinemaModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.Store.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cinema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="225" />
+          <Property Name="sound_id" Type="int" Nullable="false" />
+          <Property Name="capacity" Type="int" />
+          <Property Name="in_order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cinema_seat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+          <Property Name="x1" Type="int" />
+          <Property Name="y1" Type="int" />
+          <Property Name="x2" Type="int" />
+          <Property Name="y2" Type="int" />
+          <Property Name="origin_x" Type="int" />
+          <Property Name="origin_y" Type="int" />
+          <Property Name="row_name" Type="varchar" MaxLength="100" />
+          <Property Name="col_name" Type="varchar" MaxLength="100" />
+          <Property Name="object_type" Type="int" />
+          <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="cinemaModel.Store.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="cinemaModel.Store.cinema_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cinemaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="cinemaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cinemas" EntityType="cinemaModel.cinema" />
+          <EntitySet Name="cinema_seat" EntityType="cinemaModel.cinema_seat" />
+          <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.fk_cinema_seat_cinema1">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="cinema_seat" EntitySet="cinema_seat" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cinema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+          <Property Name="sound_id" Type="Int32" Nullable="false" />
+          <Property Name="capacity" Type="Int32" />
+          <Property Name="in_order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cinema_seat" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema" ToRole="cinema_seat" />
+        </EntityType>
+        <EntityType Name="cinema_seat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <Property Name="x1" Type="Int32" />
+          <Property Name="y1" Type="Int32" />
+          <Property Name="x2" Type="Int32" />
+          <Property Name="y2" Type="Int32" />
+          <Property Name="origin_x" Type="Int32" />
+          <Property Name="origin_y" Type="Int32" />
+          <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="object_type" Type="Int32" />
+          <Property Name="is_handicapped" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="cinema" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
+        </EntityType>
+        <Association Name="fk_cinema_seat_cinema1">
+          <End Role="cinema" Type="cinemaModel.cinema" Multiplicity="1" />
+          <End Role="cinema_seat" Type="cinemaModel.cinema_seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema_seat">
+              <PropertyRef Name="cinema_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cinemaModelStoreContainer" CdmEntityContainer="cinemaEntities">
+          <EntitySetMapping Name="cinemas">
+            <EntityTypeMapping TypeName="cinemaModel.cinema">
+              <MappingFragment StoreEntitySet="cinema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sound_id" ColumnName="sound_id" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="in_order" ColumnName="in_order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cinema_seat">
+            <EntityTypeMapping TypeName="cinemaModel.cinema_seat">
+              <MappingFragment StoreEntitySet="cinema_seat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+                <ScalarProperty Name="x1" ColumnName="x1" />
+                <ScalarProperty Name="y1" ColumnName="y1" />
+                <ScalarProperty Name="x2" ColumnName="x2" />
+                <ScalarProperty Name="y2" ColumnName="y2" />
+                <ScalarProperty Name="origin_x" ColumnName="origin_x" />
+                <ScalarProperty Name="origin_y" ColumnName="origin_y" />
+                <ScalarProperty Name="row_name" ColumnName="row_name" />
+                <ScalarProperty Name="col_name" ColumnName="col_name" />
+                <ScalarProperty Name="object_type" ColumnName="object_type" />
+                <ScalarProperty Name="is_handicapped" ColumnName="is_handicapped" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CinemaModel" ZoomLevel="108">
+        <EntityTypeShape EntityType="cinemaModel.cinema" Width="1.5" PointX="1.125" PointY="0.5" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinemaModel.cinema_seat" Width="1.5" PointX="3.125" PointY="0.875" Height="3.5186979166666656" IsExpanded="true" />
+        <AssociationConnector Association="cinemaModel.fk_cinema_seat_cinema1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.625" PointY="1.7737939453125" />
+          <ConnectorPoint PointX="3.125" PointY="1.7737939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
