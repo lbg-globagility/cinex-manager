@@ -40,32 +40,8 @@
           <DataField>Cinema3</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
         </Field>
-        <Field Name="Cinema6">
-          <DataField>Cinema6</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema7">
-          <DataField>Cinema7</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema8">
-          <DataField>Cinema8</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema9">
-          <DataField>Cinema9</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema10">
-          <DataField>Cinema10</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema11">
-          <DataField>Cinema11</DataField>
-          <rd:TypeName>System.Single</rd:TypeName>
-        </Field>
-        <Field Name="Cinema12">
-          <DataField>Cinema12</DataField>
+        <Field Name="Cinema4">
+          <DataField>Cinema4</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
         </Field>
         <Field Name="Total_Gross">
@@ -100,40 +76,22 @@
         </Style>
         <TableColumns>
           <TableColumn>
-            <Width>52.2pt</Width>
+            <Width>74.4pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>44.5pt</Width>
+            <Width>72.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>48.9pt</Width>
+            <Width>66.1pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>44.8pt</Width>
+            <Width>66.0pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>45.7pt</Width>
+            <Width>65.5pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>45.9pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>46.8pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>44.6pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>46.2pt</Width>
-          </TableColumn>
-          <TableColumn >
-            <Width>50.0pt</Width>
-          </TableColumn>
-          <TableColumn >
-            <Width>53.0pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>52.1pt</Width>
+            <Width>178.1pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
@@ -165,7 +123,7 @@
                       <CanGrow>true</CanGrow>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>12</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -196,12 +154,12 @@
                       <CanGrow>true</CanGrow>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>12</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
             <TableRow>
-              <Height>4.4pt</Height>
+              <Height>2.9pt</Height>
               <TableCells>
                 <TableCell>
                   <ReportItems>
@@ -223,7 +181,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>12</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -254,7 +212,7 @@
                       <CanGrow>true</CanGrow>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>12</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -364,7 +322,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox6">
-                      <Value>Cinema6</Value>
+                      <Value>Cinema4</Value>
                       <Style>
                         <TextAlign>Center</TextAlign>
                         <BorderStyle>
@@ -383,152 +341,6 @@
                         <FontSize>8pt</FontSize>
                       </Style>
                       <CanGrow>true</CanGrow>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox13">
-                      <Value>Cinema7</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox17">
-                      <Value>Cinema8</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox20">
-                      <Value>Cinema9</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox10">
-                      <Value>Cinema10</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox65">
-                      <Value>Cinema11</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox72">
-                      <Value>Cinema12</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                      <HideDuplicates>
-                      </HideDuplicates>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -586,7 +398,7 @@
                         <TextAlign>Center</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format>MM/dd/yyyy</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Arial Narrow</FontFamily>
                       </Style>
@@ -612,9 +424,8 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -638,9 +449,8 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -664,9 +474,8 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -674,7 +483,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Cinema4">
-                      <Value>=Fields!Cinema6.Value</Value>
+                      <Value>=Fields!Cinema4.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -690,159 +499,8 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox14">
-                      <Value>=Fields!Cinema7.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox18">
-                      <Value>=Fields!Cinema8.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox22">
-                      <Value>=Fields!Cinema9.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox11">
-                      <Value>=Fields!Cinema10.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox66">
-                      <Value>=Fields!Cinema11.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox73">
-                      <Value>=Fields!Cinema12.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
-                        <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -866,9 +524,8 @@
                         <BorderColor />
                         <BorderWidth />
                         <Format>#,##0.00</Format>
-                        <FontSize>8pt</FontSize>
+                        <FontSize>9pt</FontSize>
                         <PaddingLeft>0pt</PaddingLeft>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -904,7 +561,6 @@
                         <Format>None</Format>
                         <FontWeight>Bolder</FontWeight>
                         <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
                       </Style>
                       <CanGrow>true</CanGrow>
                     </Textbox>
@@ -933,8 +589,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -962,8 +617,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -991,8 +645,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1000,7 +653,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="tf_Cinema4">
-                      <Value>=Sum(Fields!Cinema6.Value)</Value>
+                      <Value>=Sum(Fields!Cinema4.Value)</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -1020,176 +673,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox16">
-                      <Value>=Sum(Fields!Cinema7.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox19">
-                      <Value>=Sum(Fields!Cinema8.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox23">
-                      <Value>=Sum(Fields!Cinema9.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox12">
-                      <Value>=Sum(Fields!Cinema10.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox67">
-                      <Value>=Sum(Fields!Cinema11.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox74">
-                      <Value>=Sum(Fields!Cinema12.Value)</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>0pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <Format>#,##0.00</Format>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1217,8 +701,7 @@
                         <BorderWidth />
                         <Format>#,##0.00</Format>
                         <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <FontFamily >Arial Narrow</FontFamily>
+                        <FontSize>9pt</FontSize>
                       </Style>
                     </Textbox>
                   </ReportItems>
@@ -1227,7 +710,7 @@
             </TableRow>
           </TableRows>
         </Footer>
-        <Left>1.6pt</Left>
+        <Left>28.8pt</Left>
         <Top>4.8pt</Top>
       </Table>
       <Line Name="Line1">
