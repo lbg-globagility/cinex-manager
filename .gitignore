@@ -35,3 +35,15 @@ RdlEngine/obj/x86/Debug/*.txt
 RdlViewer/obj/x86/Debug/*.cache
 RdlViewer/obj/x86/Debug/*.txt
 System.Windows.Forms.Calendar/obj/x86/Debug/*.cache
+.vs/aZynEManager/v17/fileLis*.bin
+aZynEManager/.vs/aZynEManager.csproj.dtbcach*.json
+CinemaCustomControlLibrary/.vs/CinemaCustomControlLibrary.csproj.dtbcach*.json
+Cinemapps/.vs/Cinemapps.csproj.dtbcach*.json
+CommonLibrary/.vs/CommonLibrary.csproj.dtbcach*.json
+DataProviders/.vs/DataProviders.csproj.dtbcach*.json
+EncryptionProvider/.vs/EncryptionProvider.csproj.dtbcach*.json
+EncryptUtilities/.vs/EncryptUtilities.csproj.dtbcach*.json
+ExcelReports/.vs/ExcelReports.csproj.dtbcach*.json
+RdlEngine/.vs/RdlEngine.csproj.dtbcach*.json
+RdlViewer/.vs/RdlViewer.csproj.dtbcach*.json
+System.Windows.Forms.Calendar/.vs/System.Windows.Forms.Calendar.csproj.dtbcach*.json
