@@ -17,3 +17,4 @@ DataProviders/obj/x86/Debug/DataProviders.csproj.FileListAbsolute.txt
 RdlEngine/obj/x86/Debug/RdlEngine.csproj.FileListAbsolute.txt
 RdlViewer/obj/x86/Debug/RdlViewer.csproj.FileListAbsolute.txt
 .vs/aZynEManager/FileContentIndex/*.vsidx
+.vs/aZynEManager/v17/*.suo
