@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cinemaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="cinemaModelStoreContainer">
+    <EntitySet Name="cinema" EntityType="cinemaModel.Store.cinema" store:Type="Tables" Schema="azynema_fsm2" />
+    <EntitySet Name="cinema_seat" EntityType="cinemaModel.Store.cinema_seat" store:Type="Tables" Schema="azynema_fsm2" />
+    <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.Store.fk_cinema_seat_cinema1">
+      <End Role="cinema" EntitySet="cinema" />
+      <End Role="cinema_seat" EntitySet="cinema_seat" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cinema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="sound_id" Type="int" Nullable="false" />
+    <Property Name="capacity" Type="int" />
+    <Property Name="in_order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cinema_seat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="cinema_id" Type="int" Nullable="false" />
+    <Property Name="x1" Type="int" />
+    <Property Name="y1" Type="int" />
+    <Property Name="x2" Type="int" />
+    <Property Name="y2" Type="int" />
+    <Property Name="origin_x" Type="int" />
+    <Property Name="origin_y" Type="int" />
+    <Property Name="row_name" Type="varchar" MaxLength="100" />
+    <Property Name="col_name" Type="varchar" MaxLength="100" />
+    <Property Name="object_type" Type="int" />
+    <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_cinema_seat_cinema1">
+    <End Role="cinema" Type="cinemaModel.Store.cinema" Multiplicity="1" />
+    <End Role="cinema_seat" Type="cinemaModel.Store.cinema_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema_seat">
+        <PropertyRef Name="cinema_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

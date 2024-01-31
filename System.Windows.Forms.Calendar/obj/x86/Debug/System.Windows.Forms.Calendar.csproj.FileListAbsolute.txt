@@ -1,0 +1,5 @@
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\System.Windows.Forms.Calendar\bin\x86\Debug\System.Windows.Forms.Calendar.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\System.Windows.Forms.Calendar\bin\x86\Debug\System.Windows.Forms.Calendar.pdb
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\x86\Debug\System.Windows.Forms.Calendar.dll
+D:\Development\cinexfromgit64bit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\x86\Debug\System.Windows.Forms.Calendar.pdb
+D:\development\cinexfromgit64bit\azyne\aZynEManager\System.Windows.Forms.Calendar\obj\x86\Debug\System.Windows.Forms.Calendar.csproj.CoreCompileInputs.cache

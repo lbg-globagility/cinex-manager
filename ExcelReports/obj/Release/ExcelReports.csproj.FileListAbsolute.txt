@@ -1,0 +1,9 @@
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\ExcelReports.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\ExcelReports.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\CommonLibrary.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\EncryptUtilities.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\CommonLibrary.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\bin\Release\EncryptUtilities.pdb
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\obj\Release\ExcelReports.csprojResolveAssemblyReference.cache
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\obj\Release\ExcelReports.dll
+D:\Development\cinexfromgit\azyne\aZynEManager\ExcelReports\obj\Release\ExcelReports.pdb

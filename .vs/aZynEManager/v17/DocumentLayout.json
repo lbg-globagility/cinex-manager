@@ -1,0 +1,226 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Repositories\\aZynEManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|e:\\repositories\\azynemanager\\azynemanager\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|solutionrelative:azynemanager\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|E:\\Repositories\\aZynEManager\\azynemanager\\clscommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|solutionrelative:azynemanager\\clscommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|E:\\Repositories\\aZynEManager\\azynemanager\\frmreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F16A2BD2-3593-494F-9FF9-DF09302E7D94}|aZynEManager\\aZynEManager.csproj|solutionrelative:azynemanager\\frmreport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\reportwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\reportwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C97E91F4-B310-44E2-9B6C-96775395722D}|RdlEngine\\RdlEngine.csproj|E:\\Repositories\\aZynEManager\\rdlengine\\render\\excelvalet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C97E91F4-B310-44E2-9B6C-96775395722D}|RdlEngine\\RdlEngine.csproj|solutionrelative:rdlengine\\render\\excelvalet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D99145B1-CB6C-41F5-BA86-723325145FB5}|RdlViewer\\RdlViewer.csproj|E:\\Repositories\\aZynEManager\\rdlviewer\\rdlviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D99145B1-CB6C-41F5-BA86-723325145FB5}|RdlViewer\\RdlViewer.csproj|solutionrelative:rdlviewer\\rdlviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Repositories\\aZynEManager\\packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\reportwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\reportwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\newwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\newwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|E:\\Repositories\\aZynEManager\\cinemapps\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{3FC01432-826F-4ED5-B6EF-B97887B18B08}|Cinemapps\\Cinemapps.csproj|solutionrelative:cinemapps\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "app.config",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\aZynEManager\\app.config",
+              "RelativeDocumentMoniker": "aZynEManager\\app.config",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\aZynEManager\\app.config",
+              "RelativeToolTip": "aZynEManager\\app.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-01-31T08:25:42.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmReport.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\aZynEManager\\frmReport.cs",
+              "RelativeDocumentMoniker": "aZynEManager\\frmReport.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\aZynEManager\\frmReport.cs",
+              "RelativeToolTip": "aZynEManager\\frmReport.cs",
+              "ViewState": "AQIAAAoFAAAAAAAAAAAkwCoFAABLAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-01-31T08:25:09.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "app.config",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\app.config",
+              "RelativeDocumentMoniker": "Cinemapps\\app.config",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\app.config",
+              "RelativeToolTip": "Cinemapps\\app.config",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAxwDcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-01-31T08:25:09.355Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReportWindow.xaml.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\ReportWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Cinemapps\\ReportWindow.xaml.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\ReportWindow.xaml.cs",
+              "RelativeToolTip": "Cinemapps\\ReportWindow.xaml.cs",
+              "ViewState": "AQIAANEGAAAAAAAAAAAqwOYGAABDAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHiSURBVDhPY2SAgpb1Vww4WNh2SguwM7EyMQYL/5I95ujI\u002BAcqjRMwMsTvNAAxfPWF1cwUeKfvvvqBz1GNb7\u002BW4Ocp25ZOffTt2zewQikpKYaAgACQgTccHR3hBrMw/GUsADGO3vok9P7LH66bL76xKIuy2hiJ/pdTVFT8DjLg9\u002B/fYMVv3rz5JCkpWXHs2LELVlZW30FijAwxO8VAjHIvaR0FEc6Vi469FEm3k2CwVeFk\u002BPvjM8O/f/8YXrx4wbBp0yaGHz9\u002B/PPz87vNw8OTCDT0NMglTAxL3F\u002BBsAQf67s/f/7\u002Bq/CUZbBV42HgYmVg4ObmZuDl5WXg4uJi\u002BP//P8O7d\u002B\u002BYgAapPn/\u002BvANopwbIYiYQAQIKrM8YlDleMehJsTBwMv8D2wwDrKysDGJiYgxA5zNwcHAwAb3At2HDBhaQHDNYBRBICAtIvH7\u002BJFZPR4ubhQUuDAZsbGwMMjIyDFpaWgxKSkoMt27devH06dON165dewF3wbNnz8D4zx/MmIO5QFpaGuwKEB8G4AaQC0YNQDIAFLKMjIzgVAeMIpwYJA\u002BKKVhMgBMDCAATyHcmJqYrW7duFQYZhAuAEtjXr19vgdSD\u002BHCV9fX1LMAkKgDMPAS9xc7O/geYsD41Njb\u002BAQB9hMCogeGQ7QAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-01-31T08:25:09.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Cinemapps\\MainWindow.xaml.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Cinemapps\\MainWindow.xaml.cs",
+              "ViewState": "AQIAANEBAAAAAAAAAAAqwOQBAACGAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHiSURBVDhPY2SAgpb1Vww4WNh2SguwM7EyMQYL/5I95ujI\u002BAcqjRMwMsTvNAAxfPWF1cwUeKfvvvqBz1GNb7\u002BW4Ocp25ZOffTt2zewQikpKYaAgACQgTccHR3hBrMw/GUsADGO3vok9P7LH66bL76xKIuy2hiJ/pdTVFT8DjLg9\u002B/fYMVv3rz5JCkpWXHs2LELVlZW30FijAwxO8VAjHIvaR0FEc6Vi469FEm3k2CwVeFk\u002BPvjM8O/f/8YXrx4wbBp0yaGHz9\u002B/PPz87vNw8OTCDT0NMglTAxL3F\u002BBsAQf67s/f/7\u002Bq/CUZbBV42HgYmVg4ObmZuDl5WXg4uJi\u002BP//P8O7d\u002B\u002BYgAapPn/\u002BvANopwbIYiYQAQIKrM8YlDleMehJsTBwMv8D2wwDrKysDGJiYgxA5zNwcHAwAb3At2HDBhaQHDNYBRBICAtIvH7\u002BJFZPR4ubhQUuDAZsbGwMMjIyDFpaWgxKSkoMt27devH06dON165dewF3wbNnz8D4zx/MmIO5QFpaGuwKEB8G4AaQC0YNQDIAFLKMjIzgVAeMIpwYJA\u002BKKVhMgBMDCAATyHcmJqYrW7duFQYZhAuAEtjXr19vgdSD\u002BHCV9fX1LMAkKgDMPAS9xc7O/geYsD41Njb\u002BAQB9hMCogeGQ7QAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-01-31T08:25:09.358Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RdlViewer.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\RdlViewer\\RdlViewer.cs",
+              "RelativeDocumentMoniker": "RdlViewer\\RdlViewer.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\RdlViewer\\RdlViewer.cs",
+              "RelativeToolTip": "RdlViewer\\RdlViewer.cs",
+              "ViewState": "AQIAADkHAAAAAAAAAAAcwEoHAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003302|",
+              "WhenOpened": "2024-01-31T08:25:09.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExcelValet.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\RdlEngine\\Render\\ExcelValet.cs",
+              "RelativeDocumentMoniker": "RdlEngine\\Render\\ExcelValet.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\RdlEngine\\Render\\ExcelValet.cs",
+              "RelativeToolTip": "RdlEngine\\Render\\ExcelValet.cs",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAqwFgAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-01-31T08:25:09.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "clscommon.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\aZynEManager\\clscommon.cs",
+              "RelativeDocumentMoniker": "aZynEManager\\clscommon.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\aZynEManager\\clscommon.cs",
+              "RelativeToolTip": "aZynEManager\\clscommon.cs",
+              "ViewState": "AQIAAAoHAAAAAAAAAAAqwCEHAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-01-31T08:25:09.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Readme.txt",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt",
+              "RelativeDocumentMoniker": "packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt",
+              "RelativeToolTip": "packages\\GemBox.Spreadsheet.WinFormsUtilities.47.0.1321\\Readme.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-01-31T08:25:09.376Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ReportWindow.xaml",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\ReportWindow.xaml",
+              "RelativeDocumentMoniker": "Cinemapps\\ReportWindow.xaml",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\ReportWindow.xaml",
+              "RelativeToolTip": "Cinemapps\\ReportWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-01-31T08:25:09.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "NewWindow.xaml",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\NewWindow.xaml",
+              "RelativeDocumentMoniker": "Cinemapps\\NewWindow.xaml",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\NewWindow.xaml",
+              "RelativeToolTip": "Cinemapps\\NewWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-01-31T08:25:09.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\App.xaml.cs",
+              "RelativeDocumentMoniker": "Cinemapps\\App.xaml.cs",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\App.xaml.cs",
+              "RelativeToolTip": "Cinemapps\\App.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHiSURBVDhPY2SAgpb1Vww4WNh2SguwM7EyMQYL/5I95ujI\u002BAcqjRMwMsTvNAAxfPWF1cwUeKfvvvqBz1GNb7\u002BW4Ocp25ZOffTt2zewQikpKYaAgACQgTccHR3hBrMw/GUsADGO3vok9P7LH66bL76xKIuy2hiJ/pdTVFT8DjLg9\u002B/fYMVv3rz5JCkpWXHs2LELVlZW30FijAwxO8VAjHIvaR0FEc6Vi469FEm3k2CwVeFk\u002BPvjM8O/f/8YXrx4wbBp0yaGHz9\u002B/PPz87vNw8OTCDT0NMglTAxL3F\u002BBsAQf67s/f/7\u002Bq/CUZbBV42HgYmVg4ObmZuDl5WXg4uJi\u002BP//P8O7d\u002B\u002BYgAapPn/\u002BvANopwbIYiYQAQIKrM8YlDleMehJsTBwMv8D2wwDrKysDGJiYgxA5zNwcHAwAb3At2HDBhaQHDNYBRBICAtIvH7\u002BJFZPR4ubhQUuDAZsbGwMMjIyDFpaWgxKSkoMt27devH06dON165dewF3wbNnz8D4zx/MmIO5QFpaGuwKEB8G4AaQC0YNQDIAFLKMjIzgVAeMIpwYJA\u002BKKVhMgBMDCAATyHcmJqYrW7duFQYZhAuAEtjXr19vgdSD\u002BHCV9fX1LMAkKgDMPAS9xc7O/geYsD41Njb\u002BAQB9hMCogeGQ7QAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-01-31T08:25:09.381Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "App.xaml",
+              "DocumentMoniker": "E:\\Repositories\\aZynEManager\\Cinemapps\\App.xaml",
+              "RelativeDocumentMoniker": "Cinemapps\\App.xaml",
+              "ToolTip": "E:\\Repositories\\aZynEManager\\Cinemapps\\App.xaml",
+              "RelativeToolTip": "Cinemapps\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-01-31T08:25:09.383Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
