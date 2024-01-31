@@ -180,16 +180,9 @@ namespace aZynEManager
         private void btnPatrons_Click(object sender, EventArgs e)
         {
             unselectButton();
-            /*frmPatron frmpat = new frmPatron();
+            frmPatron frmpat = new frmPatron();
             frmpat.frmInit(m_frmM, m_clscom);
-            frmpat.ShowDialog();*/ //remarked 6.26.2019
-            //added 6.26.2019
-            using (frmPatronSearch frm = new frmPatronSearch())
-            {
-                frm.frmInit(m_frmM, m_clscom);
-                frm.ShowDialog();
-                frm.Dispose();
-            }
+            frmpat.ShowDialog();
         }
 
         private void btnCinema_Click(object sender, EventArgs e)
