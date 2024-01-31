@@ -1,0 +1,8 @@
+E:\Repositories\aZynEManager\EncryptionProvider\bin\Debug\EncryptionProvider.dll
+E:\Repositories\aZynEManager\EncryptionProvider\bin\Debug\EncryptionProvider.pdb
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.csproj.AssemblyReference.cache
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.Properties.Resources.resources
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.csproj.GenerateResource.cache
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.csproj.CoreCompileInputs.cache
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.dll
+E:\Repositories\aZynEManager\EncryptionProvider\obj\Debug\EncryptionProvider.pdb

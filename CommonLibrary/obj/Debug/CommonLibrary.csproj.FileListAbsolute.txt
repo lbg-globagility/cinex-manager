@@ -1,0 +1,9 @@
+E:\Repositories\aZynEManager\CommonLibrary\bin\Debug\CommonLibrary.dll
+E:\Repositories\aZynEManager\CommonLibrary\bin\Debug\CommonLibrary.pdb
+E:\Repositories\aZynEManager\CommonLibrary\bin\Debug\EncryptUtilities.dll
+E:\Repositories\aZynEManager\CommonLibrary\bin\Debug\EncryptUtilities.pdb
+E:\Repositories\aZynEManager\CommonLibrary\obj\Debug\CommonLibrary.csproj.AssemblyReference.cache
+E:\Repositories\aZynEManager\CommonLibrary\obj\Debug\CommonLibrary.csproj.CoreCompileInputs.cache
+E:\Repositories\aZynEManager\CommonLibrary\obj\Debug\CommonLibrary.csproj.CopyComplete
+E:\Repositories\aZynEManager\CommonLibrary\obj\Debug\CommonLibrary.dll
+E:\Repositories\aZynEManager\CommonLibrary\obj\Debug\CommonLibrary.pdb

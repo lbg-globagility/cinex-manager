@@ -239,6 +239,61 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="reports\reports%28cemercenter%29\temp\rp08.173939.xlsx" />
+    <None Include="reports\reports%28cemercenter%29\temp\rp11.173410.xlsx" />
+    <None Include="reports\reports%28cemercenter%29\temp\rp14.140612.xlsx" />
+    <None Include="reports\reports%28cemercenter%29\temp\rp14.142745.xlsx" />
+    <None Include="reports\reports%28cemercenter%29\temp\rp14.143937.xlsx" />
+    <None Include="reports\RP27-2" />
+    <None Include="reports\temp\rp00.153721.xlsx" />
+    <None Include="reports\temp\rp01.101630.xlsx" />
+    <None Include="reports\temp\rp01.105701.xlsx" />
+    <None Include="reports\temp\rp01.132540.xlsx" />
+    <None Include="reports\temp\rp01.174354.xlsx" />
+    <None Include="reports\temp\rp02.132505.xlsx" />
+    <None Include="reports\temp\rp02.144817.xlsx" />
+    <None Include="reports\temp\rp02.161444.xls" />
+    <None Include="reports\temp\rp03.174342.xlsx" />
+    <None Include="reports\temp\rp03.174359.xlsx" />
+    <None Include="reports\temp\rp04.171332.xls" />
+    <None Include="reports\temp\rp05.145147.xls" />
+    <None Include="reports\temp\rp05.145154.xls" />
+    <None Include="reports\temp\rp05.145244.xlsx" />
+    <None Include="reports\temp\rp05.150101.excel" />
+    <None Include="reports\temp\rp05.151410" />
+    <None Include="reports\temp\rp05.155533.xlsx" />
+    <None Include="reports\temp\rp05.155919.pdf" />
+    <None Include="reports\temp\rp05.170603.pdf" />
+    <None Include="reports\temp\rp05.171935.xlsx" />
+    <None Include="reports\temp\rp06.170623.xls" />
+    <None Include="reports\temp\rp06.170823.xlsx" />
+    <None Include="reports\temp\rp06.171046.xlsx" />
+    <None Include="reports\temp\rp08.075438.xlsx" />
+    <None Include="reports\temp\rp08.111945.xlsx" />
+    <None Include="reports\temp\rp08.114250.xlsx" />
+    <None Include="reports\temp\rp08.160503.xls" />
+    <None Include="reports\temp\rp08.160735.xls" />
+    <None Include="reports\temp\rp08.163942.xlsx" />
+    <None Include="reports\temp\rp08.165744.xls" />
+    <None Include="reports\temp\rp08.170850.xls" />
+    <None Include="reports\temp\rp08.171404.xls" />
+    <None Include="reports\temp\rp11.115613.xlsx" />
+    <None Include="reports\temp\rp12.162403.xlsx" />
+    <None Include="reports\temp\rp12.164824.xlsx" />
+    <None Include="reports\temp\rp14.132356.xlsx" />
+    <None Include="reports\temp\rp14.132425.xlsx" />
+    <None Include="reports\temp\rp14.132651.xlsx" />
+    <None Include="reports\temp\rp14.171440.xls" />
+    <None Include="reports\temp\rp19.170707.xlsx" />
+    <None Include="reports\temp\rp19.171859.xlsx" />
+    <None Include="reports\temp\rp19.174328.xlsx" />
+    <None Include="reports\temp\rp21.142119.xlsx" />
+    <None Include="reports\temp\rp21.142324.xlsx" />
+    <None Include="reports\temp\rp24.143125.xlsx" />
+    <None Include="reports\temp\rp24.164531.xlsx" />
+    <None Include="reports\temp\rp24.165801.xlsx" />
+    <None Include="reports\temp\rp24.170342.xlsx" />
+    <None Include="reports\temp\rp26.154132.xlsx" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -356,7 +411,124 @@
   <ItemGroup>
     <Resource Include="Images\logout.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="reports\reports%28cemercenter%29\AUDIT.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\New Text Document.txt" />
+    <Resource Include="reports\reports%28cemercenter%29\RP01.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP02.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP03.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP04.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP05.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP06.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP07.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP08.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP09.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP10.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP11.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP12.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP13.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP14.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP14old.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP15.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP16.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP17.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP20.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP21.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP22.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP23.xml" />
+    <Resource Include="reports\reports%28cemercenter%29\RP231.xml" />
+    <Resource Include="reports\RP00.xml" />
+    <Resource Include="reports\RP01 - Copy.xml" />
+    <Content Include="reports\RP01.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP02.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP03.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP04.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP05.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP06.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP07.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP072.xml" />
+    <Resource Include="reports\RP07ver2.xml" />
+    <Resource Include="reports\RP08-2.xml" />
+    <Content Include="reports\RP08.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP09.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP10.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP11 - Copy.xml" />
+    <Resource Include="reports\RP11 - FSM.xml" />
+    <Resource Include="reports\RP11 - Origin.xml" />
+    <Content Include="reports\RP11.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP12.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP13.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP14.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP15.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP16 - Copy.xml" />
+    <Content Include="reports\RP16.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP17.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP19.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP20-2.xml" />
+    <Content Include="reports\RP20.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP21.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP22.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP22_2.xml" />
+    <Content Include="reports\RP23.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP24.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP24_fsm.xml" />
+    <Content Include="reports\RP25.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="reports\RP26.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="reports\RP27-2.xml" />
+    <Content Include="reports\RP27.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)aZynEManager\app.config" "$(TargetDir)aZynEManager.exe.config"</PreBuildEvent>

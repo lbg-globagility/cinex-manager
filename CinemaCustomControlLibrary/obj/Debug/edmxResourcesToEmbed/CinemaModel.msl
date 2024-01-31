@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cinemaModelStoreContainer" CdmEntityContainer="cinemaEntities">
+    <EntitySetMapping Name="cinemas">
+      <EntityTypeMapping TypeName="cinemaModel.cinema">
+        <MappingFragment StoreEntitySet="cinema">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="sound_id" ColumnName="sound_id" />
+          <ScalarProperty Name="capacity" ColumnName="capacity" />
+          <ScalarProperty Name="in_order" ColumnName="in_order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cinema_seat">
+      <EntityTypeMapping TypeName="cinemaModel.cinema_seat">
+        <MappingFragment StoreEntitySet="cinema_seat">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+          <ScalarProperty Name="x1" ColumnName="x1" />
+          <ScalarProperty Name="y1" ColumnName="y1" />
+          <ScalarProperty Name="x2" ColumnName="x2" />
+          <ScalarProperty Name="y2" ColumnName="y2" />
+          <ScalarProperty Name="origin_x" ColumnName="origin_x" />
+          <ScalarProperty Name="origin_y" ColumnName="origin_y" />
+          <ScalarProperty Name="row_name" ColumnName="row_name" />
+          <ScalarProperty Name="col_name" ColumnName="col_name" />
+          <ScalarProperty Name="object_type" ColumnName="object_type" />
+          <ScalarProperty Name="is_handicapped" ColumnName="is_handicapped" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

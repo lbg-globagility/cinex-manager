@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cinemaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="cinemaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cinemas" EntityType="cinemaModel.cinema" />
+    <EntitySet Name="cinema_seat" EntityType="cinemaModel.cinema_seat" />
+    <AssociationSet Name="fk_cinema_seat_cinema1" Association="cinemaModel.fk_cinema_seat_cinema1">
+      <End Role="cinema" EntitySet="cinemas" />
+      <End Role="cinema_seat" EntitySet="cinema_seat" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cinema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="225" Unicode="false" FixedLength="false" />
+    <Property Name="sound_id" Type="Int32" Nullable="false" />
+    <Property Name="capacity" Type="Int32" />
+    <Property Name="in_order" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="cinema_seat" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema" ToRole="cinema_seat" />
+  </EntityType>
+  <EntityType Name="cinema_seat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cinema_id" Type="Int32" Nullable="false" />
+    <Property Name="x1" Type="Int32" />
+    <Property Name="y1" Type="Int32" />
+    <Property Name="x2" Type="Int32" />
+    <Property Name="y2" Type="Int32" />
+    <Property Name="origin_x" Type="Int32" />
+    <Property Name="origin_y" Type="Int32" />
+    <Property Name="row_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="col_name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="object_type" Type="Int32" />
+    <Property Name="is_handicapped" Type="SByte" Nullable="false" />
+    <NavigationProperty Name="cinema" Relationship="cinemaModel.fk_cinema_seat_cinema1" FromRole="cinema_seat" ToRole="cinema" />
+  </EntityType>
+  <Association Name="fk_cinema_seat_cinema1">
+    <End Role="cinema" Type="cinemaModel.cinema" Multiplicity="1" />
+    <End Role="cinema_seat" Type="cinemaModel.cinema_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema_seat">
+        <PropertyRef Name="cinema_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
