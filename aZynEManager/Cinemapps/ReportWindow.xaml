@@ -1,0 +1,644 @@
+﻿<controls:MetroWindow  x:Class="Cinemapps.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Reports" Height="390" Width="787" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel Width="786">
+        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="746">
+            <ListViewItem>
+                <DockPanel  Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="PrintSRD_Click">Print
+                    </Button>
+                    <TextBlock FontWeight="Bold">
+                        Summary of Reports and Descriptions
+                    </TextBlock>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel  Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP01_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Sales (RP01)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Date</Label>
+                            <DatePicker Name="RP01StartDate" SelectedDateChanged="RP01StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>Teller</Label>
+                            <ComboBox Name="RP01Teller" Width="150">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP02_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP02_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Movie Sales (RP02)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales and Seat Utilization per Movie for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP02StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP02EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+
+                    <Button Margin="6" Name="PreviewP03" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP03_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP03_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Summary of Daily Cinema Sales (RP03)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales per Cinema for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP03StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP04_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP04_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Summary Sales (RP04)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Teller Ticket Sale for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP04StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP05_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP05_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Daily Sales by Distributor (RP05)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales for a specified Distributor and date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP05StartDate" SelectedDateChanged="RP05StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>Distributor</Label>
+                            <ComboBox Name="RP05Distributor" Width="150">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP06_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PreviewRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP06_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Daily Sales Summary by Cinema (RP06)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales per Patron Type and Screening Time for a specified Cinema and date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP06StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>Cinema</Label>
+                            <ComboBox Name="RP06Cinema" Width="150" SelectionChanged="RP06Cinema_SelectionChanged">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP07_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PreviewRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP07_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Screening Summary (RP07)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales per Movie and Screening for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP07StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <!--<Label>Cinema</Label>
+                            <ComboBox Name="RP07Cinema" Width="150" SelectionChanged="RP07Cinema_SelectionChanged">
+                            </ComboBox>-->
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP08_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP08_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Daily Box Office (RP08)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                            Displays Total Ticket Sales per Patron Type for a specified Cinema and date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP08StartDate" SelectedDateChanged="RP08StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>Cinema</Label>
+                            <ComboBox Name="RP08Cinema" Width="150" SelectionChanged="RP08Cinema_SelectionChanged">
+                            </ComboBox>
+                            <Label>Movie</Label>
+                            <ComboBox Name="RP08Movie" Width="150" IsEnabled="False">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP09_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP09_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Cinema Sales per Ticket Type Sold (RP09)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales per Cinema broken down by Patron  over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP09StartDate" SelectedDateChanged="RP09StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP09EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP10_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP10_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Cinema Sales per Ticket Type per Movie Title (RP10)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales per Cinema broken down by Patron per Movie run  over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP10StartDate" SelectedDateChanged="RP10StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP10EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP11_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP11_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Total Gross (RP11)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales per Cinema broken down by Day over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP11StartDate" SelectedDateChanged="RP11StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP11EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP12_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Sales All (RP12)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Teller Ticket Sales per Patron Type and Cinema for all Tellers for a specified date</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP12StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP13_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP13_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Teller Daily Sales per Cinema (RP13)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Displays Total Ticket Sales per Cinema Film Showing itemized by Teller and Patron Type</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP13StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="PreviewRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP14_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP14_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Cinema Accounting Report (RP14)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                        Displays Total Ticket Sales and per Movie for a specified date with Taxation and Share details over Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP14StartDate" SelectedDateChanged="RP14StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP14EndDate" SelectedDateChanged="RP14EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <!--<Label>Movie</Label>
+                            <ComboBox Name="RP14Movie" Width="150" IsEnabled="False">
+                            </ComboBox>-->
+                            <Label>Cinema</Label>
+                            <ComboBox Name="RP14Cinema" Width="150" SelectionChanged="RP14Cinema_SelectionChanged">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            
+            <!--Melvin 11/18/2014 -->
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP15_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Voided Tickets per Cinema (RP15)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                       Displays Voided Tickets with Totals per Cinema for a Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP15StartDate"  SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP15EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <!--RMB 11.11.2014 added new report-->
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP16_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">BIR Summary of Daily Cinema Sales Report (RP16)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Displays Total Ticket Sales per Cinema for a specified date with BIR Totals</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP16StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP17_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP17_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Cinema Utilization (Simple) (RP17)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                       Displays Cinema Utilization Report over a Date Range</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP17StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP17EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="5" Name="PrintRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP19_Click">Excel
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Excel Dump of Daily Sales (RP19)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates excel dump and displays Daily Cinema Sales</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP19StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP20_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP20_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Surcharge by Movie per Day (RP20)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates the Surcharge by Movie per Day Report</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP20StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP20EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP21_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP21_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Ordinance by Movie per Day (RP21)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates the Ordinance by Movie per Day Report</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP21StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label>End Date</Label>
+                            <DatePicker Name="RP21EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP22_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP22_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">BIR Monthly Sales Report (RP22)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates Monthly Cinema Sales required by BIR</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP22StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+                        Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" Name="ExcelRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP23_Click">Excel
+                    </Button>
+                    <Button Margin="5" Name="PrintRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP23_Click">Print
+                    </Button>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold">Monthly Sales Report by Transaction Type (RP23)</TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow">Generates Monthly Cinema Sales by Transaction Type</TextBlock>
+                        </Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Start Date</Label>
+                            <DatePicker Name="RP23StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
+        </ListView>
+    </DockPanel>
+</controls:MetroWindow >
