@@ -30,7 +30,7 @@ namespace aZynEManager
             InitializeComponent();
         }
 
-        public void frmInit(frmMain frm, clscommon cls, frmPatronSearch frmparent)
+        public void frmInit(frmMain frm, clscommon cls, frmPatronSearch frmparent = null)
         {
             m_frmPS = frmparent;
             m_frmM = frm;
@@ -1479,8 +1479,8 @@ namespace aZynEManager
 
         private void frmPatron_FormClosing(object sender, FormClosingEventArgs e)
         {
-            m_frmPS.refreshDGV();
-            m_frmPS.setnormal();
+            m_frmPS?.refreshDGV();
+            m_frmPS?.setnormal();
         }
 
         private void btnaddbaseprice_Click(object sender, EventArgs e)

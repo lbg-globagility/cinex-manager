@@ -181,7 +181,7 @@ namespace aZynEManager
         {
             unselectButton();
             frmPatron frmpat = new frmPatron();
-            frmpat.frmInit(m_frmM, m_clscom);
+            frmpat.frmInit(frm: m_frmM, cls: m_clscom, frmparent: null);
             frmpat.ShowDialog();
         }
 
