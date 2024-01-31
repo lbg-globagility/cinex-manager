@@ -1,4 +1,0 @@
-D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\bin\Release\EncryptUtilities.dll
-D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\bin\Release\EncryptUtilities.pdb
-D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\obj\Release\EncryptUtilities.dll
-D:\Development\cinexfromgit\azyne\aZynEManager\EncryptUtilities\obj\Release\EncryptUtilities.pdb

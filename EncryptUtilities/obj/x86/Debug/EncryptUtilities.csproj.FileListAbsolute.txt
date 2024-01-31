@@ -1,5 +1,0 @@
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\bin\x86\Debug\EncryptUtilities.dll
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\bin\x86\Debug\EncryptUtilities.pdb
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\obj\x86\Debug\EncryptUtilities.dll
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\obj\x86\Debug\EncryptUtilities.pdb
-D:\development\cinexfromgit64bit\azyne\aZynEManager\EncryptUtilities\obj\x86\Debug\EncryptUtilities.csproj.CoreCompileInputs.cache
