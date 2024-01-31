@@ -55,3 +55,4 @@ aZyneManager/Cinemapps/bin/*
 aZyneManager/Cinemapps/bin/Debug/*
 !aZyneManager/Cinemapps/bin/Debug/reports
 
+.vs/aZynEManager/v17
