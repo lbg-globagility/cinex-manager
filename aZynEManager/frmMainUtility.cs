@@ -201,18 +201,11 @@ namespace aZynEManager
 
         private void btnOrdinance_Click(object sender, EventArgs e)
         {
-            try
-            {
-                unselectButton();
-                frmLocalOrdinance frmordinance = new frmLocalOrdinance();
-                frmordinance.frmInit(m_frmM, m_clscom);
-                frmordinance.ShowDialog();
-                frmordinance.Dispose();
-            }
-            catch
-            {
-
-            }
+            unselectButton();
+            frmLocalOrdinance frmordinance = new frmLocalOrdinance();
+            frmordinance.frmInit(m_frmM, m_clscom);
+            frmordinance.ShowDialog();
+            frmordinance.Dispose();
         }
 
         private void btnSurcharge_Click(object sender, EventArgs e)
