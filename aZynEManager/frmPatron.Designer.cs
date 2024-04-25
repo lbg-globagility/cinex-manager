@@ -218,6 +218,7 @@
             this.btndisc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.btndisc, "Add Sound System");
             this.btndisc.UseVisualStyleBackColor = false;
+            this.btndisc.Visible = false;
             this.btndisc.Click += new System.EventHandler(this.btndisc_Click);
             // 
             // groupBox1
@@ -724,6 +725,7 @@
             this.cmbdisc.Name = "cmbdisc";
             this.cmbdisc.Size = new System.Drawing.Size(76, 21);
             this.cmbdisc.TabIndex = 333;
+            this.cmbdisc.Visible = false;
             this.cmbdisc.SelectedIndexChanged += new System.EventHandler(this.cmbdisc_SelectedIndexChanged);
             // 
             // txtdiscount
@@ -1180,6 +1182,7 @@
             this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 331;
             this.label9.Text = "Discount";
+            this.label9.Visible = false;
             // 
             // lbllgu
             // 

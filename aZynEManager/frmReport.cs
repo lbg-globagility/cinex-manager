@@ -964,8 +964,10 @@ namespace aZynEManager
                         //RMB 11-10-2014 added new report end
                         //RMB 11.11.2014 added new report start
                     case "RP10":
+                        sqry.Append($"SELECT\r\nGROUP_CONCAT(s.code) `SurchargeCodes`,\r\nGROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`,\r\n\r\nGROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, ii.*\r\nFROM (");
                         sqry.Append("select e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price, ");
                         sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.base_price) sales, g.system_value report_header, h.name report_title ");
+                        sqry.Append(", e.in_order, a.id `PrimaryKey`, f.patron_id `PatronId`");
                         sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
                         sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
                         sqry.Append("config_table g, report h, movies i ");
@@ -987,6 +989,7 @@ namespace aZynEManager
                         sqry.Append("AND h.id = 10 ");
                         sqry.Append("GROUP BY c.cinema_id, i.id, f.patron_id, a.base_price ");
                         sqry.Append("ORDER BY e.in_order, i.title, d.name, a.base_price");
+                        sqry.Append($") ii\r\n\r\nLEFT JOIN patrons_surcharge ps ON ps.patron_id=ii.`PatronId`\r\nLEFT JOIN surcharge_tbl s ON s.id=ps.surcharge_id AND s.id IN (1, 3, 7)\r\n\r\nGROUP BY ii.`PrimaryKey`\r\nORDER BY ii.in_order, ii.title, ii.patron_name, ii.price;");
                         break;
                     case "RP16":
                         sqry.Append("SELECT f.id, f.name, e.code, e.title, COUNT(cinema_seat_id) quantity, SUM(base_price) sales, g.system_value, h.name report_name, d.movie_date ");
@@ -1942,6 +1945,7 @@ namespace aZynEManager
                 }
                 if ((reportcode != "RP25") && (reportcode != "RP072"))
                 {
+                    Console.WriteLine(Application.ExecutablePath);
                     xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                     if((reportcode == "RP08") && (_intWithUtil == 1))
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
