@@ -44,10 +44,6 @@
           <DataField>patron_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-		<Field Name="SurchargeText">
-			<DataField>SurchargeText</DataField>
-			<rd:TypeName>System.String</rd:TypeName>
-		</Field>
         <Field Name="price">
           <DataField>price</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
@@ -772,29 +768,6 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-				<TableCell>
-					<ReportItems>
-						<Textbox Name="SurchargeText">
-							<Value>=Fields!SurchargeText.Value</Value>
-							<CanGrow>true</CanGrow>
-							<Style>
-								<BorderStyle>
-									<Default>None</Default>
-									<Left>None</Left>
-									<Right>None</Right>
-									<Top>None</Top>
-									<Bottom>None</Bottom>
-								</BorderStyle>
-								<PaddingLeft>2pt</PaddingLeft>
-								<BorderColor />
-								<BorderWidth />
-								<TextAlign>Left</TextAlign>
-								<VerticalAlign>Middle</VerticalAlign>
-								<FontSize>9pt</FontSize>
-							</Style>
-						</Textbox>
-					</ReportItems>
-				</TableCell>
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="price">
