@@ -1,19 +1,20 @@
-﻿<controls:MetroWindow  x:Class="Cinemapps.ReportWindow"
+﻿<controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av"  x:Class="Cinemapps.ReportWindow"
         Title="Reports" Height="390" Width="787" WindowStartupLocation="CenterOwner" ShowMinButton="False" ShowMaxRestoreButton="False" TitleCaps="False" Loaded="MetroWindow_Loaded">
-    <Window.Resources>
+    <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </controls:MetroWindow.Resources>
 
     <DockPanel Width="786" Background="WhiteSmoke">
-        <ListView Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="746" Background="WhiteSmoke">
+        <ListView x:Name="ReportSelector" Margin="20" SelectionChanged="ReportSelector_SelectionChanged" Width="746" Background="WhiteSmoke">
             <ListViewItem>
                 <DockPanel  Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
@@ -23,13 +24,9 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="5" Name="PrintSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="ExcelSRD_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="ExcelSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="PrintSRD_Click">Print
-                    </Button>
-                    <TextBlock FontWeight="Bold">
-                        Summary of Reports
-                    </TextBlock>
+                    <Button Margin="5" x:Name="PrintSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="ExcelSRD_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="ExcelSRD" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" Click="PrintSRD_Click" Content="Print"/>
+                    <TextBlock FontWeight="Bold"><Run Text="Summary of Reports"/></TextBlock>
                 </DockPanel>
             </ListViewItem>
             <ListViewItem>
@@ -41,22 +38,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP01_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP01_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP01" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP01_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Teller Daily Sales (RP01)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Teller Daily Sales (RP01)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Teller Ticket Sales per Patron Type and Cinema by a specified Teller for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Date</Label>
-                            <DatePicker Name="RP01StartDate" SelectedDateChanged="RP01StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Teller</Label>
-                            <ComboBox Name="RP01Teller" Width="150">
-                            </ComboBox>
+                            <Label Content="Date"/>
+                            <DatePicker x:Name="RP01StartDate" SelectedDateChanged="RP01StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Teller"/>
+                            <ComboBox x:Name="RP01Teller" Width="150"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -70,21 +63,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP02_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP02_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP02_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP02" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP02_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Movie Sales (RP02)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Movie Sales (RP02)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Total Ticket Sales and Seat Utilization per Movie for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales and Seat Utilization per Movie for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP02StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP02EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP02StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP02EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -99,19 +89,16 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
 
-                    <Button Margin="6" Name="PreviewP03" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP03_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP03_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewP03" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP03_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="Print1RP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP03_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Summary of Daily Cinema Sales (RP03)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Summary of Daily Cinema Sales (RP03)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per Cinema for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP03StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP03StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -125,19 +112,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP04_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP04_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP04_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP04" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP04_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Teller Daily Summary Sales (RP04)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Teller Daily Summary Sales (RP04)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Teller Ticket Sale for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Teller Ticket Sale for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP04StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP04StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -151,22 +135,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP05_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP05_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP05_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP05" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP05_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Daily Sales by Distributor (RP05)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Daily Sales by Distributor (RP05)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales for a specified Distributor and date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales for a specified Distributor and date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP05StartDate" SelectedDateChanged="RP05StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Distributor</Label>
-                            <ComboBox Name="RP05Distributor" Width="150">
-                            </ComboBox>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP05StartDate" SelectedDateChanged="RP05StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Distributor"/>
+                            <ComboBox x:Name="RP05Distributor" Width="150"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -180,22 +160,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP06_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PreviewRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP06_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP06_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PreviewRP06" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP06_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Daily Sales Summary by Cinema (RP06)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Daily Sales Summary by Cinema (RP06)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per Patron Type and Screening Time for a specified Cinema and date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Patron Type and Screening Time for a specified Cinema and date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP06StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Cinema</Label>
-                            <ComboBox Name="RP06Cinema" Width="150" SelectionChanged="RP06Cinema_SelectionChanged">
-                            </ComboBox>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP06StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Cinema"/>
+                            <ComboBox x:Name="RP06Cinema" Width="150" SelectionChanged="RP06Cinema_SelectionChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -209,24 +185,20 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP07_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PreviewRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP07_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP07_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PreviewRP07" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP07_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Screening Summary (RP07)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Screening Summary (RP07)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per Movie and Screening for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Movie and Screening for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP07StartDate" SelectedDateChanged="RP07StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP07EndDate" SelectedDateChanged="RP07EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Movie</Label>
-                            <ComboBox Name="RP07Movie" Width="150" IsEnabled="False">
-                            </ComboBox>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP07StartDate" SelectedDateChanged="RP07StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP07EndDate" SelectedDateChanged="RP07EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Movie"/>
+                            <ComboBox x:Name="RP07Movie" Width="150" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -240,29 +212,24 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP08_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP08_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP08_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP08" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP08_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Daily Box Office (RP08)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Daily Box Office (RP08)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per Patron Type for a specified Cinema and date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Patron Type for a specified Cinema and date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label HorizontalAlignment="Center">With Seat Utilization</Label>
-                            <CheckBox Name="RP08CheckBox" HorizontalAlignment="center"> </CheckBox>
+                            <Label HorizontalAlignment="Center" Content="With Seat Utilization"/>
+                            <CheckBox x:Name="RP08CheckBox" HorizontalAlignment="center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP08StartDate" SelectedDateChanged="RP08StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Cinema</Label>
-                            <ComboBox Name="RP08Cinema" Width="150" SelectionChanged="RP08Cinema_SelectionChanged">
-                            </ComboBox>
-                            <Label>Movie</Label>
-                            <ComboBox Name="RP08Movie" Width="150" IsEnabled="False">
-                            </ComboBox>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP08StartDate" SelectedDateChanged="RP08StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Cinema"/>
+                            <ComboBox x:Name="RP08Cinema" Width="150" SelectionChanged="RP08Cinema_SelectionChanged"/>
+                            <Label Content="Movie"/>
+                            <ComboBox x:Name="RP08Movie" Width="150" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -276,21 +243,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP09_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP09_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP09_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP09" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP09_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Sales per Ticket Type Sold (RP09)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Cinema Sales per Ticket Type Sold (RP09)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Total Ticket Sales per Cinema broken down by Patron  over Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema broken down by Patron over Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP09StartDate" SelectedDateChanged="RP09StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP09EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP09StartDate" SelectedDateChanged="RP09StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP09EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -304,21 +268,20 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP10_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP10_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP10_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP10" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP10_Click" Content="Print"/>
+
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Sales per Ticket Type per Movie Title (RP10)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Cinema Sales per Ticket Type per Movie Title (RP10)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Total Ticket Sales per Cinema broken down by Patron per Movie run  over Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema broken down by Patron per Movie run over Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP10StartDate" SelectedDateChanged="RP10StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP10EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP10StartDate" SelectedDateChanged="RP10StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP10EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <CheckBox x:Name="cbIsShowSurcharge" Content="Is show surcharge?" Margin="8" Checked="cbIsShowSurcharge_HandleCheck" Unchecked="cbIsShowSurcharge_HandleUnchecked" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -332,21 +295,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP11_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP11_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP11_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP11" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP11_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Total Gross (RP11)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Total Gross (RP11)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Total Ticket Sales per Cinema broken down by Day over Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema broken down by Day over Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP11StartDate" SelectedDateChanged="RP11StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP11EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP11StartDate" SelectedDateChanged="RP11StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP11EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -360,19 +320,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP12_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP12_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP12" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP12_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Teller Daily Sales All (RP12)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Teller Daily Sales All (RP12)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Teller Ticket Sales per Patron Type and Cinema for all Tellers for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Teller Ticket Sales per Patron Type and Cinema for all Tellers for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP12StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP12StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -386,18 +343,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP13_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP13_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP13_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP13" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP13_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Teller Daily Sales per Cinema (RP13)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Teller Daily Sales per Cinema (RP13)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Displays Total Ticket Sales per Cinema Film Showing itemized by Teller and Patron Type</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema Film Showing itemized by Teller and Patron Type"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP13StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP13StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -411,32 +366,28 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="PreviewRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP14_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP14_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="PreviewRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP14_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP14" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP14_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Accounting Report (RP14)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Cinema Accounting Report (RP14)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                        Displays Total Ticket Sales and per Movie for a specified date with Taxation and Share details over Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales and per Movie for a specified date with Taxation and Share details over Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP14StartDate" SelectedDateChanged="RP14StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP14EndDate" SelectedDateChanged="RP14EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP14StartDate" SelectedDateChanged="RP14StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP14EndDate" SelectedDateChanged="RP14EndDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}" />
                             <!--<Label>Movie</Label>
                             <ComboBox Name="RP14Movie" Width="150" IsEnabled="False">
                             </ComboBox>-->
-                            <Label>Cinema</Label>
-                            <ComboBox Name="RP14Cinema" Width="150" SelectionChanged="RP14Cinema_SelectionChanged">
-                            </ComboBox>
+                            <Label Content="Cinema"/>
+                            <ComboBox x:Name="RP14Cinema" Width="150" SelectionChanged="RP14Cinema_SelectionChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
-            
+
             <!--Melvin 11/18/2014 -->
             <ListViewItem>
                 <DockPanel Margin="4">
@@ -447,21 +398,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP15_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP15_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP15" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP15_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Voided Tickets per Cinema (RP15)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Voided Tickets per Cinema (RP15)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                       Displays Voided Tickets with Totals per Cinema for a Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Voided Tickets with Totals per Cinema for a Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP15StartDate"  SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP15EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP15StartDate"  SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP15EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -476,18 +424,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP16_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP16_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP16" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP16_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">BIR Summary of Daily Cinema Sales Report (RP16)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="BIR Summary of Daily Cinema Sales Report (RP16)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Displays Total Ticket Sales per Cinema for a specified date with BIR Totals</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per Cinema for a specified date with BIR Totals"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP16StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP16StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -501,21 +447,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP17_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP17_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP17_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP17" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP17_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Cinema Utilization (Simple) (RP17)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Cinema Utilization (Simple) (RP17)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                       Displays Cinema Utilization Report over a Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Cinema Utilization Report over a Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP17StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP17EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP17StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP17EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -529,18 +472,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="5" Name="PrintRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP19_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PreviewRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP19_Click">Print
-                    </Button>
+                    <Button Margin="5" x:Name="PrintRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP19_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PreviewRP19" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP19_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Excel Dump of Daily Sales (RP19)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Excel Dump of Daily Sales (RP19)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates excel dump and displays Daily Cinema Sales</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates excel dump and displays Daily Cinema Sales"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP19StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP19StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -554,24 +495,22 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP20_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP20_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP20_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP20" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP20_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Surcharge by Movie per Day (RP20)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Surcharge by Movie per Day (RP20)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates the Surcharge by Movie per Day Report</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates the Surcharge by Movie per Day Report"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label HorizontalAlignment="Center">With Quantity Breakdown</Label>
-                            <CheckBox Name="RP20CheckBox" HorizontalAlignment="center"></CheckBox>
+                            <Label HorizontalAlignment="Center" Content="With Quantity Breakdown"/>
+                            <CheckBox x:Name="RP20CheckBox" HorizontalAlignment="center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP20StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP20EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP20StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP20EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -585,20 +524,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP21_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP21_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP21_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP21" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP21_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Ordinance by Movie per Day (RP21)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Ordinance by Movie per Day (RP21)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates the Ordinance by Movie per Day Report</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates the Ordinance by Movie per Day Report"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP21StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP21EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP21StartDate" SelectedDateChanged="RP02StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP21EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -612,18 +549,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP22_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP22_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP22_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP22" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP22_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">BIR Monthly Sales Report (RP22)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="BIR Monthly Sales Report (RP22)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates Monthly Cinema Sales required by BIR</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates Monthly Cinema Sales required by BIR"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP22StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP22StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -637,18 +572,16 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP23_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP23_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP23_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP23" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP23_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Monthly Sales Report by Transaction Type (RP23)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Monthly Sales Report by Transaction Type (RP23)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates Monthly Cinema Sales by Transaction Type</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates Monthly Cinema Sales by Transaction Type"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP23StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP23StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -662,20 +595,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP24" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP24_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP24" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP24_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP24" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP24_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP24" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP24_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">POS Server Consolidator (RP24)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="POS Server Consolidator (RP24)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates the POS Report by Dates</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates the POS Report by Dates"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP24StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP24EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP24StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP24EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -690,27 +621,22 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
 
-                    <Button Margin="6" Name="ExcelRP25" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP25_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP25" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP25_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP25" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP25_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP25" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PreviewRP25_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">POS Z-Reading Report (RP25)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="POS Z-Reading Report (RP25)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays Total Ticket Sales per POS terminal for a specified date</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays Total Ticket Sales per POS terminal for a specified date"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Date</Label>
-                            <DatePicker Name="RP25StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>POS</Label>
-                            <ComboBox Name="RP25POS" Width="150">
-                            </ComboBox>
-                            <Label>Change Fund</Label>
-                            <TextBox Name="RP25Change" Width="50" PreviewTextInput="PreviewTextInput" 
+                            <Label Content="Date"/>
+                            <DatePicker x:Name="RP25StartDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="POS"/>
+                            <ComboBox x:Name="RP25POS" Width="150"/>
+                            <Label Content="Change Fund"/>
+                            <TextBox x:Name="RP25Change" Width="50" PreviewTextInput="PreviewTextInput" 
                                      DataObject.Pasting="TextBoxPasting" TextAlignment="Right" MaxLength="4" 
-                                     Text="0" LostFocus="LostFocusValidateText">
-                            </TextBox>
+                                     Text="0" LostFocus="LostFocusValidateText"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -724,20 +650,18 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="6" Name="ExcelRP26" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP26_Click">Excel
-                    </Button>
-                    <Button Margin="5" Name="PrintRP26" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP26_Click">Print
-                    </Button>
+                    <Button Margin="6" x:Name="ExcelRP26" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP26_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP26" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP26_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Daily Performance Report (RP26)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Daily Performance Report (RP26)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">Generates the Daily Sales Report over a Date Range</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Generates the Daily Sales Report over a Date Range"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP26StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
-                            <Label>End Date</Label>
-                            <DatePicker Name="RP26EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP26StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP26EndDate" SelectedDate="{x:Static sys:DateTime.Now}"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
@@ -751,31 +675,27 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Button Margin="5" Name="PrintRP27" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP27_Click">Print
-                    </Button>
+                    <Button Margin="5" x:Name="PrintRP27" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP27_Click" Content="Print"/>
                     <StackPanel>
-                        <TextBlock FontWeight="Bold">Advanved Booked Movie Report (RP27)</TextBlock>
+                        <TextBlock FontWeight="Bold"><Run Text="Advanved Booked Movie Report (RP27)"/></TextBlock>
                         <Label Width="Auto">
-                            <TextBlock TextWrapping="WrapWithOverflow">
-                            Displays the advanced tickets sold for a movie</TextBlock>
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Displays the advanced tickets sold for a movie"/></TextBlock>
                         </Label>
                         <StackPanel Orientation="Horizontal">
-                            <Label HorizontalAlignment="Center">With Seat Utilization</Label>
-                            <CheckBox Name="RP27CheckBox" HorizontalAlignment="center"></CheckBox>
+                            <Label HorizontalAlignment="Center" Content="With Seat Utilization"/>
+                            <CheckBox x:Name="RP27CheckBox" HorizontalAlignment="center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label>Start Date</Label>
-                            <DatePicker Name="RP27StartDate" SelectedDateChanged="RP27StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
-                            <Label>Cinema</Label>
-                            <ComboBox Name="RP27Cinema" Width="150" SelectionChanged="RP27Cinema_SelectionChanged">
-                            </ComboBox>
-                            <Label>Movie</Label>
-                            <ComboBox Name="RP27Movie" Width="150" IsEnabled="False">
-                            </ComboBox>
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP27StartDate" SelectedDateChanged="RP27StartDate_SelectedDateChanged" SelectedDate="{x:Static sys:DateTime.Now}"/>
+                            <Label Content="Cinema"/>
+                            <ComboBox x:Name="RP27Cinema" Width="150" SelectionChanged="RP27Cinema_SelectionChanged"/>
+                            <Label Content="Movie"/>
+                            <ComboBox x:Name="RP27Movie" Width="150" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
         </ListView>
     </DockPanel>
-</controls:MetroWindow >
+</controls:MetroWindow>

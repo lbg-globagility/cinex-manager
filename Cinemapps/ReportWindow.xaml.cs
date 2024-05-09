@@ -26,6 +26,7 @@ namespace Cinemapps
     public partial class ReportWindow : MetroWindow
     {
         private frmMain main;
+        private bool RP10_IsShowSurcharge;
 
         public ReportWindow(frmMain frmM)
         {
@@ -2022,6 +2023,20 @@ namespace Cinemapps
                 }
 
             }
+        }
+
+        private void cbIsShowSurcharge_HandleCheck(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (cb.Name != "cbIsShowSurcharge") return;
+            RP10_IsShowSurcharge = cb.IsChecked ?? false;
+        }
+
+        private void cbIsShowSurcharge_HandleUnchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (cb.Name != "cbIsShowSurcharge") return;
+            RP10_IsShowSurcharge = cb.IsChecked ?? false;
         }
     }
 }
