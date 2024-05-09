@@ -964,7 +964,7 @@ namespace aZynEManager
                         //RMB 11-10-2014 added new report end
                         //RMB 11.11.2014 added new report start
                     case "RP10":
-                        sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(', ', ii.`patron_name`, REPLACE(REPLACE(GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR ', '), '\\, \\,', '\\, '), '\\, \\,', '\\, ')) `PatronNameAndSurcharge`, ii.*\r\nFROM (");
+                        sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, '\b', CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
                         sqry.Append("select e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price, ");
                         sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.base_price) sales, g.system_value report_header, h.name report_title ");
                         sqry.Append(", e.in_order, a.id `PrimaryKey`, f.patron_id `PatronId`");

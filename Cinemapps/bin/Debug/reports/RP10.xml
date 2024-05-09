@@ -69,8 +69,13 @@
           <DataField>PatronNameAndSurcharge</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-	  
-      </Fields>
+
+		<Field Name="GrandTotalSales">
+          <DataField>GrandTotalSales</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+		</Field>
+
+	  </Fields>
     </DataSet>
   </DataSets>
   <PageHeader>
@@ -510,7 +515,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="gf_sales">
-                          <Value>=Sum(Fields!sales.Value)</Value>
+                          <Value>=Sum(Fields!GrandTotalSales.Value)</Value>
                           <CanGrow>false</CanGrow>
                           <Style>
                             <BorderStyle>
@@ -696,7 +701,7 @@
                             <PaddingRight>10pt</PaddingRight>
                             <BackgroundColor>Ghostwhite</BackgroundColor>
                           </Style>
-                          <Value>=Sum(Fields!sales.Value)</Value>
+                          <Value>=Sum(Fields!GrandTotalSales.Value)</Value>
                         </Textbox>
                       </ReportItems>
                     </TableCell>
@@ -834,7 +839,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="sales">
-                      <Value>=Fields!sales.Value</Value>
+                      <Value>=Fields!GrandTotalSales.Value</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
@@ -920,7 +925,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="tf_sales">
-                      <Value>=Sum(Fields!sales.Value)</Value>
+                      <Value>=Sum(Fields!GrandTotalSales.Value)</Value>
                       <CanGrow>false</CanGrow>
                       <Style>
                         <BorderStyle>
