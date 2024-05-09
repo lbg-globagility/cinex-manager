@@ -64,6 +64,12 @@
           <DataField>report_title</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+		  
+        <Field Name="PatronNameAndSurcharge">
+          <DataField>PatronNameAndSurcharge</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+	  
       </Fields>
     </DataSet>
   </DataSets>
@@ -748,7 +754,7 @@
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="patron_name">
-                      <Value>=Fields!patron_name.Value</Value>
+                      <Value>=Fields!PatronNameAndSurcharge.Value</Value>
                       <CanGrow>true</CanGrow>
                       <Style>
                         <BorderStyle>
