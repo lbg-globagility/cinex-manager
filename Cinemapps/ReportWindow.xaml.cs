@@ -637,7 +637,7 @@ namespace Cinemapps
                 {
                     frmreport.setDate = (DateTime)RP10StartDate.SelectedDate;
                     frmreport.setEndDate = (DateTime)RP10EndDate.SelectedDate;
-                    frmreport.frmInit(main, main.m_clscom, "RP10");
+                    frmreport.frmInit(main, main.m_clscom, "RP10", isShowSurcharge: RP10_IsShowSurcharge);
                     frmreport.ShowDialog();
                     frmreport.Dispose();
                 }
@@ -1185,7 +1185,7 @@ namespace Cinemapps
             {
                 frmreport.setDate = (DateTime)RP10StartDate.SelectedDate;
                 frmreport.setEndDate = (DateTime)RP10EndDate.SelectedDate;
-                frmreport.frmInit(main, main.m_clscom, "RP10");
+                frmreport.frmInit(main, main.m_clscom, "RP10", isShowSurcharge: RP10_IsShowSurcharge);
                 frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
                 frmreport.rdlViewer1.Rebuild();
                 if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))

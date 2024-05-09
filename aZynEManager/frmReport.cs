@@ -50,6 +50,7 @@ namespace aZynEManager
         public int _poschangefund = 0;
         public int _intWithUtil = -1;//added 5-31-2022
         public int _intWithQtyBreakdown = -1;//added 5-31-2022
+        private bool _isShowSurcharge;
 
         public frmReport()
         {
@@ -118,7 +119,14 @@ namespace aZynEManager
             //MessageBox.Show(module + "-" + account);
             //return;
             frmInitDbase(reportcode);
-          
+
+        }
+
+        public void frmInit(frmMain frm, clscommon cls, string reportcode, bool isShowSurcharge)
+        {
+            if (reportcode == "RP10") _isShowSurcharge = isShowSurcharge;
+
+            frmInit(frm: frm, cls: cls, reportcode: reportcode);
         }
 
         public void frmInitDbase(string reportcode)
@@ -964,7 +972,8 @@ namespace aZynEManager
                         //RMB 11-10-2014 added new report end
                         //RMB 11.11.2014 added new report start
                     case "RP10":
-                        sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, '\b', CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
+                        if(_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, '\b', CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
+                        if (!_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, ii.`patron_name` `PatronNameAndSurcharge`, ii.sales `GrandTotalSales`, ii.*\r\nFROM (");
                         sqry.Append("select e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price, ");
                         sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.base_price) sales, g.system_value report_header, h.name report_title ");
                         sqry.Append(", e.in_order, a.id `PrimaryKey`, f.patron_id `PatronId`");
