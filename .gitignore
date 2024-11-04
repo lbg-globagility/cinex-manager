@@ -55,3 +55,14 @@ EncryptionProvider/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute*.c
 EncryptUtilities/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute*.cs
 ExcelReports/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute*.cs
 System.Windows.Forms.Calendar/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute*.cs
+Cinex.Core/bin/Debug/*.*
+Cinex.Core/obj/*.cache
+Cinex.Infrastructure/bin/Debug/*.*
+Cinex.Infrastructure/obj/Debug/*.*
+Cinex.Infrastructure/obj/*.cache
+Cinex.Test/bin/Debug/*.*
+Cinex.Core/obj/Debug/net8.0/*.*
+Cinex.Core/obj/Debug/net8.0
+Cinex.Test/obj/Debug/net8.0/*.*
+Cinex.Test/obj/Debug/net8.0
+Cinex.Test/obj/*.cache
