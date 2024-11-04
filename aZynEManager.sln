@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34607.79
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemapps", "Cinemapps\Cinemapps.csproj", "{3FC01432-826F-4ED5-B6EF-B97887B18B08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReports", "ExcelReports\ExcelReports.csproj", "{AE661A37-F582-4390-9E06-900E276CED26}"
@@ -22,6 +24,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviders", "DataProviders\DataProviders.csproj", "{D9F4197F-52D2-49F0-8DAF-E2884733CF2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionProvider", "EncryptionProvider\EncryptionProvider.csproj", "{83D67C75-CE23-4141-8BFE-3AC52F53310E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinex.Core", "Cinex.Core\Cinex.Core.csproj", "{C47A2F29-4061-423A-967F-09C894021549}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinex.Infrastructure", "Cinex.Infrastructure\Cinex.Infrastructure.csproj", "{D2BEE301-D493-4E38-AC58-EE887D2037BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinex.Test", "Cinex.Test\Cinex.Test.csproj", "{AC11380F-B450-4504-B6D1-392F2DFADB96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -255,8 +263,83 @@ Global
 		{83D67C75-CE23-4141-8BFE-3AC52F53310E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{83D67C75-CE23-4141-8BFE-3AC52F53310E}.Release|x64.ActiveCfg = Release|Any CPU
 		{83D67C75-CE23-4141-8BFE-3AC52F53310E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|Any CPU.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|x64.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|x64.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|x86.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.BundleLinux|x86.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|x64.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Debug|x86.Build.0 = Debug|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|x64.ActiveCfg = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|x64.Build.0 = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|x86.ActiveCfg = Release|Any CPU
+		{C47A2F29-4061-423A-967F-09C894021549}.Release|x86.Build.0 = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|Any CPU.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|x64.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|x64.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|x86.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.BundleLinux|x86.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|x64.Build.0 = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2BEE301-D493-4E38-AC58-EE887D2037BD}.Release|x86.Build.0 = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|Any CPU.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|x64.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|x64.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|x86.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.BundleLinux|x86.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|x64.Build.0 = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC11380F-B450-4504-B6D1-392F2DFADB96}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DB4240F-7E13-40F0-95D6-7DE3E66A63D2}
 	EndGlobalSection
 EndGlobal

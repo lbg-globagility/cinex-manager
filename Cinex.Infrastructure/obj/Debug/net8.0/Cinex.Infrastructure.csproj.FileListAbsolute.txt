@@ -1,0 +1,16 @@
+E:\Repositories\cinex-manager\Cinex.Infrastructure\bin\Debug\net8.0\Cinex.Infrastructure.deps.json
+E:\Repositories\cinex-manager\Cinex.Infrastructure\bin\Debug\net8.0\Cinex.Infrastructure.dll
+E:\Repositories\cinex-manager\Cinex.Infrastructure\bin\Debug\net8.0\Cinex.Infrastructure.pdb
+E:\Repositories\cinex-manager\Cinex.Infrastructure\bin\Debug\net8.0\Cinex.Core.dll
+E:\Repositories\cinex-manager\Cinex.Infrastructure\bin\Debug\net8.0\Cinex.Core.pdb
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.csproj.AssemblyReference.cache
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.AssemblyInfoInputs.cache
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.AssemblyInfo.cs
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.csproj.CoreCompileInputs.cache
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.sourcelink.json
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.In.C68D1DD4.Up2Date
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.dll
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\refint\Cinex.Infrastructure.dll
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\Cinex.Infrastructure.pdb
+E:\Repositories\cinex-manager\Cinex.Infrastructure\obj\Debug\net8.0\ref\Cinex.Infrastructure.dll
