@@ -32,11 +32,7 @@ namespace Cinex.Test
         {
             services.AddDbContext<CinexContext>(options =>
             {
-<<<<<<< Updated upstream
-                options.UseMySql(connectionString: CONNECTION_STRING, serverVersion: ServerVersion.AutoDetect(CONNECTION_STRING))
-=======
                 options.UseMySql(connectionString: CONNECTION_STRING)//, serverVersion: ServerVersion.AutoDetect(CONNECTION_STRING)
->>>>>>> Stashed changes
                 .EnableSensitiveDataLogging()
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });

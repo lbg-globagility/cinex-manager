@@ -21,8 +21,6 @@ namespace Cinex.Core.Entities
         public virtual Cinema Cinema { get; set; }
 
         public virtual Patron Patron { get; set; }
-<<<<<<< Updated upstream
-=======
 
         private CinemaPatron() { }
 
@@ -43,6 +41,5 @@ namespace Cinex.Core.Entities
                 cinemaId: cinemaId,
                 patronId: patronId,
                 price: price);
->>>>>>> Stashed changes
     }
 }

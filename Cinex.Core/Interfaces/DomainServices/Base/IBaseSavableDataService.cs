@@ -1,9 +1,6 @@
 ﻿using Cinex.Core.Entities.Base;
-<<<<<<< Updated upstream
-=======
 using System.Collections.Generic;
 using System.Threading.Tasks;
->>>>>>> Stashed changes
 
 namespace Cinex.Core.Interfaces.DomainServices.Base
 {

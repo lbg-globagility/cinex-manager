@@ -1,9 +1,6 @@
 ﻿using Cinex.Core.Interfaces.Repositories;
-<<<<<<< Updated upstream
-=======
 using System;
 using System.Threading.Tasks;
->>>>>>> Stashed changes
 
 namespace Cinex.Infrastructure.Data.Repositories
 {

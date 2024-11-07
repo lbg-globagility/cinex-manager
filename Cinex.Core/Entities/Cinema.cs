@@ -1,11 +1,7 @@
 ﻿using Cinex.Core.Entities.Base;
-<<<<<<< Updated upstream
-using System.ComponentModel.DataAnnotations.Schema;
-=======
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
->>>>>>> Stashed changes
 
 namespace Cinex.Core.Entities
 {
@@ -32,8 +28,6 @@ namespace Cinex.Core.Entities
         public virtual ICollection<CinemaPatronDefault> DefaultPatrons { get; set; }
 
         public virtual SoundSystem SoundSystem { get; set; }
-<<<<<<< Updated upstream
-=======
 
         public string SoundName => SoundSystem?.Name ?? string.Empty;
 
@@ -72,6 +66,5 @@ namespace Cinex.Core.Entities
                     p.SetDelete();
                 });
         }
->>>>>>> Stashed changes
     }
 }

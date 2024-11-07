@@ -22,24 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-<<<<<<< Updated upstream
-          "net8.0"
-=======
           "netstandard2.0"
->>>>>>> Stashed changes
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-<<<<<<< Updated upstream
-          "net8.0": {
-            "targetAlias": "net8.0",
-=======
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
->>>>>>> Stashed changes
             "projectReferences": {}
           }
         },
@@ -55,14 +46,6 @@
         }
       },
       "frameworks": {
-<<<<<<< Updated upstream
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "NETStandard.Library": {
-              "target": "Package",
-              "version": "[2.0.3, )"
-=======
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
@@ -75,7 +58,6 @@
             "System.ComponentModel.Annotations": {
               "target": "Package",
               "version": "[5.0.0, )"
->>>>>>> Stashed changes
             }
           },
           "imports": [
@@ -89,16 +71,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-<<<<<<< Updated upstream
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
->>>>>>> Stashed changes
         }
       }
     },
@@ -120,24 +93,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-<<<<<<< Updated upstream
-          "net8.0"
-=======
           "netstandard2.0"
->>>>>>> Stashed changes
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-<<<<<<< Updated upstream
-          "net8.0": {
-            "targetAlias": "net8.0",
-=======
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
->>>>>>> Stashed changes
             "projectReferences": {
               "E:\\Repositories\\cinex-manager\\Cinex.Core\\Cinex.Core.csproj": {
                 "projectPath": "E:\\Repositories\\cinex-manager\\Cinex.Core\\Cinex.Core.csproj"
@@ -157,14 +121,6 @@
         }
       },
       "frameworks": {
-<<<<<<< Updated upstream
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "Pomelo.EntityFrameworkCore.MySql": {
-              "target": "Package",
-              "version": "[8.0.2, )"
-=======
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
           "dependencies": {
@@ -177,7 +133,6 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
->>>>>>> Stashed changes
             }
           },
           "imports": [
@@ -191,16 +146,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-<<<<<<< Updated upstream
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
->>>>>>> Stashed changes
         }
       }
     },
@@ -269,13 +215,10 @@
               "target": "Package",
               "version": "[4.5.0, )"
             },
-<<<<<<< Updated upstream
-=======
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.2.7, )"
             },
->>>>>>> Stashed changes
             "coverlet.collector": {
               "target": "Package",
               "version": "[6.0.0, )"

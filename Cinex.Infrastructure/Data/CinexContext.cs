@@ -16,10 +16,7 @@ namespace Cinex.Infrastructure.Data
         internal virtual DbSet<CinemaPatronDefault> DefaultPatrons { get; set; }
         internal virtual DbSet<Patron> Patrons { get; set; }
         internal virtual DbSet<SoundSystem> SoundSystems { get; set; }
-<<<<<<< Updated upstream
-=======
         internal virtual DbSet<TicketPrice> TicketPrices { get; set; }
->>>>>>> Stashed changes
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,14 +75,11 @@ namespace Cinex.Infrastructure.Data
                     .WithOne(x => x.Patron)
                     .HasForeignKey(x => x.PatronId)
                     .HasPrincipalKey(x => x.Id);
-<<<<<<< Updated upstream
-=======
 
                 t.HasOne(x => x.TicketPrice)
                     .WithMany(x => x.Patrons)
                     .HasForeignKey(x => x.BasePriceId)
                     .HasPrincipalKey(x => x.Id);
->>>>>>> Stashed changes
             });
 
             modelBuilder.Entity<SoundSystem>(t =>
@@ -95,8 +89,6 @@ namespace Cinex.Infrastructure.Data
                     .HasForeignKey(x => x.SoundId)
                     .HasPrincipalKey(x => x.Id);
             });
-<<<<<<< Updated upstream
-=======
 
             modelBuilder.Entity<TicketPrice>(t =>
             {
@@ -105,7 +97,6 @@ namespace Cinex.Infrastructure.Data
                     .HasForeignKey(x => x.BasePriceId)
                     .HasPrincipalKey(x => x.Id);
             });
->>>>>>> Stashed changes
         }
     }
 }

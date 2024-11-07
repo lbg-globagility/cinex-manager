@@ -1,12 +1,9 @@
 ﻿using Cinex.Core.Entities.Base;
 using Cinex.Core.Interfaces.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< Updated upstream
-=======
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
->>>>>>> Stashed changes
 
 namespace Cinex.Infrastructure.Data.Repositories.Base
 {
@@ -112,9 +109,6 @@ namespace Cinex.Infrastructure.Data.Repositories.Base
             {
                 deleted = deleted
                     .GroupBy(x => x.Id)
-<<<<<<< Updated upstream
-                    .Select(x => x.FirstOrDefault())
-=======
                     .Select(x =>
                     {
                         var entity = x.FirstOrDefault();
@@ -122,7 +116,6 @@ namespace Cinex.Infrastructure.Data.Repositories.Base
 
                         return entity;
                     })
->>>>>>> Stashed changes
                     .ToList();
                 _context.Set<T>().RemoveRange(deleted);
             }

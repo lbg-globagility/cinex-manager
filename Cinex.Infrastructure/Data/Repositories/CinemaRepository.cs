@@ -2,12 +2,9 @@
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Infrastructure.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< Updated upstream
-=======
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
->>>>>>> Stashed changes
 
 namespace Cinex.Infrastructure.Data.Repositories
 {
@@ -21,8 +18,6 @@ namespace Cinex.Infrastructure.Data.Repositories
             .Include(c => c.SoundSystem)
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
-<<<<<<< Updated upstream
-=======
 
         public override async Task<ICollection<Cinema>> GetAllAsync() => await _context.Cinemas
             .Include(c => c.Patrons)
@@ -31,6 +26,5 @@ namespace Cinex.Infrastructure.Data.Repositories
             .AsNoTracking()
             .OrderBy(c => c.InOrder)
             .ToListAsync();
->>>>>>> Stashed changes
     }
 }

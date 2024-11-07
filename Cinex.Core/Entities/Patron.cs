@@ -1,8 +1,5 @@
 ﻿using Cinex.Core.Entities.Base;
-<<<<<<< Updated upstream
-=======
 using System.Collections.Generic;
->>>>>>> Stashed changes
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinex.Core.Entities
@@ -47,11 +44,7 @@ namespace Cinex.Core.Entities
         public float? LguTax { get; set; }
 
         [Column("base_price")]
-<<<<<<< Updated upstream
-        public int? BasePrice { get; set; }
-=======
         public int? BasePriceId { get; set; }
->>>>>>> Stashed changes
 
         [Column("with_surcharge")]
         public int? WithSurcharge { get; set; }
@@ -62,12 +55,9 @@ namespace Cinex.Core.Entities
         public virtual ICollection<CinemaPatron> Patrons { get; set; }
 
         public virtual ICollection<CinemaPatronDefault> DefaultPatrons { get; set; }
-<<<<<<< Updated upstream
-=======
 
         public virtual TicketPrice TicketPrice { get; set; }
 
         public decimal OfficialUnitPrice => (decimal)(TicketPrice?.Price ?? UnitPrice);
->>>>>>> Stashed changes
     }
 }

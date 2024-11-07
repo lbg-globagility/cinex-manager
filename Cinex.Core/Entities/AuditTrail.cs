@@ -1,8 +1,5 @@
 ﻿using Cinex.Core.Entities.Base;
-<<<<<<< Updated upstream
-=======
 using System;
->>>>>>> Stashed changes
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinex.Core.Entities
