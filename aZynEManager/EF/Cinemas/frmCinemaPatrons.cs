@@ -1,5 +1,4 @@
 ﻿using aZynEManager.CustomControl;
-using Cinex.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Cinex.WinForm;
 using aZynEManager.EF.CinemaPatrons;
 using System.Threading;
+using Cinex.Core.Entities;
 
 namespace aZynEManager.EF.Cinemas
 {

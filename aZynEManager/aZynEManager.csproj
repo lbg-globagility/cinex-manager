@@ -698,7 +698,7 @@
       <Name>CinemaCustomControlLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cinex.Core\Cinex.Core.csproj">
-      <Project>{45ED9171-2B07-40B2-9029-EF825DDF6758}</Project>
+      <Project>{45ed9171-2b07-40b2-9029-ef825ddf6758}</Project>
       <Name>Cinex.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cinex.WinForm\Cinex.WinForm.csproj">
