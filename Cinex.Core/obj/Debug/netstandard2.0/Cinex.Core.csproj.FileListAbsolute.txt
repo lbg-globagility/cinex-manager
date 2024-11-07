@@ -1,0 +1,11 @@
+E:\Repositories\cinex-manager\Cinex.Core\bin\Debug\netstandard2.0\Cinex.Core.deps.json
+E:\Repositories\cinex-manager\Cinex.Core\bin\Debug\netstandard2.0\Cinex.Core.dll
+E:\Repositories\cinex-manager\Cinex.Core\bin\Debug\netstandard2.0\Cinex.Core.pdb
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.csproj.AssemblyReference.cache
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.AssemblyInfoInputs.cache
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.AssemblyInfo.cs
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.csproj.CoreCompileInputs.cache
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.sourcelink.json
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.dll
+E:\Repositories\cinex-manager\Cinex.Core\obj\Debug\netstandard2.0\Cinex.Core.pdb

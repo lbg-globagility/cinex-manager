@@ -2,6 +2,11 @@
 using Cinex.Core.Interfaces.DomainServices;
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Infrastructure.Data.DomainServices.Base;
+<<<<<<< Updated upstream
+=======
+using System.Collections.Generic;
+using System.Threading.Tasks;
+>>>>>>> Stashed changes
 
 namespace Cinex.Infrastructure.Data.DomainServices
 {
@@ -17,5 +22,10 @@ namespace Cinex.Infrastructure.Data.DomainServices
         {
             _cinemaRepository = cinemaRepository;
         }
+<<<<<<< Updated upstream
+=======
+
+        public async Task<ICollection<Cinema>> GetAllAsync() => await _cinemaRepository.GetAllAsync();
+>>>>>>> Stashed changes
     }
 }

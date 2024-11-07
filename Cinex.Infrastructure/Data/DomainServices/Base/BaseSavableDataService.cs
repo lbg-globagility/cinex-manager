@@ -2,6 +2,13 @@
 using Cinex.Core.Interfaces.DomainServices.Base;
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Core.Interfaces.Repositories.Base;
+<<<<<<< Updated upstream
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+>>>>>>> Stashed changes
 
 namespace Cinex.Infrastructure.Data.DomainServices.Base
 {
@@ -37,6 +44,7 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
             throw new NotImplementedException();
         }
 
+<<<<<<< Updated upstream
         public Task SaveManyAsync(int userId, List<T> added = null, List<T> updated = null, List<T> deleted = null)
         {
             throw new NotImplementedException();
@@ -45,6 +53,33 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
         public Task SaveManyAsync(List<T> entities, int userId)
         {
             throw new NotImplementedException();
+=======
+        public async Task SaveManyAsync(
+            int userId,
+            List<T> added = null,
+            List<T> updated = null,
+            List<T> deleted = null)
+        {
+            await _repository.SaveManyAsync(
+                added: added,
+                updated: updated,
+                deleted: deleted);
+        }
+
+        public async Task SaveManyAsync(
+            List<T> entities,
+            int userId)
+        {
+            var insertEntities = entities.Where(x => x.IsNewEntity).ToList();
+            var updateEntities = entities.Where(x => x.IsEdited).ToList();
+            var deleteEntities = entities.Where(x => x.IsDelete).ToList();
+
+            await SaveManyAsync(
+                userId,
+                added: insertEntities,
+                updated: updateEntities,
+                deleted: deleteEntities);
+>>>>>>> Stashed changes
         }
     }
 }

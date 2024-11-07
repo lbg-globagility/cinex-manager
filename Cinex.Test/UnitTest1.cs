@@ -13,8 +13,11 @@ namespace Cinex.Test
         [Test]
         public async Task Test1()
         {
+<<<<<<< Updated upstream
             Assert.True(true);
 
+=======
+>>>>>>> Stashed changes
             var cinemaRepository = MainServiceProvider.GetRequiredService<ICinemaRepository>();
 
             var cinema = await cinemaRepository.GetByIdAsync(id: 10);

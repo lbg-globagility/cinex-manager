@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using MahApps.Metro;
 using System.Collections;
+using aZynEManager.EF.Cinemas;
 
 namespace aZynEManager
 {
@@ -1449,6 +1450,13 @@ namespace aZynEManager
                     MessageBox.Show("Done updating the default patrons the selected cinema", this.Text);
                 }
             }
+        }
+
+        private void linklabelManageCinemaPatrons_LinkClicked(object sender, EventArgs e)
+        {
+            var form = new frmCinemaPatrons();
+            if (!(form.ShowDialog() == DialogResult.OK)) return;
+
         }
     }
 }
