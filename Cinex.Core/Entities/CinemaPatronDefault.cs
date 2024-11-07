@@ -18,5 +18,18 @@ namespace Cinex.Core.Entities
         public virtual Cinema Cinema { get; set; }
 
         public virtual Patron Patron { get; set; }
+
+        private CinemaPatronDefault() { }
+
+        public CinemaPatronDefault(int cinemaId,
+            int patronId)
+        {
+            CinemaId = cinemaId;
+            PatronId = patronId;
+        }
+
+        public static CinemaPatronDefault New(int cinemaId,
+            int patronId) => new CinemaPatronDefault(cinemaId: cinemaId,
+                patronId: patronId);
     }
 }

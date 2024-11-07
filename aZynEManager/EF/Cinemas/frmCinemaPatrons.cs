@@ -125,8 +125,14 @@ namespace aZynEManager.EF.Cinemas
             cinema.AddPatrons(cinemaPatronsDto.Where(t => t.IsAccomodated).Select(t => t.Patron).ToList());
             cinema.RemovePatrons(cinemaPatronsDto.Where(t => !t.IsAccomodated).Select(t => t.Patron).ToList());
 
+            cinema.AddDefaultPatrons(cinemaPatronsDto.Where(t => t.IsDefault).Select(t => t.Patron).ToList());
+            cinema.RemoveDefaultPatrons(cinemaPatronsDto.Where(t => !t.IsDefault).Select(t => t.Patron).ToList());
+
             var cinemaPatronDataService = DependencyInjectionHelper.GetCinemaPatronDataService;
-            await Task.WhenAll(cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: 1))
+            var cinemaPatronDefaultDataService = DependencyInjectionHelper.GetCinemaPatronDefaultDataService;
+
+            await Task.WhenAll(cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: 1),
+                cinemaPatronDefaultDataService.SaveManyAsync(entities: cinema.DefaultPatrons.ToList(), userId: 1))
 
                 .ContinueWith((a) => {
                     MessageBox.Show(text: "Failed",

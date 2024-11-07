@@ -25,6 +25,8 @@ namespace aZynEManager.EF
 
         public static ICinemaPatronDataService GetCinemaPatronDataService => NewInstance.MainServiceProvider.GetRequiredService<ICinemaPatronDataService>();
 
+        public static ICinemaPatronDefaultDataService GetCinemaPatronDefaultDataService => NewInstance.MainServiceProvider.GetRequiredService<ICinemaPatronDefaultDataService>();
+
         public static IPatronDataService GetPatronDataService => NewInstance.MainServiceProvider.GetRequiredService<IPatronDataService>();
 
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();

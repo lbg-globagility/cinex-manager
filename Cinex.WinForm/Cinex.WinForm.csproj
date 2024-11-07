@@ -133,6 +133,10 @@
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Cinex.Core\Cinex.Core.csproj">
       <Project>{45ed9171-2b07-40b2-9029-ef825ddf6758}</Project>
       <Name>Cinex.Core</Name>
@@ -141,10 +145,6 @@
       <Project>{34e67291-df69-4f20-b180-c3d00f4bb5ab}</Project>
       <Name>Cinex.Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

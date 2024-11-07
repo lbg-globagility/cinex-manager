@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cinex.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+055cc3c33b97750364390c0e5465ac366331d15e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfb5f40ca68f7367439773884410e017a09320a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cinex.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cinex.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
