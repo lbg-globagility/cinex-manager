@@ -36,7 +36,7 @@ namespace Cinex.Core.Entities
         {
             if (!(patrons?.Any() ?? false)) return;
 
-            if (!(Patrons?.Any() ?? false)) return;
+            if (!(Patrons?.Any() ?? false)) Patrons = new List<CinemaPatron>();
 
             var unaccomodatedPatrons = patrons
                 .Where(p => !Patrons.Any(t => t.PatronId == p.Id))
@@ -72,7 +72,7 @@ namespace Cinex.Core.Entities
         {
             if (!(patrons?.Any() ?? false)) return;
 
-            if (!(DefaultPatrons?.Any() ?? false)) return;
+            if (!(DefaultPatrons?.Any() ?? false)) DefaultPatrons = new List<CinemaPatronDefault>();
 
             var unaccomodatedPatrons = patrons
                 .Where(p => !DefaultPatrons.Any(t => t.PatronId == p.Id))
