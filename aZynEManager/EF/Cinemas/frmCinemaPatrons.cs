@@ -11,12 +11,15 @@ using System.Windows.Forms;
 using aZynEManager.EF.CinemaPatrons;
 using System.Threading;
 using Cinex.Core.Entities;
+using Cinex.WinForm;
+using System.Collections.Immutable;
 
 namespace aZynEManager.EF.Cinemas
 {
     public partial class frmCinemaPatrons : Form
     {
         private readonly int? _cinemaId;
+        private List<CinemaPatronDto> _cinemaPatronDtoDataSource;
 
         public frmCinemaPatrons(int? cinemaId = null)
         {
@@ -92,10 +95,7 @@ namespace aZynEManager.EF.Cinemas
             datagridCinemaPatrons.BindingContext = new BindingContext();
             datagridCinemaPatrons.DataSource = dataSource;
 
-            //dataSource.ForEach(p =>
-            //{
-            //    p.SetOriginal(p);
-            //});
+            _cinemaPatronDtoDataSource = dataSource;
         }
 
         private void datagridCinemas_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -119,9 +119,10 @@ namespace aZynEManager.EF.Cinemas
             ToolStripButtonSave.Enabled = false;
 
             var cinema = GetSelectedCinema;
-            var cinemaPatronsDto = datagridCinemaPatrons.Rows.OfType<DataGridViewRow>()
-                .Select(r => GetPatron(r))
-                .ToList();
+            //var cinemaPatronsDto = datagridCinemaPatrons.Rows.OfType<DataGridViewRow>()
+            //    .Select(r => GetPatron(r))
+            //    .ToList();
+            var cinemaPatronsDto = _cinemaPatronDtoDataSource;
             cinema.AddPatrons(cinemaPatronsDto.Where(t => t.IsAccomodated).Select(t => t.Patron).ToList());
             cinema.RemovePatrons(cinemaPatronsDto.Where(t => !t.IsAccomodated).Select(t => t.Patron).ToList());
 
@@ -216,6 +217,21 @@ namespace aZynEManager.EF.Cinemas
             if (cinemaPatronDto == null) return;
 
             Console.WriteLine("IsAccomodated: {0}, IsDefault: {1}", cinemaPatronDto.IsAccomodated, cinemaPatronDto.IsDefault);
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            var searchDataSource = Enumerable.Empty<CinemaPatronDto>();
+
+            if (string.IsNullOrEmpty(txtSearch.Text))
+                searchDataSource = _cinemaPatronDtoDataSource;
+
+            if (!string.IsNullOrEmpty(txtSearch.Text))
+                searchDataSource = _cinemaPatronDtoDataSource
+                    .Where(t => string.Concat(t.Code, t.Name, $"{t.OfficialUnitPrice}").SimilarTo(txtSearch.Text))
+                    .ToList();
+
+            datagridCinemaPatrons.DataSource = searchDataSource;
         }
     }
 }
