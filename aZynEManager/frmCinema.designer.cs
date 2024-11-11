@@ -540,6 +540,7 @@
             this.btnDefault.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.btnDefault, "Update Default Patrons");
             this.btnDefault.UseVisualStyleBackColor = false;
+            this.btnDefault.Visible = false;
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
             // rbtnDefault
