@@ -131,9 +131,12 @@ namespace aZynEManager.EF.Cinemas
             var cinemaPatronDataService = DependencyInjectionHelper.GetCinemaPatronDataService;
             var cinemaPatronDefaultDataService = DependencyInjectionHelper.GetCinemaPatronDefaultDataService;
 
-            await Task.WhenAll(cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: 1),
-                cinemaPatronDefaultDataService.SaveManyAsync(entities: cinema.DefaultPatrons.ToList(), userId: 1))
+            var allSaveTasks = Task.WhenAll(
+                cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: 1),
+                cinemaPatronDefaultDataService.SaveManyAsync(entities: cinema.DefaultPatrons.ToList(), userId: 1)
+            );
 
+            await allSaveTasks
                 .ContinueWith((a) => {
                     MessageBox.Show(text: "Failed",
                         caption: "Unsuccessful",
