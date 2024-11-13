@@ -15,6 +15,8 @@ namespace Cinex.Core.Entities
 
     public partial class CinemaPatronDefault
     {
+        public const string TABLE_NAME = "cinema_patron_default";
+
         public virtual Cinema Cinema { get; set; }
 
         public virtual Patron Patron { get; set; }

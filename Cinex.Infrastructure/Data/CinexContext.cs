@@ -16,7 +16,13 @@ namespace Cinex.Infrastructure.Data
         internal virtual DbSet<CinemaPatronDefault> DefaultPatrons { get; set; }
         internal virtual DbSet<Patron> Patrons { get; set; }
         internal virtual DbSet<SoundSystem> SoundSystems { get; set; }
+        internal virtual DbSet<SystemCode> SystemCodes { get; set; }
+        internal virtual DbSet<SystemModule> SystemModules { get; set; }
         internal virtual DbSet<TicketPrice> TicketPrices { get; set; }
+        internal virtual DbSet<User> Users { get; set; }
+        internal virtual DbSet<UserLevel> UserLevels { get; set; }
+        internal virtual DbSet<UserLevelRight> UserLevelRights { get; set; }
+        internal virtual DbSet<UserRight> UserRights { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,6 +101,29 @@ namespace Cinex.Infrastructure.Data
                 t.HasMany(x => x.Patrons)
                     .WithOne(x => x.TicketPrice)
                     .HasForeignKey(x => x.BasePriceId)
+                    .HasPrincipalKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<SystemCode>(t =>
+            {
+                t.HasMany(x => x.Modules)
+                    .WithOne(x => x.SystemCode)
+                    .HasForeignKey(x => x.SystemCodeId)
+                    .HasPrincipalKey(x => x.Id);
+
+                t.HasMany(x => x.Users)
+                    .WithOne(x => x.SystemCode)
+                    .HasForeignKey(x => x.SystemCodeId)
+                    .HasPrincipalKey(x => x.Id);
+
+                t.HasMany(x => x.UserLevels)
+                    .WithOne(x => x.SystemCode)
+                    .HasForeignKey(x => x.SystemCodeId)
+                    .HasPrincipalKey(x => x.Id);
+
+                t.HasMany(x => x.UserLevelRights)
+                    .WithOne(x => x.SystemCode)
+                    .HasForeignKey(x => x.SystemCodeId)
                     .HasPrincipalKey(x => x.Id);
             });
         }

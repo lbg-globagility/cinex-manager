@@ -5,11 +5,14 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
 {
     public abstract class BaseDataService : IBaseDataService
     {
-        private readonly IAuditTrailRepository _auditTrailRepository;
+        public readonly IAuditTrailRepository _auditTrailRepository;
+        public readonly ISystemModuleRepository _systemModuleRepository;
 
-        public BaseDataService(IAuditTrailRepository auditTrailRepository)
+        public BaseDataService(IAuditTrailRepository auditTrailRepository,
+            ISystemModuleRepository systemModuleRepository)
         {
             _auditTrailRepository = auditTrailRepository;
+            _systemModuleRepository = systemModuleRepository;
         }
     }
 }

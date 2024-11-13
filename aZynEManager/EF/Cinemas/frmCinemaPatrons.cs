@@ -18,11 +18,13 @@ namespace aZynEManager.EF.Cinemas
 {
     public partial class frmCinemaPatrons : Form
     {
+        private readonly int _userId;
         private readonly int? _cinemaId;
         private List<CinemaPatronDto> _cinemaPatronDtoDataSource;
 
-        public frmCinemaPatrons(int? cinemaId = null)
+        public frmCinemaPatrons(int userId, int? cinemaId = null)
         {
+            _userId = userId;
             _cinemaId = cinemaId;
 
             InitializeComponent();
@@ -54,6 +56,7 @@ namespace aZynEManager.EF.Cinemas
         private async Task<List<Cinema>> GetCinemas()
         {
             var cinemaDataService = DependencyInjectionHelper.GetCinemaDataService;
+            if(_cinemaId.HasValue) return (await cinemaDataService.GetAllAsync()).Where(t => t.Id == _cinemaId).ToList();
             return (await cinemaDataService.GetAllAsync()).ToList();
         }
 
@@ -133,37 +136,26 @@ namespace aZynEManager.EF.Cinemas
             var cinemaPatronDefaultDataService = DependencyInjectionHelper.GetCinemaPatronDefaultDataService;
 
             var allSaveTasks = Task.WhenAll(
-                cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: 1),
-                cinemaPatronDefaultDataService.SaveManyAsync(entities: cinema.DefaultPatrons.ToList(), userId: 1)
+                cinemaPatronDataService.SaveManyAsync(entities: cinema.Patrons.ToList(), userId: _userId),
+                cinemaPatronDefaultDataService.SaveManyAsync(entities: cinema.DefaultPatrons.ToList(), userId: _userId)
             );
 
             await allSaveTasks
-                .ContinueWith((a) => {
-                    if (!a.IsFaulted) return;
-
-                    MessageBox.Show(text: "Failed",
-                        caption: "Unsuccessful",
-                        buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Error);
-                }, CancellationToken.None,
-                TaskContinuationOptions.OnlyOnFaulted,
-                TaskScheduler.FromCurrentSynchronizationContext())
-
-                .ContinueWith((a) => {
-                    if (!a.IsCompleted) return;
-
-                    MessageBox.Show(
-                        text: "Done",
-                        caption: "Successful",
-                        buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Information);
-
-                }, CancellationToken.None,
-                TaskContinuationOptions.OnlyOnRanToCompletion,
-                TaskScheduler.FromCurrentSynchronizationContext())
-
                 .ContinueWith(async (a) => {
-                    
+
+                    if(a.IsFaulted)
+                        MessageBox.Show(text: "Failed",
+                            caption: "Unsuccessful",
+                            buttons: MessageBoxButtons.OK,
+                            icon: MessageBoxIcon.Error);
+
+                    if (!a.IsFaulted)
+                        MessageBox.Show(
+                            text: "Done",
+                            caption: "Finish",
+                            buttons: MessageBoxButtons.OK,
+                            icon: MessageBoxIcon.Information);
+
                     await ReloadCinemas();
 
                     ToolStripButtonSave.Enabled = true;

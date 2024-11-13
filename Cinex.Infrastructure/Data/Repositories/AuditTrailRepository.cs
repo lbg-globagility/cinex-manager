@@ -1,31 +1,13 @@
-﻿using Cinex.Core.Interfaces.Repositories;
-using System;
-using System.Threading.Tasks;
+﻿using Cinex.Core.Entities;
+using Cinex.Core.Interfaces.Repositories;
+using Cinex.Infrastructure.Data.Repositories.Base;
 
 namespace Cinex.Infrastructure.Data.Repositories
 {
-    public class AuditTrailRepository : IAuditTrailRepository
+    public class AuditTrailRepository : SavableRepository<AuditTrail>, IAuditTrailRepository
     {
-        private readonly CinexContext _context;
-
-        public AuditTrailRepository(CinexContext context)
+        public AuditTrailRepository(CinexContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public Task CreateRecordAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RecordAddAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RecordDeleteAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

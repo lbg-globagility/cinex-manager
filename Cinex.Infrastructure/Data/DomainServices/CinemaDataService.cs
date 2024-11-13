@@ -14,12 +14,21 @@ namespace Cinex.Infrastructure.Data.DomainServices
         public CinemaDataService(
             ICinemaRepository cinemaRepository,
             IAuditTrailRepository auditTrailRepository,
+            ISystemModuleRepository systemModuleRepository,
             CinexContext context) :
-            base(cinemaRepository, auditTrailRepository, context)
+            base(
+                cinemaRepository,
+                auditTrailRepository,
+                systemModuleRepository,
+                context)
         {
             _cinemaRepository = cinemaRepository;
         }
 
         public async Task<ICollection<Cinema>> GetAllAsync() => await _cinemaRepository.GetAllAsync();
+
+        protected override int ModuleCodeId(Cinema entity = null) => 1;
+
+        protected override string TableName(Cinema entity = null) => Cinema.TABLE_NAME;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cinex.Core.Entities.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -24,6 +23,8 @@ namespace Cinex.Core.Entities
 
     public partial class Cinema
     {
+        public const string TABLE_NAME = "cinema";
+
         public virtual ICollection<CinemaPatron> Patrons { get; set; }
 
         public virtual ICollection<CinemaPatronDefault> DefaultPatrons { get; set; }

@@ -49,6 +49,7 @@ namespace Cinex.WinForm
             services.AddScoped<ICinemaPatronRepository, CinemaPatronRepository>();
             services.AddScoped<ICinemaPatronDefaultRepository, CinemaPatronDefaultRepository>();
             services.AddScoped<IPatronRepository, PatronRepository>();
+            services.AddScoped<ISystemModuleRepository, SystemModuleRepository>();
 
             // Data Service
             services.AddScoped<ICinemaDataService, CinemaDataService>();

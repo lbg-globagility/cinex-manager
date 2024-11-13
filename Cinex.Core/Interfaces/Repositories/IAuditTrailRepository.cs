@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cinex.Core.Entities;
+using Cinex.Core.Interfaces.Repositories.Base;
 
 namespace Cinex.Core.Interfaces.Repositories
 {
-    public interface IAuditTrailRepository
+    public interface IAuditTrailRepository : ISavableRepository<AuditTrail>
     {
-        Task CreateRecordAsync();
-
-        //Task<PaginatedList<UserActivityItem>> GetPaginatedListAsync(PageOptions options, int? organizationId = null, string[] entityNames = null, int? changedByUserId = null, UserActivity.ChangedType? changedType = null, int? changedEntityId = null, string description = null, DateTime? dateFrom = null, DateTime? dateTo = null);
-
-        Task RecordAddAsync();
-
-        Task RecordDeleteAsync();
     }
 }

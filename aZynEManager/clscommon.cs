@@ -144,7 +144,7 @@ namespace aZynEManager
                 sqry.Append("insert into a_trail values(0,");
                 sqry.Append(String.Format("{0},", intUserID));
                 sqry.Append(String.Format("'{0}',", String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)));
-                sqry.Append(String.Format("{0},", getModuleID(sModule,sConnString)));
+                sqry.Append(String.Format("{0},", getModuleID(sModule, sConnString)));
                 sqry.Append(String.Format("'{0}',", sAffTable));
                 sqry.Append(String.Format("'{0}',", sComputer));
                 sqry.Append(String.Format("'{0}'", sDetails));

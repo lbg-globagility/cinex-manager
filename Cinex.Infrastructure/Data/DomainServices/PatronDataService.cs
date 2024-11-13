@@ -14,12 +14,27 @@ namespace Cinex.Infrastructure.Data.DomainServices
         public PatronDataService(
             IPatronRepository patronRepository,
             IAuditTrailRepository auditTrailRepository,
+            ISystemModuleRepository systemModuleRepository,
             CinexContext context) :
-            base(patronRepository, auditTrailRepository, context)
+            base(
+                patronRepository,
+                auditTrailRepository,
+                systemModuleRepository,
+                context)
         {
             _patronRepository = patronRepository;
         }
 
         public async Task<ICollection<Patron>> GetAllAsync() => await _patronRepository.GetAllAsync();
+
+        protected override int ModuleCodeId(Patron entity = null)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override string TableName(Patron entity = null)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

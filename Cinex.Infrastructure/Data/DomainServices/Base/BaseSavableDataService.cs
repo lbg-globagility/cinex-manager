@@ -1,4 +1,5 @@
-﻿using Cinex.Core.Entities.Base;
+﻿using Cinex.Core.Entities;
+using Cinex.Core.Entities.Base;
 using Cinex.Core.Interfaces.DomainServices.Base;
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Core.Interfaces.Repositories.Base;
@@ -17,8 +18,9 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
         protected BaseSavableDataService(
             ISavableRepository<T> repository,
             IAuditTrailRepository auditTrailRepository,
+            ISystemModuleRepository systemModuleRepository,
             CinexContext context) :
-            base(auditTrailRepository)
+            base(auditTrailRepository, systemModuleRepository)
         {
             _repository = repository;
             _context = context;
@@ -47,10 +49,81 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
             List<T> updated = null,
             List<T> deleted = null)
         {
+
+            var auditTrail = new List<AuditTrail>();
+
+            if (added?.Any() ?? false)
+            {
+                var addedEntityEntry = _context.Entry(added?.FirstOrDefault());
+                added.ForEach(t =>
+                {
+                    var detailsItems = addedEntityEntry
+                        .Properties
+                        .Select(x => {
+                            var propertyName = x.Metadata.Name;
+                            return $"{propertyName}: {x.CurrentValue}";
+                        })
+                        .ToArray();
+
+                    var transactionDetails = string.Join(", ", detailsItems);
+
+                    auditTrail.Add(AuditTrail.NewAuditTrail(userId: userId,
+                        moduleCodeId: ModuleCodeId(t),
+                        affectedTableLayer: $"{TableName()}",
+                        transactionDetails: transactionDetails));
+                });
+            }
+
+            if (updated?.Any() ?? false)
+            {
+                var updatedEntityEntry = _context.Entry(updated?.FirstOrDefault());
+                updated.ForEach(t =>
+                {
+                    var detailsItems = updatedEntityEntry
+                        .Properties
+                        .Select(x => {
+                            var propertyName = x.Metadata.Name;
+                            return $"{propertyName}: {x.CurrentValue}";
+                        })
+                        .ToArray();
+
+                    var transactionDetails = string.Join(", ", detailsItems);
+
+                    auditTrail.Add(AuditTrail.NewAuditTrail(userId: userId,
+                        moduleCodeId: ModuleCodeId(t),
+                        affectedTableLayer: $"{TableName()}",
+                        transactionDetails: transactionDetails));
+                });
+            }
+
+            if (deleted?.Any() ?? false)
+            {
+                var deletedEntityEntry = _context.Entry(deleted?.FirstOrDefault());
+                deleted.ForEach(t =>
+                {
+                    var detailsItems = deletedEntityEntry
+                        .Properties
+                        .Select(x => {
+                            var propertyName = x.Metadata.Name;
+                            return $"{propertyName}: {x.CurrentValue}";
+                        })
+                        .ToArray();
+
+                    var transactionDetails = string.Join(", ", detailsItems);
+
+                    auditTrail.Add(AuditTrail.NewAuditTrail(userId: userId,
+                        moduleCodeId: ModuleCodeId(t),
+                        affectedTableLayer: $"{TableName()}",
+                        transactionDetails: transactionDetails));
+                });
+            }
+
             await _repository.SaveManyAsync(
                 added: added,
                 updated: updated,
                 deleted: deleted);
+
+            await _auditTrailRepository.SaveManyAsync(added: auditTrail);
         }
 
         public async Task SaveManyAsync(
@@ -67,5 +140,9 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
                 updated: updateEntities,
                 deleted: deleteEntities);
         }
+
+        protected abstract string TableName(T entity = null);
+
+        protected abstract int ModuleCodeId(T entity = null);
     }
 }
