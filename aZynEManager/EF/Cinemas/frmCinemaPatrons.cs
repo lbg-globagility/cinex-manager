@@ -139,6 +139,8 @@ namespace aZynEManager.EF.Cinemas
 
             await allSaveTasks
                 .ContinueWith((a) => {
+                    if (!a.IsFaulted) return;
+
                     MessageBox.Show(text: "Failed",
                         caption: "Unsuccessful",
                         buttons: MessageBoxButtons.OK,
@@ -147,13 +149,21 @@ namespace aZynEManager.EF.Cinemas
                 TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.FromCurrentSynchronizationContext())
 
-                .ContinueWith(async (a) => {
+                .ContinueWith((a) => {
+                    if (!a.IsCompleted) return;
+
                     MessageBox.Show(
                         text: "Done",
                         caption: "Successful",
                         buttons: MessageBoxButtons.OK,
                         icon: MessageBoxIcon.Information);
 
+                }, CancellationToken.None,
+                TaskContinuationOptions.OnlyOnRanToCompletion,
+                TaskScheduler.FromCurrentSynchronizationContext())
+
+                .ContinueWith(async (a) => {
+                    
                     await ReloadCinemas();
 
                     ToolStripButtonSave.Enabled = true;
@@ -183,6 +193,9 @@ namespace aZynEManager.EF.Cinemas
                 });
 
             datagridCinemaPatrons.DataSource = dataSource;
+
+            datagridCinemaPatrons.EndEdit();
+            datagridCinemaPatrons.Refresh();
         }
 
         private void cbHeaderIsDefault_OnCheckBoxClicked(bool state)
@@ -202,6 +215,9 @@ namespace aZynEManager.EF.Cinemas
                 });
 
             datagridCinemaPatrons.DataSource = dataSource;
+
+            datagridCinemaPatrons.EndEdit();
+            datagridCinemaPatrons.Refresh();
         }
 
         private CinemaPatronDto GetPatron(DataGridViewRow r) => r?.DataBoundItem as CinemaPatronDto;
