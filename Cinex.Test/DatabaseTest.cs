@@ -38,10 +38,18 @@ namespace Cinex.Test
             });
 
             // Repository
+            services.AddScoped<IAuditTrailRepository, AuditTrailRepository>();
             services.AddScoped<ICinemaRepository, CinemaRepository>();
+            services.AddScoped<ICinemaPatronRepository, CinemaPatronRepository>();
+            services.AddScoped<ICinemaPatronDefaultRepository, CinemaPatronDefaultRepository>();
+            services.AddScoped<IPatronRepository, PatronRepository>();
+            services.AddScoped<ISystemModuleRepository, SystemModuleRepository>();
 
             // Data Service
             services.AddScoped<ICinemaDataService, CinemaDataService>();
+            services.AddScoped<ICinemaPatronDataService, CinemaPatronDataService>();
+            services.AddScoped<ICinemaPatronDefaultDataService, CinemaPatronDefaultDataService>();
+            services.AddScoped<IPatronDataService, PatronDataService>();
         }
     }
 }

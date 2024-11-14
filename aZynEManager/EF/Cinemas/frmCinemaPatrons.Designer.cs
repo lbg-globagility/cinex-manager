@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCinemaPatrons));
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.datagridCinemas = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
@@ -44,12 +44,12 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.txtSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ToolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.ToolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
-            this.txtSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
             this.kryptonSplitContainer1.Panel1.SuspendLayout();
@@ -85,8 +85,7 @@
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.kryptonSplitContainer1.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(872, 561);
-            this.kryptonSplitContainer1.SplitterDistance = 288;
-            this.kryptonSplitContainer1.SplitterWidth = 8;
+            this.kryptonSplitContainer1.SplitterDistance = 216;
             this.kryptonSplitContainer1.TabIndex = 19;
             // 
             // datagridCinemas
@@ -104,7 +103,7 @@
             this.datagridCinemas.Name = "datagridCinemas";
             this.datagridCinemas.ReadOnly = true;
             this.datagridCinemas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagridCinemas.Size = new System.Drawing.Size(288, 442);
+            this.datagridCinemas.Size = new System.Drawing.Size(216, 442);
             this.datagridCinemas.TabIndex = 10;
             this.datagridCinemas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridCinemas_CellClick);
             this.datagridCinemas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridCinemas_CellContentClick);
@@ -135,7 +134,7 @@
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(288, 119);
+            this.kryptonPanel1.Size = new System.Drawing.Size(216, 119);
             this.kryptonPanel1.TabIndex = 16;
             // 
             // datagridCinemaPatrons
@@ -155,7 +154,7 @@
             this.datagridCinemaPatrons.Location = new System.Drawing.Point(0, 119);
             this.datagridCinemaPatrons.Name = "datagridCinemaPatrons";
             this.datagridCinemaPatrons.RowHeadersWidth = 56;
-            this.datagridCinemaPatrons.Size = new System.Drawing.Size(576, 393);
+            this.datagridCinemaPatrons.Size = new System.Drawing.Size(651, 393);
             this.datagridCinemaPatrons.TabIndex = 18;
             this.datagridCinemaPatrons.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridCinemaPatrons_CellEndEdit);
             this.datagridCinemaPatrons.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.datagridCinemaPatrons_CellFormatting);
@@ -195,10 +194,10 @@
             // Column7
             // 
             this.Column7.DataPropertyName = "OfficialUnitPrice";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle3;
             this.Column7.HeaderText = "Unit Price";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
@@ -208,7 +207,7 @@
             this.kryptonPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.kryptonPanel3.Location = new System.Drawing.Point(0, 512);
             this.kryptonPanel3.Name = "kryptonPanel3";
-            this.kryptonPanel3.Size = new System.Drawing.Size(576, 49);
+            this.kryptonPanel3.Size = new System.Drawing.Size(651, 49);
             this.kryptonPanel3.TabIndex = 19;
             // 
             // kryptonPanel2
@@ -218,8 +217,24 @@
             this.kryptonPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel2.Location = new System.Drawing.Point(0, 25);
             this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.Size = new System.Drawing.Size(576, 94);
+            this.kryptonPanel2.Size = new System.Drawing.Size(651, 94);
             this.kryptonPanel2.TabIndex = 17;
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(3, 38);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(47, 20);
+            this.kryptonLabel1.TabIndex = 21;
+            this.kryptonLabel1.Values.Text = "Search";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(56, 35);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(248, 23);
+            this.txtSearch.TabIndex = 20;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // toolStrip1
             // 
@@ -231,7 +246,7 @@
             this.ToolStripButtonCancel});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(576, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(651, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -258,22 +273,6 @@
             this.ToolStripButtonCancel.Size = new System.Drawing.Size(63, 22);
             this.ToolStripButtonCancel.Text = "Cancel";
             this.ToolStripButtonCancel.Click += new System.EventHandler(this.ToolStripButtonCancel_Click);
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(56, 35);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(248, 23);
-            this.txtSearch.TabIndex = 20;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(3, 38);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(47, 20);
-            this.kryptonLabel1.TabIndex = 21;
-            this.kryptonLabel1.Values.Text = "Search";
             // 
             // frmCinemaPatrons
             // 
