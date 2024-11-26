@@ -138,7 +138,7 @@ namespace aZynEManager
                 switch (reportcode)
                 {
                     case "RP03":
-                        sqry.Append("SELECT f.name, e.title, COUNT(cinema_seat_id) quantity, SUM(a.base_price + a.ordinance_price + a.surcharge_price) sales, g.system_value, h.name report_name, d.movie_date ");
+                        sqry.Append("SELECT f.name, e.title, COUNT(cinema_seat_id) quantity, SUM(a.base_price) sales, g.system_value, h.name report_name, d.movie_date ");
                         sqry.Append("FROM movies_schedule_list_reserved_seat a, ticket b, movies_schedule_list c, movies_schedule d, movies e, cinema f, config_table g, report h ");
                         sqry.Append("WHERE a.ticket_id = b.id ");
                         sqry.Append("AND a.status = 1 ");
