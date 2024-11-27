@@ -19,10 +19,10 @@ namespace aZynEManager.EF.Cinemas
     public partial class frmCinemaPatrons : Form
     {
         private readonly int _userId;
-        private readonly int? _cinemaId;
+        private readonly int _cinemaId;
         private List<CinemaPatronDto> _cinemaPatronDtoDataSource;
 
-        public frmCinemaPatrons(int userId, int? cinemaId = null)
+        public frmCinemaPatrons(int userId, int cinemaId)
         {
             _userId = userId;
             _cinemaId = cinemaId;
@@ -56,7 +56,7 @@ namespace aZynEManager.EF.Cinemas
         private async Task<List<Cinema>> GetCinemas()
         {
             var cinemaDataService = DependencyInjectionHelper.GetCinemaDataService;
-            if(_cinemaId.HasValue) return (await cinemaDataService.GetAllAsync()).Where(t => t.Id == _cinemaId).ToList();
+            if(_cinemaId > 0) return (await cinemaDataService.GetAllAsync()).Where(t => t.Id == _cinemaId).ToList();
             return (await cinemaDataService.GetAllAsync()).ToList();
         }
 

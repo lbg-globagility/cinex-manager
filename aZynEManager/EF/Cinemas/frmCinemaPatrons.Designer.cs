@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCinemaPatrons));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.datagridCinemas = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,11 +37,6 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.datagridCinemaPatrons = new System.Windows.Forms.DataGridView();
-            this.Column8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -50,6 +45,11 @@
             this.ToolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.ToolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
+            this.Column8 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
             this.kryptonSplitContainer1.Panel1.SuspendLayout();
@@ -67,15 +67,19 @@
             // 
             // kryptonSplitContainer1
             // 
+            this.kryptonSplitContainer1.ContainerBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 0);
             this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
+            this.kryptonSplitContainer1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
             // 
             // kryptonSplitContainer1.Panel1
             // 
             this.kryptonSplitContainer1.Panel1.Controls.Add(this.datagridCinemas);
             this.kryptonSplitContainer1.Panel1.Controls.Add(this.kryptonPanel1);
+            this.kryptonSplitContainer1.Panel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+            this.kryptonSplitContainer1.Panel1.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             // 
             // kryptonSplitContainer1.Panel2
             // 
@@ -83,6 +87,8 @@
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonPanel3);
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonPanel2);
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.toolStrip1);
+            this.kryptonSplitContainer1.Panel2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+            this.kryptonSplitContainer1.Panel2.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonSplitContainer1.SeparatorStyle = ComponentFactory.Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(872, 561);
             this.kryptonSplitContainer1.SplitterDistance = 216;
@@ -99,8 +105,14 @@
             this.Column2,
             this.Column3});
             this.datagridCinemas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datagridCinemas.GridStyles.Style = ComponentFactory.Krypton.Toolkit.DataGridViewStyle.List;
+            this.datagridCinemas.GridStyles.StyleBackground = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
+            this.datagridCinemas.GridStyles.StyleColumn = ComponentFactory.Krypton.Toolkit.GridStyle.List;
+            this.datagridCinemas.GridStyles.StyleDataCells = ComponentFactory.Krypton.Toolkit.GridStyle.List;
+            this.datagridCinemas.GridStyles.StyleRow = ComponentFactory.Krypton.Toolkit.GridStyle.List;
             this.datagridCinemas.Location = new System.Drawing.Point(0, 119);
             this.datagridCinemas.Name = "datagridCinemas";
+            this.datagridCinemas.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
             this.datagridCinemas.ReadOnly = true;
             this.datagridCinemas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagridCinemas.Size = new System.Drawing.Size(216, 442);
@@ -134,6 +146,8 @@
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
+            this.kryptonPanel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+            this.kryptonPanel1.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonPanel1.Size = new System.Drawing.Size(216, 119);
             this.kryptonPanel1.TabIndex = 16;
             // 
@@ -159,54 +173,13 @@
             this.datagridCinemaPatrons.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridCinemaPatrons_CellEndEdit);
             this.datagridCinemaPatrons.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.datagridCinemaPatrons_CellFormatting);
             // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "IsAccomodated";
-            this.Column8.HeaderText = "Accomodated?";
-            this.Column8.Name = "Column8";
-            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column8.Width = 132;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "IsDefault";
-            this.Column4.HeaderText = "Is Default?";
-            this.Column4.Name = "Column4";
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Code";
-            this.Column5.HeaderText = "Code";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "Name";
-            this.Column6.HeaderText = "Name";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 192;
-            // 
-            // Column7
-            // 
-            this.Column7.DataPropertyName = "OfficialUnitPrice";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column7.HeaderText = "Unit Price";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            // 
             // kryptonPanel3
             // 
             this.kryptonPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.kryptonPanel3.Location = new System.Drawing.Point(0, 512);
             this.kryptonPanel3.Name = "kryptonPanel3";
+            this.kryptonPanel3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+            this.kryptonPanel3.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonPanel3.Size = new System.Drawing.Size(651, 49);
             this.kryptonPanel3.TabIndex = 19;
             // 
@@ -217,21 +190,27 @@
             this.kryptonPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel2.Location = new System.Drawing.Point(0, 25);
             this.kryptonPanel2.Name = "kryptonPanel2";
+            this.kryptonPanel2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
+            this.kryptonPanel2.PanelBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelClient;
             this.kryptonPanel2.Size = new System.Drawing.Size(651, 94);
             this.kryptonPanel2.TabIndex = 17;
             // 
             // kryptonLabel1
             // 
+            this.kryptonLabel1.LabelStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.NormalControl;
             this.kryptonLabel1.Location = new System.Drawing.Point(3, 38);
             this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
             this.kryptonLabel1.Size = new System.Drawing.Size(47, 20);
             this.kryptonLabel1.TabIndex = 21;
             this.kryptonLabel1.Values.Text = "Search";
             // 
             // txtSearch
             // 
+            this.txtSearch.InputControlStyle = ComponentFactory.Krypton.Toolkit.InputControlStyle.Standalone;
             this.txtSearch.Location = new System.Drawing.Point(56, 35);
             this.txtSearch.Name = "txtSearch";
+            this.txtSearch.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Global;
             this.txtSearch.Size = new System.Drawing.Size(248, 23);
             this.txtSearch.TabIndex = 20;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -273,6 +252,51 @@
             this.ToolStripButtonCancel.Size = new System.Drawing.Size(63, 22);
             this.ToolStripButtonCancel.Text = "Cancel";
             this.ToolStripButtonCancel.Click += new System.EventHandler(this.ToolStripButtonCancel_Click);
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "IsAccomodated";
+            this.Column8.HeaderText = "Accomodated?";
+            this.Column8.Name = "Column8";
+            this.Column8.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column8.Width = 108;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "IsDefault";
+            this.Column4.HeaderText = "Is Default?";
+            this.Column4.Name = "Column4";
+            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column4.Width = 96;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "Code";
+            this.Column5.HeaderText = "Code";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "Name";
+            this.Column6.HeaderText = "Name";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 180;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "OfficialUnitPrice";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column7.HeaderText = "Unit Price";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 88;
             // 
             // frmCinemaPatrons
             // 
@@ -322,12 +346,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridView datagridCinemaPatrons;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox txtSearch;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column8;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox txtSearch;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
     }
 }

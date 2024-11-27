@@ -1455,8 +1455,9 @@ namespace aZynEManager
         private void linklabelManageCinemaPatrons_LinkClicked(object sender, EventArgs e)
         {
             var dataRow = (dgvResult?.CurrentRow?.DataBoundItem as DataRowView)?.Row;
-            var cinemaId = dataRow?.Field<int>("id") ?? 0;
-            var form = new frmCinemaPatrons(userId: m_frmM.UserID, cinemaId: cinemaId);
+            var cinemaId = dataRow?.Field<int>("id");
+            if (!cinemaId.HasValue) return;
+            var form = new frmCinemaPatrons(userId: m_frmM.UserID, cinemaId: cinemaId ?? 0);
             if (!(form.ShowDialog() == DialogResult.OK)) return;
 
         }
