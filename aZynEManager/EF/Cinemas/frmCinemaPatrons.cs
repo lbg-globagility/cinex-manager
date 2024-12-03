@@ -232,14 +232,46 @@ namespace aZynEManager.EF.Cinemas
             var searchDataSource = Enumerable.Empty<CinemaPatronDto>();
 
             if (string.IsNullOrEmpty(txtSearch.Text))
-                searchDataSource = _cinemaPatronDtoDataSource;
+            {
+                datagridCinemaPatrons.DataSource = _cinemaPatronDtoDataSource;
+                return;
+            }
 
             if (!string.IsNullOrEmpty(txtSearch.Text))
                 searchDataSource = _cinemaPatronDtoDataSource
                     .Where(t => string.Concat(t.Code, t.Name, $"{t.OfficialUnitPrice}").SimilarTo(txtSearch.Text))
                     .ToList();
 
+            if (rbtnAccomodated.Checked) searchDataSource = searchDataSource
+                    .Where(t => t.IsAccomodated)
+                    .ToList();
+
+            if (rbtnDefault.Checked) searchDataSource = searchDataSource
+                    .Where(t => t.IsDefault)
+                    .ToList();
+
             datagridCinemaPatrons.DataSource = searchDataSource;
+        }
+
+        private void rbtnAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rbtnAll.Checked) return;
+
+            txtSearch_TextChanged(txtSearch, e);
+        }
+
+        private void rbtnAccomodated_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rbtnAccomodated.Checked) return;
+
+            txtSearch_TextChanged(txtSearch, e);
+        }
+
+        private void rbtnDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!rbtnDefault.Checked) return;
+
+            txtSearch_TextChanged(txtSearch, e);
         }
     }
 }
