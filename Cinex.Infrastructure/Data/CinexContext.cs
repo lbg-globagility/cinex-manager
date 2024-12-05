@@ -14,6 +14,7 @@ namespace Cinex.Infrastructure.Data
         internal virtual DbSet<Cinema> Cinemas { get; set; }
         internal virtual DbSet<CinemaPatron> CinemaPatrons { get; set; }
         internal virtual DbSet<CinemaPatronDefault> DefaultPatrons { get; set; }
+        internal virtual DbSet<Ewallet> Ewallets { get; set; }
         internal virtual DbSet<Patron> Patrons { get; set; }
         internal virtual DbSet<SoundSystem> SoundSystems { get; set; }
         internal virtual DbSet<SystemCode> SystemCodes { get; set; }
@@ -86,6 +87,11 @@ namespace Cinex.Infrastructure.Data
                     .WithMany(x => x.Patrons)
                     .HasForeignKey(x => x.BasePriceId)
                     .HasPrincipalKey(x => x.Id);
+
+                t.HasOne(x => x.Ewallet)
+                    .WithMany(x => x.Patrons)
+                    .HasForeignKey(x => x.EwalletId)
+                    .HasPrincipalKey(x => x.Id);
             });
 
             modelBuilder.Entity<SoundSystem>(t =>
@@ -125,6 +131,14 @@ namespace Cinex.Infrastructure.Data
                     .WithOne(x => x.SystemCode)
                     .HasForeignKey(x => x.SystemCodeId)
                     .HasPrincipalKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<Ewallet>(t =>
+            {
+                t.HasMany(x=>x.Patrons)
+                    .WithOne(x=>x.Ewallet)
+                    .HasForeignKey(x=>x.EwalletId)
+                    .HasPrincipalKey(x=>x.Id);
             });
         }
     }

@@ -3,11 +3,10 @@ using Cinex.Core.Entities.Base;
 using Cinex.Core.Interfaces.DomainServices.Base;
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Core.Interfaces.Repositories.Base;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Cinex.Infrastructure.Data.DomainServices.Base
@@ -56,10 +55,9 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
 
             if (added?.Any() ?? false)
             {
-                var addedEntityEntry = _context.Entry(added?.FirstOrDefault());
                 added.ForEach(t =>
                 {
-                    var detailsItems = addedEntityEntry
+                    var detailsItems = _context.Entry(t)
                         .Properties
                         .Select(x => {
                             var propertyName = x.Metadata.Name;
@@ -80,35 +78,44 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
 
             if (updated?.Any() ?? false)
             {
-                var updatedEntityEntry = _context.Entry(updated?.FirstOrDefault());
                 var ids = updated.GroupBy(t => t.Id)
                     .Select(t => t.Key)
                     .ToArray();
 
                 var originalEntities = await _repository.GetManyByIdsAsync(ids);
 
+                Func<Microsoft.EntityFrameworkCore.ChangeTracking.PropertyEntry, EntityEntryModel> selector(Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T> originalEntity)
+                {
+                    return x =>
+                    {
+                        var propertyName = x.Metadata.Name;
+                        var originalEntityValue =
+                            JsonConvert.SerializeObject(originalEntity?.Property(propertyName)?.OriginalValue);
+
+                        var entityCurrentValue =
+                            JsonConvert.SerializeObject(x.CurrentValue);
+
+                        var hasChanged = originalEntityValue != entityCurrentValue;
+                        var info = $"{propertyName}: from `{originalEntityValue}` to `{x.CurrentValue}`";
+
+                        return new EntityEntryModel() { hasChanged = hasChanged, info = info };
+                    };
+                }
+
                 updated.ForEach(t =>
                 {
-                    var detailsItems = updatedEntityEntry
+                    var originalEntity = _context.Entry(originalEntities?.FirstOrDefault(f => f.Id == t.Id));
+                    
+                    var detailsItems = _context.Entry(t)
                         .Properties
-                        .Select(x => {
-                            var propertyName = x.Metadata.Name;
-                            var originalEntity = _context.Entry(originalEntities?.FirstOrDefault(f => f.Id == t.Id));
-                            var originalEntityValue = JsonSerializer.Serialize(originalEntity?.Property(propertyName)?.OriginalValue);
-                            var entityCurrentValue = JsonSerializer.Serialize(x.CurrentValue);
-
-                            var hasChanged = originalEntityValue != entityCurrentValue;
-                            var info = $"{propertyName}: from `{originalEntityValue}` to `{x.CurrentValue}`";
-
-                            return new { hasChanged, info };
-                        })
+                        .Select(selector(originalEntity))
                         .Where(x => x.hasChanged)
                         .Select(x => x.info)
                         .ToArray();
 
                     if (!(detailsItems?.Any() ?? false)) return;
 
-                    var transactionDetails = $"EDITED: {string.Join(", ", detailsItems)}";
+                    var transactionDetails = $"EDITED[Id:{t.Id}]: {string.Join(", ", detailsItems)}";
 
                     auditTrails.Add(AuditTrail.NewAuditTrail(userId: userId,
                         moduleCodeId: ModuleCodeId(t),
@@ -119,10 +126,9 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
 
             if (deleted?.Any() ?? false)
             {
-                var deletedEntityEntry = _context.Entry(deleted?.FirstOrDefault());
                 deleted.ForEach(t =>
                 {
-                    var detailsItems = deletedEntityEntry
+                    var detailsItems = _context.Entry(t)
                         .Properties
                         .Select(x => {
                             var propertyName = x.Metadata.Name;
@@ -167,5 +173,11 @@ namespace Cinex.Infrastructure.Data.DomainServices.Base
         protected abstract string TableName(T entity = null);
 
         protected abstract int ModuleCodeId(T entity = null);
+
+        private class EntityEntryModel
+        {
+            public bool hasChanged { get; set; }
+            public string info { get; set; }
+        }
     }
 }

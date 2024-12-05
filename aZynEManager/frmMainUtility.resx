@@ -120,10 +120,10 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pnlClose.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAB7SURBVEhL7cxBDsMgEANA/v/pNkHTgyW0EHKJqswJ2V7a69k+B8/S6i6cRz+iIZNONGcfVEEV
-        VHP2QdWJgmqdu1DlW9yXTPf5Z8jkPv8F1X3+GzLZ55+S6XXuQ5Vf4i6oOlFQzdkHVVAF1Zx9Jxoy6UTr
-        Vo+2Pn/9i9a+do3CTLQgb2UAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAHtJREFUSEvt
+        zEEOwyAQA0D+/+k2QdODJbQQcomqzAnZXtrr2T4Hz9LqLpxHP6Ihk040Zx9UQRVUc/ZB1YmCap27UOVb
+        3JdM9/lnyOQ+/wXVff4bMtnnn5Lpde5DlV/iLqg6UVDN2QdVUAXVnH0nGjLpROtWj7Y+f/2L1r52jcJM
+        tCBvZQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

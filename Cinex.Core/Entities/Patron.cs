@@ -48,6 +48,9 @@ namespace Cinex.Core.Entities
 
         [Column("with_surcharge")]
         public int? WithSurcharge { get; set; }
+
+        [Column("ewallet_id")]
+        public int? EwalletId { get; set; }
     }
 
     public partial class Patron
@@ -59,5 +62,7 @@ namespace Cinex.Core.Entities
         public virtual TicketPrice TicketPrice { get; set; }
 
         public decimal OfficialUnitPrice => (decimal)(TicketPrice?.Price ?? UnitPrice);
+
+        public virtual Ewallet Ewallet { get; set; }
     }
 }

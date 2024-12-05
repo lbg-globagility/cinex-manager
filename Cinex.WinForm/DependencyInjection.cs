@@ -48,6 +48,7 @@ namespace Cinex.WinForm
             services.AddScoped<ICinemaRepository, CinemaRepository>();
             services.AddScoped<ICinemaPatronRepository, CinemaPatronRepository>();
             services.AddScoped<ICinemaPatronDefaultRepository, CinemaPatronDefaultRepository>();
+            services.AddScoped<IEwalletRepository, EwalletRepository>();
             services.AddScoped<IPatronRepository, PatronRepository>();
             services.AddScoped<ISystemModuleRepository, SystemModuleRepository>();
 
@@ -55,6 +56,7 @@ namespace Cinex.WinForm
             services.AddScoped<ICinemaDataService, CinemaDataService>();
             services.AddScoped<ICinemaPatronDataService, CinemaPatronDataService>();
             services.AddScoped<ICinemaPatronDefaultDataService, CinemaPatronDefaultDataService>();
+            services.AddScoped<IEwalletDataService, EwalletDataService>();
             services.AddScoped<IPatronDataService, PatronDataService>();
         }
     }

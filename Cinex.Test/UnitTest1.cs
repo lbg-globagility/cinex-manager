@@ -42,5 +42,29 @@ namespace Cinex.Test
 
             return ex;
         }
+
+        [Test]
+        public async Task Test2()
+        {
+            try
+            {
+                var eWalletDataService = MainServiceProvider.GetRequiredService<IEwalletDataService>();
+                var eWallet = await eWalletDataService.GetByIdAsync(1);
+                await eWalletDataService.SetDefaultEwalletAsync(1, eWallet)
+                    .ContinueWith(async (a) => {
+                        if (!a.IsCompleted) return;
+
+                        eWallet = await eWalletDataService.GetByIdAsync(2);
+                        await eWalletDataService.SetDefaultEwalletAsync(1, eWallet);
+
+                    }, TaskScheduler.Default);
+
+                
+            }
+            catch (Exception ex)
+            {
+                throw GetInnerException(ex);
+            }
+        }
     }
 }

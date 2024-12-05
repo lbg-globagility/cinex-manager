@@ -29,6 +29,8 @@ namespace aZynEManager.EF
 
         public static IPatronDataService GetPatronDataService => NewInstance.MainServiceProvider.GetRequiredService<IPatronDataService>();
 
+        public static IEwalletDataService GetEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<IEwalletDataService>();
+
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();
     }
 }

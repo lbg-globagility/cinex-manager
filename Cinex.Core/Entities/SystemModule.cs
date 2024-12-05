@@ -26,6 +26,10 @@ namespace Cinex.Core.Entities
         public const string CINEMA_DELETE_CODE_TEXT = "CINEMA_DELETE";
         public const string CINEMA_CODE_TEXT = "CINEMA";
 
+        public const string PATRON_ADD_CODE_TEXT = "PATRON_ADD";
+        public const string PATRON_EDIT_CODE_TEXT = "PATRON_EDIT";
+        public const string PATRON_DELETE_CODE_TEXT = "PATRON_DELETE";
+
         private SystemModule() { }
 
         public virtual SystemCode SystemCode { get; set; }
