@@ -99,3 +99,10 @@ CinemaCustomControlLibrary/obj/x86/Debug
 .vs/ProjectEvaluation/azynemanager.projects*.v7.bin
 packages/EmptyLicensesLicx*
 Cinex.WinForm/.vs/Cinex.WinForm.csproj.dtbcache*
+packages/Microsoft.Bcl.AsyncInterfaces*
+packages/Newtonsoft.Json*
+packages/System.IO.Pipelines*
+packages/System.Memory*
+packages/System.Runtime.CompilerServices.Unsafe*
+packages/System.Text.Encodings.Web*
+packages/System.ValueTuple*
