@@ -364,7 +364,7 @@ namespace Paradiso
 
                 a_trail trail = new a_trail()
                 {
-                    user_id = intUserId == 0 ? new int?() : intUserId,
+                    user_id = intUserId,
                     module_code = module_id,
                     tr_date = this.CurrentDate,
                     aff_table_layer = strAffectTables,

@@ -63,7 +63,7 @@ namespace Paradiso
                                     strSessionId = strSessionId.Substring(0, strSessionId.Length - 1);
                                 TellerSessions.Add(new TicketSessionModel()
                                 {
-                                    Id = _trail.user_id ?? 0,
+                                    Id = _trail.user_id,
                                     Terminal = _trail.computer_name,
                                     User = _trail.user.userid,
                                     TicketDateTime = _trail.tr_date,
