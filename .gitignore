@@ -106,3 +106,6 @@ packages/System.Memory*
 packages/System.Runtime.CompilerServices.Unsafe*
 packages/System.Text.Encodings.Web*
 packages/System.ValueTuple*
+NetSparkle/Debug
+NetSparkle/obj
+NetSparkle/obj/Debug
