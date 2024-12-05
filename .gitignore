@@ -109,3 +109,5 @@ packages/System.ValueTuple*
 NetSparkle/Debug
 NetSparkle/obj
 NetSparkle/obj/Debug
+Paradiso/bin/Debug
+Paradiso/obj/x86/Debug
