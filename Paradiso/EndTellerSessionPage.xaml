@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Paradiso.EndTellerSessionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800"
+	  Loaded="Page_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Canvas Name="MainCanvas">
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg"/>
+        </Canvas.Background>
+        <DockPanel Name="TellerSessionPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" >
+            <DockPanel>
+                <StackPanel  HorizontalAlignment="Center" DockPanel.Dock="Bottom" Margin="0, 20" Orientation="Horizontal">
+                    <Button Width="80" Name="Refresh" Click="Refresh_Click">Refresh</Button>
+                    <Button Width="80" Name="EndSession" Click="EndSession_Click">End Session</Button>
+                    <Button Width="80" Name="Cancel" Click="Cancel_Click">Cancel</Button>
+                </StackPanel>
+                <ScrollViewer Margin="25" >
+                    <DataGrid Name="TicketSessionDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding TellerSessions, Mode=OneWay}" SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <!--DataGridTextColumn  Header="#"/-->
+                            <DataGridTextColumn Header="Session No" Width="160" Binding="{Binding Path= SessionId}"/>
+                            <DataGridTextColumn Header="Session Date/Time" Width="200" Binding="{Binding Path= TicketDateTime}" />
+                            <DataGridTextColumn Header="Username" Binding="{Binding Path=User}"/>
+                            <DataGridTextColumn Header="Terminal" Width="200" Binding="{Binding Path=Terminal}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                        <Setter Property="BorderBrush" Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+
+                </ScrollViewer>
+            </DockPanel>
+        </DockPanel>
+        <TextBlock Canvas.Bottom="10" Canvas.Left="10" Foreground="White" FontSize="10" Name="Version"/>
+        <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
+    </Canvas>
+</UserControl>

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Development\cinexfromgit\azyne\aZynEManager\Paradiso\obj\x86\Debug\
+E:\Repositories\cinex-ticketing\aZynEManager\Paradiso\obj\x86\Debug\
 Paradiso
 none
 false
 DEBUG;TRACE
-D:\Development\cinexfromgit\azyne\aZynEManager\Paradiso\App.xaml
-13-907272158
+E:\Repositories\cinex-ticketing\aZynEManager\Paradiso\App.xaml
+21-695866758
+11070793928
+81-244442942
+33620147445
+BuyerSearchWindow.xaml;BuyerWindow.xaml;CinemaPage.xaml;EndTellerSessionPage.xaml;GiftCertificateWindow.xaml;SettingPage.xaml;TicketPrintPage2.xaml;FreeSeatingPage.xaml;LoginPage.xaml;MainWindow.xaml;MessageWindow.xaml;MessageYesNoWindow.xaml;MovieCalendarPage.xaml;PatronWindow.xaml;ReservedSeatingDetailsWindow.xaml;ReservedSeatingPage.xaml;Resources\Icons.xaml;SeatingPage.xaml;Styles\Black.xaml;TenderAmountPage.xaml;TicketPrintPage.xaml;
 
-54-183073392
-30-995060183
-LoginPage.xaml;MainWindow.xaml;MessageWindow.xaml;MessageYesNoWindow.xaml;MovieCalendarPage.xaml;PatronWindow.xaml;ReservedSeatingDetailsWindow.xaml;ReservedSeatingPage.xaml;Resources\Icons.xaml;SeatingPage.xaml;Styles\Black.xaml;TenderAmountPage.xaml;TicketPrintPage.xaml;
-
-True
+False
 

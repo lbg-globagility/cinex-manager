@@ -1,0 +1,267 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+using System.Windows.Threading;
+
+namespace Paradiso.Model
+{
+    public class PatronSeatModel : INotifyPropertyChanged
+    {
+        private int intKey;
+        private int intPatronKey;
+        private string strPatronName;
+        private int intSeatKey;
+        private int intSeatColor;
+        private string strSeatName;
+        private decimal decPrice;
+        private decimal decBasePrice;
+        private decimal decOrdinancePrice;
+        private decimal decSurchargePrice;
+
+        private DateTime dtReservedDate;
+        
+        private string strRemainingTime;
+        DispatcherTimer timer = new DispatcherTimer();
+
+        public Buyer BuyerInfo { get; set; }
+
+        public PatronSeatModel()
+        {
+            BuyerInfo = new Buyer();
+        }
+        
+        //called only after application has exit
+        //~PatronSeatModel()
+        public void Dispose()
+        {
+            try
+            {
+                if (timer != null)
+                    timer.Stop();
+
+                timer.Tick -= new EventHandler(timer_Tick);
+            }
+            catch { }
+        }
+
+        public PatronSeatModel(int key, int seatKey, string seatName, int patronKey, string patronName, decimal price, decimal baseprice, decimal ordinanceprice, decimal surchargeprice, DateTime reservedDate, int seatColor)
+        {
+            Key = key;
+            SeatKey = seatKey;
+            SeatName = seatName;
+            PatronKey = patronKey;
+            PatronName = patronName;
+            Price = price;
+            BasePrice = baseprice;
+            OrdinancePrice = ordinanceprice;
+            SurchargePrice = surchargeprice;
+            ReservedDate = reservedDate;
+            RemainingTime = RemainingTimeValue;
+            SeatColor = seatColor;
+
+            timer.Interval = TimeSpan.FromMilliseconds(1000 * Paradiso.Constants.PatronSeatUiInterval);
+
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+
+        public string RemainingTime
+        {
+            get { return strRemainingTime; }
+
+            private set
+            {
+                strRemainingTime = value;
+                NotifyPropertyChanged("RemainingTime");
+            }
+        }
+
+        private string RemainingTimeValue
+        {
+            get
+            {
+                DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
+
+                TimeSpan span = dtReservedDate.AddMinutes(10) - dtNow;
+                if (span.TotalMinutes > 10 || span.Seconds < 0 || span.Minutes < 0)
+                    return RemainingTime;
+
+                return string.Format("{0:00}:{1:00}", span.Minutes, span.Seconds);
+            }
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                RemainingTime = RemainingTimeValue;
+            }
+            catch { }
+        }
+
+        public int Key
+        {
+            get { return intKey; }
+            set
+            {
+                if (value != intKey)
+                {
+                    intKey = value;
+                    NotifyPropertyChanged("Key");
+                }
+            }
+        }
+
+        public int PatronKey
+        {
+            get { return intPatronKey; }
+            set
+            {
+                if (value != intPatronKey)
+                {
+                    intPatronKey = value;
+                    NotifyPropertyChanged("PatronKey");
+                }
+            }
+        }
+
+        public int SeatKey
+        {
+            get { return intSeatKey; }
+            set
+            {
+                if (value != intSeatKey)
+                {
+                    intSeatKey = value;
+                    NotifyPropertyChanged("SeatKey");
+                }
+            }
+        }
+
+        public int SeatColor
+        {
+            get { return intSeatColor; }
+            set
+            {
+                if (value != intSeatColor)
+                {
+                    intSeatColor = value;
+                    NotifyPropertyChanged("SeatColor");
+                }
+            }
+        }
+
+        public string SeatName
+        {
+            get { return strSeatName; }
+            set
+            {
+                if (value != strSeatName)
+                {
+                    strSeatName = value;
+                    NotifyPropertyChanged("SeatName");
+                }
+            }
+        }
+
+        public string PatronName
+        {
+            get { return strPatronName; }
+            set
+            {
+                if (value != strPatronName)
+                {
+                    strPatronName = value;
+                    NotifyPropertyChanged("PatronName");
+                }
+            }
+        }
+
+        public decimal Price
+        {
+            get { return decPrice; }
+            set
+            {
+                if (value != decPrice)
+                {
+                    decPrice = value;
+                    NotifyPropertyChanged("Price");
+                }
+            }
+        }
+
+        public decimal BasePrice
+        {
+            get { return decBasePrice; }
+            set
+            {
+                if (value != decBasePrice)
+                {
+                    decBasePrice = value;
+                    NotifyPropertyChanged("BasePrice");
+                }
+            }
+        }
+
+        public decimal OrdinancePrice
+        {
+            get { return decOrdinancePrice; }
+            set
+            {
+                if (value != decOrdinancePrice)
+                {
+                    decOrdinancePrice = value;
+                    NotifyPropertyChanged("OrdinancePrice");
+                }
+            }
+        }
+
+        public decimal SurchargePrice
+        {
+            get { return decSurchargePrice; }
+            set
+            {
+                if (value != decSurchargePrice)
+                {
+                    decSurchargePrice = value;
+                    NotifyPropertyChanged("SurchargePrice");
+                }
+            }
+        }
+
+        public DateTime ReservedDate
+        {
+            get { return dtReservedDate; }
+            set
+            {
+                if (value != dtReservedDate)
+                {
+                    dtReservedDate = value;
+                    NotifyPropertyChanged("ReservedDate");
+                }
+            }
+        }
+
+        public bool IsSCPWD
+        {
+            get
+            {
+                return PatronName.IndexOf("SC ") != -1 || PatronName.IndexOf("PWD ") != -1;
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+    }
+}

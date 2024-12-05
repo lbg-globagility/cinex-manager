@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinex.WinForm", "Cinex.WinF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSparkle2010", "NetSparkle\NetSparkle2010.csproj", "{74635A21-2BAD-4522-AB95-E3E5703CD301}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradiso", "Paradiso\Paradiso.csproj", "{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BundleLinux|Any CPU = BundleLinux|Any CPU
@@ -387,6 +389,30 @@ Global
 		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|x64.Build.0 = Release|Any CPU
 		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|x86.ActiveCfg = Release|Any CPU
 		{74635A21-2BAD-4522-AB95-E3E5703CD301}.Release|x86.Build.0 = Release|Any CPU
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|Any CPU.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|Any CPU.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|Mixed Platforms.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|Mixed Platforms.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|x64.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|x64.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|x86.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.BundleLinux|x86.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|Any CPU.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|x64.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|x64.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|x86.ActiveCfg = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Debug|x86.Build.0 = Debug|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|Any CPU.ActiveCfg = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|Any CPU.Build.0 = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x64.ActiveCfg = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x64.Build.0 = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x86.ActiveCfg = Release|x86
+		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
