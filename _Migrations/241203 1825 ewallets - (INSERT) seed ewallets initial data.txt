@@ -1,0 +1,2 @@
+INSERT INTO `ewallets` (`id`, `name`, `acct_no`) VALUES (1, 'GCASH', '1') ON DUPLICATE KEY UPDATE `name`='GCASH';
+INSERT INTO `ewallets` (`id`, `name`, `acct_no`) VALUES (2, 'PAYMAYA', '2') ON DUPLICATE KEY UPDATE `name`='PAYMAYA';
