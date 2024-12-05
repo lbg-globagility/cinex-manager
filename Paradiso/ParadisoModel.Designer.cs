@@ -1257,7 +1257,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1276,7 +1276,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -1291,7 +1291,7 @@ namespace Paradiso
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32? user_id
+        public global::System.Int32 user_id
         {
             get
             {
@@ -1301,13 +1301,13 @@ namespace Paradiso
             {
                 Onuser_idChanging(value);
                 ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
+                _user_id = StructuralObject.SetValidValue(value, "user_id");
                 ReportPropertyChanged("user_id");
                 Onuser_idChanged();
             }
         }
-        private global::System.Int32? _user_id;
-        partial void Onuser_idChanging(global::System.Int32? value);
+        private global::System.Int32 _user_id;
+        partial void Onuser_idChanging(global::System.Int32 value);
         partial void Onuser_idChanged();
     
         /// <summary>
@@ -1325,7 +1325,7 @@ namespace Paradiso
             {
                 Ontr_dateChanging(value);
                 ReportPropertyChanging("tr_date");
-                _tr_date = StructuralObject.SetValidValue(value);
+                _tr_date = StructuralObject.SetValidValue(value, "tr_date");
                 ReportPropertyChanged("tr_date");
                 Ontr_dateChanged();
             }
@@ -1349,7 +1349,7 @@ namespace Paradiso
             {
                 Onmodule_codeChanging(value);
                 ReportPropertyChanging("module_code");
-                _module_code = StructuralObject.SetValidValue(value);
+                _module_code = StructuralObject.SetValidValue(value, "module_code");
                 ReportPropertyChanged("module_code");
                 Onmodule_codeChanged();
             }
@@ -1373,7 +1373,7 @@ namespace Paradiso
             {
                 Onaff_table_layerChanging(value);
                 ReportPropertyChanging("aff_table_layer");
-                _aff_table_layer = StructuralObject.SetValidValue(value, false);
+                _aff_table_layer = StructuralObject.SetValidValue(value, false, "aff_table_layer");
                 ReportPropertyChanged("aff_table_layer");
                 Onaff_table_layerChanged();
             }
@@ -1397,7 +1397,7 @@ namespace Paradiso
             {
                 Oncomputer_nameChanging(value);
                 ReportPropertyChanging("computer_name");
-                _computer_name = StructuralObject.SetValidValue(value, false);
+                _computer_name = StructuralObject.SetValidValue(value, false, "computer_name");
                 ReportPropertyChanged("computer_name");
                 Oncomputer_nameChanged();
             }
@@ -1421,7 +1421,7 @@ namespace Paradiso
             {
                 Ontr_detailsChanging(value);
                 ReportPropertyChanging("tr_details");
-                _tr_details = StructuralObject.SetValidValue(value, false);
+                _tr_details = StructuralObject.SetValidValue(value, false, "tr_details");
                 ReportPropertyChanged("tr_details");
                 Ontr_detailsChanged();
             }
@@ -1432,7 +1432,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -1504,7 +1503,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1523,7 +1522,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -1548,7 +1547,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value);
+                _system_code = StructuralObject.SetValidValue(value, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -1572,7 +1571,7 @@ namespace Paradiso
             {
                 Onsystem_nameChanging(value);
                 ReportPropertyChanging("system_name");
-                _system_name = StructuralObject.SetValidValue(value, false);
+                _system_name = StructuralObject.SetValidValue(value, false, "system_name");
                 ReportPropertyChanged("system_name");
                 Onsystem_nameChanged();
             }
@@ -1583,7 +1582,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -1613,7 +1611,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1632,7 +1630,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -1657,7 +1655,7 @@ namespace Paradiso
             {
                 OnlastnameChanging(value);
                 ReportPropertyChanging("lastname");
-                _lastname = StructuralObject.SetValidValue(value, false);
+                _lastname = StructuralObject.SetValidValue(value, false, "lastname");
                 ReportPropertyChanged("lastname");
                 OnlastnameChanged();
             }
@@ -1681,7 +1679,7 @@ namespace Paradiso
             {
                 OnfirstnameChanging(value);
                 ReportPropertyChanging("firstname");
-                _firstname = StructuralObject.SetValidValue(value, true);
+                _firstname = StructuralObject.SetValidValue(value, true, "firstname");
                 ReportPropertyChanged("firstname");
                 OnfirstnameChanged();
             }
@@ -1705,7 +1703,7 @@ namespace Paradiso
             {
                 OnmiddleinitialChanging(value);
                 ReportPropertyChanging("middleinitial");
-                _middleinitial = StructuralObject.SetValidValue(value, true);
+                _middleinitial = StructuralObject.SetValidValue(value, true, "middleinitial");
                 ReportPropertyChanged("middleinitial");
                 OnmiddleinitialChanged();
             }
@@ -1729,7 +1727,7 @@ namespace Paradiso
             {
                 OnaddressChanging(value);
                 ReportPropertyChanging("address");
-                _address = StructuralObject.SetValidValue(value, true);
+                _address = StructuralObject.SetValidValue(value, true, "address");
                 ReportPropertyChanged("address");
                 OnaddressChanged();
             }
@@ -1753,7 +1751,7 @@ namespace Paradiso
             {
                 OnmunicipalityChanging(value);
                 ReportPropertyChanging("municipality");
-                _municipality = StructuralObject.SetValidValue(value, true);
+                _municipality = StructuralObject.SetValidValue(value, true, "municipality");
                 ReportPropertyChanged("municipality");
                 OnmunicipalityChanged();
             }
@@ -1777,7 +1775,7 @@ namespace Paradiso
             {
                 OnprovinceChanging(value);
                 ReportPropertyChanging("province");
-                _province = StructuralObject.SetValidValue(value, true);
+                _province = StructuralObject.SetValidValue(value, true, "province");
                 ReportPropertyChanged("province");
                 OnprovinceChanged();
             }
@@ -1801,7 +1799,7 @@ namespace Paradiso
             {
                 OntinChanging(value);
                 ReportPropertyChanging("tin");
-                _tin = StructuralObject.SetValidValue(value, true);
+                _tin = StructuralObject.SetValidValue(value, true, "tin");
                 ReportPropertyChanged("tin");
                 OntinChanged();
             }
@@ -1825,7 +1823,7 @@ namespace Paradiso
             {
                 OnidnumChanging(value);
                 ReportPropertyChanging("idnum");
-                _idnum = StructuralObject.SetValidValue(value, true);
+                _idnum = StructuralObject.SetValidValue(value, true, "idnum");
                 ReportPropertyChanged("idnum");
                 OnidnumChanged();
             }
@@ -1849,7 +1847,7 @@ namespace Paradiso
             {
                 OnisscpwdChanging(value);
                 ReportPropertyChanging("isscpwd");
-                _isscpwd = StructuralObject.SetValidValue(value);
+                _isscpwd = StructuralObject.SetValidValue(value, "isscpwd");
                 ReportPropertyChanged("isscpwd");
                 OnisscpwdChanged();
             }
@@ -1860,7 +1858,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -1938,7 +1935,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1957,7 +1954,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -1984,7 +1981,7 @@ namespace Paradiso
                 {
                     Onmslhs_idChanging(value);
                     ReportPropertyChanging("mslhs_id");
-                    _mslhs_id = StructuralObject.SetValidValue(value);
+                    _mslhs_id = StructuralObject.SetValidValue(value, "mslhs_id");
                     ReportPropertyChanged("mslhs_id");
                     Onmslhs_idChanged();
                 }
@@ -2009,7 +2006,7 @@ namespace Paradiso
             {
                 Onbuyer_idChanging(value);
                 ReportPropertyChanging("buyer_id");
-                _buyer_id = StructuralObject.SetValidValue(value);
+                _buyer_id = StructuralObject.SetValidValue(value, "buyer_id");
                 ReportPropertyChanged("buyer_id");
                 Onbuyer_idChanged();
             }
@@ -2020,7 +2017,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2130,7 +2126,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2149,7 +2145,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -2176,7 +2172,7 @@ namespace Paradiso
                 {
                     Onmslrs_idChanging(value);
                     ReportPropertyChanging("mslrs_id");
-                    _mslrs_id = StructuralObject.SetValidValue(value);
+                    _mslrs_id = StructuralObject.SetValidValue(value, "mslrs_id");
                     ReportPropertyChanged("mslrs_id");
                     Onmslrs_idChanged();
                 }
@@ -2201,7 +2197,7 @@ namespace Paradiso
             {
                 Onbuyer_idChanging(value);
                 ReportPropertyChanging("buyer_id");
-                _buyer_id = StructuralObject.SetValidValue(value);
+                _buyer_id = StructuralObject.SetValidValue(value, "buyer_id");
                 ReportPropertyChanged("buyer_id");
                 Onbuyer_idChanged();
             }
@@ -2212,7 +2208,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2324,7 +2319,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2343,7 +2338,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -2368,7 +2363,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -2392,7 +2387,7 @@ namespace Paradiso
             {
                 Onsound_idChanging(value);
                 ReportPropertyChanging("sound_id");
-                _sound_id = StructuralObject.SetValidValue(value);
+                _sound_id = StructuralObject.SetValidValue(value, "sound_id");
                 ReportPropertyChanged("sound_id");
                 Onsound_idChanged();
             }
@@ -2416,7 +2411,7 @@ namespace Paradiso
             {
                 OncapacityChanging(value);
                 ReportPropertyChanging("capacity");
-                _capacity = StructuralObject.SetValidValue(value);
+                _capacity = StructuralObject.SetValidValue(value, "capacity");
                 ReportPropertyChanged("capacity");
                 OncapacityChanged();
             }
@@ -2440,7 +2435,7 @@ namespace Paradiso
             {
                 Onin_orderChanging(value);
                 ReportPropertyChanging("in_order");
-                _in_order = StructuralObject.SetValidValue(value);
+                _in_order = StructuralObject.SetValidValue(value, "in_order");
                 ReportPropertyChanged("in_order");
                 Onin_orderChanged();
             }
@@ -2451,7 +2446,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2591,7 +2585,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2610,7 +2604,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -2635,7 +2629,7 @@ namespace Paradiso
             {
                 Oncinema_idChanging(value);
                 ReportPropertyChanging("cinema_id");
-                _cinema_id = StructuralObject.SetValidValue(value);
+                _cinema_id = StructuralObject.SetValidValue(value, "cinema_id");
                 ReportPropertyChanged("cinema_id");
                 Oncinema_idChanged();
             }
@@ -2659,7 +2653,7 @@ namespace Paradiso
             {
                 Onpatron_idChanging(value);
                 ReportPropertyChanging("patron_id");
-                _patron_id = StructuralObject.SetValidValue(value);
+                _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                 ReportPropertyChanged("patron_id");
                 Onpatron_idChanged();
             }
@@ -2683,7 +2677,7 @@ namespace Paradiso
             {
                 OnpriceChanging(value);
                 ReportPropertyChanging("price");
-                _price = StructuralObject.SetValidValue(value);
+                _price = StructuralObject.SetValidValue(value, "price");
                 ReportPropertyChanged("price");
                 OnpriceChanged();
             }
@@ -2694,7 +2688,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2800,7 +2793,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2819,7 +2812,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -2844,7 +2837,7 @@ namespace Paradiso
             {
                 Oncinema_idChanging(value);
                 ReportPropertyChanging("cinema_id");
-                _cinema_id = StructuralObject.SetValidValue(value);
+                _cinema_id = StructuralObject.SetValidValue(value, "cinema_id");
                 ReportPropertyChanged("cinema_id");
                 Oncinema_idChanged();
             }
@@ -2868,7 +2861,7 @@ namespace Paradiso
             {
                 Onpatron_idChanging(value);
                 ReportPropertyChanging("patron_id");
-                _patron_id = StructuralObject.SetValidValue(value);
+                _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                 ReportPropertyChanged("patron_id");
                 Onpatron_idChanged();
             }
@@ -2879,7 +2872,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2911,7 +2903,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2930,7 +2922,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -2955,7 +2947,7 @@ namespace Paradiso
             {
                 Oncinema_idChanging(value);
                 ReportPropertyChanging("cinema_id");
-                _cinema_id = StructuralObject.SetValidValue(value);
+                _cinema_id = StructuralObject.SetValidValue(value, "cinema_id");
                 ReportPropertyChanged("cinema_id");
                 Oncinema_idChanged();
             }
@@ -2979,7 +2971,7 @@ namespace Paradiso
             {
                 Onx1Changing(value);
                 ReportPropertyChanging("x1");
-                _x1 = StructuralObject.SetValidValue(value);
+                _x1 = StructuralObject.SetValidValue(value, "x1");
                 ReportPropertyChanged("x1");
                 Onx1Changed();
             }
@@ -3003,7 +2995,7 @@ namespace Paradiso
             {
                 Ony1Changing(value);
                 ReportPropertyChanging("y1");
-                _y1 = StructuralObject.SetValidValue(value);
+                _y1 = StructuralObject.SetValidValue(value, "y1");
                 ReportPropertyChanged("y1");
                 Ony1Changed();
             }
@@ -3027,7 +3019,7 @@ namespace Paradiso
             {
                 Onx2Changing(value);
                 ReportPropertyChanging("x2");
-                _x2 = StructuralObject.SetValidValue(value);
+                _x2 = StructuralObject.SetValidValue(value, "x2");
                 ReportPropertyChanged("x2");
                 Onx2Changed();
             }
@@ -3051,7 +3043,7 @@ namespace Paradiso
             {
                 Ony2Changing(value);
                 ReportPropertyChanging("y2");
-                _y2 = StructuralObject.SetValidValue(value);
+                _y2 = StructuralObject.SetValidValue(value, "y2");
                 ReportPropertyChanged("y2");
                 Ony2Changed();
             }
@@ -3075,7 +3067,7 @@ namespace Paradiso
             {
                 Onorigin_xChanging(value);
                 ReportPropertyChanging("origin_x");
-                _origin_x = StructuralObject.SetValidValue(value);
+                _origin_x = StructuralObject.SetValidValue(value, "origin_x");
                 ReportPropertyChanged("origin_x");
                 Onorigin_xChanged();
             }
@@ -3099,7 +3091,7 @@ namespace Paradiso
             {
                 Onorigin_yChanging(value);
                 ReportPropertyChanging("origin_y");
-                _origin_y = StructuralObject.SetValidValue(value);
+                _origin_y = StructuralObject.SetValidValue(value, "origin_y");
                 ReportPropertyChanged("origin_y");
                 Onorigin_yChanged();
             }
@@ -3123,7 +3115,7 @@ namespace Paradiso
             {
                 Onrow_nameChanging(value);
                 ReportPropertyChanging("row_name");
-                _row_name = StructuralObject.SetValidValue(value, true);
+                _row_name = StructuralObject.SetValidValue(value, true, "row_name");
                 ReportPropertyChanged("row_name");
                 Onrow_nameChanged();
             }
@@ -3147,7 +3139,7 @@ namespace Paradiso
             {
                 Oncol_nameChanging(value);
                 ReportPropertyChanging("col_name");
-                _col_name = StructuralObject.SetValidValue(value, true);
+                _col_name = StructuralObject.SetValidValue(value, true, "col_name");
                 ReportPropertyChanged("col_name");
                 Oncol_nameChanged();
             }
@@ -3171,7 +3163,7 @@ namespace Paradiso
             {
                 Onobject_typeChanging(value);
                 ReportPropertyChanging("object_type");
-                _object_type = StructuralObject.SetValidValue(value);
+                _object_type = StructuralObject.SetValidValue(value, "object_type");
                 ReportPropertyChanged("object_type");
                 Onobject_typeChanged();
             }
@@ -3195,7 +3187,7 @@ namespace Paradiso
             {
                 Onis_handicappedChanging(value);
                 ReportPropertyChanging("is_handicapped");
-                _is_handicapped = StructuralObject.SetValidValue(value);
+                _is_handicapped = StructuralObject.SetValidValue(value, "is_handicapped");
                 ReportPropertyChanged("is_handicapped");
                 Onis_handicappedChanged();
             }
@@ -3219,7 +3211,7 @@ namespace Paradiso
             {
                 Ongroup_nameChanging(value);
                 ReportPropertyChanging("group_name");
-                _group_name = StructuralObject.SetValidValue(value, true);
+                _group_name = StructuralObject.SetValidValue(value, true, "group_name");
                 ReportPropertyChanged("group_name");
                 Ongroup_nameChanged();
             }
@@ -3243,7 +3235,7 @@ namespace Paradiso
             {
                 Onsection_nameChanging(value);
                 ReportPropertyChanging("section_name");
-                _section_name = StructuralObject.SetValidValue(value, true);
+                _section_name = StructuralObject.SetValidValue(value, true, "section_name");
                 ReportPropertyChanged("section_name");
                 Onsection_nameChanged();
             }
@@ -3267,7 +3259,7 @@ namespace Paradiso
             {
                 Onis_disabledChanging(value);
                 ReportPropertyChanging("is_disabled");
-                _is_disabled = StructuralObject.SetValidValue(value);
+                _is_disabled = StructuralObject.SetValidValue(value, "is_disabled");
                 ReportPropertyChanged("is_disabled");
                 Onis_disabledChanged();
             }
@@ -3278,7 +3270,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3394,7 +3385,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3413,7 +3404,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -3438,7 +3429,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -3462,7 +3453,7 @@ namespace Paradiso
             {
                 OndescriptionChanging(value);
                 ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, false);
+                _description = StructuralObject.SetValidValue(value, false, "description");
                 ReportPropertyChanged("description");
                 OndescriptionChanged();
             }
@@ -3473,7 +3464,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3531,7 +3521,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3550,7 +3540,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -3575,7 +3565,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value, false);
+                _system_code = StructuralObject.SetValidValue(value, false, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -3599,7 +3589,7 @@ namespace Paradiso
             {
                 Onsystem_descChanging(value);
                 ReportPropertyChanging("system_desc");
-                _system_desc = StructuralObject.SetValidValue(value, false);
+                _system_desc = StructuralObject.SetValidValue(value, false, "system_desc");
                 ReportPropertyChanged("system_desc");
                 Onsystem_descChanged();
             }
@@ -3623,7 +3613,7 @@ namespace Paradiso
             {
                 Onsystem_valueChanging(value);
                 ReportPropertyChanging("system_value");
-                _system_value = StructuralObject.SetValidValue(value, false);
+                _system_value = StructuralObject.SetValidValue(value, false, "system_value");
                 ReportPropertyChanged("system_value");
                 Onsystem_valueChanged();
             }
@@ -3634,7 +3624,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3666,7 +3655,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3685,7 +3674,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -3710,7 +3699,7 @@ namespace Paradiso
             {
                 OncodeChanging(value);
                 ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
+                _code = StructuralObject.SetValidValue(value, false, "code");
                 ReportPropertyChanged("code");
                 OncodeChanged();
             }
@@ -3734,7 +3723,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -3758,7 +3747,7 @@ namespace Paradiso
             {
                 Onshare_percChanging(value);
                 ReportPropertyChanging("share_perc");
-                _share_perc = StructuralObject.SetValidValue(value);
+                _share_perc = StructuralObject.SetValidValue(value, "share_perc");
                 ReportPropertyChanged("share_perc");
                 Onshare_percChanged();
             }
@@ -3782,7 +3771,7 @@ namespace Paradiso
             {
                 Oncontact_idChanging(value);
                 ReportPropertyChanging("contact_id");
-                _contact_id = StructuralObject.SetValidValue(value);
+                _contact_id = StructuralObject.SetValidValue(value, "contact_id");
                 ReportPropertyChanged("contact_id");
                 Oncontact_idChanged();
             }
@@ -3793,7 +3782,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3847,7 +3835,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3866,7 +3854,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -3891,7 +3879,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -3915,7 +3903,7 @@ namespace Paradiso
             {
                 OnamountChanging(value);
                 ReportPropertyChanging("amount");
-                _amount = StructuralObject.SetValidValue(value);
+                _amount = StructuralObject.SetValidValue(value, "amount");
                 ReportPropertyChanged("amount");
                 OnamountChanged();
             }
@@ -3939,7 +3927,7 @@ namespace Paradiso
             {
                 OnisexpiredChanging(value);
                 ReportPropertyChanging("isexpired");
-                _isexpired = StructuralObject.SetValidValue(value);
+                _isexpired = StructuralObject.SetValidValue(value, "isexpired");
                 ReportPropertyChanged("isexpired");
                 OnisexpiredChanged();
             }
@@ -3963,7 +3951,7 @@ namespace Paradiso
             {
                 Onexpiration_dateChanging(value);
                 ReportPropertyChanging("expiration_date");
-                _expiration_date = StructuralObject.SetValidValue(value);
+                _expiration_date = StructuralObject.SetValidValue(value, "expiration_date");
                 ReportPropertyChanged("expiration_date");
                 Onexpiration_dateChanged();
             }
@@ -3974,7 +3962,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -4020,7 +4007,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4039,7 +4026,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -4064,7 +4051,7 @@ namespace Paradiso
             {
                 OncodeChanging(value);
                 ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
+                _code = StructuralObject.SetValidValue(value, false, "code");
                 ReportPropertyChanged("code");
                 OncodeChanged();
             }
@@ -4088,7 +4075,7 @@ namespace Paradiso
             {
                 OntitleChanging(value);
                 ReportPropertyChanging("title");
-                _title = StructuralObject.SetValidValue(value, false);
+                _title = StructuralObject.SetValidValue(value, false, "title");
                 ReportPropertyChanged("title");
                 OntitleChanged();
             }
@@ -4112,7 +4099,7 @@ namespace Paradiso
             {
                 Ondist_idChanging(value);
                 ReportPropertyChanging("dist_id");
-                _dist_id = StructuralObject.SetValidValue(value);
+                _dist_id = StructuralObject.SetValidValue(value, "dist_id");
                 ReportPropertyChanged("dist_id");
                 Ondist_idChanged();
             }
@@ -4136,7 +4123,7 @@ namespace Paradiso
             {
                 Onshare_percChanging(value);
                 ReportPropertyChanging("share_perc");
-                _share_perc = StructuralObject.SetValidValue(value);
+                _share_perc = StructuralObject.SetValidValue(value, "share_perc");
                 ReportPropertyChanged("share_perc");
                 Onshare_percChanged();
             }
@@ -4160,7 +4147,7 @@ namespace Paradiso
             {
                 Onrating_idChanging(value);
                 ReportPropertyChanging("rating_id");
-                _rating_id = StructuralObject.SetValidValue(value);
+                _rating_id = StructuralObject.SetValidValue(value, "rating_id");
                 ReportPropertyChanged("rating_id");
                 Onrating_idChanged();
             }
@@ -4184,7 +4171,7 @@ namespace Paradiso
             {
                 OndurationChanging(value);
                 ReportPropertyChanging("duration");
-                _duration = StructuralObject.SetValidValue(value);
+                _duration = StructuralObject.SetValidValue(value, "duration");
                 ReportPropertyChanged("duration");
                 OndurationChanged();
             }
@@ -4208,7 +4195,7 @@ namespace Paradiso
             {
                 OnstatusChanging(value);
                 ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
+                _status = StructuralObject.SetValidValue(value, "status");
                 ReportPropertyChanged("status");
                 OnstatusChanged();
             }
@@ -4232,7 +4219,7 @@ namespace Paradiso
             {
                 Onencoded_dateChanging(value);
                 ReportPropertyChanging("encoded_date");
-                _encoded_date = StructuralObject.SetValidValue(value);
+                _encoded_date = StructuralObject.SetValidValue(value, "encoded_date");
                 ReportPropertyChanged("encoded_date");
                 Onencoded_dateChanged();
             }
@@ -4256,7 +4243,7 @@ namespace Paradiso
             {
                 Onstart_dateChanging(value);
                 ReportPropertyChanging("start_date");
-                _start_date = StructuralObject.SetValidValue(value);
+                _start_date = StructuralObject.SetValidValue(value, "start_date");
                 ReportPropertyChanged("start_date");
                 Onstart_dateChanged();
             }
@@ -4280,7 +4267,7 @@ namespace Paradiso
             {
                 Onend_dateChanging(value);
                 ReportPropertyChanging("end_date");
-                _end_date = StructuralObject.SetValidValue(value);
+                _end_date = StructuralObject.SetValidValue(value, "end_date");
                 ReportPropertyChanged("end_date");
                 Onend_dateChanged();
             }
@@ -4291,7 +4278,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4467,7 +4453,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4486,7 +4472,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -4511,7 +4497,7 @@ namespace Paradiso
             {
                 Onmovie_idChanging(value);
                 ReportPropertyChanging("movie_id");
-                _movie_id = StructuralObject.SetValidValue(value);
+                _movie_id = StructuralObject.SetValidValue(value, "movie_id");
                 ReportPropertyChanged("movie_id");
                 Onmovie_idChanged();
             }
@@ -4535,7 +4521,7 @@ namespace Paradiso
             {
                 Onclass_idChanging(value);
                 ReportPropertyChanging("class_id");
-                _class_id = StructuralObject.SetValidValue(value);
+                _class_id = StructuralObject.SetValidValue(value, "class_id");
                 ReportPropertyChanged("class_id");
                 Onclass_idChanged();
             }
@@ -4546,7 +4532,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4660,7 +4645,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4679,7 +4664,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -4704,7 +4689,7 @@ namespace Paradiso
             {
                 Onmovie_idChanging(value);
                 ReportPropertyChanging("movie_id");
-                _movie_id = StructuralObject.SetValidValue(value);
+                _movie_id = StructuralObject.SetValidValue(value, "movie_id");
                 ReportPropertyChanged("movie_id");
                 Onmovie_idChanged();
             }
@@ -4728,7 +4713,7 @@ namespace Paradiso
             {
                 Onshare_percChanging(value);
                 ReportPropertyChanging("share_perc");
-                _share_perc = StructuralObject.SetValidValue(value);
+                _share_perc = StructuralObject.SetValidValue(value, "share_perc");
                 ReportPropertyChanged("share_perc");
                 Onshare_percChanged();
             }
@@ -4752,7 +4737,7 @@ namespace Paradiso
             {
                 Oneffective_dateChanging(value);
                 ReportPropertyChanging("effective_date");
-                _effective_date = StructuralObject.SetValidValue(value);
+                _effective_date = StructuralObject.SetValidValue(value, "effective_date");
                 ReportPropertyChanged("effective_date");
                 Oneffective_dateChanged();
             }
@@ -4776,7 +4761,7 @@ namespace Paradiso
             {
                 Onday_countChanging(value);
                 ReportPropertyChanging("day_count");
-                _day_count = StructuralObject.SetValidValue(value);
+                _day_count = StructuralObject.SetValidValue(value, "day_count");
                 ReportPropertyChanged("day_count");
                 Onday_countChanged();
             }
@@ -4787,7 +4772,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4861,7 +4845,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4880,7 +4864,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -4905,7 +4889,7 @@ namespace Paradiso
             {
                 Oncinema_idChanging(value);
                 ReportPropertyChanging("cinema_id");
-                _cinema_id = StructuralObject.SetValidValue(value);
+                _cinema_id = StructuralObject.SetValidValue(value, "cinema_id");
                 ReportPropertyChanged("cinema_id");
                 Oncinema_idChanged();
             }
@@ -4929,7 +4913,7 @@ namespace Paradiso
             {
                 Onmovie_idChanging(value);
                 ReportPropertyChanging("movie_id");
-                _movie_id = StructuralObject.SetValidValue(value);
+                _movie_id = StructuralObject.SetValidValue(value, "movie_id");
                 ReportPropertyChanged("movie_id");
                 Onmovie_idChanged();
             }
@@ -4953,7 +4937,7 @@ namespace Paradiso
             {
                 Onmovie_dateChanging(value);
                 ReportPropertyChanging("movie_date");
-                _movie_date = StructuralObject.SetValidValue(value);
+                _movie_date = StructuralObject.SetValidValue(value, "movie_date");
                 ReportPropertyChanged("movie_date");
                 Onmovie_dateChanged();
             }
@@ -4964,7 +4948,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5104,7 +5087,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5123,7 +5106,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -5148,7 +5131,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_idChanging(value);
                 ReportPropertyChanging("movies_schedule_id");
-                _movies_schedule_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_id = StructuralObject.SetValidValue(value, "movies_schedule_id");
                 ReportPropertyChanged("movies_schedule_id");
                 Onmovies_schedule_idChanged();
             }
@@ -5172,7 +5155,7 @@ namespace Paradiso
             {
                 Onstart_timeChanging(value);
                 ReportPropertyChanging("start_time");
-                _start_time = StructuralObject.SetValidValue(value);
+                _start_time = StructuralObject.SetValidValue(value, "start_time");
                 ReportPropertyChanged("start_time");
                 Onstart_timeChanged();
             }
@@ -5196,7 +5179,7 @@ namespace Paradiso
             {
                 Onend_timeChanging(value);
                 ReportPropertyChanging("end_time");
-                _end_time = StructuralObject.SetValidValue(value);
+                _end_time = StructuralObject.SetValidValue(value, "end_time");
                 ReportPropertyChanged("end_time");
                 Onend_timeChanged();
             }
@@ -5220,7 +5203,7 @@ namespace Paradiso
             {
                 Onseat_typeChanging(value);
                 ReportPropertyChanging("seat_type");
-                _seat_type = StructuralObject.SetValidValue(value);
+                _seat_type = StructuralObject.SetValidValue(value, "seat_type");
                 ReportPropertyChanged("seat_type");
                 Onseat_typeChanged();
             }
@@ -5244,7 +5227,7 @@ namespace Paradiso
             {
                 OnlaytimeChanging(value);
                 ReportPropertyChanging("laytime");
-                _laytime = StructuralObject.SetValidValue(value);
+                _laytime = StructuralObject.SetValidValue(value, "laytime");
                 ReportPropertyChanged("laytime");
                 OnlaytimeChanged();
             }
@@ -5268,7 +5251,7 @@ namespace Paradiso
             {
                 OnstatusChanging(value);
                 ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
+                _status = StructuralObject.SetValidValue(value, "status");
                 ReportPropertyChanged("status");
                 OnstatusChanged();
             }
@@ -5279,7 +5262,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5441,7 +5423,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5460,7 +5442,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -5485,7 +5467,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_list_idChanging(value);
                 ReportPropertyChanging("movies_schedule_list_id");
-                _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                 ReportPropertyChanged("movies_schedule_list_id");
                 Onmovies_schedule_list_idChanged();
             }
@@ -5509,7 +5491,7 @@ namespace Paradiso
             {
                 Oncinema_seat_idChanging(value);
                 ReportPropertyChanging("cinema_seat_id");
-                _cinema_seat_id = StructuralObject.SetValidValue(value);
+                _cinema_seat_id = StructuralObject.SetValidValue(value, "cinema_seat_id");
                 ReportPropertyChanged("cinema_seat_id");
                 Oncinema_seat_idChanged();
             }
@@ -5533,7 +5515,7 @@ namespace Paradiso
             {
                 Onfull_nameChanging(value);
                 ReportPropertyChanging("full_name");
-                _full_name = StructuralObject.SetValidValue(value, true);
+                _full_name = StructuralObject.SetValidValue(value, true, "full_name");
                 ReportPropertyChanged("full_name");
                 Onfull_nameChanged();
             }
@@ -5557,7 +5539,7 @@ namespace Paradiso
             {
                 OnnotesChanging(value);
                 ReportPropertyChanging("notes");
-                _notes = StructuralObject.SetValidValue(value, true);
+                _notes = StructuralObject.SetValidValue(value, true, "notes");
                 ReportPropertyChanged("notes");
                 OnnotesChanged();
             }
@@ -5581,7 +5563,7 @@ namespace Paradiso
             {
                 Onreserved_dateChanging(value);
                 ReportPropertyChanging("reserved_date");
-                _reserved_date = StructuralObject.SetValidValue(value);
+                _reserved_date = StructuralObject.SetValidValue(value, "reserved_date");
                 ReportPropertyChanged("reserved_date");
                 Onreserved_dateChanged();
             }
@@ -5605,7 +5587,7 @@ namespace Paradiso
             {
                 Onsession_idChanging(value);
                 ReportPropertyChanging("session_id");
-                _session_id = StructuralObject.SetValidValue(value, true);
+                _session_id = StructuralObject.SetValidValue(value, true, "session_id");
                 ReportPropertyChanged("session_id");
                 Onsession_idChanged();
             }
@@ -5629,7 +5611,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_list_patron_idChanging(value);
                 ReportPropertyChanging("movies_schedule_list_patron_id");
-                _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value, "movies_schedule_list_patron_id");
                 ReportPropertyChanged("movies_schedule_list_patron_id");
                 Onmovies_schedule_list_patron_idChanged();
             }
@@ -5640,7 +5622,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5812,7 +5793,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5831,7 +5812,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -5858,7 +5839,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_id");
-                    _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                     ReportPropertyChanged("movies_schedule_list_id");
                     Onmovies_schedule_list_idChanged();
                 }
@@ -5885,7 +5866,7 @@ namespace Paradiso
                 {
                     Oncinema_seat_idChanging(value);
                     ReportPropertyChanging("cinema_seat_id");
-                    _cinema_seat_id = StructuralObject.SetValidValue(value);
+                    _cinema_seat_id = StructuralObject.SetValidValue(value, "cinema_seat_id");
                     ReportPropertyChanged("cinema_seat_id");
                     Oncinema_seat_idChanged();
                 }
@@ -5910,7 +5891,7 @@ namespace Paradiso
             {
                 Onfull_nameChanging(value);
                 ReportPropertyChanging("full_name");
-                _full_name = StructuralObject.SetValidValue(value, true);
+                _full_name = StructuralObject.SetValidValue(value, true, "full_name");
                 ReportPropertyChanged("full_name");
                 Onfull_nameChanged();
             }
@@ -5934,7 +5915,7 @@ namespace Paradiso
             {
                 OnnotesChanging(value);
                 ReportPropertyChanging("notes");
-                _notes = StructuralObject.SetValidValue(value, true);
+                _notes = StructuralObject.SetValidValue(value, true, "notes");
                 ReportPropertyChanged("notes");
                 OnnotesChanged();
             }
@@ -5958,7 +5939,7 @@ namespace Paradiso
             {
                 Onreserved_dateChanging(value);
                 ReportPropertyChanging("reserved_date");
-                _reserved_date = StructuralObject.SetValidValue(value);
+                _reserved_date = StructuralObject.SetValidValue(value, "reserved_date");
                 ReportPropertyChanged("reserved_date");
                 Onreserved_dateChanged();
             }
@@ -5982,7 +5963,7 @@ namespace Paradiso
             {
                 Onsession_idChanging(value);
                 ReportPropertyChanging("session_id");
-                _session_id = StructuralObject.SetValidValue(value, true);
+                _session_id = StructuralObject.SetValidValue(value, true, "session_id");
                 ReportPropertyChanged("session_id");
                 Onsession_idChanged();
             }
@@ -6008,7 +5989,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_patron_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_patron_id");
-                    _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value, "movies_schedule_list_patron_id");
                     ReportPropertyChanged("movies_schedule_list_patron_id");
                     Onmovies_schedule_list_patron_idChanged();
                 }
@@ -6020,7 +6001,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6052,7 +6032,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6071,7 +6051,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -6098,7 +6078,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_id");
-                    _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                     ReportPropertyChanged("movies_schedule_list_id");
                     Onmovies_schedule_list_idChanged();
                 }
@@ -6125,7 +6105,7 @@ namespace Paradiso
                 {
                     Oncinema_seat_idChanging(value);
                     ReportPropertyChanging("cinema_seat_id");
-                    _cinema_seat_id = StructuralObject.SetValidValue(value);
+                    _cinema_seat_id = StructuralObject.SetValidValue(value, "cinema_seat_id");
                     ReportPropertyChanged("cinema_seat_id");
                     Oncinema_seat_idChanged();
                 }
@@ -6150,7 +6130,7 @@ namespace Paradiso
             {
                 Onfull_nameChanging(value);
                 ReportPropertyChanging("full_name");
-                _full_name = StructuralObject.SetValidValue(value, true);
+                _full_name = StructuralObject.SetValidValue(value, true, "full_name");
                 ReportPropertyChanged("full_name");
                 Onfull_nameChanged();
             }
@@ -6174,7 +6154,7 @@ namespace Paradiso
             {
                 OnnotesChanging(value);
                 ReportPropertyChanging("notes");
-                _notes = StructuralObject.SetValidValue(value, true);
+                _notes = StructuralObject.SetValidValue(value, true, "notes");
                 ReportPropertyChanged("notes");
                 OnnotesChanged();
             }
@@ -6198,7 +6178,7 @@ namespace Paradiso
             {
                 Onreserved_dateChanging(value);
                 ReportPropertyChanging("reserved_date");
-                _reserved_date = StructuralObject.SetValidValue(value);
+                _reserved_date = StructuralObject.SetValidValue(value, "reserved_date");
                 ReportPropertyChanged("reserved_date");
                 Onreserved_dateChanged();
             }
@@ -6222,7 +6202,7 @@ namespace Paradiso
             {
                 Onsession_idChanging(value);
                 ReportPropertyChanging("session_id");
-                _session_id = StructuralObject.SetValidValue(value, true);
+                _session_id = StructuralObject.SetValidValue(value, true, "session_id");
                 ReportPropertyChanged("session_id");
                 Onsession_idChanged();
             }
@@ -6248,7 +6228,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_patron_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_patron_id");
-                    _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_patron_id = StructuralObject.SetValidValue(value, "movies_schedule_list_patron_id");
                     ReportPropertyChanged("movies_schedule_list_patron_id");
                     Onmovies_schedule_list_patron_idChanged();
                 }
@@ -6260,7 +6240,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6290,7 +6269,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6309,7 +6288,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -6334,7 +6313,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_list_idChanging(value);
                 ReportPropertyChanging("movies_schedule_list_id");
-                _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                 ReportPropertyChanged("movies_schedule_list_id");
                 Onmovies_schedule_list_idChanged();
             }
@@ -6358,7 +6337,7 @@ namespace Paradiso
             {
                 Onpatron_idChanging(value);
                 ReportPropertyChanging("patron_id");
-                _patron_id = StructuralObject.SetValidValue(value);
+                _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                 ReportPropertyChanged("patron_id");
                 Onpatron_idChanged();
             }
@@ -6382,7 +6361,7 @@ namespace Paradiso
             {
                 OnpriceChanging(value);
                 ReportPropertyChanging("price");
-                _price = StructuralObject.SetValidValue(value);
+                _price = StructuralObject.SetValidValue(value, "price");
                 ReportPropertyChanged("price");
                 OnpriceChanged();
             }
@@ -6406,7 +6385,7 @@ namespace Paradiso
             {
                 Onis_defaultChanging(value);
                 ReportPropertyChanging("is_default");
-                _is_default = StructuralObject.SetValidValue(value);
+                _is_default = StructuralObject.SetValidValue(value, "is_default");
                 ReportPropertyChanged("is_default");
                 Onis_defaultChanged();
             }
@@ -6417,7 +6396,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -6577,7 +6555,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6596,7 +6574,7 @@ namespace Paradiso
                 {
                     Onpatron_idChanging(value);
                     ReportPropertyChanging("patron_id");
-                    _patron_id = StructuralObject.SetValidValue(value);
+                    _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                     ReportPropertyChanged("patron_id");
                     Onpatron_idChanged();
                 }
@@ -6623,7 +6601,7 @@ namespace Paradiso
                 {
                     Onamount_valChanging(value);
                     ReportPropertyChanging("amount_val");
-                    _amount_val = StructuralObject.SetValidValue(value);
+                    _amount_val = StructuralObject.SetValidValue(value, "amount_val");
                     ReportPropertyChanged("amount_val");
                     Onamount_valChanged();
                 }
@@ -6650,7 +6628,7 @@ namespace Paradiso
                 {
                     Onin_pesovalueChanging(value);
                     ReportPropertyChanging("in_pesovalue");
-                    _in_pesovalue = StructuralObject.SetValidValue(value);
+                    _in_pesovalue = StructuralObject.SetValidValue(value, "in_pesovalue");
                     ReportPropertyChanged("in_pesovalue");
                     Onin_pesovalueChanged();
                 }
@@ -6677,7 +6655,7 @@ namespace Paradiso
                 {
                     Onwith_enddateChanging(value);
                     ReportPropertyChanging("with_enddate");
-                    _with_enddate = StructuralObject.SetValidValue(value);
+                    _with_enddate = StructuralObject.SetValidValue(value, "with_enddate");
                     ReportPropertyChanged("with_enddate");
                     Onwith_enddateChanged();
                 }
@@ -6704,7 +6682,7 @@ namespace Paradiso
                 {
                     Oneffective_dateChanging(value);
                     ReportPropertyChanging("effective_date");
-                    _effective_date = StructuralObject.SetValidValue(value);
+                    _effective_date = StructuralObject.SetValidValue(value, "effective_date");
                     ReportPropertyChanged("effective_date");
                     Oneffective_dateChanged();
                 }
@@ -6729,7 +6707,7 @@ namespace Paradiso
             {
                 Onend_dateChanging(value);
                 ReportPropertyChanging("end_date");
-                _end_date = StructuralObject.SetValidValue(value);
+                _end_date = StructuralObject.SetValidValue(value, "end_date");
                 ReportPropertyChanged("end_date");
                 Onend_dateChanged();
             }
@@ -6755,7 +6733,7 @@ namespace Paradiso
                 {
                     OnisordinanceChanging(value);
                     ReportPropertyChanging("isordinance");
-                    _isordinance = StructuralObject.SetValidValue(value);
+                    _isordinance = StructuralObject.SetValidValue(value, "isordinance");
                     ReportPropertyChanged("isordinance");
                     OnisordinanceChanged();
                 }
@@ -6767,7 +6745,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6797,7 +6774,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6816,7 +6793,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -6843,7 +6820,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_id");
-                    _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                     ReportPropertyChanged("movies_schedule_list_id");
                     Onmovies_schedule_list_idChanged();
                 }
@@ -6870,7 +6847,7 @@ namespace Paradiso
                 {
                     Onpatron_idChanging(value);
                     ReportPropertyChanging("patron_id");
-                    _patron_id = StructuralObject.SetValidValue(value);
+                    _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                     ReportPropertyChanged("patron_id");
                     Onpatron_idChanged();
                 }
@@ -6895,7 +6872,7 @@ namespace Paradiso
             {
                 OnpriceChanging(value);
                 ReportPropertyChanging("price");
-                _price = StructuralObject.SetValidValue(value);
+                _price = StructuralObject.SetValidValue(value, "price");
                 ReportPropertyChanged("price");
                 OnpriceChanged();
             }
@@ -6919,7 +6896,7 @@ namespace Paradiso
             {
                 Onis_defaultChanging(value);
                 ReportPropertyChanging("is_default");
-                _is_default = StructuralObject.SetValidValue(value);
+                _is_default = StructuralObject.SetValidValue(value, "is_default");
                 ReportPropertyChanged("is_default");
                 Onis_defaultChanged();
             }
@@ -6943,7 +6920,7 @@ namespace Paradiso
             {
                 Onordinance_valChanging(value);
                 ReportPropertyChanging("ordinance_val");
-                _ordinance_val = StructuralObject.SetValidValue(value);
+                _ordinance_val = StructuralObject.SetValidValue(value, "ordinance_val");
                 ReportPropertyChanged("ordinance_val");
                 Onordinance_valChanged();
             }
@@ -6954,7 +6931,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6988,7 +6964,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7007,7 +6983,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -7034,7 +7010,7 @@ namespace Paradiso
                 {
                     Onmovies_schedule_list_idChanging(value);
                     ReportPropertyChanging("movies_schedule_list_id");
-                    _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                    _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                     ReportPropertyChanged("movies_schedule_list_id");
                     Onmovies_schedule_list_idChanged();
                 }
@@ -7061,7 +7037,7 @@ namespace Paradiso
                 {
                     Onpatron_idChanging(value);
                     ReportPropertyChanging("patron_id");
-                    _patron_id = StructuralObject.SetValidValue(value);
+                    _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                     ReportPropertyChanged("patron_id");
                     Onpatron_idChanged();
                 }
@@ -7086,7 +7062,7 @@ namespace Paradiso
             {
                 Onbase_priceChanging(value);
                 ReportPropertyChanging("base_price");
-                _base_price = StructuralObject.SetValidValue(value);
+                _base_price = StructuralObject.SetValidValue(value, "base_price");
                 ReportPropertyChanged("base_price");
                 Onbase_priceChanged();
             }
@@ -7110,7 +7086,7 @@ namespace Paradiso
             {
                 Onis_defaultChanging(value);
                 ReportPropertyChanging("is_default");
-                _is_default = StructuralObject.SetValidValue(value);
+                _is_default = StructuralObject.SetValidValue(value, "is_default");
                 ReportPropertyChanged("is_default");
                 Onis_defaultChanged();
             }
@@ -7134,7 +7110,7 @@ namespace Paradiso
             {
                 OnpriceChanging(value);
                 ReportPropertyChanging("price");
-                _price = StructuralObject.SetValidValue(value);
+                _price = StructuralObject.SetValidValue(value, "price");
                 ReportPropertyChanged("price");
                 OnpriceChanged();
             }
@@ -7160,7 +7136,7 @@ namespace Paradiso
                 {
                     Onpatron_codeChanging(value);
                     ReportPropertyChanging("patron_code");
-                    _patron_code = StructuralObject.SetValidValue(value, false);
+                    _patron_code = StructuralObject.SetValidValue(value, false, "patron_code");
                     ReportPropertyChanged("patron_code");
                     Onpatron_codeChanged();
                 }
@@ -7187,7 +7163,7 @@ namespace Paradiso
                 {
                     Onpatron_nameChanging(value);
                     ReportPropertyChanging("patron_name");
-                    _patron_name = StructuralObject.SetValidValue(value, false);
+                    _patron_name = StructuralObject.SetValidValue(value, false, "patron_name");
                     ReportPropertyChanged("patron_name");
                     Onpatron_nameChanged();
                 }
@@ -7212,7 +7188,7 @@ namespace Paradiso
             {
                 Onpatron_seat_colorChanging(value);
                 ReportPropertyChanging("patron_seat_color");
-                _patron_seat_color = StructuralObject.SetValidValue(value);
+                _patron_seat_color = StructuralObject.SetValidValue(value, "patron_seat_color");
                 ReportPropertyChanged("patron_seat_color");
                 Onpatron_seat_colorChanged();
             }
@@ -7223,7 +7199,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -7261,7 +7236,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7280,7 +7255,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -7305,7 +7280,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_list_idChanging(value);
                 ReportPropertyChanging("movies_schedule_list_id");
-                _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                 ReportPropertyChanged("movies_schedule_list_id");
                 Onmovies_schedule_list_idChanged();
             }
@@ -7329,7 +7304,7 @@ namespace Paradiso
             {
                 Oncinema_seat_idChanging(value);
                 ReportPropertyChanging("cinema_seat_id");
-                _cinema_seat_id = StructuralObject.SetValidValue(value);
+                _cinema_seat_id = StructuralObject.SetValidValue(value, "cinema_seat_id");
                 ReportPropertyChanged("cinema_seat_id");
                 Oncinema_seat_idChanged();
             }
@@ -7353,7 +7328,7 @@ namespace Paradiso
             {
                 Onticket_idChanging(value);
                 ReportPropertyChanging("ticket_id");
-                _ticket_id = StructuralObject.SetValidValue(value);
+                _ticket_id = StructuralObject.SetValidValue(value, "ticket_id");
                 ReportPropertyChanged("ticket_id");
                 Onticket_idChanged();
             }
@@ -7377,7 +7352,7 @@ namespace Paradiso
             {
                 Onpatron_idChanging(value);
                 ReportPropertyChanging("patron_id");
-                _patron_id = StructuralObject.SetValidValue(value);
+                _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                 ReportPropertyChanged("patron_id");
                 Onpatron_idChanged();
             }
@@ -7401,7 +7376,7 @@ namespace Paradiso
             {
                 OnpriceChanging(value);
                 ReportPropertyChanging("price");
-                _price = StructuralObject.SetValidValue(value);
+                _price = StructuralObject.SetValidValue(value, "price");
                 ReportPropertyChanged("price");
                 OnpriceChanged();
             }
@@ -7425,7 +7400,7 @@ namespace Paradiso
             {
                 Onbase_priceChanging(value);
                 ReportPropertyChanging("base_price");
-                _base_price = StructuralObject.SetValidValue(value);
+                _base_price = StructuralObject.SetValidValue(value, "base_price");
                 ReportPropertyChanged("base_price");
                 Onbase_priceChanged();
             }
@@ -7449,7 +7424,7 @@ namespace Paradiso
             {
                 OnstatusChanging(value);
                 ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
+                _status = StructuralObject.SetValidValue(value, "status");
                 ReportPropertyChanged("status");
                 OnstatusChanged();
             }
@@ -7473,7 +7448,7 @@ namespace Paradiso
             {
                 Onamusement_tax_amountChanging(value);
                 ReportPropertyChanging("amusement_tax_amount");
-                _amusement_tax_amount = StructuralObject.SetValidValue(value);
+                _amusement_tax_amount = StructuralObject.SetValidValue(value, "amusement_tax_amount");
                 ReportPropertyChanged("amusement_tax_amount");
                 Onamusement_tax_amountChanged();
             }
@@ -7497,7 +7472,7 @@ namespace Paradiso
             {
                 Oncultural_tax_amountChanging(value);
                 ReportPropertyChanging("cultural_tax_amount");
-                _cultural_tax_amount = StructuralObject.SetValidValue(value);
+                _cultural_tax_amount = StructuralObject.SetValidValue(value, "cultural_tax_amount");
                 ReportPropertyChanged("cultural_tax_amount");
                 Oncultural_tax_amountChanged();
             }
@@ -7521,7 +7496,7 @@ namespace Paradiso
             {
                 Onvat_amountChanging(value);
                 ReportPropertyChanging("vat_amount");
-                _vat_amount = StructuralObject.SetValidValue(value);
+                _vat_amount = StructuralObject.SetValidValue(value, "vat_amount");
                 ReportPropertyChanged("vat_amount");
                 Onvat_amountChanged();
             }
@@ -7545,7 +7520,7 @@ namespace Paradiso
             {
                 Onor_numberChanging(value);
                 ReportPropertyChanging("or_number");
-                _or_number = StructuralObject.SetValidValue(value, true);
+                _or_number = StructuralObject.SetValidValue(value, true, "or_number");
                 ReportPropertyChanged("or_number");
                 Onor_numberChanged();
             }
@@ -7569,7 +7544,7 @@ namespace Paradiso
             {
                 Onvoid_user_idChanging(value);
                 ReportPropertyChanging("void_user_id");
-                _void_user_id = StructuralObject.SetValidValue(value);
+                _void_user_id = StructuralObject.SetValidValue(value, "void_user_id");
                 ReportPropertyChanged("void_user_id");
                 Onvoid_user_idChanged();
             }
@@ -7593,7 +7568,7 @@ namespace Paradiso
             {
                 Onvoid_datetimeChanging(value);
                 ReportPropertyChanging("void_datetime");
-                _void_datetime = StructuralObject.SetValidValue(value);
+                _void_datetime = StructuralObject.SetValidValue(value, "void_datetime");
                 ReportPropertyChanged("void_datetime");
                 Onvoid_datetimeChanged();
             }
@@ -7617,7 +7592,7 @@ namespace Paradiso
             {
                 Onordinance_priceChanging(value);
                 ReportPropertyChanging("ordinance_price");
-                _ordinance_price = StructuralObject.SetValidValue(value);
+                _ordinance_price = StructuralObject.SetValidValue(value, "ordinance_price");
                 ReportPropertyChanged("ordinance_price");
                 Onordinance_priceChanged();
             }
@@ -7641,7 +7616,7 @@ namespace Paradiso
             {
                 Onsurcharge_priceChanging(value);
                 ReportPropertyChanging("surcharge_price");
-                _surcharge_price = StructuralObject.SetValidValue(value);
+                _surcharge_price = StructuralObject.SetValidValue(value, "surcharge_price");
                 ReportPropertyChanged("surcharge_price");
                 Onsurcharge_priceChanged();
             }
@@ -7652,7 +7627,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7898,7 +7872,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7917,7 +7891,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -7942,7 +7916,7 @@ namespace Paradiso
             {
                 Onstatus_idChanging(value);
                 ReportPropertyChanging("status_id");
-                _status_id = StructuralObject.SetValidValue(value);
+                _status_id = StructuralObject.SetValidValue(value, "status_id");
                 ReportPropertyChanged("status_id");
                 Onstatus_idChanged();
             }
@@ -7966,7 +7940,7 @@ namespace Paradiso
             {
                 Onstatus_descChanging(value);
                 ReportPropertyChanging("status_desc");
-                _status_desc = StructuralObject.SetValidValue(value, false);
+                _status_desc = StructuralObject.SetValidValue(value, false, "status_desc");
                 ReportPropertyChanged("status_desc");
                 Onstatus_descChanged();
             }
@@ -7977,7 +7951,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8009,7 +7982,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8028,7 +8001,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -8053,7 +8026,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -8077,7 +8050,7 @@ namespace Paradiso
             {
                 OndescriptionChanging(value);
                 ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, false);
+                _description = StructuralObject.SetValidValue(value, false, "description");
                 ReportPropertyChanged("description");
                 OndescriptionChanged();
             }
@@ -8101,7 +8074,7 @@ namespace Paradiso
             {
                 OnremarksChanging(value);
                 ReportPropertyChanging("remarks");
-                _remarks = StructuralObject.SetValidValue(value, false);
+                _remarks = StructuralObject.SetValidValue(value, false, "remarks");
                 ReportPropertyChanged("remarks");
                 OnremarksChanged();
             }
@@ -8112,7 +8085,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -8164,7 +8136,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8183,7 +8155,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -8208,7 +8180,7 @@ namespace Paradiso
             {
                 Onor_numberChanging(value);
                 ReportPropertyChanging("or_number");
-                _or_number = StructuralObject.SetValidValue(value, true);
+                _or_number = StructuralObject.SetValidValue(value, true, "or_number");
                 ReportPropertyChanged("or_number");
                 Onor_numberChanged();
             }
@@ -8219,7 +8191,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -8255,7 +8226,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8274,7 +8245,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -8299,7 +8270,7 @@ namespace Paradiso
             {
                 Onordinance_noChanging(value);
                 ReportPropertyChanging("ordinance_no");
-                _ordinance_no = StructuralObject.SetValidValue(value, false);
+                _ordinance_no = StructuralObject.SetValidValue(value, false, "ordinance_no");
                 ReportPropertyChanged("ordinance_no");
                 Onordinance_noChanged();
             }
@@ -8323,7 +8294,7 @@ namespace Paradiso
             {
                 Oneffective_dateChanging(value);
                 ReportPropertyChanging("effective_date");
-                _effective_date = StructuralObject.SetValidValue(value);
+                _effective_date = StructuralObject.SetValidValue(value, "effective_date");
                 ReportPropertyChanged("effective_date");
                 Oneffective_dateChanged();
             }
@@ -8347,7 +8318,7 @@ namespace Paradiso
             {
                 Onend_dateChanging(value);
                 ReportPropertyChanging("end_date");
-                _end_date = StructuralObject.SetValidValue(value);
+                _end_date = StructuralObject.SetValidValue(value, "end_date");
                 ReportPropertyChanged("end_date");
                 Onend_dateChanged();
             }
@@ -8371,7 +8342,7 @@ namespace Paradiso
             {
                 Onwith_enddateChanging(value);
                 ReportPropertyChanging("with_enddate");
-                _with_enddate = StructuralObject.SetValidValue(value);
+                _with_enddate = StructuralObject.SetValidValue(value, "with_enddate");
                 ReportPropertyChanged("with_enddate");
                 Onwith_enddateChanged();
             }
@@ -8395,7 +8366,7 @@ namespace Paradiso
             {
                 Onamount_valChanging(value);
                 ReportPropertyChanging("amount_val");
-                _amount_val = StructuralObject.SetValidValue(value);
+                _amount_val = StructuralObject.SetValidValue(value, "amount_val");
                 ReportPropertyChanged("amount_val");
                 Onamount_valChanged();
             }
@@ -8419,7 +8390,7 @@ namespace Paradiso
             {
                 Onin_pesovalueChanging(value);
                 ReportPropertyChanging("in_pesovalue");
-                _in_pesovalue = StructuralObject.SetValidValue(value);
+                _in_pesovalue = StructuralObject.SetValidValue(value, "in_pesovalue");
                 ReportPropertyChanged("in_pesovalue");
                 Onin_pesovalueChanged();
             }
@@ -8430,7 +8401,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -8488,7 +8458,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8507,7 +8477,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -8532,7 +8502,7 @@ namespace Paradiso
             {
                 OncodeChanging(value);
                 ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
+                _code = StructuralObject.SetValidValue(value, false, "code");
                 ReportPropertyChanged("code");
                 OncodeChanged();
             }
@@ -8556,7 +8526,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -8580,7 +8550,7 @@ namespace Paradiso
             {
                 Onunit_priceChanging(value);
                 ReportPropertyChanging("unit_price");
-                _unit_price = StructuralObject.SetValidValue(value);
+                _unit_price = StructuralObject.SetValidValue(value, "unit_price");
                 ReportPropertyChanged("unit_price");
                 Onunit_priceChanged();
             }
@@ -8604,7 +8574,7 @@ namespace Paradiso
             {
                 Onwith_promoChanging(value);
                 ReportPropertyChanging("with_promo");
-                _with_promo = StructuralObject.SetValidValue(value);
+                _with_promo = StructuralObject.SetValidValue(value, "with_promo");
                 ReportPropertyChanged("with_promo");
                 Onwith_promoChanged();
             }
@@ -8628,7 +8598,7 @@ namespace Paradiso
             {
                 Onwith_amusementChanging(value);
                 ReportPropertyChanging("with_amusement");
-                _with_amusement = StructuralObject.SetValidValue(value);
+                _with_amusement = StructuralObject.SetValidValue(value, "with_amusement");
                 ReportPropertyChanged("with_amusement");
                 Onwith_amusementChanged();
             }
@@ -8652,7 +8622,7 @@ namespace Paradiso
             {
                 Onwith_culturalChanging(value);
                 ReportPropertyChanging("with_cultural");
-                _with_cultural = StructuralObject.SetValidValue(value);
+                _with_cultural = StructuralObject.SetValidValue(value, "with_cultural");
                 ReportPropertyChanged("with_cultural");
                 Onwith_culturalChanged();
             }
@@ -8676,7 +8646,7 @@ namespace Paradiso
             {
                 Onwith_citytaxChanging(value);
                 ReportPropertyChanging("with_citytax");
-                _with_citytax = StructuralObject.SetValidValue(value);
+                _with_citytax = StructuralObject.SetValidValue(value, "with_citytax");
                 ReportPropertyChanged("with_citytax");
                 Onwith_citytaxChanged();
             }
@@ -8700,7 +8670,7 @@ namespace Paradiso
             {
                 Onwith_gross_marginChanging(value);
                 ReportPropertyChanging("with_gross_margin");
-                _with_gross_margin = StructuralObject.SetValidValue(value);
+                _with_gross_margin = StructuralObject.SetValidValue(value, "with_gross_margin");
                 ReportPropertyChanged("with_gross_margin");
                 Onwith_gross_marginChanged();
             }
@@ -8724,7 +8694,7 @@ namespace Paradiso
             {
                 Onwith_prod_shareChanging(value);
                 ReportPropertyChanging("with_prod_share");
-                _with_prod_share = StructuralObject.SetValidValue(value);
+                _with_prod_share = StructuralObject.SetValidValue(value, "with_prod_share");
                 ReportPropertyChanged("with_prod_share");
                 Onwith_prod_shareChanged();
             }
@@ -8748,7 +8718,7 @@ namespace Paradiso
             {
                 Onseat_colorChanging(value);
                 ReportPropertyChanging("seat_color");
-                _seat_color = StructuralObject.SetValidValue(value);
+                _seat_color = StructuralObject.SetValidValue(value, "seat_color");
                 ReportPropertyChanged("seat_color");
                 Onseat_colorChanged();
             }
@@ -8772,7 +8742,7 @@ namespace Paradiso
             {
                 Onseat_positionChanging(value);
                 ReportPropertyChanging("seat_position");
-                _seat_position = StructuralObject.SetValidValue(value);
+                _seat_position = StructuralObject.SetValidValue(value, "seat_position");
                 ReportPropertyChanged("seat_position");
                 Onseat_positionChanged();
             }
@@ -8796,7 +8766,7 @@ namespace Paradiso
             {
                 OnlgutaxChanging(value);
                 ReportPropertyChanging("lgutax");
-                _lgutax = StructuralObject.SetValidValue(value);
+                _lgutax = StructuralObject.SetValidValue(value, "lgutax");
                 ReportPropertyChanged("lgutax");
                 OnlgutaxChanged();
             }
@@ -8820,7 +8790,7 @@ namespace Paradiso
             {
                 Onbase_priceChanging(value);
                 ReportPropertyChanging("base_price");
-                _base_price = StructuralObject.SetValidValue(value);
+                _base_price = StructuralObject.SetValidValue(value, "base_price");
                 ReportPropertyChanged("base_price");
                 Onbase_priceChanged();
             }
@@ -8844,7 +8814,7 @@ namespace Paradiso
             {
                 Onwith_surchargeChanging(value);
                 ReportPropertyChanging("with_surcharge");
-                _with_surcharge = StructuralObject.SetValidValue(value);
+                _with_surcharge = StructuralObject.SetValidValue(value, "with_surcharge");
                 ReportPropertyChanged("with_surcharge");
                 Onwith_surchargeChanged();
             }
@@ -8855,7 +8825,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -8955,7 +8924,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8974,7 +8943,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -8999,7 +8968,7 @@ namespace Paradiso
             {
                 Onpatron_idChanging(value);
                 ReportPropertyChanging("patron_id");
-                _patron_id = StructuralObject.SetValidValue(value);
+                _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                 ReportPropertyChanged("patron_id");
                 Onpatron_idChanged();
             }
@@ -9023,7 +8992,7 @@ namespace Paradiso
             {
                 Onordinance_idChanging(value);
                 ReportPropertyChanging("ordinance_id");
-                _ordinance_id = StructuralObject.SetValidValue(value);
+                _ordinance_id = StructuralObject.SetValidValue(value, "ordinance_id");
                 ReportPropertyChanged("ordinance_id");
                 Onordinance_idChanged();
             }
@@ -9034,7 +9003,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9144,7 +9112,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9163,7 +9131,7 @@ namespace Paradiso
                 {
                     Onpatron_idChanging(value);
                     ReportPropertyChanging("patron_id");
-                    _patron_id = StructuralObject.SetValidValue(value);
+                    _patron_id = StructuralObject.SetValidValue(value, "patron_id");
                     ReportPropertyChanged("patron_id");
                     Onpatron_idChanged();
                 }
@@ -9190,7 +9158,7 @@ namespace Paradiso
                 {
                     Onamount_valChanging(value);
                     ReportPropertyChanging("amount_val");
-                    _amount_val = StructuralObject.SetValidValue(value);
+                    _amount_val = StructuralObject.SetValidValue(value, "amount_val");
                     ReportPropertyChanged("amount_val");
                     Onamount_valChanged();
                 }
@@ -9217,7 +9185,7 @@ namespace Paradiso
                 {
                     Onin_pesovalueChanging(value);
                     ReportPropertyChanging("in_pesovalue");
-                    _in_pesovalue = StructuralObject.SetValidValue(value);
+                    _in_pesovalue = StructuralObject.SetValidValue(value, "in_pesovalue");
                     ReportPropertyChanged("in_pesovalue");
                     Onin_pesovalueChanged();
                 }
@@ -9229,7 +9197,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9275,7 +9242,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9294,7 +9261,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -9319,7 +9286,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -9343,7 +9310,7 @@ namespace Paradiso
             {
                 OnlnameChanging(value);
                 ReportPropertyChanging("lname");
-                _lname = StructuralObject.SetValidValue(value, false);
+                _lname = StructuralObject.SetValidValue(value, false, "lname");
                 ReportPropertyChanged("lname");
                 OnlnameChanged();
             }
@@ -9367,7 +9334,7 @@ namespace Paradiso
             {
                 OnfnameChanging(value);
                 ReportPropertyChanging("fname");
-                _fname = StructuralObject.SetValidValue(value, false);
+                _fname = StructuralObject.SetValidValue(value, false, "fname");
                 ReportPropertyChanged("fname");
                 OnfnameChanged();
             }
@@ -9391,7 +9358,7 @@ namespace Paradiso
             {
                 OnmnameChanging(value);
                 ReportPropertyChanging("mname");
-                _mname = StructuralObject.SetValidValue(value, false);
+                _mname = StructuralObject.SetValidValue(value, false, "mname");
                 ReportPropertyChanged("mname");
                 OnmnameChanged();
             }
@@ -9415,7 +9382,7 @@ namespace Paradiso
             {
                 OnpositionChanging(value);
                 ReportPropertyChanging("position");
-                _position = StructuralObject.SetValidValue(value, false);
+                _position = StructuralObject.SetValidValue(value, false, "position");
                 ReportPropertyChanged("position");
                 OnpositionChanged();
             }
@@ -9439,7 +9406,7 @@ namespace Paradiso
             {
                 Oncontact_noChanging(value);
                 ReportPropertyChanging("contact_no");
-                _contact_no = StructuralObject.SetValidValue(value, false);
+                _contact_no = StructuralObject.SetValidValue(value, false, "contact_no");
                 ReportPropertyChanged("contact_no");
                 Oncontact_noChanged();
             }
@@ -9463,7 +9430,7 @@ namespace Paradiso
             {
                 Onemail_addrChanging(value);
                 ReportPropertyChanging("email_addr");
-                _email_addr = StructuralObject.SetValidValue(value, false);
+                _email_addr = StructuralObject.SetValidValue(value, false, "email_addr");
                 ReportPropertyChanged("email_addr");
                 Onemail_addrChanged();
             }
@@ -9487,7 +9454,7 @@ namespace Paradiso
             {
                 OnaddressChanging(value);
                 ReportPropertyChanging("address");
-                _address = StructuralObject.SetValidValue(value, false);
+                _address = StructuralObject.SetValidValue(value, false, "address");
                 ReportPropertyChanged("address");
                 OnaddressChanged();
             }
@@ -9511,7 +9478,7 @@ namespace Paradiso
             {
                 OncityChanging(value);
                 ReportPropertyChanging("city");
-                _city = StructuralObject.SetValidValue(value, false);
+                _city = StructuralObject.SetValidValue(value, false, "city");
                 ReportPropertyChanged("city");
                 OncityChanged();
             }
@@ -9535,7 +9502,7 @@ namespace Paradiso
             {
                 OncountryChanging(value);
                 ReportPropertyChanging("country");
-                _country = StructuralObject.SetValidValue(value, false);
+                _country = StructuralObject.SetValidValue(value, false, "country");
                 ReportPropertyChanged("country");
                 OncountryChanged();
             }
@@ -9546,7 +9513,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9574,7 +9540,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9593,7 +9559,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -9618,7 +9584,7 @@ namespace Paradiso
             {
                 OncodeChanging(value);
                 ReportPropertyChanging("code");
-                _code = StructuralObject.SetValidValue(value, false);
+                _code = StructuralObject.SetValidValue(value, false, "code");
                 ReportPropertyChanged("code");
                 OncodeChanged();
             }
@@ -9642,7 +9608,7 @@ namespace Paradiso
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, true);
+                _name = StructuralObject.SetValidValue(value, true, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -9666,7 +9632,7 @@ namespace Paradiso
             {
                 OndescriptionChanging(value);
                 ReportPropertyChanging("description");
-                _description = StructuralObject.SetValidValue(value, true);
+                _description = StructuralObject.SetValidValue(value, true, "description");
                 ReportPropertyChanged("description");
                 OndescriptionChanged();
             }
@@ -9677,7 +9643,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -9711,7 +9676,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9730,7 +9695,7 @@ namespace Paradiso
                 {
                     Onsession_idChanging(value);
                     ReportPropertyChanging("session_id");
-                    _session_id = StructuralObject.SetValidValue(value, false);
+                    _session_id = StructuralObject.SetValidValue(value, false, "session_id");
                     ReportPropertyChanged("session_id");
                     Onsession_idChanged();
                 }
@@ -9755,7 +9720,7 @@ namespace Paradiso
             {
                 Onpayment_modeChanging(value);
                 ReportPropertyChanging("payment_mode");
-                _payment_mode = StructuralObject.SetValidValue(value);
+                _payment_mode = StructuralObject.SetValidValue(value, "payment_mode");
                 ReportPropertyChanged("payment_mode");
                 Onpayment_modeChanged();
             }
@@ -9779,7 +9744,7 @@ namespace Paradiso
             {
                 Oncash_amountChanging(value);
                 ReportPropertyChanging("cash_amount");
-                _cash_amount = StructuralObject.SetValidValue(value);
+                _cash_amount = StructuralObject.SetValidValue(value, "cash_amount");
                 ReportPropertyChanged("cash_amount");
                 Oncash_amountChanged();
             }
@@ -9803,7 +9768,7 @@ namespace Paradiso
             {
                 Ongift_certificate_amountChanging(value);
                 ReportPropertyChanging("gift_certificate_amount");
-                _gift_certificate_amount = StructuralObject.SetValidValue(value);
+                _gift_certificate_amount = StructuralObject.SetValidValue(value, "gift_certificate_amount");
                 ReportPropertyChanged("gift_certificate_amount");
                 Ongift_certificate_amountChanged();
             }
@@ -9827,7 +9792,7 @@ namespace Paradiso
             {
                 Oncredit_amountChanging(value);
                 ReportPropertyChanging("credit_amount");
-                _credit_amount = StructuralObject.SetValidValue(value);
+                _credit_amount = StructuralObject.SetValidValue(value, "credit_amount");
                 ReportPropertyChanged("credit_amount");
                 Oncredit_amountChanged();
             }
@@ -9838,7 +9803,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -9894,7 +9858,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -9913,7 +9877,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -9938,7 +9902,7 @@ namespace Paradiso
             {
                 Onsession_idChanging(value);
                 ReportPropertyChanging("session_id");
-                _session_id = StructuralObject.SetValidValue(value, false);
+                _session_id = StructuralObject.SetValidValue(value, false, "session_id");
                 ReportPropertyChanged("session_id");
                 Onsession_idChanged();
             }
@@ -9962,7 +9926,7 @@ namespace Paradiso
             {
                 Ongift_certificate_idChanging(value);
                 ReportPropertyChanging("gift_certificate_id");
-                _gift_certificate_id = StructuralObject.SetValidValue(value);
+                _gift_certificate_id = StructuralObject.SetValidValue(value, "gift_certificate_id");
                 ReportPropertyChanged("gift_certificate_id");
                 Ongift_certificate_idChanged();
             }
@@ -9973,7 +9937,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -10001,7 +9964,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10020,7 +9983,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -10045,7 +10008,7 @@ namespace Paradiso
             {
                 Onsound_system_typeChanging(value);
                 ReportPropertyChanging("sound_system_type");
-                _sound_system_type = StructuralObject.SetValidValue(value, false);
+                _sound_system_type = StructuralObject.SetValidValue(value, false, "sound_system_type");
                 ReportPropertyChanged("sound_system_type");
                 Onsound_system_typeChanged();
             }
@@ -10056,7 +10019,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -10116,7 +10078,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10135,7 +10097,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -10160,7 +10122,7 @@ namespace Paradiso
             {
                 Onmodule_codeChanging(value);
                 ReportPropertyChanging("module_code");
-                _module_code = StructuralObject.SetValidValue(value, false);
+                _module_code = StructuralObject.SetValidValue(value, false, "module_code");
                 ReportPropertyChanged("module_code");
                 Onmodule_codeChanged();
             }
@@ -10184,7 +10146,7 @@ namespace Paradiso
             {
                 Onmodule_descChanging(value);
                 ReportPropertyChanging("module_desc");
-                _module_desc = StructuralObject.SetValidValue(value, false);
+                _module_desc = StructuralObject.SetValidValue(value, false, "module_desc");
                 ReportPropertyChanged("module_desc");
                 Onmodule_descChanged();
             }
@@ -10208,7 +10170,7 @@ namespace Paradiso
             {
                 Onmodule_groupChanging(value);
                 ReportPropertyChanging("module_group");
-                _module_group = StructuralObject.SetValidValue(value, false);
+                _module_group = StructuralObject.SetValidValue(value, false, "module_group");
                 ReportPropertyChanged("module_group");
                 Onmodule_groupChanged();
             }
@@ -10232,7 +10194,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value);
+                _system_code = StructuralObject.SetValidValue(value, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -10243,7 +10205,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -10299,7 +10260,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10318,7 +10279,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -10343,7 +10304,7 @@ namespace Paradiso
             {
                 Onmovies_schedule_list_idChanging(value);
                 ReportPropertyChanging("movies_schedule_list_id");
-                _movies_schedule_list_id = StructuralObject.SetValidValue(value);
+                _movies_schedule_list_id = StructuralObject.SetValidValue(value, "movies_schedule_list_id");
                 ReportPropertyChanged("movies_schedule_list_id");
                 Onmovies_schedule_list_idChanged();
             }
@@ -10367,7 +10328,7 @@ namespace Paradiso
             {
                 Onuser_idChanging(value);
                 ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
+                _user_id = StructuralObject.SetValidValue(value, "user_id");
                 ReportPropertyChanged("user_id");
                 Onuser_idChanged();
             }
@@ -10391,7 +10352,7 @@ namespace Paradiso
             {
                 OnterminalChanging(value);
                 ReportPropertyChanging("terminal");
-                _terminal = StructuralObject.SetValidValue(value, true);
+                _terminal = StructuralObject.SetValidValue(value, true, "terminal");
                 ReportPropertyChanged("terminal");
                 OnterminalChanged();
             }
@@ -10415,7 +10376,7 @@ namespace Paradiso
             {
                 Onticket_datetimeChanging(value);
                 ReportPropertyChanging("ticket_datetime");
-                _ticket_datetime = StructuralObject.SetValidValue(value);
+                _ticket_datetime = StructuralObject.SetValidValue(value, "ticket_datetime");
                 ReportPropertyChanged("ticket_datetime");
                 Onticket_datetimeChanged();
             }
@@ -10439,7 +10400,7 @@ namespace Paradiso
             {
                 Onsession_idChanging(value);
                 ReportPropertyChanging("session_id");
-                _session_id = StructuralObject.SetValidValue(value, true);
+                _session_id = StructuralObject.SetValidValue(value, true, "session_id");
                 ReportPropertyChanged("session_id");
                 Onsession_idChanged();
             }
@@ -10463,7 +10424,7 @@ namespace Paradiso
             {
                 OnstatusChanging(value);
                 ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
+                _status = StructuralObject.SetValidValue(value, "status");
                 ReportPropertyChanged("status");
                 OnstatusChanged();
             }
@@ -10474,7 +10435,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -10658,7 +10618,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -10677,7 +10637,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -10702,7 +10662,7 @@ namespace Paradiso
             {
                 OnuseridChanging(value);
                 ReportPropertyChanging("userid");
-                _userid = StructuralObject.SetValidValue(value, false);
+                _userid = StructuralObject.SetValidValue(value, false, "userid");
                 ReportPropertyChanged("userid");
                 OnuseridChanged();
             }
@@ -10726,7 +10686,7 @@ namespace Paradiso
             {
                 Onuser_passwordChanging(value);
                 ReportPropertyChanging("user_password");
-                _user_password = StructuralObject.SetValidValue(value, false);
+                _user_password = StructuralObject.SetValidValue(value, false, "user_password");
                 ReportPropertyChanged("user_password");
                 Onuser_passwordChanged();
             }
@@ -10750,7 +10710,7 @@ namespace Paradiso
             {
                 OndesignationChanging(value);
                 ReportPropertyChanging("designation");
-                _designation = StructuralObject.SetValidValue(value, false);
+                _designation = StructuralObject.SetValidValue(value, false, "designation");
                 ReportPropertyChanged("designation");
                 OndesignationChanged();
             }
@@ -10774,7 +10734,7 @@ namespace Paradiso
             {
                 Onuser_level_idChanging(value);
                 ReportPropertyChanging("user_level_id");
-                _user_level_id = StructuralObject.SetValidValue(value);
+                _user_level_id = StructuralObject.SetValidValue(value, "user_level_id");
                 ReportPropertyChanged("user_level_id");
                 Onuser_level_idChanged();
             }
@@ -10798,7 +10758,7 @@ namespace Paradiso
             {
                 OnlnameChanging(value);
                 ReportPropertyChanging("lname");
-                _lname = StructuralObject.SetValidValue(value, false);
+                _lname = StructuralObject.SetValidValue(value, false, "lname");
                 ReportPropertyChanged("lname");
                 OnlnameChanged();
             }
@@ -10822,7 +10782,7 @@ namespace Paradiso
             {
                 OnfnameChanging(value);
                 ReportPropertyChanging("fname");
-                _fname = StructuralObject.SetValidValue(value, false);
+                _fname = StructuralObject.SetValidValue(value, false, "fname");
                 ReportPropertyChanged("fname");
                 OnfnameChanged();
             }
@@ -10846,7 +10806,7 @@ namespace Paradiso
             {
                 OnmnameChanging(value);
                 ReportPropertyChanging("mname");
-                _mname = StructuralObject.SetValidValue(value, false);
+                _mname = StructuralObject.SetValidValue(value, false, "mname");
                 ReportPropertyChanged("mname");
                 OnmnameChanged();
             }
@@ -10870,7 +10830,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value);
+                _system_code = StructuralObject.SetValidValue(value, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -10894,7 +10854,7 @@ namespace Paradiso
             {
                 OnstatusChanging(value);
                 ReportPropertyChanging("status");
-                _status = StructuralObject.SetValidValue(value);
+                _status = StructuralObject.SetValidValue(value, "status");
                 ReportPropertyChanged("status");
                 OnstatusChanged();
             }
@@ -10905,7 +10865,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11071,7 +11030,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11090,7 +11049,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11115,7 +11074,7 @@ namespace Paradiso
             {
                 Onlevel_descChanging(value);
                 ReportPropertyChanging("level_desc");
-                _level_desc = StructuralObject.SetValidValue(value, false);
+                _level_desc = StructuralObject.SetValidValue(value, false, "level_desc");
                 ReportPropertyChanged("level_desc");
                 Onlevel_descChanged();
             }
@@ -11139,7 +11098,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value);
+                _system_code = StructuralObject.SetValidValue(value, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -11150,7 +11109,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -11182,7 +11140,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11201,7 +11159,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11226,7 +11184,7 @@ namespace Paradiso
             {
                 Onuser_levelChanging(value);
                 ReportPropertyChanging("user_level");
-                _user_level = StructuralObject.SetValidValue(value);
+                _user_level = StructuralObject.SetValidValue(value, "user_level");
                 ReportPropertyChanged("user_level");
                 Onuser_levelChanged();
             }
@@ -11250,7 +11208,7 @@ namespace Paradiso
             {
                 Onmodule_idChanging(value);
                 ReportPropertyChanging("module_id");
-                _module_id = StructuralObject.SetValidValue(value);
+                _module_id = StructuralObject.SetValidValue(value, "module_id");
                 ReportPropertyChanged("module_id");
                 Onmodule_idChanged();
             }
@@ -11274,7 +11232,7 @@ namespace Paradiso
             {
                 Onsystem_codeChanging(value);
                 ReportPropertyChanging("system_code");
-                _system_code = StructuralObject.SetValidValue(value);
+                _system_code = StructuralObject.SetValidValue(value, "system_code");
                 ReportPropertyChanged("system_code");
                 Onsystem_codeChanged();
             }
@@ -11285,7 +11243,6 @@ namespace Paradiso
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -11319,7 +11276,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11338,7 +11295,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11363,7 +11320,7 @@ namespace Paradiso
             {
                 Oncomputer_nameChanging(value);
                 ReportPropertyChanging("computer_name");
-                _computer_name = StructuralObject.SetValidValue(value, false);
+                _computer_name = StructuralObject.SetValidValue(value, false, "computer_name");
                 ReportPropertyChanged("computer_name");
                 Oncomputer_nameChanged();
             }
@@ -11387,7 +11344,7 @@ namespace Paradiso
             {
                 Onuser_idChanging(value);
                 ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
+                _user_id = StructuralObject.SetValidValue(value, "user_id");
                 ReportPropertyChanged("user_id");
                 Onuser_idChanged();
             }
@@ -11411,7 +11368,7 @@ namespace Paradiso
             {
                 Onuser_authorityChanging(value);
                 ReportPropertyChanging("user_authority");
-                _user_authority = StructuralObject.SetValidValue(value, false);
+                _user_authority = StructuralObject.SetValidValue(value, false, "user_authority");
                 ReportPropertyChanged("user_authority");
                 Onuser_authorityChanged();
             }
@@ -11435,7 +11392,7 @@ namespace Paradiso
             {
                 Ontime_inChanging(value);
                 ReportPropertyChanging("time_in");
-                _time_in = StructuralObject.SetValidValue(value);
+                _time_in = StructuralObject.SetValidValue(value, "time_in");
                 ReportPropertyChanged("time_in");
                 Ontime_inChanged();
             }
@@ -11446,7 +11403,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11524,7 +11480,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11543,7 +11499,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11568,7 +11524,7 @@ namespace Paradiso
             {
                 Oncomputer_nameChanging(value);
                 ReportPropertyChanging("computer_name");
-                _computer_name = StructuralObject.SetValidValue(value, false);
+                _computer_name = StructuralObject.SetValidValue(value, false, "computer_name");
                 ReportPropertyChanged("computer_name");
                 Oncomputer_nameChanged();
             }
@@ -11592,7 +11548,7 @@ namespace Paradiso
             {
                 Onuser_idChanging(value);
                 ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
+                _user_id = StructuralObject.SetValidValue(value, "user_id");
                 ReportPropertyChanged("user_id");
                 Onuser_idChanged();
             }
@@ -11616,7 +11572,7 @@ namespace Paradiso
             {
                 Onuser_authorityChanging(value);
                 ReportPropertyChanging("user_authority");
-                _user_authority = StructuralObject.SetValidValue(value, false);
+                _user_authority = StructuralObject.SetValidValue(value, false, "user_authority");
                 ReportPropertyChanged("user_authority");
                 Onuser_authorityChanged();
             }
@@ -11640,7 +11596,7 @@ namespace Paradiso
             {
                 Ontime_inChanging(value);
                 ReportPropertyChanging("time_in");
-                _time_in = StructuralObject.SetValidValue(value, false);
+                _time_in = StructuralObject.SetValidValue(value, false, "time_in");
                 ReportPropertyChanged("time_in");
                 Ontime_inChanged();
             }
@@ -11664,7 +11620,7 @@ namespace Paradiso
             {
                 Ontime_outChanging(value);
                 ReportPropertyChanging("time_out");
-                _time_out = StructuralObject.SetValidValue(value, false);
+                _time_out = StructuralObject.SetValidValue(value, false, "time_out");
                 ReportPropertyChanged("time_out");
                 Ontime_outChanged();
             }
@@ -11675,7 +11631,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11747,7 +11702,7 @@ namespace Paradiso
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -11766,7 +11721,7 @@ namespace Paradiso
                 {
                     OnidChanging(value);
                     ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value);
+                    _id = StructuralObject.SetValidValue(value, "id");
                     ReportPropertyChanged("id");
                     OnidChanged();
                 }
@@ -11791,7 +11746,7 @@ namespace Paradiso
             {
                 Onuser_idChanging(value);
                 ReportPropertyChanging("user_id");
-                _user_id = StructuralObject.SetValidValue(value);
+                _user_id = StructuralObject.SetValidValue(value, "user_id");
                 ReportPropertyChanged("user_id");
                 Onuser_idChanged();
             }
@@ -11815,7 +11770,7 @@ namespace Paradiso
             {
                 Onmodule_idChanging(value);
                 ReportPropertyChanging("module_id");
-                _module_id = StructuralObject.SetValidValue(value);
+                _module_id = StructuralObject.SetValidValue(value, "module_id");
                 ReportPropertyChanged("module_id");
                 Onmodule_idChanged();
             }
@@ -11826,7 +11781,6 @@ namespace Paradiso
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -11911,5 +11865,4 @@ namespace Paradiso
 
     #endregion
 
-    
 }
