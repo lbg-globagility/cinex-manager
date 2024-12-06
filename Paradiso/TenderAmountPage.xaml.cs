@@ -13,6 +13,13 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using Paradiso.Model;
 using System.Transactions;
+using Cinex.WinForm;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
+using Paradiso.EF.Ewallet;
+using Paradiso.EF;
+using Cinex.Core.Entities;
+using System.Threading.Tasks;
 
 namespace Paradiso
 {
@@ -24,6 +31,8 @@ namespace Paradiso
         public int MovieTimeKey { get; set; }
         public PatronSeatListModel SelectedPatronSeatList { get; set; }
         public GiftCertificateListModel SelectedGiftCertificateList { get; set; }
+        private HotKeyHelper _hotKeys;
+        private int _throwConfettiKeyId;
 
         public TenderAmountPage()
         {
@@ -210,12 +219,12 @@ namespace Paradiso
         }
 
 
-        private void confirmButton_Click(object sender, RoutedEventArgs e)
+        private async void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Confirm();
+            await Confirm();
         }
 
-        private void Confirm()
+        private async Task Confirm(SessionEwallet sessionEwallet = null)
         {
             //checks if change is valid
             decimal decCashAmount = 0;
@@ -302,6 +311,8 @@ namespace Paradiso
                     string strException = string.Empty;
                     string ornumber = string.Empty;
 
+                    var s = new session();
+
                     using (TransactionScope transaction = new TransactionScope())
                     {
                         try
@@ -309,7 +320,6 @@ namespace Paradiso
                             //save session information
                             string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
 
-                            var s = new session();
                             s.session_id = strSessionId;
                             s.payment_mode = intPaymentMode;
                             s.cash_amount = (float)decCashAmount;
@@ -370,7 +380,7 @@ namespace Paradiso
                                     var maxornumber = (from _mslrs in context.movies_schedule_list_reserved_seat
                                                        orderby _mslrs.id descending
                                                        select _mslrs.id).FirstOrDefault();
-                                    ornumber = string.Format("{0:000000000}", maxornumber+1);
+                                    ornumber = string.Format("{0:000000000}", maxornumber + 1);
                                 }
 
                                 //get taxes based on patron
@@ -477,7 +487,7 @@ namespace Paradiso
                         }
                         catch (Exception ex)
                         {
-                            
+
                             if (ex.InnerException != null)
                                 strException = ex.InnerException.Message.ToString();
                             else
@@ -533,6 +543,21 @@ namespace Paradiso
                         MessageWindow messageWindow = new MessageWindow();
                         messageWindow.MessageText.Text = "Transaction cannot be saved.";
                         messageWindow.ShowDialog();
+                    }
+
+                    if (sessionEwallet != null && !string.IsNullOrEmpty(s?.session_id))
+                    {
+                        sessionEwallet.SessionId = s.session_id;
+
+                        var userId = ParadisoObjectManager.GetInstance().UserId;
+
+                        var sessionEwalletDataService = DependencyInjectionHelper.GetSessionEwalletDataService;
+
+                        await Task.Run(async () =>
+                            {
+                                await sessionEwalletDataService.SaveManyAsync(userId,
+                                    added: new List<SessionEwallet>() { sessionEwallet });
+                            });
                     }
                 }
             }
@@ -670,6 +695,71 @@ namespace Paradiso
                 }
                 window.Close();
             }
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            
+            LoadHotKeyHelper();
+        }
+
+        private void LoadHotKeyHelper()
+        {
+            var active = HotKeyHelper.GetActiveWindow();
+
+            //var activeWindow = Window.GetWindow(this);
+            var activeWindow = Application.Current.Windows.OfType<Window>()
+                .FirstOrDefault(window => new WindowInteropHelper(window).Handle == active);
+
+            if (activeWindow == null) return;
+
+            _hotKeys = new HotKeyHelper(handlerWindow: activeWindow);
+
+            _throwConfettiKeyId = _hotKeys.ListenForHotKey(
+                Key.F1,
+                HotKeyModifiers.None,
+                () =>
+                {
+                    _hotKeys.Dispose();
+                    eWallet_Click(eWalletButton, new RoutedEventArgs());
+                });
+        }
+
+        private async void eWallet_Click(object sender, RoutedEventArgs e)
+        {
+            var userId = ParadisoObjectManager.GetInstance().UserId;
+            if (!(userId > 0)) return;
+            
+            _hotKeys.Dispose();
+
+            string strSessionId = ParadisoObjectManager.GetInstance().SessionId;
+
+            var form = new frmEwalletTransaction2(userId: userId, sessionId: strSessionId);
+            var _bool = form.ShowDialog() ?? false;
+            if (!form.HasSessionEwallet)
+            {
+                Focus();
+
+                TotalAmountPaid.Focus();
+
+                LoadHotKeyHelper();
+            }
+            else
+            {
+                TotalAmountPaid.Text = $"{SelectedPatronSeatList.Total}";
+
+                await Confirm(sessionEwallet: form.SessionEwallet)
+                    .ContinueWith((a) =>
+                    {
+                        LoadHotKeyHelper();
+                    }, TaskScheduler.FromCurrentSynchronizationContext()); ;
+            }
+        }
+
+        private void TenderAmountPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _hotKeys.Dispose();
         }
     }
 }

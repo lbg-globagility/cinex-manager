@@ -14,18 +14,36 @@ namespace Cinex.Infrastructure.Data.Repositories
         {
         }
 
-        public SystemModule GetByCode(string code)
+        public SystemModule GetByCode(string code, string desc = "", string group = "")
         {
             var query = _context.SystemModules
             .AsNoTracking()
             .Where(t => t.Code == code)
             .AsQueryable();
 
+            if (!string.IsNullOrEmpty(desc))
+                query = query.Where(t => t.Description == desc);
+
+            if (!string.IsNullOrEmpty(group))
+                query = query.Where(t => t.Group == group);
+
             return query.AsEnumerable().FirstOrDefault();
         }
 
-        public async Task<SystemModule> GetByCodeAsync(string code) => await _context.SystemModules
+        public async Task<SystemModule> GetByCodeAsync(string code, string desc = "", string group = "")
+        {
+            var query = _context.SystemModules
             .AsNoTracking()
-            .FirstOrDefaultAsync(t => t.Code == code);
+            .Where(t => t.Code == code)
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(desc))
+                query = query.Where(t => t.Description == desc);
+
+            if (!string.IsNullOrEmpty(group))
+                query = query.Where(t => t.Group == group);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

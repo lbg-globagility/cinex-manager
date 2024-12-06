@@ -5,6 +5,8 @@ using Cinex.Infrastructure.Data.DomainServices;
 using Cinex.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Cinex.WinForm
 {
@@ -38,8 +40,13 @@ namespace Cinex.WinForm
         {
             services.AddDbContext<CinexContext>(options =>
             {
-                options.UseMySql(connectionString: _connectionString)//, serverVersion: ServerVersion.AutoDetect(CONNECTION_STRING)
-                .EnableSensitiveDataLogging();
+                options.UseMySql(connectionString: _connectionString,
+                    o =>
+                    {
+                        o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null);
+                    })//, serverVersion: ServerVersion.AutoDetect(_connectionString)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
                 //.UseQueryTrackingBehavior(default);
             });
 
@@ -50,6 +57,7 @@ namespace Cinex.WinForm
             services.AddScoped<ICinemaPatronDefaultRepository, CinemaPatronDefaultRepository>();
             services.AddScoped<IEwalletRepository, EwalletRepository>();
             services.AddScoped<IPatronRepository, PatronRepository>();
+            services.AddScoped<ISessionEwalletRepository, SessionEwalletRepository>();
             services.AddScoped<ISystemModuleRepository, SystemModuleRepository>();
 
             // Data Service
@@ -58,6 +66,7 @@ namespace Cinex.WinForm
             services.AddScoped<ICinemaPatronDefaultDataService, CinemaPatronDefaultDataService>();
             services.AddScoped<IEwalletDataService, EwalletDataService>();
             services.AddScoped<IPatronDataService, PatronDataService>();
+            services.AddScoped<ISessionEwalletDataService, SessionEwalletDataService>();
         }
     }
 }

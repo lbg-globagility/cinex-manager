@@ -6,8 +6,8 @@ namespace Cinex.Core.Interfaces.Repositories
 {
     public interface ISystemModuleRepository : ISavableRepository<SystemModule>
     {
-        Task<SystemModule> GetByCodeAsync(string code);
+        Task<SystemModule> GetByCodeAsync(string code, string desc = "", string group = "");
 
-        SystemModule GetByCode(string code);
+        SystemModule GetByCode(string code, string desc = "", string group = "");
     }
 }

@@ -30,6 +30,8 @@ namespace Cinex.Core.Entities
         public const string PATRON_EDIT_CODE_TEXT = "PATRON_EDIT";
         public const string PATRON_DELETE_CODE_TEXT = "PATRON_DELETE";
 
+        public const string RESERVE_CODE_TEXT = "RESERVE";
+
         private SystemModule() { }
 
         public virtual SystemCode SystemCode { get; set; }

@@ -36,5 +36,7 @@ namespace Cinex.Core.Entities
         public static Ewallet New(string name) => new Ewallet(name);
 
         public virtual ICollection<Patron> Patrons { get; set; }
+
+        public virtual ICollection<SessionEwallet> SessionEwallets { get; set; }
     }
 }

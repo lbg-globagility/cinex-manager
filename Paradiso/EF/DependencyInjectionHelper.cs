@@ -26,6 +26,8 @@ namespace Paradiso.EF
 
         public static IEwalletDataService GetEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<IEwalletDataService>();
 
+        public static ISessionEwalletDataService GetSessionEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<ISessionEwalletDataService>();
+
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();
     }
 }

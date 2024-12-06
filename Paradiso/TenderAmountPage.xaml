@@ -7,7 +7,7 @@
       xmlns:l="clr-namespace:Paradiso"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
-	  SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
+	  SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown" Unloaded="TenderAmountPage_Unloaded" >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -160,6 +160,7 @@
                     </DockPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+                    <Button Margin="5, 5, 220, 5" Content="(F1) E-WALLET" Height="23" Name="eWalletButton" Width="120" Click="eWallet_Click" Background="#FF6082B6" BorderBrush="#FF2F2F2F" Foreground="White" />
                     <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
                     <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click"/>
                     <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click"  />
