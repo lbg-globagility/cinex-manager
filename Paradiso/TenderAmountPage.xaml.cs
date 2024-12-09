@@ -615,11 +615,11 @@ namespace Paradiso
             */
         }
 
-        private void Page_PreviewKeyDown(object sender, KeyEventArgs e)
+        private async void Page_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
             {
-                this.Confirm();
+                await Confirm();
             }
         }
 
