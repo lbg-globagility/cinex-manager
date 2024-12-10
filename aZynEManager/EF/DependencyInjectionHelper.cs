@@ -31,6 +31,8 @@ namespace aZynEManager.EF
 
         public static IEwalletDataService GetEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<IEwalletDataService>();
 
+        public static IConfigurationDataService GetConfigurationDataService => NewInstance.MainServiceProvider.GetRequiredService<IConfigurationDataService>();
+
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();
     }
 }

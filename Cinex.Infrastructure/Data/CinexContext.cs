@@ -14,6 +14,7 @@ namespace Cinex.Infrastructure.Data
         internal virtual DbSet<Cinema> Cinemas { get; set; }
         internal virtual DbSet<CinemaPatron> CinemaPatrons { get; set; }
         internal virtual DbSet<CinemaPatronDefault> DefaultPatrons { get; set; }
+        internal virtual DbSet<Configuration> Configurations { get; set; }
         internal virtual DbSet<Ewallet> Ewallets { get; set; }
         internal virtual DbSet<Patron> Patrons { get; set; }
         internal virtual DbSet<SessionEwallet> SessionEwallets { get; set; }
