@@ -1868,6 +1868,8 @@ namespace aZynEManager
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                     else if ((reportcode == "RP20") && (_intWithQtyBreakdown == 1))
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
+                    else if (reportcode == "RP24")
+                        xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "_fsm.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                     else if ((reportcode == "RP27") && (_intWithUtil == 1))
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                 }
