@@ -13,6 +13,9 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Xml;
 using System.Data.Odbc;
+using aZynEManager.EF;
+using Cinex.Core.Entities;
+using System.Threading.Tasks;
 
 namespace aZynEManager
 {
@@ -111,14 +114,14 @@ namespace aZynEManager
             set { _intWithQtyBreakdown = value; }
         }
 
-        public void frmInit(frmMain frm, clscommon cls, string reportcode)
+        public async void frmInit(frmMain frm, clscommon cls, string reportcode)
         {
             m_frmM = frm;
             m_clscom = cls;
             m_clsconfig = m_clscom.m_clscon;
             //MessageBox.Show(module + "-" + account);
             //return;
-            frmInitDbase(reportcode);
+            await frmInitDbase(reportcode);
 
         }
 
@@ -129,7 +132,7 @@ namespace aZynEManager
             frmInit(frm: frm, cls: cls, reportcode: reportcode);
         }
 
-        public void frmInitDbase(string reportcode)
+        private async Task frmInitDbase(string reportcode)
         {
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
             try
@@ -1608,7 +1611,12 @@ namespace aZynEManager
                         stablenm = String.Empty;
                         stablenm = "tmp_pos";
                         m_clscom.refreshTable(m_frmM, stablenm, m_frmM._connection);
-                        m_clscom.populatePOSTable(m_frmM, stablenm, m_frmM._connection,_dtStart,_dtEnd);
+
+                        var configurationDataService = DependencyInjectionHelper.GetConfigurationDataService;
+                        var config = await configurationDataService.GetORNumberFormatAsync();
+                        var orNumberFormat = string.IsNullOrEmpty(config?.Value) ? Configuration.DEFAULT_OR_NUMBER_FORMAT_VALUE : config.Value;
+
+                        m_clscom.populatePOSTable(m_frmM, stablenm, m_frmM._connection,_dtStart,_dtEnd, orNumberFormat: orNumberFormat);
 
                         sqry = new StringBuilder();
                         sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
