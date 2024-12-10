@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Data.Odbc;
 using System.Collections;
+using Cinex.Core.Entities;
 
 namespace aZynEManager
 {
@@ -2241,7 +2242,7 @@ namespace aZynEManager
             }
         }
 
-        public void populatePOSTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
+        public void populatePOSTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate, string orNumberFormat = "B")
         {
             try
             {
@@ -2335,11 +2336,21 @@ namespace aZynEManager
                         sumtotsc += totsc;
 
                         value = dr[2];
-                        if (value == DBNull.Value)
-                            lastor = 0;
-                        else
-                            lastor = Convert.ToInt32(dr[2]);
-                        strval[colcntr,rowcntr] = lastor.ToString();
+                        if (orNumberFormat == Configuration.DEFAULT_OR_NUMBER_FORMAT_VALUE)
+                        {
+                            if (value == DBNull.Value)
+                                lastor = 0;
+                            else
+                                lastor = Convert.ToInt32(dr[2]);
+
+                            strval[colcntr, rowcntr] = lastor.ToString();
+                        }
+                        else if (orNumberFormat == "A")
+                        {
+                            var lastORnum = string.IsNullOrEmpty(dr[2]?.ToString()) ? 0 : dr[2];
+                            strval[colcntr, rowcntr] = $"{lastORnum}";
+                        }
+
                         colcntr += 1;
 
                         rowcntr += 1;
