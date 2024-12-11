@@ -1524,16 +1524,8 @@ namespace aZynEManager
                         _dtEnd = lastDayOfMonth;
                         
                         sqry = new StringBuilder();
-                        sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
-                        sqry.Append(String.Format("FROM {0} a, config_table g, report h ", stablenm));
-                        sqry.Append(String.Format("WHERE userid = '{0}' ", m_frmM.m_usercode));
-                        sqry.Append("AND g.system_code = '001'");
-                        sqry.Append("AND h.id = 23 ");
-                        sqry.Append("ORDER BY report_date ASC");
-
-                        //sqry.Append(String.Format("SELECT * FROM {0} ", stablenm));
-                        //sqry.Append(String.Format("WHERE userid = '{0}' ", m_frmM.m_usercode));
-                        //sqry.Append("ORDER BY report_date ASC");
+                        sqry.Clear();
+                        sqry.Append($"CALL `rp23`(STR_TO_DATE('{_dtStart.Date:M/d/yyyy}', '%c/%e/%Y'), '{m_frmM.m_usercode}');");
 
                         break;
                     case "RP20"://added 1.4.2016
