@@ -18,6 +18,7 @@ using Paradiso.Helpers;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections;
+using Paradiso.EF;
 
 namespace Paradiso
 {
@@ -2199,7 +2200,7 @@ namespace Paradiso
             }
         }
 
-        private void TicketSessionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void TicketSessionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TicketList.Tickets.Clear();
             string strSessionId = string.Empty;
@@ -2309,33 +2310,34 @@ namespace Paradiso
                     }
                     else
                     {
-                        //ticket and details
-                        var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
-                                       where mslrs.ticket.session_id == strSessionId && mslrs.status == 1
-                                       select new
-                                       {
-                                           id = mslrs.id,
-                                           cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
-                                           moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
-                                           rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
-                                           seattype = mslrs.movies_schedule_list.seat_type,
-                                           startdate = mslrs.movies_schedule_list.start_time,
-                                           patroncode = mslrs.movies_schedule_list_patron.patron.code,
-                                           patronname = mslrs.movies_schedule_list_patron.patron.name,
-                                           patrondescription = mslrs.movies_schedule_list_patron.patron.name,
-                                           seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
-                                           price = mslrs.price,
-                                           ornumber = mslrs.or_number,
-                                           at = mslrs.amusement_tax_amount,
-                                           ct = mslrs.cultural_tax_amount,
-                                           vt = mslrs.vat_amount,
-                                           terminalname = mslrs.ticket.terminal,
-                                           tellercode = mslrs.ticket.user.userid,
+                        var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+                        var movieScheduleListReserveSeats = await movieScheduleListReserveSeatDataService.GetBySessionIdAsync(strSessionId);
+                        var tickets = movieScheduleListReserveSeats
+                            .Select(t => new
+                            {
+                                id = t.Id,
+                                cinemanumber = t.MovieScheduleList.MovieSchedule.Cinema.InOrder,
+                                moviecode = t.MovieScheduleList.MovieSchedule.Movie.Title,
+                                rating = t.MovieScheduleList.MovieSchedule.Movie.Mtrcb.Name,
+                                seattype = t.MovieScheduleList.SeatType,
+                                startdate = t.MovieScheduleList.StartTime,
+                                patroncode = t.MovieScheduleListPatron.Patron.Code,
+                                patronname = t.MovieScheduleListPatron.Patron.Name,
+                                patrondescription = t.MovieScheduleListPatron.Patron.Name,
+                                seatname = t.CinemaSeat.ColumnName + t.CinemaSeat.RowName,
+                                price = t.Price,
+                                ornumber = t.ORNumber,
+                                at = t.AmusementTaxAmount,
+                                ct = t.CulturalTaxAmount,
+                                vt = t.VatAmount,
+                                terminalname = t.Ticket.Terminal,
+                                tellercode = t.Ticket.User.UserId,
 
-                                           session = mslrs.ticket.session_id,
-                                           isvoid = (mslrs.void_datetime != null),
+                                session = t.Ticket.SessionId,
+                                isvoid = t.VoidDateTime != null,
 
-                                       }).ToList();
+                            })
+                            .ToList();
 
                         DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
                         foreach (var t in tickets)
