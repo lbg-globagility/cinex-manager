@@ -28,6 +28,8 @@ namespace Paradiso.EF
 
         public static ISessionEwalletDataService GetSessionEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<ISessionEwalletDataService>();
 
+        public static IMovieScheduleListReserveSeatDataService GetMovieScheduleListReserveSeatDataService => NewInstance.MainServiceProvider.GetRequiredService<IMovieScheduleListReserveSeatDataService>();
+        
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();
     }
 }

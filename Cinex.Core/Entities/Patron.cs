@@ -1,4 +1,5 @@
 ﻿using Cinex.Core.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -49,8 +50,9 @@ namespace Cinex.Core.Entities
         [Column("with_surcharge")]
         public int? WithSurcharge { get; set; }
 
+        [Obsolete]
         [Column("ewallet_id")]
-        public int? EwalletId { get; set; }
+        public int? EwalletId { get; private set; }
     }
 
     public partial class Patron
@@ -63,6 +65,8 @@ namespace Cinex.Core.Entities
 
         public decimal OfficialUnitPrice => (decimal)(TicketPrice?.Price ?? UnitPrice);
 
-        public virtual Ewallet Ewallet { get; set; }
+        //public virtual Ewallet Ewallet { get; set; }
+
+        public virtual ICollection<MovieScheduleListPatron> MovieScheduleListPatrons { get; set; }
     }
 }

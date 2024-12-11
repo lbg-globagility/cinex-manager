@@ -45,6 +45,7 @@ namespace Cinex.Test
             services.AddScoped<IEwalletRepository, EwalletRepository>();
             services.AddScoped<IPatronRepository, PatronRepository>();
             services.AddScoped<ISystemModuleRepository, SystemModuleRepository>();
+            services.AddScoped<IMovieScheduleListReserveSeatRepository, MovieScheduleListReserveSeatRepository>();
 
             // Data Service
             services.AddScoped<ICinemaDataService, CinemaDataService>();
@@ -52,6 +53,8 @@ namespace Cinex.Test
             services.AddScoped<ICinemaPatronDefaultDataService, CinemaPatronDefaultDataService>();
             services.AddScoped<IEwalletDataService, EwalletDataService>();
             services.AddScoped<IPatronDataService, PatronDataService>();
+            services.AddScoped<IMovieScheduleListReserveSeatDataService, MovieScheduleListReserveSeatDataService>();
+            
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Cinex.Core.Entities
         [Column("reference_number")]
         public string ReferenceNo { get; set; }
 
+        [NotMapped]
+        //[Column("ewallet_method")]
+        public string EwalletMethod { get; set; }
+
         [Column("ewallet_id")]
         public int EwalletId { get; set; }
 
@@ -50,6 +54,8 @@ namespace Cinex.Core.Entities
                 referenceNo: referenceNo,
                 eWalletId: eWalletId,
                 remarks: remarks);
+
+        public virtual Session Session { get; set; }
 
         public virtual Ewallet Ewallet { get; set; }
     }

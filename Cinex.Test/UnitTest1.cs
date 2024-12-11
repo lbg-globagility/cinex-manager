@@ -1,6 +1,7 @@
 using Cinex.Core.Entities;
 using Cinex.Core.Interfaces.DomainServices;
 using Cinex.Core.Interfaces.Repositories;
+using Cinex.Infrastructure.Data.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinex.Test
@@ -60,6 +61,27 @@ namespace Cinex.Test
                     }, TaskScheduler.Default);
 
                 
+            }
+            catch (Exception ex)
+            {
+                throw GetInnerException(ex);
+            }
+        }
+
+        [Test]
+        public async Task Test3()
+        {
+            try
+            {
+                var movieScheduleListReserveSeatDataService = MainServiceProvider.GetRequiredService<IMovieScheduleListReserveSeatDataService>();
+                var movieScheduleListReserveSeats = await movieScheduleListReserveSeatDataService.GetBySessionIdAsync("20241101-144000-239");
+                    //.ContinueWith((a) => {
+                    //    if (!a.IsCompleted) return;
+
+
+                    //}, TaskScheduler.Default);
+                
+                Console.WriteLine(movieScheduleListReserveSeats?.Count() ?? 0);
             }
             catch (Exception ex)
             {

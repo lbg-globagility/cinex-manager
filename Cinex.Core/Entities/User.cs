@@ -1,5 +1,7 @@
 ﻿
 using Cinex.Core.Entities.Base;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinex.Core.Entities
@@ -42,5 +44,7 @@ namespace Cinex.Core.Entities
         public virtual UserLevel UserLevel { get; set; }
 
         public virtual SystemCode SystemCode { get; set; }
+
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

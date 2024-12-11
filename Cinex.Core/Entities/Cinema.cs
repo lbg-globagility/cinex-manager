@@ -103,5 +103,7 @@ namespace Cinex.Core.Entities
                     p.SetDelete();
                 });
         }
+
+        public virtual ICollection<MovieSchedule> MovieSchedules { get; set; }
     }
 }
