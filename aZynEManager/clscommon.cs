@@ -2341,14 +2341,18 @@ namespace aZynEManager
                             if (value == DBNull.Value)
                                 lastor = 0;
                             else
-                                lastor = Convert.ToInt32(dr[2]);
+                                lastor = Convert.ToInt32(value);
 
                             strval[colcntr, rowcntr] = lastor.ToString();
                         }
                         else if (orNumberFormat == "A")
                         {
-                            var lastORnum = string.IsNullOrEmpty(dr[2]?.ToString()) ? 0 : dr[2];
+                            var lastORnum = string.IsNullOrEmpty(value?.ToString()) ? 0 : value;
                             strval[colcntr, rowcntr] = $"{lastORnum}";
+                        }
+                        else
+                        {
+                            strval[colcntr, rowcntr] = value?.ToString();
                         }
 
                         colcntr += 1;
