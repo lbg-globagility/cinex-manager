@@ -1,0 +1,6 @@
+
+ALTER TABLE `ewallets`
+	ADD COLUMN `is_active` TINYINT NOT NULL DEFAULT '1' AFTER `acct_no`;
+
+ALTER TABLE `ewallets`
+	ADD COLUMN `is_default` TINYINT NOT NULL DEFAULT 0 AFTER `is_active`;
