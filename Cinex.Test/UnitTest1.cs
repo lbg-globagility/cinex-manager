@@ -1,7 +1,6 @@
 using Cinex.Core.Entities;
 using Cinex.Core.Interfaces.DomainServices;
 using Cinex.Core.Interfaces.Repositories;
-using Cinex.Infrastructure.Data.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinex.Test

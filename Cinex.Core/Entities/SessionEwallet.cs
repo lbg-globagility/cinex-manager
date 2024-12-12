@@ -1,4 +1,5 @@
 ﻿using Cinex.Core.Entities.Base;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinex.Core.Entities
@@ -15,9 +16,10 @@ namespace Cinex.Core.Entities
         [Column("reference_number")]
         public string ReferenceNo { get; set; }
 
+        [Obsolete]
         [NotMapped]
         //[Column("ewallet_method")]
-        public string EwalletMethod { get; set; }
+        public string EwalletMethod { get; private set; }
 
         [Column("ewallet_id")]
         public int EwalletId { get; set; }
