@@ -113,3 +113,15 @@ Paradiso/bin/Debug
 Paradiso/obj/x86/Debug
 Paradiso/.vs/Paradiso.csproj.dtbcache*
 .vs/aZynEManager/FileContentIndex/merges/*.vsidx
+.vs/ProjectEvaluation/azynemanager.metadata.v9*.bin
+.vs/ProjectEvaluation/azynemanager.projects.v9*.bin
+.vs/ProjectEvaluation/azynemanager.strings.v9*.bin
+Cinex.Core/obj/Cinex.Core.csproj.nuget.dgspec*.json
+Cinex.Core/obj/Cinex.Core.csproj.nuget.g*.props
+Cinex.Core/obj/project.assets*.json
+Cinex.Infrastructure/obj/Cinex.Infrastructure.csproj.nuget.dgspec*.json
+Cinex.Infrastructure/obj/Cinex.Infrastructure.csproj.nuget.g*.props
+Cinex.Infrastructure/obj/project.assets*.json
+Cinex.Test/obj/Cinex.Test.csproj.nuget.dgspec*.json
+Cinex.Test/obj/Cinex.Test.csproj.nuget.g*.props
+Cinex.Test/obj/project.assets*.json
