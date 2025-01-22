@@ -232,6 +232,12 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="app.Debug.config">
+      <DependentUpon>app.config</DependentUpon>
+    </None>
+    <None Include="app.Release.config">
+      <DependentUpon>app.config</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\cinemaEntities.datasource" />
     <None Include="Properties\Settings.settings">
@@ -549,4 +555,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="SetAppConfig" BeforeTargets="Compile">
+    <Copy SourceFiles="app.Debug.config" DestinationFiles="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)' == 'Debug' " />
+    <Copy SourceFiles="app.Release.config" DestinationFiles="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)' == 'Release' " />
+</Target>
 </Project>
