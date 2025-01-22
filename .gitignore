@@ -151,3 +151,4 @@ RdlEngine/bin/x86/Release
 RdlEngine/obj/x86/Release
 RdlViewer/obj/x86/Release
 System.Windows.Forms.Calendar/obj/Release
+Cinemapps/app.Debug*.config
