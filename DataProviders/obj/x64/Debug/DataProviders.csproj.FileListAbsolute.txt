@@ -1,8 +1,0 @@
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\x64\Debug\DataProviders.dll
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\x64\Debug\DataProviders.pdb
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\x64\Debug\DataProviders.dll
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\x64\Debug\DataProviders.pdb
-H:\development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\x64\Debug\DataProviders.dll
-H:\development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\bin\x64\Debug\DataProviders.pdb
-H:\development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\x64\Debug\DataProviders.dll
-H:\development\cinexfromgit64bit\azyne\aZynEManager\DataProviders\obj\x64\Debug\DataProviders.pdb

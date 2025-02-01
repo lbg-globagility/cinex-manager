@@ -1,6 +1,0 @@
-E:\Repositories\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.dll
-E:\Repositories\aZynEManager\EncryptUtilities\bin\Debug\EncryptUtilities.pdb
-E:\Repositories\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.csproj.AssemblyReference.cache
-E:\Repositories\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.csproj.CoreCompileInputs.cache
-E:\Repositories\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.dll
-E:\Repositories\aZynEManager\EncryptUtilities\obj\Debug\EncryptUtilities.pdb

@@ -1,4 +1,0 @@
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlEngine\obj\x64\Debug\RdlEngine.csprojResolveAssemblyReference.cache
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlEngine\obj\x64\Debug\RdlEngine.Resources.Strings.resources
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlEngine\obj\x64\Debug\RdlEngine.Resources.Strings.ru-RU.resources
-D:\Development\cinexfromgit64bit\azyne\aZynEManager\RdlEngine\obj\x64\Debug\RdlEngine.csproj.GenerateResource.Cache
