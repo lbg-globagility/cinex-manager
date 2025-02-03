@@ -470,9 +470,9 @@
     </Content>
     <Resource Include="reports\RP072.xml" />
     <Resource Include="reports\RP07ver2.xml" />
-    <Resource Include="reports\RP08-2.xml">
+    <Content Include="reports\RP08-2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="reports\RP08.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -529,18 +529,18 @@
     <Content Include="reports\RP24.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="reports\RP24_fsm.xml">
+    <Content Include="reports\RP24_fsm.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="reports\RP25.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="reports\RP26.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="reports\RP27-2.xml">
+    <Content Include="reports\RP27-2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="reports\RP27.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -560,5 +560,5 @@
   <Target Name="SetAppConfig" AfterTargets="Compile">
     <Copy SourceFiles="app.Debug.config" DestinationFiles="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)' == 'Debug' " />
     <Copy SourceFiles="app.Release.config" DestinationFiles="@(AppConfigWithTargetPath->'$(OutDir)%(TargetPath)')" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)' == 'Release' " />
-</Target>
+  </Target>
 </Project>

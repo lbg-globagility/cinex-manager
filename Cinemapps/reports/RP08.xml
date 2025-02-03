@@ -720,7 +720,6 @@
                         <FontSize>9pt</FontSize>
                         <PaddingLeft>5pt</PaddingLeft>
                       </Style>
-                      <HideDuplicates>Data</HideDuplicates>
                       <CanGrow>true</CanGrow>
                     </Textbox>
                   </ReportItems>
@@ -746,7 +745,6 @@
                         <Format>#,##0</Format>
                         <PaddingRight>2pt</PaddingRight>
                       </Style>
-                      <HideDuplicates>Data</HideDuplicates>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
@@ -771,7 +769,6 @@
                         <FontSize>9pt</FontSize>
                         <PaddingRight>2pt</PaddingRight>
                       </Style>
-                      <HideDuplicates>Data</HideDuplicates>
                     </Textbox>
                   </ReportItems>
                   <ColSpan>2</ColSpan>
