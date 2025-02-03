@@ -20,6 +20,7 @@ using System.Threading;
 using Amellar.Common.EncryptUtilities;
 using MySql.Data.MySqlClient;
 using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace Cinemapps
 {
@@ -102,6 +103,12 @@ namespace Cinemapps
             {
                 TileDesc.Visibility = System.Windows.Visibility.Visible;
                 TileTitle.Text = sysName;
+            }
+
+            if (Debugger.IsAttached)
+            {
+                UserName.Text = "admin";
+                UserPassword.Password = "NimdA";
             }
         }
 
