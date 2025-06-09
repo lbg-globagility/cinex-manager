@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using aZynEManager.EF.Ewallet;
 using MySql.Data.MySqlClient;
 
 namespace aZynEManager
@@ -217,6 +218,11 @@ namespace aZynEManager
             frmsurcharg.Dispose();
         }
 
-
+        private void linklabelManageEwallets_LinkClicked(object sender, EventArgs e)
+        {
+            unselectButton();
+            var form = new frmEwallet(m_frmM.UserID);
+            form.ShowDialog();
+        }
     }
 }

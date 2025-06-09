@@ -1,0 +1,1237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="paradisoModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="paradisoModelStoreContainer">
+    <EntitySet Name="a_trail" EntityType="paradisoModel.Store.a_trail" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="application" EntityType="paradisoModel.Store.application" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="buyer" EntityType="paradisoModel.Store.buyer" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="buyer_info" EntityType="paradisoModel.Store.buyer_info" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="buyer_info_reserved" EntityType="paradisoModel.Store.buyer_info_reserved" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="cinema" EntityType="paradisoModel.Store.cinema" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="cinema_patron" EntityType="paradisoModel.Store.cinema_patron" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="cinema_seat" EntityType="paradisoModel.Store.cinema_seat" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="classification" EntityType="paradisoModel.Store.classification" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="config_table" EntityType="paradisoModel.Store.config_table" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="distributor" EntityType="paradisoModel.Store.distributor" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="gift_certificate" EntityType="paradisoModel.Store.gift_certificate" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies" EntityType="paradisoModel.Store.movies" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_class" EntityType="paradisoModel.Store.movies_class" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_distributor" EntityType="paradisoModel.Store.movies_distributor" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule" EntityType="paradisoModel.Store.movies_schedule" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule_list" EntityType="paradisoModel.Store.movies_schedule_list" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule_list_house_seat" EntityType="paradisoModel.Store.movies_schedule_list_house_seat" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule_list_patron" EntityType="paradisoModel.Store.movies_schedule_list_patron" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule_list_reserved_seat" EntityType="paradisoModel.Store.movies_schedule_list_reserved_seat" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_status" EntityType="paradisoModel.Store.movies_status" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="mtrcb" EntityType="paradisoModel.Store.mtrcb" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="ordinance_tbl" EntityType="paradisoModel.Store.ordinance_tbl" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="patrons" EntityType="paradisoModel.Store.patrons" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="patrons_ordinance" EntityType="paradisoModel.Store.patrons_ordinance" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="people" EntityType="paradisoModel.Store.people" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="report" EntityType="paradisoModel.Store.report" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="session" EntityType="paradisoModel.Store.session" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="session_gift_certificate" EntityType="paradisoModel.Store.session_gift_certificate" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="sound_system" EntityType="paradisoModel.Store.sound_system" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="system_module" EntityType="paradisoModel.Store.system_module" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="ticket" EntityType="paradisoModel.Store.ticket" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="user_level" EntityType="paradisoModel.Store.user_level" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="user_level_rights" EntityType="paradisoModel.Store.user_level_rights" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="user_logs" EntityType="paradisoModel.Store.user_logs" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="user_logs_temp" EntityType="paradisoModel.Store.user_logs_temp" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="user_rights" EntityType="paradisoModel.Store.user_rights" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="users" EntityType="paradisoModel.Store.users" store:Type="Tables" Schema="azynema" />
+    <EntitySet Name="movies_schedule_list_house_seat_free_view" EntityType="paradisoModel.Store.movies_schedule_list_house_seat_free_view" store:Type="Views" store:Schema="azynema" store:Name="movies_schedule_list_house_seat_free_view">
+      <DefiningQuery>SELECT
+      `movies_schedule_list_house_seat_free_view`.`id`, 
+      `movies_schedule_list_house_seat_free_view`.`movies_schedule_list_id`, 
+      `movies_schedule_list_house_seat_free_view`.`cinema_seat_id`, 
+      `movies_schedule_list_house_seat_free_view`.`full_name`, 
+      `movies_schedule_list_house_seat_free_view`.`notes`, 
+      `movies_schedule_list_house_seat_free_view`.`reserved_date`, 
+      `movies_schedule_list_house_seat_free_view`.`session_id`, 
+      `movies_schedule_list_house_seat_free_view`.`movies_schedule_list_patron_id`
+      FROM `movies_schedule_list_house_seat_free_view` AS `movies_schedule_list_house_seat_free_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="movies_schedule_list_house_seat_view" EntityType="paradisoModel.Store.movies_schedule_list_house_seat_view" store:Type="Views" store:Schema="azynema" store:Name="movies_schedule_list_house_seat_view">
+      <DefiningQuery>SELECT
+      `movies_schedule_list_house_seat_view`.`id`, 
+      `movies_schedule_list_house_seat_view`.`movies_schedule_list_id`, 
+      `movies_schedule_list_house_seat_view`.`cinema_seat_id`, 
+      `movies_schedule_list_house_seat_view`.`full_name`, 
+      `movies_schedule_list_house_seat_view`.`notes`, 
+      `movies_schedule_list_house_seat_view`.`reserved_date`, 
+      `movies_schedule_list_house_seat_view`.`session_id`, 
+      `movies_schedule_list_house_seat_view`.`movies_schedule_list_patron_id`
+      FROM `movies_schedule_list_house_seat_view` AS `movies_schedule_list_house_seat_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="movies_schedule_list_patron_ordinance_surcharge_view" EntityType="paradisoModel.Store.movies_schedule_list_patron_ordinance_surcharge_view" store:Type="Views" store:Schema="azynema" store:Name="movies_schedule_list_patron_ordinance_surcharge_view">
+      <DefiningQuery>SELECT
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`patron_id`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`amount_val`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`in_pesovalue`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`with_enddate`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`effective_date`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`end_date`, 
+      `movies_schedule_list_patron_ordinance_surcharge_view`.`isordinance`
+      FROM `movies_schedule_list_patron_ordinance_surcharge_view` AS `movies_schedule_list_patron_ordinance_surcharge_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="movies_schedule_list_patron_ordinance_view" EntityType="paradisoModel.Store.movies_schedule_list_patron_ordinance_view" store:Type="Views" store:Schema="azynema" store:Name="movies_schedule_list_patron_ordinance_view">
+      <DefiningQuery>SELECT
+      `movies_schedule_list_patron_ordinance_view`.`id`, 
+      `movies_schedule_list_patron_ordinance_view`.`movies_schedule_list_id`, 
+      `movies_schedule_list_patron_ordinance_view`.`patron_id`, 
+      `movies_schedule_list_patron_ordinance_view`.`price`, 
+      `movies_schedule_list_patron_ordinance_view`.`is_default`, 
+      `movies_schedule_list_patron_ordinance_view`.`ordinance_val`
+      FROM `movies_schedule_list_patron_ordinance_view` AS `movies_schedule_list_patron_ordinance_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="movies_schedule_list_patron_view" EntityType="paradisoModel.Store.movies_schedule_list_patron_view" store:Type="Views" store:Schema="azynema" store:Name="movies_schedule_list_patron_view">
+      <DefiningQuery>SELECT
+      `movies_schedule_list_patron_view`.`id`, 
+      `movies_schedule_list_patron_view`.`movies_schedule_list_id`, 
+      `movies_schedule_list_patron_view`.`patron_id`, 
+      `movies_schedule_list_patron_view`.`base_price`, 
+      `movies_schedule_list_patron_view`.`is_default`, 
+      `movies_schedule_list_patron_view`.`price`, 
+      `movies_schedule_list_patron_view`.`patron_code`, 
+      `movies_schedule_list_patron_view`.`patron_name`, 
+      `movies_schedule_list_patron_view`.`patron_seat_color`
+      FROM `movies_schedule_list_patron_view` AS `movies_schedule_list_patron_view`</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="or_numbers_unpublished_movies_schedule_view" EntityType="paradisoModel.Store.or_numbers_unpublished_movies_schedule_view" store:Type="Views" store:Schema="azynema" store:Name="or_numbers_unpublished_movies_schedule_view">
+      <DefiningQuery>SELECT
+      `or_numbers_unpublished_movies_schedule_view`.`id`, 
+      `or_numbers_unpublished_movies_schedule_view`.`or_number`
+      FROM `or_numbers_unpublished_movies_schedule_view` AS `or_numbers_unpublished_movies_schedule_view`</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_a_trail_users1" Association="paradisoModel.Store.fk_a_trail_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="a_trail" EntitySet="a_trail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_buyer_info_buyer" Association="paradisoModel.Store.fk_buyer_info_buyer">
+      <End Role="buyer" EntitySet="buyer" />
+      <End Role="buyer_info" EntitySet="buyer_info" />
+    </AssociationSet>
+    <AssociationSet Name="fk_buyer_info_movies_schedule_list_house_seat" Association="paradisoModel.Store.fk_buyer_info_movies_schedule_list_house_seat">
+      <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+      <End Role="buyer_info" EntitySet="buyer_info" />
+    </AssociationSet>
+    <AssociationSet Name="fk_buyer_info_reserved_buyer" Association="paradisoModel.Store.fk_buyer_info_reserved_buyer">
+      <End Role="buyer" EntitySet="buyer" />
+      <End Role="buyer_info_reserved" EntitySet="buyer_info_reserved" />
+    </AssociationSet>
+    <AssociationSet Name="fk_buyer_info_reserved_mslrs" Association="paradisoModel.Store.fk_buyer_info_reserved_mslrs">
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+      <End Role="buyer_info_reserved" EntitySet="buyer_info_reserved" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cinema_patron_cinema1" Association="paradisoModel.Store.fk_cinema_patron_cinema1">
+      <End Role="cinema" EntitySet="cinema" />
+      <End Role="cinema_patron" EntitySet="cinema_patron" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cinema_patron_patrons1" Association="paradisoModel.Store.fk_cinema_patron_patrons1">
+      <End Role="patrons" EntitySet="patrons" />
+      <End Role="cinema_patron" EntitySet="cinema_patron" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cinema_seat_cinema1" Association="paradisoModel.Store.fk_cinema_seat_cinema1">
+      <End Role="cinema" EntitySet="cinema" />
+      <End Role="cinema_seat" EntitySet="cinema_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cinema_sound_system1" Association="paradisoModel.Store.fk_cinema_sound_system1">
+      <End Role="sound_system" EntitySet="sound_system" />
+      <End Role="cinema" EntitySet="cinema" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_class_classification1" Association="paradisoModel.Store.fk_movies_class_classification1">
+      <End Role="classification" EntitySet="classification" />
+      <End Role="movies_class" EntitySet="movies_class" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_class_movies1" Association="paradisoModel.Store.fk_movies_class_movies1">
+      <End Role="movies" EntitySet="movies" />
+      <End Role="movies_class" EntitySet="movies_class" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_distributor_movies1" Association="paradisoModel.Store.fk_movies_distributor_movies1">
+      <End Role="movies" EntitySet="movies" />
+      <End Role="movies_distributor" EntitySet="movies_distributor" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_distributor1" Association="paradisoModel.Store.fk_movies_distributor1">
+      <End Role="distributor" EntitySet="distributor" />
+      <End Role="movies" EntitySet="movies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_mtrcb1" Association="paradisoModel.Store.fk_movies_mtrcb1">
+      <End Role="mtrcb" EntitySet="mtrcb" />
+      <End Role="movies" EntitySet="movies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_cinema1" Association="paradisoModel.Store.fk_movies_schedule_cinema1">
+      <End Role="cinema" EntitySet="cinema" />
+      <End Role="movies_schedule" EntitySet="movies_schedule" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_house_seat_cinema_seat1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_cinema_seat1">
+      <End Role="cinema_seat" EntitySet="cinema_seat" />
+      <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_house_seat_movies_schedule_list1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_movies_schedule_list1">
+      <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+      <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_house_seat_mslp1" Association="paradisoModel.Store.fk_movies_schedule_list_house_seat_mslp1">
+      <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+      <End Role="movies_schedule_list_house_seat" EntitySet="movies_schedule_list_house_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_movies_schedule1" Association="paradisoModel.Store.fk_movies_schedule_list_movies_schedule1">
+      <End Role="movies_schedule" EntitySet="movies_schedule" />
+      <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_patron_movies_schedule1" Association="paradisoModel.Store.fk_movies_schedule_list_patron_movies_schedule1">
+      <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+      <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_patron_patrons1" Association="paradisoModel.Store.fk_movies_schedule_list_patron_patrons1">
+      <End Role="patrons" EntitySet="patrons" />
+      <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_reserved_seat_cinema_seat1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_cinema_seat1">
+      <End Role="cinema_seat" EntitySet="cinema_seat" />
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+      <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_reserved_seat_mslp1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_mslp1">
+      <End Role="movies_schedule_list_patron" EntitySet="movies_schedule_list_patron" />
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_reserved_seat_ticket1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_ticket1">
+      <End Role="ticket" EntitySet="ticket" />
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_list_reserved_seat_users1" Association="paradisoModel.Store.fk_movies_schedule_list_reserved_seat_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="movies_schedule_list_reserved_seat" EntitySet="movies_schedule_list_reserved_seat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_movies_schedule_movies" Association="paradisoModel.Store.fk_movies_schedule_movies">
+      <End Role="movies" EntitySet="movies" />
+      <End Role="movies_schedule" EntitySet="movies_schedule" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ordinance_tbl" Association="paradisoModel.Store.fk_ordinance_tbl">
+      <End Role="ordinance_tbl" EntitySet="ordinance_tbl" />
+      <End Role="patrons_ordinance" EntitySet="patrons_ordinance" />
+    </AssociationSet>
+    <AssociationSet Name="fk_patrons" Association="paradisoModel.Store.fk_patrons">
+      <End Role="patrons" EntitySet="patrons" />
+      <End Role="patrons_ordinance" EntitySet="patrons_ordinance" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ticket_movies_schedule_list1" Association="paradisoModel.Store.fk_ticket_movies_schedule_list1">
+      <End Role="movies_schedule_list" EntitySet="movies_schedule_list" />
+      <End Role="ticket" EntitySet="ticket" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ticket_session" Association="paradisoModel.Store.fk_ticket_session">
+      <End Role="session" EntitySet="session" />
+      <End Role="ticket" EntitySet="ticket" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ticket_users1" Association="paradisoModel.Store.fk_ticket_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="ticket" EntitySet="ticket" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_logs_temp_users1" Association="paradisoModel.Store.fk_user_logs_temp_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="user_logs_temp" EntitySet="user_logs_temp" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_logs_users1" Association="paradisoModel.Store.fk_user_logs_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="user_logs" EntitySet="user_logs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_rights_system_module1" Association="paradisoModel.Store.fk_user_rights_system_module1">
+      <End Role="system_module" EntitySet="system_module" />
+      <End Role="user_rights" EntitySet="user_rights" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_rights_users1" Association="paradisoModel.Store.fk_user_rights_users1">
+      <End Role="users" EntitySet="users" />
+      <End Role="user_rights" EntitySet="user_rights" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="a_trail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="tr_date" Type="datetime" Nullable="false" />
+    <Property Name="module_code" Type="int" Nullable="false" />
+    <Property Name="aff_table_layer" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="computer_name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="tr_details" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6035: The relationship 'fk_system_module_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      warning 6035: The relationship 'fk_user_level_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      warning 6035: The relationship 'fk_user_level_rights_application1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
+  <EntityType Name="application">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="system_code" Type="int" Nullable="false" />
+    <Property Name="system_name" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="buyer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="lastname" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="middleinitial" Type="varchar" MaxLength="100" />
+    <Property Name="address" Type="varchar" MaxLength="255" />
+    <Property Name="municipality" Type="varchar" MaxLength="100" />
+    <Property Name="province" Type="varchar" MaxLength="100" />
+    <Property Name="tin" Type="varchar" MaxLength="100" />
+    <Property Name="idnum" Type="varchar" MaxLength="100" />
+    <Property Name="isscpwd" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="buyer_info">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="mslhs_id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="mslhs_id" Type="int" Nullable="false" />
+    <Property Name="buyer_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="buyer_info_reserved">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="mslrs_id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="mslrs_id" Type="int" Nullable="false" />
+    <Property Name="buyer_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cinema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="sound_id" Type="int" Nullable="false" />
+    <Property Name="capacity" Type="int" />
+    <Property Name="in_order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cinema_patron">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="cinema_id" Type="int" Nullable="false" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="price" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cinema_seat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="cinema_id" Type="int" Nullable="false" />
+    <Property Name="x1" Type="int" />
+    <Property Name="y1" Type="int" />
+    <Property Name="x2" Type="int" />
+    <Property Name="y2" Type="int" />
+    <Property Name="origin_x" Type="int" />
+    <Property Name="origin_y" Type="int" />
+    <Property Name="row_name" Type="varchar" MaxLength="100" />
+    <Property Name="col_name" Type="varchar" MaxLength="100" />
+    <Property Name="object_type" Type="int" />
+    <Property Name="is_handicapped" Type="tinyint" Nullable="false" />
+    <Property Name="is_disabled" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="classification">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="config_table">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="system_code" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="system_desc" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="system_value" Type="varchar" Nullable="false" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="distributor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="share_perc" Type="float" Nullable="false" />
+    <Property Name="contact_id" Type="int" />
+  </EntityType>
+  <EntityType Name="gift_certificate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="amount" Type="float" />
+    <Property Name="isexpired" Type="int" />
+    <Property Name="expiration_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="movies">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="title" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="dist_id" Type="int" Nullable="false" />
+    <Property Name="share_perc" Type="float" Nullable="false" />
+    <Property Name="rating_id" Type="int" Nullable="false" />
+    <Property Name="duration" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+    <Property Name="encoded_date" Type="datetime" Nullable="false" />
+    <Property Name="start_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_class">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movie_id" Type="int" Nullable="false" />
+    <Property Name="class_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_distributor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movie_id" Type="int" Nullable="false" />
+    <Property Name="share_perc" Type="float" Nullable="false" />
+    <Property Name="effective_date" Type="date" Nullable="false" />
+    <Property Name="day_count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_schedule">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="cinema_id" Type="int" Nullable="false" />
+    <Property Name="movie_id" Type="int" Nullable="false" />
+    <Property Name="movie_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_schedule_list">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movies_schedule_id" Type="int" Nullable="false" />
+    <Property Name="start_time" Type="datetime" Nullable="false" />
+    <Property Name="end_time" Type="datetime" Nullable="false" />
+    <Property Name="seat_type" Type="int" Nullable="false" />
+    <Property Name="laytime" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_schedule_list_house_seat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+    <Property Name="full_name" Type="varchar" MaxLength="100" />
+    <Property Name="notes" Type="varchar" MaxLength="200" />
+    <Property Name="reserved_date" Type="datetime" />
+    <Property Name="session_id" Type="varchar" MaxLength="45" />
+    <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="movies_schedule_list_patron">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="price" Type="float" />
+    <Property Name="is_default" Type="int" />
+  </EntityType>
+  <EntityType Name="movies_schedule_list_reserved_seat">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+    <Property Name="ticket_id" Type="int" Nullable="false" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="price" Type="float" />
+    <Property Name="base_price" Type="float" />
+    <Property Name="status" Type="int" />
+    <Property Name="amusement_tax_amount" Type="float" />
+    <Property Name="cultural_tax_amount" Type="float" />
+    <Property Name="vat_amount" Type="float" />
+    <Property Name="or_number" Type="varchar" MaxLength="45" />
+    <Property Name="void_user_id" Type="int" />
+    <Property Name="void_datetime" Type="datetime" />
+    <Property Name="ordinance_price" Type="float" Nullable="false" />
+    <Property Name="surcharge_price" Type="float" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6035: The relationship 'fk_movies_movies_status1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
+  <EntityType Name="movies_status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="status_id" Type="int" Nullable="false" />
+    <Property Name="status_desc" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="mtrcb">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="description" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="remarks" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="ordinance_tbl">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ordinance_no" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="effective_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="with_enddate" Type="int" Nullable="false" />
+    <Property Name="amount_val" Type="float" Nullable="false" />
+    <Property Name="in_pesovalue" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="patrons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="unit_price" Type="float" Nullable="false" />
+    <Property Name="with_promo" Type="int" />
+    <Property Name="with_amusement" Type="int" />
+    <Property Name="with_cultural" Type="int" />
+    <Property Name="with_citytax" Type="int" />
+    <Property Name="with_gross_margin" Type="int" />
+    <Property Name="with_prod_share" Type="int" />
+    <Property Name="seat_color" Type="int" />
+    <Property Name="seat_position" Type="int" />
+    <Property Name="lgutax" Type="float" />
+    <Property Name="base_price" Type="int" />
+    <Property Name="with_surcharge" Type="int" />
+  </EntityType>
+  <EntityType Name="patrons_ordinance">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="ordinance_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="people">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="lname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="fname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="mname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="position" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="contact_no" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="email_addr" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="address" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="city" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="country" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="report">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="session">
+    <Key>
+      <PropertyRef Name="session_id" />
+    </Key>
+    <Property Name="session_id" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="payment_mode" Type="int" Nullable="false" />
+    <Property Name="cash_amount" Type="float" Nullable="false" />
+    <Property Name="gift_certificate_amount" Type="float" Nullable="false" />
+    <Property Name="credit_amount" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="session_gift_certificate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="session_id" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="gift_certificate_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sound_system">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="sound_system_type" Type="varchar" Nullable="false" MaxLength="225" />
+  </EntityType>
+  <EntityType Name="system_module">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="module_code" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="module_desc" Type="varchar" Nullable="false" MaxLength="225" />
+    <Property Name="module_group" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="system_code" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ticket">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="terminal" Type="varchar" MaxLength="100" />
+    <Property Name="ticket_datetime" Type="datetime" />
+    <Property Name="session_id" Type="varchar" MaxLength="100" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="user_level">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="level_desc" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="system_code" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_level_rights">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_level" Type="int" Nullable="false" />
+    <Property Name="module_id" Type="int" Nullable="false" />
+    <Property Name="system_code" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_logs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="computer_name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="user_authority" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="time_in" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_logs_temp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="computer_name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="user_authority" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="time_in" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="time_out" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="user_rights">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="module_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="user_password" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="designation" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="user_level_id" Type="int" Nullable="false" />
+    <Property Name="lname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="fname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="mname" Type="varchar" Nullable="false" MaxLength="45" />
+    <Property Name="system_code" Type="int" Nullable="false" />
+    <Property Name="status" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_free_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="movies_schedule_list_house_seat_free_view">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="movies_schedule_list_id" />
+      <PropertyRef Name="cinema_seat_id" />
+      <PropertyRef Name="movies_schedule_list_patron_id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+    <Property Name="full_name" Type="varchar" MaxLength="100" />
+    <Property Name="notes" Type="varchar" MaxLength="200" />
+    <Property Name="reserved_date" Type="datetime" />
+    <Property Name="session_id" Type="varchar" MaxLength="45" />
+    <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.movies_schedule_list_house_seat_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="movies_schedule_list_house_seat_view">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="movies_schedule_list_id" />
+      <PropertyRef Name="cinema_seat_id" />
+      <PropertyRef Name="movies_schedule_list_patron_id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="cinema_seat_id" Type="int" Nullable="false" />
+    <Property Name="full_name" Type="varchar" MaxLength="100" />
+    <Property Name="notes" Type="varchar" MaxLength="200" />
+    <Property Name="reserved_date" Type="datetime" />
+    <Property Name="session_id" Type="varchar" MaxLength="45" />
+    <Property Name="movies_schedule_list_patron_id" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_ordinance_surcharge_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="movies_schedule_list_patron_ordinance_surcharge_view">
+    <Key>
+      <PropertyRef Name="patron_id" />
+      <PropertyRef Name="amount_val" />
+      <PropertyRef Name="in_pesovalue" />
+      <PropertyRef Name="with_enddate" />
+      <PropertyRef Name="effective_date" />
+      <PropertyRef Name="isordinance" />
+    </Key>
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="amount_val" Type="float" Nullable="false" />
+    <Property Name="in_pesovalue" Type="int" Nullable="false" />
+    <Property Name="with_enddate" Type="int" Nullable="false" />
+    <Property Name="effective_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="isordinance" Type="bigint" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_ordinance_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="movies_schedule_list_patron_ordinance_view">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="movies_schedule_list_id" />
+      <PropertyRef Name="patron_id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="price" Type="float" />
+    <Property Name="is_default" Type="int" />
+    <Property Name="ordinance_val" Type="double" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.movies_schedule_list_patron_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="movies_schedule_list_patron_view">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="movies_schedule_list_id" />
+      <PropertyRef Name="patron_id" />
+      <PropertyRef Name="patron_code" />
+      <PropertyRef Name="patron_name" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="movies_schedule_list_id" Type="int" Nullable="false" />
+    <Property Name="patron_id" Type="int" Nullable="false" />
+    <Property Name="base_price" Type="float" />
+    <Property Name="is_default" Type="int" />
+    <Property Name="price" Type="double" />
+    <Property Name="patron_code" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="patron_name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="patron_seat_color" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'def.azynema.or_numbers_unpublished_movies_schedule_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="or_numbers_unpublished_movies_schedule_view">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="or_number" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <Association Name="fk_a_trail_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+    <End Role="a_trail" Type="paradisoModel.Store.a_trail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="a_trail">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_buyer_info_buyer">
+    <End Role="buyer" Type="paradisoModel.Store.buyer" Multiplicity="1" />
+    <End Role="buyer_info" Type="paradisoModel.Store.buyer_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="buyer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="buyer_info">
+        <PropertyRef Name="buyer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_buyer_info_movies_schedule_list_house_seat">
+    <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="buyer_info" Type="paradisoModel.Store.buyer_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list_house_seat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="buyer_info">
+        <PropertyRef Name="mslhs_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_buyer_info_reserved_buyer">
+    <End Role="buyer" Type="paradisoModel.Store.buyer" Multiplicity="1" />
+    <End Role="buyer_info_reserved" Type="paradisoModel.Store.buyer_info_reserved" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="buyer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="buyer_info_reserved">
+        <PropertyRef Name="buyer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_buyer_info_reserved_mslrs">
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="buyer_info_reserved" Type="paradisoModel.Store.buyer_info_reserved" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="buyer_info_reserved">
+        <PropertyRef Name="mslrs_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cinema_patron_cinema1">
+    <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+    <End Role="cinema_patron" Type="paradisoModel.Store.cinema_patron" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema_patron">
+        <PropertyRef Name="cinema_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cinema_patron_patrons1">
+    <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1" />
+    <End Role="cinema_patron" Type="paradisoModel.Store.cinema_patron" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patrons">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema_patron">
+        <PropertyRef Name="patron_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cinema_seat_cinema1">
+    <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+    <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema_seat">
+        <PropertyRef Name="cinema_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cinema_sound_system1">
+    <End Role="sound_system" Type="paradisoModel.Store.sound_system" Multiplicity="1" />
+    <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sound_system">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cinema">
+        <PropertyRef Name="sound_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_class_classification1">
+    <End Role="classification" Type="paradisoModel.Store.classification" Multiplicity="1" />
+    <End Role="movies_class" Type="paradisoModel.Store.movies_class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classification">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_class">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_class_movies1">
+    <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+    <End Role="movies_class" Type="paradisoModel.Store.movies_class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_class">
+        <PropertyRef Name="movie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_distributor_movies1">
+    <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+    <End Role="movies_distributor" Type="paradisoModel.Store.movies_distributor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_distributor">
+        <PropertyRef Name="movie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_distributor1">
+    <End Role="distributor" Type="paradisoModel.Store.distributor" Multiplicity="1" />
+    <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="distributor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies">
+        <PropertyRef Name="dist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_mtrcb1">
+    <End Role="mtrcb" Type="paradisoModel.Store.mtrcb" Multiplicity="1" />
+    <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mtrcb">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies">
+        <PropertyRef Name="rating_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_cinema1">
+    <End Role="cinema" Type="paradisoModel.Store.cinema" Multiplicity="1" />
+    <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule">
+        <PropertyRef Name="cinema_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_house_seat_cinema_seat1">
+    <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema_seat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_house_seat">
+        <PropertyRef Name="cinema_seat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_house_seat_movies_schedule_list1">
+    <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+    <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_house_seat">
+        <PropertyRef Name="movies_schedule_list_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_house_seat_mslp1">
+    <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="1" />
+    <End Role="movies_schedule_list_house_seat" Type="paradisoModel.Store.movies_schedule_list_house_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list_patron">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_house_seat">
+        <PropertyRef Name="movies_schedule_list_patron_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_movies_schedule1">
+    <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="1" />
+    <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list">
+        <PropertyRef Name="movies_schedule_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_patron_movies_schedule1">
+    <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+    <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_patron">
+        <PropertyRef Name="movies_schedule_list_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_patron_patrons1">
+    <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patrons">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_patron">
+        <PropertyRef Name="patron_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_reserved_seat_cinema_seat1">
+    <End Role="cinema_seat" Type="paradisoModel.Store.cinema_seat" Multiplicity="1" />
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cinema_seat">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="cinema_seat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_reserved_seat_movies_schedule_list1">
+    <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="movies_schedule_list_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_reserved_seat_mslp1">
+    <End Role="movies_schedule_list_patron" Type="paradisoModel.Store.movies_schedule_list_patron" Multiplicity="1" />
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list_patron">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="patron_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_reserved_seat_ticket1">
+    <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="1" />
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ticket">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="ticket_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_list_reserved_seat_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="0..1" />
+    <End Role="movies_schedule_list_reserved_seat" Type="paradisoModel.Store.movies_schedule_list_reserved_seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule_list_reserved_seat">
+        <PropertyRef Name="void_user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_movies_schedule_movies">
+    <End Role="movies" Type="paradisoModel.Store.movies" Multiplicity="1" />
+    <End Role="movies_schedule" Type="paradisoModel.Store.movies_schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="movies_schedule">
+        <PropertyRef Name="movie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ordinance_tbl">
+    <End Role="ordinance_tbl" Type="paradisoModel.Store.ordinance_tbl" Multiplicity="1" />
+    <End Role="patrons_ordinance" Type="paradisoModel.Store.patrons_ordinance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ordinance_tbl">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="patrons_ordinance">
+        <PropertyRef Name="ordinance_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_patrons">
+    <End Role="patrons" Type="paradisoModel.Store.patrons" Multiplicity="1" />
+    <End Role="patrons_ordinance" Type="paradisoModel.Store.patrons_ordinance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patrons">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="patrons_ordinance">
+        <PropertyRef Name="patron_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ticket_movies_schedule_list1">
+    <End Role="movies_schedule_list" Type="paradisoModel.Store.movies_schedule_list" Multiplicity="1" />
+    <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="movies_schedule_list">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ticket">
+        <PropertyRef Name="movies_schedule_list_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ticket_session">
+    <End Role="session" Type="paradisoModel.Store.session" Multiplicity="0..1" />
+    <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="session">
+        <PropertyRef Name="session_id" />
+      </Principal>
+      <Dependent Role="ticket">
+        <PropertyRef Name="session_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ticket_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+    <End Role="ticket" Type="paradisoModel.Store.ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ticket">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_logs_temp_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+    <End Role="user_logs_temp" Type="paradisoModel.Store.user_logs_temp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_logs_temp">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_logs_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+    <End Role="user_logs" Type="paradisoModel.Store.user_logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_logs">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_rights_system_module1">
+    <End Role="system_module" Type="paradisoModel.Store.system_module" Multiplicity="1" />
+    <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="system_module">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_rights">
+        <PropertyRef Name="module_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_rights_users1">
+    <End Role="users" Type="paradisoModel.Store.users" Multiplicity="1" />
+    <End Role="user_rights" Type="paradisoModel.Store.user_rights" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user_rights">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="CurrentDateTime" ReturnType="datetime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema" />
+  <Function Name="retrieve_movies_schedule_list_patron_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+    <Parameter Name="p_id" Type="int" Mode="In" />
+    <Parameter Name="movie_date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="retrieve_movies_schedule_list_patron_mslid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+    <Parameter Name="mlsid" Type="int" Mode="In" />
+    <Parameter Name="movie_date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="retrieve_movies_schedule_list_patron_mslid_default" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+    <Parameter Name="mlsid" Type="int" Mode="In" />
+    <Parameter Name="movie_date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="retrieve_movies_schedule_list_patron_mslid_first" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="azynema">
+    <Parameter Name="mlsid" Type="int" Mode="In" />
+    <Parameter Name="movie_date" Type="datetime" Mode="In" />
+  </Function>
+</Schema>

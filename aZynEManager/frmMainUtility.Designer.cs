@@ -39,12 +39,13 @@
             this.btnOrdinance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSurcharge = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.pnlClose = new System.Windows.Forms.Panel();
+            this.linklabelManageEwallets = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.SuspendLayout();
             // 
             // btnPatrons
             // 
-            this.btnPatrons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPatrons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPatrons.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPatrons.Location = new System.Drawing.Point(10, 105);
             this.btnPatrons.Name = "btnPatrons";
@@ -54,9 +55,9 @@
             this.btnPatrons.StateCommon.Back.ColorAngle = 20F;
             this.btnPatrons.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnPatrons.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnPatrons.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPatrons.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnPatrons.StateCommon.Border.Rounding = 1;
             this.btnPatrons.StateCommon.Border.Width = 3;
             this.btnPatrons.StateCommon.Content.AdjacentGap = 10;
@@ -78,9 +79,9 @@
             this.btnPatrons.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnPatrons.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnPatrons.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnPatrons.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPatrons.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnPatrons.StateTracking.Border.Rounding = 1;
             this.btnPatrons.StateTracking.Border.Width = 3;
             this.btnPatrons.TabIndex = 36;
@@ -91,8 +92,8 @@
             // 
             // btnClass
             // 
-            this.btnClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClass.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClass.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClass.Location = new System.Drawing.Point(10, 291);
             this.btnClass.Name = "btnClass";
@@ -102,9 +103,9 @@
             this.btnClass.StateCommon.Back.ColorAngle = 20F;
             this.btnClass.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnClass.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnClass.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnClass.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnClass.StateCommon.Border.Rounding = 1;
             this.btnClass.StateCommon.Border.Width = 3;
             this.btnClass.StateCommon.Content.AdjacentGap = 10;
@@ -126,9 +127,9 @@
             this.btnClass.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnClass.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnClass.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnClass.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnClass.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnClass.StateTracking.Border.Rounding = 1;
             this.btnClass.StateTracking.Border.Width = 3;
             this.btnClass.TabIndex = 35;
@@ -139,8 +140,8 @@
             // 
             // btnDistributor
             // 
-            this.btnDistributor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDistributor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDistributor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDistributor.Location = new System.Drawing.Point(10, 229);
             this.btnDistributor.Name = "btnDistributor";
@@ -150,9 +151,9 @@
             this.btnDistributor.StateCommon.Back.ColorAngle = 20F;
             this.btnDistributor.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnDistributor.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnDistributor.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnDistributor.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnDistributor.StateCommon.Border.Rounding = 1;
             this.btnDistributor.StateCommon.Border.Width = 3;
             this.btnDistributor.StateCommon.Content.AdjacentGap = 10;
@@ -174,9 +175,9 @@
             this.btnDistributor.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnDistributor.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnDistributor.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnDistributor.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnDistributor.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnDistributor.StateTracking.Border.Rounding = 1;
             this.btnDistributor.StateTracking.Border.Width = 3;
             this.btnDistributor.TabIndex = 34;
@@ -187,8 +188,8 @@
             // 
             // btnRating
             // 
-            this.btnRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRating.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRating.Location = new System.Drawing.Point(10, 167);
             this.btnRating.Name = "btnRating";
@@ -198,9 +199,9 @@
             this.btnRating.StateCommon.Back.ColorAngle = 20F;
             this.btnRating.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnRating.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnRating.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRating.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnRating.StateCommon.Border.Rounding = 1;
             this.btnRating.StateCommon.Border.Width = 3;
             this.btnRating.StateCommon.Content.AdjacentGap = 10;
@@ -222,9 +223,9 @@
             this.btnRating.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnRating.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnRating.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnRating.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRating.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnRating.StateTracking.Border.Rounding = 1;
             this.btnRating.StateTracking.Border.Width = 3;
             this.btnRating.TabIndex = 32;
@@ -235,8 +236,8 @@
             // 
             // btnTitle
             // 
-            this.btnTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTitle.Enabled = false;
             this.btnTitle.Location = new System.Drawing.Point(5, 1);
@@ -258,8 +259,8 @@
             // 
             // btnselect
             // 
-            this.btnselect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnselect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnselect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnselect.Location = new System.Drawing.Point(23, 260);
             this.btnselect.Name = "btnselect";
@@ -269,9 +270,9 @@
             this.btnselect.StateCommon.Back.ColorAngle = 20F;
             this.btnselect.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnselect.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnselect.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnselect.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnselect.StateCommon.Border.Rounding = 1;
             this.btnselect.StateCommon.Border.Width = 3;
             this.btnselect.StateCommon.Content.AdjacentGap = 10;
@@ -293,9 +294,9 @@
             this.btnselect.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnselect.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnselect.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnselect.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnselect.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnselect.StateTracking.Border.Rounding = 1;
             this.btnselect.StateTracking.Border.Width = 3;
             this.btnselect.TabIndex = 37;
@@ -304,8 +305,8 @@
             // 
             // btnCinema
             // 
-            this.btnCinema.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCinema.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCinema.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCinema.Location = new System.Drawing.Point(10, 43);
             this.btnCinema.Name = "btnCinema";
@@ -315,9 +316,9 @@
             this.btnCinema.StateCommon.Back.ColorAngle = 20F;
             this.btnCinema.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnCinema.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnCinema.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCinema.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnCinema.StateCommon.Border.Rounding = 1;
             this.btnCinema.StateCommon.Border.Width = 3;
             this.btnCinema.StateCommon.Content.AdjacentGap = 10;
@@ -339,9 +340,9 @@
             this.btnCinema.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnCinema.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnCinema.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnCinema.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCinema.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnCinema.StateTracking.Border.Rounding = 1;
             this.btnCinema.StateTracking.Border.Width = 3;
             this.btnCinema.TabIndex = 39;
@@ -352,8 +353,8 @@
             // 
             // btnOrdinance
             // 
-            this.btnOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOrdinance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOrdinance.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOrdinance.Location = new System.Drawing.Point(10, 354);
             this.btnOrdinance.Name = "btnOrdinance";
@@ -363,9 +364,9 @@
             this.btnOrdinance.StateCommon.Back.ColorAngle = 20F;
             this.btnOrdinance.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnOrdinance.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnOrdinance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOrdinance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnOrdinance.StateCommon.Border.Rounding = 1;
             this.btnOrdinance.StateCommon.Border.Width = 3;
             this.btnOrdinance.StateCommon.Content.AdjacentGap = 10;
@@ -387,9 +388,9 @@
             this.btnOrdinance.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnOrdinance.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnOrdinance.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnOrdinance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOrdinance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnOrdinance.StateTracking.Border.Rounding = 1;
             this.btnOrdinance.StateTracking.Border.Width = 3;
             this.btnOrdinance.TabIndex = 40;
@@ -400,8 +401,8 @@
             // 
             // btnSurcharge
             // 
-            this.btnSurcharge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSurcharge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSurcharge.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSurcharge.Location = new System.Drawing.Point(10, 417);
             this.btnSurcharge.Name = "btnSurcharge";
@@ -411,9 +412,9 @@
             this.btnSurcharge.StateCommon.Back.ColorAngle = 20F;
             this.btnSurcharge.StateCommon.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Linear;
             this.btnSurcharge.StateCommon.Border.Color1 = System.Drawing.Color.Salmon;
-            this.btnSurcharge.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSurcharge.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnSurcharge.StateCommon.Border.Rounding = 1;
             this.btnSurcharge.StateCommon.Border.Width = 3;
             this.btnSurcharge.StateCommon.Content.AdjacentGap = 10;
@@ -435,9 +436,9 @@
             this.btnSurcharge.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.btnSurcharge.StateTracking.Border.Color1 = System.Drawing.Color.Black;
             this.btnSurcharge.StateTracking.Border.Color2 = System.Drawing.Color.Black;
-            this.btnSurcharge.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
-                        | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSurcharge.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnSurcharge.StateTracking.Border.Rounding = 1;
             this.btnSurcharge.StateTracking.Border.Width = 3;
             this.btnSurcharge.TabIndex = 41;
@@ -461,11 +462,25 @@
             this.pnlClose.MouseLeave += new System.EventHandler(this.pnlClose_MouseLeave);
             this.pnlClose.MouseHover += new System.EventHandler(this.pnlClose_MouseHover);
             // 
+            // linklabelManageEwallets
+            // 
+            this.linklabelManageEwallets.AutoSize = false;
+            this.linklabelManageEwallets.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.linklabelManageEwallets.LinkBehavior = ComponentFactory.Krypton.Toolkit.KryptonLinkBehavior.HoverUnderline;
+            this.linklabelManageEwallets.Location = new System.Drawing.Point(0, 478);
+            this.linklabelManageEwallets.Name = "linklabelManageEwallets";
+            this.linklabelManageEwallets.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.linklabelManageEwallets.Size = new System.Drawing.Size(304, 20);
+            this.linklabelManageEwallets.TabIndex = 288;
+            this.linklabelManageEwallets.Values.Text = "Manage eWallets";
+            this.linklabelManageEwallets.LinkClicked += new System.EventHandler(this.linklabelManageEwallets_LinkClicked);
+            // 
             // frmMainUtility
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 482);
+            this.ClientSize = new System.Drawing.Size(304, 498);
+            this.Controls.Add(this.linklabelManageEwallets);
             this.Controls.Add(this.btnSurcharge);
             this.Controls.Add(this.btnOrdinance);
             this.Controls.Add(this.btnCinema);
@@ -496,5 +511,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCinema;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnOrdinance;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSurcharge;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel linklabelManageEwallets;
     }
 }

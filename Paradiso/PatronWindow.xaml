@@ -1,0 +1,27 @@
+﻿<controls:MetroWindow x:Class="Paradiso.PatronWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                      
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Patrons" WindowStartupLocation="CenterOwner" Background="White" ShowMinButton="False" ShowTitleBar="False" ShowMaxRestoreButton="False" ShowInTaskbar="False" ShowCloseButton="False" ShowIconOnTitleBar="False" ShowWindowCommandsOnTop="False" SnapsToDevicePixels="True">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+            <TextBlock FontSize="16">Seat Selected:</TextBlock>
+            <TextBlock FontSize="16" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Seat.Name}"/>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Single" Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Margin="10">
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Name}" FontSize="14"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+</controls:MetroWindow>

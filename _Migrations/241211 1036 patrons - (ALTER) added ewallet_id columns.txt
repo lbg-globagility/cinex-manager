@@ -1,0 +1,3 @@
+
+ALTER TABLE `patrons`
+	ADD COLUMN `ewallet_id` INT NULL AFTER `with_surcharge`;

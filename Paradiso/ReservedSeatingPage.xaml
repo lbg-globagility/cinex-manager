@@ -1,0 +1,274 @@
+﻿<UserControl x:Class="Paradiso.ReservedSeatingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:l="clr-namespace:Paradiso"
+      mc:Ignorable="d" 
+	  SizeChanged="Page_SizeChanged" d:DesignHeight="768" d:DesignWidth="1024" Loaded="Page_Loaded" PreviewKeyDown="Page_PreviewKeyDown">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Canvas Name="MainCanvas">
+        <Canvas.Resources>
+            <l:SeatNameMultiConverter x:Key="seatName" />
+            <l:SeatColorConverter x:Key="seatColor" />
+            <!--l:SeatColorMultiConverter x:Key="seatColorMulti" /-->
+            <l:FooterLineConverter x:Key="footerLine" />
+            <l:ScreenDateToTimeConverter x:Key="screenDateToTime" />
+            <l:SeatLabelLeftCanvasConverter x:Key="seatLabelLeftCanvas"/>
+            <l:SeatLabelFontSizeConverter x:Key="seatLabelFontSize"/>
+            <l:SeatLabelPaddingConverter x:Key="seatLabelPadding"/>
+            <l:SeatLabelForegroundConverter x:Key="seatLabelForeground"/>
+            <l:SeatImageMultiConverter x:Key="seatImage"/>
+            <l:TotalPatronSeatConverter x:Key="totalPatronSeat"/>
+            <l:MovieScheduleListVisibilityConverter x:Key="movieScheduleListVisibility"/>
+        </Canvas.Resources>
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Paradiso;component/Images/dark-bg.jpg" />
+        </Canvas.Background>
+
+        <DockPanel Name="MainDockPanel" Height="{Binding Path=ActualHeight, ElementName=MainCanvas}" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
+            <StackPanel DockPanel.Dock="Left" Width="165" Margin="10, 5, 0, 0">
+                <StackPanel Background="#ffffff">
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Text="{Binding MovieSchedule.CinemaName}" />
+                    <TextBlock TextWrapping="Wrap" Name="MovieName" Margin="5, 10, 5, 0" FontSize="16" FontFamily="Arial" FontWeight="Bold" Height="60" Foreground="Blue" Text="{Binding MovieSchedule.MovieName}" ></TextBlock>
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14">Time:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5,0,0,5" TextBlock.FontSize="14" TextBlock.FontWeight="Bold" >
+                        <TextBlock Text="{Binding Path=MovieSchedule.StartTime, Converter={StaticResource screenDateToTime}}" FontSize="16" />
+                        <TextBlock xml:space="preserve" FontSize="16" > -</TextBlock>
+                        <TextBlock Text="{Binding Path=MovieSchedule.EndTime, Converter={StaticResource screenDateToTime}}" FontSize="16" />
+                    </StackPanel>
+                    <TextBlock Margin="5,5,0,0" VerticalAlignment="Center" FontSize="14">Movie Price:</TextBlock>
+                    <TextBlock Name="Price" Margin="5,0,0,5" FontSize="16" FontWeight="Bold" Text="{Binding Path=MovieSchedule.Price, StringFormat='PHP #,#.00'}" />
+                </StackPanel>
+                <StackPanel Background="#e0e0e0">
+                    <TextBlock Margin="5,5,5,10" FontSize="16" FontFamily="Arial" FontWeight="Bold">Seats</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Selected:</TextBlock>
+                        <TextBlock Name="SeatSelected" HorizontalAlignment="Center" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Selected}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Booked:</TextBlock>
+                        <TextBlock Name="SeatBooked" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Booked}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Reserved:</TextBlock>
+                        <TextBlock Name="SeatReserved" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Reserved}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 5">
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Width="80" FontSize="14">Available:</TextBlock>
+                        <TextBlock Name="SeatAvailable" FontSize="20" FontFamily="Arial" FontWeight="Bold" Text="{Binding MovieSchedule.Available}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="SeatItemsControl" ItemsSource="{Binding Seats}" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 5, 10, 5">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas IsItemsHost="True" Name="BlankCanvas">
+                            <!--Canvas.Background>
+                                <ImageBrush ImageSource="/Paradiso;component/Images/carpet-bg-2.jpg" />
+                            </Canvas.Background-->
+                            <Canvas.ContextMenu>
+                                <ContextMenu Visibility="{Binding Path=IsFreeSeating, Converter={StaticResource movieScheduleListVisibility}}" >
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Visibility="Hidden"/>
+                                        <TextBlock DockPanel.Dock="Top">Patrons</TextBlock>
+                                        <ListView ItemsSource="{Binding Patrons}" SelectedItem="{Binding SelectedPatron}" SelectionMode="Multiple"  Name="PatronsListView" PreviewMouseDown="PatronsListView_PreviewMouseDown">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel Margin="10" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}">
+                                                        <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='Php #,##0.00'}" FontSize="14" FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Name}" FontSize="14"/>
+                                                        <TextBlock>B</TextBlock>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </DockPanel>
+                                </ContextMenu>
+                            </Canvas.ContextMenu>
+                        </Canvas>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas Name="SeatCanvas" Width="{Binding Width}" Height="{Binding Height}" MouseLeftButtonDown="SeatIcon_MouseLeftButtonDown" MouseRightButtonUp="SeatCanvas_MouseRightButtonUp" PreviewKeyDown="Page_PreviewKeyDown" >
+                            <Grid>
+                                <!--Grid.Background>
+                                    <MultiBinding Converter="{StaticResource seatColorMulti}">
+                                        <Binding Path="Type"/>
+                                        <Binding Path="SeatColor"/>
+                                    </MultiBinding>
+                                </Grid.Background-->
+                                <Image Name="SeatIcon" Width="{Binding Width}" >
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource seatImage}">
+                                            <Binding Path="Type"/>
+                                            <Binding Path="SeatType"/>
+                                            <Binding Path="SeatColor"/>
+                                            <Binding Path="IsHandicapped"/>
+                                            <Binding Path="IsDisabled"/>
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock
+                                    TextAlignment="Center" HorizontalAlignment="Center" Padding="{Binding Path=Height, Converter={StaticResource seatLabelPadding}}" Height="{Binding Height}"
+                                    FontSize="{Binding Path=Height,  Converter={StaticResource seatLabelFontSize}}" Foreground="{Binding Path=TypeName,  Converter={StaticResource seatLabelForeground}}" FontWeight="Bold" FontFamily="Arial">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource seatName}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="SeatType"/>
+                                                <Binding Path="IsHandicapped"/>
+                                                <Binding Path="IsDisabled"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>                                    
+                                    
+                                  <!--TextBlock.Effect>
+                                    <DropShadowEffect
+                                      ShadowDepth="2"
+                                      Direction="315"
+                                      Color="Black"
+                                      Opacity="1"
+                                     BlurRadius="0.0"/>
+                                  </TextBlock.Effect-->
+
+                                </TextBlock>
+                            </Grid>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            </ScrollViewer>
+            <!--ScrollViewer Canvas.Left="0" Canvas.Top="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="{Binding Path=ActualWidth, ElementName=SeatDockPanel}" Margin="2, 20, 10, 40" >
+                <Canvas Name="SeatCanvas">
+                    <Canvas.Background>
+                        <VisualBrush TileMode="Tile" Viewport="0,0,0.1,0.1">
+                            <VisualBrush.Visual>
+                                <Image Source="/Paradiso;component/Images/tile.png" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Canvas.Background>
+                </Canvas>
+            </ScrollViewer-->
+        </DockPanel>
+
+        <StackPanel Canvas.Right="10" Canvas.Top="10" Margin="20" Background="White" Name="PurchaseDetailsPanel" >
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
+                    <StackPanel Orientation="Horizontal">
+                        <DockPanel Name="PurchaseDetails3Panel">
+                            <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                                <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <Button Name="ShowDetails" Click="ShowDetails_Click" Content=">"/>
+                    </StackPanel>
+                    <Button Name="HideDetails" Visibility="Collapsed" Click="HideDetails_Click" Content="&lt;"/>
+                </StackPanel>
+                <StackPanel Name="PurchaseDetails2Panel" Visibility="Collapsed">
+                        <TextBlock FontSize="14" FontWeight="Bold" Name="PurchaseDetailsText" PreviewMouseLeftButtonDown="PurchaseDetailsText_PreviewMouseLeftButtonDown" PreviewMouseMove="PurchaseDetailsText_PreviewMouseMove" PreviewMouseUp="PurchaseDetailsText_PreviewMouseUp">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                        </Trigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="CornflowerBlue" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Foreground.Color" To="Black" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>                        
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <TextBlock.Text>
+                    Ticket Purchase Details
+                </TextBlock.Text>
+                </TextBlock>
+                <ListView ItemsSource="{Binding SelectedPatronSeatList.PatronSeats}" Width="310" MaxHeight="500">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="RemovePatronSeat" Click="RemovePatronSeat_Click" BorderThickness="0"  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="25" Height="25" ToolTip="Delete" PreviewKeyDown="Page_PreviewKeyDown">
+                                    <Image Source="/Paradiso;component/Images/delete-icon.png" Width="20" Height="20" />
+                                    <!--Rectangle Width="10" Height="10">
+                                    <Rectangle.Fill>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                                    </Rectangle.Fill>
+                                </Rectangle-->
+                                </Button>
+                                <TextBlock Text="{Binding SeatName}" FontWeight="Bold" Width="40" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding PatronName}" VerticalAlignment="Stretch" Width="150" Height="25" Background="{Binding Path=SeatColor, Converter={StaticResource seatColor}}"/>
+                                <!--TextBlock Text="{Binding RemainingTime}" Width="30"></TextBlock-->
+                                <TextBlock Text="{Binding Price, StringFormat='#,##0.00'}" Width="70" VerticalAlignment="Center" TextAlignment="Right" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" FontSize="14" FontWeight="Bold" Text="{Binding SelectedPatronSeatList.Total, StringFormat='PHP #,##0.00'}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock FontSize="14" FontWeight="Bold">Total:</TextBlock>
+                        <TextBlock FontSize="14" FontWeight="Bold" Margin="5,0,5,0" Text="{Binding SelectedPatronSeatList.PatronSeats.Count}"/>
+                    </StackPanel>
+                </DockPanel>
+              </StackPanel>
+            </DockPanel>
+        </StackPanel>
+        <StackPanel Canvas.Right="10" Canvas.Bottom="40" Orientation="Vertical" Margin="20">
+            <Button Margin="0, 5, 5, 10" Content="REFRESH" Height="23" Name="refreshButton" Width="75" Click="refreshButton_Click" />
+            <Button Margin="0, 5, 5, 5" Content="CLEAR" Height="23" Name="clearButton" Width="75" Click="clearButton_Click" />
+            <Button Margin="0, 5, 5, 5" Content="CANCEL" Height="23" Name="cancelButton" Width="75" Click="cancelButton_Click" />
+            <Button Margin="0, 5, 0, 5" Content="CONFIRM" Height="23" Name="confirmButton" Width="75" Click="confirmButton_Click" />
+        </StackPanel>
+
+        <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+            <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
+            <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
+
+        </StackPanel-->
+        <TextBlock Canvas.Bottom="10" Canvas.Left="10" Foreground="White" FontSize="10" Name="Version"/>
+        <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
+    </Canvas>
+</UserControl>

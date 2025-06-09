@@ -673,7 +673,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox53">
-                          <Value>=Fields!TOTALSURCHARGE.Value - Fields!FOOD.Value</Value>
+                          <Value>=Fields!TOTALSURCHARGE.Value</Value>
                           <CanGrow>true</CanGrow>
                           <Style>
                             <BorderStyle>
@@ -900,7 +900,7 @@
                     <TableCell>
                       <ReportItems>
                         <Textbox Name="Textbox64">
-                          <Value>=Sum(Fields!TOTALSURCHARGE.Value) - Sum(Fields!FOOD.Value)</Value>
+                          <Value>=Sum(Fields!TOTALSURCHARGE.Value)</Value>
                           <CanGrow>true</CanGrow>
                           <Style>
                             <BorderStyle>
@@ -1771,7 +1771,7 @@
                         <TableCell>
                           <ReportItems>
                             <Textbox Name="Textbox86">
-                              <Value>=Sum(Fields!TOTALSURCHARGE.Value) - Sum(Fields!FOOD.Value)</Value>
+                              <Value>=Sum(Fields!TOTALSURCHARGE.Value)</Value>
                               <CanGrow>true</CanGrow>
                               <Style>
                                 <BorderStyle>

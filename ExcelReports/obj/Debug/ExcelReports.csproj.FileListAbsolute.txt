@@ -1,2 +1,0 @@
-E:\Repositories\aZynEManager\ExcelReports\obj\Debug\ExcelReports.csproj.AssemblyReference.cache
-E:\Repositories\aZynEManager\ExcelReports\obj\Debug\ExcelReports.csproj.CoreCompileInputs.cache

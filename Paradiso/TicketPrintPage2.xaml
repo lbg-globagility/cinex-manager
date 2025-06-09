@@ -1,0 +1,389 @@
+﻿<UserControl x:Class="Paradiso.TicketPrintPage2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:l="clr-namespace:Paradiso"
+      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+	  SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Canvas Name="MainCanvas">
+        <!--Canvas.Resources>
+            <l:FooterLineConverter x:Key="footerLine" />
+        </Canvas.Resources-->
+        <Canvas.Background>
+            <ImageBrush ImageSource="/Paradiso;component/Images/blue-bg.jpg" />
+        </Canvas.Background>
+
+        <!-- DockPanel Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="586" Width="800" Opacity="1"-->
+        <Grid Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="586" Width="800" Opacity="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="460*" />
+                <RowDefinition Height="76*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="60, 5, 10,0" >
+                <TextBlock Name="progressText"/>
+                <controls:MetroProgressBar Name="progressBar2" Height="20" Width="Auto" BorderBrush="Black" BorderThickness="1"></controls:MetroProgressBar>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2"  Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Left">
+                <DatePicker Name="TicketDate">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="SI Number/Session Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                <ComboBox Name="UsersComboBox" Margin="5,0,0,0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" Width="120" />
+                <!--CheckBox Style="{x:Null}" Height="16" Name="chkSessionOnly" Checked="chkSessionOnly_Checked" Unchecked="chkSessionOnly_Unchecked" /-->
+                <!--TextBlock Height="16">Session Only</TextBlock-->
+                <ComboBox Name="TypesComboBox" ItemsSource="{Binding Types}"  SelectedItem="{Binding SelectedType, Mode=TwoWay}" Width="120"/>
+                <Button Name="SearchTicket" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
+                    <Rectangle Width="20" Height="20" >
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Button Name="Clear" Click="Clear_Click"  ToolTip="Clear" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
+                    <Rectangle Width="20" Height="20" >
+                        <Rectangle.Fill>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_clear}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" DockPanel.Dock="Left">
+                    
+                <DataGrid Name="TicketSessionDataGrid" AutoGenerateColumns="False" Height="265" Margin="2" ItemsSource="{Binding TicketSessions, Mode=OneWay}" SelectionMode="Single" IsReadOnly="True" SelectionChanged="TicketSessionDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <!--DataGridTextColumn  Header="#"/-->
+                        <DataGridTextColumn Header="Session No" Binding="{Binding Path= SessionId}"/>
+                        <DataGridTextColumn Header="Session Date/Time" Binding="{Binding Path= TicketDateTime}" />
+                        <DataGridTextColumn Header="Username" Binding="{Binding Path=User}"/>
+                        <DataGridTextColumn Header="Terminal" Binding="{Binding Path=Terminal}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#CCDAFF" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+                <DataGrid Name="TicketDataGrid" AutoGenerateColumns="False" Height="260" Margin="2" ItemsSource="{Binding TicketList.Tickets}" CanUserAddRows="False" SelectionMode="Single" SelectionChanged="TicketDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox Style="{x:Null}" Name="chkSelectAll" Content=" " Checked="chkSelectAll_Checked" Unchecked="chkSelectAll_Unchecked"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Style="{x:Null}" IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="SI Number" Binding="{Binding Path= ORNumber}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Screening Time" Binding="{Binding Path= StartTime}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Patron" Binding="{Binding Path= PatronDescription}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Seat"  Binding="{Binding Path= SeatName}" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle> 
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Path= PatronPrice, StringFormat='{}{0:#,0}'}"   IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#CCDAFF" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+            </StackPanel>
+            <!--StackPanel DockPanel.Dock="Left" Name="CancelledORNumberPanel" Width="200" Height="386">
+                <ListView ItemsSource="{Binding Path=CancelledORNumbers}" SelectionMode="Single" Background="Black" SelectionChanged="ListView_SelectionChanged" Height="386" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                </ListView>
+            </StackPanel-->
+            <Border Grid.Row="2" Grid.Column="1"  Padding="4"  Background="Black">
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Foreground="White">Total Tickets</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Foreground="White" Text="{Binding TicketList.Count, StringFormat='{}{0:#,0}'}"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Foreground="White" DockPanel.Dock="Left">Total Amount</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Foreground="White" Text="{Binding TicketList.Total, StringFormat='{}{0:#,0}'}"/>
+                </DockPanel>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <!--ColumnDefinition Width="3*" /-->
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <!--ColumnDefinition Width="1*" /-->
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Name="Void" Click="Void_Click" Background="Black" ToolTip="Void" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        Void
+                    </Button>
+                    <Button Grid.Column="1" Margin="5,0,0,0" Name="Print" Click="Print_Click" Background="Black" ToolTip="Print" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_printer}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Grid.Column="2" Margin="5,0,0,0" Name="CancelPrint" Click="CancelPrint_Click"  Background="Black" ToolTip="Cancel" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40">
+                        <Rectangle Fill="White" Opacity="1" Width="20" Height="20" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush  Visual="{StaticResource appbar_cancel}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <!--Button Name="PrintTest" Click="PrintTest_Click" Visibility="Collapsed" >Test</Button-->
+                </Grid>
+            </StackPanel>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="1">
+                <Canvas>
+                    <Canvas Name="TicketCanvas" Canvas.Left="40"  Canvas.Top="50">
+                        <StackPanel Margin="5,0" TextBlock.FontFamily="Arial Narrow">
+                            <TextBlock FontSize="12" TextAlignment="Center" Width="174" Height="14" Text="{Binding Ticket.Header1}"/>
+                            <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.Header2}"/>
+                            <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.Header3}"/>
+                            <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.TIN, StringFormat='Vat Reg Tin#: {0}'}"/>
+                            <TextBlock FontSize="6" TextAlignment="Center" Width="174" Height="7" Text="{Binding Ticket.AccreditationNumber, StringFormat='Accreditation #: {0}'}"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontSize="6" Grid.Row="0" Grid.Column="0" Height="7" Text="{Binding Ticket.PN, StringFormat='Permit #: {0}'}"/>
+                                <TextBlock FontSize="6" Grid.Row="0" Grid.Column="1" Height="7" Text="{Binding Ticket.ServerSerialNumber, StringFormat='Server Serial#: {0}'}"/>
+                                <TextBlock FontSize="6" Grid.Row="1" Grid.Column="0" Height="7" Text="{Binding Ticket.MIN, StringFormat='MIN: {0}'}"/>
+                                <TextBlock FontSize="6" Grid.Row="1" Grid.Column="1" Height="7" Text="{Binding Ticket.POSNumber, StringFormat='POS#: {0}'}"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontSize="9" Text="{Binding Ticket.MovieCode}"/>
+                                <TextBlock Grid.Column="1"  FontSize="6"  Text="{Binding Ticket.ORNumber, StringFormat='Si#: {0}'}"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontSize="18" Grid.Column="0" Grid.RowSpan="4" TextAlignment="Center" Text="{Binding Ticket.CinemaNumber}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MMM dd, yyyy}'}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="2" FontSize="6" Height="8" Text="{Binding Ticket.PatronCode}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="3" FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat='PESO {0:#0.00}'}"/>
+
+                                </Grid>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock FontSize="6"  Text="SEAT NO:"/>
+                                    <TextBlock FontSize="18" TextAlignment="Center" Text="{Binding Ticket.SeatName}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="0" Height="8" Text="Amount:"/>
+                                        <TextBlock FontSize="6" Grid.Column="1" Grid.Row="0" Height="8" Text="{Binding Ticket.BasePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="1" Height="8" Text="Ord. Tax:"/>
+                                        <TextBlock FontSize="6" Grid.Column="1" Grid.Row="1" Height="8" Text="{Binding Ticket.OrdinancePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="2" Height="8" Text="Surcharge:"/>
+                                        <TextBlock FontSize="6" Grid.Column="1" Grid.Row="2" Height="8" Text="{Binding Ticket.SurchargePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="3" Height="8" Text=" " xml:space="preserve"/>
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="4" Height="8" Text=" " xml:space="preserve"/>
+                                        <TextBlock FontSize="6" Grid.Column="0" Grid.Row="5" Height="8" Text="Total"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="5" FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.SeatTypeName}"/>
+                                    <TextBlock FontSize="16" Width="174" Text="ADMIT ONE"/>
+                                    <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.OfficialReceiptCaption}" Name="TextBoxOfficialReceiptCaption1" />
+                                    <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
+                                    <TextBlock FontSize="6" Height="8" Text=" " xml:space="preserve"/>
+                                    <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.SessionName, StringFormat='Sess. # {0}'}"/>
+                                    <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.TellerCode, StringFormat='By:    {0}'}"/>
+                                </StackPanel>
+
+                            </DockPanel>
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                    <TextBlock FontSize="8" Text="{Binding Ticket.Header1}"/>
+                                    <TextBlock FontSize="8" Text=" " xml:space="preserve"/>
+                                    <TextBlock FontSize="8" Text="{Binding Ticket.MovieCode}"/>
+                                </StackPanel>
+                                <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+                                    <Grid  Margin="0, 5, 0, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontSize="14" Grid.Column="0" Grid.RowSpan="4" TextAlignment="Center" Text="{Binding Ticket.CinemaNumber}"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Date  {0:MMM dd, yyyy}'}"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="6" Height="8" Text="{Binding Ticket.StartTime, StringFormat='Time  {0:hh:mm tt}'}"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="6" Height="8" Text="{Binding Ticket.PatronCode}"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="3" FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat='PESO {0:#0.00}'}"/>
+
+                                    </Grid>
+                                    <StackPanel Margin="0, 5, 0, 0">
+                                        <TextBlock FontSize="6"  Text="SEAT NO:"/>
+                                        <TextBlock FontSize="14" TextAlignment="Center" Text="{Binding Ticket.SeatName}"/>
+                                    </StackPanel>
+
+                                </StackPanel>
+                                <Grid DockPanel.Dock="Right">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="0" Height="8" Text="Amount:"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="0" Height="8" Text="{Binding Ticket.BasePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="1" Height="8" Text="Ord. Tax:"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="1" Height="8" Text="{Binding Ticket.OrdinancePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="2" Height="8" Text="Surcharge:"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="2" Height="8" Text="{Binding Ticket.SurchargePrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+
+                                    <!--TextBlock FontSize="6" Grid.Column="0" Grid.Row="0" Height="8" Text="ct"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="0" Height="8" Text="{Binding Ticket.CulturalTax, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="1" Height="8" Text="at"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="1" Height="8" Text="{Binding Ticket.AmusementTax, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="2" Height="8" Text="vt"/>
+                                    <TextBlock FontSize="6" Grid.Column="1" Grid.Row="2" Height="8" Text="{Binding Ticket.VatTax, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/-->
+
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="3" Height="8" Text=" " xml:space="preserve"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="4" Height="8" Text=" " xml:space="preserve"/>
+                                    <TextBlock FontSize="6" Grid.Column="0" Grid.Row="5" Height="8" Text="Total"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="5" FontSize="6" Height="8" Text="{Binding Ticket.PatronPrice, StringFormat=' {0:#0.00}'}" TextAlignment="Right"/>
+                                </Grid>
+                                <StackPanel>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.TIN, StringFormat='Vat Reg Tin#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.AccreditationNumber, StringFormat='A#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.ServerSerialNumber, StringFormat='SS#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.PN, StringFormat='P#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.MIN, StringFormat='MIN: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.POSNumber, StringFormat='POS #: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.SeatTypeName}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="ADMIT ONE"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.OfficialReceiptCaption}" Name="TextBoxOfficialReceiptCaption2"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.SessionName, StringFormat='Sess. # {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.ORNumber, StringFormat='Si#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.TellerCode, StringFormat='By:    {0}'}"/>
+
+                                </StackPanel>
+                            </DockPanel>
+
+                </StackPanel>
+            </Canvas>
+                </Canvas>
+
+            </Border>
+            <!--/DockPanel-->
+        </Grid>
+        
+        <!--StackPanel Canvas.Left="0" Canvas.Bottom="20" Orientation="Horizontal" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}" Name="FooterPanel">
+            <TextBlock Foreground="White" Margin="20,0,5,0" FontSize="14" Name="FooterLabel">zynappse corporation</TextBlock>
+            <Rectangle Fill="White" Height="2" Width="{Binding Path=ActualWidth, ElementName=FooterPanel, Converter={StaticResource footerLine}}"/>
+        </StackPanel-->
+        <TextBlock Canvas.Bottom="10" Canvas.Left="10" Foreground="White" FontSize="10" Name="Version"/>
+        <TextBlock Canvas.Bottom="10" Canvas.Right="10" Foreground="White" FontSize="10">2014 All rights reserved</TextBlock>
+    </Canvas>        
+</UserControl>

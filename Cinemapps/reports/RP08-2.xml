@@ -879,7 +879,6 @@
                         <PaddingTop >2pt</PaddingTop>
                         <PaddingBottom >2pt</PaddingBottom>
                       </Style>
-                      <HideDuplicates>Data</HideDuplicates>
                       <CanGrow>true</CanGrow>
                     </Textbox>
                   </ReportItems>
@@ -905,7 +904,6 @@
                         <Format>#,##0</Format>
                         <PaddingRight>10pt</PaddingRight>
                       </Style>
-                      <HideDuplicates>Data</HideDuplicates>
                     </Textbox>
                   </ReportItems>
                   <ColSpan>2</ColSpan>

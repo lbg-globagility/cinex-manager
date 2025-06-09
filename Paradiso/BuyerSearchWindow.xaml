@@ -1,0 +1,58 @@
+﻿<controls:MetroWindow x:Class="Paradiso.BuyerSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Buyer Search" Height="320" Width="600" WindowStartupLocation="CenterOwner" ShowWindowCommandsOnTop="False" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Black.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="Resources/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Margin="5">
+            <Button Width="100" Name="Close" Click="Close_Click">Close</Button>
+        </StackPanel>
+        <StackPanel  DockPanel.Dock="Top">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0">Name</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="FilterName" CharacterCasing="Upper"/>
+                <TextBlock  Grid.Row="0" Grid.Column="2">Address</TextBlock>
+                <TextBox  Grid.Row="0" Grid.Column="3" Name="FilterAddress" CharacterCasing="Upper"/>
+                <TextBlock Grid.Row="1" Grid.Column="0">TIN</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="FilterTIN" />
+                <TextBlock Grid.Row="1" Grid.Column="2">ID #</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="3" Name="FilterIDNum"/>
+            </Grid>
+            <StackPanel Margin="5">
+                <Button Width="100" Name="Search" Click="Search_Click">Search</Button>
+            </StackPanel>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Buyers}" SelectionMode="Single" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="ADDRESS" Width="200" DisplayMemberBinding="{Binding FullAddress}"></GridViewColumn>
+                    <GridViewColumn Header="TIN" Width="100" DisplayMemberBinding="{Binding TIN}"></GridViewColumn>
+                    <GridViewColumn Header="ID Number" Width="100" DisplayMemberBinding="{Binding IDNum}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</controls:MetroWindow>

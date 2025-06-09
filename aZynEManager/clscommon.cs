@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Data.Odbc;
 using System.Collections;
+using Cinex.Core.Entities;
 
 namespace aZynEManager
 {
@@ -144,7 +145,7 @@ namespace aZynEManager
                 sqry.Append("insert into a_trail values(0,");
                 sqry.Append(String.Format("{0},", intUserID));
                 sqry.Append(String.Format("'{0}',", String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now)));
-                sqry.Append(String.Format("{0},", getModuleID(sModule,sConnString)));
+                sqry.Append(String.Format("{0},", getModuleID(sModule, sConnString)));
                 sqry.Append(String.Format("'{0}',", sAffTable));
                 sqry.Append(String.Format("'{0}',", sComputer));
                 sqry.Append(String.Format("'{0}'", sDetails));
@@ -2241,7 +2242,7 @@ namespace aZynEManager
             }
         }
 
-        public void populatePOSTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate)
+        public void populatePOSTable(frmMain frm, String tbl, string sConnString, DateTime startdate, DateTime enddate, string orNumberFormat = "B")
         {
             try
             {
@@ -2335,11 +2336,25 @@ namespace aZynEManager
                         sumtotsc += totsc;
 
                         value = dr[2];
-                        if (value == DBNull.Value)
-                            lastor = 0;
+                        if (orNumberFormat == Configuration.DEFAULT_OR_NUMBER_FORMAT_VALUE)
+                        {
+                            if (value == DBNull.Value)
+                                lastor = 0;
+                            else
+                                lastor = Convert.ToInt32(value);
+
+                            strval[colcntr, rowcntr] = lastor.ToString();
+                        }
+                        else if (orNumberFormat == "A")
+                        {
+                            var lastORnum = string.IsNullOrEmpty(value?.ToString()) ? 0 : value;
+                            strval[colcntr, rowcntr] = $"{lastORnum}";
+                        }
                         else
-                            lastor = Convert.ToInt32(dr[2]);
-                        strval[colcntr,rowcntr] = lastor.ToString();
+                        {
+                            strval[colcntr, rowcntr] = value?.ToString();
+                        }
+
                         colcntr += 1;
 
                         rowcntr += 1;

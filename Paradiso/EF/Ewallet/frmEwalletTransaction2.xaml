@@ -1,0 +1,27 @@
+﻿<Window x:Class="Paradiso.EF.Ewallet.frmEwalletTransaction2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Paradiso.EF.Ewallet"
+        mc:Ignorable="d"
+        Title="E-WALLET TRANSACTION" Height="320" Width="420"
+        WindowStartupLocation="CenterOwner" Loaded="frmEwalletTransaction2_Loaded" Unloaded="frmEwalletTransaction2_Unloaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left" Margin="40,45,0,0" TextWrapping="Wrap" Text="E-WALLET" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment"/>
+        <ComboBox x:Name="cboxEwallets" HorizontalAlignment="Left" Margin="140,40,0,0" Text="TextBlock" VerticalAlignment="Top" Width="237" Height="30" Grid.ColumnSpan="2"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="40,85,0,0" TextWrapping="Wrap" Text="REFERENCE #" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment"/>
+        <TextBox x:Name="txtRefNo" HorizontalAlignment="Left" Margin="140,85,0,0" VerticalAlignment="Top" Width="237" Text="" Height="22" Grid.ColumnSpan="2"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="40,125,0,0" TextWrapping="Wrap" Text="REMARKS" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment"/>
+        <TextBox x:Name="txtRemarks" HorizontalAlignment="Left" Margin="140,125,0,0" VerticalAlignment="Top" Width="237" Text="" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="88" Grid.ColumnSpan="2" />
+
+        <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Left" Margin="140,230,0,0" VerticalAlignment="Top" Width="237" Height="32" Click="btnOK_Click" Grid.ColumnSpan="2" />
+
+    </Grid>
+</Window>
