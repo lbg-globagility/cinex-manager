@@ -143,18 +143,11 @@ namespace aZynEManager.EF.Cinemas
             await allSaveTasks
                 .ContinueWith(async (a) => {
 
-                    if(a.IsFaulted)
-                        MessageBox.Show(text: "Failed",
-                            caption: "Unsuccessful",
-                            buttons: MessageBoxButtons.OK,
-                            icon: MessageBoxIcon.Error);
-
-                    if (!a.IsFaulted)
-                        MessageBox.Show(
-                            text: "Done",
-                            caption: "Finish",
-                            buttons: MessageBoxButtons.OK,
-                            icon: MessageBoxIcon.Information);
+                    MessageBox.Show(
+                        text: "Done",
+                        caption: "Finish",
+                        buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
 
                     await ReloadCinemas();
 
