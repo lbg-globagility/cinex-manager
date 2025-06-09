@@ -473,6 +473,7 @@
             this.linklabelManageEwallets.Size = new System.Drawing.Size(304, 20);
             this.linklabelManageEwallets.TabIndex = 288;
             this.linklabelManageEwallets.Values.Text = "Manage eWallets";
+            this.linklabelManageEwallets.Visible = false;
             this.linklabelManageEwallets.LinkClicked += new System.EventHandler(this.linklabelManageEwallets_LinkClicked);
             // 
             // frmMainUtility
