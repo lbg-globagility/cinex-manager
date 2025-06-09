@@ -51,6 +51,7 @@ namespace Cinex.Core.Entities
         public int? WithSurcharge { get; set; }
 
         [Obsolete]
+        //[NotMapped]
         [Column("ewallet_id")]
         public int? EwalletId { get; private set; }
     }
