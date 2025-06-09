@@ -502,7 +502,7 @@ namespace aZynEManager
                     txtposition.Text.Trim(), txtlgu.Text.Trim()));*/
                 //melvin 11-5-2014 for sql injection
 
-                sqry.Append("insert into patrons values(0,@code,@name,@price,@promo,@amusement,");
+                sqry.Append("insert into patrons (`id`, `code`, `name`, `unit_price`, `with_promo`, `with_amusement`, `with_cultural`, `with_citytax`, `with_gross_margin`, `with_prod_share`, `seat_color`, `seat_position`, `lgutax`, `base_price`, `with_surcharge`) values(0,@code,@name,@price,@promo,@amusement,");
                 sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice,@surcharge)");
                
                 try
