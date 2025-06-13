@@ -95,7 +95,7 @@ namespace Paradiso
                             MovieTimeKey = ss.movies_schedule_list_id;
                         var seatname = (from cs in context.cinema_seat
                                         where cs.id == ss.cinema_seat_id
-                                        select new { sn = cs.col_name + cs.row_name }).SingleOrDefault();
+                                        select new { sn = string.Concat(string.IsNullOrEmpty(cs.col_name) ? string.Empty : cs.col_name, string.IsNullOrEmpty(cs.row_name) ? string.Empty : cs.row_name) }).SingleOrDefault();
 
 
                         Buyer buyer = new Buyer();
