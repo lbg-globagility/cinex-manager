@@ -9,10 +9,10 @@
         <DockPanel.Resources>
             <local:NotifyingDateTime x:Key="notifyingDate"/>
         </DockPanel.Resources>
-        <DockPanel DockPanel.Dock="Top" Background="#780001">
+        <DockPanel DockPanel.Dock="Top" Background="White">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
                 <Image Source="Images/img-logoholder.jpg" Width="80" Margin="10, 5"/>
-                <TextBlock FontSize="16" Foreground="Yellow" VerticalAlignment="Center" Name="TicketingTerminalTitle"></TextBlock>
+                <TextBlock FontSize="16" Foreground="Blue" VerticalAlignment="Center" Name="TicketingTerminalTitle"></TextBlock>
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                 <DockPanel Name="Dashboard"  MouseLeftButtonDown="UserPanel_MouseLeftButtonDown"  MouseRightButtonUp="UserPanel_MouseRightButtonUp">
@@ -25,20 +25,20 @@
                     </DockPanel.ContextMenu>
                     <StackPanel Name="UserPanel" Orientation="Horizontal" >
                         <Image Source="Images/icon-user.png" Width="19"/>
-                        <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8, 0">User:</TextBlock>
-                        <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Name="UserName"/>
+                        <TextBlock FontSize="12" Foreground="Black" VerticalAlignment="Center" Margin="8, 0">User:</TextBlock>
+                        <TextBlock FontSize="12" Foreground="Black" VerticalAlignment="Center" Name="UserName"/>
                     </StackPanel>
                 </DockPanel>
                 <!--Popup Name="myPopup" IsOpen="False" PlacementTarget="{Binding ElementName=Dashboard}" Placement="Center">
-                    <Label Name="myLabel" Content="This is a popup!" Foreground="Blue"/>
-                </Popup-->
+            <Label Name="myLabel" Content="This is a popup!" Foreground="Blue"/>
+        </Popup-->
                 <Line X1="10" Y1="14" X2="10" Y2="35" Stroke="White" StrokeThickness="2"></Line>
-                <TextBlock FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
+                <TextBlock FontSize="12" Foreground="Black" VerticalAlignment="Center" Margin="8,0" Name="CurrentDateTime" Text="{Binding Source={StaticResource notifyingDate},Path=Now, StringFormat={x:Static local:Constants.DateTimeUiFormat}}"></TextBlock>
                 <StackPanel Width="60">
-                    <TextBlock x:Name="Memory" Margin="0,5,0,0"  TextAlignment="Center" Text="000" FontSize="28" FontWeight="Bold" />
+                    <TextBlock x:Name="Memory" VerticalAlignment="Center"  TextAlignment="Center" Text="000" FontSize="28" Foreground="LightGray" FontWeight="Bold" />
                 </StackPanel>
             </StackPanel>
-            <xctk:DateTimePicker VerticalAlignment="Center" Margin="20,0" Background="Transparent" Foreground="LightYellow" FontSize="20" TextAlignment="Center" Name="ScreeningDate" Format="Custom" FormatString="MMMM dd, yyyy" TimeFormat="Custom" TimePickerVisibility="Collapsed" ShowButtonSpinner="False" AutoCloseCalendar="True" ValueChanged="ScreeningDate_ValueChanged" AllowSpin="False" ClipValueToMinMax ="True"/>
+            <xctk:DateTimePicker VerticalAlignment="Center" Margin="20,0" Background="Transparent" Foreground="Black" FontSize="20" TextAlignment="Center" Name="ScreeningDate" Format="Custom" FormatString="MMMM dd, yyyy" TimeFormat="Custom" TimePickerVisibility="Collapsed" ShowButtonSpinner="False" AutoCloseCalendar="True" ValueChanged="ScreeningDate_ValueChanged" AllowSpin="False" ClipValueToMinMax ="True"/>
             <!--TextBlock VerticalAlignment="Center" Foreground="LightYellow" FontSize="20" Margin="20, 0" TextAlignment="Center" Name="ScreeningDate"></TextBlock-->
         </DockPanel>
         <ContentControl Name="MainContent"></ContentControl>
