@@ -695,7 +695,7 @@ namespace Paradiso
         {
             base.OnInitialized(e);
             
-            LoadHotKeyHelper();
+            //LoadHotKeyHelper();
         }
 
         private void LoadHotKeyHelper()
