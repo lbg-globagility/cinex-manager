@@ -85,6 +85,7 @@ namespace Paradiso.Model
         private string strBuyerTIN = string.Empty;
         private string strBuyerIDNum = string.Empty;
         private string strOfficialReceiptCaption;
+        private string strHeader4;
 
         public TicketModel()
         {
@@ -122,6 +123,12 @@ namespace Paradiso.Model
             strHeader1 = ParadisoObjectManager.GetInstance().Header;
             strHeader2 = ParadisoObjectManager.GetInstance().Subheader;
             strHeader3 = ParadisoObjectManager.GetInstance().Subheader1;
+            var fsdfsd = strHeader3.Split('\n');
+            if ((fsdfsd?.Count() ?? 0) > 1)
+            {
+                strHeader3 = fsdfsd.FirstOrDefault();
+                strHeader4 = fsdfsd.LastOrDefault();
+            }
 
             strSupplierName = ParadisoObjectManager.GetInstance().GetConfigValue("SUPPLIER NAME", string.Empty);
             strSupplierAddress = ParadisoObjectManager.GetInstance().GetConfigValue("SUPPLIER ADDRESS", string.Empty);
@@ -610,6 +617,19 @@ namespace Paradiso.Model
             }
         }
 
+        public string Header4
+        {
+            get { return strHeader4; }
+            set
+            {
+                if (value != strHeader4)
+                {
+                    strHeader4 = value;
+                    NotifyPropertyChanged("Header4");
+                }
+            }
+        }
+
         public string MIN
         {
             get { return strMIN; }
@@ -769,10 +789,10 @@ namespace Paradiso.Model
                 StringBuilder strAccreditation = new StringBuilder();
                 if (AccreditationNumber != string.Empty)
                     strAccreditation.Append(AccreditationNumber);
-                if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate != string.Empty)
-                    strAccreditation.Append(string.Format(" ({0}-{1})", DateIssued, ValidDate));
-                else if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate == string.Empty)
-                    strAccreditation.Append(string.Format(" ({0})", DateIssued));
+                //if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate != string.Empty)
+                //    strAccreditation.Append(string.Format(" ({0}-{1})", DateIssued, ValidDate));
+                //else
+                if (strAccreditation.Length > 0 && DateIssued != string.Empty && ValidDate == string.Empty) strAccreditation.Append(string.Format(" ({0})", DateIssued));
 
                 return strAccreditation.ToString();
             }
