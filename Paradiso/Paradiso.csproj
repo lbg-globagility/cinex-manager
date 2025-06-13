@@ -253,13 +253,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParadisoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PostekPrinterEx.cs" />
     <Compile Include="Result1.cs" />
     <Compile Include="Result2.cs" />
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TicketPrintPage2.xaml.cs">
-      <DependentUpon>TicketPrintPage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="FreeSeatingPage.xaml.cs">
       <DependentUpon>FreeSeatingPage.xaml</DependentUpon>
@@ -331,6 +329,9 @@
     <Compile Include="Converters\TotalPatronSeatConverter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TicketPrintPage2.xaml.cs">
+      <DependentUpon>TicketPrintPage2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UniformGridWithOrientation.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="BuyerSearchWindow.xaml">
@@ -360,10 +361,6 @@
     <Page Include="SettingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TicketPrintPage2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="FreeSeatingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -424,6 +421,10 @@
     <Page Include="TicketPrintPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TicketPrintPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
