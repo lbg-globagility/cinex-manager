@@ -32,31 +32,20 @@
         <Grid Name="TicketPanel" Canvas.Top="30" Canvas.Left="250" Background="White" Height="586" Width="800" Opacity="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50*" />
-                <RowDefinition Height="460*" />
-                <RowDefinition Height="76*" />
+                <RowDefinition Height="463*" />
+                <RowDefinition Height="83*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="1" Margin="60, 5, 10,0" >
-                <TextBlock Name="progressText"/>
-                <controls:MetroProgressBar Name="progressBar2" Height="20" Width="Auto" BorderBrush="Black" BorderThickness="1"></controls:MetroProgressBar>
-            </StackPanel>
+            <controls:MetroProgressBar Name="progressBar2" Height="20" Width="Auto" Grid.Row="0" Grid.Column="1" Margin="20,0" BorderBrush="Black" BorderThickness="1"></controls:MetroProgressBar>
 
-            <StackPanel Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2"  Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Left">
-                <DatePicker Name="TicketDate">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox">
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
+            <StackPanel Grid.Row="0" Grid.Column="0"  Orientation="Horizontal" Margin="5" Height="40" HorizontalAlignment="Left">
                 <TextBox Margin="5,0,0,0" Width="120" Name="ORNumberInput" CharacterCasing="Upper" ToolTip="SI Number/Session Number" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                 <ComboBox Name="UsersComboBox" Margin="5,0,0,0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" Width="120" />
-                <!--CheckBox Style="{x:Null}" Height="16" Name="chkSessionOnly" Checked="chkSessionOnly_Checked" Unchecked="chkSessionOnly_Unchecked" /-->
-                <!--TextBlock Height="16">Session Only</TextBlock-->
-                <ComboBox Name="TypesComboBox" ItemsSource="{Binding Types}"  SelectedItem="{Binding SelectedType, Mode=TwoWay}" Width="120"/>
+                <CheckBox Style="{x:Null}" Height="16" Name="chkSessionOnly" Checked="chkSessionOnly_Checked" Unchecked="chkSessionOnly_Unchecked" />
+                <TextBlock Height="16">Session Only</TextBlock>
                 <Button Name="SearchTicket" Click="Search_Click" ToolTip="Search" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Background="Black">
                     <Rectangle Width="20" Height="20" >
                         <Rectangle.Fill>
@@ -142,8 +131,7 @@
                 <ListView ItemsSource="{Binding Path=CancelledORNumbers}" SelectionMode="Single" Background="Black" SelectionChanged="ListView_SelectionChanged" Height="386" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 </ListView>
             </StackPanel-->
-            <Border Grid.Row="2" Grid.Column="1"  Padding="4"  Background="Black">
-            <StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1" Margin="7,5,3,5" Background="Black">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Left" Foreground="White">Total Tickets</TextBlock>
                     <TextBlock HorizontalAlignment="Right" Foreground="White" Text="{Binding TicketList.Count, StringFormat='{}{0:#,0}'}"/>
@@ -184,7 +172,6 @@
                     <!--Button Name="PrintTest" Click="PrintTest_Click" Visibility="Collapsed" >Test</Button-->
                 </Grid>
             </StackPanel>
-            </Border>
             <Border Grid.Row="1" Grid.Column="1">
                 <Canvas>
                     <Canvas Name="TicketCanvas" Canvas.Left="40"  Canvas.Top="50">
@@ -217,7 +204,7 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" FontSize="9" Text="{Binding Ticket.MovieCode}"/>
-                                <TextBlock Grid.Column="1"  FontSize="6"  Text="{Binding Ticket.ORNumber, StringFormat='Si#: {0}'}"/>
+                                <TextBlock Grid.Column="1"  FontSize="6"  Text="{Binding Ticket.ORNumber, StringFormat='SI#: {0}'}"/>
                             </Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -283,7 +270,7 @@
                                 <StackPanel>
                                     <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.SeatTypeName}"/>
                                     <TextBlock FontSize="16" Width="174" Text="ADMIT ONE"/>
-                                    <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.OfficialReceiptCaption}" Name="TextBoxOfficialReceiptCaption1" />
+                                    <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.OfficialReceiptCaption}" Name="TextBoxOfficialReceiptCaption1"/>
                                     <TextBlock FontSize="8" Width="174" Text="{Binding Ticket.Rating, StringFormat='MTRCB RATING:{0}'}"/>
                                     <TextBlock FontSize="6" Height="8" Text=" " xml:space="preserve"/>
                                     <TextBlock FontSize="6" Height="8" Text="{Binding Ticket.SessionName, StringFormat='Sess. # {0}'}"/>
@@ -365,7 +352,7 @@
                                     <TextBlock FontSize="6" Height="7" Text="ADMIT ONE"/>
                                     <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.OfficialReceiptCaption}" Name="TextBoxOfficialReceiptCaption2"/>
                                     <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.SessionName, StringFormat='Sess. # {0}'}"/>
-                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.ORNumber, StringFormat='Si#: {0}'}"/>
+                                    <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.ORNumber, StringFormat='SI#: {0}'}"/>
                                     <TextBlock FontSize="6" Height="7" Text="{Binding Ticket.TellerCode, StringFormat='By:    {0}'}"/>
 
                                 </StackPanel>

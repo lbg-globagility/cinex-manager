@@ -17,8 +17,6 @@ using System.Printing;
 using Paradiso.Helpers;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Collections;
-using Paradiso.EF;
 
 namespace Paradiso
 {
@@ -30,10 +28,7 @@ namespace Paradiso
         public TicketModel Ticket { get; set;}
 
         public ObservableCollection<UserModel> Users { get; set; }
-        public ObservableCollection<string> Types { get; set; }
         public UserModel SelectedUser { get; set; }
-
-        public string SelectedType { get; set; }
 
         public ObservableCollection<TicketSessionModel> TicketSessions { get; set; }
         public TicketListModel TicketList { get; set; }
@@ -41,10 +36,10 @@ namespace Paradiso
         //public ObservableCollection<TicketModel> Tickets { get; set; }
 
         public ObservableCollection<string> CancelledORNumbers { get; set; }
+        public readonly string OfficialReceiptShortCaptionText;
 
         private BackgroundWorker worker;
         private BackgroundWorker worker1;
-        private readonly string OfficialReceiptShortCaptionText;
 
         public TicketPrintPage2()
         {
@@ -95,17 +90,7 @@ namespace Paradiso
 
             CancelledORNumbers = new ObservableCollection<string>();
 
-            var pom = ParadisoObjectManager.GetInstance();
-            DateTime dtNow = pom.CurrentDate;
-            TicketDate.SelectedDate = dtNow.Date;
-
             Users = new ObservableCollection<UserModel>();
-            Types = new ObservableCollection<string>();
-            Types.Add($"{OfficialReceiptShortCaptionText} Only");
-            Types.Add("Session Only");
-
-            SelectedType = Types[0];
-
             this.PopulateUsers();
 
             if (blnIsReset)
@@ -155,13 +140,10 @@ namespace Paradiso
 
         private void EnableControls(bool blnEnable)
         {
-            TicketDate.IsEnabled = blnEnable;
-            TypesComboBox.IsEnabled = blnEnable;
-
             TicketPanel.IsEnabled = blnEnable;
             ORNumberInput.IsEnabled = blnEnable;
             UsersComboBox.IsEnabled = blnEnable;
-            //chkSessionOnly.IsEnabled = blnEnable;
+            chkSessionOnly.IsEnabled = blnEnable;
             SearchTicket.IsEnabled = blnEnable;
             Clear.IsEnabled = blnEnable;
             TicketDataGrid.IsEnabled = blnEnable;
@@ -172,20 +154,10 @@ namespace Paradiso
 
         void worker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            progressText.Text = "Search completed.";
-            progressBar2.Value = 100;
-
             //throw new NotImplementedException();
             string strResult = string.Empty;
-            try
-            {
-                if (e.Result != null)
-                    strResult = e.Result.ToString();
-            }
-            catch (Exception ex)
-            {
-                strResult = "An error has occurred.";
-            }
+            if (e.Result != null)
+                strResult = e.Result.ToString();
 
             Cursor = null;
             this.EnableControls(true);
@@ -215,26 +187,24 @@ namespace Paradiso
 
         void worker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
             SearchOptions so = (SearchOptions)e.Argument;
 
             string error = string.Empty;
 
             string strSearch = so.searchText;
-            /*
+            var originTextSearch = strSearch;
             if ((strSearch == string.Empty && so.selectedUserKey == 0) ||
                 (strSearch == string.Empty && so.selectedUserKey != 0 && so.isPromptNotFound == false))
             {
                 e.Result = "Missing search text.";
                 return;
             }
-            */
 
             bool blnIsORNumber = false;
             //checks if format is ornumber or session
             if (!so.isSessionOnly)
             {
-                if (strSearch != string.Empty && strSearch.All(Char.IsDigit) && !strSearch.StartsWith("201") && !strSearch.StartsWith("202")) //201? up to 202*
+                if (strSearch.All(Char.IsDigit) && !strSearch.StartsWith("201"))
                 {
                     int _orNumber = 0;
                     if (int.TryParse(strSearch, out _orNumber) && _orNumber > 0)
@@ -244,16 +214,12 @@ namespace Paradiso
                     }
                     else
                     {
-                        Dispatcher.Invoke((Action)(() =>
-                        {
-                            MessageWindow messageWindow = new MessageWindow();
-                            messageWindow.MessageText.Text = $"{OfficialReceiptShortCaptionText} Number is invalid.";
-                            messageWindow.ShowDialog();
+                        MessageWindow messageWindow = new MessageWindow();
+                        messageWindow.MessageText.Text = $"{OfficialReceiptShortCaptionText} Number is invalid.";
+                        messageWindow.ShowDialog();
 
-                            if (ORNumberInput.Focusable)
-                                ORNumberInput.Focus();
-                        }
-                        ));
+                        if (ORNumberInput.Focusable)
+                            ORNumberInput.Focus();
                         return;
                     }
                 }
@@ -269,336 +235,325 @@ namespace Paradiso
             //search ornumber or session number
             using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
             {
-                if (so.isSessionOnly == false) //or only
+                if (so.isSessionOnly == false)
                 {
-                    try
+
+                    //ticket and details
+                    var queryTickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                        where mslrs.or_number == strSearch && mslrs.status == 1
+                        orderby mslrs.ticket.ticket_datetime descending
+                        select mslrs);
+
+                    if (!(queryTickets?.Any() ?? false))
+                        queryTickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                            where mslrs.status == 1 &&
+                            mslrs.ticket.session_id.StartsWith(originTextSearch)
+                            orderby mslrs.ticket.ticket_datetime descending
+                            select mslrs);
+
+                    var tickets = queryTickets
+                        .Select(mslrs => new
+                        {
+                            ticketid = mslrs.ticket_id,
+                            ticketdatetime = mslrs.ticket.ticket_datetime,
+                            terminalname = mslrs.ticket.terminal,
+                            tellercode = mslrs.ticket.user.userid,
+                            session = mslrs.ticket.session_id,
+                            id = mslrs.id,
+                            cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                            moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                            rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                            seattype = mslrs.movies_schedule_list.seat_type,
+                            startdate = mslrs.movies_schedule_list.start_time,
+                            patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                            patronname = mslrs.movies_schedule_list_patron.patron.name,
+                            patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                            seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                            price = mslrs.price,
+                            ornumber = mslrs.or_number,
+                            at = mslrs.amusement_tax_amount,
+                            ct = mslrs.cultural_tax_amount,
+                            vt = mslrs.vat_amount,
+                            isvoid = (mslrs.void_datetime != null)
+                        })
+                        .ToList();
+
+                    worker1.ReportProgress(25);
+                    
+                    if (tickets.Count == 0)
+                        blnIsORNumber = false;
+
+                    if (!blnIsORNumber && so.selectedUserKey != 0 && strSearch == string.Empty)
                     {
-                        Dictionary<int, string> cinemaseats  = new Dictionary<int,string>();
+                        tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                                   where
+                                   mslrs.status == 1
+                                   && mslrs.ticket.user.id == so.selectedUserKey
+                                   orderby mslrs.ticket.ticket_datetime descending
+                                   select new
+                                   {
+                                       ticketid = mslrs.ticket_id,
+                                       ticketdatetime = mslrs.ticket.ticket_datetime,
+                                       terminalname = mslrs.ticket.terminal,
+                                       tellercode = mslrs.ticket.user.userid,
+                                       session = mslrs.ticket.session_id,
 
-                        Dictionary<int, string> patroncodes  = new Dictionary<int,string>();
-                        Dictionary<int, string> patronnames  = new Dictionary<int,string>();
-                        Dictionary<int, string> patrondescriptions  = new Dictionary<int,string>();
+                                       id = mslrs.id,
+                                       cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                       moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                                       rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                       seattype = mslrs.movies_schedule_list.seat_type,
+                                       startdate = mslrs.movies_schedule_list.start_time,
+                                       patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
+                                       patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                       seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                       price = mslrs.price,
+                                       ornumber = mslrs.or_number,
+                                       at = mslrs.amusement_tax_amount,
+                                       ct = mslrs.cultural_tax_amount,
+                                       vt = mslrs.vat_amount,
 
-                        Dictionary<int, int> cinemanumbers = new Dictionary<int, int>();
-                        Dictionary<int, string> moviecodes = new Dictionary<int, string>();
-                        Dictionary<int, string> ratings = new Dictionary<int, string>();
-                        Dictionary<int, int> seattypes = new Dictionary<int, int>();
-                        Dictionary<int, DateTime> startdates = new Dictionary<int, DateTime>();
-
-
-                        //ticket and details
-                        var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
-                                       where mslrs.status == 1
-
-                                       && (strSearch == string.Empty || (strSearch != string.Empty && mslrs.or_number == strSearch)) //
-                                       && (so.selectedUserKey == 0 || (so.selectedUserKey != 0 && mslrs.ticket.user.id == so.selectedUserKey))
-
-                                       && mslrs.ticket.ticket_datetime.Value.Year == so.ticketDate.Value.Year
-                                       && mslrs.ticket.ticket_datetime.Value.Month == so.ticketDate.Value.Month
-                                       && mslrs.ticket.ticket_datetime.Value.Day == so.ticketDate.Value.Day
-                                       orderby mslrs.ticket.ticket_datetime descending
-                                       select new
-                                       {
-                                           ticketid = mslrs.ticket_id,
-                                           ticketdatetime = mslrs.ticket.ticket_datetime,
-                                           terminalname = mslrs.ticket.terminal,
-                                           tellercode = mslrs.ticket.user.userid,
-                                           session = mslrs.ticket.session_id,
-
-                                           id = mslrs.id,
-                                           /*
-                                           cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
-                                           moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
-                                           rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
-                                           seattype = mslrs.movies_schedule_list.seat_type,
-                                           startdate = mslrs.movies_schedule_list.start_time,
-                                           patroncode = mslrs.movies_schedule_list_patron.patron.code,
-                                           patronname = mslrs.movies_schedule_list_patron.patron.name,
-                                           patrondescription = mslrs.movies_schedule_list_patron.patron.name,
-                                           seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
-                                           */
-                                           mslid = mslrs.movies_schedule_list_id,
-                                           cinemaseatid = mslrs.cinema_seat_id,
-                                           patronid = mslrs.patron_id,
-
-                                           price = mslrs.price,
-                                           ornumber = mslrs.or_number,
-                                           at = mslrs.amusement_tax_amount,
-                                           ct = mslrs.cultural_tax_amount,
-                                           vt = mslrs.vat_amount,
-
-                                           isvoid = (mslrs.void_datetime != null),
-                                       }).ToList();
-
-                        worker1.ReportProgress(25);
-
-                        Dispatcher.Invoke( (Action) ( () => progressText.Text = "Retrieving info..." ));
-
-
-                        int index = 0;
-                        int max = tickets.Count;
-                        int percentage = 0;
-
-                        for (int i = 0; i < max; i++)
-                        {
-                            index++;
-                            percentage = ((index * 50) /max) + 25;
-                            worker1.ReportProgress(percentage);
-
-                            int csid = tickets[i].cinemaseatid;
-                            //cinema seats
-                            var cinema = (from c in context.cinema_seat where c.id == csid
-                                          select  new { seatname = c.col_name + c.row_name }).FirstOrDefault();
-                            cinemaseats.Add(tickets[i].id, cinema == null ? "" : cinema.seatname);
-
-                            //patron seats
-                            int pid = tickets[i].patronid;
-                            if (!patroncodes.ContainsKey(pid))
-                            {
-                                var mslp = (from _mslp in context.movies_schedule_list_patron
-                                            where _mslp.id == pid
-                                            select new {
-                                                patroncode = _mslp.patron.code,
-                                                patronname = _mslp.patron.name,
-                                                patrondescription = _mslp.patron.name,
-                                            
-                                            }).FirstOrDefault();
-
-                                patroncodes.Add(pid, mslp == null ? "" : mslp.patroncode);
-                                patronnames.Add(pid, mslp == null ? "" : mslp.patronname);
-                                patrondescriptions.Add(pid, mslp == null ? "" : mslp.patrondescription);
-                            }
-
-                            int mslid = tickets[i].mslid;
-                            if (!cinemanumbers.ContainsKey(mslid))
-                            {
-                                var msl = (from _msl in context.movies_schedule_list
-                                           where _msl.id == mslid
-                                           select new
-                                           {
-                                               cinemanumber = _msl.movies_schedule.cinema.in_order,
-                                               moviecode = _msl.movies_schedule.movie.title,
-                                               rating = _msl.movies_schedule.movie.mtrcb.name,
-                                               seattype = _msl.seat_type,
-                                               startdate = _msl.start_time
-                                           }).FirstOrDefault();
-                                cinemanumbers.Add(mslid, msl == null ? 0 : msl.cinemanumber);
-
-                                moviecodes.Add(mslid, msl == null ? "" : msl.moviecode);
-                                ratings.Add(mslid, msl == null ? "" : msl.rating);
-                                seattypes.Add(mslid, msl == null ? 0 : msl.seattype);
-                                startdates.Add(mslid, msl == null ? DateTime.Now : msl.startdate);
-                            }
-                        }
-
-                        worker1.ReportProgress(50);
-
-                        //show all tickets in initial search
-                        index = 0;
-                        percentage = 0;
-
-                        DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
-                        foreach (var t in tickets)
-                        {
-                            index++;
-                            percentage = ((index * 50) / max) + 50;
-                            worker1.ReportProgress(percentage);
-
-                            if (TicketSessions.Where(ts => ts.Id == t.ticketid).Count() == 0)
-                            {
-                                Dispatcher.Invoke((Action)(() =>
-
-                                    TicketSessions.Add(new TicketSessionModel()
-                                    {
-                                        Id = t.ticketid,
-                                        SessionId = t.session,
-                                        Terminal = t.terminalname,
-                                        User = t.tellercode,
-                                        TicketDateTime = (DateTime)t.ticketdatetime
-                                    })
-                                ));
-                            }
-
-                            Dispatcher.Invoke((Action)(() => {
-
-
-                                TicketList.Tickets.Add(new TicketModel()
-                                {
-                                    Id = t.id,
-                                    /*
-                                    CinemaNumber = t.cinemanumber,
-                                    MovieCode = t.moviecode,
-                                    Rating = t.rating,
-                                    SeatType = t.seattype,
-                                    StartTime = t.startdate,
-                                    PatronCode = t.patroncode,
-                                    PatronName = t.patronname,
-                                    PatronDescription = t.patrondescription,
-                                    SeatName = t.seatname,
-                                    */
-
-                                    CinemaNumber = cinemanumbers[t.mslid],
-                                    MovieCode = moviecodes[t.mslid],
-                                    Rating = moviecodes[t.mslid],
-                                    SeatType = seattypes[t.mslid],
-                                    StartTime = startdates[t.mslid],
-
-                                    PatronCode = patroncodes[t.patronid],
-                                    PatronName = patronnames[t.patronid],
-                                    PatronDescription = patrondescriptions[t.patronid],
-                                    SeatName = cinemaseats[t.id],
-
-                                    PatronPrice = (decimal)t.price,
-                                    ORNumber = t.ornumber,
-                                    AmusementTax = (decimal)t.at,
-                                    CulturalTax = (decimal)t.ct,
-                                    VatTax = (decimal)t.vt,
-                                    TerminalName = t.terminalname,
-                                    TellerCode = t.tellercode,
-                                    SessionName = t.session,
-                                    CurrentTime = dtCurrentDateTime,
-                                    IsVoid = t.isvoid,
-                                    IsSelected = false
-                                });
-                            }
-                            ));
-                        }
-
-                        if (tickets.Count == 0 && so.isPromptNotFound)
-                        {
-                            e.Result = "No ticket(s) found.";
-                            return;
-                        }
+                                       isvoid = (mslrs.void_datetime != null),
+                                   }).ToList();
                     }
-                    catch (Exception _ex)
+                    else if (!blnIsORNumber && so.selectedUserKey != 0)
                     {
-                        if (so.isPromptNotFound)
-                            e.Result = "An error has occurred.";
-                        return;
+                        tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                                   where mslrs.ticket.session_id.StartsWith(strSearch) && mslrs.ticket.user.id == so.selectedUserKey && mslrs.status == 1
+                                   orderby mslrs.ticket.ticket_datetime descending
+                                   select new
+                                   {
+                                       ticketid = mslrs.ticket_id,
+                                       ticketdatetime = mslrs.ticket.ticket_datetime,
+                                       terminalname = mslrs.ticket.terminal,
+                                       tellercode = mslrs.ticket.user.userid,
+                                       session = mslrs.ticket.session_id,
+
+                                       id = mslrs.id,
+                                       cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                       moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                                       rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                       seattype = mslrs.movies_schedule_list.seat_type,
+                                       startdate = mslrs.movies_schedule_list.start_time,
+                                       patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
+                                       patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                       seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                       price = mslrs.price,
+                                       ornumber = mslrs.or_number,
+                                       at = mslrs.amusement_tax_amount,
+                                       ct = mslrs.cultural_tax_amount,
+                                       vt = mslrs.vat_amount,
+
+                                       isvoid = (mslrs.void_datetime != null),
+                                   }).ToList();
+
                     }
-                }
-                else //session only
-                {
-                    //make sure cinema is not yet expired
-                    try
+                    else if (!blnIsORNumber)
                     {
+                        tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                                   where mslrs.ticket.session_id.StartsWith(strSearch) && mslrs.status == 1
+                                   orderby mslrs.ticket.ticket_datetime descending
+                                   select new
+                                   {
+                                       ticketid = mslrs.ticket_id,
+                                       ticketdatetime = mslrs.ticket.ticket_datetime,
+                                       terminalname = mslrs.ticket.terminal,
+                                       tellercode = mslrs.ticket.user.userid,
+                                       session = mslrs.ticket.session_id,
 
-                        var tickets = (from mslhs in context.movies_schedule_list_house_seat
-                                       where (strSearch == string.Empty || (strSearch != string.Empty && mslhs.session_id.StartsWith(strSearch)))
-                                       && mslhs.reserved_date.Value.Year == so.ticketDate.Value.Year
-                                       && mslhs.reserved_date.Value.Month == so.ticketDate.Value.Month
-                                       && mslhs.reserved_date.Value.Day == so.ticketDate.Value.Day
-                                       orderby mslhs.reserved_date descending
-                                       select new
-                                       {
-                                           ticketid = -1,
-                                           ticketdatetime = mslhs.reserved_date,
-                                           terminalname = "",
-                                           tellercode = "",
-                                           session = mslhs.session_id,
+                                       id = mslrs.id,
+                                       cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                       moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                                       rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                       seattype = mslrs.movies_schedule_list.seat_type,
+                                       startdate = mslrs.movies_schedule_list.start_time,
+                                       patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslrs.movies_schedule_list_patron.patron.name,
+                                       patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                       seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                       price = mslrs.price,
+                                       ornumber = mslrs.or_number,
+                                       at = mslrs.amusement_tax_amount,
+                                       ct = mslrs.cultural_tax_amount,
+                                       vt = mslrs.vat_amount,
 
-                                           id = mslhs.id,
-                                           cinemanumber = mslhs.movies_schedule_list.movies_schedule.cinema.in_order,
-                                           moviecode = mslhs.movies_schedule_list.movies_schedule.movie.title,
-                                           rating = mslhs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
-                                           seattype = mslhs.movies_schedule_list.seat_type,
-                                           startdate = mslhs.movies_schedule_list.start_time,
-                                           enddate = mslhs.movies_schedule_list.end_time,
-                                           patroncode = mslhs.movies_schedule_list_patron.patron.code,
-                                           patronname = mslhs.movies_schedule_list_patron.patron.name,
-                                           patrondescription = mslhs.movies_schedule_list_patron.patron.name,
-                                           seatname = mslhs.cinema_seat.col_name + mslhs.cinema_seat.row_name,
-                                           price = mslhs.movies_schedule_list_patron.price,
-                                           ornumber = "RESERVED",
-                                           at = 0.0,
-                                           ct = 0.0,
-                                           vt = 0.0,
-                                           isvoid = false,
-                                       }).ToList();
-                        //remove expired
+                                       isvoid = (mslrs.void_datetime != null),
+                                   }).ToList();
+                    }
 
-                        DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
-                        tickets = tickets.Where(t => t.enddate > dtCurrentDateTime && t.ticketdatetime > dtCurrentDateTime.AddMinutes(-10)).ToList();
-                        //update teller
-                        int intCount = tickets.Count;
-                        for (int i = 0; i < intCount; i++)
+                    worker1.ReportProgress(50);
+
+                    //show all tickets in initial search
+                    int index = 0;
+                    int max = tickets.Count;
+                    int percentage = 0;
+
+                    DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
+                    foreach (var t in tickets)
+                    {
+                        index++;
+                        percentage = ((index * 50) / max) + 50;
+                        worker1.ReportProgress(percentage);
+
+                        if (TicketSessions.Where(ts => ts.Id == t.ticketid).Count() == 0)
                         {
-                            int intUserId = -1;
-                            string strTellerCode = string.Empty;
-
-                            var t = tickets[i];
-
-
-                            int intIndex = t.session.LastIndexOf('-');
-                            if (intIndex != -1)
-                            {
-                                int.TryParse(t.session.Substring(intIndex + 1), out intUserId);
-                                if (intUserId != -1)
-                                {
-                                    var user = Users.Where(u => u.Key == intUserId).SingleOrDefault();
-                                    if (user != null)
-
-                                        strTellerCode = user.Name;
-                                }
-                            }
-                            if (SelectedUser.Key != 0 && intUserId != SelectedUser.Key)
-                                continue;
-
-                            if (TicketSessions.Where(ts => ts.SessionId == t.session).Count() == 0)
-                            {
-                                Dispatcher.Invoke((Action)(() =>
-                                    TicketSessions.Add(new TicketSessionModel()
-                                    {
-                                        Id = t.ticketid,
-                                        SessionId = t.session,
-                                        Terminal = t.terminalname,
-                                        User = strTellerCode,
-                                        TicketDateTime = (DateTime)t.ticketdatetime
-                                    })
-                                ));
-                            }
                             Dispatcher.Invoke((Action)(() =>
-
-                                TicketList.Tickets.Add(new TicketModel()
+                            
+                                TicketSessions.Add(new TicketSessionModel()
                                 {
-                                    Id = t.id,
-                                    CinemaNumber = t.cinemanumber,
-                                    MovieCode = t.moviecode,
-                                    Rating = t.rating,
-                                    SeatType = t.seattype,
-                                    StartTime = t.startdate,
-                                    PatronCode = t.patroncode,
-                                    PatronName = t.patronname,
-                                    PatronPrice = (decimal)t.price,
-                                    PatronDescription = t.patrondescription,
-                                    SeatName = t.seatname,
-                                    ORNumber = t.ornumber,
-                                    AmusementTax = (decimal)t.at,
-                                    CulturalTax = (decimal)t.ct,
-                                    VatTax = (decimal)t.vt,
-                                    TerminalName = t.terminalname,
-                                    TellerCode = t.tellercode,
-                                    SessionName = t.session,
-                                    CurrentTime = dtCurrentDateTime,
-                                    IsVoid = t.isvoid,
-                                    IsSelected = false
+                                    Id = t.ticketid,
+                                    SessionId = t.session,
+                                    Terminal = t.terminalname,
+                                    User = t.tellercode,
+                                    TicketDateTime = (DateTime)t.ticketdatetime
                                 })
                             ));
                         }
 
-                        if (TicketSessions.Count == 0 && so.isPromptNotFound)
-                        {
-                            e.Result = "No ticket(s) found.";
-                            return;
-                        }
+                        Dispatcher.Invoke((Action)(() =>
+                            TicketList.Tickets.Add(new TicketModel()
+                            {
+                                Id = t.id,
+                                CinemaNumber = t.cinemanumber,
+                                MovieCode = t.moviecode,
+                                Rating = t.rating,
+                                SeatType = t.seattype,
+                                StartTime = t.startdate,
+                                PatronCode = t.patroncode,
+                                PatronName = t.patronname,
+                                PatronPrice = (decimal)t.price,
+                                PatronDescription = t.patrondescription,
+                                SeatName = t.seatname,
+                                ORNumber = t.ornumber,
+                                AmusementTax = (decimal)t.at,
+                                CulturalTax = (decimal)t.ct,
+                                VatTax = (decimal)t.vt,
+                                TerminalName = t.terminalname,
+                                TellerCode = t.tellercode,
+                                SessionName = t.session,
+                                CurrentTime = dtCurrentDateTime,
+                                IsVoid = t.isvoid,
+                                IsSelected = false
+                            })
+                        ));
                     }
-                    catch
+
+                    if (tickets.Count == 0 && so.isPromptNotFound)
                     {
-                        if (so.isPromptNotFound)
+                        e.Result = "No ticket(s) found.";
+                        return;
+                    }
+                }
+                else
+                {
+                    //make sure cinema is not yet expired
+
+                    var tickets = (from mslhs in context.movies_schedule_list_house_seat
+                                   where mslhs.session_id.StartsWith(strSearch)
+                                   orderby mslhs.reserved_date descending
+                                   select new
+                                   {
+                                       ticketid = -1,
+                                       ticketdatetime = mslhs.reserved_date,
+                                       terminalname = "",
+                                       tellercode = "",
+                                       session = mslhs.session_id,
+
+                                       id = mslhs.id,
+                                       cinemanumber = mslhs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                       moviecode = mslhs.movies_schedule_list.movies_schedule.movie.title,
+                                       rating = mslhs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                       seattype = mslhs.movies_schedule_list.seat_type,
+                                       startdate = mslhs.movies_schedule_list.start_time,
+                                       enddate = mslhs.movies_schedule_list.end_time,
+                                       patroncode = mslhs.movies_schedule_list_patron.patron.code,
+                                       patronname = mslhs.movies_schedule_list_patron.patron.name,
+                                       patrondescription = mslhs.movies_schedule_list_patron.patron.name,
+                                       seatname = mslhs.cinema_seat.col_name + mslhs.cinema_seat.row_name,
+                                       price = mslhs.movies_schedule_list_patron.price,
+                                       ornumber = "RESERVED",
+                                       at = 0.0,
+                                       ct = 0.0,
+                                       vt = 0.0,
+                                       isvoid = false,
+                                   }).ToList();
+                    //remove expired
+
+                    DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
+                    tickets = tickets.Where(t => t.enddate > dtCurrentDateTime && t.ticketdatetime > dtCurrentDateTime.AddMinutes(-10)).ToList();
+                    //update teller
+                    int intCount = tickets.Count;
+                    for (int i = 0; i < intCount; i++)
+                    {
+                        int intUserId = -1;
+                        string strTellerCode = string.Empty;
+
+                        var t = tickets[i];
+
+
+                        int intIndex = t.session.LastIndexOf('-');
+                        if (intIndex != -1)
                         {
-                            e.Result = "An error has occurred.";
-                            return;
+                            int.TryParse(t.session.Substring(intIndex + 1), out intUserId);
+                            if (intUserId != -1)
+                            {
+                                var user = Users.Where(u => u.Key == intUserId).SingleOrDefault();
+                                if (user != null)
+
+                                    strTellerCode = user.Name;
+                            }
                         }
+                        if (SelectedUser.Key != 0 && intUserId != SelectedUser.Key)
+                            continue;
+
+                        if (TicketSessions.Where(ts => ts.SessionId == t.session).Count() == 0)
+                        {
+                            Dispatcher.Invoke((Action)(() =>
+                                TicketSessions.Add(new TicketSessionModel()
+                                {
+                                    Id = t.ticketid,
+                                    SessionId = t.session,
+                                    Terminal = t.terminalname,
+                                    User = strTellerCode,
+                                    TicketDateTime = (DateTime)t.ticketdatetime
+                                })
+                            ));
+                        }
+                        Dispatcher.Invoke((Action)(() =>
+
+                            TicketList.Tickets.Add(new TicketModel()
+                            {
+                                Id = t.id,
+                                CinemaNumber = t.cinemanumber,
+                                MovieCode = t.moviecode,
+                                Rating = t.rating,
+                                SeatType = t.seattype,
+                                StartTime = t.startdate,
+                                PatronCode = t.patroncode,
+                                PatronName = t.patronname,
+                                PatronPrice = (decimal)t.price,
+                                PatronDescription = t.patrondescription,
+                                SeatName = t.seatname,
+                                ORNumber = t.ornumber,
+                                AmusementTax = (decimal)t.at,
+                                CulturalTax = (decimal)t.ct,
+                                VatTax = (decimal)t.vt,
+                                TerminalName = t.terminalname,
+                                TellerCode = t.tellercode,
+                                SessionName = t.session,
+                                CurrentTime = dtCurrentDateTime,
+                                IsVoid = t.isvoid,
+                                IsSelected = false
+                            })
+                        ));
+                    }
+
+                    if (TicketSessions.Count == 0 && so.isPromptNotFound)
+                    {
+                        e.Result = "No ticket(s) found.";
+                        return;
                     }
                 }
             }
@@ -607,17 +562,13 @@ namespace Paradiso
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            progressText.Text = "";
-            progressBar2.Value = 0;
-
             string error = string.Empty;
             if (e.Result != null)
                 error = e.Result.ToString();
 
             if (error == string.Empty)
             {
-                //refresh list
-                this.Search(ORNumberInput.Text.Trim(), TicketDate.SelectedDate, true, "Successfully voided ticket(s).");
+                this.Search(ORNumberInput.Text.Trim(), true, "Successfully voided ticket(s).");
             }
             else
             {
@@ -922,7 +873,7 @@ namespace Paradiso
                 progressBar2.Value = 0;
                 Cursor = Cursors.Wait;
                 this.EnableControls(false);
-                worker.RunWorkerAsync(SelectedType == Types[1]); //chkSessionOnly.IsChecked);
+                worker.RunWorkerAsync(chkSessionOnly.IsChecked);
 /*
                 foreach (var t in TicketList.Tickets)
                 {
@@ -1038,7 +989,6 @@ namespace Paradiso
                              rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
                              seattype = mslrs.movies_schedule_list.seat_type,
                              startdate = mslrs.movies_schedule_list.start_time,
-                             patronid = mslrs.movies_schedule_list_patron.patron_id,
                              patroncode = mslrs.movies_schedule_list_patron.patron.code,
                              patronname = mslrs.movies_schedule_list_patron.patron.name,
                              price = mslrs.price,
@@ -1056,8 +1006,8 @@ namespace Paradiso
                              seatname = mslrs.cinema_seat.col_name +  mslrs.cinema_seat.row_name,
                              groupname = mslrs.cinema_seat.group_name,
                              sectionname = mslrs.cinema_seat.section_name,
-                             ishandicapped = (mslrs.cinema_seat.is_handicapped == 1) ? true : false
-
+                             ishandicapped = (mslrs.cinema_seat.is_handicapped == 1) ? true : false,
+                             cinemaSeatId = mslrs.cinema_seat_id
                          }).FirstOrDefault();
                 if (t != null)
                 {
@@ -1071,9 +1021,6 @@ namespace Paradiso
                     Ticket.BasePrice = (decimal)t.baseprice;
                     Ticket.OrdinancePrice = (decimal)t.ordinanceprice;
                     Ticket.SurchargePrice = (decimal)t.surchargeprice;
-                    Ticket.FoodSurchargePrice = context.ExecuteStoreQuery<decimal>(string.Format("SELECT IFNULL(SUM(amount_val), 0) FROM patrons_surcharge a, surcharge_tbl b WHERE patron_id = {0} AND surcharge_id =  b.id AND details LIKE '%FOOD%'", t.patronid)).FirstOrDefault();
-                    Ticket.NonFoodSurchargePrice = Ticket.SurchargePrice - Ticket.FoodSurchargePrice;
-                    Ticket.IsPremium = context.ExecuteStoreQuery<int>(string.Format("SELECT COUNT(*) FROM patrons_surcharge a, surcharge_tbl b WHERE patron_id = {0} AND surcharge_id =  b.id AND b.code = 'PS100'", t.patronid)).FirstOrDefault() > 0 ? true : false;
                     Ticket.ORNumber = t.ornumber;
                     Ticket.AmusementTax = (decimal) t.at;
                     Ticket.CulturalTax = (decimal) t.ct;
@@ -1083,7 +1030,14 @@ namespace Paradiso
                     Ticket.SessionName = t.session;
                     Ticket.CurrentTime = ParadisoObjectManager.GetInstance().CurrentDate;
                     Ticket.IsVoid = t.isvoid;
-                    Ticket.SeatName = t.seatname;
+
+                    var cinemaSeat = (from cs in context.cinema_seat
+                        where cs.id == t.cinemaSeatId
+                        select cs)
+                        .FirstOrDefault();
+                    Ticket.SeatName = string.Concat(string.IsNullOrEmpty(cinemaSeat.col_name) ? string.Empty : cinemaSeat.col_name,
+                        string.IsNullOrEmpty(cinemaSeat.row_name) ? string.Empty : cinemaSeat.row_name);
+
                     Ticket.GroupName = t.groupname;
                     Ticket.SectionName = t.sectionname;
                     Ticket.IsHandicapped = t.ishandicapped;
@@ -1198,9 +1152,6 @@ namespace Paradiso
                 Ticket.PatronPrice = t.PatronPrice;
                 Ticket.BasePrice = t.BasePrice;
                 Ticket.OrdinancePrice = t.OrdinancePrice;
-                Ticket.FoodSurchargePrice = t.FoodSurchargePrice;
-                Ticket.NonFoodSurchargePrice = t.FoodSurchargePrice;
-                Ticket.IsPremium = t.IsPremium;
                 Ticket.SurchargePrice = t.SurchargePrice;
                 Ticket.ORNumber = t.ORNumber;
                 Ticket.AmusementTax = t.AmusementTax;
@@ -1330,12 +1281,7 @@ namespace Paradiso
                     }
                 }
 
-                //not sure why do i need to call this, commented for now
-                //this.Search(ORNumberInput.Text.Trim(), TicketDate.SelectedDate, false, "Successfully printed ticket(s).");
-
-                MessageWindow _messageWindow = new MessageWindow();
-                _messageWindow.MessageText.Text = "Successfully printed ticket(s).";
-                _messageWindow.ShowDialog();
+                this.Search(ORNumberInput.Text.Trim(), false, "Successfully printed ticket(s).");
             }
         }
 
@@ -1388,246 +1334,209 @@ namespace Paradiso
             _messageWindow.ShowDialog();
         }
 
-        private void _PrintRawTicket2(String _printerName, IPrint print)
+        protected int AddColumn(IPrint print, string s)
+        {
+            return this.AddColumn(print, s, 7, 56);
+        }
+
+        protected int AddColumn(IPrint print, string s, int min, int max)
+        {
+            int len = s?.Length ?? 0;
+            int ac = 0;
+            if (len < max)
+            {
+                int _ac = (max - len) / 2;
+                ac = _ac * min;
+            }
+
+
+            return print.AddColumn(ac);
+        }
+
+        private void _PrintRawTicket(String _printerName, IPrint print, bool blnIsCinemaCopy)
         {
             int _title_len = 18;
 
             print.Open(_printerName);
-            //print.Column = print.AddColumn(2);
 
-            print.DrawText(4, print.Row, print.Column, Ticket.Header1, true, true);
-            print.DrawText(-1, print.Row, print.Column, Ticket.Header2, true, true);
-            print.DrawText(-1, print.Row, print.Column, Ticket.Header3, true, true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Vat Reg TIN#: {0}", Ticket.TIN), true, true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true, true);
+            print.DrawText(4, print.Row, AddColumn(print, Ticket.Header1), Ticket.Header1, true); //C
+            print.DrawText(-1, print.Row, AddColumn(print, Ticket.Header2), Ticket.Header2, true); //C
+            print.DrawText(-1, print.Row, AddColumn(print, Ticket.Header3), Ticket.Header3, true); //C
+            print.DrawText(-1, print.Row, AddColumn(print, Ticket.Header4), Ticket.Header4, true);
+            print.DrawText(-1, print.Row, print.Column, " ", true);
 
-            print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
-            print.DrawText(-1, print.Row, print.AddColumn(345), string.Format("SS #: {0}", Ticket.ServerSerialNumber), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Teller:  {0}", Ticket.TellerCode), false);
-            print.DrawText(-1, print.Row, print.AddColumn(345), string.Format("{1}#: {0}", Ticket.ORNumber, OfficialReceiptShortCaptionText), true);
+            string vrt = string.Format("Vat Reg TIN#: {0}", Ticket.TIN);
+            print.DrawText(-1, print.Row, this.AddColumn(print, vrt), vrt, true); //C
+
+            string min = string.Format("MIN: {0}", Ticket.MIN);
+            print.DrawText(-1, print.Row, AddColumn(print, min), min, true);
+            string sss = string.Format("SS#: {0}", Ticket.ServerSerialNumber);
+            print.DrawText(-1, print.Row, AddColumn(print, sss), sss, true);
+            string posn = string.Format("POS#: {0}", Ticket.POSNumber);
+            print.DrawText(-1, print.Row, AddColumn(print, posn), posn, true);
+
+            print.DrawText(-1, print.Row, print.Column, " ", true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("Trans. Date: {0:MMM d, yyyy}", Ticket.CurrentTime), false);
+            print.DrawText(-1, print.Row, print.AddColumn(230), string.Format("{1}#: {0}", Ticket.ORNumber, OfficialReceiptShortCaptionText), true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("Rating: {0} {1}", Ticket.Rating, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode), false);
+            print.DrawText(-1, print.Row, print.AddColumn(230), string.Format("{0:MMM d, yyyy h:mmtt}", Ticket.StartTime), true);
 
             print.DrawText(-1, print.Row, print.Column, " ", true);
 
-            print.DrawText(4, print.Row, print.Column, Ticket.MovieCode.Length > _title_len ? string.Format("{0}... {1}", Ticket.MovieCode.Substring(0, _title_len), Ticket.Rating) : string.Format("{0} {1}", Ticket.MovieCode, Ticket.Rating), true);
+            string seatName = Ticket.SeatName;
+            if (string.IsNullOrWhiteSpace(seatName))
+                seatName = " ";
 
-            int _r0 = print.Row;
+            print.DrawText(1, print.Row, print.Column, Ticket.MovieCode.Length > _title_len ? string.Format("{0}...", Ticket.MovieCode.Substring(0, _title_len)) : Ticket.MovieCode, false);
+            print.DrawText(1, print.Row, print.AddColumn(325), seatName, true);
 
-            print.DrawText(2, print.AddRow(10), print.Column, string.Format("{0}", Ticket.CinemaNumber), false);
-
-            print.DrawText(-1, print.Row, print.AddColumn(70), string.Format("{0:MM/dd/yyyy}", Ticket.StartTime), true);
-            print.DrawText(-1, print.Row, print.AddColumn(70), string.Format("{0:hh:mm tt}", Ticket.StartTime), true);
-            print.DrawText(0, print.Row, print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, true);
-            print.DrawText(0, print.Row, print.Column, string.Format("PESO {0:#,##0.00}", Ticket.FullPrice), true);
-
-            int _r1 = print.Row;
-
-            print.Row = _r0;
-
-            print.DrawText(-1, print.Row, print.AddColumn(205), "SEAT #", true);
-
-            if (!String.IsNullOrEmpty(Ticket.GroupName) || !String.IsNullOrEmpty(Ticket.SectionName))
-            {
-                //not yet tested
-                print.DrawText(2, print.Row, print.AddColumn(215), Ticket.SeatName, false);
-                if (!String.IsNullOrEmpty(Ticket.GroupName) && !String.IsNullOrEmpty(Ticket.SectionName)) //two liner
-                {
-                    print.DrawText(-1, print.AddRow(40), print.AddColumn(215), Ticket.GroupName, false);
-                    print.DrawText(-1, print.AddRow(60), print.AddColumn(215), Ticket.SectionName, true);
-                }
-                else if (!String.IsNullOrEmpty(Ticket.GroupName)) //one liner
-                {
-                    print.DrawText(-1, print.AddRow(15), print.AddColumn(215), Ticket.GroupName, true);
-                }
-            }
-            else
-            {
-                print.DrawText(2, print.Row, print.AddColumn(215), Ticket.SeatName, true);
-            }
-
-            print.Row = _r0;
-
+            int r0 = print.Row;
 
             List<string> h1 = new List<string>();
             List<string> h2 = new List<string>();
 
-            decimal nonFoodSurchargePrice = (Ticket.NonFoodSurchargePrice - (Ticket.IsPremium ? 100m : 0m));
+            print.DrawText(3, print.AddRow(10), print.Column, string.Format("{0}", Ticket.CinemaNumber), false);
 
             if ((Ticket.IsPWD || Ticket.IsSC) && Ticket.OrdinancePrice > 0m && Ticket.SurchargePrice > 0m) //make font smaller
             {
                 h1.Add("Price");
                 h2.Add(string.Format("{0:#,##0.00}", Ticket.FullPrice));
 
-                print.DrawText(-1, print.Row, print.AddColumn(345), "Price", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:#,##0.00}", Ticket.FullPrice), true);
+                print.DrawText(0, print.Row, print.AddColumn(30), h1[h1.Count-1], false);
+                print.DrawText(0, print.Row, print.AddColumn(325), h2[h2.Count - 1], true);
 
                 h1.Add(Ticket.IsPWD ? "PWD Discount:" : "SC Discount:");
                 h2.Add(string.Format("{0:#,##0.00}", string.Format("({0:0.00})", Ticket.Discount)));
-
-                print.DrawText(-1, print.Row, print.AddColumn(345), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("({0:0.00})", Ticket.Discount), true);
+                print.DrawText(0, print.Row, print.AddColumn(30), h1[h1.Count-1], false);
+                print.DrawText(0, print.Row, print.AddColumn(325), h2[h2.Count-1], true);
 
                 h1.Add("Ord. Tax:");
                 h2.Add(string.Format("{0:0.00}", Ticket.OrdinancePrice));
 
-                print.DrawText(-1, print.Row, print.AddColumn(345), "Ord. Tax:", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
+                print.DrawText(0, print.Row, print.AddColumn(30), "Ord. Tax:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
 
+                h1.Add("Surcharge:");
+                h2.Add(string.Format("{0:0.00}", Ticket.SurchargePrice));
 
-                if (nonFoodSurchargePrice > 0m)
-                {
-                    h1.Add("Surcharge:");
-                    h2.Add(string.Format("{0:0.00}", nonFoodSurchargePrice));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(345), "Surcharge:", false);
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", nonFoodSurchargePrice), true);
-                }
-                else //if (Ticket.FoodSurchargePrice > 0m)
-                {
-                    h1.Add(" ");
-                    h2.Add(" ");
-                    print.DrawText(-1, print.Row, print.Column, " ", true);
-                }
-
+                print.DrawText(0, print.Row, print.AddColumn(30), "Surcharge:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.SurchargePrice), true);
             }
             else
             {
                 h1.Add("Price");
-
-                print.DrawText(-1, print.Row, print.AddColumn(345), "Price", false);
+                print.DrawText(0, print.Row, print.AddColumn(30), "Price", false);
                 if (Ticket.IsPWD || Ticket.IsSC)
                 {
                     h2.Add(string.Format("{0:#,##0.00}", Ticket.FullPrice));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:#,##0.00}", Ticket.FullPrice), true);
-
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:#,##0.00}", Ticket.FullPrice), true);
                     h1.Add(Ticket.IsPWD ? "PWD Discount:" : "SC Discount:");
                     h2.Add(string.Format("({0:0.00})", Ticket.Discount));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(345), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("({0:0.00})", Ticket.Discount), true);
+                    print.DrawText(0, print.Row, print.AddColumn(30), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("({0:0.00})", Ticket.Discount), true);
                 }
                 else
                 {
                     h2.Add(string.Format("{0:#,##0.00}", Ticket.BasePrice));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:#,##0.00}", Ticket.BasePrice), true);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:#,##0.00}", Ticket.BasePrice), true);
 
                     h1.Add("Discount");
                     h2.Add("0.0");
 
-                    print.DrawText(-1, print.Row, print.AddColumn(345), "Discount:", false);
-                    print.DrawText(-1, print.Row, print.AddColumn(460), "0.00", true);
+                    print.DrawText(0, print.Row, print.AddColumn(30), "Discount:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), "0.00", true);
                 }
 
                 if (Ticket.OrdinancePrice > 0m)
                 {
                     h1.Add("Ord. Tax");
+                    print.DrawText(0, print.Row, print.AddColumn(30), "Ord. Tax:", false);
                     h2.Add(string.Format("{0:0.00}", Ticket.OrdinancePrice));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(345), "Ord. Tax:", false);
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
                 }
                 else
                 {
                     h1.Add(" ");
                     h2.Add(" ");
-                    print.DrawText(-1, print.Row, print.Column, " ", true);
+                    print.DrawText(0, print.Row, print.Column, " ", true);
                 }
-
-                if ( nonFoodSurchargePrice > 0m)
+                if (Ticket.SurchargePrice > 0m)
                 {
                     h1.Add("Surcharge:");
-                    h2.Add(string.Format("{0:0.00}", nonFoodSurchargePrice));
-
-                    print.DrawText(-1, print.Row, print.AddColumn(345), "Surcharge:", false);
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", nonFoodSurchargePrice), true);
-                }
-                else //if (Ticket.FoodSurchargePrice > 0m)
-                {
-                    h1.Add(" ");
-                    h2.Add(" ");
-                    print.DrawText(-1, print.Row, print.Column, " ", true);
-                }
-
-            }
-
-            if (Ticket.PaymentMode == 3)
-            {
-                h1.Add("CSH");
-                h2.Add(string.Format("{0:0.00}", Ticket.Cash));
-                h1.Add("GC");
-                h2.Add(string.Format("{0:0.00}", Ticket.GiftCertificate));
-                h1.Add("Total");
-                h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
-
-                print.DrawText(-1, print.Row, print.AddColumn(345), "CSH", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.Cash), true);
-                print.DrawText(-1, print.Row, print.AddColumn(345), "GC", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.GiftCertificate), true);
-
-                print.DrawText(-1, print.Row, print.AddColumn(345), "Total", false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.PatronPrice), true);
-            }
-            else
-            {
-                string strPaymentMode = "CSH";
-                if ((Ticket.PaymentMode & 1) == 1)
-                    strPaymentMode = "CSH";
-                else if ((Ticket.PaymentMode & 2) == 2)
-                    strPaymentMode = "GC";
-                else if ((Ticket.PaymentMode & 4) == 4)
-                    strPaymentMode = "CC";
-
-                h1.Add(" ");
-                h2.Add(" ");
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-
-                h1.Add(" ");
-                h2.Add(" ");
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-
-
-                h1.Add(string.Format("{0} Total", strPaymentMode));
-                print.DrawText(-1, print.Row, print.AddColumn(345), string.Format("{0} Total", strPaymentMode), false);
-                if (Ticket.IsPremium || Ticket.FoodSurchargePrice > 0m ) // (Ticket.SurchargePrice > 200)
-                {
-                    h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice - Ticket.SurchargePrice));
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.PatronPrice - Ticket.SurchargePrice), true);
+                    h2.Add(string.Format("{0:0.00}", Ticket.SurchargePrice));
+                    print.DrawText(0, print.Row, print.AddColumn(30), "Surcharge:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.SurchargePrice), true);
                 }
                 else
                 {
-                    h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
-                    print.DrawText(-1, print.Row, print.AddColumn(460), string.Format("{0:0.00}", Ticket.PatronPrice), true);
+                    h1.Add(" ");
+                    h2.Add(" ");
+                    print.DrawText(0, print.Row, print.Column, " ", true);
                 }
-            }
+			}
+			
+			if (Ticket.PaymentMode == 3)
+			{
+				h1.Add("CSH");
+				h2.Add(string.Format("{0:0.00}", Ticket.Cash));
+				h1.Add("GC");
+				h2.Add(string.Format("{0:0.00}", Ticket.GiftCertificate));
+				h1.Add("Total");
+				h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
 
-            //just copied
+				print.DrawText(-1, print.Row, print.AddColumn(30), "CSH", false);
+				print.DrawText(-1, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.Cash), true);
+				print.DrawText(-1, print.Row, print.AddColumn(30), "GC", false);
+				print.DrawText(-1, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.GiftCertificate), true);
 
-            print.Row = _r1;
+				print.DrawText(-2, print.Row, print.AddColumn(30), "Total", false);
+				print.DrawText(-2, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.PatronPrice), true);
+			}
+			else
+			{
+				string strPaymentMode = "CSH";
+				if ((Ticket.PaymentMode & 1) == 1)
+					strPaymentMode = "CSH";
+				else if ((Ticket.PaymentMode & 2) == 2)
+					strPaymentMode = "GC";
+				else if ((Ticket.PaymentMode & 4) == 4)
+					strPaymentMode = "CC";
 
-            if (Ticket.IsPremium)
-                print.DrawText(-1, print.Row, print.Column, "PS 100", true);
-            else
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-            print.DrawText(-1, print.Row, print.Column, Ticket.SeatTypeName, true);
-            if (ParadisoObjectManager.GetInstance().GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
-            {
-                print.DrawText(-1, print.Row, print.Column, $"{SettingPage.OFFICIAL_RECEIPT_CAPTION}", true);
-            }
-            else
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-            //print.DrawText(-1, print.Row, print.Column, "ADMIT ONE", true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Session No.: {0}", Ticket.SessionName), true);
-            //print.DrawText(-1, print.Row, print.Column, string.Format("By:  {0}", Ticket.TellerCode), true);
+				h1.Add(" ");
+				h2.Add(" ");
+				print.DrawText(-1, print.Row, print.Column, " ", true);
 
-            print.DrawText(-1, print.Row, print.Column, "Buyer's Information", true);
+				h1.Add(" ");
+				h2.Add(" ");
+				print.DrawText(-1, print.Row, print.Column, " ", true);
+
+
+				h1.Add(string.Format("{0} Total", strPaymentMode));
+				h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
+				print.DrawText(-2, print.Row, print.AddColumn(30), string.Format("{0} Total", strPaymentMode), false);
+				print.DrawText(-2, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.PatronPrice), true);
+			}
+            
+
+            int r1 = print.Row;
+            print.DrawRectangle(200, (uint) r0, 2, 620, (uint) r1 + 3);
+
+            print.DrawText(-1, print.Row, print.Column, " ", true);
+
+            print.DrawText(-1, print.Row, print.Column, Ticket.SeatTypeName, false);
+            print.DrawText(-1, print.Row, print.AddColumn(230), string.Format("{0:MMM d, yyyy h:mmtt}", Ticket.CurrentTime), true);
+            print.DrawText(-1, print.Row, print.Column, "ADMIT ONE", false);
+            print.DrawText(-1, print.Row, print.AddColumn(230), Ticket.SessionName, true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("By:  {0}", Ticket.TellerCode), true);
+
+            print.DrawText(-1, print.Row, print.Column, " ", true);
+            //print.DrawText(-1, print.Row, print.Column, "Buyer's Information", true);
+
             //display buyer info
             if (string.IsNullOrWhiteSpace(Ticket.BuyerName) || Ticket.BuyerName.Trim() == ".")
-                print.DrawText(-1, print.Row, print.Column, "Name:", false);
+                print.DrawText(-1, print.Row, print.Column, "Name:", true);
             else
-                print.DrawText(-1, print.Row, print.Column, string.Format("Name : {0}", Ticket.BuyerName), false);
-
-            print.DrawText(-1, print.Row, print.AddColumn(370), "VAT EXEMPT", true);
+                print.DrawText(-1, print.Row, print.Column, string.Format("Name : {0}", Ticket.BuyerName), true);
 
             if (string.IsNullOrWhiteSpace(Ticket.BuyerFullAddress) || Ticket.BuyerFullAddress.Trim() == ".")
                 print.DrawText(-1, print.Row, print.Column, "Address:", true);
@@ -1643,40 +1552,42 @@ namespace Paradiso
             else
                 print.DrawText(-1, print.Row, print.Column, "ID #:", true);
 
-            print.DrawText(-1, print.Row, print.Column, "VALID ON SCREENING DATE ONLY", true, true);
-            
-            if (ParadisoObjectManager.GetInstance().GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
-                print.DrawText(-1, print.Row, print.AddColumn(90), $"THIS SERVES AS YOUR {SettingPage.OFFICIAL_RECEIPT_CAPTION}", true);
-            else
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-            print.DrawText(-1, print.Row, print.AddColumn(30), "THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX", true);
 
+            print.DrawText(-1, print.Row, print.Column, " ", true);
+            if (ParadisoObjectManager.GetInstance().GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
+                print.DrawText(-1, print.Row, print.AddColumn(90), $"This Serves as your {SettingPage.OFFICIAL_RECEIPT_CAPTION}", true);
+            else
+                print.DrawText(0, print.Row, print.Column, " ", true);
+
+            print.DrawText(-1, print.Row, print.AddColumn(150), "VAT EXEMPT", true);
+
+            print.DrawText(-1, print.Row, print.AddColumn(30), "THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX", true);
+            
             print.DrawText(-3, print.Row, print.Column, " ", true);
             //print.DrawText(-1, print.Row, print.Column, "Accredited Supplier:", true);
             print.DrawText(-1, print.Row, print.Column, string.Format("Name: {0}", Ticket.SupplierName), true);
             print.DrawText(-1, print.Row, print.Column, string.Format("Address: {0}", Ticket.SupplierAddress), true);
             print.DrawText(-1, print.Row, print.Column, string.Format("TIN : {0}", Ticket.SupplierTIN), true);
             print.DrawText(-1, print.Row, print.Column, string.Format("Accreditation No.: {0}", Ticket.Accreditation), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Date Issued: {0:MMMM d, yyyy}", Ticket.DateIssued), false);
-            print.DrawText(-1, print.Row, print.AddColumn(230), string.Format("Valid Until: {0:MMMM d, yyyy}", Ticket.ValidDate), true);
+            print.DrawText(-1, print.Row, print.Column, string.Format("Date Issued: {0:MMMM d, yyyy}", Ticket.DateIssued), true);
+            print.DrawText(-1, print.Row, print.AddColumn(230), string.Empty, true);
+
             print.DrawText(-1, print.Row, print.Column, string.Format("PTU #: {0}", Ticket.PN), true);
 
+            print.DrawText(-3, print.Row, print.Column, " ", true);
 
-            print.DrawText(-1, print.Row, print.AddColumn(30), string.Empty, true); //C
-            print.DrawText(-1, print.Row, print.AddColumn(90), string.Empty, true); //C
+            print.DrawText(-1, print.Row, print.AddColumn(30), " ", true);
+            print.DrawText(-1, print.Row, print.AddColumn(90), " ", true);
 
 
             print.DrawText(-3, print.Row, print.Column, " ", true);
+            print.DrawText(-3, print.Row, print.Column, " ", true);
             //break
+            print.Row = print.Row - 32;
+            print.DrawText(-1, print.Row, print.Column, String.Format("{0} {1}", Ticket.Header1, Ticket.MovieCode.Length > _title_len ? string.Format("{0}...", Ticket.MovieCode.Substring(0, _title_len)) : Ticket.MovieCode), true);
 
-            print.Row = print.Row + 15;
+            int row1 = print.Row;
 
-            print.DrawText(-1, print.Row, print.Column, String.Format("{0} {1}", Ticket.MovieCode.Length > _title_len ? string.Format("{0}...", Ticket.MovieCode.Substring(0, _title_len)) : Ticket.MovieCode, Ticket.Rating), true);
-
-            int _r3 = print.Row;
-
-
-            /*
             print.DrawText(-3, print.Row, print.AddColumn(130), string.Format("Vat Reg TIN# {0}", Ticket.TIN), true);
             print.DrawText(-3, print.Row, print.AddColumn(130), string.Format("MIN {0}", Ticket.MIN), true);
             print.DrawText(-3, print.Row, print.AddColumn(130), string.Format("SS# {0}", Ticket.ServerSerialNumber), true);
@@ -1684,272 +1595,41 @@ namespace Paradiso
             print.DrawText(-3, print.Row, print.AddColumn(130), Ticket.SeatTypeName, true);
             print.DrawText(-3, print.Row, print.AddColumn(130), "ADMIT ONE", true);
             if (ParadisoObjectManager.GetInstance().GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
-                print.DrawText(-3, print.Row, print.AddColumn(130), "OFFICIAL RECEIPT", true);
+                print.DrawText(-3, print.Row, print.AddColumn(130), $"{SettingPage.OFFICIAL_RECEIPT_CAPTION}", true);
             else
                 print.DrawText(-3, print.Row, print.AddColumn(130), " ", true);
-            */
-            print.DrawText(-1, print.Row, print.Column, string.Format("{1} #: {0}", Ticket.ORNumber, OfficialReceiptShortCaptionText), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Cinema : {0}", Ticket.CinemaNumber), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Seat : {0}", Ticket.SeatName), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Patron : {0}", Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Teller : {0}", Ticket.TellerCode), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("Date: {0:MM/dd/yyyy hh:mm tt}", Ticket.StartTime), true);
+            print.DrawText(-3, print.Row, print.AddColumn(130), string.Format("{1}# {0}", Ticket.ORNumber, OfficialReceiptShortCaptionText), true);
+            print.DrawText(-3, print.Row, print.AddColumn(130), string.Format("{0} By {1}", Ticket.SessionName, Ticket.TellerCode), true);
 
-            int _r4 = print.Row;
+            print.Row = row1;
+            print.DrawText(1, print.Row, print.Column, string.Format("{0}", Ticket.CinemaNumber), false);
+            print.DrawText(-3, print.Row, print.AddColumn(25), string.Format("Date: {0:MMM d, yyyy}", Ticket.StartTime), true);
+            print.DrawText(-3, print.Row, print.AddColumn(25), string.Format("Time: {0:hh:mm tt}", Ticket.StartTime), true);
+            print.DrawText(-3, print.Row, print.AddColumn(25), string.Format("MTRCB {0}", Ticket.Rating), true);
+            print.DrawText(-3, print.Row, print.AddColumn(25), string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
+            int row2 = print.Row;
 
-            print.Row = _r3;
+            print.DrawRectangle(200, (uint)row1, 2, 320, (uint)row2 + 3);
 
-            print.DrawText(-1, print.Row, print.AddColumn(205), "SEAT #", true);
+            print.DrawText(-3, print.Row, print.AddColumn(25), " ", true);
 
-            if (!String.IsNullOrEmpty(Ticket.GroupName) || !String.IsNullOrEmpty(Ticket.SectionName))
+            int row3 = print.Row;
+            print.DrawText(-3, print.Row, print.Column, "SEAT NO:", true);
+            //print.DrawText(-3, print.Row, print.Column, string.IsNullOrEmpty(Ticket.SeatName) ? string.Empty : Ticket.SeatName, true);
+            print.DrawText(1, print.Row, print.AddColumn(25), seatName, true);
+
+            int row4 = print.Row;
+            print.DrawRectangle(200, (uint)row3, 2, 320, (uint)row4 + 10);
+
+
+            print.Row = row1;
+            int i = 0;
+            for (i = 0; i < h1.Count; i++)
             {
-                //not yet tested
-                print.DrawText(2, print.Row, print.AddColumn(215), Ticket.SeatName, false);
-                if (!String.IsNullOrEmpty(Ticket.GroupName) && !String.IsNullOrEmpty(Ticket.SectionName)) //two liner
-                {
-                    print.DrawText(-1, print.AddRow(40), print.AddColumn(215), Ticket.GroupName, false);
-                    print.DrawText(-1, print.AddRow(60), print.AddColumn(215), Ticket.SectionName, true);
-                }
-                else if (!String.IsNullOrEmpty(Ticket.GroupName)) //one liner
-                {
-                    print.DrawText(-1, print.AddRow(15), print.AddColumn(215), Ticket.GroupName, true);
-                }
-            }
-            else
-            {
-                print.DrawText(2, print.Row, print.AddColumn(215), Ticket.SeatName, true);
-            }
-
-            print.Row = _r3;
-
-            print.DrawText(-1, print.Row, print.AddColumn(380), "Cinema Copy", true);
-
-            for (int k = 0; k < h1.Count; k++)
-            {
-                print.DrawText(-1, print.Row, print.AddColumn(345), h1[k], false);
-                print.DrawText(-1, print.Row, print.AddColumn(460), h2[k], true);
+                print.DrawText(-3, print.Row, print.AddColumn(280), h1[i], false);
+                print.DrawText(-3, print.Row, print.AddColumn(355), h2[i], true);
             }
 
-            if (Ticket.FoodSurchargePrice > 0m)
-            {
-
-                print.Row = _r4 + 30;
-
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-                print.DrawText(-1, print.Row, print.Column, " ", true);
-
-                print.DrawText(4, print.Row, print.AddColumn(100), "F O O D   S T U B", true, true);
-                print.DrawText(-1, print.Row, print.Column, String.Format("{0} {1}", Ticket.MovieCode.Length > _title_len ? string.Format("{0}...", Ticket.MovieCode.Substring(0, _title_len)) : Ticket.MovieCode, Ticket.Rating), true);
-                print.DrawText(-1, print.Row, print.Column, string.Format("Seat : {0}", Ticket.SeatName), true);
-                print.DrawText(-1, print.Row, print.Column, string.Format("Food Price: {0:#,##0.00}", Ticket.FoodSurchargePrice), true);
-                print.DrawText(-1, print.Row, print.Column, string.Format("Date: {0:MM/dd/yyyy hh:mm tt}", Ticket.StartTime), true);
-                print.DrawText(-1, print.Row, print.Column, "VALID ON SCREENING DATE ONLY", true);
-
-
-            }
-            print.Close();
-
-        }
-
-
-        private void _PrintRawTicket(String _printerName, IPrint print, bool blnIsCinemaCopy)
-        {
-            print.Open(_printerName);
-            //print.Column = print.AddColumn(2);
-
-            print.DrawText(4, print.Row, print.Column, StringHelper.CenterString(42, Ticket.Header1), true);
-            print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), Ticket.Header2), true);
-            print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), Ticket.Header3), true);
-            print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length(), string.Format("Vat Reg TIN#: {0}", Ticket.TIN)), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("MIN: {0}", Ticket.MIN), false);
-            print.DrawText(-1, print.AddRow(275), print.Column, string.Format("SS#: {0}", Ticket.ServerSerialNumber), false);
-            print.DrawText(-1, print.AddRow(460), print.Column, string.Format("POS#: {0}", Ticket.POSNumber), true);
-            
-            print.DrawText(5, print.Row, print.Column, Ticket.MovieCode, true);
-            //print.Column = print.AddColumn(-5);
-            //print.DrawText(0, print.AddRow(470), print.Column, string.Format("OR#: {0}", Ticket.ORNumber), true);
-            
-            int intx1a = print.Row;
-            int inty1a = print.Column;
-
-            int intx1b = print.AddRow(142);
-            int inty1b = print.Column;
-
-            print.DrawText(3, print.Row, print.AddColumn(10), string.Format("{0}", Ticket.CinemaNumber), false);
-            print.DrawText(-1, print.AddRow(285), print.Column, "SEAT NO:", false);
-            print.DrawText(0, print.AddRow(490), print.AddColumn(-10), string.Format("{1}#: {0}", Ticket.ORNumber, OfficialReceiptShortCaptionText), false);
-
-            if (!String.IsNullOrEmpty(Ticket.GroupName) || !String.IsNullOrEmpty(Ticket.SectionName))
-            {
-                print.DrawText(3, print.AddRow(350), print.AddColumn(20), Ticket.SeatName, false);
-                int _idx = 0;
-                if (Ticket.SeatName.Length == 3)
-                    _idx += 30;
-                /*
-                else if (Ticket.SeatName.Length == 3)
-                {
-                }
-                */
-                if (!String.IsNullOrEmpty(Ticket.GroupName) && !String.IsNullOrEmpty(Ticket.SectionName)) //two liner
-                {
-                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(30), Ticket.GroupName, false);
-                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(50), Ticket.SectionName, false);
-                }
-                else if (!String.IsNullOrEmpty(Ticket.GroupName)) //one liner
-                {
-                    print.DrawText(0, print.AddRow(480 + _idx), print.AddColumn(35), Ticket.GroupName, false);
-                }
-            }
-            else
-            {
-                if (Ticket.SeatName.Length == 2)
-                    print.DrawText(3, print.AddRow(415), print.AddColumn(20), Ticket.SeatName, false);
-                else if (Ticket.SeatName.Length == 3)
-                    print.DrawText(3, print.AddRow(385), print.AddColumn(20), Ticket.SeatName, false);
-            }
-
-            print.Column = print.AddColumn(4);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Date {0:MMM dd, yyyy}", Ticket.StartTime), true);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("Time {0:hh:mm tt}", Ticket.StartTime), true);
-            print.DrawText(-1, print.AddRow(85), print.Column, Ticket.PatronCode.Length > 15 ? Ticket.PatronCode.Substring(0, 15) : Ticket.PatronCode, true);
-            print.DrawText(-1, print.AddRow(85), print.Column, string.Format("PESO {0:#,##0.00}", Ticket.PatronPrice), true);
-
-            int intx2a = print.AddRow(135);
-            int inty2a = print.AddColumn(10);
-            int intx2b = print.AddRow(440);
-            int inty2b = print.AddColumn(10);
-
-            print.DrawRectangle((uint)intx1a, (uint)inty1a, 2, (uint)intx2a, (uint)inty2a);
-            print.DrawRectangle((uint)intx1b, (uint)inty1b, 2, (uint)intx2b, (uint)inty2b);
-
-            //print.Column += 23; 
-            print.Column = print.AddColumn(3); //23 div 3
-
-            
-            //totals
-            //right align?
-            if ((Ticket.IsPWD || Ticket.IsSC) && Ticket.OrdinancePrice > 0m && Ticket.SurchargePrice > 0m) //make font smaller
-            {
-                print.DrawText(-1, print.AddRow(410), print.Column, "Amount:", false);
-                print.DrawText(-1, print.AddRow(600), print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
-                print.DrawText(-1, print.AddRow(410), print.AddColumn(12), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
-                print.DrawText(-1, print.AddRow(600), print.AddColumn(12), string.Format("({0:0.00})", Ticket.Discount), false);
-
-                print.DrawText(-1, print.AddRow(410), print.AddColumn(24), "Ord. Tax:", false);
-                print.DrawText(-1, print.AddRow(600), print.AddColumn(24), string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
-                print.DrawText(-1, print.AddRow(410), print.AddColumn(36), "Surcharge:", false);
-                print.DrawText(-1, print.AddRow(600), print.AddColumn(36), string.Format("{0:0.00}", Ticket.SurchargePrice), false);
-            }
-            else
-            {
-                print.DrawText(-1, print.AddRow(410), print.Column, "Amount:", false);
-                int cidx = 0;
-                if (Ticket.IsPWD || Ticket.IsSC)
-                {
-                    print.DrawText(-1, print.AddRow(600), print.Column, string.Format("{0:0.00}", Ticket.FullPrice), false);
-                    cidx += 18;
-
-                    print.DrawText(-1, print.AddRow(410), print.AddColumn(cidx), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
-                    print.DrawText(-1, print.AddRow(600), print.AddColumn(cidx), string.Format("({0:0.00})", Ticket.Discount), false);
-
-                    cidx += 18;
-                }
-                else
-                {
-                    print.DrawText(-1, print.AddRow(600), print.Column, string.Format("{0:0.00}", Ticket.BasePrice), false);
-                    cidx += 18;
-                }
-
-                if (Ticket.OrdinancePrice > 0m)
-                {
-                    print.DrawText(-1, print.AddRow(410), print.AddColumn(cidx), "Ord. Tax:", false);
-                    print.DrawText(-1, print.AddRow(600), print.AddColumn(cidx), string.Format("{0:0.00}", Ticket.OrdinancePrice), false);
-                    cidx += 18;
-                }
-                if (Ticket.SurchargePrice > 0m)
-                {
-                    print.DrawText(-1, print.AddRow(410), print.AddColumn(cidx), "Surcharge:", false);
-                    print.DrawText(-1, print.AddRow(600), print.AddColumn(cidx), string.Format("{0:0.00}", Ticket.SurchargePrice), false);
-                }
-            }
-            if (Ticket.PaymentMode == 3)
-            {
-                print.DrawText(-1, print.AddRow(410), print.AddColumn(50), "CSH", false);
-                print.DrawText(-1, print.AddRow(600), print.AddColumn(50), string.Format("{0:0.00}", Ticket.Cash), false);
-                print.DrawText(-1, print.AddRow(410), print.AddColumn(65), "GC", false);
-                print.DrawText(-1, print.AddRow(600), print.AddColumn(65), string.Format("{0:0.00}", Ticket.GiftCertificate), false);
-
-                print.DrawText(-2, print.AddRow(410), print.AddColumn(85), "Total", false);
-                print.DrawText(-2, print.AddRow(600), print.AddColumn(85), string.Format("{0:0.00}", Ticket.PatronPrice), false);
-            }
-            else
-            {
-                string strPaymentMode = "CSH";
-                if ((Ticket.PaymentMode & 1) == 1)
-                    strPaymentMode = "CSH";
-                else if ((Ticket.PaymentMode & 2) == 2)
-                    strPaymentMode = "GC";
-                else if ((Ticket.PaymentMode & 4) == 4)
-                    strPaymentMode = "CC";
-
-                print.DrawText(-2, print.AddRow(410), print.AddColumn(90), string.Format("{0} Total", strPaymentMode), false);
-                print.DrawText(-2, print.AddRow(600), print.AddColumn(90), string.Format("{0:0.00}", Ticket.PatronPrice), false);
-            }
-
-            print.DrawText(-1, print.AddRow(410), print.AddColumn(125), "VAT EXEMPT", false);
-            //print.DrawText(-1, print.AddRow(310), print.AddColumn(143), "THIS DOCUMENT IS NOT VALID", false);
-            //print.DrawText(-1, print.AddRow(310), print.AddColumn(161), "  FOR CLAIM OF INPUT TAX", false);
-
-            print.DrawText(0, print.Row, print.Column, Ticket.SeatTypeName, true);
-            print.DrawText(5, print.Row, print.Column, "ADMIT ONE", true);
-            
-            //display buyer info
-            if (Ticket.BuyerNameAddress != string.Empty)
-                print.DrawText(-1, print.Row, print.Column, Ticket.BuyerNameAddress, true);
-            else
-                print.DrawText(-1, print.Row, print.Column, "NAME/ADDRESS:", true);
-
-            print.DrawText(-1, print.Row, print.Column, string.Format("TIN #: {0}", Ticket.BuyerTIN), true);
-
-            if (Ticket.IsSC)
-                print.DrawText(-1, print.Row, print.Column, string.Format("OSCA ID #: {0}", Ticket.BuyerIDNum), true);
-            else if (Ticket.IsPWD)
-                print.DrawText(-1, print.Row, print.Column, string.Format("PWD ID #: {0}", Ticket.BuyerIDNum), true);
-            else
-                print.DrawText(-1, print.Row, print.Column, "ID #:", true);
-
-            //print.Column = print.AddColumn(3);
-
-            print.DrawText(0, print.Row, print.Column, string.Format("MTRCB RATING: {0}", Ticket.Rating), false);
-            var pom = ParadisoObjectManager.GetInstance();
-            if (pom.GetConfigValue("OFFICIAL RECEIPT", "No") == "Yes")
-            {
-                print.Column = print.AddColumn(5);
-                print.DrawText(-1, print.AddRow(295), print.Column, $"This Serves as your {SettingPage.OFFICIAL_RECEIPT_CAPTION}", true);
-                print.Column = print.AddColumn(10);
-            }
-            else
-                print.DrawText(0, print.AddRow(410), print.Column, " ", true);
-
-            print.DrawText(0, print.Row, print.Column, "THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX", true);
-            //print.Column += 15;
-            
-            print.Column = print.AddColumn(3);
-
-            print.DrawText(-1, print.Row, print.Column, string.Format("Sess. # {0}  By:  {1}", Ticket.SessionName, Ticket.TellerCode), true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("PTU #: {0}", Ticket.PN), false);
-
-            string strCopy = "-- CUSTOMER COPY -- ";
-            if (blnIsCinemaCopy)
-                strCopy = "-- CINEMA COPY -- ";
-            print.DrawText(-1, print.AddRow(410), print.Column, strCopy, true);
-
-
-            print.DrawText(-1, print.Row, print.Column, Ticket.Supplier, true);
-            print.DrawText(-1, print.Row, print.Column, string.Format("TIN No.: {0}    A #: {1}", Ticket.SupplierTIN, Ticket.Accreditation), true);
-            //print.DrawText(-1, print.Row, print.Column, string.Format("PTU #: {0}", Ticket.PN), true);
-            print.DrawText(0, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length() - 5, string.Empty), true);
-            print.DrawText(-1, print.Row, print.Column, StringHelper.CenterString(print.GetFont_1Length() - 5, string.Empty), true);
 
             print.Close();
 
@@ -1957,48 +1637,27 @@ namespace Paradiso
 
         private void PrintRawTicket(string _printerName)
         {
-            bool blnHasCustomerCopy = true;
-
-            string strTicketFormat = ParadisoObjectManager.GetInstance().GetConfigValue("TICKET_FORMAT", "B");
-            strTicketFormat = ParadisoObjectManager.GetInstance().GetConfigValue(string.Format("TICKET_FORMAT_{0}", Environment.MachineName), strTicketFormat);
-            if (strTicketFormat == "C")
-                blnHasCustomerCopy = false;
-
             IPrint print = (IPrint) new DummyPrinter(); //implement dummy printer
             IPrint print2 = (IPrint)new DummyPrinter(); //implement dummy printer
 
 
             if (_printerName.ToUpper().StartsWith("POSTEK"))
             {
-                print = (IPrint)new PostekPrinter();
-                print2 = (IPrint)new PostekPrinter();
+                print = (IPrint)new PostekPrinterEx();
+                //print2 = (IPrint)new PostekPrinterEx();
             }
             else if (_printerName.ToUpper().StartsWith("CITIZEN"))
             {
-                if (blnHasCustomerCopy)
-                {
-                    print = (IPrint)new CitizenPrinter(Ticket.ORNumber);
-                    print2 = (IPrint)new CitizenPrinter(Ticket.ORNumber);
-                }
-                else
-                {
-                    print = (IPrint)new CitizenPrinter2(Ticket.ORNumber);
-                }
+                print = (IPrint)new CitizenPrinter(Ticket.ORNumber);
+                //print2 = (IPrint)new CitizenPrinter(Ticket.ORNumber);
             }
             else
             {
                 throw new Exception("Printer not supported.");
             }
-
-            if (blnHasCustomerCopy)
-            {
-                this._PrintRawTicket(_printerName, print, true);
-                this._PrintRawTicket(_printerName, print2, false);
-            }
-            else
-            {
-                this._PrintRawTicket2(_printerName, print);
-            }
+            
+            this._PrintRawTicket(_printerName, print, true);
+            //this._PrintRawTicket(_printerName, print2, false);
  
         }
 
@@ -2096,19 +1755,16 @@ namespace Paradiso
             public string successPrompt;
             public int selectedUserKey;
             public bool isSessionOnly;
-            public DateTime? ticketDate;
         }
 
-        private void Search(string _strSearch, DateTime? _ticketDate, bool promptNotFound, string _successPrompt)
+        private void Search(string _strSearch, bool promptNotFound, string _successPrompt)
         {
             SearchOptions so = new SearchOptions() { 
                 searchText = _strSearch, 
                 isPromptNotFound = promptNotFound,
                 successPrompt = _successPrompt,
                 selectedUserKey = SelectedUser.Key,
-                //isSessionOnly = (bool) chkSessionOnly.IsChecked
-                isSessionOnly = SelectedType == Types[1],
-                ticketDate = _ticketDate
+                isSessionOnly = (bool) chkSessionOnly.IsChecked
             };
 
             if (!worker1.IsBusy)
@@ -2123,20 +1779,7 @@ namespace Paradiso
 
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedType == Types[1]) //session only
-            {
-                Print.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else
-            {
-                if (ParadisoObjectManager.GetInstance().HasRights("REPRINT"))
-                    Print.Visibility = System.Windows.Visibility.Visible;
-                else
-                    Print.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            progressText.Text = "Searching...";
-            progressBar2.Value = 0;
-            this.Search(ORNumberInput.Text.Trim(), TicketDate.SelectedDate, true, string.Empty);
+            this.Search(ORNumberInput.Text.Trim(), true, string.Empty);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -2178,7 +1821,7 @@ namespace Paradiso
                         if (Users[i].Key == ParadisoObjectManager.GetInstance().UserId)
                         {
                             SelectedUser = Users[i];
-                            //chkSessionOnly.IsChecked = true;
+                            chkSessionOnly.IsChecked = true;
                             break;
                         }
                     }
@@ -2200,7 +1843,7 @@ namespace Paradiso
             }
         }
 
-        private async void TicketSessionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TicketSessionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TicketList.Tickets.Clear();
             string strSessionId = string.Empty;
@@ -2216,7 +1859,7 @@ namespace Paradiso
 
                 using (var context = new azynemaEntities(CommonLibrary.CommonUtility.EntityConnectionString("ParadisoModel")))
                 {
-                    if (SelectedType == Types[1]) // chkSessionOnly.IsChecked == true)
+                    if (chkSessionOnly.IsChecked == true)
                     {
                         var tickets = (from mslhs in context.movies_schedule_list_house_seat
                                        where mslhs.session_id == strSessionId
@@ -2310,34 +1953,33 @@ namespace Paradiso
                     }
                     else
                     {
-                        var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
-                        var movieScheduleListReserveSeats = await movieScheduleListReserveSeatDataService.GetBySessionIdAsync(strSessionId);
-                        var tickets = movieScheduleListReserveSeats
-                            .Select(t => new
-                            {
-                                id = t.Id,
-                                cinemanumber = t.MovieScheduleList.MovieSchedule.Cinema.InOrder,
-                                moviecode = t.MovieScheduleList.MovieSchedule.Movie.Title,
-                                rating = t.MovieScheduleList.MovieSchedule.Movie.Mtrcb.Name,
-                                seattype = t.MovieScheduleList.SeatType,
-                                startdate = t.MovieScheduleList.StartTime,
-                                patroncode = t.MovieScheduleListPatron.Patron.Code,
-                                patronname = t.MovieScheduleListPatron.Patron.Name,
-                                patrondescription = t.MovieScheduleListPatron.Patron.Name,
-                                seatname = t.CinemaSeat.ColumnName + t.CinemaSeat.RowName,
-                                price = t.Price,
-                                ornumber = t.ORNumber,
-                                at = t.AmusementTaxAmount,
-                                ct = t.CulturalTaxAmount,
-                                vt = t.VatAmount,
-                                terminalname = t.Ticket.Terminal,
-                                tellercode = t.Ticket.User.UserId,
+                        //ticket and details
+                        var tickets = (from mslrs in context.movies_schedule_list_reserved_seat
+                                       where mslrs.ticket.session_id == strSessionId && mslrs.status == 1
+                                       select new
+                                       {
+                                           id = mslrs.id,
+                                           cinemanumber = mslrs.movies_schedule_list.movies_schedule.cinema.in_order,
+                                           moviecode = mslrs.movies_schedule_list.movies_schedule.movie.title,
+                                           rating = mslrs.movies_schedule_list.movies_schedule.movie.mtrcb.name,
+                                           seattype = mslrs.movies_schedule_list.seat_type,
+                                           startdate = mslrs.movies_schedule_list.start_time,
+                                           patroncode = mslrs.movies_schedule_list_patron.patron.code,
+                                           patronname = mslrs.movies_schedule_list_patron.patron.name,
+                                           patrondescription = mslrs.movies_schedule_list_patron.patron.name,
+                                           seatname = mslrs.cinema_seat.col_name + mslrs.cinema_seat.row_name,
+                                           price = mslrs.price,
+                                           ornumber = mslrs.or_number,
+                                           at = mslrs.amusement_tax_amount,
+                                           ct = mslrs.cultural_tax_amount,
+                                           vt = mslrs.vat_amount,
+                                           terminalname = mslrs.ticket.terminal,
+                                           tellercode = mslrs.ticket.user.userid,
 
-                                session = t.Ticket.SessionId,
-                                isvoid = t.VoidDateTime != null,
+                                           session = mslrs.ticket.session_id,
+                                           isvoid = (mslrs.void_datetime != null),
 
-                            })
-                            .ToList();
+                                       }).ToList();
 
                         DateTime dtCurrentDateTime = ParadisoObjectManager.GetInstance().CurrentDate;
                         foreach (var t in tickets)
@@ -2423,14 +2065,13 @@ namespace Paradiso
             if (TicketDataGrid.SelectedItem != null)
             {
                 TicketModel t = (TicketModel)TicketDataGrid.SelectedItem;
-                if  (SelectedType == Types[1]) //(chkSessionOnly.IsChecked == true)
+                if (chkSessionOnly.IsChecked == true)
                     this.PrintTicket(t);
                 else
                     this.PrintTicket(t.ORNumber);
             }
         }
 
-        /*
         private void chkSessionOnly_Checked(object sender, RoutedEventArgs e)
         {
             Print.Visibility = System.Windows.Visibility.Collapsed;
@@ -2443,7 +2084,6 @@ namespace Paradiso
                 Print.Visibility = System.Windows.Visibility.Visible;
             this.Search(ORNumberInput.Text.Trim(), true, string.Empty);
         }
-        */
 
     }
 }
