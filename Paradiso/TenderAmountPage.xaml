@@ -31,7 +31,7 @@
         <DockPanel Name="MainDockPanel" Width="{Binding Path=ActualWidth, ElementName=MainCanvas}">
             <StackPanel Background="#ffffff" Width="600" Margin="40" TextBlock.FontSize="14" TextBlock.FontFamily="Arial" TextBlock.FontWeight="Bold">
                 <TextBlock Margin="5" TextBlock.FontSize="26" TextBlock.FontFamily="Arial Narrow" FontWeight="Normal">AMOUNT TENDER</TextBlock>
-                <TabControl SelectionChanged="TabControl_SelectionChanged" Name="PaymentMode" Visibility="Collapsed">
+                <TabControl SelectionChanged="TabControl_SelectionChanged" Name="PaymentMode" Visibility="Visible">
                     <TabItem>
                         <TabItem.Header>
                             <TextBlock Name="CashLabel" Foreground="Black" Background="Gray" Padding="5">Cash/Gift Certificate</TextBlock>
