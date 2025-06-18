@@ -753,7 +753,7 @@ namespace Paradiso
 
         private void TenderAmountPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            _hotKeys.Dispose();
+            _hotKeys?.Dispose();
         }
     }
 }
