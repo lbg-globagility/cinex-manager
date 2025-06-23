@@ -378,24 +378,20 @@ namespace Paradiso
                                 }
 
                                 //get taxes based on patron
-                                var taxes = (from mslp in context.movies_schedule_list_patron
+                                var patron = (from mslp in context.movies_schedule_list_patron
                                              where mslp.id == patronSeatModel.PatronKey
-                                             select new { mslp.patron.with_amusement, mslp.patron.with_cultural, mslp.patron.with_citytax }).SingleOrDefault();
+                                             select mslp.patron).SingleOrDefault();
 
                                 decimal amusementtax = 0;
-                                if (taxes.with_amusement == 1)
-                                {
-                                    amusementtax = patronSeatModel.BasePrice * 0.2302m;
-                                }
+                                if ((patron?.with_amusement ?? 0) == 1)
+                                    amusementtax = patron.GetAmusementTaxAmount(patronSeatModel.BasePrice);
 
                                 decimal culturaltax = 0;
-                                if (taxes.with_cultural == 1)
-                                {
-                                    culturaltax = 0.25m;
-                                }
+                                if ((patron?.with_cultural?? 0) == 1)
+                                    culturaltax = patron.GetCulturalTaxAmount(patronSeatModel.BasePrice);
 
                                 decimal vattax = 0;
-                                if (taxes.with_citytax == 1)
+                                if ((patron?.with_citytax ?? 0) == 1)
                                 {
                                     //no sample
                                 }
