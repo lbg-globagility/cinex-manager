@@ -456,6 +456,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ParadisoModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Compile Include="EF\Patron\PatronEntityObject.cs" />
     <None Include="Properties\app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\paradisoEntities.datasource" />

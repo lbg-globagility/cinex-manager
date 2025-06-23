@@ -502,8 +502,8 @@ namespace aZynEManager
                     txtposition.Text.Trim(), txtlgu.Text.Trim()));*/
                 //melvin 11-5-2014 for sql injection
 
-                sqry.Append("insert into patrons (`id`, `code`, `name`, `unit_price`, `with_promo`, `with_amusement`, `with_cultural`, `with_citytax`, `with_gross_margin`, `with_prod_share`, `seat_color`, `seat_position`, `lgutax`, `base_price`, `with_surcharge`) values(0,@code,@name,@price,@promo,@amusement,");
-                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice,@surcharge)");
+                sqry.Append("insert into patrons (`id`, `code`, `name`, `unit_price`, `with_promo`, `with_amusement`, `with_cultural`, `with_citytax`, `with_gross_margin`, `with_prod_share`, `seat_color`, `seat_position`, `lgutax`, `base_price`, `with_surcharge`, `amusement_tax_rate`) values(0,@code,@name,@price,@promo,@amusement,");
+                sqry.Append("@cultural,@lgubox,@gross,@producer,@color,@position,@lgu,@baseprice,@surcharge,@amusementtax)");
                
                 try
                 {
@@ -527,6 +527,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@lgu", txtlgu.Text.Trim());
                         cmd.Parameters.AddWithValue("@baseprice",cmbprices.SelectedValue.ToString());
                         cmd.Parameters.AddWithValue("@surcharge", Convert.ToInt32(cbxSurcharge.CheckState));
+                        cmd.Parameters.AddWithValue("@amusementtax", nudAmusementTax.Value);
                         cmd.ExecuteNonQuery();
                         intid = Convert.ToInt32(cmd.LastInsertedId);
                         cmd.Dispose();
@@ -754,6 +755,7 @@ namespace aZynEManager
                     strqry = new StringBuilder();
                     strqry.Append(String.Format("update patrons set name = '{0}'", txtname.Text.Trim()));
                     strqry.Append(String.Format(", seat_color = {0}", clscommon.Get0BGR(btncolor.SelectedColor)));//Convert.ToInt32(btncolor.SelectedColor.ToArgb())));
+                    strqry.Append(String.Format(", amusement_tax_rate = {0} ", nudAmusementTax.Value));
                     strqry.Append(String.Format(" where id = {0}", intid));
 
                     myconn = new MySqlConnection();
@@ -806,6 +808,7 @@ namespace aZynEManager
                 strqry.Append(String.Format(", seat_position = {0}", Convert.ToInt32(txtposition.Text.Trim())));
                 strqry.Append(String.Format(", lgutax = {0}", txtlgu.Text.Trim()));
                 strqry.Append(String.Format(", base_price = {0} ", cmbprices.SelectedValue.ToString()));
+                strqry.Append(String.Format(", amusement_tax_rate = {0} ", nudAmusementTax.Value));
                 strqry.Append(String.Format(" where id = {0}", intid));
 
                 myconn = new MySqlConnection();
@@ -1199,6 +1202,8 @@ namespace aZynEManager
                         cmbprices.SelectedValue = dt.Rows[0]["base_price"];
                         //dtstart.Value = Convert.ToDateTime(dt.Rows[0]["effective_date"].ToString());
                     }
+
+                    nudAmusementTax.Value = (decimal)dt.Rows[0]["amusement_tax_rate"];
                 }
 
                 //3.23.2015 START
@@ -1698,6 +1703,13 @@ namespace aZynEManager
         {
             DataTable dt = new DataTable();
             onDGVSelect(sender as KryptonDataGridView, dt);
+        }
+
+        private void cbxamusement_CheckedChanged(object sender, EventArgs e)
+        {
+            nudAmusementTax.Enabled = cbxamusement.Checked;
+
+            if (!cbxamusement.Checked) nudAmusementTax.Value = 0;
         }
     }
 }

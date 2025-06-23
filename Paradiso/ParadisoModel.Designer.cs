@@ -8446,13 +8446,17 @@ namespace Paradiso
         /// <param name="code">Initial value of the code property.</param>
         /// <param name="name">Initial value of the name property.</param>
         /// <param name="unit_price">Initial value of the unit_price property.</param>
-        public static patron Createpatron(global::System.Int32 id, global::System.String code, global::System.String name, global::System.Single unit_price)
+        /// <param name="amusement_tax_rate">Initial value of the amusement_tax_rate property.</param>
+        /// <param name="cultural_tax_rate">Initial value of the cultural_tax_rate property.</param>
+        public static patron Createpatron(global::System.Int32 id, global::System.String code, global::System.String name, global::System.Single unit_price, global::System.Decimal amusement_tax_rate, global::System.Decimal cultural_tax_rate)
         {
             patron patron = new patron();
             patron.id = id;
             patron.code = code;
             patron.name = name;
             patron.unit_price = unit_price;
+            patron.amusement_tax_rate = amusement_tax_rate;
+            patron.cultural_tax_rate = cultural_tax_rate;
             return patron;
         }
 
@@ -8822,6 +8826,78 @@ namespace Paradiso
         private Nullable<global::System.Int32> _with_surcharge;
         partial void Onwith_surchargeChanging(Nullable<global::System.Int32> value);
         partial void Onwith_surchargeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ewallet_id
+        {
+            get
+            {
+                return _ewallet_id;
+            }
+            set
+            {
+                Onewallet_idChanging(value);
+                ReportPropertyChanging("ewallet_id");
+                _ewallet_id = StructuralObject.SetValidValue(value, "ewallet_id");
+                ReportPropertyChanged("ewallet_id");
+                Onewallet_idChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ewallet_id;
+        partial void Onewallet_idChanging(Nullable<global::System.Int32> value);
+        partial void Onewallet_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal amusement_tax_rate
+        {
+            get
+            {
+                return _amusement_tax_rate;
+            }
+            set
+            {
+                Onamusement_tax_rateChanging(value);
+                ReportPropertyChanging("amusement_tax_rate");
+                _amusement_tax_rate = StructuralObject.SetValidValue(value, "amusement_tax_rate");
+                ReportPropertyChanged("amusement_tax_rate");
+                Onamusement_tax_rateChanged();
+            }
+        }
+        private global::System.Decimal _amusement_tax_rate;
+        partial void Onamusement_tax_rateChanging(global::System.Decimal value);
+        partial void Onamusement_tax_rateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal cultural_tax_rate
+        {
+            get
+            {
+                return _cultural_tax_rate;
+            }
+            set
+            {
+                Oncultural_tax_rateChanging(value);
+                ReportPropertyChanging("cultural_tax_rate");
+                _cultural_tax_rate = StructuralObject.SetValidValue(value, "cultural_tax_rate");
+                ReportPropertyChanged("cultural_tax_rate");
+                Oncultural_tax_rateChanged();
+            }
+        }
+        private global::System.Decimal _cultural_tax_rate;
+        partial void Oncultural_tax_rateChanging(global::System.Decimal value);
+        partial void Oncultural_tax_rateChanged();
 
         #endregion
 

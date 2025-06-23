@@ -552,7 +552,10 @@
           <Property Name="seat_position" Type="int" />
           <Property Name="lgutax" Type="float" />
           <Property Name="base_price" Type="int" />
-          <Property Name="with_surcharge" Type="int" />
+          <Property Name="with_surcharge" Type="int" />          
+          <Property Name="ewallet_id" Type="int" />
+          <Property Name="amusement_tax_rate" Type="decimal" />
+          <Property Name="cultural_tax_rate" Type="decimal" />
         </EntityType>
         <EntityType Name="patrons_ordinance">
           <Key>
@@ -1806,6 +1809,9 @@
           <NavigationProperty Name="cinema_patron" Relationship="paradisoModel.fk_cinema_patron_patrons1" FromRole="patrons" ToRole="cinema_patron" />
           <NavigationProperty Name="movies_schedule_list_patron" Relationship="paradisoModel.fk_movies_schedule_list_patron_patrons1" FromRole="patrons" ToRole="movies_schedule_list_patron" />
           <NavigationProperty Name="patrons_ordinance" Relationship="paradisoModel.fk_patrons" FromRole="patrons" ToRole="patrons_ordinance" />
+          <Property Name="ewallet_id" Type="Int32" Nullable="true" />
+          <Property Name="amusement_tax_rate" Type="Decimal" Nullable="false" />
+          <Property Name="cultural_tax_rate" Type="Decimal" Nullable="false" />
         </EntityType>
         <EntityType Name="patrons_ordinance">
           <Key>
@@ -2814,7 +2820,10 @@
                 <ScalarProperty Name="seat_position" ColumnName="seat_position" />
                 <ScalarProperty Name="lgutax" ColumnName="lgutax" />
                 <ScalarProperty Name="base_price" ColumnName="base_price" />
-                <ScalarProperty Name="with_surcharge" ColumnName="with_surcharge" />
+                <ScalarProperty Name="with_surcharge" ColumnName="with_surcharge" />                
+                <ScalarProperty Name="ewallet_id" ColumnName="ewallet_id" />
+                <ScalarProperty Name="amusement_tax_rate" ColumnName="amusement_tax_rate" />
+                <ScalarProperty Name="cultural_tax_rate" ColumnName="cultural_tax_rate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3078,7 +3087,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="ParadisoModel" ZoomLevel="68">
+      <Diagram Name="ParadisoModel" ZoomLevel="100">
         <EntityTypeShape EntityType="paradisoModel.a_trail" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="paradisoModel.application" Width="1.5" PointX="2.75" PointY="11.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="paradisoModel.buyer" Width="1.5" PointX="11.25" PointY="2.25" Height="3.3263964843749996" IsExpanded="true" />
@@ -3323,7 +3332,7 @@
           <ConnectorPoint PointX="13.25" PointY="14.086293945312498" />
           <ConnectorPoint PointX="14" PointY="14.086293945312498" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="paradisoModel.user" Width="1.5" PointX="0.75" PointY="8.875" Height="4.0956022135416674" />
+        <EntityTypeShape EntityType="paradisoModel.user" Width="1.5" PointX="0.75" PointY="8.875" Height="4.0956022135416674" IsExpanded="false" />
         <AssociationConnector Association="paradisoModel.fk_a_trail_users1">
           <ConnectorPoint PointX="2.25" PointY="11.027396519531244" />
           <ConnectorPoint PointX="2.75" PointY="11.027396519531244" />
