@@ -1416,6 +1416,22 @@ namespace Paradiso
                 print.DrawText(0, print.Row, print.AddColumn(30), "Ord. Tax:", false);
                 print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
 
+                //Amusement Tax
+                var amusementTaxText = "Am Tax";
+                h1.Add($"{amusementTaxText}:");
+                h2.Add(string.Format("{0:0.00}", 0));//Ticket.AmusementTax
+
+                print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
+
+                //Culturla Tax
+                var culturlaTaxText = "Am Tax";
+                h1.Add($"{culturlaTaxText}:");
+                h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
+
+                print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
+
                 h1.Add("Surcharge:");
                 h2.Add(string.Format("{0:0.00}", Ticket.SurchargePrice));
 
@@ -1434,6 +1450,22 @@ namespace Paradiso
                     h2.Add(string.Format("({0:0.00})", Ticket.Discount));
                     print.DrawText(0, print.Row, print.AddColumn(30), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
                     print.DrawText(0, print.Row, print.AddColumn(325), string.Format("({0:0.00})", Ticket.Discount), true);
+
+                    //Amusement Tax
+                    var amusementTaxText = "Am Tax";
+                    h1.Add($"{amusementTaxText}:");
+                    h2.Add(string.Format("{0:0.00}", Ticket.AmusementTax));
+
+                    print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
+
+                    //Culturla Tax
+                    var culturlaTaxText = "Am Tax";
+                    h1.Add($"{culturlaTaxText}:");
+                    h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
+
+                    print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
                 }
                 else
                 {
@@ -1445,6 +1477,22 @@ namespace Paradiso
 
                     print.DrawText(0, print.Row, print.AddColumn(30), "Discount:", false);
                     print.DrawText(0, print.Row, print.AddColumn(325), "0.00", true);
+
+                    //Amusement Tax
+                    var amusementTaxText = "Am Tax";
+                    h1.Add($"{amusementTaxText}:");
+                    h2.Add(string.Format("{0:0.00}", Ticket.AmusementTax));
+
+                    print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
+
+                    //Culturla Tax
+                    var culturlaTaxText = "Am Tax";
+                    h1.Add($"{culturlaTaxText}:");
+                    h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
+
+                    print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
+                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
                 }
 
                 if (Ticket.OrdinancePrice > 0m)
