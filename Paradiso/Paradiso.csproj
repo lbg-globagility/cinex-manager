@@ -600,7 +600,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\info-icon.png" />
-    <Content Include="WINPSK.dll" />
+    <Content Include="WINPSK.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
