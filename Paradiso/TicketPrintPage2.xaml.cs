@@ -1416,22 +1416,6 @@ namespace Paradiso
                 print.DrawText(0, print.Row, print.AddColumn(30), "Ord. Tax:", false);
                 print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.OrdinancePrice), true);
 
-                //Amusement Tax
-                var amusementTaxText = "Am Tax";
-                h1.Add($"{amusementTaxText}:");
-                h2.Add(string.Format("{0:0.00}", 0));//Ticket.AmusementTax
-
-                print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
-                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
-
-                //Culturla Tax
-                var culturlaTaxText = "Am Tax";
-                h1.Add($"{culturlaTaxText}:");
-                h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
-
-                print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
-                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
-
                 h1.Add("Surcharge:");
                 h2.Add(string.Format("{0:0.00}", Ticket.SurchargePrice));
 
@@ -1451,21 +1435,6 @@ namespace Paradiso
                     print.DrawText(0, print.Row, print.AddColumn(30), Ticket.IsPWD ? "PWD Discount:" : "SC Discount:", false);
                     print.DrawText(0, print.Row, print.AddColumn(325), string.Format("({0:0.00})", Ticket.Discount), true);
 
-                    //Amusement Tax
-                    var amusementTaxText = "Am Tax";
-                    h1.Add($"{amusementTaxText}:");
-                    h2.Add(string.Format("{0:0.00}", Ticket.AmusementTax));
-
-                    print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
-                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
-
-                    //Culturla Tax
-                    var culturlaTaxText = "Am Tax";
-                    h1.Add($"{culturlaTaxText}:");
-                    h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
-
-                    print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
-                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
                 }
                 else
                 {
@@ -1478,21 +1447,6 @@ namespace Paradiso
                     print.DrawText(0, print.Row, print.AddColumn(30), "Discount:", false);
                     print.DrawText(0, print.Row, print.AddColumn(325), "0.00", true);
 
-                    //Amusement Tax
-                    var amusementTaxText = "Am Tax";
-                    h1.Add($"{amusementTaxText}:");
-                    h2.Add(string.Format("{0:0.00}", Ticket.AmusementTax));
-
-                    print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
-                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.AmusementTax
-
-                    //Culturla Tax
-                    var culturlaTaxText = "Am Tax";
-                    h1.Add($"{culturlaTaxText}:");
-                    h2.Add(string.Format("{0:0.00}", 0));//Ticket.CulturalTax
-
-                    print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
-                    print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", 0), true);//Ticket.CulturalTax
                 }
 
                 if (Ticket.OrdinancePrice > 0m)
@@ -1522,8 +1476,10 @@ namespace Paradiso
                     print.DrawText(0, print.Row, print.Column, " ", true);
                 }
 			}
-			
-			if (Ticket.PaymentMode == 3)
+
+            var netTotalPrintRow = print.Row;
+
+            if (Ticket.PaymentMode == 3)
 			{
 				h1.Add("CSH");
 				h2.Add(string.Format("{0:0.00}", Ticket.Cash));
@@ -1550,24 +1506,40 @@ namespace Paradiso
 				else if ((Ticket.PaymentMode & 4) == 4)
 					strPaymentMode = "CC";
 
-				h1.Add(" ");
-				h2.Add(" ");
-				print.DrawText(-1, print.Row, print.Column, " ", true);
+                h1.Add(string.Format("{0} Total", strPaymentMode));
+                h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
+                print.DrawText(-2, print.Row, print.AddColumn(30), string.Format("{0} Total", strPaymentMode), false);
+                print.DrawText(-2, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.PatronPrice), true);
+                netTotalPrintRow = print.Row;
 
-				h1.Add(" ");
-				h2.Add(" ");
-				print.DrawText(-1, print.Row, print.Column, " ", true);
+                //Vatable
+                var vatableText = "Vatable";
+                h1.Add($"{vatableText}:");
+                h2.Add(string.Format("{0:0.00}", Ticket.Vatable));
+
+                print.DrawText(0, print.Row, print.AddColumn(30), $"{vatableText}:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.Vatable), true);
+                
+                //Amusement Tax
+                var amusementTaxText = "Am Tax";
+                h1.Add($"{amusementTaxText}:");
+                h2.Add(string.Format("{0:0.00}", Ticket.AmusementTax));
+
+                print.DrawText(0, print.Row, print.AddColumn(30), $"{amusementTaxText}:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.AmusementTax), true);
+
+                //Culturla Tax
+                var culturlaTaxText = "C. Tax";
+                h1.Add($"{culturlaTaxText}:");
+                h2.Add(string.Format("{0:0.00}", Ticket.CulturalTax));
+
+                print.DrawText(0, print.Row, print.AddColumn(30), $"{culturlaTaxText}:", false);
+                print.DrawText(0, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.CulturalTax), true);
+            }
 
 
-				h1.Add(string.Format("{0} Total", strPaymentMode));
-				h2.Add(string.Format("{0:0.00}", Ticket.PatronPrice));
-				print.DrawText(-2, print.Row, print.AddColumn(30), string.Format("{0} Total", strPaymentMode), false);
-				print.DrawText(-2, print.Row, print.AddColumn(325), string.Format("{0:0.00}", Ticket.PatronPrice), true);
-			}
-            
-
-            int r1 = print.Row;
-            print.DrawRectangle(200, (uint) r0, 2, 620, (uint) r1 + 3);
+            int r1 = netTotalPrintRow;
+            print.DrawRectangle(px: 200, py: (uint) r0, thickness: 2, pEx: 620, pEy: (uint) r1 + 3);
 
             print.DrawText(-1, print.Row, print.Column, " ", true);
 
