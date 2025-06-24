@@ -1,0 +1,6 @@
+
+ALTER TABLE `patrons`
+	ADD COLUMN `amusement_tax_rate` DECIMAL(20,6) NOT NULL DEFAULT '0.000000' AFTER `ewallet_id`;
+
+ALTER TABLE `patrons`
+	ADD COLUMN `cultural_tax_rate` DECIMAL(20,6) NOT NULL DEFAULT '0.000000' AFTER `amusement_tax_rate`;
