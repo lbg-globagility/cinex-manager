@@ -527,7 +527,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@lgu", txtlgu.Text.Trim());
                         cmd.Parameters.AddWithValue("@baseprice",cmbprices.SelectedValue.ToString());
                         cmd.Parameters.AddWithValue("@surcharge", Convert.ToInt32(cbxSurcharge.CheckState));
-                        cmd.Parameters.AddWithValue("@amusementtax", nudAmusementTax.Value);
+                        cmd.Parameters.AddWithValue("@amusementtax", cbxamusement.Checked ? nudAmusementTax.Value : 0);
                         cmd.ExecuteNonQuery();
                         intid = Convert.ToInt32(cmd.LastInsertedId);
                         cmd.Dispose();
