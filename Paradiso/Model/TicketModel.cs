@@ -271,6 +271,8 @@ namespace Paradiso.Model
             }
         }
 
+        public decimal Vatable => PatronPrice - (AmusementTax + CulturalTax);
+
         public int CinemaNumber
         {
             get { return intCinemaNumber; }
