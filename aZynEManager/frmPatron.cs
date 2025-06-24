@@ -1,14 +1,15 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using ComponentFactory.Krypton.Toolkit;
-using System.Globalization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace aZynEManager
 {
@@ -1153,7 +1154,7 @@ namespace aZynEManager
             }*/
         }
 
-        public void onDGVSelect(KryptonDataGridView dgv, DataTable dt)
+        public async void onDGVSelect(KryptonDataGridView dgv, DataTable dt)
         {
             // = sender as KryptonDataGridView;
             if (dgv == null)
@@ -1242,39 +1243,36 @@ namespace aZynEManager
                 //6.8.2015 START refresh the chx for surcharges
                 setCheck(dgvSurcharge, false);
 
-                myconn = new MySqlConnection();
-                myconn.ConnectionString = m_frmM._connection;
-
                 DataTable dt3 = new DataTable();
                 sqry = new StringBuilder();
                 sqry.Append("select surcharge_id from patrons_surcharge where patron_id = @patid");
-                MySqlCommand cmd3 = new MySqlCommand();
-                cmd3.Connection = myconn;
-                if (cmd3.Connection.State == ConnectionState.Closed)
-                    cmd3.Connection.Open();
-                cmd3.CommandText = sqry.ToString();
-                cmd3.Parameters.AddWithValue("@patid", strid);
-                MySqlDataReader rd3 = cmd3.ExecuteReader();
-                if (rd3.HasRows)
+
+                using (var cmd3 = new MySqlCommand(commandText: sqry.ToString(),
+                    connection: new MySqlConnection(connectionString: m_frmM._connection)))
                 {
-                    while (rd3.Read())
-                    {
-                        int intid = Convert.ToInt32(rd3[0].ToString());
-                        for (int i = 0; i < dgvSurcharge.Rows.Count; i++)
+                    if(cmd3.Connection.State == ConnectionState.Open) await cmd3.Connection.CloseAsync();
+                    await cmd3.Connection.OpenAsync();
+
+                    cmd3.Parameters.AddWithValue("@patid", strid);
+                    MySqlDataReader rd3 = cmd3.ExecuteReader();
+                    if (rd3.HasRows)
+                        while (rd3.Read())
                         {
-                            if (intid == Convert.ToInt32(dgvSurcharge[3, i].Value.ToString()))
-                                dgvSurcharge[0, i].Value = (object)true;
+                            int intid = Convert.ToInt32(rd3[0].ToString());
+                            for (int i = 0; i < dgvSurcharge.Rows.Count; i++)
+                                if (intid == Convert.ToInt32(dgvSurcharge[3, i].Value.ToString()))
+                                    dgvSurcharge[0, i].Value = (object)true;
                         }
-                    }
+
+                    await cmd3.Connection.CloseAsync();
+
+                    rd3.Close();
+                    await rd3.DisposeAsync();
+                    
+                    cmd3.Dispose();
                 }
-                rd3.Close();
-                cmd3.Dispose();
 
-                //3.23.2015 END
-
-                //added 7.3.2019
-                
-                if(btnAdd.Text.ToUpper() == "NEW"){
+                if (btnAdd.Text.ToUpper() == "NEW"){
                     computeDiscount();
                     computeCasierTotal();
                 }
