@@ -35,7 +35,7 @@ NULL `id`,
 DATE(t.ticket_datetime) `report_date`,
 COUNT(s.session_id) + COUNT(IFNULL(cc.session_id, 0)) `total_cnt`,
 SUM(IF(IFNULL(s.payment_mode, cc.payment_mode)=4, 0, mslrs.`base_price`)) `total_cash`,
-SUM(s.gift_certificate_amount) `total_gc`,
+SUM(IFNULL(s.gift_certificate_amount, 0)) `total_gc`,
 SUM(IF(IFNULL(s.payment_mode, cc.payment_mode)=4, mslrs.`base_price`, 0)) `total_cc`, #SUM(mslrs.base_price)
 _userId `userid`,
 @_systemValue `system_value`,
