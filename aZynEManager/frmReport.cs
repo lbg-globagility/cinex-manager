@@ -1908,8 +1908,8 @@ namespace aZynEManager
             }
             else if(code == "RP22")
             {
-                companyname = clscon.CinemaName + " (" + clscon.CinemaAddress + ")";
-                companyaddress = clscon.CinemaAddress2;
+                companyname = clscon.CinemaName;
+                companyaddress = clscon.CinemaAddress2NoNewLine;
                 tin = clscon.TIN;
                 accreditation = clscon.CinemaAccreditationNo;
                 permitno = clscon.PN;

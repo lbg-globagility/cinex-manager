@@ -56,6 +56,8 @@ namespace aZynEManager
             set { _cinemaaddr2 = value; }
         }
 
+        public string CinemaAddress2NoNewLine => CinemaAddress2.Replace(oldChar: '\r', newChar: '\0').Replace(oldChar: '\n', newChar: '\0');
+
         [CategoryAttribute("Cinema"),
         DescriptionAttribute("Accreditation No of the Company")]
         public string CinemaAccreditationNo
