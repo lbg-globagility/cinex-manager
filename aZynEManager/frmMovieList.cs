@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using ComponentFactory.Krypton.Toolkit;
 using System.Globalization;
+using System.Web.WebSockets;
+using System.IO;
+using System.Diagnostics;
 
 namespace aZynEManager
 {
@@ -21,6 +24,8 @@ namespace aZynEManager
         public clscommon m_clscom = null;
         DataTable m_dt = new DataTable();
         bool allowSpace = false;
+        private byte[] _photo;
+        private string _photoName;
 
         public frmMovieList()
         {
@@ -60,7 +65,7 @@ namespace aZynEManager
             sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, ");
             //sbqry.Append("DATE_FORMAT(a.start_date,'%m-%d-%Y'), DATE_FORMAT(a.end_date,'%m-%d-%Y'), ");
             sbqry.Append("a.start_date, a.end_date, ");
-            sbqry.Append("a.share_perc as share, d.status_desc as status, a.encoded_date ");
+            sbqry.Append("a.share_perc as share, d.status_desc as status, a.encoded_date, a.photo, a.photo_name ");
             sbqry.Append("FROM movies a, mtrcb b, distributor c, movies_status d WHERE a.rating_id = b.id ");
             sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");
           //  sbqry.Append("select * from movies");
@@ -154,6 +159,15 @@ namespace aZynEManager
                 dgvResult.Columns[10].Width = 0;
                 dgvResult.Columns[10].HeaderText = "Encoded Date";
                 dgvResult.Columns[10].Visible = false;
+
+                var photoColumn = dgvResult.Columns.OfType<DataGridViewColumn>()?.FirstOrDefault(t => t.Name == "photo");
+                if (!string.IsNullOrEmpty(photoColumn?.Name))
+                    photoColumn.Visible = false;
+
+                var photoNameColumn = dgvResult.Columns.OfType<DataGridViewColumn>()?.FirstOrDefault(t => t.Name == "photo_name");
+                if (!string.IsNullOrEmpty(photoNameColumn?.Name))
+                    photoNameColumn.Visible = false;
+
             }
         }
 
@@ -455,7 +469,7 @@ namespace aZynEManager
             }
 
             unselectbutton();
-            if (btnAdd.Text  == "new")
+            if (btnAdd.Text == "new")
             {
                 dgvResult.Enabled = false;
 
@@ -463,7 +477,7 @@ namespace aZynEManager
                 txtcode.ReadOnly = false;
                 txttitle.Text = "";
                 txttitle.ReadOnly = false;
-                txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString(); 
+                txtshare.Text = m_clscom.m_clscon.MovieDefaultShare.ToString();
                 txtshare.ReadOnly = false;
 
                 unselectbutton();
@@ -476,11 +490,11 @@ namespace aZynEManager
                 btnDelete.Text = "cancel";
                 btnDelete.Enabled = true;
                 btnDelete.Values.Image = Properties.Resources.buttoncancel;
-               
+
                 //melvin 10-13-14
                 cbxfilter.Checked = false;
                 cbxfilter.Enabled = false;
-                
+
                 txtcode.SelectAll();
                 txtcode.Focus();
 
@@ -529,7 +543,7 @@ namespace aZynEManager
                     }
                 }
                 int inttime = calculatetime();
-                if(inttime == 0)
+                if (inttime == 0)
                 {
                     MessageBox.Show("Please fill the required information.");
                     dttime.Focus();
@@ -572,24 +586,24 @@ namespace aZynEManager
                 //validate for the existance of the record
                 StringBuilder sqry = new StringBuilder();
                 sqry.Append("select count(*) from movies ");
-                sqry.Append("where code = @code " );
+                sqry.Append("where code = @code ");
                 sqry.Append("and title = @title ");
                 sqry.Append("and dist_id = @dist ");
                 sqry.Append("and share_perc = @share ");
                 sqry.Append("and rating_id = @rating ");
                 sqry.Append("and duration = @duration");
-               
+
                 if (myconn.State == ConnectionState.Closed)
                     myconn.Open();
                 MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
 
                 //melvin 10-31-2014 to secure in sql injection
-                cmd.Parameters.AddWithValue("@code",txtcode.Text.Trim());
+                cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
                 cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@dist",cmbdistributor.SelectedValue);
-                cmd.Parameters.AddWithValue("@share",txtshare.Text.Trim());
-                cmd.Parameters.AddWithValue("@rating",cmbrating.SelectedValue);
-                cmd.Parameters.AddWithValue("@duration",inttime);
+                cmd.Parameters.AddWithValue("@dist", cmbdistributor.SelectedValue);
+                cmd.Parameters.AddWithValue("@share", txtshare.Text.Trim());
+                cmd.Parameters.AddWithValue("@rating", cmbrating.SelectedValue);
+                cmd.Parameters.AddWithValue("@duration", inttime);
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
@@ -601,7 +615,7 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit is already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-               
+
                 //rmb 2.20.2017 start
                 //validate for the existance of the same title code
                 sqry = new StringBuilder();
@@ -625,20 +639,20 @@ namespace aZynEManager
                     MessageBox.Show("Can't add this record, \n\rit's movie code already existing from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }//
-                //rmb 2.20.2017 end
-                
+                 //rmb 2.20.2017 end
+
                 sqry = new StringBuilder();
                 //sqry.Append(String.Format("insert into movies value({0},'{1}','{2}',{3},{4},{5},{6},0,Now(),CURDATE(),CURDATE())",
-                  //  0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
-                    //cmbrating.SelectedValue,inttime));
+                //  0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
+                //cmbrating.SelectedValue,inttime));
 
-                sqry.Append("insert into movies values(0,@code,@title,@dist,@share,@rating,@duration,0,Now(),CURDATE(),CURDATE())");
+                sqry.Append("insert into movies values(0,@code,@title,@dist,@share,@rating,@duration,0,Now(),CURDATE(),CURDATE(),@photo,@photo_name)");
 
                 try
                 {
                     //insert value for the movies table
                     //MessageBox.Show(sqry.ToString());
-                    if(myconn.State == ConnectionState.Closed)
+                    if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(sqry.ToString(), myconn);
                     //melvin 10-31-2014 to secure in sql injection
@@ -648,6 +662,20 @@ namespace aZynEManager
                     cmd.Parameters.AddWithValue("@share", txtshare.Text.Trim());
                     cmd.Parameters.AddWithValue("@rating", cmbrating.SelectedValue);
                     cmd.Parameters.AddWithValue("@duration", inttime);
+
+                    var photo = dgvResult.CurrentRow.Cells["photo"].Value;
+                    var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
+                    
+                    if (Object.Equals(photo, DBNull.Value))
+                            cmd.Parameters.AddWithValue("@photo", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@photo", photo);
+
+                    if (Object.Equals(photoName, DBNull.Value))
+                        cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@photo_name", photoName);
+                    
                     cmd.ExecuteNonQuery();
                     int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
 
@@ -680,28 +708,31 @@ namespace aZynEManager
 
                     tabinsertcheck(myconn, dgvClass, intid);
 
-                    if(myconn.State == ConnectionState.Open)
+                    if (myconn.State == ConnectionState.Open)
                         myconn.Close();
 
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_ADD", "MOVIES|MOVIES_CLASS",
-                        Environment.MachineName.ToString(), "ADD NEW MOVIE INFO: NAME=" + 
-                        this.txtcode.Text.Replace("'","''")
+                        Environment.MachineName.ToString(), "ADD NEW MOVIE INFO: NAME=" +
+                        this.txtcode.Text.Replace("'", "''")
                         + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV(true);
                     setnormal();
-                    
+
                     MessageBox.Show("You have successfully added the new record.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //refreshDGV(false);
                     dgvClass.DataSource = null;
                     dgvClass.Columns.Clear();
                     cbxfilter.Enabled = true;
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
                     if (myconn.State == ConnectionState.Open)
                         myconn.Close();
-                    MessageBox.Show("Can't connect to the contact table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the contact table." + err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
                 }
             }
         }
@@ -831,8 +862,8 @@ namespace aZynEManager
                         //delete from the moview table where the status is inactive or = 0
                         sqry = new StringBuilder();
                         sqry.Append(String.Format("delete from movies where id = {0} and status = 0", intid));
-                
-                        if(myconn.State == ConnectionState.Closed)
+
+                        if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         cmd = new MySqlCommand(sqry.ToString(), myconn);
                         cmd.ExecuteNonQuery();
@@ -843,8 +874,8 @@ namespace aZynEManager
 
                         MessageBox.Show("Successfully deleted", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                         m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_DELETE", "MOVIES|MOVIES_CLASS",
-                            Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" + 
-                            this.txtcode.Text.Replace("'","''")
+                            Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" +
+                            this.txtcode.Text.Replace("'", "''")
                             + " | ID=" + intid.ToString(), m_frmM._connection);
 
                         dgvClass.DataSource = null;
@@ -866,7 +897,6 @@ namespace aZynEManager
             }
             refreshDGV(true);
             setnormal();
-           
         }
 
         private void txtshare_KeyPress(object sender, KeyPressEventArgs e)
@@ -1113,10 +1143,10 @@ namespace aZynEManager
             unselectbutton();
             if (dgvResult.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Please select a record from the list.", this.Text,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Please select a record from the list.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            else if(dgvResult.SelectedRows.Count == 1)
+            else if (dgvResult.SelectedRows.Count == 1)
                 dgvResult.Enabled = false;
 
             if (btnEdit.Text == "edit")
@@ -1139,7 +1169,7 @@ namespace aZynEManager
 
                 MySqlConnection myconn = new MySqlConnection();
                 myconn.ConnectionString = m_frmM._connection;
- 
+
                 int movieid = -1;
                 if (dgvResult.SelectedRows.Count == 1)
                     movieid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
@@ -1173,9 +1203,9 @@ namespace aZynEManager
                     setDataGridViewII(dgvClass, dt);
                     //dgvClass.DataSource = dt;
                 }
-                
-               // dgvdt.Merge(dt);
-               // dgvClass.DataSource = dgvdt;
+
+                // dgvdt.Merge(dt);
+                // dgvClass.DataSource = dgvdt;
 
                 setCheck(dgvClass, false);
                 int rowCount = 0;
@@ -1216,14 +1246,14 @@ namespace aZynEManager
                     txtcode.Focus();
                     return;
                 }
-                if(txtshare.Text == "")
+                if (txtshare.Text == "")
                 {
                     MessageBox.Show("Please fill the required information.");
                     txtshare.Focus();
                     return;
                 }
                 int inttime = calculatetime();
-                if(inttime == 0)
+                if (inttime == 0)
                 {
                     MessageBox.Show("Please fill the required information.");
                     dttime.Focus();
@@ -1265,7 +1295,7 @@ namespace aZynEManager
                 myconn.ConnectionString = m_frmM._connection;
 
                 int intid = -1;
-                if(dgvResult.SelectedRows.Count == 1)
+                if (dgvResult.SelectedRows.Count == 1)
                     intid = Convert.ToInt32(dgvResult.SelectedRows[0].Cells[0].Value.ToString());
 
                 //first check if the id is existing
@@ -1279,14 +1309,14 @@ namespace aZynEManager
                 int rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 cmd.Dispose();
 
-               /* if (rowCount > 0)
-                {
-                    setnormal();
-                    if (myconn.State == ConnectionState.Open)
-                        myconn.Close();
-                    MessageBox.Show("Can't update this record, \n\rit is already being used by the system.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }*/
+                /* if (rowCount > 0)
+                 {
+                     setnormal();
+                     if (myconn.State == ConnectionState.Open)
+                         myconn.Close();
+                     MessageBox.Show("Can't update this record, \n\rit is already being used by the system.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                     return;
+                 }*/
 
                 //validate for the existance of the record
                 //sqry = new StringBuilder();
@@ -1342,10 +1372,12 @@ namespace aZynEManager
                     /*2.5.2016*/
                     strqry = new StringBuilder();
                     strqry.Append("update movies set title=@title,");
-                    strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));
-                    strqry.Append(String.Format(" duration = {0},",totaltime));
+                    strqry.Append(String.Format(" share_perc = {0},", txtshare.Text.Trim()));
+                    strqry.Append(String.Format(" duration = {0},", totaltime));
                     //strqry.Append(String.Format(" dist_id = {0},", cmbdistributor.SelectedValue));
-                    strqry.Append(String.Format(" rating_id = {0} ", cmbrating.SelectedValue));
+                    strqry.Append(String.Format(" rating_id = {0}, ", cmbrating.SelectedValue));
+                    strqry.Append(" photo = @photo,");
+                    strqry.Append(" photo_name = @photo_name");
                     strqry.Append(String.Format(" where id = {0}", intid));
 
                     try
@@ -1355,6 +1387,20 @@ namespace aZynEManager
                             myconn.Open();
                         cmd = new MySqlCommand(strqry.ToString(), myconn);
                         cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
+
+                        var photo = dgvResult.CurrentRow.Cells["photo"].Value;
+                        var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
+
+                        if (Object.Equals(photo, DBNull.Value))
+                            cmd.Parameters.AddWithValue("@photo", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@photo", (byte[])photo);
+
+                        if (Object.Equals(photoName, DBNull.Value))
+                            cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@photo_name", photoName);
+
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
 
@@ -1388,30 +1434,46 @@ namespace aZynEManager
                 strqry = new StringBuilder();
                 //melvin 10-4-2014
                 strqry.Append("update movies set code=@code, title=@title,");
-                strqry.Append(String.Format(" share_perc = {0},",txtshare.Text.Trim()));
-                strqry.Append(String.Format(" duration = {0},",totaltime));
+                strqry.Append(String.Format(" share_perc = {0},", txtshare.Text.Trim()));
+                strqry.Append(String.Format(" duration = {0},", totaltime));
                 strqry.Append(String.Format(" dist_id = {0},", cmbdistributor.SelectedValue));
-                strqry.Append(String.Format(" rating_id = {0} ", cmbrating.SelectedValue));
+                strqry.Append(String.Format(" rating_id = {0}, ", cmbrating.SelectedValue));
+                strqry.Append(" photo = @photo,");
+                strqry.Append(" photo_name = @photo_name");
                 strqry.Append(String.Format(" where id = {0}", intid));
 
                 try
                 {
                     //update the movies table
-                    if(myconn.State == ConnectionState.Closed)
+                    if (myconn.State == ConnectionState.Closed)
                         myconn.Open();
                     cmd = new MySqlCommand(strqry.ToString(), myconn);
                     //melvin 11-4-2014
                     cmd.Parameters.AddWithValue("@code", txtcode.Text.Trim());
                     cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
+
+                    var photo = dgvResult.CurrentRow.Cells["photo"].Value;
+                    var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
+
+                    if (Object.Equals(photo, DBNull.Value))
+                        cmd.Parameters.AddWithValue("@photo", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@photo", (byte[])photo);
+
+                    if (Object.Equals(photoName, DBNull.Value))
+                        cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@photo_name", photoName);
+
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
                     //remove the movies_class values
                     strqry = new StringBuilder();
-                    strqry.Append(String.Format("delete from movies_class where movie_id = {0}",intid));
+                    strqry.Append(String.Format("delete from movies_class where movie_id = {0}", intid));
                     try
                     {
-                        if(myconn.State == ConnectionState.Closed)
+                        if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
                         MySqlCommand cmd3 = new MySqlCommand(strqry.ToString(), myconn);
                         cmd3.ExecuteNonQuery();
@@ -1419,11 +1481,11 @@ namespace aZynEManager
 
                         tabinsertcheck(myconn, dgvClass, intid);
                     }
-                    catch(MySqlException err)
+                    catch (MySqlException err)
                     {
-                        MessageBox.Show("Can't connect to the contact table."+err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Can't connect to the contact table." + err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                     ////insert the movie_class update
                     //foreach (int i in lstcls.CheckedIndices)
                     //{
@@ -1482,12 +1544,12 @@ namespace aZynEManager
                         cmd5.ExecuteNonQuery();
                         cmd5.Dispose();
                     }
-                    catch 
+                    catch
                     {
                     }
                     m_clscom.AddATrail(m_frmM.m_userid, "MOVIE_EDIT", "MOVIES|MOVIES_CLASS",
                         Environment.MachineName.ToString(), "UPDATED MOVIE INFO: NAME=" +
-                        this.txtcode.Text.Replace("'","''")
+                        this.txtcode.Text.Replace("'", "''")
                         + " | ID=" + intid.ToString(), m_frmM._connection);
 
                     refreshDGV(true);
@@ -1497,9 +1559,13 @@ namespace aZynEManager
                     dgvClass.DataSource = null;
                     dgvClass.Columns.Clear();
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
-                    MessageBox.Show("Can't connect to the movies table."+ err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to the movies table." + err.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                finally
+                {
                 }
             }
         }
@@ -1530,7 +1596,7 @@ namespace aZynEManager
             if (m_frmM.m_dtmovies.Rows.Count == 0)
             {
                 StringBuilder sbqry = new StringBuilder();
-                sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, a.share_perc as share, d.status_desc as status ");
+                sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, a.share_perc as share, d.status_desc as status, a.photo, a.photo_name ");
                 sbqry.Append("FROM movies a,  mtrcb b, distributor c, movie_status d WHERE a.rating_id = b.id and a.dist_id = c.id and a.status = d.status_id");
                 m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 m_frmM.m_dtmovies = m_dt;
@@ -1595,6 +1661,79 @@ namespace aZynEManager
         private void dgvResult_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
 
+        }
+
+        private void lnklblUploadMoviePoster_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!lnklblUploadMoviePoster.Enabled) return;
+
+            var ofd = new OpenFileDialog()
+            {
+                Filter = string.Join(separator: "|",
+                    value: new string[] { "JPEG (*.jpg,*.jpeg,*.jpe)|*.jpg", "PNG (*.png)|*.png" })
+            };
+
+            if (ofd.ShowDialog() == DialogResult.Cancel) return;
+
+            if (btnEdit.Text == "update")
+            {
+                var currentRow = dgvResult.CurrentRow;
+                var dataRow = ((DataRowView)currentRow.DataBoundItem).Row;
+
+                dataRow["photo"] = File.ReadAllBytes(ofd.FileName);
+                dataRow["photo_name"] = ofd.SafeFileName;
+
+                var photo = dgvResult.CurrentRow.Cells["photo"].Value;
+                var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
+            }
+
+            if(btnAdd.Text == "save")
+            {
+                _photo = File.ReadAllBytes(ofd.FileName);
+                _photoName = ofd.SafeFileName;
+            }
+        }
+
+        private void btnAdd_TextChanged(object sender, EventArgs e)
+        {
+            lnklblUploadMoviePoster.Visible = btnAdd.Text == "save";
+        }
+
+        private void lnklblUploadMoviePoster_VisibleChanged(object sender, EventArgs e)
+        {
+            var isVisible = lnklblUploadMoviePoster.Visible;
+            lnklblUploadMoviePoster.Enabled = isVisible;
+            lnklblViewPhoto.Visible = !isVisible;
+        }
+
+        private void btnEdit_TextChanged(object sender, EventArgs e)
+        {
+            lnklblUploadMoviePoster.Visible = btnEdit.Text == "update";
+        }
+
+        private void lnklblViewPhoto_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!(dgvResult.RowCount > 0)) return;
+
+            var photo = dgvResult.CurrentRow.Cells["photo"].Value;
+            var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
+
+            if (Object.Equals(photo, DBNull.Value))
+            {
+                MessageBox.Show(text: "No photo uploaded yet.", caption: "Movie Information", icon: MessageBoxIcon.Information, buttons: MessageBoxButtons.OK);
+                return;
+            }
+
+            var bytes = (byte[])photo;
+            using (var byteStream = new MemoryStream(bytes))
+            {
+                Image image = new Bitmap(byteStream);
+                var filePathName = $"{Path.GetTempPath()}{photoName}";
+                image.Save(filePathName);
+
+                var startInfo = new ProcessStartInfo(filePathName);
+                Process.Start(startInfo);
+            }
         }
     }
 }

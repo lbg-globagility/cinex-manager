@@ -37,6 +37,9 @@ namespace Cinex.Core.Entities
 
         [Column("end_date")]
         public DateTime EndDate { get; set; }
+
+        [Column("photo")]
+        public byte[] Photo { get; set; }
     }
 
     public partial class Movie

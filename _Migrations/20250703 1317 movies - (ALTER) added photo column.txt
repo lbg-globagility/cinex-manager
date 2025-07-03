@@ -1,0 +1,16 @@
+
+ALTER TABLE `movies`
+	ADD COLUMN `photo` LONGBLOB NULL DEFAULT NULL AFTER `end_date`;
+ALTER TABLE `movies`
+	ADD COLUMN `photo_name` TINYTEXT NULL DEFAULT NULL AFTER `photo`;
+
+/***********DO THIS************
+*add the following code below to `my.ini` or `my.cnf` file and restart the mysql server service
+
+# added to avoid err "Got a packet bigger than 'max_allowed_packet' bytes"
+#
+net_buffer_length=1000000 
+max_allowed_packet=1000000000
+
+*************END*************/
+

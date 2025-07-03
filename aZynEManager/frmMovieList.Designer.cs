@@ -36,7 +36,6 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvResult = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.lstcls = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -78,7 +77,10 @@
             this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.dgvClass = new ComponentFactory.Krypton.Toolkit.KryptonDataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lnklblUploadMoviePoster = new System.Windows.Forms.LinkLabel();
+            this.lnklblViewPhoto = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter.Panel)).BeginInit();
@@ -97,6 +99,8 @@
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvwResults
@@ -113,7 +117,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.GridLines = true;
             this.lvwResults.HideSelection = false;
-            this.lvwResults.Location = new System.Drawing.Point(6, 9);
+            this.lvwResults.Location = new System.Drawing.Point(116, 6);
             this.lvwResults.MultiSelect = false;
             this.lvwResults.Name = "lvwResults";
             this.lvwResults.ShowItemToolTips = true;
@@ -148,35 +152,19 @@
             this.columnHeader5.Text = "Distributor";
             this.columnHeader5.Width = 129;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.dgvResult);
-            this.groupBox1.Controls.Add(this.lvwResults);
-            this.groupBox1.Controls.Add(this.lstcls);
-            this.groupBox1.Location = new System.Drawing.Point(5, -1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(697, 297);
-            this.groupBox1.TabIndex = 31;
-            this.groupBox1.TabStop = false;
-            // 
             // dgvResult
             // 
             this.dgvResult.AllowUserToAddRows = false;
             this.dgvResult.AllowUserToDeleteRows = false;
             this.dgvResult.AllowUserToResizeRows = false;
-            this.dgvResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvResult.Location = new System.Drawing.Point(6, 12);
+            this.dgvResult.Location = new System.Drawing.Point(0, 0);
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(685, 279);
+            this.dgvResult.Size = new System.Drawing.Size(708, 340);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -196,7 +184,8 @@
             this.columnHeader7});
             this.lstcls.FullRowSelect = true;
             this.lstcls.GridLines = true;
-            this.lstcls.Location = new System.Drawing.Point(26, 204);
+            this.lstcls.HideSelection = false;
+            this.lstcls.Location = new System.Drawing.Point(0, 0);
             this.lstcls.MultiSelect = false;
             this.lstcls.Name = "lstcls";
             this.lstcls.Size = new System.Drawing.Size(186, 70);
@@ -363,12 +352,13 @@
             // 
             // grpparameter
             // 
-            this.grpparameter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpparameter.Location = new System.Drawing.Point(5, 302);
+            this.grpparameter.Location = new System.Drawing.Point(5, 5);
             this.grpparameter.Name = "grpparameter";
             // 
             // grpparameter.Panel
             // 
+            this.grpparameter.Panel.Controls.Add(this.lnklblViewPhoto);
+            this.grpparameter.Panel.Controls.Add(this.lnklblUploadMoviePoster);
             this.grpparameter.Panel.Controls.Add(this.txtshare);
             this.grpparameter.Panel.Controls.Add(this.dttime);
             this.grpparameter.Panel.Controls.Add(this.label13);
@@ -391,7 +381,7 @@
             this.grpparameter.Panel.Controls.Add(this.label10);
             this.grpparameter.Panel.Controls.Add(this.label9);
             this.grpparameter.Panel.Controls.Add(this.label11);
-            this.grpparameter.Size = new System.Drawing.Size(484, 138);
+            this.grpparameter.Size = new System.Drawing.Size(484, 160);
             this.grpparameter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpparameter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpparameter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -541,7 +531,7 @@
             // btnselect
             // 
             this.btnselect.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnselect.Location = new System.Drawing.Point(11, 368);
+            this.btnselect.Location = new System.Drawing.Point(16, 19);
             this.btnselect.Name = "btnselect";
             this.btnselect.Size = new System.Drawing.Size(48, 46);
             this.btnselect.StateCommon.Back.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -590,7 +580,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(10, 531);
+            this.label18.Location = new System.Drawing.Point(13, 261);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(99, 13);
             this.label18.TabIndex = 285;
@@ -603,7 +593,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(-2, 530);
+            this.label17.Location = new System.Drawing.Point(1, 260);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 284;
@@ -611,8 +601,7 @@
             // 
             // grpcontrol
             // 
-            this.grpcontrol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpcontrol.Location = new System.Drawing.Point(263, 442);
+            this.grpcontrol.Location = new System.Drawing.Point(263, 167);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -677,6 +666,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Values.Image = global::aZynEManager.Properties.Resources.buttonedit1;
             this.btnEdit.Values.Text = "edit";
+            this.btnEdit.TextChanged += new System.EventHandler(this.btnEdit_TextChanged);
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
@@ -722,6 +712,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Values.Image")));
             this.btnAdd.Values.Text = "new";
+            this.btnAdd.TextChanged += new System.EventHandler(this.btnAdd_TextChanged);
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDelete
@@ -771,12 +762,11 @@
             // 
             // txtcnt
             // 
-            this.txtcnt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtcnt.AutoSize = true;
             this.txtcnt.BackColor = System.Drawing.Color.Transparent;
             this.txtcnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcnt.ForeColor = System.Drawing.Color.Black;
-            this.txtcnt.Location = new System.Drawing.Point(11, 449);
+            this.txtcnt.Location = new System.Drawing.Point(11, 174);
             this.txtcnt.Name = "txtcnt";
             this.txtcnt.Size = new System.Drawing.Size(38, 13);
             this.txtcnt.TabIndex = 294;
@@ -784,8 +774,7 @@
             // 
             // grpfilter
             // 
-            this.grpfilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpfilter.Location = new System.Drawing.Point(113, 442);
+            this.grpfilter.Location = new System.Drawing.Point(113, 167);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -898,8 +887,7 @@
             // 
             // kryptonGroup1
             // 
-            this.kryptonGroup1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroup1.Location = new System.Drawing.Point(495, 302);
+            this.kryptonGroup1.Location = new System.Drawing.Point(495, 5);
             this.kryptonGroup1.Name = "kryptonGroup1";
             // 
             // kryptonGroup1.Panel
@@ -907,7 +895,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.dgvClass);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.kryptonGroup1.Size = new System.Drawing.Size(207, 247);
+            this.kryptonGroup1.Size = new System.Drawing.Size(207, 269);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -933,32 +921,83 @@
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.RowHeadersVisible = false;
             this.dgvClass.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClass.Size = new System.Drawing.Size(190, 230);
+            this.dgvClass.Size = new System.Drawing.Size(190, 252);
             this.dgvClass.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvClass.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvClass.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvClass.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.kryptonGroup1);
+            this.panel1.Controls.Add(this.txtcnt);
+            this.panel1.Controls.Add(this.grpparameter);
+            this.panel1.Controls.Add(this.grpcontrol);
+            this.panel1.Controls.Add(this.grpfilter);
+            this.panel1.Controls.Add(this.btnselect);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 340);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(708, 277);
+            this.panel1.TabIndex = 297;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvResult);
+            this.panel2.Controls.Add(this.lstcls);
+            this.panel2.Controls.Add(this.lvwResults);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(708, 340);
+            this.panel2.TabIndex = 298;
+            // 
+            // lnklblUploadMoviePoster
+            // 
+            this.lnklblUploadMoviePoster.ActiveLinkColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.AutoSize = true;
+            this.lnklblUploadMoviePoster.BackColor = System.Drawing.Color.Transparent;
+            this.lnklblUploadMoviePoster.ForeColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.LinkColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.Location = new System.Drawing.Point(284, 129);
+            this.lnklblUploadMoviePoster.Name = "lnklblUploadMoviePoster";
+            this.lnklblUploadMoviePoster.Size = new System.Drawing.Size(106, 13);
+            this.lnklblUploadMoviePoster.TabIndex = 9;
+            this.lnklblUploadMoviePoster.TabStop = true;
+            this.lnklblUploadMoviePoster.Text = "Upload Movie Poster";
+            this.lnklblUploadMoviePoster.Visible = false;
+            this.lnklblUploadMoviePoster.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblUploadMoviePoster_LinkClicked);
+            this.lnklblUploadMoviePoster.VisibleChanged += new System.EventHandler(this.lnklblUploadMoviePoster_VisibleChanged);
+            // 
+            // lnklblViewPhoto
+            // 
+            this.lnklblViewPhoto.ActiveLinkColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.AutoSize = true;
+            this.lnklblViewPhoto.BackColor = System.Drawing.Color.Transparent;
+            this.lnklblViewPhoto.ForeColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.LinkColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.Location = new System.Drawing.Point(400, 129);
+            this.lnklblViewPhoto.Name = "lnklblViewPhoto";
+            this.lnklblViewPhoto.Size = new System.Drawing.Size(61, 13);
+            this.lnklblViewPhoto.TabIndex = 291;
+            this.lnklblViewPhoto.TabStop = true;
+            this.lnklblViewPhoto.Text = "View Photo";
+            this.lnklblViewPhoto.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblViewPhoto_LinkClicked);
+            // 
             // frmMovieList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 551);
-            this.Controls.Add(this.kryptonGroup1);
-            this.Controls.Add(this.txtcnt);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.grpparameter);
-            this.Controls.Add(this.btnselect);
-            this.Controls.Add(this.grpfilter);
-            this.Controls.Add(this.grpcontrol);
+            this.ClientSize = new System.Drawing.Size(708, 617);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMovieList";
             this.Text = "Movie Information";
             this.Load += new System.EventHandler(this.frmMovieList_Load);
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter.Panel)).EndInit();
             this.grpparameter.Panel.ResumeLayout(false);
@@ -978,8 +1017,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -991,7 +1032,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbxfilter;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.Label label4;
@@ -1033,5 +1073,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridView dgvClass;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.LinkLabel lnklblUploadMoviePoster;
+        private System.Windows.Forms.LinkLabel lnklblViewPhoto;
     }
 }
