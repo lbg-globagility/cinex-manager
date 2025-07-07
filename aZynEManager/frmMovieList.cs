@@ -1,17 +1,19 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using ComponentFactory.Krypton.Toolkit;
-using System.Globalization;
-using System.Web.WebSockets;
-using System.IO;
 using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.WebSockets;
+using System.Windows.Forms;
 
 namespace aZynEManager
 {
@@ -663,11 +665,12 @@ namespace aZynEManager
                     cmd.Parameters.AddWithValue("@rating", cmbrating.SelectedValue);
                     cmd.Parameters.AddWithValue("@duration", inttime);
 
-                    var photo = dgvResult.CurrentRow.Cells["photo"].Value;
-                    var photoName = dgvResult.CurrentRow.Cells["photo_name"].Value;
-                    
+                    var isAdd = btnAdd.Text == "save";
+                    var photo = isAdd ? _photo : dgvResult.CurrentRow.Cells["photo"].Value;
+                    var photoName = isAdd ? _photoName : dgvResult.CurrentRow.Cells["photo_name"].Value;
+
                     if (Object.Equals(photo, DBNull.Value))
-                            cmd.Parameters.AddWithValue("@photo", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@photo", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@photo", photo);
 
@@ -675,7 +678,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@photo_name", photoName);
-                    
+
                     cmd.ExecuteNonQuery();
                     int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
 
@@ -724,6 +727,9 @@ namespace aZynEManager
                     dgvClass.DataSource = null;
                     dgvClass.Columns.Clear();
                     cbxfilter.Enabled = true;
+
+                    _photo = null;
+                    _photoName = string.Empty;
                 }
                 catch (Exception err)
                 {
