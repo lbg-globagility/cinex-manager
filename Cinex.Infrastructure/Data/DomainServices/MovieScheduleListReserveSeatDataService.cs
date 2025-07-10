@@ -2,6 +2,7 @@
 using Cinex.Core.Interfaces.DomainServices;
 using Cinex.Core.Interfaces.Repositories;
 using Cinex.Infrastructure.Data.DomainServices.Base;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -36,5 +37,8 @@ namespace Cinex.Infrastructure.Data.DomainServices
         {
             throw new System.NotImplementedException();
         }
+        public async Task<ICollection<MovieScheduleListReserveSeat>> GetByDateRangeAsync(DateTime start, DateTime end) => await _movieScheduleListReserveSeatRepository.GetByDateRangeAsync(start: start, end: end);
+
+        public async Task<ICollection<MovieScheduleListReserveSeat>> GetByCompositeParamsAsync(DateTime start, DateTime end, int[] cinemaIds = null, string[] usernames = null, string[] terminals = null, int[] patronIds = null) => await _movieScheduleListReserveSeatRepository.GetByCompositeParamsAsync(start: start, end: end, cinemaIds: cinemaIds, usernames: usernames, terminals: terminals, patronIds: patronIds);
     }
 }

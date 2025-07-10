@@ -54,6 +54,10 @@ namespace aZynEManager
         public int _intWithUtil = -1;//added 5-31-2022
         public int _intWithQtyBreakdown = -1;//added 5-31-2022
         private bool _isShowSurcharge;
+        private int[] _cinemaIds;
+        private string[] _usernames;
+        private string[] _terminals;
+        private int[] _patronIds;
 
         public frmReport()
         {
@@ -154,9 +158,9 @@ namespace aZynEManager
                         sqry.Append(String.Format("AND d.movie_date = '{0:yyyy/MM/dd}' ", _dtStart));
                         sqry.Append("GROUP BY f.id, e.id ");
                         sqry.Append("ORDER BY f.in_order");
-                       
+
                         break;
-                        
+
                     case "RP01":
                         sqry.Clear();
 
@@ -215,7 +219,7 @@ namespace aZynEManager
                         sqry.Append("where b.movies_schedule_list_id in ");
                         sqry.Append("(select a.id from movies_schedule_list a ");
                         sqry.Append(String.Format("where a.start_time > '{0:yyyy/MM/dd}' ", _dtStart));
-                        sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ",_dtEnd.AddDays(1)));
+                        sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' ", _dtEnd.AddDays(1)));
                         sqry.Append("and a.status = 1) ");
                         sqry.Append("and b.movies_schedule_list_id = c.id ");
                         sqry.Append("and c.movies_schedule_id = d.id ");
@@ -535,34 +539,34 @@ namespace aZynEManager
 
                     case "RP13":
                         //RMB 11.28.2014 remarked
-                    /*// melvin 11/11/2014
-                        sqry.Append("select @user_id:= g.user_id, a.code, @patron:= ");
-                        sqry.Append("a.name as PATRON, @cinema:= c.name CINEMA, b.price ");
-                        sqry.Append("PRICE, @c:= ((select count(a.cinema_seat_id) ");
-                        sqry.Append("from ticket z inner join  movies_schedule_list_reserved_seat ");
-                        sqry.Append("a on z.id=a.ticket_id inner join movies_schedule_list b on ");
-                        sqry.Append("a.movies_schedule_list_id= b.id inner join movies_schedule c ");
-                        sqry.Append("on b.movies_schedule_id=c.id inner join cinema d on d.id= ");
-                        sqry.Append("c.cinema_id inner join movies_schedule_list_patron e on e.id ");
-                        sqry.Append("= a.patron_id inner join patrons f on f.id = e.patron_id ");
-                        sqry.Append("where  a.status = 1 and f.name=@patron and d.name=@cinema ");
-                        sqry.Append("and z.user_id=@user_id AND c.movie_date = ");
-                        sqry.Append(string.Format("'{0:yyyy/MM/dd}'", _dtStart));
-                        sqry.Append(")) as QTY, (@c*b.price) as `TOTALSALES`, ");
-                        sqry.Append("d.movie_date , h.start_date,h.title, i.userid, ");
-                        sqry.Append("i.fname, i.lname, i.mname, j.system_value ");
-                        sqry.Append("from patrons a inner join cinema_patron b on ");
-                        sqry.Append("a.id=b.patron_id inner join cinema c on b.cinema_id ");
-                        sqry.Append("= c.id inner join movies_schedule d on d.cinema_id = ");
-                        sqry.Append("c.id inner join movies_schedule_list e on e.movies_schedule_id = d.id ");
-                        sqry.Append("inner join movies_schedule_list_reserved_seat f on ");
-                        sqry.Append("f.movies_schedule_list_id= e.id inner join  ticket ");
-                        sqry.Append("g on e.id= g.movies_schedule_list_id inner join movies h ");
-                        sqry.Append("on h.id= d.movie_id inner join users i on i.id= ");
-                        sqry.Append("g.user_id inner join config_table j where ");
-                        sqry.Append("j.system_code='001' and f.status=1 and d.movie_date=");
-                        sqry.Append(string.Format("'{0:yyyy/MM/dd}' ",_dtStart));
-                        sqry.Append("group by  g.user_id, a.name, c.name order by c.name;");*/
+                        /*// melvin 11/11/2014
+                            sqry.Append("select @user_id:= g.user_id, a.code, @patron:= ");
+                            sqry.Append("a.name as PATRON, @cinema:= c.name CINEMA, b.price ");
+                            sqry.Append("PRICE, @c:= ((select count(a.cinema_seat_id) ");
+                            sqry.Append("from ticket z inner join  movies_schedule_list_reserved_seat ");
+                            sqry.Append("a on z.id=a.ticket_id inner join movies_schedule_list b on ");
+                            sqry.Append("a.movies_schedule_list_id= b.id inner join movies_schedule c ");
+                            sqry.Append("on b.movies_schedule_id=c.id inner join cinema d on d.id= ");
+                            sqry.Append("c.cinema_id inner join movies_schedule_list_patron e on e.id ");
+                            sqry.Append("= a.patron_id inner join patrons f on f.id = e.patron_id ");
+                            sqry.Append("where  a.status = 1 and f.name=@patron and d.name=@cinema ");
+                            sqry.Append("and z.user_id=@user_id AND c.movie_date = ");
+                            sqry.Append(string.Format("'{0:yyyy/MM/dd}'", _dtStart));
+                            sqry.Append(")) as QTY, (@c*b.price) as `TOTALSALES`, ");
+                            sqry.Append("d.movie_date , h.start_date,h.title, i.userid, ");
+                            sqry.Append("i.fname, i.lname, i.mname, j.system_value ");
+                            sqry.Append("from patrons a inner join cinema_patron b on ");
+                            sqry.Append("a.id=b.patron_id inner join cinema c on b.cinema_id ");
+                            sqry.Append("= c.id inner join movies_schedule d on d.cinema_id = ");
+                            sqry.Append("c.id inner join movies_schedule_list e on e.movies_schedule_id = d.id ");
+                            sqry.Append("inner join movies_schedule_list_reserved_seat f on ");
+                            sqry.Append("f.movies_schedule_list_id= e.id inner join  ticket ");
+                            sqry.Append("g on e.id= g.movies_schedule_list_id inner join movies h ");
+                            sqry.Append("on h.id= d.movie_id inner join users i on i.id= ");
+                            sqry.Append("g.user_id inner join config_table j where ");
+                            sqry.Append("j.system_code='001' and f.status=1 and d.movie_date=");
+                            sqry.Append(string.Format("'{0:yyyy/MM/dd}' ",_dtStart));
+                            sqry.Append("group by  g.user_id, a.name, c.name order by c.name;");*/
                         sqry.Append("select * from ");
                         sqry.Append("(select f.code patroncode, f.name patronname,i.id cinema_id, i.name cinemaname, b.base_price price, ");
                         sqry.Append("count(b.cinema_seat_id) qty, sum(b.base_price) totalsales, h.movie_date, ");
@@ -595,8 +599,8 @@ namespace aZynEManager
                         break;
                     case "RP15":
                         DateTime endDate = _dtEnd.AddDays(-1);
-                        sqry.Append(string.Format("select h.system_value, '{0:yyyy/MM/dd}'",_dtStart));
-                        sqry.Append(string.Format( "as dtFrom , '{0:yyyy/MM/dd}' as dtTo, ",endDate));
+                        sqry.Append(string.Format("select h.system_value, '{0:yyyy/MM/dd}'", _dtStart));
+                        sqry.Append(string.Format("as dtFrom , '{0:yyyy/MM/dd}' as dtTo, ", endDate));
                         sqry.Append("f.name `cinema`, e.code, e.name `patron`, a.base_price price, ");
                         sqry.Append("c.movie_date, count(a.cinema_seat_id) as `qty`, d.title ");
                         sqry.Append("from movies_schedule_list_reserved_seat a, ");
@@ -607,7 +611,7 @@ namespace aZynEManager
                         sqry.Append("and e.id= g.patron_id and g.id = a.patron_id ");
                         sqry.Append("and f.id=c.cinema_id and a.status=2 and ");
                         sqry.Append("h.system_code='001' and c.movie_date between ");
-                        sqry.Append(string.Format("'{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}'",_dtStart,_dtEnd));
+                        sqry.Append(string.Format("'{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}'", _dtStart, _dtEnd));
                         sqry.Append(" group by d.title, f.name;");
                         break;
                     case "RP17":
@@ -655,7 +659,7 @@ namespace aZynEManager
                         sqry.Append("from movies_schedule_list_reserved_seat b, movies_schedule_list c, movies_schedule d, movies e, ");
                         sqry.Append("cinema f, config_table j, report k ");
                         sqry.Append("where b.movies_schedule_list_id in ");
-                        sqry.Append(String.Format("(select a.id from movies_schedule_list a where a.start_time > '{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append(String.Format("(select a.id from movies_schedule_list a where a.start_time > '{0:yyyy/MM/dd}' ", _dtStart));
                         sqry.Append(String.Format("and a.start_time < '{0:yyyy/MM/dd}' and a.status = 1)  ", _dtEnd.AddDays(1)));
                         sqry.Append("and b.movies_schedule_list_id = c.id and c.movies_schedule_id = d.id ");
                         sqry.Append("and d.movie_id = e.id and d.cinema_id = f.id and b.status = 1 ");
@@ -677,11 +681,11 @@ namespace aZynEManager
                         sqry.Append(String.Format("'{0:yyyy/MM/dd}'", _dtStart) + " AND ");
                         sqry.Append(String.Format("'{0:yyyy/MM/dd}' ", _dtEnd));
                         sqry.Append(" and d.system_code='001'");
-                        if(!(module==""))
+                        if (!(module == ""))
                         {
                             sqry.Append(string.Format("AND c.module_group like '%{0}%' ", module));
                         }
-                        if(!(account==""))
+                        if (!(account == ""))
                         {
                             sqry.Append(string.Format("AND b.userid like '%{0}%'", account));
                         }
@@ -690,7 +694,7 @@ namespace aZynEManager
                         //MessageBox.Show(_dtStart.ToShortDateString() + "to:" + _dtEnd.ToShortDateString());
                         break;
 
-                        //RMB 11-10-2014 added new report start
+                    //RMB 11-10-2014 added new report start
                     case "RP08":
                         //RMB 11.21.2014 working for specific screening time with the maximum seats taken
                         /*sqry.Append("SELECT c.name PATRON, IFNULL(COUNT(cinema_seat_id), 0) QTY, a.price PRICE, IFNULL(SUM(a.price), 0) SALES, ");
@@ -733,7 +737,7 @@ namespace aZynEManager
                         sqry.Append(String.Format("and e.id = {0} ", _intCinemaID));
                         sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
                         sqry.Append("group by c.name");*/
-                        
+
                         if (_intWithUtil == 1)//added 5-31-2022
                         {
                             sqry.Append("SELECT table1.*, table2.SEATTAKEN, table2.SEATTOTAL, table2.UTIL FROM ");
@@ -754,7 +758,7 @@ namespace aZynEManager
                             sqry.Append("and a.status = 1 ");
                             sqry.Append("and g.id = 8 ");
                             sqry.Append(String.Format("and e.id = {0} ", _intCinemaID));
-                            sqry.Append(String.Format("and h.id = {0} ", _intMovieID)); 
+                            sqry.Append(String.Format("and h.id = {0} ", _intMovieID));
                             sqry.Append("group by c.name) table1 ");
                             sqry.Append("LEFT JOIN ");
                             sqry.Append("(SELECT tbl1.cinemacode, tbl1.movieid, SUM(tbl1.seattaken) SEATTAKEN, SUM(tbl1.seattotal) SEATTOTAL, ((SUM(tbl1.seattaken) / SUM(tbl1.seattotal)) *100) UTIL ");
@@ -880,10 +884,10 @@ namespace aZynEManager
                         sqry.Append("ORDER BY e.in_order, d.name, a.base_price");
                         break;
 
-                        //RMB 11-10-2014 added new report end
-                        //RMB 11.11.2014 added new report start
+                    //RMB 11-10-2014 added new report end
+                    //RMB 11.11.2014 added new report start
                     case "RP10":
-                        if(_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, NULL, CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
+                        if (_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, NULL, CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
                         if (!_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, ii.`patron_name` `PatronNameAndSurcharge`, ii.sales `GrandTotalSales`, ii.*\r\nFROM (");
                         sqry.Append("select e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price, ");
                         sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.base_price) sales, g.system_value report_header, h.name report_title ");
@@ -924,11 +928,11 @@ namespace aZynEManager
                         break;
 
                     case "RP11":
-                        m_clscom.refreshTable(m_frmM,"tmp_gross",m_frmM._connection);
-                        m_clscom.populateTable(m_frmM, "tmp_gross", m_frmM._connection,_dtStart,_dtEnd);
+                        m_clscom.refreshTable(m_frmM, "tmp_gross", m_frmM._connection);
+                        m_clscom.populateTable(m_frmM, "tmp_gross", m_frmM._connection, _dtStart, _dtEnd);
 
                         string strqry = "select * from cinema order by in_order asc";
-                        DataTable dtcinema = m_clscom.setDataTable(strqry,m_frmM._connection);
+                        DataTable dtcinema = m_clscom.setDataTable(strqry, m_frmM._connection);
 
                         sqry.Append("SELECT tg.report_date Report_Date ");
                         string temp = "a";
@@ -938,9 +942,9 @@ namespace aZynEManager
                         {
                             cntr += 1;
                             sqry.Append("," + temp + ".gross Cinema" + row["in_order"].ToString()); // 1.6.2016 cntr.ToString());
-                            if(cntr == 1)
+                            if (cntr == 1)
                                 newtemp += temp + ".gross";
-                            else if(cntr == dtcinema.Rows.Count)
+                            else if (cntr == dtcinema.Rows.Count)
                                 newtemp += " + " + temp + ".gross ) Total_Gross";
                             else
                                 newtemp += " + " + temp + ".gross ";
@@ -969,10 +973,10 @@ namespace aZynEManager
                         foreach (DataRow row in dtcinema.Rows)
                         {
                             cntr += 1;
-                            if(cntr== 1)
-                                sqry.Append(String.Format("{0}.report_date = tg.report_date ",temp));
+                            if (cntr == 1)
+                                sqry.Append(String.Format("{0}.report_date = tg.report_date ", temp));
                             else
-                                sqry.Append(String.Format("AND {0}.report_date = tg.report_date ",temp));
+                                sqry.Append(String.Format("AND {0}.report_date = tg.report_date ", temp));
                             temp += "a";
                         }
                         //sqry.Append("a.report_date = tg.report_date ");
@@ -987,7 +991,7 @@ namespace aZynEManager
                         break;
                     case "RP07":
                         m_clscom.refreshTable(m_frmM, "tmp_screening", m_frmM._connection);
-                        m_clscom.populateScreening(m_frmM, "tmp_screening", m_frmM._connection,_dtStart);
+                        m_clscom.populateScreening(m_frmM, "tmp_screening", m_frmM._connection, _dtStart);
 
                         sqry.Append("SELECT c.code, c.title, ");
                         sqry.Append(String.Format("(select qty from tmp_screening where screening_id = 1 and userid = '{0}' and movie_id = b.movie_id and cinema_id = b.cinema_id) screening1_quantity, ", m_frmM.m_usercode));
@@ -1042,7 +1046,7 @@ namespace aZynEManager
                         sqry.Append("and a.status = 1 ");
                         sqry.Append("and h.system_code='001' ");
                         sqry.Append("and g.id = 21 ");
-                        sqry.Append(String.Format("and c.movie_date >= '{0:yyyy/MM/dd}' ",_dtStart));
+                        sqry.Append(String.Format("and c.movie_date >= '{0:yyyy/MM/dd}' ", _dtStart));
                         sqry.Append(String.Format("and c.movie_date < '{0:yyyy/MM/dd}' ", _dtEnd));
                         sqry.Append("group by d.title,c.movie_date ");
                         sqry.Append("order by d.title,c.movie_date asc");
@@ -1051,7 +1055,7 @@ namespace aZynEManager
                     case "RP22":
                         DateTime firstDayOfMonth = new DateTime(_dtStart.Year, _dtStart.Month, 1);
                         DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-                        m_clscom.refreshTable(m_frmM,"tmp_bir_msr",m_frmM._connection);
+                        m_clscom.refreshTable(m_frmM, "tmp_bir_msr", m_frmM._connection);
                         m_clscom.populateBIRmsr(m_frmM, "tmp_bir_msr", m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
                         _dtStart = firstDayOfMonth;
                         _dtEnd = lastDayOfMonth.AddDays(1);
@@ -1180,7 +1184,7 @@ namespace aZynEManager
                         //query for the movie id based on the cinema id and dates covered
                         MySqlConnection myconn = new MySqlConnection(m_frmM._connection);
                         StringBuilder smdqry = new StringBuilder();
-                        smdqry.Append(String.Format("select distinct(movie_id) movieid from movies_schedule where cinema_id = {0} and ",_intCinemaID));
+                        smdqry.Append(String.Format("select distinct(movie_id) movieid from movies_schedule where cinema_id = {0} and ", _intCinemaID));
                         smdqry.Append(String.Format("movie_date between '{0:yyyy-MM-dd}' and '{1:yyyy-MM-dd}'", _dtStart, _dtEnd));
                         DataTable testdt = m_clscom.setDataTable(smdqry.ToString(), m_frmM._connection);
                         if (testdt.Rows.Count > 0)
@@ -1522,7 +1526,7 @@ namespace aZynEManager
                         m_clscom.populatemsrtransaction(m_frmM, stablenm, m_frmM._connection, firstDayOfMonth, lastDayOfMonth);
                         _dtStart = firstDayOfMonth;
                         _dtEnd = lastDayOfMonth;
-                        
+
                         sqry = new StringBuilder();
                         sqry.Clear();
                         sqry.Append($"CALL `rp23`(STR_TO_DATE('{_dtStart.Date:M/d/yyyy}', '%c/%e/%Y'), '{m_frmM.m_usercode}');");
@@ -1552,7 +1556,8 @@ namespace aZynEManager
                             sqry.Append(String.Format("and c.movie_date < '{0:yyyy/MM/dd}' ", _dtEnd));
                             sqry.Append("group by d.title,c.movie_date ");
                             sqry.Append("order by d.title,c.movie_date asc");
-                        }else if (_intWithQtyBreakdown == 1)
+                        }
+                        else if (_intWithQtyBreakdown == 1)
                         {
                             sqry.Append("select h.system_value, g.name, d.title, d.code, c.movie_date,");
                             sqry.Append("i.details surcharge, a.surcharge_price price, count(i.amount_val) quantity, SUM(a.surcharge_price) amount ");//changed sum(a.price - a.base_price) to sum(a.surcharge_price) 1.7.2016
@@ -1594,7 +1599,7 @@ namespace aZynEManager
                         sqry.Append("(SELECT IFNULL(COUNT(a.id), 0) AS totalcnt, IFNULL(SUM(a.price), 0) AS totalgross, c.movie_date ");
                         sqry.Append("FROM movies_schedule_list_reserved_seat a, movies_schedule_list b, movies_schedule c, ticket e ");
                         sqry.Append("WHERE a.movies_schedule_list_id = b.id AND b.movies_schedule_id = c.id  AND a.ticket_id = e.id ");
-                        sqry.AppendFormat("AND c.movie_date = '{0:yyyy/MM/dd}' AND a.status = 1) table2, config_table c, report d ",_dtStart);
+                        sqry.AppendFormat("AND c.movie_date = '{0:yyyy/MM/dd}' AND a.status = 1) table2, config_table c, report d ", _dtStart);
                         sqry.Append("WHERE c.system_code = '001' ");
                         sqry.Append("and d.id = 19");
                         break;
@@ -1608,7 +1613,7 @@ namespace aZynEManager
                         var config = await configurationDataService.GetORNumberFormatAsync();
                         var orNumberFormat = string.IsNullOrEmpty(config?.Value) ? Configuration.DEFAULT_OR_NUMBER_FORMAT_VALUE : config.Value;
 
-                        m_clscom.populatePOSTable(m_frmM, stablenm, m_frmM._connection,_dtStart,_dtEnd, orNumberFormat: orNumberFormat);
+                        m_clscom.populatePOSTable(m_frmM, stablenm, m_frmM._connection, _dtStart, _dtEnd, orNumberFormat: orNumberFormat);
 
                         sqry = new StringBuilder();
                         sqry.Append("SELECT a.*, g.system_value, h.name report_name ");
@@ -1628,7 +1633,7 @@ namespace aZynEManager
                         sqry.AppendFormat("MAX(CASE WHEN system_desc = 'MIN_{0}' THEN system_value END) ticket_min, ", _posterminal);
                         sqry.AppendFormat("MAX(CASE WHEN system_desc = 'POS_NO_{0}' THEN system_value END) ticket_posno, ", _posterminal);
                         sqry.Append("MAX(CASE WHEN system_desc = 'ACCREDITATION' THEN system_value END) accreditation, ");
-                        sqry.AppendFormat("MAX(CASE WHEN system_desc = 'PN_{0}' THEN system_value END) ticket_ptu ",_posterminal);
+                        sqry.AppendFormat("MAX(CASE WHEN system_desc = 'PN_{0}' THEN system_value END) ticket_ptu ", _posterminal);
                         sqry.Append("FROM config_table");
 
                         StringBuilder sqry1 = new StringBuilder();
@@ -1649,14 +1654,14 @@ namespace aZynEManager
                         sqry1.Append("AND c.patron_id = d.id ");
                         sqry1.Append("AND b.user_id = e.id ");
                         sqry1.Append("AND b.status = 1 ");
-                        sqry1.AppendFormat("AND b.ticket_datetime BETWEEN '{0:yyyy-MM-dd}' AND '{1:yyyy-MM-dd}' ", _dtStart,_dtStart.AddDays(1));
-                        sqry1.AppendFormat("AND b.terminal = '{0}'",_posterminal);
+                        sqry1.AppendFormat("AND b.ticket_datetime BETWEEN '{0:yyyy-MM-dd}' AND '{1:yyyy-MM-dd}' ", _dtStart, _dtStart.AddDays(1));
+                        sqry1.AppendFormat("AND b.terminal = '{0}'", _posterminal);
 
                         StringBuilder sqry2 = new StringBuilder();
                         sqry2.Append("select count(a.id),sum(price) init_balance ");
                         sqry2.Append("from movies_schedule_list_reserved_seat a, ticket b ");
                         sqry2.Append("where a.ticket_id = b.id ");
-                        sqry2.AppendFormat("and b.terminal = '{0}' ",_posterminal);
+                        sqry2.AppendFormat("and b.terminal = '{0}' ", _posterminal);
                         sqry2.AppendFormat("and b.ticket_datetime < '{0:yyyy-MM-dd}' ", _dtStart);
                         sqry2.Append("and a.status = 1 ");
                         sqry2.Append("and b.status = 1");
@@ -1665,7 +1670,7 @@ namespace aZynEManager
                         sqry3.Append("select count(a.id),sum(price) end_balance,COUNT(DISTINCT(b.session_id))session_cnt ");
                         sqry3.Append("from movies_schedule_list_reserved_seat a, ticket b ");
                         sqry3.Append("where a.ticket_id = b.id ");
-                        sqry3.AppendFormat("and b.terminal = '{0}' ",_posterminal);
+                        sqry3.AppendFormat("and b.terminal = '{0}' ", _posterminal);
                         sqry3.AppendFormat("and b.ticket_datetime < '{0:yyyy-MM-dd}' ", _dtStart.AddDays(1));
                         sqry3.Append("and a.status = 1 ");
                         sqry3.Append("and b.status = 1");
@@ -1675,14 +1680,14 @@ namespace aZynEManager
                         sqry4.Append("if (sum(a.price) is null,0,sum(a.price)) sum_price ");
                         sqry4.Append("from movies_schedule_list_reserved_seat a, ticket b ");
                         sqry4.Append("where a.ticket_id = b.id ");
-                        sqry4.AppendFormat("and b.terminal = '{0}' ",_posterminal);
+                        sqry4.AppendFormat("and b.terminal = '{0}' ", _posterminal);
                         sqry4.AppendFormat("and b.ticket_datetime >= '{0:yyyy-MM-dd}' ", _dtStart);
                         sqry4.AppendFormat("and b.ticket_datetime < '{0:yyyy-MM-dd}' ", _dtStart.AddDays(1));
                         sqry4.Append("and a.status = 2 ");
                         sqry4.Append("and b.status = 2");
 
-                        xmlfile = GetXmlStringPOS(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", 
-                            sqry.ToString(), sqry1.ToString(),sqry2.ToString(), sqry3.ToString(), sqry4.ToString(),
+                        xmlfile = GetXmlStringPOS(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml",
+                            sqry.ToString(), sqry1.ToString(), sqry2.ToString(), sqry3.ToString(), sqry4.ToString(),
                             m_frmM._odbcconnection, _dtStart, m_clsconfig, String.Format("{0:0.00}", Convert.ToDouble(_poschangefund)), m_frmM.m_usernm);
                         break;
                     case "RP072":
@@ -1782,8 +1787,8 @@ namespace aZynEManager
                         sqry.Append(")table1, config_table j, report k ");
                         sqry.Append("WHERE a.ticket_id = b.id ");
                         sqry.Append("AND a.movies_schedule_list_id = c.id ");
-                        sqry.AppendFormat("AND c.start_time >= '{0:yyyy-MM-dd}' ",_dtStart);
-                        sqry.AppendFormat("AND c.start_time < '{0:yyyy-MM-dd}' ",_dtEnd.AddDays(1));
+                        sqry.AppendFormat("AND c.start_time >= '{0:yyyy-MM-dd}' ", _dtStart);
+                        sqry.AppendFormat("AND c.start_time < '{0:yyyy-MM-dd}' ", _dtEnd.AddDays(1));
                         sqry.Append("AND date(c.start_time) = date(table1.movie_date) ");
                         sqry.Append("AND c.status = 1 ");
                         sqry.Append("AND b.status = 1 ");
@@ -1858,6 +1863,15 @@ namespace aZynEManager
                             sqry.Append("AND date(j.ticket_datetime) < date(d.start_time) ");
                             sqry.Append("GROUP BY date(j.ticket_datetime), c.name");
                         }
+                        break;
+
+                    case "RP28":
+                        sqry.Clear();
+                        
+                        var queryRP28 = $"CALL `rp28`(STR_TO_DATE('{_dtStart:M/d/yyyy hh:mm:ss tt}', '%c/%e/%Y %h:%i:%s %p'), STR_TO_DATE('{_dtEnd:M/d/yyyy hh:mm:ss tt}', '%c/%e/%Y %h:%i:%s %p'), '{string.Join(",", _cinemaIds)}', '{string.Join(",", _usernames)}', '{string.Join(",", _terminals)}', '{string.Join(",", _patronIds)}');";
+
+                        sqry.Append(queryRP28);
+
                         break;
                 }
                 if ((reportcode != "RP25") && (reportcode != "RP072"))
@@ -2423,6 +2437,25 @@ namespace aZynEManager
 
         }
 
+        public void SetCinemaIds(int[] cinemaIds)
+        {
+            _cinemaIds = cinemaIds;
+        }
+
+        public void SetUsernames(string[] usernames)
+        {
+            _usernames = usernames;
+        }
+
+        public void SetTerminals(string[] terminals)
+        {
+            _terminals = terminals;
+        }
+
+        public void SetPatronIds(int[] patronIds)
+        {
+            _patronIds = patronIds;
+        }
 
         //public DataTable GetResult()
         //{

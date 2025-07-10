@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace aZynEManager.EF
 {
-    internal class DependencyInjectionHelper : DependencyInjection
+    public class DependencyInjectionHelper : DependencyInjection
     {
         public static string CONNECTION_STRING = CommonUtility.ConnectionString;
 
@@ -32,6 +32,8 @@ namespace aZynEManager.EF
         public static IEwalletDataService GetEwalletDataService => NewInstance.MainServiceProvider.GetRequiredService<IEwalletDataService>();
 
         public static IConfigurationDataService GetConfigurationDataService => NewInstance.MainServiceProvider.GetRequiredService<IConfigurationDataService>();
+
+        public static IMovieScheduleListReserveSeatDataService GetMovieScheduleListReserveSeatDataService=> NewInstance.MainServiceProvider.GetRequiredService<IMovieScheduleListReserveSeatDataService>();
 
         public static DependencyInjectionHelper NewInstance => new DependencyInjectionHelper();
     }

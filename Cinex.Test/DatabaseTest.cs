@@ -10,7 +10,7 @@ namespace Cinex.Test
 {
     public abstract class DatabaseTest
     {
-        public const string CONNECTION_STRING = "server=localhost; user id=root; password=Am3L74rS; database=azynema_fsm; port=3309; default command timeout=240;";
+        public const string CONNECTION_STRING = "server=localhost; user id=root; password=Am3L74rS; database=azynema_gaisano_alltest2; port=3308; default command timeout=240;";
 
         public DatabaseTest()
         {

@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description>Ticket Report</Description>
+  <Author>Globagility Inc.</Author>
+  <PageHeight>11in</PageHeight>
+  <PageWidth>8.5in</PageWidth>
+  <DataSources>
+    <DataSource Name="DS1">
+      <ConnectionProperties>
+        <DataProvider>ODBC</DataProvider>
+        <ConnectString></ConnectString>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="Data">
+      <Query>
+        <DataSourceName>DS1</DataSourceName>
+        <CommandText></CommandText>
+      </Query>
+      <Fields>
+        <Field Name="teller">
+          <DataField>teller</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="pos_num">
+          <DataField>pos_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="datetime">
+          <DataField>datetime</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="si_num">
+          <DataField>si_num</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="patron_name">
+          <DataField>patron_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cinema_name">
+          <DataField>cinema_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="movie_title">
+          <DataField>movie_title</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="qty">
+          <DataField>qty</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="amount">
+          <DataField>amount</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <PageHeader>
+    <Height>0.5in</Height>
+    <ReportItems>
+      <Textbox Name="PageTitle">
+        <Top>0.1in</Top>
+        <Left>0.4in</Left>
+        <Height>0.3in</Height>
+        <Width>8in</Width>
+        <Value>ONE GREAT ASIAGROUP, INC.</Value>
+        <Style>
+          <FontSize>12pt</FontSize>
+          <FontWeight>Bold</FontWeight>
+          <TextAlign>Left</TextAlign>
+        </Style>
+      </Textbox>
+      <Textbox Name="ReportNameTitle">
+        <Top>0.3in</Top>
+        <Left>0.4in</Left>
+        <Height>0.3in</Height>
+        <Width>8in</Width>
+        <Value>Ticket Report</Value>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <TextAlign>Left</TextAlign>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <Body>
+    <ReportItems>
+      <Table Name="Table1">
+        <DataSetName>Data</DataSetName>
+        <NoRows>Query returned no rows!</NoRows>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+          <BorderColor />
+          <BorderWidth />
+        </Style>
+        
+        <TableColumns>
+          <TableColumn>
+            <Width>54pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>94pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>94pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>54pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>94pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>38pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>62pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>30pt</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>44pt</Width>
+          </TableColumn>
+        </TableColumns>
+        <Header>
+          <TableRows>
+            <Height>2.5pt</Height>
+            <TableRow>
+              <Height>12.8pt</Height>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox3">
+                      <Value>Teller</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox4">
+                      <Value>POS No.</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox5">
+                      <Value>Date Time</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox6">
+                      <Value>SI No.</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox7">
+                      <Value>Patron</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox64">
+                      <Value>Cinema</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox72">
+                      <Value>Title</Value>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox208">
+                      <Value>Qty</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Textbox1">
+                      <Value>Amount</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <TextAlign>Center</TextAlign>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontWeight>Bold</FontWeight>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <BorderColor>
+                          <Default>Lightgrey</Default>
+                          <Left>Lightgrey</Left>
+                          <Right>Lightgrey</Right>
+                          <Top>Lightgrey</Top>
+                          <Bottom>Lightgrey</Bottom>
+                        </BorderColor>
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <Height>12.8pt</Height>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="teller">
+                      <Value>=Fields!teller.Value</Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <TextAlign>Center</TextAlign>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="pos_num">
+                      <Value>=Fields!pos_num.Value</Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>5pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="datetime">
+                      <Value>=Fields!datetime.Value</Value>
+                      <CanGrow>True</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>M/d/yyyy h:mm:ss tt</Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="si_num">
+                      <Value>=Fields!si_num.Value</Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>0</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="patron_name">
+                      <Value>=Fields!patron_name.Value</Value>
+                      <CanGrow>True</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Left</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="cinema_name">
+                      <Value>=Fields!cinema_name.Value</Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Center</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="movie_title">
+                      <Value>=Fields!movie_title.Value</Value>
+                      <CanGrow>True</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Center</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="qty">
+                      <Value>=Fields!qty.Value</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Center</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>0</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="amount">
+                      <Value>=Fields!amount.Value</Value>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>#,##0.00</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+            </TableRow>
+          </TableRows>
+        </Details>
+        <Footer>
+          <TableRows>
+            <TableRow>
+              <Height>12.8pt</Height>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_teller">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <TextAlign>Center</TextAlign>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_pos_num">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>5pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_datetime">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <BorderColor />
+                        <BorderWidth />
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>MM/dd/yyyy HH:mm:ss</Format>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_si_num">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_patron_name">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_cinema_name">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_movie_title">
+                      <Value></Value>
+                      <CanGrow>false</CanGrow>
+                      <Style>
+                        <BorderStyle>
+                          <Default>None</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>None</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format></Format>
+                        <BorderColor />
+                        <BorderWidth />
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_qty">
+                      <Value>=SUM(Fields!qty.Value)</Value>
+                      <CanGrow>True</CanGrow>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Center</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>#,##0</Format>
+                        <BorderColor />
+                        <BorderWidth />
+                          <Default>Lightgrey</Default>
+                        <FontWeight></FontWeight>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="ftr_amount">
+                      <Value>=SUM(Fields!amount.Value)</Value>
+                      <CanGrow>True</CanGrow>
+                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                          <Left>None</Left>
+                          <Right>None</Right>
+                          <Top>Solid</Top>
+                          <Bottom>None</Bottom>
+                        </BorderStyle>
+                        <PaddingRight>4pt</PaddingRight>
+                        <TextAlign>Right</TextAlign>
+                        <FontSize>9pt</FontSize>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <Format>#,##0.00</Format>
+                        <BorderColor />
+                          <Default>Lightgrey</Default>
+                        <BorderWidth />
+                        <FontWeight></FontWeight>
+                      </Style>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+            </TableRow>
+          </TableRows>
+        </Footer>
+        <Left>28.8pt</Left>
+        <Top>6.3pt</Top>
+      </Table>
+    </ReportItems>
+    <Height>186.3pt</Height>
+  </Body>
+  <PageFooter>
+    <Height>14pt</Height>
+    <ReportItems>
+      <Textbox Name="Textbox12">
+        <Top>1pt</Top>
+        <Left>10pt</Left>
+        <Height>12pt</Height>
+        <Width>3in</Width>
+        <Value>=Globals!PageNumber + ' of ' + Globals!TotalPages</Value>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <FontWeight>Normal</FontWeight>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+
+</Report>

@@ -97,6 +97,9 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -318,6 +321,10 @@
       <Project>{f16a2bd2-3593-494f-9ff9-df09302e7d94}</Project>
       <Name>aZynEManager</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cinex.Core\Cinex.Core.csproj">
+      <Project>{45ed9171-2b07-40b2-9029-ef825ddf6758}</Project>
+      <Name>Cinex.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{3afcb573-4b60-40bb-9876-9bb69573e6e5}</Project>
       <Name>CommonLibrary</Name>
@@ -420,6 +427,9 @@
     <Resource Include="Images\logout.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="reports\RP28.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="reports\reports%28cemercenter%29\AUDIT.xml" />
     <Resource Include="reports\reports%28cemercenter%29\New Text Document.txt" />
     <Resource Include="reports\reports%28cemercenter%29\RP01.xml" />

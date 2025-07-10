@@ -17,6 +17,8 @@ using MySql.Data.MySqlClient;
 using CommonLibrary;
 using aZynEManager;
 using System.IO;
+using aZynEManager.EF;
+using System.Data;
 
 namespace Cinemapps
 {
@@ -2037,6 +2039,449 @@ namespace Cinemapps
             CheckBox cb = sender as CheckBox;
             if (cb.Name != "cbIsShowSurcharge") return;
             RP10_IsShowSurcharge = cb.IsChecked ?? false;
+        }
+
+        private void PrintRP28_Click(object sender, RoutedEventArgs e)
+        {
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            try
+            {
+
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (start ?? end).Value;
+
+                    var endDateValue = (end ?? start).Value;
+                    frmreport.setEndDate = new DateTime(
+                        year: endDateValue.Year,
+                        month: endDateValue.Month,
+                        day: endDateValue.Day,
+                        hour: 23,
+                        minute: 59,
+                        second: 59);
+
+                    var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                        .Where(i => i.IsSelected)
+                        .Select(i => i.Id)
+                        .ToArray();
+
+                    frmreport.SetCinemaIds(cinemaIds: cinemaIds);
+
+                    var usernames = RP28Teller.Items.OfType<SelectedComboBoxItem>()
+                        .Where(i => i.IsSelected)
+                        .Select(i => i.Name)
+                        .ToArray();
+
+                    frmreport.SetUsernames(usernames: usernames);
+
+                    var terminals = RP28POS.Items.OfType<SelectedComboBoxItem>()
+                        .Where(i => i.IsSelected)
+                        .Select(i => i.Name)
+                        .ToArray();
+
+                    frmreport.SetTerminals(terminals: terminals);
+
+                    var patronIds = RP28Patron.Items.OfType<PatronComboBoxItem>()
+                        .Where(i => i.IsSelected)
+                        .Select(i => i.Id)
+                        .ToArray();
+
+                    frmreport.SetPatronIds(patronIds: patronIds);
+
+                    frmreport.frmInit(main, main.m_clscom, "RP28");
+                    frmreport.ShowDialog();
+                    frmreport.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        private void ExcelRP28_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RP28StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RP28EndDate_SelectedDateChanged(sender, e);
+        }
+
+        private async void RP28EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+
+            var movieScheduleListReserveSeat = await movieScheduleListReserveSeatDataService
+                .GetByDateRangeAsync(start: (start ?? end).Value,
+                    end: (end ?? start).Value);
+
+            // Cinemas
+            var groupedCinemas = movieScheduleListReserveSeat
+                .GroupBy(t => t.CinemaId)
+                .OrderBy(t => t.FirstOrDefault().CinemaName);
+
+            if(RP28Cinema != null)
+            {
+                RP28Cinema.Items?.Clear();
+                foreach (var item in groupedCinemas)
+                    RP28Cinema.Items.Add(new CinemaComboBoxItem(
+                        id: item.Key,
+                        name: item.FirstOrDefault().CinemaName));
+            }
+
+            // Teller
+            var groupedUsernames = movieScheduleListReserveSeat
+                .GroupBy(t => t.Username)
+                .OrderBy(t => t.FirstOrDefault().Username);
+
+            if(RP28Teller != null)
+            {
+                RP28Teller.Items?.Clear();
+                foreach (var item in groupedUsernames)
+                    RP28Teller.Items.Add(new TellerComboBoxItem(
+                        name: item.Key));
+            }
+
+            // POS Terminal
+            var groupedTerminalNames = movieScheduleListReserveSeat
+                .GroupBy(t => t.TerminalName)
+                .OrderBy(t => t.FirstOrDefault().TerminalName);
+
+            if(RP28POS != null)
+            {
+                RP28POS.Items?.Clear();
+                foreach (var item in groupedTerminalNames)
+                    RP28POS.Items.Add(new TerminalComboBoxItem(
+                        name: item.Key));
+            }
+
+            // Patrons
+            var groupedPatrons = movieScheduleListReserveSeat
+                .GroupBy(t => t.PatronPriceId)
+                .OrderBy(t => t.FirstOrDefault().PatronName);
+
+            if(RP28Patron != null)
+            {
+                RP28Patron.Items?.Clear();
+                foreach (var item in groupedPatrons)
+                    RP28Patron.Items.Add(new PatronComboBoxItem(
+                        id: item.Key,
+                        name: item.FirstOrDefault().PatronName));
+            }
+        }
+
+        private void RP28Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void RP28Teller_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void RP28POS_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private void RP28Patron_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private async void SelectedComboBoxCinemaItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateComboBoxText(RP28Cinema);
+            UpdateComboBoxText(RP28Teller);
+            UpdateComboBoxText(RP28POS);
+            UpdateComboBoxText(RP28Patron);
+
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+
+            var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Id)
+                .ToArray();
+
+            var movieScheduleListReserveSeat = await movieScheduleListReserveSeatDataService
+                .GetByCompositeParamsAsync(start: (start ?? end).Value,
+                    end: (end ?? start).Value,
+                    cinemaIds: cinemaIds);
+
+            // Teller
+            var groupedUsernames = movieScheduleListReserveSeat
+                .GroupBy(t => t.Username)
+                .OrderBy(t => t.FirstOrDefault().Username);
+
+            if (RP28Teller != null)
+            {
+                RP28Teller.Items?.Clear();
+                foreach (var item in groupedUsernames)
+                    RP28Teller.Items.Add(new TellerComboBoxItem(
+                        name: item.Key));
+            }
+
+            // POS Terminal
+            var groupedTerminalNames = movieScheduleListReserveSeat
+                .GroupBy(t => t.TerminalName)
+                .OrderBy(t => t.FirstOrDefault().TerminalName);
+
+            if (RP28POS != null)
+            {
+                RP28POS.Items?.Clear();
+                foreach (var item in groupedTerminalNames)
+                    RP28POS.Items.Add(new TerminalComboBoxItem(
+                        name: item.Key));
+            }
+
+            // Patrons
+            var groupedPatrons = movieScheduleListReserveSeat
+                .GroupBy(t => t.PatronPriceId)
+                .OrderBy(t => t.FirstOrDefault().PatronName);
+
+            if (RP28Patron != null)
+            {
+                RP28Patron.Items?.Clear();
+                foreach (var item in groupedPatrons)
+                    RP28Patron.Items.Add(new PatronComboBoxItem(
+                        id: item.Key,
+                        name: item.FirstOrDefault().PatronName));
+            }
+        }
+
+        private async void SelectedComboBoxTellerItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateComboBoxText(RP28Teller);
+            UpdateComboBoxText(RP28POS);
+            UpdateComboBoxText(RP28Patron);
+
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+
+            var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Id)
+                .ToArray();
+
+            var usernames = RP28Teller.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name)
+                .ToArray();
+
+            var movieScheduleListReserveSeat = await movieScheduleListReserveSeatDataService
+                .GetByCompositeParamsAsync(start: (start ?? end).Value,
+                    end: (end ?? start).Value,
+                    cinemaIds: cinemaIds,
+                    usernames: usernames);
+
+            // POS Terminal
+            var groupedTerminalNames = movieScheduleListReserveSeat
+                .GroupBy(t => t.TerminalName)
+                .OrderBy(t => t.FirstOrDefault().TerminalName);
+
+            if (RP28POS != null)
+            {
+                RP28POS.Items?.Clear();
+                foreach (var item in groupedTerminalNames)
+                    RP28POS.Items.Add(new TerminalComboBoxItem(
+                        name: item.Key));
+            }
+
+            // Patrons
+            var groupedPatrons = movieScheduleListReserveSeat
+                .GroupBy(t => t.PatronPriceId)
+                .OrderBy(t => t.FirstOrDefault().PatronName);
+
+            if (RP28Patron != null)
+            {
+                RP28Patron.Items?.Clear();
+                foreach (var item in groupedPatrons)
+                    RP28Patron.Items.Add(new PatronComboBoxItem(
+                        id: item.Key,
+                        name: item.FirstOrDefault().PatronName));
+            }
+        }
+
+        private async void SelectedComboBoxTerminalItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateComboBoxText(RP28POS);
+            UpdateComboBoxText(RP28Patron);
+
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+
+            var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Id)
+                .ToArray();
+
+            var usernames = RP28Teller.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name)
+                .ToArray();
+
+            var terminals = RP28POS.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name)
+                .ToArray();
+
+            var movieScheduleListReserveSeat = await movieScheduleListReserveSeatDataService
+                .GetByCompositeParamsAsync(start: (start ?? end).Value,
+                    end: (end ?? start).Value,
+                    cinemaIds: cinemaIds,
+                    usernames: usernames,
+                    terminals: terminals);
+
+            // Patrons
+            var groupedPatrons = movieScheduleListReserveSeat
+                .GroupBy(t => t.PatronPriceId)
+                .OrderBy(t => t.FirstOrDefault().PatronName);
+
+            if (RP28Patron != null)
+            {
+                RP28Patron.Items?.Clear();
+                foreach (var item in groupedPatrons)
+                    RP28Patron.Items.Add(new PatronComboBoxItem(
+                        id: item.Key,
+                        name: item.FirstOrDefault().PatronName));
+            }
+        }
+
+        private async void SelectedComboBoxPatronItem_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateComboBoxText(RP28Patron);
+
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
+
+            if (!(start.HasValue && end.HasValue)) return;
+
+            var movieScheduleListReserveSeatDataService = DependencyInjectionHelper.GetMovieScheduleListReserveSeatDataService;
+
+            var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Id)
+                .ToArray();
+
+            var usernames = RP28Teller.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name)
+                .ToArray();
+
+            var terminals = RP28POS.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name)
+                .ToArray();
+
+            var patronIds = RP28Patron.Items.OfType<PatronComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Id)
+                .ToArray();
+
+            var movieScheduleListReserveSeat = await movieScheduleListReserveSeatDataService
+                .GetByCompositeParamsAsync(start: (start ?? end).Value,
+                    end: (end ?? start).Value,
+                    cinemaIds: cinemaIds,
+                    usernames: usernames,
+                    terminals: terminals,
+                    patronIds: patronIds);
+        }
+
+        private void CurrentComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateComboBoxText(sender);
+        }
+
+        private void CurrentComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            // Prevent focus from changing to editable textbox when opened
+            var comboBox = (ComboBox)sender;
+            comboBox.IsDropDownOpen = true;
+        }
+
+        private void UpdateComboBoxText(object sender)
+        {
+            var comboBox = (ComboBox)sender;
+            var selected = comboBox.Items.OfType<SelectedComboBoxItem>()
+                .Where(i => i.IsSelected)
+                .Select(i => i.Name);
+            if (!(selected?.Any() ?? false))
+            {
+                comboBox.Text = string.Empty;
+                return;
+            }
+
+            comboBox.Text = string.Join(",", selected);
+        }
+
+        public class CinemaComboBoxItem : SelectedComboBoxItem
+        {
+            public CinemaComboBoxItem(int id, string name, bool isSelected = false) : base(name, isSelected)
+            {
+                Id = id;
+            }
+
+            public int Id { get; set; }
+        }
+
+        public class TellerComboBoxItem : SelectedComboBoxItem
+        {
+            public TellerComboBoxItem(string name, bool isSelected = false) : base(name, isSelected)
+            {
+            }
+        }
+
+        public class TerminalComboBoxItem : SelectedComboBoxItem
+        {
+            public TerminalComboBoxItem(string name, bool isSelected = false) : base(name, isSelected)
+            {
+            }
+        }
+
+        public class PatronComboBoxItem : SelectedComboBoxItem
+        {
+            public PatronComboBoxItem(int id, string name, bool isSelected = false) : base(name, isSelected)
+            {
+                Id = id;
+            }
+
+            public int Id { get; set; }
+        }
+
+        public abstract class SelectedComboBoxItem
+        {
+            public SelectedComboBoxItem(string name,
+                bool isSelected = false)
+            {
+                Name = name;
+                IsSelected = isSelected;
+            }
+
+            public string Name { get; set; }
+            public bool IsSelected { get; set; }
         }
     }
 }

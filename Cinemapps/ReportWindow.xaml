@@ -696,6 +696,112 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
+            <ListViewItem>
+                <DockPanel Margin="4">
+                    <Rectangle Width="20" Height="20" Margin="5"
+            Fill="DarkBlue" DockPanel.Dock="Left">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+             Visual="{StaticResource appbar_office_excel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Button Margin="6" x:Name="ExcelRP28" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP28_Click" Content="Excel"/>
+                    <Button Margin="5" x:Name="PrintRP28" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP28_Click" Content="Print"/>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold"><Run Text="Tickets Report (RP28)"/></TextBlock>
+                        <Label Width="Auto">
+                            <TextBlock TextWrapping="WrapWithOverflow"><Run Text="Tickets report"/></TextBlock>
+                        </Label>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Start Date"/>
+                            <DatePicker x:Name="RP28StartDate" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="RP28StartDate_SelectedDateChanged" />
+                            <Label Content="End Date"/>
+                            <DatePicker x:Name="RP28EndDate" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="RP28EndDate_SelectedDateChanged" />
+
+                            <Label Content="Cinema"/>
+                            <ComboBox Name="RP28Cinema"
+                                      ItemsSource="{Binding Items}"
+                                      Width="150"
+                                      SelectionChanged="RP28Cinema_SelectionChanged"
+                                      StaysOpenOnEdit="True"
+                                      IsEditable="True"
+                                      IsReadOnly="True"
+                                      Loaded="CurrentComboBox_Loaded"
+                                      DropDownOpened="CurrentComboBox_DropDownOpened">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Click="SelectedComboBoxCinemaItem_Click" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Teller"/>
+                            <ComboBox Name="RP28Teller"
+                                      ItemsSource="{Binding Items}"
+                                      Width="150"
+                                      SelectionChanged="RP28Teller_SelectionChanged"
+                                      StaysOpenOnEdit="True"
+                                      IsEditable="True"
+                                      IsReadOnly="True"
+                                      Loaded="CurrentComboBox_Loaded"
+                                      DropDownOpened="CurrentComboBox_DropDownOpened">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Click="SelectedComboBoxTellerItem_Click" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <Label Content="POS#"/>
+                            <ComboBox Name="RP28POS"
+                                      ItemsSource="{Binding Items}"
+                                      Width="150"
+                                      SelectionChanged="RP28POS_SelectionChanged"
+                                      StaysOpenOnEdit="True"
+                                      IsEditable="True"
+                                      IsReadOnly="True"
+                                      Loaded="CurrentComboBox_Loaded"
+                                      DropDownOpened="CurrentComboBox_DropDownOpened">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Click="SelectedComboBoxTerminalItem_Click" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <Label Content="Patron"/>
+                            <ComboBox Name="RP28Patron"
+                                      ItemsSource="{Binding Items}"
+                                      Width="150"
+                                      SelectionChanged="RP28Patron_SelectionChanged"
+                                      StaysOpenOnEdit="True"
+                                      IsEditable="True"
+                                      IsReadOnly="True"
+                                      Loaded="CurrentComboBox_Loaded"
+                                      DropDownOpened="CurrentComboBox_DropDownOpened">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Click="SelectedComboBoxPatronItem_Click" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </DockPanel>
+            </ListViewItem>
         </ListView>
     </DockPanel>
 </controls:MetroWindow>

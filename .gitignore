@@ -220,3 +220,6 @@ RdlViewer/obj/Debug/DesignTimeResolveAssemblyReferencesInput*.cache
 System.Windows.Forms.Calendar/obj/Debug/DesignTimeResolveAssemblyReferencesInput*.cache
 System.Windows.Forms.Calendar/obj/Debug/System.Windows.Forms.Calendar.csproj.AssemblyReference*.cache
 System.Windows.Forms.Calendar/obj/Debug/System.Windows.Forms.Calendar.csproj.FileListAbsolute*.txt
+System.Windows.Forms.Calendar/obj/Debug
+System.Windows.Forms.Calendar/bin/Debug
+packages/System.ComponentModel.Annotations*

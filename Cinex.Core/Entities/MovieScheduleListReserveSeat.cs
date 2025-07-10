@@ -66,5 +66,21 @@ namespace Cinex.Core.Entities
         public virtual CinemaSeat CinemaSeat { get; set; }
 
         public virtual MovieScheduleListPatron MovieScheduleListPatron { get; set; }
+
+        public DateTime? DateTime => Ticket?.DateTime;
+
+        public int CinemaId => MovieScheduleList?.MovieSchedule?.CinemaId ?? 0;
+
+        public string CinemaName => MovieScheduleList?.MovieSchedule?.Cinema?.Name;
+
+        public string Username => Ticket?.User?.UserId;
+
+        public string TerminalName => Ticket?.Terminal;
+
+        public int PatronPriceId => MovieScheduleListPatron?.PatronId ?? 0;
+
+        public string PatronCode => MovieScheduleListPatron?.Patron?.Code;
+
+        public string PatronName => MovieScheduleListPatron?.Patron?.Name;
     }
 }
