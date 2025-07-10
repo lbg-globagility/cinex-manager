@@ -106,10 +106,10 @@
             <Width>54pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>94pt</Width>
+            <Width>80pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>94pt</Width>
+            <Width>80pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>54pt</Width>
@@ -127,7 +127,7 @@
             <Width>30pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>44pt</Width>
+            <Width>64pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
@@ -375,7 +375,7 @@
                   <ReportItems>
                     <Textbox Name="teller">
                       <Value>=Fields!teller.Value</Value>
-                      <CanGrow>false</CanGrow>
+                      <CanGrow>True</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -388,7 +388,7 @@
                         <BorderColor />
                         <BorderWidth />
                         <FontSize>9pt</FontSize>
-                        <TextAlign>Center</TextAlign>
+                        <TextAlign>Left</TextAlign>
                         <VerticalAlign>Middle</VerticalAlign>
                         <Format></Format>
                       </Style>
@@ -399,7 +399,7 @@
                   <ReportItems>
                     <Textbox Name="pos_num">
                       <Value>=Fields!pos_num.Value</Value>
-                      <CanGrow>false</CanGrow>
+                      <CanGrow>True</CanGrow>
                       <Style>
                         <BorderStyle>
                           <Default>None</Default>
@@ -409,7 +409,7 @@
                           <Bottom>None</Bottom>
                         </BorderStyle>
                         <PaddingRight>5pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
+                        <TextAlign>Center</TextAlign>
                         <BorderColor />
                         <BorderWidth />
                         <FontSize>9pt</FontSize>
@@ -438,7 +438,7 @@
                         <BorderWidth />
                         <FontSize>9pt</FontSize>
                         <VerticalAlign>Middle</VerticalAlign>
-                        <Format>M/d/yyyy h:mm:ss tt</Format>
+                        <Format>M/d/yyyy HH:mm:ss</Format>
                       </Style>
                     </Textbox>
                   </ReportItems>
