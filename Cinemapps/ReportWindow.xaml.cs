@@ -1,5 +1,15 @@
-﻿using System;
+﻿using aZynEManager;
+using aZynEManager.EF;
+using CommonLibrary;
+using ExcelReports;
+using MahApps.Metro.Controls;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -10,15 +20,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
-using ExcelReports;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using CommonLibrary;
-using aZynEManager;
-using System.IO;
-using aZynEManager.EF;
-using System.Data;
 
 namespace Cinemapps
 {
@@ -2105,7 +2106,77 @@ namespace Cinemapps
 
         private void ExcelRP28_Click(object sender, RoutedEventArgs e)
         {
+            var start = RP28StartDate?.SelectedDate;
+            var end = RP28EndDate?.SelectedDate;
 
+            if (!(start.HasValue && end.HasValue)) return;
+
+            using (frmReport frmreport = new frmReport())
+            {
+                frmreport.setDate = (start ?? end).Value;
+
+                var endDateValue = (end ?? start).Value;
+                frmreport.setEndDate = new DateTime(
+                    year: endDateValue.Year,
+                    month: endDateValue.Month,
+                    day: endDateValue.Day,
+                    hour: 23,
+                    minute: 59,
+                    second: 59);
+
+                var cinemaIds = RP28Cinema.Items.OfType<CinemaComboBoxItem>()
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.Id)
+                    .ToArray();
+
+                frmreport.SetCinemaIds(cinemaIds: cinemaIds);
+
+                var usernames = RP28Teller.Items.OfType<SelectedComboBoxItem>()
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.Name)
+                    .ToArray();
+
+                frmreport.SetUsernames(usernames: usernames);
+
+                var terminals = RP28POS.Items.OfType<SelectedComboBoxItem>()
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.Name)
+                    .ToArray();
+
+                frmreport.SetTerminals(terminals: terminals);
+
+                var patronIds = RP28Patron.Items.OfType<PatronComboBoxItem>()
+                    .Where(i => i.IsSelected)
+                    .Select(i => i.Id)
+                    .ToArray();
+
+                frmreport.SetPatronIds(patronIds: patronIds);
+
+                var reportName = "RP28";
+
+                frmreport.frmInit(main, main.m_clscom, reportName);
+
+                frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+
+                frmreport.rdlViewer1.Rebuild();
+
+                if (!Directory.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + $"\\reports\\temp\\{reportName}." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+
+                frmreport.rdlViewer1.SaveAs(strfilenm, fyiReporting.RDL.OutputPresentationType.Excel);
+                
+                frmreport.Dispose();
+
+                try
+                {
+                    Process.Start(strfilenm);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
 
         private void RP28StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
