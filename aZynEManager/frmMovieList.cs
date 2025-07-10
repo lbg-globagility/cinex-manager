@@ -1398,7 +1398,7 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
 
                         var photo = dgvResult.CurrentRow?.Cells["photo"].Value;
-                        var photoName = (string)dgvResult.CurrentRow?.Cells["photo_name"].Value;
+                        var photoName = dgvResult.CurrentRow?.Cells["photo_name"].Value;
 
                         var isNullPhoto = Object.Equals(photo, DBNull.Value);
                         var isNullPhotoName = Object.Equals(photoName, DBNull.Value);
@@ -1408,7 +1408,7 @@ namespace aZynEManager
                         else
                             cmd.Parameters.AddWithValue("@photo", (byte[])photo);
 
-                        if (isNullPhotoName ? isNullPhotoName : string.IsNullOrEmpty(photoName))
+                        if (isNullPhotoName ? isNullPhotoName : string.IsNullOrEmpty((string)photoName))
                             cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@photo_name", photoName);
@@ -1465,7 +1465,7 @@ namespace aZynEManager
                     cmd.Parameters.AddWithValue("@title", txttitle.Text.Trim());
 
                     var photo = dgvResult.CurrentRow?.Cells["photo"].Value;
-                    var photoName = (string)dgvResult.CurrentRow.Cells["photo_name"].Value;
+                    var photoName = dgvResult.CurrentRow?.Cells["photo_name"].Value;
 
                     var isNullPhoto = Object.Equals(photo, DBNull.Value);
                     var isNullPhotoName = Object.Equals(photoName, DBNull.Value);
@@ -1475,7 +1475,7 @@ namespace aZynEManager
                     else
                         cmd.Parameters.AddWithValue("@photo", (byte[])photo);
 
-                    if (isNullPhotoName ? isNullPhotoName : string.IsNullOrEmpty(photoName))
+                    if (isNullPhotoName ? isNullPhotoName : string.IsNullOrEmpty((string)photoName))
                         cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@photo_name", photoName);
