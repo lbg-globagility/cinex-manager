@@ -221,10 +221,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Forms.Calendar, Version=1.0.5872.31697, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\System.Windows.Forms.Calendar\bin\x86\Debug\System.Windows.Forms.Calendar.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\packages\MahApps.Metro.0.13.1.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -753,6 +749,10 @@
     <ProjectReference Include="..\RdlViewer\RdlViewer.csproj">
       <Project>{d99145b1-cb6c-41f5-ba86-723325145fb5}</Project>
       <Name>RdlViewer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+      <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
+      <Name>System.Windows.Forms.Calendar</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
