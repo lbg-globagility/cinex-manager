@@ -110,116 +110,88 @@ namespace aZynEManager
 
         private void addScreeningSched(string strcinemaid, DateTime dtstart)
         {
-           
             DateTime dtref = dtstart;
-             myconn = new MySqlConnection();
-                myconn.ConnectionString = m_frmM._connection; 
+            myconn = new MySqlConnection()
+            {
+                ConnectionString = m_frmM._connection
+            };
             int idcnm = 0;
             int id = -1;
             if (int.TryParse(strcinemaid, out id))
                 idcnm = id;
 
             StringBuilder sqry = new StringBuilder();
-            int cntr = 0;
-            do
-            {
-                sqry = new StringBuilder();
-                sqry.Append("select a.start_time, a.end_time, c.code, a.id, a.status from movies_schedule_list a ");
-                sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
-                sqry.Append("left join movies c on b.movie_id = c.id ");
-                sqry.Append(String.Format("where b.cinema_id = {0}  ", idcnm));
-                sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dtref)));
-                sqry.Append("order by c.code, a.start_time desc");
 
-                CalendarItem calitem = null;
-                if (myconn.State == ConnectionState.Closed)
-                    myconn.Open();
-                MySqlCommand cmd = new MySqlCommand(sqry.ToString(), myconn);
+            sqry = new StringBuilder();
+            sqry.Append("select a.start_time, a.end_time, c.code, a.id, a.status from movies_schedule_list a ");
+            sqry.Append("left join movies_schedule b on a.movies_schedule_id = b.id ");
+            sqry.Append("left join movies c on b.movie_id = c.id ");
+            sqry.Append(String.Format("where b.cinema_id = {0}  ", idcnm));
+            sqry.Append(String.Format("and DATE(b.movie_date) between '{0}' ", String.Format("{0:yyyy-MM-dd}", dtref)));
+            sqry.Append(String.Format("and '{0}' ", String.Format("{0:yyyy-MM-dd}", dtref.AddDays(calsked.MaximumViewDays-1))));
+            sqry.Append("order by a.start_time DESC, a.end_time DESC;");
+
+            CalendarItem calitem = null;
+            if (myconn.State == ConnectionState.Closed)
+                myconn.Open();
+            using (var cmd = new MySqlCommand(sqry.ToString(), myconn))
+            {
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                using (MySqlDataReader dr = cmd.ExecuteReader())
+
+                var movieCodes = new List<string>();
+                int colorsw = 0;
+
+                var groupByDate = dt.Rows.OfType<DataRow>()
+                    .GroupBy(r => ((DateTime)r["start_time"]).Date)
+                    .ToList();
+
+                foreach (var itemDate in groupByDate)
                 {
-                    string firsttitle = String.Empty;
-                    int result = 0;
-                    int intid = 0;
-                    int intsw = 0;
-                    int colorsw = 0;
-                    Color itemcolor = Color.LightSteelBlue;
-                    int reccntr = 0;
-                    while (dr.Read())
+                    var groupByCode = itemDate
+                        .GroupBy(r => (string)r["code"])
+                        .ToList();
+
+                    var titleIterator = 1;
+
+                    foreach (var group in groupByCode)
                     {
-                        reccntr += 1;
+                        var itemcolor = groupByCode.Count() == 1 ? Color.LightSteelBlue : titleIterator % 2 == 0 ?
+                            Color.LightSteelBlue :
+                            Color.FromArgb(100, 225, 225, 100);
 
-                        string sval = dr["code"].ToString();
-                        string stime = dr["start_time"].ToString();
-                        string etime = dr["end_time"].ToString();
-                        string stat = dr["status"].ToString();
-                        DateTime dtstime = Convert.ToDateTime(stime);
-                        DateTime dtetime = Convert.ToDateTime(stime);
-                        string stimeval = dtstime.ToShortTimeString();// +" - " + dtetime.ToShortTimeString();
-                        if (sval != "")
+                        foreach (var dr in group)
                         {
-                            if (intsw == 0)
-                                firsttitle = sval;
+                            var startDateTimeData = dr["start_time"].ToString();
+                            var startDateTime = Convert.ToDateTime(startDateTimeData);
+                            var startShortDateTime = startDateTime.ToShortTimeString();
 
-                            if (firsttitle != sval)
+                            var calendarItem = new CalendarItem(calsked, startDateTime, startShortDateTime)
                             {
-                                if (colorsw == 0)
-                                    itemcolor = Color.LightSteelBlue;
-                                else
-                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
+                                BackgroundColor = itemcolor
+                            };
 
-                                calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
-                                calitem.BackgroundColor = itemcolor;
-                                if (calsked.ViewIntersects(calitem))
-                                    calsked.Items.Add(calitem);
-
-                                intsw = 0;
-                                firsttitle = sval;
-
-                                if (colorsw == 0)
-                                    colorsw = 1;
-                                else if (colorsw == 1)
-                                    colorsw = 0;
-                            }
-
-                            if (stat == "0")
-                                itemcolor = Color.Red;
-                            else
-                            {
-                                if (colorsw == 0)
-                                    itemcolor = Color.LightSteelBlue;
-                                else
-                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
-                            }
-
-                            calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), stimeval);
-                            calitem.BackgroundColor = itemcolor;
-                            if (calsked.ViewIntersects(calitem))
-                                calsked.Items.Add(calitem);
-
-                            if (reccntr == dt.Rows.Count)
-                            {
-                                if (colorsw == 0)
-                                    itemcolor = Color.LightSteelBlue;
-                                else
-                                    itemcolor = Color.FromArgb(100, 225, 225, 100);
-
-                                calitem = new CalendarItem(calsked, dtref, dtref.AddHours((double)23).AddMinutes((double)59).AddSeconds((double)59), firsttitle);
-                                calitem.BackgroundColor = itemcolor;
-                                if (calsked.ViewIntersects(calitem))
-                                    calsked.Items.Add(calitem);
-                            }
-                            intsw = 1;
+                            if (calsked.ViewIntersects(calendarItem))
+                                calsked.Items.Add(calendarItem);
                         }
+
+                        var groupCode = group.Key;
+
+                        var fsdfsd = group?.Min(t => (DateTime)t["start_time"]).AddSeconds(-1) ?? DateTime.Now.Date;
+
+                        var calendarItemTitle = new CalendarItem(calsked, fsdfsd, groupCode)
+                        {
+                            BackgroundColor = itemcolor
+                        };
+
+                        if (calsked.ViewIntersects(calendarItemTitle))
+                            calsked.Items.Add(calendarItemTitle);
+
+                        titleIterator += 1;
                     }
                 }
-                cmd.Dispose();
-
-                cntr += 1;
-                dtref = dtstart.AddDays((double)cntr);
-            } while (cntr < 7);
+            }
         }
 
         private void populateCinema()
@@ -1035,7 +1007,7 @@ namespace aZynEManager
                 sqry.Append("left join movies c on b.movie_id = c.id ");
                 sqry.Append(String.Format("where b.cinema_id = {0} ", cinemaid));
                 sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", currentdate.Date)));
-                sqry.Append("order by a.start_time desc");
+                sqry.Append("order by a.start_time, a.end_time");
                 DataTable movieschedlist = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
 
                 //if (timestartspan.Days < 1 && timeendspan.TotalDays < 1)//remarked 3.16.2016
@@ -1457,7 +1429,7 @@ namespace aZynEManager
                     sqry.Append("left join movies c on b.movie_id = c.id ");
                     sqry.Append(String.Format("where b.cinema_id = {0} ", intout));
                     sqry.Append(String.Format("and b.movie_date = '{0}' ", String.Format("{0:yyyy-MM-dd HH:mm:ss}", dt)));
-                    sqry.Append("order by a.start_time asc");
+                    sqry.Append("order by a.start_time, a.end_time");
                     DataTable m_dtlist = m_clscom.setDataTable(sqry.ToString(), m_frmM._connection);
                     setDataGridViewII(dgvResult, m_dtlist);
                 }

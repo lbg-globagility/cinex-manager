@@ -88,6 +88,14 @@ namespace System.Windows.Forms.Calendar
             Text = text;
         }
 
+        public CalendarItem(Calendar calendar, DateTime startDate, string text)
+            : this(calendar)
+        {
+            StartDate = startDate.Date;
+            EndDate = startDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+            Text = text;
+        }
+
         /// <summary>
         /// Creates a new item with the specified date, duration and text
         /// </summary>
