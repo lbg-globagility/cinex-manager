@@ -255,13 +255,7 @@
             <Width>57.2pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>57.2pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>57.2pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>57.2pt</Width>
+            <Width>94.1pt</Width>
           </TableColumn>
           <TableColumn>
             <Width>94.3pt</Width>
@@ -398,56 +392,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox64">
-                      <Value>PAYMAYA</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>9pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox72">
-                      <Value>GCASH</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>9pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
+
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox1">
@@ -603,54 +548,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="total_ewallet_maya">
-                      <Value>=Fields!total_ewallet_maya.Value</Value>
-                      <CanGrow>false</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>4pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <FontSize>10pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <Format>#,##0.00</Format>
-                        <BorderColor />
-                        <BorderWidth />
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="total_ewallet_gcash">
-                      <Value>=Fields!total_ewallet_gcash.Value</Value>
-                      <CanGrow>false</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>4pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <FontSize>10pt</FontSize>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <Format>#,##0.00</Format>
-                        <BorderColor />
-                        <BorderWidth />
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
+
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox2">
@@ -856,76 +754,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>                
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="tf_total_ewallet_maya">
-                      <Value>=Sum(Fields!total_ewallet_maya.Value)</Value>
-                      <CanGrow>false</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>4pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <FontSize>10pt</FontSize>
-                        <VerticalAlign>Bottom</VerticalAlign>
-                        <Format>#,##0.00</Format>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth>
-                          <Bottom>2pt</Bottom>
-                        </BorderWidth>
-                        <BackgroundColor>
-                        </BackgroundColor>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="tf_total_ewallet_gcash">
-                      <Value>=Sum(Fields!total_ewallet_gcash.Value)</Value>
-                      <CanGrow>false</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>Solid</Top>
-                          <Bottom>Solid</Bottom>
-                        </BorderStyle>
-                        <PaddingRight>4pt</PaddingRight>
-                        <TextAlign>Right</TextAlign>
-                        <FontSize>10pt</FontSize>
-                        <VerticalAlign>Bottom</VerticalAlign>
-                        <Format>#,##0.00</Format>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth>
-                          <Bottom>2pt</Bottom>
-                        </BorderWidth>
-                        <BackgroundColor>
-                        </BackgroundColor>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
+
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox8">
