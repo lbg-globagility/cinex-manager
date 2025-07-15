@@ -68,6 +68,7 @@ namespace aZynEManager
             //sbqry.Append("DATE_FORMAT(a.start_date,'%m-%d-%Y'), DATE_FORMAT(a.end_date,'%m-%d-%Y'), ");
             sbqry.Append("a.start_date, a.end_date, ");
             sbqry.Append("a.share_perc as share, d.status_desc as status, a.encoded_date, a.photo, a.photo_name ");
+            sbqry.Append(", a.is_foreign, a.amusement_tax_rate ");
             sbqry.Append("FROM movies a, mtrcb b, distributor c, movies_status d WHERE a.rating_id = b.id ");
             sbqry.Append("and a.dist_id = c.id and a.status = d.status_id ");
           //  sbqry.Append("select * from movies");
@@ -162,14 +163,23 @@ namespace aZynEManager
                 dgvResult.Columns[10].HeaderText = "Encoded Date";
                 dgvResult.Columns[10].Visible = false;
 
-                var photoColumn = dgvResult.Columns.OfType<DataGridViewColumn>()?.FirstOrDefault(t => t.Name == "photo");
+                var columns = dgvResult.Columns.OfType<DataGridViewColumn>();
+
+                var photoColumn = columns?.FirstOrDefault(t => t.Name == "photo");
                 if (!string.IsNullOrEmpty(photoColumn?.Name))
                     photoColumn.Visible = false;
 
-                var photoNameColumn = dgvResult.Columns.OfType<DataGridViewColumn>()?.FirstOrDefault(t => t.Name == "photo_name");
+                var photoNameColumn = columns?.FirstOrDefault(t => t.Name == "photo_name");
                 if (!string.IsNullOrEmpty(photoNameColumn?.Name))
                     photoNameColumn.Visible = false;
 
+                var isForeignColumn = columns?.FirstOrDefault(t => t.Name == "is_foreign");
+                if (!string.IsNullOrEmpty(isForeignColumn?.Name))
+                    isForeignColumn.Visible = false;
+
+                var amusementTaxRateColumn = columns?.FirstOrDefault(t => t.Name == "amusement_tax_rate");
+                if (!string.IsNullOrEmpty(amusementTaxRateColumn?.Name))
+                    amusementTaxRateColumn.Visible = false;
             }
         }
 
@@ -648,7 +658,7 @@ namespace aZynEManager
                 //  0,txtcode.Text.Trim(),txttitle.Text.Trim(),cmbdistributor.SelectedValue,txtshare.Text.Trim(),
                 //cmbrating.SelectedValue,inttime));
 
-                sqry.Append("insert into movies values(0,@code,@title,@dist,@share,@rating,@duration,0,Now(),CURDATE(),CURDATE(),@photo,@photo_name)");
+                sqry.Append("insert into movies values(0,@code,@title,@dist,@share,@rating,@duration,0,Now(),CURDATE(),CURDATE(),@photo,@photo_name,@is_foreign,@amusement_tax_rate)");
 
                 try
                 {
@@ -681,6 +691,13 @@ namespace aZynEManager
                         cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@photo_name", photoName);
+
+                    var isForeign = radioBtnForeign.Checked;
+                    cmd.Parameters.AddWithValue("@is_foreign", isForeign);
+
+                    var amusementTaxRate = radioBtnLocal.Checked ? nudLocalRate.Value :
+                        radioBtnForeign.Checked ? nudForeignRate.Value : 0m;
+                    cmd.Parameters.AddWithValue("@amusement_tax_rate", amusementTaxRate);
 
                     cmd.ExecuteNonQuery();
                     int intid = Convert.ToInt32(cmd.LastInsertedId.ToString());
@@ -1100,10 +1117,21 @@ namespace aZynEManager
 
                     setCheck(dgvClass, true);
 
-                    //checkList(dgv.SelectedRows[0].Cells[0].Value.ToString());
-                    //for (int i = 0; i < this.lstcls.Items.Count; i++)
-                    //    this.lstcls.Items[i].Checked = true;
+                //checkList(dgv.SelectedRows[0].Cells[0].Value.ToString());
+                //for (int i = 0; i < this.lstcls.Items.Count; i++)
+                //    this.lstcls.Items[i].Checked = true;
                 //}
+
+                var dataRow = ((DataRowView)dgv.CurrentRow.DataBoundItem).Row;
+
+                var isForeign = Convert.ToBoolean(dataRow["is_foreign"]);
+                var amusementTaxRate = Convert.ToDecimal(dataRow["amusement_tax_rate"]);
+
+                radioBtnLocal.Checked = !isForeign;
+                if (radioBtnLocal.Checked) nudLocalRate.Value = amusementTaxRate;
+
+                radioBtnForeign.Checked = isForeign;
+                if (radioBtnForeign.Checked) nudForeignRate.Value = amusementTaxRate;
             }
         }
 
@@ -1386,7 +1414,9 @@ namespace aZynEManager
                     //strqry.Append(String.Format(" dist_id = {0},", cmbdistributor.SelectedValue));
                     strqry.Append(String.Format(" rating_id = {0}, ", cmbrating.SelectedValue));
                     strqry.Append(" photo = @photo,");
-                    strqry.Append(" photo_name = @photo_name");
+                    strqry.Append(" photo_name = @photo_name,");
+                    strqry.Append(" is_foreign = @is_foreign,");
+                    strqry.Append(" amusement_tax_rate = @amusement_tax_rate");
                     strqry.Append(String.Format(" where id = {0}", intid));
 
                     try
@@ -1412,6 +1442,13 @@ namespace aZynEManager
                             cmd.Parameters.AddWithValue("@photo_name", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@photo_name", photoName);
+
+                        var isForeign = radioBtnForeign.Checked;
+                        cmd.Parameters.AddWithValue("@is_foreign", isForeign);
+
+                        var amusementTaxRate = radioBtnLocal.Checked ? nudLocalRate.Value :
+                            radioBtnForeign.Checked ? nudForeignRate.Value : 0m;
+                        cmd.Parameters.AddWithValue("@amusement_tax_rate", amusementTaxRate);
 
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
@@ -1612,6 +1649,7 @@ namespace aZynEManager
             {
                 StringBuilder sbqry = new StringBuilder();
                 sbqry.Append("SELECT a.id, a.code, a.title, a.duration, b.name as rating, c.name as distributor, a.share_perc as share, d.status_desc as status, a.photo, a.photo_name ");
+                sbqry.Append(", a.is_foreign, a.amusement_tax_rate ");
                 sbqry.Append("FROM movies a,  mtrcb b, distributor c, movie_status d WHERE a.rating_id = b.id and a.dist_id = c.id and a.status = d.status_id");
                 m_dt = m_clscom.setDataTable(sbqry.ToString(), m_frmM._connection);
                 m_frmM.m_dtmovies = m_dt;
@@ -1749,6 +1787,36 @@ namespace aZynEManager
                 var startInfo = new ProcessStartInfo(filePathName);
                 Process.Start(startInfo);
             }
+        }
+
+        private void radioBtnLocal_CheckedChanged(object sender, EventArgs e)
+        {
+            nudLocalRate.Enabled = radioBtnLocal.Checked;
+        }
+
+        private void radioBtnForeign_CheckedChanged(object sender, EventArgs e)
+        {
+            nudForeignRate.Enabled = radioBtnForeign.Checked;
+        }
+
+        private void nudLocalRate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudLocalRate_EnabledChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudForeignRate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudForeignRate_EnabledChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

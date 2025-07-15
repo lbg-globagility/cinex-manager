@@ -40,6 +40,12 @@ namespace Cinex.Core.Entities
 
         [Column("photo")]
         public byte[] Photo { get; set; }
+
+        [Column("is_foreign")]
+        public bool IsForeign { get; set; }
+
+        [Column("amusement_tax_rate")]
+        public bool AmusementTaxRate { get; set; }
     }
 
     public partial class Movie

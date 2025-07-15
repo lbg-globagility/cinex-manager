@@ -1649,6 +1649,7 @@ namespace aZynEManager
                 sQuery.Append("sum(a.ordinance_price) as ord_sum, sum(a.surcharge_price) as sur_sum, "); // added for surcharge and ordinance 1.7.2016
                 sQuery.Append("min(b.movie_date), max(b.movie_date), ");//updated 3.11.2016 min(col[15]) and max(col[16]) //added 2.6.2016
                 sQuery.Append("a.price ");//3.11.2016 moved to (col[17]) //2.23.2016 list(16)
+                sQuery.Append(", c.amusement_tax_rate ");
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");
@@ -1816,7 +1817,8 @@ namespace aZynEManager
                             }
                             else
                             {
-                                _withamusementtax = true;//added 8.1.2018
+                                _withamusementtax = Convert.ToBoolean(dr["with_amusement"]);//added 8.1.2018
+                                var amusementTaxRate = Convert.ToDecimal(dr["amusement_tax_rate"]);
                                 if (qtty > 0)
                                 {
                                     string strid = "";
@@ -1840,13 +1842,17 @@ namespace aZynEManager
                                     if (baseprice > 0)
                                     {
                                         //added 11.28.2017
-                                        if((_withculturaltax == true) && (dblculturaltax > 0))
+                                        if ((_withculturaltax == true) && (dblculturaltax > 0))
                                             taxrate = (baseprice - 0.25) * 0.090909090909091;//change price to baseprice 2.23.2016 // price * 0.0908 remarked ver 1 7.8.2015
+                                        else if (_withamusementtax)
+                                        {
+                                            var onlyTaxRate = amusementTaxRate / (1 + amusementTaxRate);
+                                            taxrate = baseprice * (double)onlyTaxRate;
+                                        }
                                         else
                                             taxrate = baseprice * 0.090909090909091;//added 11.28.2017
                                     }
-                                    //added 5.8.2018 to change taxrate to 2 decimal places
-                                    taxrate = Math.Round(taxrate, 2, MidpointRounding.AwayFromZero);
+                                    
                                     amusementtax = qtty * taxrate;//edited 5.8.2018 taxrate is rounded to 2 decimal place as per randy request for fsm //remarked ver 1 7.8.2015
                                     //amusementtax = ((grossreceipt - culturaltax) / 1.1) * 0.1; ver 2
                                     finalsqry.Append(String.Format("{0},", taxrate));//with amusement tax rate
@@ -1997,6 +2003,7 @@ namespace aZynEManager
                 sQuery.Append("select h.name as dist_nm, c.title as movie_nm,f.name as patron_nm, count(a.ticket_id) qty, ");
                 sQuery.Append("a.base_price, sum(a.base_price) as gross_receipt, ");
                 sQuery.Append("f.with_cultural, f.with_amusement, f.id as patron_id, c.id as movie_id, j.name as cinema_name ");
+                sQuery.Append(", c.amusement_tax_rate ");
                 sQuery.Append("from movies_schedule_list_reserved_seat a, ");
                 sQuery.Append("movies_schedule_list_patron e, patrons f, ");
                 sQuery.Append("movies_schedule b, movies c, movies_schedule_list d, ");

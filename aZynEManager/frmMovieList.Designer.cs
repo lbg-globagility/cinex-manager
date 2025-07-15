@@ -53,6 +53,8 @@
             this.Label5 = new System.Windows.Forms.Label();
             this.cmbrating = new System.Windows.Forms.ComboBox();
             this.grpparameter = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.lnklblViewPhoto = new System.Windows.Forms.LinkLabel();
+            this.lnklblUploadMoviePoster = new System.Windows.Forms.LinkLabel();
             this.txtshare = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.dttime = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
@@ -79,8 +81,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lnklblUploadMoviePoster = new System.Windows.Forms.LinkLabel();
-            this.lnklblViewPhoto = new System.Windows.Forms.LinkLabel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioBtnLocal = new System.Windows.Forms.RadioButton();
+            this.radioBtnForeign = new System.Windows.Forms.RadioButton();
+            this.nudLocalRate = new System.Windows.Forms.NumericUpDown();
+            this.nudForeignRate = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grpparameter.Panel)).BeginInit();
@@ -101,6 +107,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClass)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLocalRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudForeignRate)).BeginInit();
             this.SuspendLayout();
             // 
             // lvwResults
@@ -117,7 +126,7 @@
             this.lvwResults.FullRowSelect = true;
             this.lvwResults.GridLines = true;
             this.lvwResults.HideSelection = false;
-            this.lvwResults.Location = new System.Drawing.Point(116, 6);
+            this.lvwResults.Location = new System.Drawing.Point(116, -14);
             this.lvwResults.MultiSelect = false;
             this.lvwResults.Name = "lvwResults";
             this.lvwResults.ShowItemToolTips = true;
@@ -164,7 +173,7 @@
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.RowHeadersVisible = false;
             this.dgvResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvResult.Size = new System.Drawing.Size(708, 340);
+            this.dgvResult.Size = new System.Drawing.Size(708, 300);
             this.dgvResult.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvResult.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvResult.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -357,6 +366,7 @@
             // 
             // grpparameter.Panel
             // 
+            this.grpparameter.Panel.Controls.Add(this.panel3);
             this.grpparameter.Panel.Controls.Add(this.lnklblViewPhoto);
             this.grpparameter.Panel.Controls.Add(this.lnklblUploadMoviePoster);
             this.grpparameter.Panel.Controls.Add(this.txtshare);
@@ -381,7 +391,7 @@
             this.grpparameter.Panel.Controls.Add(this.label10);
             this.grpparameter.Panel.Controls.Add(this.label9);
             this.grpparameter.Panel.Controls.Add(this.label11);
-            this.grpparameter.Size = new System.Drawing.Size(484, 160);
+            this.grpparameter.Size = new System.Drawing.Size(484, 197);
             this.grpparameter.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.grpparameter.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.grpparameter.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -392,6 +402,38 @@
             this.grpparameter.StateCommon.Border.Width = 2;
             this.grpparameter.TabIndex = 33;
             this.grpparameter.Paint += new System.Windows.Forms.PaintEventHandler(this.grpparameter_Paint);
+            // 
+            // lnklblViewPhoto
+            // 
+            this.lnklblViewPhoto.ActiveLinkColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.AutoSize = true;
+            this.lnklblViewPhoto.BackColor = System.Drawing.Color.Transparent;
+            this.lnklblViewPhoto.ForeColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.LinkColor = System.Drawing.Color.White;
+            this.lnklblViewPhoto.Location = new System.Drawing.Point(400, 129);
+            this.lnklblViewPhoto.Name = "lnklblViewPhoto";
+            this.lnklblViewPhoto.Size = new System.Drawing.Size(61, 13);
+            this.lnklblViewPhoto.TabIndex = 291;
+            this.lnklblViewPhoto.TabStop = true;
+            this.lnklblViewPhoto.Text = "View Photo";
+            this.lnklblViewPhoto.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblViewPhoto_LinkClicked);
+            // 
+            // lnklblUploadMoviePoster
+            // 
+            this.lnklblUploadMoviePoster.ActiveLinkColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.AutoSize = true;
+            this.lnklblUploadMoviePoster.BackColor = System.Drawing.Color.Transparent;
+            this.lnklblUploadMoviePoster.ForeColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.LinkColor = System.Drawing.Color.White;
+            this.lnklblUploadMoviePoster.Location = new System.Drawing.Point(284, 129);
+            this.lnklblUploadMoviePoster.Name = "lnklblUploadMoviePoster";
+            this.lnklblUploadMoviePoster.Size = new System.Drawing.Size(106, 13);
+            this.lnklblUploadMoviePoster.TabIndex = 9;
+            this.lnklblUploadMoviePoster.TabStop = true;
+            this.lnklblUploadMoviePoster.Text = "Upload Movie Poster";
+            this.lnklblUploadMoviePoster.Visible = false;
+            this.lnklblUploadMoviePoster.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblUploadMoviePoster_LinkClicked);
+            this.lnklblUploadMoviePoster.VisibleChanged += new System.EventHandler(this.lnklblUploadMoviePoster_VisibleChanged);
             // 
             // txtshare
             // 
@@ -580,7 +622,7 @@
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DimGray;
-            this.label18.Location = new System.Drawing.Point(13, 261);
+            this.label18.Location = new System.Drawing.Point(13, 301);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(99, 13);
             this.label18.TabIndex = 285;
@@ -593,7 +635,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(1, 260);
+            this.label17.Location = new System.Drawing.Point(1, 300);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(17, 24);
             this.label17.TabIndex = 284;
@@ -601,7 +643,7 @@
             // 
             // grpcontrol
             // 
-            this.grpcontrol.Location = new System.Drawing.Point(263, 167);
+            this.grpcontrol.Location = new System.Drawing.Point(263, 205);
             this.grpcontrol.Name = "grpcontrol";
             // 
             // grpcontrol.Panel
@@ -766,7 +808,7 @@
             this.txtcnt.BackColor = System.Drawing.Color.Transparent;
             this.txtcnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtcnt.ForeColor = System.Drawing.Color.Black;
-            this.txtcnt.Location = new System.Drawing.Point(11, 174);
+            this.txtcnt.Location = new System.Drawing.Point(11, 212);
             this.txtcnt.Name = "txtcnt";
             this.txtcnt.Size = new System.Drawing.Size(38, 13);
             this.txtcnt.TabIndex = 294;
@@ -774,7 +816,7 @@
             // 
             // grpfilter
             // 
-            this.grpfilter.Location = new System.Drawing.Point(113, 167);
+            this.grpfilter.Location = new System.Drawing.Point(113, 205);
             this.grpfilter.Name = "grpfilter";
             // 
             // grpfilter.Panel
@@ -895,7 +937,7 @@
             this.kryptonGroup1.Panel.Controls.Add(this.dgvClass);
             this.kryptonGroup1.Panel.Margin = new System.Windows.Forms.Padding(3);
             this.kryptonGroup1.Panel.Padding = new System.Windows.Forms.Padding(3);
-            this.kryptonGroup1.Size = new System.Drawing.Size(207, 269);
+            this.kryptonGroup1.Size = new System.Drawing.Size(207, 305);
             this.kryptonGroup1.StateCommon.Back.Color1 = System.Drawing.Color.CornflowerBlue;
             this.kryptonGroup1.StateCommon.Back.Color2 = System.Drawing.Color.White;
             this.kryptonGroup1.StateCommon.Border.Color1 = System.Drawing.Color.Silver;
@@ -921,7 +963,7 @@
             this.dgvClass.Name = "dgvClass";
             this.dgvClass.RowHeadersVisible = false;
             this.dgvClass.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClass.Size = new System.Drawing.Size(190, 252);
+            this.dgvClass.Size = new System.Drawing.Size(190, 288);
             this.dgvClass.StateCommon.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.GridBackgroundList;
             this.dgvClass.StateCommon.HeaderColumn.Content.Color1 = System.Drawing.SystemColors.Highlight;
             this.dgvClass.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
@@ -938,9 +980,9 @@
             this.panel1.Controls.Add(this.btnselect);
             this.panel1.Controls.Add(this.label17);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 340);
+            this.panel1.Location = new System.Drawing.Point(0, 300);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(708, 277);
+            this.panel1.Size = new System.Drawing.Size(708, 317);
             this.panel1.TabIndex = 297;
             // 
             // panel2
@@ -951,40 +993,90 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(708, 340);
+            this.panel2.Size = new System.Drawing.Size(708, 300);
             this.panel2.TabIndex = 298;
             // 
-            // lnklblUploadMoviePoster
+            // panel3
             // 
-            this.lnklblUploadMoviePoster.ActiveLinkColor = System.Drawing.Color.White;
-            this.lnklblUploadMoviePoster.AutoSize = true;
-            this.lnklblUploadMoviePoster.BackColor = System.Drawing.Color.Transparent;
-            this.lnklblUploadMoviePoster.ForeColor = System.Drawing.Color.White;
-            this.lnklblUploadMoviePoster.LinkColor = System.Drawing.Color.White;
-            this.lnklblUploadMoviePoster.Location = new System.Drawing.Point(284, 129);
-            this.lnklblUploadMoviePoster.Name = "lnklblUploadMoviePoster";
-            this.lnklblUploadMoviePoster.Size = new System.Drawing.Size(106, 13);
-            this.lnklblUploadMoviePoster.TabIndex = 9;
-            this.lnklblUploadMoviePoster.TabStop = true;
-            this.lnklblUploadMoviePoster.Text = "Upload Movie Poster";
-            this.lnklblUploadMoviePoster.Visible = false;
-            this.lnklblUploadMoviePoster.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblUploadMoviePoster_LinkClicked);
-            this.lnklblUploadMoviePoster.VisibleChanged += new System.EventHandler(this.lnklblUploadMoviePoster_VisibleChanged);
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Controls.Add(this.nudForeignRate);
+            this.panel3.Controls.Add(this.nudLocalRate);
+            this.panel3.Controls.Add(this.radioBtnForeign);
+            this.panel3.Controls.Add(this.radioBtnLocal);
+            this.panel3.Location = new System.Drawing.Point(0, 130);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(224, 56);
+            this.panel3.TabIndex = 292;
             // 
-            // lnklblViewPhoto
+            // radioBtnLocal
             // 
-            this.lnklblViewPhoto.ActiveLinkColor = System.Drawing.Color.White;
-            this.lnklblViewPhoto.AutoSize = true;
-            this.lnklblViewPhoto.BackColor = System.Drawing.Color.Transparent;
-            this.lnklblViewPhoto.ForeColor = System.Drawing.Color.White;
-            this.lnklblViewPhoto.LinkColor = System.Drawing.Color.White;
-            this.lnklblViewPhoto.Location = new System.Drawing.Point(400, 129);
-            this.lnklblViewPhoto.Name = "lnklblViewPhoto";
-            this.lnklblViewPhoto.Size = new System.Drawing.Size(61, 13);
-            this.lnklblViewPhoto.TabIndex = 291;
-            this.lnklblViewPhoto.TabStop = true;
-            this.lnklblViewPhoto.Text = "View Photo";
-            this.lnklblViewPhoto.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblViewPhoto_LinkClicked);
+            this.radioBtnLocal.AutoSize = true;
+            this.radioBtnLocal.Checked = true;
+            this.radioBtnLocal.ForeColor = System.Drawing.Color.White;
+            this.radioBtnLocal.Location = new System.Drawing.Point(64, 4);
+            this.radioBtnLocal.Name = "radioBtnLocal";
+            this.radioBtnLocal.Size = new System.Drawing.Size(51, 17);
+            this.radioBtnLocal.TabIndex = 0;
+            this.radioBtnLocal.TabStop = true;
+            this.radioBtnLocal.Text = "Local";
+            this.radioBtnLocal.UseVisualStyleBackColor = true;
+            this.radioBtnLocal.CheckedChanged += new System.EventHandler(this.radioBtnLocal_CheckedChanged);
+            // 
+            // radioBtnForeign
+            // 
+            this.radioBtnForeign.AutoSize = true;
+            this.radioBtnForeign.ForeColor = System.Drawing.Color.White;
+            this.radioBtnForeign.Location = new System.Drawing.Point(64, 27);
+            this.radioBtnForeign.Name = "radioBtnForeign";
+            this.radioBtnForeign.Size = new System.Drawing.Size(60, 17);
+            this.radioBtnForeign.TabIndex = 1;
+            this.radioBtnForeign.Text = "Foreign";
+            this.radioBtnForeign.UseVisualStyleBackColor = true;
+            this.radioBtnForeign.CheckedChanged += new System.EventHandler(this.radioBtnForeign_CheckedChanged);
+            // 
+            // nudLocalRate
+            // 
+            this.nudLocalRate.DecimalPlaces = 4;
+            this.nudLocalRate.Location = new System.Drawing.Point(140, 4);
+            this.nudLocalRate.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudLocalRate.Name = "nudLocalRate";
+            this.nudLocalRate.Size = new System.Drawing.Size(64, 20);
+            this.nudLocalRate.TabIndex = 339;
+            this.nudLocalRate.ValueChanged += new System.EventHandler(this.nudLocalRate_ValueChanged);
+            this.nudLocalRate.EnabledChanged += new System.EventHandler(this.nudLocalRate_EnabledChanged);
+            // 
+            // nudForeignRate
+            // 
+            this.nudForeignRate.DecimalPlaces = 4;
+            this.nudForeignRate.Enabled = false;
+            this.nudForeignRate.Location = new System.Drawing.Point(140, 27);
+            this.nudForeignRate.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudForeignRate.Name = "nudForeignRate";
+            this.nudForeignRate.Size = new System.Drawing.Size(64, 20);
+            this.nudForeignRate.TabIndex = 340;
+            this.nudForeignRate.ValueChanged += new System.EventHandler(this.nudForeignRate_ValueChanged);
+            this.nudForeignRate.EnabledChanged += new System.EventHandler(this.nudForeignRate_EnabledChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(5, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(43, 13);
+            this.label14.TabIndex = 341;
+            this.label14.Text = "Am Tax";
             // 
             // frmMovieList
             // 
@@ -1020,6 +1112,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLocalRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudForeignRate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1077,5 +1173,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.LinkLabel lnklblUploadMoviePoster;
         private System.Windows.Forms.LinkLabel lnklblViewPhoto;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton radioBtnLocal;
+        private System.Windows.Forms.RadioButton radioBtnForeign;
+        private System.Windows.Forms.NumericUpDown nudLocalRate;
+        private System.Windows.Forms.NumericUpDown nudForeignRate;
+        internal System.Windows.Forms.Label label14;
     }
 }

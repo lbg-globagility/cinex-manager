@@ -1,0 +1,7 @@
+# 3:15 PM 7/15/2025
+
+ALTER TABLE `movies`
+	ADD COLUMN `is_foreign` TINYINT NOT NULL DEFAULT '0' AFTER `photo_name`;
+
+ALTER TABLE `movies`
+	ADD COLUMN `amusement_tax_rate` DECIMAL(20,6) NOT NULL DEFAULT 0 AFTER `is_foreign`;
