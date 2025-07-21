@@ -694,6 +694,7 @@
             this.nudAmusementTax.Name = "nudAmusementTax";
             this.nudAmusementTax.Size = new System.Drawing.Size(64, 20);
             this.nudAmusementTax.TabIndex = 338;
+            this.nudAmusementTax.Visible = false;
             // 
             // lbltotal
             // 
