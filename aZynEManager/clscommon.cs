@@ -1937,8 +1937,8 @@ namespace aZynEManager
                         if (boolprodshare)//DISREGARD production share
                         {
                             finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date//8.1.2018 edit from null
-                            finalsqry.Append(String.Format("{0},", "NULL"));//share
-                            finalsqry.Append(String.Format("{0},", "NULL"));//share amount
+                            finalsqry.Append(String.Format("{0},", 0));//share
+                            finalsqry.Append(String.Format("{0},", 0));//share amount
                         }
                         else
                         {
@@ -1953,8 +1953,8 @@ namespace aZynEManager
                             else//added 8.1.2018
                             {//added 8.1.2018
                                 finalsqry.Append(String.Format("'{0:yyyy/MM/dd}',", effdate));//effective date ////added 8.1.2018 //edit from null
-                                finalsqry.Append(String.Format("{0},", "NULL"));//share //added 8.1.2018
-                                finalsqry.Append(String.Format("{0},", "NULL"));//share amount //added 8.1.2018
+                                finalsqry.Append(String.Format("{0},", 0));//share //added 8.1.2018
+                                finalsqry.Append(String.Format("{0},", 0));//share amount //added 8.1.2018
                             }//added 8.1.2018
                         }
                         
