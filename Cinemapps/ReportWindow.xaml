@@ -715,9 +715,9 @@
                         
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Start Date"/>
-                            <DatePicker x:Name="RP28StartDate" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="RP28StartDate_SelectedDateChanged" />
+                            <DatePicker x:Name="RP28StartDate" SelectedDate="{x:Static sys:DateTime.Now}" />
                             <Label Content="End Date"/>
-                            <DatePicker x:Name="RP28EndDate" SelectedDate="{x:Static sys:DateTime.Now}" SelectedDateChanged="RP28EndDate_SelectedDateChanged" />
+                            <DatePicker x:Name="RP28EndDate" SelectedDate="{x:Static sys:DateTime.Now}" />
 
                             <Label Content="Cinema"/>
                             <ComboBox Name="RP28Cinema"

@@ -250,6 +250,11 @@ namespace Cinemapps
             //set default value for presentation only
             //RP01Teller.SelectedValue = "CHA";
             //RP01StartDate.SelectedDate = new DateTime(2006, 12, 1);
+
+
+            RP28EndDate.SelectedDateChanged += new EventHandler<SelectionChangedEventArgs>(this.RP28EndDate_SelectedDateChanged);
+
+            RP28StartDate.SelectedDateChanged += new EventHandler<SelectionChangedEventArgs>(this.RP28StartDate_SelectedDateChanged);
         }
 
         private void PrintRP02_Click(object sender, RoutedEventArgs e)

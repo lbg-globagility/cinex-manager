@@ -26,6 +26,8 @@ namespace Cinex.Core.Entities
 
         [Column("status")]
         public int? Status { get; set; }
+
+        public DateTime? Date { get; set; }
     }
 
     public partial class Ticket

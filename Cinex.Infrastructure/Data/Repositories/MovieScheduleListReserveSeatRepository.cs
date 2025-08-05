@@ -41,11 +41,10 @@ namespace Cinex.Infrastructure.Data.Repositories
             .ToListAsync();
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByDateRangeAsync(DateTime start, DateTime end) =>
-            await Task.FromResult(BaseQuery
-                .AsEnumerable()
-                .Where(t => t.DateTime.Value.Date >= start)
-                .Where(t => t.DateTime.Value.Date <= end)
-                .ToList());
+            await BaseQuery
+                .Where(t => t.Ticket.Date >= start)
+                .Where(t => t.Ticket.Date <= end)
+                .ToListAsync();
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByCompositeParamsAsync(
             DateTime start,
