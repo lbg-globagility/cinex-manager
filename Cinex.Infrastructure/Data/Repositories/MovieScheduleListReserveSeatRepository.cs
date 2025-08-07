@@ -42,8 +42,8 @@ namespace Cinex.Infrastructure.Data.Repositories
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByDateRangeAsync(DateTime start, DateTime end) =>
             await BaseQuery
-                .Where(t => t.Ticket.Date >= start)
-                .Where(t => t.Ticket.Date <= end)
+                .Where(t => t.MovieScheduleList.MovieSchedule.Date >= start)
+                .Where(t => t.MovieScheduleList.MovieSchedule.Date <= end)
                 .ToListAsync();
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByCompositeParamsAsync(
@@ -54,26 +54,17 @@ namespace Cinex.Infrastructure.Data.Repositories
             string[] terminals = null,
             int[] patronIds = null)
         {
-            var query = BaseQuery
-                .AsEnumerable()
-                .Where(t => t.DateTime.Value.Date >= start)
-                .Where(t => t.DateTime.Value.Date <= end);
+            var query = (await BaseQuery
+                .Where(t => t.MovieScheduleList.MovieSchedule.Date >= start)
+                .Where(t => t.MovieScheduleList.MovieSchedule.Date <= end)
+                    .ToListAsync())
+                .Where(t => cinemaIds == null ? true : cinemaIds.Contains(t.CinemaId))
+                .Where(t => usernames == null ? true : usernames.Contains(t.Username))
+                .Where(t => terminals == null ? true : terminals.Contains(t.TerminalName))
+                .Where(t => patronIds == null ? true : patronIds.Contains(t.PatronPriceId))
+                .ToList();
 
-            if ((cinemaIds?.Any() ?? false))
-                query = query.Where(t => cinemaIds.Contains(t.CinemaId));
-
-            if ((usernames?.Any() ?? false))
-                query = query.Where(t => usernames.Contains(t.Username));
-
-            if ((terminals?.Any() ?? false))
-                query = query.Where(t => terminals.Contains(t.TerminalName));
-
-            if ((patronIds?.Any() ?? false))
-                query = query.Where(t => patronIds.Contains(t.PatronPriceId));
-
-            return await Task.FromResult(query
-                .AsEnumerable()
-                .ToList());
+            return query;
         }
     }
 }

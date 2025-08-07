@@ -69,8 +69,6 @@ namespace Cinex.Core.Entities
 
         public DateTime? DateTime => Ticket?.DateTime;
 
-        public DateTime? Date => Ticket?.Date;
-
         public int CinemaId => MovieScheduleList?.MovieSchedule?.CinemaId ?? 0;
 
         public string CinemaName => MovieScheduleList?.MovieSchedule?.Cinema?.Name;

@@ -1,2 +1,0 @@
-ALTER TABLE `ticket`
-	ADD COLUMN `date` DATE NULL DEFAULT NULL AFTER `ticket_datetime`;
