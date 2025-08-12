@@ -41,8 +41,8 @@ mslrs.surcharge_price
 
 FROM movies_schedule_list_reserved_seat mslrs
 INNER JOIN movies_schedule_list msl ON msl.id=mslrs.movies_schedule_list_id
-INNER JOIN movies_schedule ms ON ms.id=msl.movies_schedule_id AND DATE(ms.movie_date)=_date #STR_TO_DATE('11/20/2024', '%c/%e/%Y')
-INNER JOIN ticket t ON t.id=mslrs.ticket_id
+INNER JOIN movies_schedule ms ON ms.id=msl.movies_schedule_id #AND DATE(ms.movie_date)=_date #STR_TO_DATE('11/20/2024', '%c/%e/%Y')
+INNER JOIN ticket t ON t.id=mslrs.ticket_id AND DATE(t.ticket_datetime)=_date AND DATE(msl.start_time) >= DATE(t.ticket_datetime)
 INNER JOIN users u ON u.id=t.user_id AND u.userid IN (_userId)
 
 INNER JOIN cinema_seat cs ON cs.id=mslrs.cinema_seat_id
