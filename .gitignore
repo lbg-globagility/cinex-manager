@@ -225,3 +225,8 @@ System.Windows.Forms.Calendar/bin/Debug
 packages/System.ComponentModel.Annotations*
 System.Windows.Forms.Calendar/bin/Debug*
 Cinemapps/bin/Debug/reports/*.xml
+Cinemapps/docs*
+packages/AutoMapper*
+packages/Microsoft.Bcl*
+packages/MySql.Data*
+packages/AutoMapper*
