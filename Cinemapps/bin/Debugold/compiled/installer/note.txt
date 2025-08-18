@@ -1,6 +1,0 @@
-1. install the vcredist_x86.exe
-2. install mysql-connector-odbc-5.3.4-win32.msi
-3. create "127.0.0.1" @ C:/Windows/SysWOW64/odbcad32.exe
-    using mysql/connector ODBC
-4. unzip file Cinemapps64bittested.zip
-5. test application
