@@ -6,16 +6,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP PROCEDURE IF EXISTS `rp01`;
+DROP PROCEDURE IF EXISTS `rp27`;
 DELIMITER //
-CREATE PROCEDURE `rp01`(
+CREATE PROCEDURE `rp27`(
 	IN `_date` DATE,
-	IN `_userId` TEXT
+	IN `_cinemaId` INT,
+	IN `_movieId` INT,
+	IN `_isWithUtilization` TINYINT,
+	IN `_isExcelFormat` TINYINT
 )
 BEGIN
 
-DROP TEMPORARY TABLE IF EXISTS `tbl_rp01`;
-CREATE TEMPORARY TABLE IF NOT EXISTS `tbl_rp01`
+DROP TEMPORARY TABLE IF EXISTS `tbl_rp27`;
+CREATE TEMPORARY TABLE IF NOT EXISTS `tbl_rp27`
 SELECT
 
 u.id `user`,
@@ -38,22 +41,17 @@ IFNULL(ps.FoodBundleTotal, 0) `FOOD`,
 p.id `PatronId`,
 c.in_order `CinemaOrdinal`,
 mslrs.surcharge_price,
+m.title `MovieTitle`,
 msl.start_time,
+msl.end_time,
 ms.cinema_id
 
 FROM movies_schedule_list_reserved_seat mslrs
 INNER JOIN movies_schedule_list msl ON msl.id=mslrs.movies_schedule_list_id
-
-#INNER JOIN movies_schedule ms ON ms.id=msl.movies_schedule_id AND DATE(ms.movie_date)=_date #STR_TO_DATE('11/20/2024', '%c/%e/%Y')
-#INNER JOIN ticket t ON t.id=mslrs.ticket_id
-
-#INNER JOIN movies_schedule ms ON ms.id=msl.movies_schedule_id AND DATE(ms.movie_date) > _date #STR_TO_DATE('11/20/2024', '%c/%e/%Y')
-#INNER JOIN ticket t ON t.id=mslrs.ticket_id AND DATE(t.ticket_datetime) = _date
-
 INNER JOIN movies_schedule ms ON ms.id=msl.movies_schedule_id #AND DATE(ms.movie_date)=_date #STR_TO_DATE('11/20/2024', '%c/%e/%Y')
-INNER JOIN ticket t ON t.id=mslrs.ticket_id AND DATE(t.ticket_datetime)=_date AND DATE(msl.start_time) >= DATE(t.ticket_datetime)
-
-INNER JOIN users u ON u.id=t.user_id AND u.userid IN (_userId)
+INNER JOIN movies m ON m.id=ms.movie_id
+INNER JOIN ticket t ON t.id=mslrs.ticket_id AND DATE(t.ticket_datetime)=_date AND DATE(msl.start_time) > DATE(t.ticket_datetime)
+INNER JOIN users u ON u.id=t.user_id #AND u.userid IN (_userId)
 
 INNER JOIN cinema_seat cs ON cs.id=mslrs.cinema_seat_id
 INNER JOIN cinema c ON c.id=cs.cinema_id
@@ -76,53 +74,49 @@ LEFT JOIN (SELECT
 #LEFT JOIN surcharge_tbl sur ON sur.details='SURCHARGE' AND sur.`code`='SCHARGE' AND p.with_surcharge=TRUE #AND IFNULL(ps.`SurchargeTotal`, 0) > 0
 
 INNER JOIN config_table ct ON ct.system_code='001'
-INNER JOIN report r ON r.id=1
+INNER JOIN report r ON r.id=27
 
 WHERE mslrs.`status`=1
 ;
 
+IF _isExcelFormat THEN
+		
+	SELECT
+	`PATRON` `Patron`,
+	COUNT(i.`QTY`) `Qty`,
+	`PRICE` `Price`,
+	SUM(i.`TOTALSALES`) `Sales`,
+	`start_time` `StartTime`,
+	`end_time` `EndTime`,
+	`system_value` `SystemVal`,
+	`reportname` `ReportName`,
+	`CINEMA` `CinemaName`,
+	`MovieTitle` `Title`
+	FROM `tbl_rp27` i
+	GROUP BY DATE(i.`start_time`), i.`cinema_id`, i.`PatronId`
+	ORDER BY i.CinemaOrdinal, i.`code`
+	;
 
+ELSE
+		
+	SELECT
+	`PATRON`,
+	COUNT(i.`QTY`) `QTY`,
+	`PRICE`,
+	SUM(i.`TOTALSALES`) `SALES`,
+	`start_time` START_TIME,
+	`end_time` END_TIME,
+	`system_value` `SYSTEM_VAL`,
+	`reportname` `REPORT_NAME`,
+	`CINEMA` `CINEMA_NAME`,
+	`MovieTitle` `TITLE`,
+	`ticket_datetime` `Date(j.ticket_datetime)`
+	FROM `tbl_rp27` i
+	GROUP BY DATE(i.`start_time`), i.`cinema_id`, i.`PatronId`
+	ORDER BY i.CinemaOrdinal, i.`code`
+	;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SELECT
-
-`user`,
-`code`,
-`PATRON`,
-`CINEMA`,
-`PRICE`,
-COUNT(i.`QTY`) `QTY`,
-SUM(i.`TOTALSALES`) `TOTALSALES`,
-SUM(i.`TOTALORDINANCE`) `TOTALORDINANCE`,
-SUM(i.`TOTALSURCHARGE`) `TOTALSURCHARGE`,
-SUM(i.`GRANDTOTAL`) `GRANDTOTAL`,
-`movie_date`,
-`ticket_datetime`,
-`userid`,
-`system_value`,
-`reportname`,
-#(COUNT(i.`QTY`) * `FOOD`) `FOOD`,
-SUM(i.`FOOD`) `FOOD`,
-`PatronId`,
-`CinemaOrdinal`
-
-FROM `tbl_rp01` i
-GROUP BY DATE(i.`start_time`), i.`cinema_id`, i.`PatronId`
-ORDER BY i.CinemaOrdinal, i.`code`
-;
+END IF;
 
 END//
 DELIMITER ;

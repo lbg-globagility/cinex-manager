@@ -1,0 +1,3 @@
+SET @_id=(SElECT id FROM `report` WHERE `code`='RP27' LIMIT 1);
+
+INSERT INTO `report` (`id`, `code`, `name`, `description`) VALUES (@_id, 'RP27', 'Advanced Booked Movie Report', 'Displays the advanced tickets sold for a movie.') ON DUPLICATE KEY UPDATE `name`='Advanced Booked Movie Report';

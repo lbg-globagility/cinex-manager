@@ -1,21 +1,23 @@
-﻿using System;
+﻿using aZynEManager.EF;
+using aZynEManager.Reports;
+using Cinex.Core.Entities;
+using CommonLibrary;
+//using Microsoft.Reporting.WinForms;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-//using Microsoft.Reporting.WinForms;
-using MySql.Data.MySqlClient;
-using System.Collections;
 using System.Drawing.Printing;
 using System.IO;
-using System.Xml;
-using System.Data.Odbc;
-using aZynEManager.EF;
-using Cinex.Core.Entities;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace aZynEManager
 {
@@ -28,7 +30,7 @@ namespace aZynEManager
         public int _intCinemaID = -1;
         public DateTime _dtStart = new DateTime();
         public DateTime _dtEnd = new DateTime();
-       
+
         public string _strDistributor = String.Empty;
         public static ArrayList queryList = new ArrayList();
         //melvin 2014 10-17
@@ -74,7 +76,7 @@ namespace aZynEManager
         public int setMovieID
         {
             set { _intMovieID = value; }
-        } 
+        }
         // RMB 11-10-2014 end 
 
         //JMBC 10152014
@@ -92,7 +94,7 @@ namespace aZynEManager
         {
             set { strCinema = value; }
         }
-                
+
         public int setPOS//added 10.3.2018
         {
             set { _posid = value; }
@@ -1863,22 +1865,27 @@ namespace aZynEManager
                             sqry.Append("AND date(j.ticket_datetime) < date(d.start_time) ");
                             sqry.Append("GROUP BY date(j.ticket_datetime), c.name");
                         }
+
+                        sqry.Clear();
+                        sqry.Append($"CALL `rp27`(STR_TO_DATE('{_dtStart.Date:M/d/yyyy}', '%c/%e/%Y'), {_intCinemaID}, {_intMovieID}, {_intWithUtil}, FALSE);");
+
                         break;
 
                     case "RP28":
                         sqry.Clear();
-                        
+
                         var queryRP28 = $"CALL `rp28`(STR_TO_DATE('{_dtStart:M/d/yyyy hh:mm:ss tt}', '%c/%e/%Y %h:%i:%s %p'), STR_TO_DATE('{_dtEnd:M/d/yyyy hh:mm:ss tt}', '%c/%e/%Y %h:%i:%s %p'), '{string.Join(",", _cinemaIds)}', '{string.Join(",", _usernames)}', '{string.Join(",", _terminals)}', '{string.Join(",", _patronIds)}');";
 
                         sqry.Append(queryRP28);
 
                         break;
                 }
+
                 if ((reportcode != "RP25") && (reportcode != "RP072"))
                 {
                     Console.WriteLine(Application.ExecutablePath);
                     xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + ".xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
-                    if((reportcode == "RP08") && (_intWithUtil == 1))
+                    if ((reportcode == "RP08") && (_intWithUtil == 1))
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
                     else if ((reportcode == "RP20") && (_intWithQtyBreakdown == 1))
                         xmlfile = GetXmlString(Path.GetDirectoryName(Application.ExecutablePath) + @"\reports\" + reportcode + "-2.xml", sqry.ToString(), m_frmM._odbcconnection, _intCinemaID.ToString(), reportcode, _dtStart, _dtEnd, m_clsconfig);
@@ -1920,7 +1927,7 @@ namespace aZynEManager
                 gttoday = clscom.calculateTotalCollection(sConnString, _dtStart);
                 gtyesterday = clscom.calculateTotalCollection(sConnString, _dtStart.AddDays(-1));
             }
-            else if(code == "RP22")
+            else if (code == "RP22")
             {
                 companyname = clscon.CinemaName;
                 companyaddress = clscon.CinemaAddress2NoNewLine;
@@ -1946,15 +1953,15 @@ namespace aZynEManager
                 XmlNode node = xmlDoc.DocumentElement;
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
-                    
+
                     int flag = 0;
                     foreach (XmlNode node2 in node1.ChildNodes)
                     {
 
-                        
+
                         if (node2.Name == "DataSet")//CommandText
                         {
-                            
+
                             foreach (XmlNode node3 in node2.ChildNodes)
                             {
                                 if (node3.Name == "Query")
@@ -1981,11 +1988,12 @@ namespace aZynEManager
                                 
                             }
 
-                            else*/ if (code == "AUDIT")
+                            else*/
+                            if (code == "AUDIT")
                             {
                                 sQry = " Select '" + _dtStart.ToShortDateString() + "' as date_from, '" + _dtEnd.AddDays(-1).ToShortDateString() + "' as date_to;";
                             }
-                            
+
                             flag++;
                         }
 
@@ -2006,7 +2014,7 @@ namespace aZynEManager
                             }
                         }
 
-             
+
                     }
                     //RMB 11.10.2014 added start for insertion of query from date to date (txtfrdatetodate)
                     if (node1.Name == "Body")
@@ -2036,9 +2044,9 @@ namespace aZynEManager
                                                                     if (node7.Name == "TableCells")
                                                                     {
                                                                         foreach (XmlNode node8 in node7.ChildNodes)
-                                                                                                 {
+                                                                        {
                                                                             if (node8.Name == "TableCell")
-                                                                                                     {
+                                                                            {
                                                                                 foreach (XmlNode node9 in node8.ChildNodes)
                                                                                 {
                                                                                     if (node9.Name == "ReportItems")
@@ -2210,7 +2218,7 @@ namespace aZynEManager
 
                 XmlNodeList nodes2 = xmlDoc.SelectNodes("//a:Report/a:Body/a:ReportItems/a:List/a:ReportItems/a:Textbox[@Name='txtchangefund']/a:Value", nsmgr);
                 foreach (XmlNode str in nodes2)
-                { 
+                {
                     str.InnerText = chngefund.ToString();
                 }
 
@@ -2421,10 +2429,10 @@ namespace aZynEManager
         //melvin 10-24-2014
         private void frmReport_Resize(object sender, EventArgs e)
         {
-                rdlViewer1.Width = this.Width - 100;
-                rdlViewer1.Height = this.Height - 100;
-                rdlViewer1.Left = 50;
-                rdlViewer1.Top = 70;
+            rdlViewer1.Width = this.Width - 100;
+            rdlViewer1.Height = this.Height - 100;
+            rdlViewer1.Left = 50;
+            rdlViewer1.Top = 70;
         }
 
         private void rdlViewer1_Click(object sender, EventArgs e)

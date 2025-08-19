@@ -1,25 +1,16 @@
 ﻿using aZynEManager;
 using aZynEManager.EF;
-using CommonLibrary;
 using ExcelReports;
 using MahApps.Metro.Controls;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Cinemapps
 {
@@ -82,21 +73,21 @@ namespace Cinemapps
 
         private void PrintRP01_Click(object sender, RoutedEventArgs e)
         {
-/*            try
-            {
-                int intUserId = 0;
-                if (RP01Teller.SelectedValue != null)
-                {
-                    Teller teller = (Teller) RP01Teller.SelectedValue;
-                    intUserId = teller.UserId;
-                }
-                RP01 report = new RP01(intUserId, RP01StartDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }*/
+            /*            try
+                        {
+                            int intUserId = 0;
+                            if (RP01Teller.SelectedValue != null)
+                            {
+                                Teller teller = (Teller) RP01Teller.SelectedValue;
+                                intUserId = teller.UserId;
+                            }
+                            RP01 report = new RP01(intUserId, RP01StartDate.SelectedDate);
+                            report.PreviewReport();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message.ToString());
+                        }*/
 
             //JMBC 20141016
             using (frmReport frmreport = new frmReport())
@@ -259,15 +250,15 @@ namespace Cinemapps
 
         private void PrintRP02_Click(object sender, RoutedEventArgs e)
         {
-            
-                //using (frmReport frmreport = new frmReport())
-                //{
-                //    frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
-                //    frmreport._dtEnd = (DateTime)RP02EndDate.SelectedDate;
-                //    frmreport.frmInit(main, main.m_clscom, "RP02");
-                //    frmreport.ShowDialog();
-                //    frmreport.Dispose();
-                //}
+
+            //using (frmReport frmreport = new frmReport())
+            //{
+            //    frmreport.setDate = (DateTime)RP02StartDate.SelectedDate;
+            //    frmreport._dtEnd = (DateTime)RP02EndDate.SelectedDate;
+            //    frmreport.frmInit(main, main.m_clscom, "RP02");
+            //    frmreport.ShowDialog();
+            //    frmreport.Dispose();
+            //}
 
             try
             {
@@ -299,7 +290,7 @@ namespace Cinemapps
                 frmreport.ShowDialog();
                 frmreport.Dispose();
             }
-    
+
         }
 
         private void PrintRP03_Click(object sender, RoutedEventArgs e)
@@ -363,21 +354,21 @@ namespace Cinemapps
 
         private void PrintRP05_Click(object sender, RoutedEventArgs e)
         {
-           /* try
-            {
-                int intDistributorId = 0;
-                if (RP05Distributor.SelectedValue != null)
-                {
-                    Distributor distributor = (Distributor)RP05Distributor.SelectedValue;
-                    intDistributorId = distributor.Id;
-                }
-                RP05 report = new RP05(intDistributorId, RP05StartDate.SelectedDate);
-                report.PreviewReport();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }*/
+            /* try
+             {
+                 int intDistributorId = 0;
+                 if (RP05Distributor.SelectedValue != null)
+                 {
+                     Distributor distributor = (Distributor)RP05Distributor.SelectedValue;
+                     intDistributorId = distributor.Id;
+                 }
+                 RP05 report = new RP05(intDistributorId, RP05StartDate.SelectedDate);
+                 report.PreviewReport();
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.Message.ToString());
+             }*/
             //melvin 11/7/2014
             try
             {
@@ -400,7 +391,7 @@ namespace Cinemapps
 
         private void PreviewRP06_Click(object sender, RoutedEventArgs e)
         {
-            
+
             try
             {
                 //using (frmRP06 frmreport = new frmRP06())
@@ -429,7 +420,8 @@ namespace Cinemapps
                     frmreport.Dispose();
                 }
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message.ToString());
             }
         }
@@ -598,7 +590,7 @@ namespace Cinemapps
 
         private void RP02StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void RP09StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -926,7 +918,7 @@ namespace Cinemapps
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-        
+
 
         //ADDED 12.11.2014
         private void RP05StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -1774,7 +1766,7 @@ namespace Cinemapps
 
         private void PreviewRP25_Click(object sender, RoutedEventArgs e)
         {
-            if(RP25POS.Text.Trim() == "")
+            if (RP25POS.Text.Trim() == "")
             {
                 MessageBox.Show("Please select a POS terminal.");
                 RP25POS.Focus();
@@ -1833,7 +1825,7 @@ namespace Cinemapps
                 ((TextBox)sender).Text = "0";
             else
             {
-                int inttxt = Convert .ToInt32((((TextBox)sender).Text).ToString());
+                int inttxt = Convert.ToInt32((((TextBox)sender).Text).ToString());
                 //MessageBox.Show(inttxt.ToString());
                 ((TextBox)sender).Text = inttxt.ToString();
             }
@@ -1942,7 +1934,7 @@ namespace Cinemapps
             {
                 int intCinemaId = 0;
                 int intMovieId = 0;
-                int intWithUtil = 0; 
+                int intWithUtil = 0;
                 if (RP27Cinema.SelectedValue != null)
                 {
                     if (RP27Cinema.SelectedValue is Cinema)
@@ -1979,6 +1971,39 @@ namespace Cinemapps
                 MessageBox.Show(ex.Message.ToString());
             }
 
+        }
+
+        private void ExcelRP27_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                using (frmReport frmreport = new frmReport())
+                {
+                    frmreport.setDate = (DateTime)RP27StartDate.SelectedDate;
+                    frmreport._intCinemaID = ((Cinema)RP27Cinema.SelectedValue)?.Id ?? 0;
+                    frmreport._intMovieID = ((Movie)RP27Movie.SelectedValue)?.Id ?? 0;
+                    frmreport.setWithUtilValue = (RP27CheckBox.IsChecked ?? false) ? 1 : 0;
+                    frmreport.frmInit(main, main.m_clscom, "RP27");
+                    frmreport.rdlViewer1.SourceRdl = frmreport.xmlfile;
+                    frmreport.rdlViewer1.Rebuild();
+                    if (!Directory.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp"))
+                        Directory.CreateDirectory(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp");
+                    string strfilenm = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\reports\temp\rp27." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
+                    frmreport.rdlViewer1.SaveAs(strfilenm, fyiReporting.RDL.OutputPresentationType.Excel);
+                    frmreport.Dispose();
+                    try
+                    {
+                        Process.Start(strfilenm);
+                    }
+                    catch (Exception) { }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void RP27StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -2170,7 +2195,7 @@ namespace Cinemapps
                 string strfilenm = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + $"\\reports\\temp\\{reportName}." + DateTime.Now.TimeOfDay.ToString("hhmmss") + ".xlsx";
 
                 frmreport.rdlViewer1.SaveAs(strfilenm, fyiReporting.RDL.OutputPresentationType.Excel);
-                
+
                 frmreport.Dispose();
 
                 try
@@ -2186,7 +2211,9 @@ namespace Cinemapps
 
         private void RP28StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            RP28EndDate_SelectedDateChanged(sender, e);
+            RP28EndDate.SelectedDate = RP28StartDate?.SelectedDate;
+
+            //RP28EndDate_SelectedDateChanged(sender, e);
         }
 
         private async void RP28EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -2207,7 +2234,7 @@ namespace Cinemapps
                 .GroupBy(t => t.CinemaId)
                 .OrderBy(t => t.FirstOrDefault().CinemaName);
 
-            if(RP28Cinema != null)
+            if (RP28Cinema != null)
             {
                 RP28Cinema.Items?.Clear();
                 foreach (var item in groupedCinemas)
@@ -2221,7 +2248,7 @@ namespace Cinemapps
                 .GroupBy(t => t.Username)
                 .OrderBy(t => t.FirstOrDefault().Username);
 
-            if(RP28Teller != null)
+            if (RP28Teller != null)
             {
                 RP28Teller.Items?.Clear();
                 foreach (var item in groupedUsernames)
@@ -2234,7 +2261,7 @@ namespace Cinemapps
                 .GroupBy(t => t.TerminalName)
                 .OrderBy(t => t.FirstOrDefault().TerminalName);
 
-            if(RP28POS != null)
+            if (RP28POS != null)
             {
                 RP28POS.Items?.Clear();
                 foreach (var item in groupedTerminalNames)
@@ -2247,7 +2274,7 @@ namespace Cinemapps
                 .GroupBy(t => t.PatronPriceId)
                 .OrderBy(t => t.FirstOrDefault().PatronName);
 
-            if(RP28Patron != null)
+            if (RP28Patron != null)
             {
                 RP28Patron.Items?.Clear();
                 foreach (var item in groupedPatrons)
@@ -2259,12 +2286,12 @@ namespace Cinemapps
 
         private void RP28Cinema_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void RP28Teller_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void RP28POS_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -675,6 +675,7 @@
                          Visual="{StaticResource appbar_office_excel}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
+                    <Button Margin="6" x:Name="ExcelRP27" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="ExcelRP27_Click" Content="Excel"/>
                     <Button Margin="5" x:Name="PrintRP27" Height="20" DockPanel.Dock="Right" Width="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="PrintRP27_Click" Content="Print"/>
                     <StackPanel>
                         <TextBlock FontWeight="Bold"><Run Text="Advanved Booked Movie Report (RP27)"/></TextBlock>

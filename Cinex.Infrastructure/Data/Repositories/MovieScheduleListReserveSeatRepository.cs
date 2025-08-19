@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
 namespace Cinex.Infrastructure.Data.Repositories
@@ -15,7 +16,7 @@ namespace Cinex.Infrastructure.Data.Repositories
         {
         }
 
-        private IQueryable<MovieScheduleListReserveSeat> BaseQuery => _context
+        private IQueryable<MovieScheduleListReserveSeat> BaseQuery(DateTime? start = null, DateTime? end = null) => _context
             .MovieScheduleListReserveSeats
             .Include(t => t.MovieScheduleList)
                 .ThenInclude(t => t.MovieSchedule)
@@ -31,20 +32,19 @@ namespace Cinex.Infrastructure.Data.Repositories
             .Include(t => t.CinemaSeat)
             .Include(t => t.MovieScheduleListPatron)
                 .ThenInclude(t => t.Patron)
-            .AsNoTracking();
+            .AsNoTracking()
+            .Where(t => start==null ? true : t.MovieScheduleList.MovieSchedule.Date >= start)
+            .Where(t => end == null ? true : t.MovieScheduleList.MovieSchedule.Date <= end);
 
-        public override async Task<ICollection<MovieScheduleListReserveSeat>> GetAllAsync() => await BaseQuery
+        public override async Task<ICollection<MovieScheduleListReserveSeat>> GetAllAsync() => await BaseQuery()
             .ToListAsync();
 
-        public async Task<ICollection<MovieScheduleListReserveSeat>> GetBySessionIdAsync(string sessionId) => await BaseQuery
+        public async Task<ICollection<MovieScheduleListReserveSeat>> GetBySessionIdAsync(string sessionId) => await BaseQuery()
             .Where(t => t.Ticket.SessionId == sessionId)
             .ToListAsync();
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByDateRangeAsync(DateTime start, DateTime end) =>
-            await BaseQuery
-                .Where(t => t.MovieScheduleList.MovieSchedule.Date >= start)
-                .Where(t => t.MovieScheduleList.MovieSchedule.Date <= end)
-                .ToListAsync();
+            await BaseQuery(start: start, end: end).ToListAsync();
 
         public async Task<ICollection<MovieScheduleListReserveSeat>> GetByCompositeParamsAsync(
             DateTime start,
@@ -54,10 +54,7 @@ namespace Cinex.Infrastructure.Data.Repositories
             string[] terminals = null,
             int[] patronIds = null)
         {
-            var query = (await BaseQuery
-                .Where(t => t.MovieScheduleList.MovieSchedule.Date >= start)
-                .Where(t => t.MovieScheduleList.MovieSchedule.Date <= end)
-                    .ToListAsync())
+            var query = (await BaseQuery(start: start, end: end).ToListAsync())
                 .Where(t => cinemaIds == null ? true : cinemaIds.Contains(t.CinemaId))
                 .Where(t => usernames == null ? true : usernames.Contains(t.Username))
                 .Where(t => terminals == null ? true : terminals.Contains(t.TerminalName))
