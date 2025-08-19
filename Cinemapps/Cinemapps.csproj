@@ -88,9 +88,6 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
-    <Reference Include="ExcelReports">
-      <HintPath>..\ExcelReports\bin\x86\Debug\ExcelReports.dll</HintPath>
-    </Reference>
     <Reference Include="Google.Protobuf, Version=3.14.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.14.0\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -370,6 +367,10 @@
     <ProjectReference Include="..\EncryptUtilities\EncryptUtilities.csproj">
       <Project>{eb833d79-9d87-48ec-b396-79aace685253}</Project>
       <Name>EncryptUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcelReports\ExcelReports.csproj">
+      <Project>{ae661a37-f582-4390-9e06-900e276ced26}</Project>
+      <Name>ExcelReports</Name>
     </ProjectReference>
     <ProjectReference Include="..\RdlEngine\RdlEngine.csproj">
       <Project>{C97E91F4-B310-44E2-9B6C-96775395722D}</Project>
