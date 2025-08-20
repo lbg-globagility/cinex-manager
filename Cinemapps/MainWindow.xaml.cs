@@ -683,6 +683,7 @@ namespace Cinemapps
                     {
                         MessageBox.Show(messageBoxText: "No further updates are required at this time.", caption: title, button: MessageBoxButton.OK, icon: MessageBoxImage.Information);
                         await LoadHotKeyHelper();
+                        return;
                     }
 
                     foreach (var script in scripts)
