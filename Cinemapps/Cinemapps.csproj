@@ -360,6 +360,10 @@
       <Project>{45ed9171-2b07-40b2-9029-ef825ddf6758}</Project>
       <Name>Cinex.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cinex.WinForm\Cinex.WinForm.csproj">
+      <Project>{9B7F48D7-D210-48BA-A067-0FD249591599}</Project>
+      <Name>Cinex.WinForm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{3afcb573-4b60-40bb-9876-9bb69573e6e5}</Project>
       <Name>CommonLibrary</Name>

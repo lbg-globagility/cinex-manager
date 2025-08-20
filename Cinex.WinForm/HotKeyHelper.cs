@@ -51,11 +51,11 @@ namespace Cinex.WinForm
         /// The unique ID to receive hotkey messages
         /// </summary>
         int _idSeed;
+        private IntPtr _windowHandle;
 
         /// <summary>
         /// Handle to the window listening to hotkeys
         /// </summary>
-        private IntPtr _windowHandle;
 
         /// <summary>
         /// Remember what to do with the hot keys
@@ -74,11 +74,11 @@ namespace Cinex.WinForm
             _idSeed = (int)((DateTime.Now.Ticks % 0x60000000) + 0x10000000);
 
             // Set up the hook to listen for hot keys
-            _windowHandle = new WindowInteropHelper(handlerWindow).Handle;
-            if (_windowHandle == null)
-            {
+             var intPtr = new WindowInteropHelper(handlerWindow)?.Handle;
+            if (IsInvalid(handlerWindow))
                 throw new ApplicationException("Cannot find window handle. Try calling this on or after OnInitialized() or OnSourceInitialized()");
-            }
+
+            _windowHandle = intPtr.Value;
 
             var source = HwndSource.FromHwnd(_windowHandle);
             source.AddHook(HwndHook);
@@ -154,5 +154,13 @@ namespace Cinex.WinForm
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetActiveWindow();
+
+        public static bool IsInvalid(Window handlerWindow)
+        {
+            if (handlerWindow == null) return true;
+
+            var intPtr = new WindowInteropHelper(handlerWindow)?.Handle;
+            return (intPtr ?? IntPtr.Zero) == IntPtr.Zero;
+        }
     }
 }

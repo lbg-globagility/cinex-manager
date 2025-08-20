@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Cinemapps"
+        Loaded="frmMain_Loaded"
         Title="Cinex Manager" Height="380" Width="510" TitleCaps="False" Icon="/Cinemapps;component/cinema-manager-icon.ico" WindowStartupLocation="Manual" Top="10" MaxWidth="507" MaxHeight="380" Closing="MetroWindow_Closing">
 
     <Window.ContextMenu>

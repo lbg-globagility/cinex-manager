@@ -1,26 +1,23 @@
-﻿using System;
+﻿using Amellar.Common.EncryptUtilities;
+using aZynEManager;
+using Cinex.WinForm;
+using Cinex.WinForm.Data;
+using CommonLibrary;
+using MahApps.Metro.Controls;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MahApps.Metro.Controls;
-using aZynEManager;
 using System.Windows.Interop;
-using System.Windows.Forms;
-using System.Data;
-using System.Threading;
-using Amellar.Common.EncryptUtilities;
-using MySql.Data.MySqlClient;
 using System.Windows.Media.Animation;
-using System.Diagnostics;
 
 namespace Cinemapps
 {
@@ -45,6 +42,8 @@ namespace Cinemapps
         string mod4title = String.Empty;
         string mod4desc = String.Empty;
         bool canvasrun = false;
+        private HotKeyHelper _hotKeys;
+        private int _throwConfettiKeyId;
 
         public MainWindow()
         {
@@ -54,7 +53,7 @@ namespace Cinemapps
             UserName.Focus();
             UserName.TabIndex = 1;
             UserPassword.TabIndex = 2;
-            
+
             DescBorder.Visibility = System.Windows.Visibility.Visible;
 
             if (main.boolAppAtTest)
@@ -169,7 +168,7 @@ namespace Cinemapps
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "Missing User Name.";
                 messageWindow.ShowDialog();
-                
+
                 return;
             }
             else if (strPassword == string.Empty)
@@ -178,7 +177,7 @@ namespace Cinemapps
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.MessageText.Text = "Missing Password.";
                 messageWindow.ShowDialog();
-                
+
                 return;
             }
 
@@ -253,7 +252,7 @@ namespace Cinemapps
                                 messageWindow = new MessageWindow();
                                 messageWindow.MessageText.Text = "You have no access to this module.";
                                 messageWindow.ShowDialog();
-                                
+
                                 return;
                             }
 
@@ -307,9 +306,9 @@ namespace Cinemapps
                         StringBuilder strqry = new StringBuilder();
                         strqry.Append("insert into user_logs values(0,");
                         strqry.Append(String.Format("'{0}',", Environment.MachineName.ToString()));
-                        strqry.Append(String.Format("{0},",intid));
+                        strqry.Append(String.Format("{0},", intid));
                         strqry.Append(String.Format("'{0}',", strleveldesc));
-                        strqry.Append(String.Format("{0}","Now())"));
+                        strqry.Append(String.Format("{0}", "Now())"));
 
                         if (myconn.State == ConnectionState.Closed)
                             myconn.Open();
@@ -340,7 +339,7 @@ namespace Cinemapps
             }
             catch
             {
-                
+
                 if (myconn != null)
                 {
                     if (myconn.State == ConnectionState.Open)
@@ -357,7 +356,7 @@ namespace Cinemapps
         #region mousecontrol
         private void MovieTile_MouseOver(object sender, RoutedEventArgs e)
         {
-            TileTitle.Text =  mod1title;
+            TileTitle.Text = mod1title;
             TileDesc.Text = mod1desc;
         }
 
@@ -388,12 +387,12 @@ namespace Cinemapps
 
         private void MoviesTile_Click(object sender, RoutedEventArgs e)
         {
- 
+
 
             main.m_dtcontact = main.m_clscom.setDataTable("select * from people order by id asc", main._connection);
             main.m_dtdistributor = main.m_clscom.setDataTable("select * from distributor order by name asc", main._connection);
             main.m_dtrating = main.m_clscom.setDataTable("select * from mtrcb order by id asc", main._connection);
-            main.m_dtclassification = main.m_clscom.setDataTable("select * from classification order by description asc", main._connection );
+            main.m_dtclassification = main.m_clscom.setDataTable("select * from classification order by description asc", main._connection);
 
             using (frmMainMovie frmmovie = new frmMainMovie())
             {
@@ -445,7 +444,7 @@ namespace Cinemapps
             bool result = false;
             if (main._connection != null && main != null)
                 result = SystemLogout();
-            
+
             ////if logged out to the system
             if (result)
             {
@@ -645,6 +644,92 @@ namespace Cinemapps
         {
 
         }
+
+        private async void frmMain_Loaded(object sender, RoutedEventArgs e)
+        {
+            await LoadHotKeyHelper();
+        }
+
+        private Task LoadHotKeyHelper()
+        {
+            var active = HotKeyHelper.GetActiveWindow();
+
+            var windows = Application.Current.Windows.OfType<Window>();
+            var activeWindow = windows.FirstOrDefault(window => new WindowInteropHelper(window).Handle == active);
+
+            if (HotKeyHelper.IsInvalid(activeWindow)) return Task.FromResult(0);
+
+            _hotKeys = new HotKeyHelper(handlerWindow: activeWindow);
+
+            _throwConfettiKeyId = _hotKeys.ListenForHotKey(
+                Key.F5,
+                HotKeyModifiers.None,
+                async () =>
+                {
+                    _hotKeys.Dispose();
+
+                    async Task executeScript(string commandText)
+                    {
+                        var script = new MySqlScriptt(CommonUtility.ConnectionString);
+                        await script.ExecuteAsync(commandText);
+                    }
+                    ;
+
+                    var tasks = new List<Task>();
+                    var scripts = GetSqlUpdateScripts();
+                    var title = "Cinex Update";
+
+                    if (!(scripts?.Any() ?? false))
+                    {
+                        MessageBox.Show(messageBoxText: "No further updates are required at this time.", caption: title, button: MessageBoxButton.OK, icon: MessageBoxImage.Information);
+                        await LoadHotKeyHelper();
+                    }
+
+                    foreach (var script in scripts)
+                        tasks.Add(executeScript(script));
+
+                    if (tasks?.Any() ?? false) await Task.WhenAll(tasks)
+                        .ContinueWith(async (antecedent) => {
+                            if (antecedent.IsCompleted) MessageBox.Show(messageBoxText: "Update(s) successfully installed!", caption: title, button: MessageBoxButton.OK, icon: MessageBoxImage.Information);
+
+                            if (antecedent.IsFaulted) MessageBox.Show(messageBoxText: "Update(s) installation failed.", caption: title, button: MessageBoxButton.OK, icon: MessageBoxImage.Error);
+
+                            PruneSqlUpdateScripts();
+
+                            await LoadHotKeyHelper();
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                });
+
+            return Task.FromResult(0);
+        }
+
+        private void PruneSqlUpdateScripts()
+        {
+            var directoryPath = @".\UpdateScripts";
+
+            Directory.Delete(directoryPath, true);
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        private List<string> GetSqlUpdateScripts()
+        {
+            var directoryPath = @".\UpdateScripts";
+
+            var empty = Enumerable.Empty<string>().ToList();
+
+            if (Directory.Exists(directoryPath))
+            {
+                string[] files = Directory.GetFiles(directoryPath, "*.txt");
+
+                if (!(files?.Any() ?? false)) return empty;
+
+                return files
+                    .Select(f => File.ReadAllText(f))
+                    .ToList();
+            }
+
+            return empty;
+        }
     }
-    
+
 }
