@@ -1,13 +1,16 @@
 ﻿using aZynEManager;
 using aZynEManager.EF;
+using CommonLibrary;
 using ExcelReports;
 using MahApps.Metro.Controls;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -107,7 +110,7 @@ namespace Cinemapps
             }
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             RP01Teller.Items.Clear();
 
@@ -246,6 +249,8 @@ namespace Cinemapps
             RP28EndDate.SelectedDateChanged += new EventHandler<SelectionChangedEventArgs>(this.RP28EndDate_SelectedDateChanged);
 
             RP28StartDate.SelectedDateChanged += new EventHandler<SelectionChangedEventArgs>(this.RP28StartDate_SelectedDateChanged);
+            
+            await InitRP28UserInterface();
         }
 
         private void PrintRP02_Click(object sender, RoutedEventArgs e)
@@ -2585,6 +2590,33 @@ namespace Cinemapps
 
             public string Name { get; set; }
             public bool IsSelected { get; set; }
+        }
+
+        private async Task InitRP28UserInterface()
+        {
+            using (var cmd = new MySqlCommand("SELECT EXISTS(SELECT Id FROM report WHERE `code`='RP28' LIMIT 1) `Result`;", connection: new MySqlConnection(CommonUtility.ConnectionString)))
+            {
+                if (cmd.Connection.State != ConnectionState.Open) await cmd.Connection.OpenAsync();
+
+                using (var r = await cmd.ExecuteReaderAsync())
+                {
+                    while (r.Read())
+                    {
+                        var visiblity = r.GetInt32(0);
+
+                        var visibilityMap = new Dictionary<int, Visibility>()
+                        {
+                            { 0, Visibility.Hidden },
+                            { 1, Visibility.Visible }
+                        };
+
+                        if (visibilityMap.TryGetValue(visiblity, out var visibilityValue))
+                            ListViewItem28.Visibility = visibilityValue;
+                        else
+                            ListViewItem28.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
         }
     }
 }

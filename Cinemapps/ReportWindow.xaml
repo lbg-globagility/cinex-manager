@@ -697,7 +697,7 @@
                     </StackPanel>
                 </DockPanel>
             </ListViewItem>
-            <ListViewItem>
+            <ListViewItem x:Name="ListViewItem28">
                 <DockPanel Margin="4">
                     <Rectangle Width="20" Height="20" Margin="5"
             Fill="DarkBlue" DockPanel.Dock="Left">
