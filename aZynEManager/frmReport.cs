@@ -891,31 +891,11 @@ namespace aZynEManager
                     case "RP10":
                         if (_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, CONCAT_WS(' ', ii.`patron_name`, CAST(IF(COUNT(s.id)=0, NULL, CONCAT('[', GROUP_CONCAT(IF(s.id IS NULL, NULL, CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR))) SEPARATOR ', '), ']')) AS CHAR CHARACTER SET utf8)) `PatronNameAndSurcharge`, (ii.sales + IFNULL(SUM(s.amount_val) * ii.qty, 0)) `GrandTotalSales`, ii.*\r\nFROM (");
                         if (!_isShowSurcharge) sqry.Append($"SELECT GROUP_CONCAT(s.code) `SurchargeCodes`, GROUP_CONCAT(CAST(s.amount_val AS CHAR)) `SurchargeValues`, SUM(s.amount_val) `GrossSurcharge`, GROUP_CONCAT(CONCAT_WS(': ', s.code, CAST(s.amount_val AS CHAR)) SEPARATOR '\\n') `SurchargeText`, ii.`patron_name` `PatronNameAndSurcharge`, ii.sales `GrandTotalSales`, ii.*\r\nFROM (");
-                        sqry.Append("select e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price, ");
-                        sqry.Append("COUNT(a.cinema_seat_id) qty, SUM(a.base_price) sales, g.system_value report_header, h.name report_title ");
-                        sqry.Append(", e.in_order, a.id `PrimaryKey`, f.patron_id `PatronId`");
-                        sqry.Append("from movies_schedule_list_reserved_seat a, movies_schedule_list b, ");
-                        sqry.Append("movies_schedule c, patrons d, cinema e, movies_schedule_list_patron f, ");
-                        sqry.Append("config_table g, report h, movies i ");
-                        sqry.Append("where a.movies_schedule_list_id in (select distinct(bb.id) id from movies_schedule_list bb ");
-                        //RMB 12.11.2014 remarked
-                        //if (_dtStart == _dtEnd)
-                        //    sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtStart.AddDays(1)));
-                        //else
-                        //    sqry.Append(String.Format("where bb.start_time between '{0:yyyy/MM/dd}' and '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd));
-                        sqry.Append(String.Format("where bb.start_time >= '{0:yyyy/MM/dd}' and bb.start_time <= '{1:yyyy/MM/dd}' and bb.status = 1) ", _dtStart, _dtEnd.AddDays(1)));
-                        sqry.Append("AND a.movies_schedule_list_id = b.id ");
-                        sqry.Append("AND b.movies_schedule_id = c.id ");
-                        sqry.Append("AND a.patron_id = f.id ");
-                        sqry.Append("AND f.patron_id = d.id ");
-                        sqry.Append("AND c.cinema_id = e.id ");
-                        sqry.Append("AND c.movie_id = i.id ");
-                        sqry.Append("AND a.status = 1 ");
-                        sqry.Append("AND g.system_code = '001' ");
-                        sqry.Append("AND h.id = 10 ");
-                        sqry.Append("GROUP BY c.cinema_id, i.id, f.patron_id, a.base_price ");
-                        sqry.Append("ORDER BY e.in_order, i.title, d.name, a.base_price");
-                        sqry.Append($") ii\r\n\r\nLEFT JOIN patrons_surcharge ps ON ps.patron_id=ii.`PatronId`\r\nLEFT JOIN surcharge_tbl s ON s.id=ps.surcharge_id AND s.id IN (1, 3, 7)\r\n\r\nGROUP BY ii.`PrimaryKey`\r\nORDER BY ii.in_order, ii.title, ii.patron_name, ii.price;");
+
+                        var queryText = $"SELECT e.id cinema_id,e.name cinema_name, i.title, d.code patron_code, d.name patron_name, a.base_price price,  COUNT(a.cinema_seat_id) qty,  SUM(a.base_price) sales, g.system_value report_header, h.name report_title, e.in_order, a.id `PrimaryKey`, f.patron_id `PatronId`\t\t\r\nFROM movies_schedule_list_reserved_seat a\r\nINNER JOIN movies_schedule_list b ON b.id = a.movies_schedule_list_id\r\nINNER JOIN movies_schedule c ON c.id = b.movies_schedule_id\t\t\r\nINNER JOIN movies_schedule_list_patron f ON f.id = a.patron_id\r\nINNER JOIN patrons d ON d.id = f.patron_id\r\nINNER JOIN cinema e ON e.id = c.cinema_id\t\t\r\nINNER JOIN config_table g ON g.system_code = '001'\r\nINNER JOIN report h ON h.id = 10\r\nINNER JOIN movies i ON i.id=c.movie_id\t\t\r\nINNER JOIN ticket t ON t.id = a.ticket_id AND DATE(t.ticket_datetime) BETWEEN STR_TO_DATE('{_dtStart.Date:M/d/yyyy}', '%c/%e/%Y') AND STR_TO_DATE('{_dtEnd.Date:M/d/yyyy}', '%c/%e/%Y')\t\t\r\nWHERE a.`status` = 1\r\nGROUP  BY c.cinema_id, i.id, f.patron_id, a.base_price\r\nORDER  BY e.in_order, i.title, d.name, a.base_price) ii\r\nLEFT  JOIN patrons_surcharge ps  ON ps.patron_id=ii.`PatronId`\r\nLEFT  JOIN surcharge_tbl s  ON s.id=ps.surcharge_id  AND s.id  IN (1, 3, 7)\r\nGROUP  BY ii.`PrimaryKey`\r\nORDER  BY ii.in_order, ii.title, ii.patron_name, ii.price;";
+
+                        sqry.Append(queryText);
+
                         break;
                     case "RP16":
                         sqry.Append("SELECT f.id, f.name, e.code, e.title, COUNT(cinema_seat_id) quantity, SUM(base_price) sales, g.system_value, h.name report_name, d.movie_date ");
