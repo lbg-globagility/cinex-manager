@@ -689,7 +689,7 @@ namespace Paradiso
 
                     MovieSchedule.SeatType = _movie_schedule_list.seattype;
                     if (_movie_schedule_list.laytime == 0)
-                        MovieSchedule.LayTime = 30;
+                        MovieSchedule.LayTime = 60;
                     else
                         MovieSchedule.LayTime = _movie_schedule_list.laytime;
                 }
