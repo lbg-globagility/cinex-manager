@@ -85,8 +85,8 @@ namespace Paradiso.Model
             {
                 DateTime dtNow = ParadisoObjectManager.GetInstance().CurrentDate;
 
-                TimeSpan span = dtReservedDate.AddMinutes(10) - dtNow;
-                if (span.TotalMinutes > 10 || span.Seconds < 0 || span.Minutes < 0)
+                TimeSpan span = dtReservedDate.AddMinutes(30) - dtNow;
+                if (span.TotalMinutes > 30 || span.Seconds < 0 || span.Minutes < 0)
                     return RemainingTime;
 
                 return string.Format("{0:00}:{1:00}", span.Minutes, span.Seconds);
