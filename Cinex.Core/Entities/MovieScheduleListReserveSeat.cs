@@ -55,7 +55,7 @@ namespace Cinex.Core.Entities
 
     public partial class MovieScheduleListReserveSeat
     {
-        private MovieScheduleListReserveSeat()
+        public MovieScheduleListReserveSeat()
         {
         }
 

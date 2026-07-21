@@ -26,11 +26,14 @@ namespace Cinex.Core.Entities
 
         [Column("status")]
         public int? Status { get; set; }
+
+        [Column("is_sync")]
+        public bool IsSync { get; set; }
     }
 
     public partial class Ticket
     {
-        private Ticket()
+        public Ticket()
         {
         }
 
