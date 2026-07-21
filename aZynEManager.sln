@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSparkle2010", "NetSparkl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradiso", "Paradiso\Paradiso.csproj", "{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinex.API", "Cinex.API\Cinex.API.csproj", "{5D5D15D4-F84F-4905-B05E-B176BE06E763}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BundleLinux|Any CPU = BundleLinux|Any CPU
@@ -413,6 +415,30 @@ Global
 		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x64.Build.0 = Release|x86
 		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x86.ActiveCfg = Release|x86
 		{4A84CFF0-5B57-478A-BD42-C1054FB6E5B6}.Release|x86.Build.0 = Release|x86
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|Any CPU.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|Mixed Platforms.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|x64.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|x64.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|x86.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.BundleLinux|x86.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|x64.Build.0 = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D5D15D4-F84F-4905-B05E-B176BE06E763}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

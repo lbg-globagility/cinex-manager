@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cinex.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16412b1bbf5da7500f7736c23c2162d5fd249356")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d51d2cc8a8076473ca5514575698c9f8e65737b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cinex.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cinex.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
