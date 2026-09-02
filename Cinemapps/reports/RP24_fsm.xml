@@ -41,44 +41,12 @@
           <DataField>pos_col4</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="pos_col5">
-          <DataField>pos_col5</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col6">
-          <DataField>pos_col6</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col7">
-          <DataField>pos_col7</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col8">
-          <DataField>pos_col8</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col9">
-          <DataField>pos_col9</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="pos_total">
           <DataField>pos_total</DataField>
           <rd:TypeName>System.Single</rd:TypeName>
         </Field>
         <Field Name="userid">
           <DataField>userid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col10">
-          <DataField>pos_col10</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col11">
-          <DataField>pos_col11</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="pos_col12">
-          <DataField>pos_col12</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="system_value">
@@ -115,43 +83,19 @@
             <Width>1in</Width>
           </TableColumn>
           <TableColumn>
-            <Width>79.3pt</Width>
+            <Width>150pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>82.1pt</Width>
+            <Width>150pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>79.2pt</Width>
+            <Width>150pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>80.7pt</Width>
+            <Width>150pt</Width>
           </TableColumn>
           <TableColumn>
-            <Width>78.6pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>80.0pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>81.0pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>78.9pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>85.4pt</Width>
-          </TableColumn>
-          <TableColumn >
-            <Width>92.5pt</Width>
-          </TableColumn>
-          <TableColumn >
-            <Width>92.5pt</Width>
-          </TableColumn>
-          <TableColumn >
-            <Width>88.5pt</Width>
-          </TableColumn>
-          <TableColumn>
-            <Width>94.9pt</Width>
+            <Width>150pt</Width>
           </TableColumn>
         </TableColumns>
         <Header>
@@ -187,7 +131,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>14</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -222,7 +166,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>14</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -257,7 +201,7 @@
                       </Style>
                     </Textbox>
                   </ReportItems>
-                  <ColSpan>14</ColSpan>
+                  <ColSpan>6</ColSpan>
                 </TableCell>
               </TableCells>
             </TableRow>
@@ -384,198 +328,7 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox8">
-                      <Value>5</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox9">
-                      <Value>6</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox10">
-                      <Value>7</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox11">
-                      <Value>8</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox12">
-                      <Value>9</Value>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox60">
-                      <Value>10</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox65">
-                      <Value>11</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox70">
-                      <Value>12</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <TextAlign>Center</TextAlign>
-                        <BorderStyle>
-                          <Default>Solid</Default>
-                        </BorderStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <FontSize>8pt</FontSize>
-                        <BorderColor>
-                          <Default>Lightgrey</Default>
-                          <Left>Lightgrey</Left>
-                          <Right>Lightgrey</Right>
-                          <Top>Lightgrey</Top>
-                          <Bottom>Lightgrey</Bottom>
-                        </BorderColor>
-                        <BorderWidth />
-                        <VerticalAlign>Middle</VerticalAlign>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
+                
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox3">
@@ -734,195 +487,8 @@
                     </Textbox>
                   </ReportItems>
                 </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox20">
-                      <Value>=Fields!pos_col5.Value</Value>
-                      <CanGrow>true</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox22">
-                      <Value>=Fields!pos_col6.Value</Value>
-                      <CanGrow>true</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox23">
-                      <Value>=Fields!pos_col7.Value</Value>
-                      <CanGrow>true</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox24">
-                      <Value>=Fields!pos_col8.Value</Value>
-                      <CanGrow>true</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell>
-                  <ReportItems>
-                    <Textbox Name="Textbox25">
-                      <Value>=Fields!pos_col9.Value</Value>
-                      <CanGrow>true</CanGrow>
-                      <Style>
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox61">
-                      <Value>=Fields!pos_col10.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox66">
-                      <Value>=Fields!pos_col11.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
-                <TableCell >
-                  <ReportItems>
-                    <Textbox Name="Textbox71">
-                      <Value>=Fields!pos_col12.Value</Value>
-                      <Style xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
-                        <BorderStyle>
-                          <Default>None</Default>
-                          <Left>None</Left>
-                          <Right>None</Right>
-                          <Top>None</Top>
-                          <Bottom>None</Bottom>
-                        </BorderStyle>
-                        <FontFamily>Segoe UI</FontFamily>
-                        <FontSize>5pt</FontSize>
-                        <TextAlign>Left</TextAlign>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <BorderColor />
-                        <BorderWidth />
-                        <PaddingLeft>2pt</PaddingLeft>
-                      </Style>
-                    </Textbox>
-                  </ReportItems>
-                </TableCell>
+               
+               
                 <TableCell>
                   <ReportItems>
                     <Textbox Name="Textbox13">

@@ -1,0 +1,9 @@
+ALTER TABLE `tmp_pos`
+	DROP COLUMN `pos_col5`,
+	DROP COLUMN `pos_col6`,
+	DROP COLUMN `pos_col7`,
+	DROP COLUMN `pos_col8`,
+	DROP COLUMN `pos_col9`,
+	DROP COLUMN `pos_col10`,
+	DROP COLUMN `pos_col11`,
+	DROP COLUMN `pos_col12`;
