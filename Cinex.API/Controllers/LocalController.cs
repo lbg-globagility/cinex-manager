@@ -1,3 +1,4 @@
+using AutoMapper;
 using Cinex.API.Models;
 using Cinex.API.Services.Interfaces;
 using Cinex.Core.Entities;
@@ -14,12 +15,14 @@ namespace Cinex.API.Controllers
         private readonly CinexContext _context;
         private readonly IReservationRepository _reservationRepository;
         private readonly ILogger<LocalController> _logger;
+        private readonly IMapper _mapper;
 
-        public LocalController(CinexContext context, IReservationRepository reservationRepository, ILogger<LocalController> logger)
+        public LocalController(CinexContext context, IReservationRepository reservationRepository, ILogger<LocalController> logger, IMapper mapper)
         {
             _context = context;
             _reservationRepository = reservationRepository;
             _logger = logger;
+            _mapper= mapper;
         }
 
         [HttpGet]
@@ -33,17 +36,17 @@ namespace Cinex.API.Controllers
         }
 
         [HttpPost("new-schedule-list")]
-        public async Task<ActionResult<List<MovieSchedule>>> GetNewScheduleList([FromBody] List<DateTime> period)
+        public async Task<ActionResult<List<MovieScheduleDto>>> GetNewScheduleList([FromBody] List<DateTime> period)
         {
             var start = period[0];
             var end = period[1];
 
             var schedules = await _context.Set<MovieSchedule>()
-                .AsNoTracking()
+                .Include(x=>x.MovieScheduleLists).AsNoTracking()
                 .Where(s => s.Date >= start && s.Date <= end)
                 .ToListAsync();
-
-            return Ok(schedules);
+           var map =  _mapper.Map<List<MovieScheduleDto>>(schedules);
+            return Ok(map);
         }
 
         [HttpGet("pull-movie")]
