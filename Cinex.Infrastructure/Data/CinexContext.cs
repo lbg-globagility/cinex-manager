@@ -6,7 +6,12 @@ namespace Cinex.Infrastructure.Data
 {
     public class CinexContext : DbContext
     {
-        public CinexContext(DbContextOptions options) :
+        public CinexContext(DbContextOptions<CinexContext> options) :
+            base(options)
+        {
+        }
+
+        protected CinexContext(DbContextOptions options) :
             base(options)
         {
         }

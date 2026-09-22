@@ -25,7 +25,7 @@ namespace Cinex.Core.Entities
 
     public partial class Session
     {
-        private Session()
+        public Session()
         {
         }
 

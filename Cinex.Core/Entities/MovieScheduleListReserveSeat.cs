@@ -51,6 +51,9 @@ namespace Cinex.Core.Entities
 
         [Column("surcharge_price")]
         public decimal SurchargePrice { get; set; }
+
+        [Column("is_sync")]
+        public bool IsSync { get; set; }
     }
 
     public partial class MovieScheduleListReserveSeat

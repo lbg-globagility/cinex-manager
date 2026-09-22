@@ -1,5 +1,6 @@
 using Cinex.API.Services;
 using Cinex.API.Services.Interfaces;
+using Cinex.API.Startups;
 using Cinex.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,8 +20,17 @@ builder.Services.AddDbContext<CinexContext>(options =>
         o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
 });
 
-builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddDbContext<OnlineCinexContext>(options =>
+{
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Online"),
+        o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
+});
 
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+builder.Services.AddHostedService<ReserveSeatSyncService>();
+builder.Services.AddAutoMapper();
 
 var app = builder.Build();
 

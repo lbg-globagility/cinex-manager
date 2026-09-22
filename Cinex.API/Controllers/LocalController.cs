@@ -3,6 +3,7 @@ using Cinex.API.Models;
 using Cinex.API.Services.Interfaces;
 using Cinex.Core.Entities;
 using Cinex.Infrastructure.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,15 +15,17 @@ namespace Cinex.API.Controllers
     {
         private readonly CinexContext _context;
         private readonly IReservationRepository _reservationRepository;
+        private readonly ISessionRepository _sessionRepository;
         private readonly ILogger<LocalController> _logger;
         private readonly IMapper _mapper;
 
-        public LocalController(CinexContext context, IReservationRepository reservationRepository, ILogger<LocalController> logger, IMapper mapper)
+        public LocalController(CinexContext context, IReservationRepository reservationRepository, ILogger<LocalController> logger, IMapper mapper, ISessionRepository sessionRepository)
         {
             _context = context;
             _reservationRepository = reservationRepository;
             _logger = logger;
             _mapper= mapper;
+            _sessionRepository = sessionRepository;
         }
 
         [HttpGet]
@@ -31,8 +34,10 @@ namespace Cinex.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTicket([FromBody] BuyTicketModel model)
         {
+            var createSession = _sessionRepository.NewSession(model.SessionID,model.Amount);
             var created = await _reservationRepository.CreateReservation(model);
-            return created ? Ok() : Problem("Failed to create ticket.");
+
+            return created ? Ok() : Conflict("Seat has been taken");
         }
 
         [HttpPost("new-schedule-list")]
@@ -75,6 +80,12 @@ namespace Cinex.API.Controllers
                 .ToListAsync();
 
             return Ok(patrons);
+        }
+        [HttpPost("check-available-seats")]
+        public async Task<bool> CheckSeatAvailability([FromBody] SeatValidationModel model)
+        {
+            var available = await _reservationRepository.CheckIfTheSeatIsAvailable(model.MovieScheduleListID,model.CinemaSeatIDs);
+            return available;
         }
     }
 }
