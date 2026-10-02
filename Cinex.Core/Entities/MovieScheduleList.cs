@@ -1,7 +1,9 @@
 ﻿using Cinex.Core.Entities.Base;
+using Cinex.Core.Files;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Cinex.Core.Entities
 {
@@ -25,6 +27,10 @@ namespace Cinex.Core.Entities
 
         [Column("status")]
         public int Status { get; set; }
+
+        public string Hash => HashString.hash(Id.ToString(), MoviesScheduleId.ToString());
+
+        public MovieScheduleListPatron DefaultPatron => MovieScheduleListPatrons.FirstOrDefault(x => x.IsDefault);
     }
 
     public partial class MovieScheduleList
@@ -34,7 +40,7 @@ namespace Cinex.Core.Entities
         }
 
         public virtual MovieSchedule MovieSchedule { get; set; }
-
+        public virtual ICollection<MovieScheduleListPatron> MovieScheduleListPatrons { get; set; }
         public virtual ICollection<MovieScheduleListReserveSeat> MovieScheduleListReserveSeats { get; set; }
     }
 }

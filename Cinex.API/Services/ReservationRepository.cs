@@ -50,6 +50,7 @@ namespace Cinex.API.Services
                 SessionId = model.SessionID,
                 DateTime = System.DateTime.Now,
                 Status = 1,
+                Terminal= "DVO-CNM-TCK-01",
                 MovieScheduleListId = model.MovieScheduleListID,
 
                 // Use a multi-line statement block inside Select to safely increment the number
@@ -68,6 +69,7 @@ namespace Cinex.API.Services
                         Status = 1,
                         AmusementTaxAmount = 0,
                         CulturalTaxAmount = 0,
+                        VatAmount = 0,
                         BasePrice= model.UnitPrice,
                         IsSync=false,
                         ORNumber = orCounter.ToString("D9") // Generates padded string (e.g., "000265998")

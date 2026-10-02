@@ -278,7 +278,7 @@ namespace Paradiso
             if (intTotal != SelectedPatronSeatList.PatronSeats.Count && decTotal != SelectedPatronSeatList.Total)
             {
                 MessageWindow messageWindow = new MessageWindow();
-                messageWindow.MessageText.Text = "Seating reservation has expired.";
+                messageWindow.MessageText.Text = "Seating reservation has expired or\n the Seating is already taken Online.";
                 messageWindow.ShowDialog();
 
                 this.Dispose();

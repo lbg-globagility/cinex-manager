@@ -46,6 +46,9 @@ namespace Cinex.Core.Entities
 
         [Column("amusement_tax_rate")]
         public bool AmusementTaxRate { get; set; }
+
+        [Column("is_sync")]
+        public bool is_sync { get; set; }
     }
 
     public partial class Movie

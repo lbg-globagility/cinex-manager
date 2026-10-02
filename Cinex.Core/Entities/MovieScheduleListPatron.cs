@@ -19,7 +19,7 @@ namespace Cinex.Core.Entities
         public decimal? Price { get; set; }
 
         [Column("is_default")]
-        public int? IsDefault { get; set; }
+        public bool IsDefault { get; set; }
     }
 
     public partial class MovieScheduleListPatron

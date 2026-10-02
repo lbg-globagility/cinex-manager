@@ -13,7 +13,14 @@ namespace Cinex.API.AutomapperProfile
         private AutoMapperProfileConfiguration(string profileName) : base(profileName)
         {
             CreateMap<MovieSchedule, MovieScheduleDto>();
+            CreateMap<MovieScheduleList, MovieScheduleDto.MovieScheduleListDto>();
+            CreateMap<MovieScheduleListPatron, MovieScheduleDto.MovieScheduleListDto.MovieScheduleListPatronDto>();
+
             CreateMap<MovieScheduleList, MovieScheduleListDto>();
+            CreateMap<MovieSchedule, MovieScheduleListDto.MovieScheduleDto>();
+            CreateMap<MovieScheduleListPatron, MovieScheduleListDto.MovieScheduleListPatronDto>();
+            CreateMap<Cinema, MovieScheduleListDto.MovieScheduleDto.CinemaDto>();
+            CreateMap<CinemaSeat, MovieScheduleListDto.MovieScheduleDto.CinemaDto.CinemaSeatDto>();
         }
     }
 }

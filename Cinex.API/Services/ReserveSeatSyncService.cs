@@ -10,7 +10,7 @@ namespace Cinex.API.Services
     /// </summary>
     public class ReserveSeatSyncService : BackgroundService
     {
-        private const int BatchSize = 200;
+        private const int BatchSize = 50;
 
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<ReserveSeatSyncService> _logger;
@@ -23,7 +23,7 @@ namespace Cinex.API.Services
         {
             _scopeFactory = scopeFactory;
             _logger = logger;
-            var seconds = configuration.GetValue<int?>("ReserveSeatSync:IntervalSeconds") ?? 60;
+            var seconds = configuration.GetValue<int?>("ReserveSeatSync:IntervalSeconds") ?? 20;
             _interval = TimeSpan.FromSeconds(seconds);
         }
 

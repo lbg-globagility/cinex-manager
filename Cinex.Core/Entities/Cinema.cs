@@ -19,6 +19,9 @@ namespace Cinex.Core.Entities
 
         [Column("in_order")]
         public int InOrder { get; set; }
+
+        public int maxHeight => Seats.Max(x => x.X1??0);
+        public int maxWidth => Seats.Max(x => x.Y1??0);
     }
 
     public partial class Cinema
@@ -26,6 +29,7 @@ namespace Cinex.Core.Entities
         public const string TABLE_NAME = "cinema";
 
         public virtual ICollection<CinemaPatron> Patrons { get; set; }
+        public virtual ICollection<CinemaSeat> Seats { get; set; }
 
         public virtual ICollection<CinemaPatronDefault> DefaultPatrons { get; set; }
 

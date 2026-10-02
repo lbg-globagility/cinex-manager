@@ -65,6 +65,10 @@ namespace Cinex.Infrastructure.Data
                     .WithOne(x => x.Cinema)
                     .HasForeignKey(x => x.CinemaId)
                     .HasPrincipalKey(x => x.Id);
+                t.HasMany(x => x.Seats)
+                   .WithOne(x => x.Cinema)
+                   .HasForeignKey(x => x.CinemaId)
+                   .HasPrincipalKey(x => x.Id);
             });
 
             modelBuilder.Entity<CinemaPatron>(t =>

@@ -29,7 +29,10 @@ builder.Services.AddDbContext<OnlineCinexContext>(options =>
 
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<ISessionRepository, SessionRepository>();
-builder.Services.AddHostedService<ReserveSeatSyncService>();
+builder.Services.AddScoped<IMovieScheduleRepository, MovieScheduleRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+//builder.Services.AddHostedService<ReserveSeatSyncService>();
+
 builder.Services.AddAutoMapper();
 
 var app = builder.Build();

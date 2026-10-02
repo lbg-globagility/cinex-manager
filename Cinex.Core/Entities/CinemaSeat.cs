@@ -48,6 +48,11 @@ namespace Cinex.Core.Entities
 
         [Column("is_disabled")]
         public bool IsDisabled { get; set; }
+        [NotMapped]
+        public bool IsOccupied { get; set; }
+        public string Name => $"{ColumnName}{RowName}";
+
+        public string Status => IsDisabled ? "Blocked":IsOccupied ? "Occupied" : "Available";
     }
 
     public partial class CinemaSeat
@@ -55,7 +60,7 @@ namespace Cinex.Core.Entities
         private CinemaSeat()
         {
         }
-
+        public virtual Cinema Cinema { get; set; }
         public virtual ICollection<MovieScheduleListReserveSeat> MovieScheduleListReserveSeats { get; set; }
     }
 }
