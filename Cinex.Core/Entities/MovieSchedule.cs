@@ -16,8 +16,6 @@ namespace Cinex.Core.Entities
 
         [Column("movie_date")]
         public DateTime Date { get; set; }
-
-        public bool is_sync { get; set; }
     }
 
     public partial class MovieSchedule

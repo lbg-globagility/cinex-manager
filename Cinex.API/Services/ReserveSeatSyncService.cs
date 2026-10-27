@@ -51,7 +51,6 @@ namespace Cinex.API.Services
             var onlineContext = scope.ServiceProvider.GetRequiredService<OnlineCinexContext>();
 
             var pending = await localContext.Set<MovieScheduleListReserveSeat>()
-                .Where(x => !x.IsSync)
                 .OrderByDescending(x => x.Id)
                 .Take(BatchSize)
                 .ToListAsync(stoppingToken);
@@ -78,8 +77,6 @@ namespace Cinex.API.Services
                         onlineContext.Set<MovieScheduleListReserveSeat>().Add(ToOnlineEntity(seat));
                         await onlineContext.SaveChangesAsync(stoppingToken);
                     }
-
-                    seat.IsSync = true;
                     await localContext.SaveChangesAsync(stoppingToken);
                 }
                 catch (Exception ex)
@@ -118,8 +115,7 @@ namespace Cinex.API.Services
             VoidUserId = source.VoidUserId,
             VoidDateTime = source.VoidDateTime,
             OrdinancePrice = source.OrdinancePrice,
-            SurchargePrice = source.SurchargePrice,
-            IsSync = true
+            SurchargePrice = source.SurchargePrice
         };
     }
 }

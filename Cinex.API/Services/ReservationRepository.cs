@@ -71,7 +71,6 @@ namespace Cinex.API.Services
                         CulturalTaxAmount = 0,
                         VatAmount = 0,
                         BasePrice= model.UnitPrice,
-                        IsSync=false,
                         ORNumber = orCounter.ToString("D9") // Generates padded string (e.g., "000265998")
                     };
                 }).ToList()
