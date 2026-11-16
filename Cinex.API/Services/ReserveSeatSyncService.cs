@@ -29,19 +29,30 @@ namespace Cinex.API.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var timer = new PeriodicTimer(_interval);
-
-            do
+            while (!stoppingToken.IsCancellationRequested)
             {
                 try
                 {
-                     SyncPendingSeatsAsync(stoppingToken);
+                    await SyncPendingSeatsAsync(stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+                {
+                    break;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Reserved seat sync run failed.");
                 }
-            } while (await timer.WaitForNextTickAsync(stoppingToken));
+
+                try
+                {
+                    await Task.Delay(_interval, stoppingToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
+            }
         }
 
         private async Task SyncPendingSeatsAsync(CancellationToken stoppingToken)

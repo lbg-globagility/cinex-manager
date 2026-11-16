@@ -3,51 +3,59 @@ using Cinex.API.Services.Interfaces;
 using Cinex.API.Startups;
 using Cinex.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.ConfigureServices((context, services) =>
+        {
+            // Add services to the container.
 
-// Add services to the container.
+            services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cinex.API", Version = "v1" }));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+            services.AddDbContext<CinexContext>(options =>
+            {
+                options.UseMySql(
+                    context.Configuration.GetConnectionString("CinexDb"),
+                    o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
+            });
 
-builder.Services.AddDbContext<CinexContext>(options =>
-{
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("CinexDb"),
-        o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
-});
+            services.AddDbContext<OnlineCinexContext>(options =>
+            {
+                options.UseMySql(
+                    context.Configuration.GetConnectionString("Online"),
+                    o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
+            });
 
-builder.Services.AddDbContext<OnlineCinexContext>(options =>
-{
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("Online"),
-        o => o.EnableRetryOnFailure(3, TimeSpan.FromSeconds(24), null));
-});
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<IMovieScheduleRepository, MovieScheduleRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            //services.AddHostedService<ReserveSeatSyncService>();
 
-builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
-builder.Services.AddScoped<ISessionRepository, SessionRepository>();
-builder.Services.AddScoped<IMovieScheduleRepository, MovieScheduleRepository>();
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-//builder.Services.AddHostedService<ReserveSeatSyncService>();
+            services.AddAutoMapper();
+        });
 
-builder.Services.AddAutoMapper();
+        webBuilder.Configure((context, app) =>
+        {
+            // Configure the HTTP request pipeline.
+            if (context.HostingEnvironment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinex.API v1"));
+            }
 
-var app = builder.Build();
+            //app.UseHttpsRedirection();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+            app.UseRouting();
 
-app.UseHttpsRedirection();
+            app.UseAuthorization();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+        });
+    })
+    .Build()
+    .Run();

@@ -3,7 +3,6 @@ using Cinex.API.Models;
 using Cinex.API.Services.Interfaces;
 using Cinex.Core.Entities;
 using Cinex.Infrastructure.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

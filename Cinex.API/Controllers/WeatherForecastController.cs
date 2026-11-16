@@ -11,6 +11,8 @@ namespace Cinex.API.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private static readonly Random Rng = new Random();
+
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -23,9 +25,9 @@ namespace Cinex.API.Controllers
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Rng.Next(-20, 55),
+                Summary = Summaries[Rng.Next(Summaries.Length)]
             })
             .ToArray();
         }

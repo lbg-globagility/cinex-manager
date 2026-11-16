@@ -2,9 +2,7 @@ using Cinex.API.Models;
 using Cinex.API.Services.Interfaces;
 using Cinex.Core.Entities;
 using Cinex.Infrastructure.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Threading.Tasks;
 
