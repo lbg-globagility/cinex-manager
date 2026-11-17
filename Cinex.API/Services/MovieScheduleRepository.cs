@@ -12,21 +12,50 @@ namespace Cinex.API.Services
         {
             _context = context;
         }
-        public async Task<List<MovieSchedule>> GetSchedules(int movieId)
+
+        /// <summary>
+        /// Schedules for a movie, carrying only the screenings that start at or after
+        /// <paramref name="screeningsFrom"/>. A schedule with no remaining screenings is
+        /// still returned, with an empty screening list.
+        /// </summary>
+        public async Task<List<MovieSchedule>> GetSchedules(int movieId, DateTime screeningsFrom)
         {
-            var list = _context.Set<MovieSchedule>().Include(x => x.MovieScheduleLists).OrderBy(x => x.Date).Where(x => x.MovieId == movieId).ToList();
-            return list;
+            var fromDate = screeningsFrom.Date;
+
+            // EF Core 3.1 has no filtered Include (that arrived in 5.0), so the screenings are
+            // filtered through a projection and left to navigation fixup to attach to the parent.
+            // This relies on change tracking - do not add AsNoTracking here.
+            var rows = await _context.Set<MovieSchedule>()
+                .Where(x => x.MovieId == movieId && x.Date >= fromDate)
+                .OrderBy(x => x.Date)
+                .Select(x => new
+                {
+                    Schedule = x,
+                    Screenings = x.MovieScheduleLists
+                        .Where(l => l.StartTime >= screeningsFrom)
+                        .OrderBy(l => l.StartTime)
+                        .ToList()
+                })
+                .ToListAsync();
+
+            return rows.Select(x => x.Schedule).ToList();
         }
+
         public async Task<MovieScheduleList> GetScheduleListByHash(string hash, int id)
         {
-            var details = _context.Set<MovieScheduleList>()
+            var details = await _context.Set<MovieScheduleList>()
                     .Include(x => x.MovieSchedule)
                         .ThenInclude(x => x.Cinema)
                             .ThenInclude(x => x.Seats)
-                    .Include(x => x.MovieScheduleListPatrons).Where(x=>x.Id==id);
-            var q = details.AsEnumerable().FirstOrDefault(x => x.Hash == hash );
-            var occupiedSeat = _context.Set<MovieScheduleListReserveSeat>().Where(b => b.MovieScheduleListId == id && b.VoidUserId==null).ToList();
+                    .Include(x => x.MovieScheduleListPatrons).Where(x=>x.Id==id)
+                    .ToListAsync();
 
+            // Hash is a computed property with no column, so it can only be matched client side.
+            var q = details.FirstOrDefault(x => x.Hash == hash );
+
+            var occupiedSeat = await _context.Set<MovieScheduleListReserveSeat>()
+                .Where(b => b.MovieScheduleListId == id && b.VoidUserId==null)
+                .ToListAsync();
 
             q.MovieSchedule.Cinema.Seats = q.MovieSchedule.Cinema.Seats.Select(x =>
             {

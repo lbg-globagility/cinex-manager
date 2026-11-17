@@ -4,7 +4,7 @@ namespace Cinex.API.Services.Interfaces
 {
     public interface IMovieScheduleRepository
     {
-        Task<List<MovieSchedule>> GetSchedules(int movieId);
+        Task<List<MovieSchedule>> GetSchedules(int movieId, DateTime screeningsFrom);
         Task<MovieScheduleList> GetScheduleListByHash(string hash, int id);
     }
 }

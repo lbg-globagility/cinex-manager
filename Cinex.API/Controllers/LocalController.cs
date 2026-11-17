@@ -20,12 +20,23 @@ namespace Cinex.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMovieRepository _movieRepository;
 
+        /// <summary>
+        /// Fallback used when MovieSchedule:ScreeningGraceMinutes is absent from configuration.
+        /// </summary>
+        private const int DefaultScreeningGraceMinutes = 60;
+
+        /// <summary>
+        /// A screening stays on the schedule until this many minutes after its start time.
+        /// </summary>
+        private readonly int _screeningGraceMinutes;
+
         public LocalController(CinexContext context, 
             IReservationRepository reservationRepository,
             ILogger<LocalController> logger, IMapper mapper,
             ISessionRepository sessionRepository,
             IMovieScheduleRepository movieScheduleRepository,
-            IMovieRepository movieRepository)
+            IMovieRepository movieRepository,
+            IConfiguration configuration)
         {
             _context = context;
             _reservationRepository = reservationRepository;
@@ -34,6 +45,8 @@ namespace Cinex.API.Controllers
             _sessionRepository = sessionRepository;
             _movieScheduleRepository = movieScheduleRepository;
             _movieRepository = movieRepository;
+            _screeningGraceMinutes = configuration.GetValue<int?>("MovieSchedule:ScreeningGraceMinutes")
+                ?? DefaultScreeningGraceMinutes;
         }
 
         [HttpGet]
@@ -55,9 +68,24 @@ namespace Cinex.API.Controllers
             {
                 throw new Exception("no moviue");
             }
-            var schedules = await _movieScheduleRepository.GetSchedules(movie.Id);
-            var today = schedules.Where(x => x.Date.Date >= DateTime.Now.Date).ToList();
-            return today.Select(x => _mapper.Map<MovieScheduleDto>(x)).ToList();
+
+            // a screening stays listed until _screeningGraceMinutes after it starts
+            var screeningsFrom = DateTime.Now.AddMinutes(-_screeningGraceMinutes);
+            var schedules = await _movieScheduleRepository.GetSchedules(movie.Id, screeningsFrom);
+
+            var result = new List<MovieScheduleDto>();
+            foreach (var schedule in schedules)
+            {
+                var dto = _mapper.Map<MovieScheduleDto>(schedule);
+
+                // drop dates whose screenings have all passed
+                if (dto.MovieScheduleLists != null && dto.MovieScheduleLists.Any())
+                {
+                    result.Add(dto);
+                }
+            }
+
+            return result;
         }
         [HttpGet("movie-schedule-list/{hash}/{id}")]
         public async Task<MovieScheduleListDto> GetMovieScheduleList(string hash, int id)

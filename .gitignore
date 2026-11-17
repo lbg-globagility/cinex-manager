@@ -58,3 +58,5 @@ RdlViewer/obj
 System.Windows.Forms.Calendar/bin
 System.Windows.Forms.Calendar/obj
 packages
+Cinex.API/appsettings.Development.json
+Cinex.API/appsettings.Production.json
